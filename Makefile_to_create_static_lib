@@ -1,0 +1,91 @@
+#####################################################################
+# Created by Avra Mitra											    #
+# Created on Apr 30, 2020										    #
+# Last modified on May 1, 2020										#
+#####################################################################
+
+# Project name
+PROJ_NAME=LameUI
+# Output library name
+TARGET=liblameui.a
+
+
+######################################################################
+#                         SETUP SOURCES                              #
+######################################################################
+
+#------------ SOURCE DIRECTORIES -----------------------------------
+# User source directory
+SRCDIR	 =  src/
+# Objects directory
+OBJDIR		 =  
+# Output static library directory
+TARGDIR		 =  
+
+#--------------------------------------------------------------------
+
+#------------ C/CPP SOURCE FILES ------------------------------------
+SRCS     =  lame_ui.c
+#--------------------------------------------------------------------
+
+#------------ COMPILED OBJECT FILES ---------------------------------
+# Object file names (source_name.o)
+OBJ			 =  $(SRCS:.c=.o)	
+#--------------------------------------------------------------------
+
+#------------ INCLUDE DIRECTORIES -----------------------------------
+# Includes (headers)
+INCLS		 =  -Iinc
+#--------------------------------------------------------------------
+
+
+#------------ DON'T EDIT BELOW PART ---------------------------------
+# Add the directory with the file names
+SRCS_MAIN	 =  $(addprefix $(SRCDIR),$(SRCS))
+OBJ_MAIN	 =  $(addprefix $(OBJDIR),$(OBJ))
+TARGET_MAIN	 =  $(addprefix $(TARGDIR),$(TARGET))
+#--------------------------------------------------------------------
+
+######################################################################
+#                         SETUP TOOLS                                #
+######################################################################
+
+# Cross compiler and archiver information
+CC			 =  gcc
+ARC			 =  ar
+
+# Compiler flags used to create .o files from .c/cpp files
+CFLAGS  	 =   -g
+CFLAGS  	+=  -O0
+CFLAGS  	+=  -Wall -Wextra -Warray-bounds
+
+# Archiver flag
+ARFLAGS		 =  rvs
+
+
+######################################################################
+#                         SETUP TARGETS                              #
+######################################################################
+
+# Rule to make all
+.PHONY: all
+all: $(TARGET_MAIN)
+
+
+# Rule to clean
+.PHONY: clean
+clean: 
+		@echo [Cleaning...]
+		rm -f $(OBJ_MAIN) $(TARGET_MAIN)
+
+
+# Rule to make object file by compiling source file
+$(OBJDIR)%.o: $(SRCDIR)%.c
+		@echo [Compiling...]
+		$(CC) -c -o $@ $< $(INCLS) $(CFLAGS)
+		
+
+# Rule to make a static library archive (.a) from object (.o) file
+$(TARGET_MAIN): $(OBJ_MAIN)
+		@echo [Archiving...]
+		$(ARC) $(ARFLAGS) $(TARGET_MAIN) $(OBJ_MAIN)
