@@ -11,10 +11,16 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include "../../FontsEmbedded/bitmap_typedefs.h"
+#include "bitmap_typedefs.h"
 
-#define MAX_SCENES						2
-#define MAX_LABELS_PER_SCENE			20
+
+#define USE_LABEL
+#define USE_BUTTON
+#define USE_LINE_CHART
+
+
+#define MAX_SCENES						1
+#define MAX_LABELS_PER_SCENE			10
 #define MAX_LINE_CHARTS_PER_SCENE		3
 #define MAX_BUTTONS_PER_SCENE			3
 
@@ -34,7 +40,6 @@ typedef struct
 	struct
 	{
 		uint8_t is_border;
-		uint8_t width;
 		uint16_t color;
 	}border;
 
@@ -58,7 +63,6 @@ typedef struct
 	struct
 	{
 		uint16_t color;
-		uint8_t width;
 	}line;
 
 	uint16_t bg_color;
@@ -83,7 +87,7 @@ typedef struct
 	uint16_t color;
 	uint16_t bg_color;
 
-	//private use only
+	//private use only	
 	uint8_t needs_refresh;
 	int8_t index;
 	int8_t parent_index;
@@ -164,32 +168,32 @@ typedef struct
 
 
 tLuiLabel lui_label_create();
-void lui_draw_label (tLuiLabel *lui_label);
-void lui_add_label_to_scene(tLuiLabel *lui_lbl, tLuiScene *lui_scene);
-void lui_remove_label_from_scene(tLuiLabel *lui_lbl, tLuiScene *lui_scene);
+void lui_label_draw (tLuiLabel *lui_label);
+void lui_label_add_to_scene(tLuiLabel *lui_lbl, tLuiScene *lui_scene);
+void lui_label_remove_from_scene(tLuiLabel *lui_lbl, tLuiScene *lui_scene);
 
-tLuiLineChart lui_line_chart_create();
-void lui_draw_line_chart (tLuiLineChart *lui_line_chart);
-void lui_add_line_chart_to_scene(tLuiLineChart *lui_line_chart, tLuiScene *lui_scene);
-void lui_remove_line_chart_from_scene(tLuiLineChart *lui_line_chart, tLuiScene *lui_scene);
+tLuiLineChart lui_linechart_create();
+void lui_linechart_draw (tLuiLineChart *lui_line_chart);
+void lui_linechart_add_to_scene(tLuiLineChart *lui_line_chart, tLuiScene *lui_scene);
+void lui_linechart_remove_from_scene(tLuiLineChart *lui_line_chart, tLuiScene *lui_scene);
 
 tLuiButton lui_button_create();
-void lui_draw_button(tLuiButton *lui_btn);
-void lui_add_button_to_scene(tLuiButton *lui_btn, tLuiScene *lui_scene);
-void lui_remove_button_from_scene(tLuiButton *lui_btn, tLuiScene *lui_scene);
+void lui_button_draw(tLuiButton *lui_btn);
+void lui_button_add_to_scene(tLuiButton *lui_btn, tLuiScene *lui_scene);
+void lui_button_remove_from_scene(tLuiButton *lui_btn, tLuiScene *lui_scene);
 
 tLuiScene lui_scene_create();
-void lui_add_scene(tLuiScene *lui_scene);
+void lui_scene_add(tLuiScene *lui_scene);
 void lui_scene_render(tLuiScene *lui_scene);
 
 
-tLuiDispDrv lui_disp_drv_create();
-void lui_disp_drv_register(tLuiDispDrv *disp_drv);
+tLuiDispDrv lui_dispdrv_create();
+void lui_dispdrv_register(tLuiDispDrv *disp_drv);
 
 //-------------------------------------------------------------------------------
 //------------ PRIVATE HELPER FUNCTIONS TO BE USED BY THIS LIBRARY ONLY----------
 //-------------------------------------------------------------------------------
-void lui_draw_char(uint16_t x, uint16_t y, uint16_t fore_color, uint16_t back_color, const tImage *glyph);
+void lui_draw_char(uint16_t x, uint16_t y, uint16_t fore_color, const tImage *glyph);
 void get_string_dimension(const char *str, const tFont *font, uint8_t *str_dim);
 void lui_plot_line_low(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color);
 void lui_plot_line_high(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color);

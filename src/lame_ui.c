@@ -6,7 +6,7 @@
  *      Author: rik
  */
 
-#include "../inc/lame_ui.h"
+#include "lame_ui.h"
 
 //Global variables
 uint8_t lui_scene_total = 0;
@@ -25,13 +25,11 @@ tLuiScene *scenes[MAX_SCENES];
  * Render a label. This label may or maynot be a part of any scene.
  * The entire scene is not updated.
  */
-void lui_draw_label (tLuiLabel *lui_label)
+void lui_label_draw (tLuiLabel *lui_label)
 {
 	uint16_t x_temp = lui_label->x;
 	uint16_t y_temp = lui_label->y;
 
-	uint8_t x_padding = 0;
-	uint8_t y_padding = 0;
 	const tImage *img = {0};
 	uint16_t width = 0, height = 0;
 
@@ -63,12 +61,12 @@ void lui_draw_label (tLuiLabel *lui_label)
 		if (*(lui_label->text+char_cnt) == '\n')
 		{
 			x_temp = lui_label->x;					//go to first col
-			y_temp += (temp_font->chars[0].image->height + y_padding);	//go to next row (row height = height of space)
+			y_temp += (temp_font->chars[0].image->height);	//go to next row (row height = height of space)
 		}
 
 		else if (*(lui_label->text+char_cnt) == '\t')
 		{
-			x_temp += 4 * (temp_font->chars[0].image->height + y_padding);	//Skip 4 spaces (width = width of space)
+			x_temp += 4 * (temp_font->chars[0].image->height);	//Skip 4 spaces (width = width of space)
 		}
 		else
 		{
@@ -85,20 +83,20 @@ void lui_draw_label (tLuiLabel *lui_label)
 			height = img->height;
 
 
-			// check if not enough space available at the bottom
-			if(y_temp + (height + y_padding) > lui_label->height - 1)
-				return;
-
 			// check if not enough space available at the right side
-			if (x_temp + (width + x_padding) > lui_label->width - 1)
+			if (x_temp + width > lui_label->x + lui_label->width)
 			{
 				x_temp = lui_label->x;					//go to first col
-				y_temp += (height + y_padding);	//go to next row
+				y_temp += height;	//go to next row
+
+				// check if not enough space available at the bottom
+				if(y_temp + height > lui_label->y + lui_label->height - 1)
+					return;
 			}
 
-			lui_draw_char(x_temp, y_temp, lui_label->color, lui_label->bg_color, img);
+			lui_draw_char(x_temp, y_temp, lui_label->color, img);
 
-			x_temp += (width + x_padding);		//next char position
+			x_temp += width;		//next char position
 		}
 	}
 }
@@ -113,8 +111,8 @@ tLuiLabel lui_label_create()
 
 	initial_label.x = 0;
 	initial_label.y = 0;
-	initial_label.width = lui_disp_drv->display_hor_res;
-	initial_label.height = lui_disp_drv->display_vert_res;
+	initial_label.width = 50;
+	initial_label.height = 20;
 	initial_label.text = "";
 	initial_label.font = NULL;
 	initial_label.color = DEFAULT_TEXT_FORECOLOR;
@@ -133,7 +131,7 @@ tLuiLabel lui_label_create()
  * To add it to other scene, remove it first
  */
 
-void lui_add_label_to_scene(tLuiLabel *lui_lbl, tLuiScene *lui_scene)
+void lui_label_add_to_scene(tLuiLabel *lui_lbl, tLuiScene *lui_scene)
 {
 	// If the scene index is -1, return
 	if (lui_scene->index == -1)
@@ -153,7 +151,7 @@ void lui_add_label_to_scene(tLuiLabel *lui_lbl, tLuiScene *lui_scene)
 /*
  * Remove an existing label from a scene
  */
-void lui_remove_label_from_scene(tLuiLabel *lui_lbl, tLuiScene *lui_scene)
+void lui_label_remove_from_scene(tLuiLabel *lui_lbl, tLuiScene *lui_scene)
 {
     // If scene index is -1, return
 	if (lui_scene->index == -1)
@@ -172,31 +170,74 @@ void lui_remove_label_from_scene(tLuiLabel *lui_lbl, tLuiScene *lui_scene)
 }
 
 
-void lui_label_set_x(tLuiLabel *lui_lbl, uint16_t x)
+void lui_label_set_position(uint16_t x, uint16_t y, tLuiLabel *lui_lbl)
 {
+	if (lui_lbl->parent_index == -1)
+		return;
+	if (lui_lbl->x == x && lui_lbl->y == y)
+		return;
 	lui_lbl->x = x;
-	lui_lbl->needs_refresh = 1;
-	if (lui_lbl->parent_index != 1)
-		scenes[lui_lbl->parent_index]->needs_refresh = 1;
-}
-
-
-void lui_label_set_y(tLuiLabel *lui_lbl, uint16_t y)
-{
 	lui_lbl->y = y;
-	lui_lbl->needs_refresh = 1;
-	if (lui_lbl->parent_index != 1)
-		scenes[lui_lbl->parent_index]->needs_refresh = 1;
+	scenes[lui_lbl->parent_index]->needs_refresh = 1;
 }
 
 
-void lui_label_set_width(tLuiLabel *lui_lbl, uint16_t width)
+void lui_label_set_area(uint16_t width, uint16_t height, tLuiLabel *lui_lbl)
 {
-	lui_lbl->width = width;
-	lui_lbl->needs_refresh = 1;
-	if (lui_lbl->parent_index != 1)
+	if (lui_lbl->parent_index == -1)
+		return;
+	if (lui_lbl->width == width && lui_lbl->height == height)
+		return;
+
+	if (lui_lbl->width < width && lui_lbl->height < height)
+		lui_lbl->needs_refresh = 1;
+	else
 		scenes[lui_lbl->parent_index]->needs_refresh = 1;
+	
+	lui_lbl->width = width;
+	lui_lbl->height = height;
 }
+
+
+void lui_label_set_font(const tFont *font, tLuiLabel *lui_lbl)
+{
+	if (lui_lbl->parent_index == -1)
+		return;
+	lui_lbl->font = font;
+	scenes[lui_lbl->parent_index]->needs_refresh = 1;
+}
+
+
+void lui_label_set_text(const char *text, tLuiLabel *lui_lbl)
+{
+	if (lui_lbl->parent_index == -1)
+		return;
+	lui_lbl->text = text;
+	lui_lbl->needs_refresh = 1;
+}
+
+void lui_label_set_text_color(uint16_t color, tLuiLabel *lui_lbl)
+{
+	if (lui_lbl->parent_index == -1)
+		return;
+	if (lui_lbl->color == color)
+		return;
+	lui_lbl->color = color;
+	lui_lbl->needs_refresh = 1;
+}
+
+
+void lui_label_set_bg_color(uint16_t color, tLuiLabel *lui_lbl)
+{
+	if (lui_lbl->parent_index == -1)
+		return;
+	if (lui_lbl->bg_color == color)
+		return;
+	lui_lbl->bg_color = color;
+	lui_lbl->needs_refresh = 1;
+}
+
+
 
 /*-------------------------------------------------------------------------------
  * 				LUI_LINE_CHART related functions
@@ -206,7 +247,7 @@ void lui_label_set_width(tLuiLabel *lui_lbl, uint16_t width)
 /*
 * Draw a line chart
 */
-void lui_draw_line_chart(tLuiLineChart *p_lui_line_chart)
+void lui_linechart_draw(tLuiLineChart *p_lui_line_chart)
 {
 	uint16_t temp_x = p_lui_line_chart->x;
 	uint16_t temp_y = p_lui_line_chart->y;
@@ -214,7 +255,6 @@ void lui_draw_line_chart(tLuiLineChart *p_lui_line_chart)
 	uint16_t height = p_lui_line_chart->height;
 	uint16_t bg_color = p_lui_line_chart->bg_color;
 	uint16_t line_color = p_lui_line_chart->line.color;
-	uint16_t line_width = p_lui_line_chart->line.width;
 	uint16_t data_points = p_lui_line_chart->data.points;
 
 	double mapped_data[lui_disp_drv->display_hor_res * 2];
@@ -278,36 +318,27 @@ void lui_draw_line_chart(tLuiLineChart *p_lui_line_chart)
 
 
 	// Draw the chart background
-	lui_draw_rect_fill(temp_x, temp_y, width + line_width, height + line_width, bg_color);
+	lui_draw_rect_fill(temp_x, temp_y, width, height, bg_color);
 
 	// Draw the scale numbers
-
-
-	// Draw the chart border if needed
-	if (p_lui_line_chart->border.is_border)
-	{
-		uint8_t border_width = p_lui_line_chart->border.width;
-		uint16_t border_color = p_lui_line_chart->border.color;
-		lui_draw_rect(temp_x - border_width, temp_y - border_width, width + border_width + line_width, height + border_width + line_width, border_width, border_color);
-	}
 
 	// Draw the chart grid if needed
 	if (p_lui_line_chart->grid.is_grid)
 	{
-		uint16_t hor_grid_spacing = (height - temp_y) / p_lui_line_chart->grid.hor_count;
-		uint16_t vert_grid_spacing = (width + line_width) / p_lui_line_chart->grid.vert_count;
+		uint16_t hor_grid_spacing = height / (p_lui_line_chart->grid.hor_count + 1);
+		uint16_t vert_grid_spacing = width / (p_lui_line_chart->grid.vert_count + 1);
 
 		// Draw the vertical grids from left to right
 		for (int i = 1; i <= p_lui_line_chart->grid.vert_count; i++)
 		{
-			lui_draw_line(temp_x + (i * vert_grid_spacing), temp_y, temp_x + (i * vert_grid_spacing), temp_y + height + line_width, 1, p_lui_line_chart->grid.color);
+			lui_draw_line(temp_x + (i * vert_grid_spacing), temp_y, temp_x + (i * vert_grid_spacing), temp_y + height, 1, p_lui_line_chart->grid.color);
 		}
 
 		// Draw the horizontal grids from bottom to top
-		uint16_t y_bottom = temp_y + height + line_width;
+		uint16_t y_bottom = temp_y + height;
 		for (int i = 1; i <= p_lui_line_chart->grid.hor_count; i++)
 		{
-			lui_draw_line(temp_x, y_bottom - (i * hor_grid_spacing), temp_x + width + line_width, y_bottom - (i * hor_grid_spacing), 1, p_lui_line_chart->grid.color);
+			lui_draw_line(temp_x, y_bottom - (i * hor_grid_spacing), temp_x + width, y_bottom - (i * hor_grid_spacing), 1, p_lui_line_chart->grid.color);
 		}
 	}
 
@@ -343,8 +374,15 @@ void lui_draw_line_chart(tLuiLineChart *p_lui_line_chart)
 			uint16_t next_x = mapped_data [i*2 + 2];
 			uint16_t next_y = mapped_data [i*2 + 3];
 
-			lui_draw_line(current_x, current_y, next_x, next_y, line_width, line_color);
+			lui_draw_line(current_x, current_y, next_x, next_y, 1, line_color);
 		}
+	}
+
+	// Draw the chart border if needed
+	if (p_lui_line_chart->border.is_border)
+	{
+		uint16_t border_color = p_lui_line_chart->border.color;
+		lui_draw_rect(temp_x, temp_y, width, height, 1, border_color);
 	}
 }
 
@@ -352,7 +390,7 @@ void lui_draw_line_chart(tLuiLineChart *p_lui_line_chart)
 /*
  * Initialize a line chart with default values
  */
-tLuiLineChart lui_line_chart_create()
+tLuiLineChart lui_linechart_create()
 {
 	tLuiLineChart initial_line_chart;
 
@@ -369,9 +407,7 @@ tLuiLineChart lui_line_chart_create()
 	initial_line_chart.height = lui_disp_drv->display_vert_res;
 
 	initial_line_chart.line.color = DEFAULT_LINE_CHART_FORECOLOR;
-	initial_line_chart.line.width = 1;
-
-	initial_line_chart.border.width = 1;
+	
 	initial_line_chart.border.is_border = 1;
 	initial_line_chart.border.color = DEFAULT_LINE_CHART_FORECOLOR;
 
@@ -397,7 +433,7 @@ tLuiLineChart lui_line_chart_create()
  * A line chart can be added only to one scene
  * To add it to other scene, remove it first
  */
-void lui_add_line_chart_to_scene(tLuiLineChart *p_lui_line_chart, tLuiScene *p_lui_scene)
+void lui_linechart_add_to_scene(tLuiLineChart *p_lui_line_chart, tLuiScene *p_lui_scene)
 {
 	// If scene's index is -1, return
 	if (p_lui_scene->index == -1)
@@ -416,7 +452,7 @@ void lui_add_line_chart_to_scene(tLuiLineChart *p_lui_line_chart, tLuiScene *p_l
 /*
  * Remove an existing line chart from a scene
  */
-void lui_remove_line_chart_from_scene(tLuiLineChart *p_lui_line_chart, tLuiScene *p_lui_scene)
+void lui_linechart_remove_from_scene(tLuiLineChart *p_lui_line_chart, tLuiScene *p_lui_scene)
 {
 	// If object's or scene's index is -1, return
 	if (p_lui_line_chart->index == -1 || p_lui_scene->index == -1)
@@ -435,8 +471,39 @@ void lui_remove_line_chart_from_scene(tLuiLineChart *p_lui_line_chart, tLuiScene
 }
 
 
+void lui_linechart_set_position(uint16_t x, uint16_t y, tLuiLineChart *lui_chart)
+{
+	if (lui_chart->parent_index == -1)
+		return;
+	if (lui_chart->x == x && lui_chart->y == y)
+		return;
+	lui_chart->x = x;
+	lui_chart->y = y;
+	scenes[lui_chart->parent_index]->needs_refresh = 1;
+}
 
 
+void lui_linechart_set_area(uint16_t width, uint16_t height, tLuiLineChart *lui_chart)
+{
+	if (lui_chart->parent_index == -1)
+		return;
+	if (lui_chart->width == width && lui_chart->height == height)
+		return;
+
+	if (lui_chart->width < width && lui_chart->height < height)
+		lui_chart->needs_refresh = 1;
+	else
+		scenes[lui_chart->parent_index]->needs_refresh = 1;
+	
+	lui_chart->width = width;
+	lui_chart->height = height;
+}
+
+void lui_linechart_set_border(uint16_t width, uint16_t height, tLuiLineChart *lui_chart)
+{
+	if (lui_chart->parent_index == -1)
+		return;
+}
 /*-------------------------------------------------------------------------------
  * 				LUI_BUTTON related functions
  *-------------------------------------------------------------------------------
@@ -444,19 +511,16 @@ void lui_remove_line_chart_from_scene(tLuiLineChart *p_lui_line_chart, tLuiScene
 /*
  * Draw a button
  */
-void lui_draw_button(tLuiButton *lui_btn)
+void lui_button_draw(tLuiButton *lui_btn)
 {
-	uint8_t btn_x_pad_min = 2;
-	uint8_t btn_y_pad_min = 2;
 
 	uint16_t temp_x = lui_btn->x;
 	uint16_t temp_y = lui_btn->y;
 	uint16_t btn_height = lui_btn->height;
 	uint16_t btn_width = lui_btn->width;
 
-	uint8_t str_width_height[2];
 
-	get_string_dimension(lui_btn->label.text, lui_btn->label.font, str_width_height);
+	uint8_t str_width_height[2];
 
 	// Draw the button's body color
 	lui_draw_rect_fill(temp_x, temp_y, btn_width, btn_height, lui_btn->color);
@@ -464,18 +528,24 @@ void lui_draw_button(tLuiButton *lui_btn)
 	// Draw the button label (text)
 	// Text will be in the miidle of the button.
 	// So, at first we need to calculate its position
-	temp_x = temp_x + btn_x_pad_min + (btn_width - str_width_height[0]) / 2;
-	temp_y = temp_y + btn_y_pad_min + (btn_height - str_width_height[1]) / 2;
+
+	get_string_dimension(lui_btn->label.text, lui_btn->label.font, str_width_height);
+
+	str_width_height[0] > btn_width ? btn_width : str_width_height[0];
+	str_width_height[1] > btn_height ? btn_height : str_width_height[1];
+
+	temp_x = temp_x + (btn_width - str_width_height[0]) / 2;
+	temp_y = temp_y + (btn_height - str_width_height[1]) / 2;
 
 	tLuiLabel btn_label = lui_label_create();
 	btn_label.text = lui_btn->label.text;
 	btn_label.color = lui_btn->label.color;
 	btn_label.x = temp_x;
 	btn_label.y = temp_y;
-	btn_label.width = btn_width - (2*btn_x_pad_min);
-	btn_label.height = btn_height - (2*btn_y_pad_min);
+	btn_label.width = str_width_height[0];
+	btn_label.height = str_width_height[1];
 	btn_label.font = lui_btn->label.font;
-	lui_draw_label(&btn_label);
+	lui_label_draw(&btn_label);
 }
 
 
@@ -512,7 +582,7 @@ tLuiButton lui_button_create()
  * A button can only be added to one scene
  * To add it to other scene, remove it first
  */
-void lui_add_button_to_scene(tLuiButton *lui_btn, tLuiScene *lui_scene)
+void lui_button_add_to_scene(tLuiButton *lui_btn, tLuiScene *lui_scene)
 {
 	// If the scene index is -1, return
 	if (lui_scene->index == -1)
@@ -531,7 +601,7 @@ void lui_add_button_to_scene(tLuiButton *lui_btn, tLuiScene *lui_scene)
 /*
  * Remove an existing button from a scene
  */
-void lui_remove_button_from_scene(tLuiButton *lui_btn, tLuiScene *lui_scene)
+void lui_button_remove_from_scene(tLuiButton *lui_btn, tLuiScene *lui_scene)
 {
     // If scene index is -1, return
 	if (lui_scene->index == -1)
@@ -579,7 +649,7 @@ tLuiScene lui_scene_create()
 /*
  * add a scene in the global scene array
  */
-void lui_add_scene(tLuiScene *lui_scene)
+void lui_scene_add(tLuiScene *lui_scene)
 {
 	//If scene index is -1, i.e., scene is not added already, then add it in the global "scenes" array
 	if (lui_scene->index == -1)
@@ -629,19 +699,19 @@ void lui_scene_render(tLuiScene *lui_scene)
 	// Render all the buttons
     for (int i = 0; i < temp_button_total; i++)
     {
-    	lui_draw_button(lui_scene->lui_button[i]);
+    	lui_button_draw(lui_scene->lui_button[i]);
     }
 
     // Render all the labels
     for (int i = 0; i < temp_label_total; i++)
     {
-    	lui_draw_label(lui_scene->lui_label[i]);
+    	lui_label_draw(lui_scene->lui_label[i]);
     }
 
     //Render all the line charts
     for (int i = 0; i < temp_line_chart_total; i++)
     {
-    	lui_draw_line_chart(lui_scene->lui_line_chart[i]);
+    	lui_linechart_draw(lui_scene->lui_line_chart[i]);
     }
 }
 
@@ -652,7 +722,7 @@ void lui_scene_render(tLuiScene *lui_scene)
  *------------------------------------------------------------------------------
  */
 
-tLuiDispDrv lui_disp_drv_create()
+tLuiDispDrv lui_dispdrv_create()
 {
 	tLuiDispDrv initial_disp_drv;
 
@@ -666,7 +736,7 @@ tLuiDispDrv lui_disp_drv_create()
 }
 
 
-void lui_disp_drv_register (tLuiDispDrv *disp_drv)
+void lui_dispdrv_register (tLuiDispDrv *disp_drv)
 {
 	lui_disp_drv = disp_drv;
 }
@@ -687,7 +757,7 @@ void lui_disp_drv_register (tLuiDispDrv *disp_drv)
  *
  * Returns the last written pixel's X position
  */
-void lui_draw_char(uint16_t x, uint16_t y, uint16_t fore_color, uint16_t back_color, const tImage *glyph)
+void lui_draw_char(uint16_t x, uint16_t y, uint16_t fore_color, const tImage *glyph)
 {
 	uint16_t width = 0, height = 0;
 
