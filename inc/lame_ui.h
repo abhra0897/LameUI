@@ -60,13 +60,8 @@ typedef struct
 		double y_min_value;
 	}data;
 
-	struct
-	{
-		uint16_t color;
-	}line;
-
+	uint16_t color;
 	uint16_t bg_color;
-	uint8_t is_bg;
 	tFont *font;
 
 	//private use only

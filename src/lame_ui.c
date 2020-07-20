@@ -216,25 +216,15 @@ void lui_label_set_text(const char *text, tLuiLabel *lui_lbl)
 	lui_lbl->needs_refresh = 1;
 }
 
-void lui_label_set_text_color(uint16_t color, tLuiLabel *lui_lbl)
+void lui_label_set_colors(uint16_t text_color, uint16_t bg_color, tLuiLabel *lui_lbl)
 {
 	if (lui_lbl->parent_index == -1)
 		return;
-	if (lui_lbl->color == color)
+	if (lui_lbl->color == text_color && lui_lbl->bg_color == bg_color)
 		return;
-	lui_lbl->color = color;
 	lui_lbl->needs_refresh = 1;
-}
-
-
-void lui_label_set_bg_color(uint16_t color, tLuiLabel *lui_lbl)
-{
-	if (lui_lbl->parent_index == -1)
-		return;
-	if (lui_lbl->bg_color == color)
-		return;
-	lui_lbl->bg_color = color;
-	lui_lbl->needs_refresh = 1;
+	lui_lbl->color = text_color;
+	lui_lbl->bg_color = bg_color;
 }
 
 
@@ -254,7 +244,7 @@ void lui_linechart_draw(tLuiLineChart *p_lui_line_chart)
 	uint16_t width = p_lui_line_chart->width;
 	uint16_t height = p_lui_line_chart->height;
 	uint16_t bg_color = p_lui_line_chart->bg_color;
-	uint16_t line_color = p_lui_line_chart->line.color;
+	uint16_t line_color = p_lui_line_chart->color;
 	uint16_t data_points = p_lui_line_chart->data.points;
 
 	double mapped_data[lui_disp_drv->display_hor_res * 2];
@@ -403,10 +393,10 @@ tLuiLineChart lui_linechart_create()
 
 	initial_line_chart.x = 0;
 	initial_line_chart.y = 0;
-	initial_line_chart.width = lui_disp_drv->display_hor_res;
-	initial_line_chart.height = lui_disp_drv->display_vert_res;
+	initial_line_chart.width = 100;
+	initial_line_chart.height = 100;
 
-	initial_line_chart.line.color = DEFAULT_LINE_CHART_FORECOLOR;
+	initial_line_chart.color = DEFAULT_LINE_CHART_FORECOLOR;
 	
 	initial_line_chart.border.is_border = 1;
 	initial_line_chart.border.color = DEFAULT_LINE_CHART_FORECOLOR;
@@ -417,7 +407,6 @@ tLuiLineChart lui_linechart_create()
 	initial_line_chart.grid.is_grid = 1;
 
 	initial_line_chart.bg_color = DEFAULT_LINE_CHART_BGCOLOR;
-	initial_line_chart.is_bg = 0;
 
 	initial_line_chart.font = NULL;
 
@@ -470,18 +459,16 @@ void lui_linechart_remove_from_scene(tLuiLineChart *p_lui_line_chart, tLuiScene 
     }
 }
 
-
 void lui_linechart_set_position(uint16_t x, uint16_t y, tLuiLineChart *lui_chart)
 {
 	if (lui_chart->parent_index == -1)
 		return;
 	if (lui_chart->x == x && lui_chart->y == y)
 		return;
+	scenes[lui_chart->parent_index]->needs_refresh = 1;
 	lui_chart->x = x;
 	lui_chart->y = y;
-	scenes[lui_chart->parent_index]->needs_refresh = 1;
 }
-
 
 void lui_linechart_set_area(uint16_t width, uint16_t height, tLuiLineChart *lui_chart)
 {
@@ -489,21 +476,90 @@ void lui_linechart_set_area(uint16_t width, uint16_t height, tLuiLineChart *lui_
 		return;
 	if (lui_chart->width == width && lui_chart->height == height)
 		return;
-
 	if (lui_chart->width < width && lui_chart->height < height)
 		lui_chart->needs_refresh = 1;
 	else
-		scenes[lui_chart->parent_index]->needs_refresh = 1;
-	
+		scenes[lui_chart->parent_index]->needs_refresh = 1;	
 	lui_chart->width = width;
 	lui_chart->height = height;
 }
 
-void lui_linechart_set_border(uint16_t width, uint16_t height, tLuiLineChart *lui_chart)
+void lui_linechart_set_border(uint16_t color, tLuiLineChart *lui_chart)
 {
 	if (lui_chart->parent_index == -1)
 		return;
+	if (lui_chart->border.color == color)
+		return;	
+	lui_chart->needs_refresh = 1;
+	lui_chart->border.color = color;
 }
+
+void lui_linechart_set_border_visible(uint8_t state, tLuiLineChart *lui_chart)
+{
+	if (lui_chart->parent_index == -1)
+		return;
+	if (lui_chart->border.is_border == state)
+		return;	
+	lui_chart->needs_refresh = 1;
+	lui_chart->border.is_border = state;
+}
+
+void lui_linechart_set_grid(uint16_t color, uint16_t hor_lines, uint16_t vert_lines, tLuiLineChart *lui_chart)
+{
+	if (lui_chart->parent_index == -1)
+		return;
+	if (lui_chart->grid.color == color && lui_chart->grid.hor_count == hor_lines && lui_chart->grid.vert_count == vert_lines)
+		return;	
+	lui_chart->needs_refresh = 1;
+	lui_chart->grid.color = color;
+	lui_chart->grid.hor_count = hor_lines;
+	lui_chart->grid.vert_count = vert_lines;
+}
+
+void lui_linechart_set_grid_visible(uint8_t state, tLuiLineChart *lui_chart)
+{
+	if (lui_chart->parent_index == -1)
+		return;
+	if (lui_chart->grid.is_grid == state)
+		return;	
+	lui_chart->needs_refresh = 1;
+	lui_chart->grid.is_grid = state;
+}
+
+void lui_linechart_set_colors(uint16_t line_color, uint16_t bg_color, tLuiLineChart *lui_chart)
+{
+	if (lui_chart->parent_index == -1)
+		return;
+	if (lui_chart->color == line_color && lui_chart->bg_color == bg_color)
+		return;	
+	lui_chart->needs_refresh = 1;
+	lui_chart->color = line_color;
+	lui_chart->bg_color = bg_color;
+}
+
+void lui_linechart_set_data_range(uint16_t y_min, uint16_t y_max, tLuiLineChart *lui_chart)
+{
+	if (lui_chart->parent_index == -1)
+		return;
+	if (lui_chart->data.y_max_value == y_max && lui_chart->data.y_min_value == y_min)
+		return;
+	lui_chart->needs_refresh = 1;
+	lui_chart->data.y_max_value = y_max;
+	lui_chart->data.y_min_value = y_min;
+}
+
+void lui_linechart_set_data_source(double *source, uint16_t points, tLuiLineChart *lui_chart)
+{
+	if (lui_chart->parent_index == -1)
+		return;
+	if (lui_chart->data.points == points)
+		return;
+	lui_chart->needs_refresh = 1;
+	lui_chart->data.source = source;
+	lui_chart->data.points = points;
+}
+
+
 /*-------------------------------------------------------------------------------
  * 				LUI_BUTTON related functions
  *-------------------------------------------------------------------------------
@@ -618,6 +674,8 @@ void lui_button_remove_from_scene(tLuiButton *lui_btn, tLuiScene *lui_scene)
         lui_btn->parent_index = -1;
     }
 }
+
+
 
 
 /*-------------------------------------------------------------------------------
