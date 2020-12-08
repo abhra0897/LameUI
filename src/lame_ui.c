@@ -570,11 +570,11 @@ void lui_button_draw(tLuiButton *lui_btn)
 	uint8_t str_width_height[2];
 
 	// Draw the button's body color depending on its current state
-	if (lui_btn->state == BUTTON_IDLE)
+	if (lui_btn->state == LUI_STATE_IDLE)
 		lui_draw_rect_fill(temp_x, temp_y, btn_width, btn_height, lui_btn->color); // normal situation
-	else if (lui_btn->state == BUTTON_SELECTED)
+	else if (lui_btn->state == LUI_STATE_SELECTED)
 		lui_draw_rect_fill(temp_x, temp_y, btn_width, btn_height, lui_btn->selection_color);
-	else if (lui_btn->state == BUTTON_PRESSED)
+	else if (lui_btn->state == LUI_STATE_PRESSED)
 		lui_draw_rect_fill(temp_x, temp_y, btn_width, btn_height, lui_btn->pressed_color);
 	
 
@@ -594,11 +594,11 @@ void lui_button_draw(tLuiButton *lui_btn)
 	btn_label.text = lui_btn->label.text;
 	btn_label.color = lui_btn->label.color;
 	// bg_color depends on button's current state color
-	if (lui_btn->state == BUTTON_IDLE)
+	if (lui_btn->state == LUI_STATE_IDLE)
 		btn_label.bg_color = lui_btn->color; // normal situation
-	else if (lui_btn->state == BUTTON_SELECTED)
+	else if (lui_btn->state == LUI_STATE_SELECTED)
 		btn_label.bg_color = lui_btn->selection_color;
-	else if (lui_btn->state == BUTTON_PRESSED)
+	else if (lui_btn->state == LUI_STATE_PRESSED)
 		btn_label.bg_color = lui_btn->pressed_color;
 	btn_label.x = temp_x;
 	btn_label.y = temp_y;
@@ -622,7 +622,7 @@ tLuiButton lui_button_create()
 	initial_button.color = 0xFFFF;
 	initial_button.pressed_color = 0xCE59; //grey
 	initial_button.selection_color = 0xFF40; //Yellow
-	initial_button.state = BUTTON_IDLE;
+	initial_button.state = LUI_STATE_IDLE;
 
 	initial_button.label.text = "";
 	initial_button.label.color = 0x0000; //black
@@ -630,6 +630,8 @@ tLuiButton lui_button_create()
 
 	initial_button.dpad_row_pos = -1;
 	initial_button.dpad_col_pos = -1;
+
+	initial_button.btn_event_cb = NULL;
 
 	initial_button.index = -1;
 	initial_button.parent_index = -1;
@@ -759,14 +761,60 @@ void lui_button_set_dpad_position(uint8_t row, uint8_t col, tLuiButton *lui_btn)
 		scenes[lui_btn->parent_index]->dpad.max_col_pos = col;
 }
 
-void lui_button_set_state_change_cb(void (*btn_event_state_change_cb)(tLuiButtonState), tLuiButton *lui_btn)
+void lui_button_set_event_cb(void (*btn_event_state_change_cb)(tLuiEvent), tLuiButton *lui_btn)
 {
 	if (lui_btn->parent_index == -1)
 		return;
-	lui_btn->btn_event_state_change_cb = btn_event_state_change_cb;
+	lui_btn->btn_event_cb = btn_event_state_change_cb;
 }
 
 
+/*-------------------------------------------------------------------------------
+ * 				LUI_SWITCH related functions
+ *-------------------------------------------------------------------------------
+ */
+void lui_switch_draw(tLuiSwitch *lui_switch)
+{
+	uint16_t temp_x = lui_switch->x;
+	uint16_t temp_y = lui_switch->y;
+	uint16_t temp_height = lui_switch->height;
+	uint16_t temp_width = lui_switch->width;
+	
+	lui_draw_rect_fill(temp_x, temp_y, temp_width, temp_height, lui_switch->bg_color);
+	temp_width = (float)temp_width * 0.4;
+	temp_height = (float)temp_height * 0.8;
+	temp_x = temp_x + ((lui_switch->width / 2) - temp_width) / 2;
+	if (lui_switch->value == 1)
+		temp_x += (lui_switch->width / 2);
+	temp_y = temp_y + (lui_switch->height - temp_height) / 2;
+
+	lui_draw_rect_fill(temp_x, temp_y, temp_width, temp_height, lui_switch->fore_color);
+}
+
+tLuiSwitch lui_switch_create()
+{
+	tLuiSwitch initial_switch;
+
+	initial_switch.x = 20;
+	initial_switch.y = 20;
+	initial_switch.width = 40;
+	initial_switch.height = 20;
+	initial_switch.bg_color = 0xFFFF;
+	initial_switch.fore_color = 0x0000; 
+	initial_switch.selection_color = 0xFF40; //Yellow
+	initial_switch.state = LUI_STATE_IDLE;
+	initial_switch.value = 0;
+
+	initial_switch.dpad_row_pos = -1;
+	initial_switch.dpad_col_pos = -1;
+
+	initial_switch.sw_event_cb = NULL;
+
+	initial_switch.index = -1;
+	initial_switch.parent_index = -1;
+
+	return  initial_switch;
+}
 
 
 
@@ -878,11 +926,11 @@ void lui_scene_render(tLuiScene *lui_scene)
 		{
 			lui_button_draw(lui_scene->lui_button[i]);
 			// If event call back is not null and state change happened, call that function
-			if (lui_scene->lui_button[i]->btn_event_state_change_cb && lui_scene->lui_button[i]->is_state_change == 1)
+			if (lui_scene->lui_button[i]->btn_event_cb != NULL && lui_scene->lui_button[i]->event != LUI_EVENT_NONE)
 			{
-				lui_scene->lui_button[i]->btn_event_state_change_cb(lui_scene->lui_button[i]->state);
+				lui_scene->lui_button[i]->btn_event_cb(lui_scene->lui_button[i]->event);
 				// State change handled, so reset it
-				lui_scene->lui_button[i]->is_state_change = 0;
+				lui_scene->lui_button[i]->event = LUI_EVENT_NONE;
 			}
 			// Button rendering done, set the need_refresh bit to 0
 			lui_scene->lui_button[i]->needs_refresh = 0;
@@ -916,17 +964,97 @@ void lui_scene_render(tLuiScene *lui_scene)
 
 
 
+// void lui_process_touch_input(tLuiScene *lui_scene)
+/*
+// {	
+// 	tLuiTouchInputData input;
+// 	g_lui_touch_input_dev->read_touch_input_cb(&input);
+	
+// 	tLuiEvent event;
+// 	uint8_t input_on_element = 0; //if the input coordinates on the current elemt or not. if yes, stop scanning other elements & return
+// 	// Process input for buttons
+// 	for (uint8_t i = 0; i < lui_scene->button_total; i++)
+// 	{
+// 		// default is IDLE
+// 		tLuiState new_state = LUI_STATE_IDLE;
+// 		// Check if input coordinates ae within the boundary of the button
+// 		if (input.x >= lui_scene->lui_button[i]->x &&
+// 			input.x < lui_scene->lui_button[i]->x + lui_scene->lui_button[i]->width &&
+// 			input.y >= lui_scene->lui_button[i]->y &&
+// 			input.y < lui_scene->lui_button[i]->y + lui_scene->lui_button[i]->height)
+// 		{
+// 			input_on_element = 1;
+
+// 			// if pressed, then....well, then state = PRESSED
+// 			if (input.is_pressed == 1)
+// 			{
+// 				new_state = LUI_STATE_PRESSED;
+// 				if (lui_scene->lui_button[i]->state == new_state)
+// 					event = LUI_EVENT_NONE;
+// 				else
+// 					event = LUI_EVENT_PRESSED;
+// 			}
+// 			// else not pressed, state = SELECTED
+// 			else
+// 			{
+// 				new_state = LUI_STATE_SELECTED;
+// 				if (lui_scene->lui_button[i]->state == new_state)
+// 					event = LUI_EVENT_NONE;
+// 				else
+// 				{
+// 					if (lui_scene->lui_button[i]->state == LUI_STATE_PRESSED)
+// 						event = LUI_EVENT_RELEASED;
+// 					else
+// 						event = LUI_EVENT_SELECTED;
+// 				}
+// 			}
+// 		}
+// 		// else if input is not on control
+// 		else
+// 		{
+// 			new_state = LUI_STATE_IDLE;
+// 			if (lui_scene->lui_button[i]->state == new_state)
+// 				event = LUI_EVENT_NONE;
+// 			else
+// 				event = LUI_EVENT_SELECTION_LOST;
+// 		}
+		
+// 		// If new state is not same as the existing state, only then refresh the button
+// 		if (event != LUI_EVENT_NONE)
+// 		{
+// 			lui_scene->lui_button[i]->state = new_state;
+// 			lui_scene->lui_button[i]->needs_refresh = 1;
+// 			lui_scene->lui_button[i]->is_state_change = 1;
+// 		}
+// 		else
+// 		{
+// 			lui_scene->lui_button[i]->needs_refresh = 0;
+// 			lui_scene->lui_button[i]->is_state_change = 0;
+// 		}
+		
+
+// 		// if input is on this ui element, then no more need to scan other elements. Return now
+// 		if (input_on_element == 1)
+// 			return;
+			
+// 	}
+
+// 	//Similarly, process inputs for other interactable elements
+// }
+*/
+
 void lui_process_touch_input(tLuiScene *lui_scene)
 {	
 	tLuiTouchInputData input;
 	g_lui_touch_input_dev->read_touch_input_cb(&input);
 	
+	tLuiEvent event;
 	uint8_t input_on_element = 0; //if the input coordinates on the current elemt or not. if yes, stop scanning other elements & return
 	// Process input for buttons
 	for (uint8_t i = 0; i < lui_scene->button_total; i++)
 	{
 		// default is IDLE
-		tLuiButtonState new_state = BUTTON_IDLE;
+		tLuiState new_state = LUI_STATE_IDLE;
 		// Check if input coordinates ae within the boundary of the button
 		if (input.x >= lui_scene->lui_button[i]->x &&
 			input.x < lui_scene->lui_button[i]->x + lui_scene->lui_button[i]->width &&
@@ -935,20 +1063,36 @@ void lui_process_touch_input(tLuiScene *lui_scene)
 		{
 			input_on_element = 1;
 
-			// if pressed, then....well, pressed
+			// if pressed, then....well, then state = PRESSED
 			if (input.is_pressed == 1)
-				new_state = BUTTON_PRESSED;
+				new_state = LUI_STATE_PRESSED;
+			
+			// else not pressed, state = SELECTED
 			else
-			// else only selected
-				new_state = BUTTON_SELECTED;
+				new_state = LUI_STATE_SELECTED;
+
 		}
+		// else if input is not on control
+		else
+		{
+			new_state = LUI_STATE_IDLE;
+		}
+		
+		event = lui_get_event_against_state(new_state, lui_scene->lui_button[i]->state);
+
 		// If new state is not same as the existing state, only then refresh the button
-		if (lui_scene->lui_button[i]->state != new_state)
+		if (event != LUI_EVENT_NONE)
 		{
 			lui_scene->lui_button[i]->state = new_state;
 			lui_scene->lui_button[i]->needs_refresh = 1;
-			lui_scene->lui_button[i]->is_state_change = 1;
+			lui_scene->lui_button[i]->event = event;
 		}
+		else
+		{
+			lui_scene->lui_button[i]->needs_refresh = 0;
+			lui_scene->lui_button[i]->event = LUI_EVENT_NONE;
+		}
+		
 
 		// if input is on this ui element, then no more need to scan other elements. Return now
 		if (input_on_element == 1)
@@ -972,32 +1116,48 @@ void lui_process_dpad_input(tLuiScene *lui_scene)
 	if (input.is_down_pressed)	lui_scene->dpad.current_row_pos++;
 	if (input.is_up_pressed)	lui_scene->dpad.current_row_pos--;
 
+	// check dpad boundary
 	if (lui_scene->dpad.current_col_pos > lui_scene->dpad.max_col_pos || lui_scene->dpad.current_col_pos < 0)
 		lui_scene->dpad.current_col_pos = 0;
 	if (lui_scene->dpad.current_row_pos > lui_scene->dpad.max_row_pos)
 		lui_scene->dpad.current_row_pos = 0;
 
+	tLuiEvent event;
 	uint8_t input_on_element = 0; //if the input coordinates on the current elemt or not. if yes, stop scanning other elements & return
 	for (uint8_t i = 0; i < lui_scene->button_total; i++)
 	{
-		tLuiButtonState new_state = BUTTON_IDLE;
+		tLuiState new_state = LUI_STATE_IDLE;
 		if (lui_scene->dpad.current_col_pos == lui_scene->lui_button[i]->dpad_col_pos &&
 			lui_scene->dpad.current_row_pos == lui_scene->lui_button[i]->dpad_row_pos)
 		{
-			input_on_element = 1;
+			input_on_element = 1; 
 
 			if (input.is_enter_pressed == 1)
-				new_state = BUTTON_PRESSED;
+				new_state = LUI_STATE_PRESSED;
 			else
-				new_state = BUTTON_SELECTED;
+				new_state = LUI_STATE_SELECTED;
 		}
+		// else if input position is not on button position
+		else
+		{
+			new_state = LUI_STATE_IDLE;
+		}
+
+		event = lui_get_event_against_state(new_state, lui_scene->lui_button[i]->state);
+		
 		// If new state is not same as the existing state, only then refresh the button
-		if (lui_scene->lui_button[i]->state != new_state)
+		if (event != LUI_EVENT_NONE)
 		{
 			lui_scene->lui_button[i]->state = new_state;
 			lui_scene->lui_button[i]->needs_refresh = 1;
-			lui_scene->lui_button[i]->is_state_change = 1;
+			lui_scene->lui_button[i]->event = event;
 		}
+		else
+		{
+			lui_scene->lui_button[i]->needs_refresh = 0;
+			lui_scene->lui_button[i]->event = LUI_EVENT_NONE;
+		}
+		
 
 		// if input is on this ui element, then no more need to scan other elements. Return now
 		if (input_on_element == 1)
@@ -1116,6 +1276,97 @@ void lui_dpad_inputdev_set_read_input_cb(void (*read_dpad_input_cb)(tLuiDpadInpu
  *------------------------------------------------------------------------------
  */
 
+tLuiEvent lui_get_event_against_state(tLuiState new_state, tLuiState old_state)
+{
+	tLuiEvent event = LUI_EVENT_NONE;
+
+	if (new_state == old_state)
+	{
+		event = LUI_EVENT_NONE;
+	}
+	else
+	{
+		switch (old_state)
+		{
+		case LUI_STATE_IDLE:			//old
+			switch (new_state)
+			{
+			case LUI_STATE_SELECTED:	//new
+				event = LUI_EVENT_SELECTED;
+				break;
+			case LUI_STATE_PRESSED:		//new
+				event = LUI_EVENT_PRESSED;
+				break;
+			case LUI_STATE_ENTERED:		//new
+				event = LUI_EVENT_ENTERED;
+				break;
+			default:
+				break;
+			}
+			break;
+			
+		case LUI_STATE_SELECTED:		//old
+			switch (new_state)
+			{
+			case LUI_STATE_IDLE:		//new
+				event = LUI_EVENT_SELECTION_LOST;
+				break;
+			case LUI_STATE_PRESSED:		//new
+				event = LUI_EVENT_PRESSED;
+				break;
+			case LUI_STATE_ENTERED:		//new
+				event = LUI_EVENT_ENTERED;
+				break;
+			default:
+				break;
+			}
+			break;
+
+		// PRESSED is only applicable for button
+		case LUI_STATE_PRESSED:			//old
+			switch (new_state)
+			{
+			case LUI_STATE_IDLE:		//new
+				event = LUI_EVENT_SELECTION_LOST;
+				break;
+			case LUI_STATE_SELECTED:	//new
+				event = LUI_EVENT_RELEASED;
+				break;
+			// for button, ENTERED will never happen
+			case LUI_STATE_ENTERED:		//new
+				event = LUI_EVENT_NONE;
+				break;
+			default:
+				break;
+			}
+			break;
+
+		// ENTERED is only applicable for slider
+		case LUI_STATE_ENTERED:			//old
+			switch (new_state)
+			{
+			case LUI_STATE_IDLE:		//new
+				event = LUI_EVENT_EXITED;
+				break;
+			case LUI_STATE_SELECTED:	//new
+				event = LUI_EVENT_EXITED;
+				break;
+			// for slider, PRESSED will never happen
+			case LUI_STATE_PRESSED:		//new
+				event = LUI_EVENT_NONE;
+				break;
+			default:
+				break;
+			}
+			break;
+		
+		default:
+			break;
+		}
+	}
+
+	return event;
+}
 
 /*
  * Draws a character glyph in left-to-right order
@@ -1226,21 +1477,39 @@ void get_string_dimension(const char *str, const tFont *font, uint8_t *str_dim)
  */
 void lui_draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color)
 {
-	if (abs(y1 - y0) < abs(x1 - x0))
-	{
-		if (x0 > x1)
-			lui_plot_line_low(x1, y1, x0, y0, line_width, color);
-		else
-			lui_plot_line_low(x0, y0, x1, y1, line_width, color);
-	}
+	/*
+	* Brehensen's algorithm is used.
+	* Not necessarily start points has to be less than end points.
+	*/
 
+	if (x0 == x1)	//vertical line
+	{
+		g_lui_disp_drv->draw_pixels_area_cb(x0, (y0 < y1 ? y0 : y1), (uint16_t)line_width, (uint16_t)abs(y1 - y0 + 1), color);
+	}
+	else if (y0 == y1)		//horizontal line
+	{
+		g_lui_disp_drv->draw_pixels_area_cb((x0 < x1 ? x0 : x1), y0, (uint16_t)abs(x1 - x0 + 1), (uint16_t)line_width, color);
+		//printf("x0:%d y0:%d x1:%d y1:%d w:%d h:%d\n", x0, y0, x1, y1, (uint16_t)abs(x1 - x0 + 1), (uint16_t)line_width);
+	}
 	else
 	{
-		if (y0 > y1)
-			lui_plot_line_high(x1, y1, x0, y0, line_width, color);
+		if (abs(y1 - y0) < abs(x1 - x0))
+		{
+			if (x0 > x1)
+				lui_plot_line_low(x1, y1, x0, y0, line_width, color);
+			else
+				lui_plot_line_low(x0, y0, x1, y1, line_width, color);
+		}
+
 		else
-			lui_plot_line_high(x0, y0, x1, y1, line_width, color) ;
+		{
+			if (y0 > y1)
+				lui_plot_line_high(x1, y1, x0, y0, line_width, color);
+			else
+				lui_plot_line_high(x0, y0, x1, y1, line_width, color) ;
+		}
 	}
+
 }
 
 /*

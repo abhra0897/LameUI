@@ -30,21 +30,25 @@
 #define DEFAULT_LINE_CHART_FORECOLOR	0xFFFF
 #define DEFAULT_LINE_CHART_BGCOLOR		0x0000
 
-typedef enum button_state
+typedef enum lui_state
 {
-	BUTTON_IDLE = 0,
-	BUTTON_SELECTED,
-	BUTTON_PRESSED
-}tLuiButtonState;
+	LUI_STATE_IDLE = 0,
+	LUI_STATE_SELECTED,
+	LUI_STATE_PRESSED,
+	LUI_STATE_ENTERED
+}tLuiState;
 
-
-typedef enum slider_state
+typedef enum lui_event
 {
-	SLIDER_IDLE = 0,
-	SLIDER_SELECTED,
-	SLIDER_ENTERED
-}tLuiSliderState;
-
+	LUI_EVENT_NONE = 0,
+	LUI_EVENT_SELECTED,
+	LUI_EVENT_SELECTION_LOST,
+	LUI_EVENT_PRESSED,
+	LUI_EVENT_RELEASED,
+	LUI_EVENT_ENTERED,
+	LUI_EVENT_EXITED,
+	LUI_EVENT_VALUE_CHANGED
+}tLuiEvent;
 
 typedef struct
 {
@@ -126,15 +130,41 @@ typedef struct
 	int8_t dpad_row_pos;
 	int8_t dpad_col_pos;
 
-	void (*btn_event_state_change_cb)(tLuiButtonState state);
+	void (*btn_event_cb)(tLuiEvent event);
+	tLuiState state;
+	tLuiEvent event;
 
 	//private use only
-	uint8_t is_state_change;
-	tLuiButtonState state;
 	uint8_t needs_refresh;
 	int8_t index;
 	int8_t parent_index;
 }tLuiButton;
+
+
+typedef struct
+{
+	uint16_t x;
+	uint16_t y;
+	uint16_t width;
+	uint16_t height;
+
+	uint16_t bg_color;
+	uint16_t selection_color;
+	uint16_t fore_color;
+
+	int8_t dpad_row_pos;
+	int8_t dpad_col_pos;
+
+	tLuiState state;
+	tLuiEvent event;
+	uint8_t value;
+	void (*sw_event_cb)(tLuiEvent event);
+
+	//private use only
+	uint8_t needs_refresh;
+	int8_t index;
+	int8_t parent_index;
+}tLuiSwitch;
 
 
 typedef struct
@@ -153,6 +183,8 @@ typedef struct
 	uint8_t line_chart_total;
 	uint8_t button_total;
 	tFont *font;
+
+	//void (*state_change_cb)(tLuiState state); 
 
 	struct
 	{
@@ -245,8 +277,10 @@ void lui_button_set_label_text(const char *text, tLuiButton *lui_btn);
 void lui_button_set_label_color(uint16_t color, tLuiButton *lui_btn);
 void lui_button_set_label_font(const tFont *font, tLuiButton *lui_btn);
 void lui_button_set_colors(uint16_t bg_color, uint16_t pressed_color, uint16_t selection_color, tLuiButton *lui_btn);
-void lui_button_set_state_change_cb(void (*btn_event_state_change_cb)(tLuiButtonState), tLuiButton *lui_btn);
+void lui_button_set_event_cb(void (*btn_event_state_change_cb)(tLuiEvent), tLuiButton *lui_btn);
 
+void lui_switch_draw(tLuiSwitch *lui_switch);
+tLuiSwitch lui_switch_create();
 
 tLuiScene lui_scene_create();
 void lui_scene_add(tLuiScene *lui_scene);
@@ -279,6 +313,7 @@ void lui_dpad_inputdev_set_read_input_cb(void (*read_dpad_input_cb)(tLuiDpadInpu
 //-------------------------------------------------------------------------------
 //------------ PRIVATE HELPER FUNCTIONS TO BE USED BY THIS LIBRARY ONLY----------
 //-------------------------------------------------------------------------------
+tLuiEvent lui_get_event_against_state(tLuiState new_state, tLuiState old_state);
 void lui_draw_char(uint16_t x, uint16_t y, uint16_t fore_color, const tImage *glyph);
 void get_string_dimension(const char *str, const tFont *font, uint8_t *str_dim);
 void lui_plot_line_low(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color);
