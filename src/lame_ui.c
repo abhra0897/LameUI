@@ -40,7 +40,7 @@ void lui_label_draw (tLuiLabel *label)
 	if (label == NULL)
 		return;
 	// if no display driver is registered, return
-	if (lui_disp_drv_check() == 0)
+	if (_lui_disp_drv_check() == 0)
 		return;
 
 	uint16_t x_temp = label->common_data.x;
@@ -68,7 +68,7 @@ void lui_label_draw (tLuiLabel *label)
 	}
 
 	// Draw the label background color
-	lui_draw_rect_fill(label->common_data.x, label->common_data.y, label->common_data.width, label->common_data.height, label->bg_color);
+	_lui_draw_rect_fill(label->common_data.x, label->common_data.y, label->common_data.width, label->common_data.height, label->bg_color);
 
 	// Scan chars one by one from the string
 	//char
@@ -110,7 +110,7 @@ void lui_label_draw (tLuiLabel *label)
 					return;
 			}
 
-			lui_draw_char(x_temp, y_temp, label->color, img);
+			_lui_draw_char(x_temp, y_temp, label->color, img);
 
 			x_temp += width;		//next char position
 		}
@@ -124,14 +124,15 @@ tLuiLabel* lui_label_create()
 {
 	tLuiLabel *initial_label = malloc(sizeof(*initial_label));
 
+	initial_label->common_data.obj_type = LUI_OBJ_LABEL;
 	initial_label->common_data.x = 0;
 	initial_label->common_data.y = 0;
 	initial_label->common_data.width = 0;
 	initial_label->common_data.height = 0;
 	initial_label->text = "";
 	initial_label->font = NULL;
-	initial_label->color = DEFAULT_TEXT_FORECOLOR;
-	initial_label->bg_color = DEFAULT_TEXT_BGCOLOR;
+	initial_label->color = LUI_DEFAULT_TEXT_FORECOLOR;
+	initial_label->bg_color = LUI_DEFAULT_TEXT_BGCOLOR;
 
 	initial_label->common_data.index = -1;
 	initial_label->common_data.parent_index = -1;
@@ -149,7 +150,7 @@ void lui_label_add_to_scene(tLuiLabel *lbl, tLuiScene *scene)
 {
 	if (lbl == NULL || scene == NULL)
 		return;
-	lui_object_add_to_scene(lbl, &(lbl->common_data), scene);
+	_lui_object_add_to_scene(lbl, &(lbl->common_data), scene);
 }
 
 /*
@@ -159,7 +160,7 @@ void lui_label_remove_from_scene(tLuiLabel *lbl)
 {
     if (lbl == NULL)
 		return;
-	lui_object_remove_from_scene(&(lbl->common_data));
+	_lui_object_remove_from_scene(&(lbl->common_data));
 }
 
 void* lui_label_destroy(tLuiLabel *lbl)
@@ -168,7 +169,7 @@ void* lui_label_destroy(tLuiLabel *lbl)
 	// But setting the pointer to NULL inside the function will only change it locally.
 	// So, after freeing, return NULL from function and assign the value to the object pointer from the calling side
     if (lbl != NULL)
-		lui_object_destroy(lbl, &(lbl->common_data));
+		_lui_object_destroy(lbl, &(lbl->common_data));
 	return NULL;
 }
 
@@ -176,14 +177,15 @@ void lui_label_set_position(uint16_t x, uint16_t y, tLuiLabel *lbl)
 {
 	if (lbl == NULL)
 		return;
-	lui_object_set_position(x, y, &lbl->common_data);
+	_lui_object_set_position(x, y, &lbl->common_data);
 }
 
 void lui_label_set_area(uint16_t width, uint16_t height, tLuiLabel *lbl)
 {
 	if (lbl == NULL)
 		return;
-	lui_object_set_area(width, height, &lbl->common_data);
+	
+	_lui_object_set_area(width, height, &lbl->common_data);
 }
 
 void lui_label_set_font(const tFont *font, tLuiLabel *lbl)
@@ -231,7 +233,7 @@ void lui_linechart_draw(tLuiLineChart *chart)
 	if (chart == NULL)
 		return;
 	// if no display driver is registered, return
-	if (lui_disp_drv_check() == 0)
+	if (_lui_disp_drv_check() == 0)
 		return;
 
 	uint16_t temp_x = chart->common_data.x;
@@ -245,7 +247,7 @@ void lui_linechart_draw(tLuiLineChart *chart)
 	double mapped_data[g_lui_main.disp_drv->display_hor_res * 2];
 
 	double x_data_min_new = temp_x;
-	double x_data_max_new = temp_x + width;
+	double x_data_max_new = temp_x + width - 1;
 	//[0][0] element of 2D array is x_min
 	// address of [0][0] = base address
 	double x_data_min_old = *(chart->data.source);
@@ -254,7 +256,7 @@ void lui_linechart_draw(tLuiLineChart *chart)
 	double x_data_max_old = *(chart->data.source + (data_points*2) - 2);
 
 
-	double y_data_min_new = temp_y + height;
+	double y_data_min_new = temp_y + height - 1;
 	double y_data_max_new = temp_y;
 	double y_data_min_old;
 	double y_data_max_old;
@@ -290,20 +292,17 @@ void lui_linechart_draw(tLuiLineChart *chart)
 	// If object has no font set for it, check the global set font in scene
 	if (temp_font == NULL)
 	{
-		// Find object's parent scene's index
-		uint8_t parent_scene_index = chart->common_data.parent_index;
-
 		// If the parent scene also has no font set, return.
-		if (g_lui_main.scenes[parent_scene_index]->font == NULL)
+		if (g_lui_main.scenes[chart->common_data.parent_index]->font == NULL)
 			return;
 
 		// Otherwise use the scene's font (global font)
-		temp_font = g_lui_main.scenes[parent_scene_index]->font;
+		temp_font = g_lui_main.scenes[chart->common_data.parent_index]->font;
 	}
 
 
 	// Draw the chart background
-	lui_draw_rect_fill(temp_x, temp_y, width, height, bg_color);
+	_lui_draw_rect_fill(temp_x, temp_y, width, height, bg_color);
 
 	// Draw the scale numbers
 
@@ -316,14 +315,16 @@ void lui_linechart_draw(tLuiLineChart *chart)
 		// Draw the vertical grids from left to right
 		for (int i = 1; i <= chart->grid.vert_count; i++)
 		{
-			lui_draw_line(temp_x + (i * vert_grid_spacing), temp_y, temp_x + (i * vert_grid_spacing), temp_y + height, 1, chart->grid.color);
+			uint16_t temp_x_new = temp_x + (i * vert_grid_spacing);
+			_lui_draw_line(temp_x_new, temp_y, temp_x_new, temp_y + height - 1, 1, chart->grid.color);
 		}
 
 		// Draw the horizontal grids from bottom to top
 		uint16_t y_bottom = temp_y + height;
 		for (int i = 1; i <= chart->grid.hor_count; i++)
 		{
-			lui_draw_line(temp_x, y_bottom - (i * hor_grid_spacing), temp_x + width, y_bottom - (i * hor_grid_spacing), 1, chart->grid.color);
+			uint16_t temp_y_new = y_bottom - (i * hor_grid_spacing);
+			_lui_draw_line(temp_x, temp_y_new, temp_x + width - 1, temp_y_new, 1, chart->grid.color);
 		}
 	}
 
@@ -334,10 +335,10 @@ void lui_linechart_draw(tLuiLineChart *chart)
 		double x_data_old = *(chart->data.source + (i*2));
 		double y_data_old = *(chart->data.source + (i*2) + 1);
 		// Mapping range of x values
-		mapped_data[i*2] =  lui_map_range(x_data_old, x_data_max_old, x_data_min_old, x_data_max_new, x_data_min_new);
+		mapped_data[i*2] =  _lui_map_range(x_data_old, x_data_max_old, x_data_min_old, x_data_max_new, x_data_min_new);
 
 		// Mapping range of y values
-		mapped_data[i*2 + 1] =  lui_map_range(y_data_old, y_data_max_old, y_data_min_old, y_data_max_new, y_data_min_new);
+		mapped_data[i*2 + 1] =  _lui_map_range(y_data_old, y_data_max_old, y_data_min_old, y_data_max_new, y_data_min_new);
 	}
 
 	// Now draw the lines using the mapped points to make the graph
@@ -359,7 +360,7 @@ void lui_linechart_draw(tLuiLineChart *chart)
 			uint16_t next_x = mapped_data [i*2 + 2];
 			uint16_t next_y = mapped_data [i*2 + 3];
 
-			lui_draw_line(current_x, current_y, next_x, next_y, 1, line_color);
+			_lui_draw_line(current_x, current_y, next_x, next_y, 1, line_color);
 		}
 	}
 
@@ -367,7 +368,7 @@ void lui_linechart_draw(tLuiLineChart *chart)
 	if (chart->border.is_border)
 	{
 		uint16_t border_color = chart->border.color;
-		lui_draw_rect(temp_x, temp_y, width, height, 1, border_color);
+		_lui_draw_rect(temp_x, temp_y, width, height, 1, border_color);
 	}
 }
 
@@ -378,6 +379,12 @@ tLuiLineChart* lui_linechart_create()
 {
 	tLuiLineChart *initial_line_chart = malloc(sizeof(*initial_line_chart)); //(tLuiLineChart *)malloc(sizeof(tLuiLineChart))
 
+	initial_line_chart->common_data.obj_type = LUI_OBJ_LINECHART;
+	initial_line_chart->common_data.x = 0;
+	initial_line_chart->common_data.y = 0;
+	initial_line_chart->common_data.width = 100;
+	initial_line_chart->common_data.height = 100;
+
 	double tmp_data[] = {0};
 	initial_line_chart->data.source = tmp_data;
 	initial_line_chart->data.y_max_value = 0;
@@ -385,22 +392,17 @@ tLuiLineChart* lui_linechart_create()
 	initial_line_chart->data.points = 0;
 	initial_line_chart->data.auto_scale = 1;
 
-	initial_line_chart->common_data.x = 0;
-	initial_line_chart->common_data.y = 0;
-	initial_line_chart->common_data.width = 100;
-	initial_line_chart->common_data.height = 100;
-
-	initial_line_chart->color = DEFAULT_LINE_CHART_FORECOLOR;
+	initial_line_chart->color = LUI_DEFAULT_LINE_CHART_FORECOLOR;
 	
 	initial_line_chart->border.is_border = 1;
-	initial_line_chart->border.color = DEFAULT_LINE_CHART_FORECOLOR;
+	initial_line_chart->border.color = LUI_DEFAULT_LINE_CHART_FORECOLOR;
 
-	initial_line_chart->grid.color = DEFAULT_LINE_CHART_FORECOLOR;
+	initial_line_chart->grid.color = LUI_DEFAULT_LINE_CHART_FORECOLOR;
 	initial_line_chart->grid.hor_count = 5;
 	initial_line_chart->grid.vert_count = 5;
 	initial_line_chart->grid.is_grid = 1;
 
-	initial_line_chart->bg_color = DEFAULT_LINE_CHART_BGCOLOR;
+	initial_line_chart->bg_color = LUI_DEFAULT_LINE_CHART_BGCOLOR;
 
 	initial_line_chart->font = NULL;
 
@@ -420,7 +422,7 @@ void lui_linechart_add_to_scene(tLuiLineChart *chart, tLuiScene *scene)
 {
 	if (chart == NULL || scene == NULL)
 		return;
-	lui_object_add_to_scene(chart, &(chart->common_data), scene);
+	_lui_object_add_to_scene(chart, &(chart->common_data), scene);
 }
 
 /*
@@ -430,13 +432,13 @@ void lui_linechart_remove_from_scene(tLuiLineChart *chart)
 {
 	if (chart == NULL)
 		return;
-	lui_object_remove_from_scene(&(chart->common_data));
+	_lui_object_remove_from_scene(&(chart->common_data));
 }
 
 void* lui_linechart_destroy(tLuiLineChart *chart)
 {
 	if (chart != NULL)
-		lui_object_destroy(chart, &(chart->common_data));
+		_lui_object_destroy(chart, &(chart->common_data));
 	return NULL;
 }
 
@@ -444,14 +446,14 @@ void lui_linechart_set_position(uint16_t x, uint16_t y, tLuiLineChart *chart)
 {
 	if (chart == NULL)
 		return;
-	lui_object_set_position(x, y, &chart->common_data);
+	_lui_object_set_position(x, y, &chart->common_data);
 }
 
 void lui_linechart_set_area(uint16_t width, uint16_t height, tLuiLineChart *chart)
 {
 	if (chart == NULL)
 		return;
-	lui_object_set_area(width, height, &chart->common_data);
+	_lui_object_set_area(width, height, &chart->common_data);
 }
 
 void lui_linechart_set_border(uint16_t color, tLuiLineChart *chart)
@@ -507,7 +509,17 @@ void lui_linechart_set_colors(uint16_t line_color, uint16_t bg_color, tLuiLineCh
 	chart->bg_color = bg_color;
 }
 
-void lui_linechart_set_data_range(uint16_t y_min, uint16_t y_max, tLuiLineChart *chart)
+void lui_linechart_set_data_auto_scale(uint8_t auto_scale, tLuiLineChart *chart)
+{
+	if (chart == NULL)
+		return;
+	if (auto_scale == chart->data.auto_scale)
+		return;
+	chart->data.auto_scale = auto_scale ? 1 : 0;
+	chart->common_data.needs_refresh = 1;
+}
+
+void lui_linechart_set_data_range(double y_min, double y_max, tLuiLineChart *chart)
 {
 	if (chart == NULL)
 		return;
@@ -546,7 +558,7 @@ void lui_button_draw(tLuiButton *btn)
 	if (btn == NULL)
 		return;
 	// if no display driver is registered, return
-	if (lui_disp_drv_check() == 0)
+	if (_lui_disp_drv_check() == 0)
 		return;
 
 	uint16_t temp_x = btn->common_data.x;
@@ -558,19 +570,40 @@ void lui_button_draw(tLuiButton *btn)
 	uint8_t str_width_height[2];
 
 	// Draw the button's body color depending on its current state
-	if (btn->state == LUI_STATE_IDLE)
-		lui_draw_rect_fill(temp_x, temp_y, btn_width, btn_height, btn->color); // normal situation
-	else if (btn->state == LUI_STATE_SELECTED)
-		lui_draw_rect_fill(temp_x, temp_y, btn_width, btn_height, btn->selection_color);
+	uint16_t btn_color = btn->color;
+	if (btn->state == LUI_STATE_SELECTED)
+		btn_color = btn->selection_color;
 	else if (btn->state == LUI_STATE_PRESSED)
-		lui_draw_rect_fill(temp_x, temp_y, btn_width, btn_height, btn->pressed_color);
+		btn_color = btn->pressed_color;
+	// else if (btn->state == LUI_STATE_IDLE)
+	// 	btn_color = btn->color;
+
+	_lui_draw_rect_fill(temp_x, temp_y, btn_width, btn_height, btn_color);
 	
 
 	// Draw the button label (text)
 	// Text will be in the miidle of the button.
 	// So, at first we need to calculate its position
 
-	get_string_dimension(btn->label.text, btn->label.font, str_width_height);
+	tFont *temp_font = btn->label.font;
+	// If it has no font set for it, check the global set font in scene
+	// If no scene present, i.e., parent_scene_index == -1, return
+	// If scene is there but scene has no font, return
+	// So, if it has no parent scene, it must have its own font to be rendered
+	if (temp_font == NULL)
+	{
+		// If no parent scene (i.e. parent_scene_index = -1), return
+		if (btn->common_data.parent_index == -1)
+			return;
+		// If the parent scene also has no font set, return.
+		if (g_lui_main.scenes[btn->common_data.parent_index]->font == NULL)
+			return;
+
+		// Otherwise use the scene's font (global font)
+		temp_font = g_lui_main.scenes[btn->common_data.parent_index]->font;
+	}
+
+	_get_string_dimension(btn->label.text, temp_font, str_width_height);
 
 	str_width_height[0] = str_width_height[0] > btn_width ? btn_width : str_width_height[0];
 	str_width_height[1] = str_width_height[1] > btn_height ? btn_height : str_width_height[1];
@@ -592,7 +625,7 @@ void lui_button_draw(tLuiButton *btn)
 	btn_label.common_data.y = temp_y;
 	btn_label.common_data.width = str_width_height[0];
 	btn_label.common_data.height = str_width_height[1];
-	btn_label.font = btn->label.font;
+	btn_label.font = temp_font;
 	lui_label_draw(&btn_label);
 }
 
@@ -603,6 +636,7 @@ tLuiButton* lui_button_create()
 {
 	tLuiButton *initial_button = malloc(sizeof(*initial_button));
 
+	initial_button->common_data.obj_type = LUI_OBJ_BUTTON;
 	initial_button->common_data.x = 0;
 	initial_button->common_data.y = 0;
 	initial_button->common_data.width = 0;
@@ -637,7 +671,7 @@ void lui_button_add_to_scene(tLuiButton *btn, tLuiScene *scene)
 {
 	if (btn == NULL || scene == NULL)
 		return;
-    lui_object_add_to_scene(btn, &(btn->common_data), scene);
+    _lui_object_add_to_scene(btn, &(btn->common_data), scene);
 }
 
 /*
@@ -647,28 +681,28 @@ void lui_button_remove_from_scene(tLuiButton *btn)
 {
     if (btn == NULL)
 		return;
-    lui_object_remove_from_scene(&(btn->common_data));
+    _lui_object_remove_from_scene(&(btn->common_data));
 }
 
 void* lui_button_destroy(tLuiButton *btn)
 {
     if (btn == NULL)
-		lui_object_destroy(btn, &(btn->common_data));
-		return NULL;
+		_lui_object_destroy(btn, &(btn->common_data));
+	return NULL;
 }
 
 void lui_button_set_position(uint16_t x, uint16_t y, tLuiButton *btn)
 {
 	if (btn == NULL)
 		return;
-	lui_object_set_position(x, y, &btn->common_data);
+	_lui_object_set_position(x, y, &btn->common_data);
 }
 
 void lui_button_set_area(uint16_t width, uint16_t height, tLuiButton *btn)
 {
 	if (btn == NULL)
 		return;
-	lui_object_set_area(width, height, &btn->common_data);
+	_lui_object_set_area(width, height, &btn->common_data);
 }
 
 void lui_button_set_label_text(const char *text, tLuiButton *btn)
@@ -730,11 +764,18 @@ void lui_button_set_dpad_position(uint8_t row, uint8_t col, tLuiButton *btn)
 	}
 }
 
-void lui_button_set_event_cb(void (*btn_event_state_change_cb)(uint8_t), tLuiButton *btn)
+int8_t lui_button_get_state(tLuiButton *btn)
+{
+	if (btn == NULL)
+		return -1;
+	return btn->state;
+}
+
+void lui_button_set_event_cb(void (*btn_event_cb)(uint8_t), tLuiButton *btn)
 {
 	if (btn == NULL)
 		return;
-	btn->btn_event_cb = btn_event_state_change_cb;
+	btn->btn_event_cb = btn_event_cb;
 }
 
 #pragma endregion Button
@@ -751,23 +792,29 @@ void lui_switch_draw(tLuiSwitch *swtch)
 	if (swtch == NULL)
 		return;
 	// if no display driver is registered, return
-	if (lui_disp_drv_check() == 0)
+	if (_lui_disp_drv_check() == 0)
 		return;
 
 	uint16_t temp_x = swtch->common_data.x;
 	uint16_t temp_y = swtch->common_data.y;
 	uint16_t temp_height = swtch->common_data.height;
 	uint16_t temp_width = swtch->common_data.width;
+
+	uint16_t swtch_color = swtch->fore_color;
+	if (swtch->state == LUI_STATE_SELECTED || swtch->state == LUI_STATE_PRESSED)
+		swtch_color = swtch->selection_color;
 	
-	lui_draw_rect_fill(temp_x, temp_y, temp_width, temp_height, swtch->bg_color);
+	_lui_draw_rect_fill(temp_x, temp_y, temp_width, temp_height, swtch->bg_color);	// switch bg (color is constant regardless the state)
+	_lui_draw_rect(temp_x, temp_y, temp_width, temp_height, 1, swtch_color);	// switch border
+
 	temp_width = (float)temp_width * 0.3;
-	temp_height = (float)temp_height * 0.8;
+	temp_height = (float)temp_height * 0.6;
 	temp_x = temp_x + ((swtch->common_data.width / 2) - temp_width) / 2;
 	if (swtch->value == 1)
 		temp_x += (swtch->common_data.width / 2);
 	temp_y = temp_y + (swtch->common_data.height - temp_height) / 2;
 
-	lui_draw_rect_fill(temp_x, temp_y, temp_width, temp_height, swtch->fore_color);
+	_lui_draw_rect_fill(temp_x, temp_y, temp_width, temp_height, swtch_color);// switch slider
 }
 
 tLuiSwitch* lui_switch_create()
@@ -802,20 +849,20 @@ void lui_switch_add_to_scene(tLuiSwitch *swtch, tLuiScene *scene)
 {
 	if (swtch == NULL || scene == NULL)
 		return;
-	lui_object_add_to_scene(swtch, &swtch->common_data, scene);
+	_lui_object_add_to_scene(swtch, &swtch->common_data, scene);
 }
 
 void lui_switch_remove_from_scene(tLuiSwitch *swtch)
 {
 	if (swtch == NULL)
 		return;
-	lui_object_remove_from_scene(&(swtch->common_data));
+	_lui_object_remove_from_scene(&(swtch->common_data));
 }
 
 void* lui_switch_destroy(tLuiSwitch *swtch)
 {
 	if (swtch != NULL)
-		lui_object_destroy(swtch, &(swtch->common_data));
+		_lui_object_destroy(swtch, &(swtch->common_data));
 	return NULL;
 }
 
@@ -823,15 +870,59 @@ void lui_switch_set_position(uint16_t x, uint16_t y, tLuiSwitch *swtch)
 {
 	if (swtch == NULL)
 		return;
-	lui_object_set_position(x, y, &swtch->common_data);
+	_lui_object_set_position(x, y, &swtch->common_data);
 }
 
 void lui_switch_set_area(uint16_t width, uint16_t height, tLuiSwitch *swtch)
 {
 	if (swtch == NULL)
 		return;
-	lui_object_set_area(width, height, &swtch->common_data);
+	_lui_object_set_area(width, height, &swtch->common_data);
 }
+
+void lui_switch_set_colors(uint16_t fore_color, uint16_t bg_color, uint16_t selection_color, tLuiSwitch *swtch)
+{
+	if (swtch == NULL)
+		return;
+	if (swtch->fore_color == fore_color && swtch->bg_color == bg_color && swtch->selection_color == selection_color)
+		return;
+	swtch->fore_color = fore_color;
+	swtch->bg_color = bg_color;
+	swtch->selection_color = selection_color;
+	swtch->common_data.needs_refresh = 1;
+}
+
+void lui_switch_set_value(uint8_t value, tLuiSwitch *swtch)
+{
+	if (swtch == NULL)
+		return;
+	if (value == swtch->value)
+		return;
+	swtch->value = value ? 1 : 0;
+	swtch->common_data.needs_refresh = 1;
+}
+
+int8_t lui_switch_get_value(tLuiSwitch *swtch)
+{
+	if (swtch == NULL)
+		return -1;
+	return swtch->value;
+}
+
+int8_t lui_switch_get_state(tLuiSwitch *swtch)
+{
+	if (swtch == NULL)
+		return -1;
+	return swtch->state;
+}
+
+void lui_switch_set_event_cb(void (*sw_event_cb)(uint8_t, uint8_t), tLuiSwitch *swtch)
+{
+	if (swtch == NULL)
+		return;
+	swtch->sw_event_cb = sw_event_cb;
+}
+
 
 #pragma endregion Switch
 
@@ -874,7 +965,7 @@ void* lui_scene_destroy(tLuiScene *scene)
 {
 	if (scene == NULL)
 		return NULL;
-	for (int i = scene->index; i < MAX_SCENES - 1; i++)
+	for (int i = scene->index; i < LUI_MAX_SCENES - 1; i++)
 	{
 		g_lui_main.scenes[i] = g_lui_main.scenes[i+1];
 		g_lui_main.scenes[i]->index = i;
@@ -924,14 +1015,14 @@ void lui_scene_render(tLuiScene *scene)
 		return;
 
 	// if no display driver is registered, return
-	if (lui_disp_drv_check() == 0)
+	if (_lui_disp_drv_check() == 0)
 		return;
 
 	// Reading input only if user provided input reading callback function
 	if (g_lui_main.touch_input_dev != NULL)
-		lui_process_touch_input(scene);
+		_lui_process_touch_input(scene);
 	else if (g_lui_main.dpad_input_dev != NULL)
-		lui_process_dpad_input(scene);
+		_lui_process_dpad_input(scene);
 
 	uint8_t temp_label_total = scene->label_total;
 	uint8_t temp_button_total = scene->button_total;
@@ -942,15 +1033,21 @@ void lui_scene_render(tLuiScene *scene)
 	uint16_t background_height = g_lui_main.disp_drv->display_vert_res;
 	uint16_t background_color = scene->background.color;
 
+	// Imp Note: scene needs_refresh flag can be modified by any callback during the render func execution.
+	// So, store the current value to a temp var and use that var. also, then set the actual flag to 0.
+	// So, if no callback modifies the flag, the flag will remain 0.
+	uint8_t temp_scn_needs_refresh = scene->needs_refresh;
+	scene->needs_refresh = 0;
+
 	// Render background first (only if scene needs refresh)
-	if (scene->needs_refresh == 1)
+	if (temp_scn_needs_refresh == 1)
 		g_lui_main.disp_drv->draw_pixels_area_cb(0, 0, background_width, background_height, background_color);
 
 	// Render all the buttons
 	for (uint8_t i = 0; i < temp_button_total; i++)
 	{
 		// if either only this button needs refresh or the entire scene nedds, do the rendering
-		if (scene->lui_button[i]->common_data.needs_refresh == 1 || scene->needs_refresh == 1)
+		if (scene->lui_button[i]->common_data.needs_refresh == 1 || temp_scn_needs_refresh == 1)
 		{
 			lui_button_draw(scene->lui_button[i]);
 			// If event call back is not null and state change happened, call that function
@@ -972,16 +1069,16 @@ void lui_scene_render(tLuiScene *scene)
 		if (scene->lui_switch[i]->common_data.parent_index != -1)
 		{
 			// if either only this switch needs refresh or the entire scene nedds, do the rendering
-			if (scene->lui_switch[i]->common_data.needs_refresh == 1 || scene->needs_refresh == 1)
+			if (scene->lui_switch[i]->common_data.needs_refresh == 1 || temp_scn_needs_refresh == 1)
 			{
 				lui_switch_draw(scene->lui_switch[i]);
 				// If event call back is not null and state change happened, call that function
-				// if (scene->lui_switch[i]->btn_event_cb != NULL && scene->lui_switch[i]->event != LUI_EVENT_NONE)
-				// {
-				// 	scene->lui_switch[i]->btn_event_cb(scene->lui_switch[i]->event);
-				// 	// State change handled, so reset it
-				// 	scene->lui_switch[i]->event = LUI_EVENT_NONE;
-				// }
+				if (scene->lui_switch[i]->sw_event_cb != NULL && scene->lui_switch[i]->event != LUI_EVENT_NONE)
+				{
+					scene->lui_switch[i]->sw_event_cb(scene->lui_switch[i]->event, scene->lui_switch[i]->value);
+					// State change handled, so reset it
+					scene->lui_switch[i]->event = LUI_EVENT_NONE;
+				}
 				// Button rendering done, set the need_refresh bit to 0
 				scene->lui_switch[i]->common_data.needs_refresh = 0;
 			}
@@ -991,7 +1088,7 @@ void lui_scene_render(tLuiScene *scene)
 	// Render all the labels
 	for (uint8_t i = 0; i < temp_label_total; i++)
 	{
-		if (scene->lui_label[i]->common_data.needs_refresh == 1 || scene->needs_refresh == 1)
+		if (scene->lui_label[i]->common_data.needs_refresh == 1 || temp_scn_needs_refresh == 1)
 		{
 			lui_label_draw(scene->lui_label[i]);
 			scene->lui_label[i]->common_data.needs_refresh = 0;
@@ -1001,15 +1098,13 @@ void lui_scene_render(tLuiScene *scene)
 	//Render all the line charts
 	for (uint8_t i = 0; i < temp_line_chart_total; i++)
 	{
-		if (scene->lui_line_chart[i]->common_data.needs_refresh == 1 || scene->needs_refresh == 1)
+		if (scene->lui_line_chart[i]->common_data.needs_refresh == 1 || temp_scn_needs_refresh == 1)
 		{
 			lui_linechart_draw(scene->lui_line_chart[i]);
 			scene->lui_line_chart[i]->common_data.needs_refresh = 0;
 		}
 	}
 
-	// Rendering done, set the need_refresh bit to 0
-	scene->needs_refresh = 0;
 }
 
 
@@ -1019,7 +1114,7 @@ void lui_scene_render(tLuiScene *scene)
  */
 
 // Assumes no parameter is NULL
-void lui_object_add_to_scene(void *object, tLuiCommon *obj_common_data, tLuiScene *scene)
+void _lui_object_add_to_scene(void *object, tLuiCommon *obj_common_data, tLuiScene *scene)
 {
     //add the ui element with a new index to scene only if the parent index is -1 (i.e., no parent)
     if (obj_common_data->parent_index != -1)
@@ -1028,29 +1123,29 @@ void lui_object_add_to_scene(void *object, tLuiCommon *obj_common_data, tLuiScen
 	switch (obj_common_data->obj_type)
 	{
 	case LUI_OBJ_LABEL:
-		if (scene->label_total >= MAX_LABELS_PER_SCENE - 1)	
+		if (scene->label_total >= LUI_MAX_LABELS_PER_SCENE - 1)	
 			return;
 		obj_common_data->index = scene->label_total++;
 		if (scene->lui_label == NULL)
 			scene->lui_label = malloc(sizeof(scene->lui_label)); //malloc(sizeof(tLuiLabel **))
 		else
-			scene->lui_label = realloc(scene->lui_switch, sizeof(scene->lui_label) * (scene->label_total));
+			scene->lui_label = realloc(scene->lui_label, sizeof(scene->lui_label) * (scene->label_total));
 		scene->lui_label[obj_common_data->index] = (tLuiLabel *)object;
 		break;
 
 	case LUI_OBJ_BUTTON:
-		if (scene->button_total >= MAX_BUTTONS_PER_SCENE - 1)	
+		if (scene->button_total >= LUI_MAX_BUTTONS_PER_SCENE - 1)	
 			return;
 		obj_common_data->index = scene->button_total++;
 		if (scene->lui_button == NULL)
 			scene->lui_button = malloc(sizeof(scene->lui_button));
 		else
-			scene->lui_button = realloc(scene->lui_switch, sizeof(scene->lui_button) * (scene->button_total));
+			scene->lui_button = realloc(scene->lui_button, sizeof(scene->lui_button) * (scene->button_total));
 		scene->lui_button[obj_common_data->index] = (tLuiButton *)object;
 		break;
 
 	case LUI_OBJ_SWITCH:
-		if (scene->switch_total >= MAX_BUTTONS_PER_SCENE)	
+		if (scene->switch_total >= LUI_MAX_BUTTONS_PER_SCENE)	
 			return;
 		obj_common_data->index = scene->switch_total++;
 		if (scene->lui_switch == NULL)
@@ -1061,7 +1156,7 @@ void lui_object_add_to_scene(void *object, tLuiCommon *obj_common_data, tLuiScen
 		break;
 
 	case LUI_OBJ_LINECHART:
-		if (scene->line_chart_total >= MAX_LINE_CHARTS_PER_SCENE - 1)	
+		if (scene->line_chart_total >= LUI_MAX_LINE_CHARTS_PER_SCENE - 1)	
 			return;
 		obj_common_data->index = scene->line_chart_total++;
 		if (scene->lui_line_chart == NULL)
@@ -1081,7 +1176,7 @@ void lui_object_add_to_scene(void *object, tLuiCommon *obj_common_data, tLuiScen
 	obj_common_data->needs_refresh = 1;
 }
 
-void lui_object_remove_from_scene(tLuiCommon *obj_common_data)
+void _lui_object_remove_from_scene(tLuiCommon *obj_common_data)
 {
 	// If item's or scene's index is -1, return
 	if (obj_common_data->index == -1 || obj_common_data->parent_index == -1)
@@ -1188,13 +1283,13 @@ void lui_object_remove_from_scene(tLuiCommon *obj_common_data)
 	parent_scene->needs_refresh = 1;
 }
 
-void lui_object_destroy(void *object, tLuiCommon *obj_common_data)
+void _lui_object_destroy(void *object, tLuiCommon *obj_common_data)
 {
-	lui_object_remove_from_scene(obj_common_data);
+	_lui_object_remove_from_scene(obj_common_data);
 	free(object);
 }
 
-void lui_object_set_position(uint16_t x, uint16_t y, tLuiCommon *common_data)
+void _lui_object_set_position(uint16_t x, uint16_t y, tLuiCommon *common_data)
 {
 	if (common_data->x == x && common_data->y == y)
 		return;
@@ -1204,7 +1299,7 @@ void lui_object_set_position(uint16_t x, uint16_t y, tLuiCommon *common_data)
 	common_data->y = y;
 }
 
-void lui_object_set_area(uint16_t width, uint16_t height, tLuiCommon *common_data)
+void _lui_object_set_area(uint16_t width, uint16_t height, tLuiCommon *common_data)
 {
 	if (common_data->width == width && common_data->height == height)
 		return;
@@ -1218,7 +1313,7 @@ void lui_object_set_area(uint16_t width, uint16_t height, tLuiCommon *common_dat
 	}
 
 	common_data->width = width;
-	common_data->height = height;
+	common_data->height = height;	
 }
 
 /*------------------------------------------------------------------------------
@@ -1226,7 +1321,7 @@ void lui_object_set_area(uint16_t width, uint16_t height, tLuiCommon *common_dat
  *------------------------------------------------------------------------------
  */
 
-// void lui_process_touch_input(tLuiScene *lui_scene)
+// void _lui_process_touch_input(tLuiScene *lui_scene)
 /*
 // {	
 // 	tLuiTouchInputData input;
@@ -1305,7 +1400,7 @@ void lui_object_set_area(uint16_t width, uint16_t height, tLuiCommon *common_dat
 // }
 */
 
-void lui_process_touch_input(tLuiScene *lui_scene)
+void _lui_process_touch_input(tLuiScene *lui_scene)
 {	
 	tLuiTouchInputData input;
 	g_lui_main.touch_input_dev->read_touch_input_cb(&input);
@@ -1340,7 +1435,7 @@ void lui_process_touch_input(tLuiScene *lui_scene)
 			new_state = LUI_STATE_IDLE;
 		}
 		
-		event = lui_get_event_against_state(new_state, lui_scene->lui_button[i]->state);
+		event = _lui_get_event_against_state(new_state, lui_scene->lui_button[i]->state);
 
 		// If new state is not same as the existing state, only then refresh the button
 		if (event != LUI_EVENT_NONE)
@@ -1362,10 +1457,69 @@ void lui_process_touch_input(tLuiScene *lui_scene)
 			
 	}
 
+
+	// Process input for switches
+	for (uint8_t i = 0; i < lui_scene->switch_total; i++)
+	{
+		// default is IDLE
+		uint8_t new_state = LUI_STATE_IDLE;
+
+		// Check if input coordinates ae within the boundary of the button
+		if (input.x >= lui_scene->lui_switch[i]->common_data.x &&
+			input.x < lui_scene->lui_switch[i]->common_data.x + lui_scene->lui_switch[i]->common_data.width &&
+			input.y >= lui_scene->lui_switch[i]->common_data.y &&
+			input.y < lui_scene->lui_switch[i]->common_data.y + lui_scene->lui_switch[i]->common_data.height)
+		{
+			input_on_element = 1;
+
+			// if pressed, then toggle the value
+			// if (input.is_pressed == 1)
+			// 	new_value = (lui_scene->lui_switch[i]->value == 1) ? 0 : 1;
+
+			if (input.is_pressed == 1)
+				new_state = LUI_STATE_PRESSED;
+			// else not pressed, state = SELECTED
+			else
+				new_state = LUI_STATE_SELECTED;
+
+		}
+		// else if input is not on control
+		else
+		{
+			new_state = LUI_STATE_IDLE;
+		}
+		
+		event = _lui_get_event_against_state(new_state, lui_scene->lui_switch[i]->state);
+		if (event == LUI_EVENT_PRESSED)
+		{
+			event = LUI_EVENT_VALUE_CHANGED;	// for switch, being pressed means being toggled, thus value changed
+			lui_scene->lui_switch[i]->value = (lui_scene->lui_switch[i]->value == 1) ? 0 : 1;	// togle the value (1->0 or 0-1)
+		}
+
+		// If new state is not same as the existing state, only then refresh the button
+		if (event != LUI_EVENT_NONE)
+		{
+			lui_scene->lui_switch[i]->state = new_state;
+			lui_scene->lui_switch[i]->common_data.needs_refresh = 1;
+			lui_scene->lui_switch[i]->event = event;
+		}
+		else
+		{
+			lui_scene->lui_switch[i]->common_data.needs_refresh = 0;
+			lui_scene->lui_switch[i]->event = LUI_EVENT_NONE;
+		}
+		
+
+		// if input is on this ui element, then no more need to scan other elements. Return now
+		if (input_on_element == 1)
+			return;
+			
+	}
+
 	//Similarly, process inputs for other interactable elements
 }
 
-void lui_process_dpad_input(tLuiScene *lui_scene)
+void _lui_process_dpad_input(tLuiScene *lui_scene)
 {
 	if (lui_scene->dpad.max_col_pos == -1) // no element is configured for dpad, so return
 		return;
@@ -1405,7 +1559,7 @@ void lui_process_dpad_input(tLuiScene *lui_scene)
 			new_state = LUI_STATE_IDLE;
 		}
 
-		event = lui_get_event_against_state(new_state, lui_scene->lui_button[i]->state);
+		event = _lui_get_event_against_state(new_state, lui_scene->lui_button[i]->state);
 		
 		// If new state is not same as the existing state, only then refresh the button
 		if (event != LUI_EVENT_NONE)
@@ -1552,7 +1706,7 @@ void lui_dpad_inputdev_set_read_input_cb(void (*read_dpad_input_cb)(tLuiDpadInpu
  *------------------------------------------------------------------------------
  */
 
-uint8_t lui_get_event_against_state(uint8_t new_state, uint8_t old_state)
+uint8_t _lui_get_event_against_state(uint8_t new_state, uint8_t old_state)
 {
 	uint8_t event = LUI_EVENT_NONE;
 
@@ -1651,7 +1805,7 @@ uint8_t lui_get_event_against_state(uint8_t new_state, uint8_t old_state)
  *
  * Returns the last written pixel's X position
  */
-void lui_draw_char(uint16_t x, uint16_t y, uint16_t fore_color, const tImage *glyph)
+void _lui_draw_char(uint16_t x, uint16_t y, uint16_t fore_color, const tImage *glyph)
 {
 	uint16_t width = 0, height = 0;
 
@@ -1723,7 +1877,7 @@ void lui_draw_char(uint16_t x, uint16_t y, uint16_t fore_color, const tImage *gl
  * Width: by adding up the width of each glyph (representing a character)
  * Height: Height of any glyph (representing a character)
  */
-void get_string_dimension(const char *str, const tFont *font, uint8_t *str_dim)
+void _get_string_dimension(const char *str, const tFont *font_obj, uint8_t *str_dim)
 {
 	 str_dim[0] = 0;	// -> width
 	 str_dim[1] = 0;	// -> height
@@ -1732,18 +1886,18 @@ void get_string_dimension(const char *str, const tFont *font, uint8_t *str_dim)
 	for (uint16_t char_cnt = 0; *(str+char_cnt) != '\0'; char_cnt++)
 	{
 		// Find the glyph for the char from the font
-		for (uint8_t i = 0; i < font->length; i++)
+		for (uint8_t i = 0; i < font_obj->length; i++)
 		{
-			if (font->chars[i].code == *(str+char_cnt))
+			if (font_obj->chars[i].code == *(str+char_cnt))
 			{
 				// Add width of glyphs
-				str_dim[0] += font->chars[i].image->width;
+				str_dim[0] += font_obj->chars[i].image->width;
 				break;
 			}
 		}
 	}
 	// Set height as the height of the glyph of "space"
-	str_dim[1] = font->chars[0].image->height;
+	str_dim[1] = font_obj->chars[0].image->height;
 }
 
 /*
@@ -1751,7 +1905,7 @@ void get_string_dimension(const char *str, const tFont *font, uint8_t *str_dim)
  * Draw line between ANY two points.
  * Not necessarily start points has to be less than end points.
  */
-void lui_draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color)
+void _lui_draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color)
 {
 	/*
 	* Brehensen's algorithm is used.
@@ -1772,17 +1926,17 @@ void lui_draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t l
 		if (abs(y1 - y0) < abs(x1 - x0))
 		{
 			if (x0 > x1)
-				lui_plot_line_low(x1, y1, x0, y0, line_width, color);
+				_lui_plot_line_low(x1, y1, x0, y0, line_width, color);
 			else
-				lui_plot_line_low(x0, y0, x1, y1, line_width, color);
+				_lui_plot_line_low(x0, y0, x1, y1, line_width, color);
 		}
 
 		else
 		{
 			if (y0 > y1)
-				lui_plot_line_high(x1, y1, x0, y0, line_width, color);
+				_lui_plot_line_high(x1, y1, x0, y0, line_width, color);
 			else
-				lui_plot_line_high(x0, y0, x1, y1, line_width, color) ;
+				_lui_plot_line_high(x0, y0, x1, y1, line_width, color) ;
 		}
 	}
 
@@ -1792,7 +1946,7 @@ void lui_draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t l
  * When dy < 0
  * It's called only by line_draw function. Not for user
  */
-void lui_plot_line_low(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color)
+void _lui_plot_line_low(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color)
 {
 	int16_t dx = x1 - x0;
 	int16_t dy = y1 - y0;
@@ -1827,7 +1981,7 @@ void lui_plot_line_low(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8
  * When dx < 0
  * It's called only by line_draw function. Not for user
  */
-void lui_plot_line_high(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color)
+void _lui_plot_line_high(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color)
 {
 	int16_t dx = x1 - x0;
 	int16_t dy = y1 - y0;
@@ -1862,18 +2016,18 @@ void lui_plot_line_high(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint
 /*
  * Draw a rectangle with a given color and line width
  */
-void lui_draw_rect(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint8_t line_width, uint16_t color)
+void _lui_draw_rect(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint8_t line_width, uint16_t color)
 {
-	lui_draw_line(x, y, x + w, y, line_width, color);
-	lui_draw_line(x + w, y, x + w, y + h, line_width, color);
-	lui_draw_line(x + w, y + h, x, y + h, line_width, color);
-	lui_draw_line(x, y + h, x, y, line_width, color);
+	_lui_draw_line(x, y, x+w-1, y, line_width, color);
+	_lui_draw_line(x+w-1, y, x+w-1, y+h-1, line_width, color);
+	_lui_draw_line(x, y+h-1, x+w-1, y+h-1, line_width, color);
+	_lui_draw_line(x, y, x, y+h-1, line_width, color);
 }
 
 /*
  * Fill a rectangular area with a color
  */
-void lui_draw_rect_fill(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color)
+void _lui_draw_rect_fill(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color)
 {
 	g_lui_main.disp_drv->draw_pixels_area_cb(x, y, w, h, color);
 }
@@ -1881,13 +2035,13 @@ void lui_draw_rect_fill(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t
 /*
  * Map a range of data to a new range of data
  */
-double lui_map_range(double old_val, double old_max, double old_min, double new_max, double new_min)
+double _lui_map_range(double old_val, double old_max, double old_min, double new_max, double new_min)
 {
     double new_val = ((((old_val - old_min) * (new_max - new_min)) / (old_max - old_min)) + new_min);
     return new_val;
 }
 
-uint8_t lui_disp_drv_check()
+uint8_t _lui_disp_drv_check()
 {
 	uint8_t status = 0;
 	// if no display driver is registered, return

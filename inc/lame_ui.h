@@ -14,21 +14,26 @@
 #include "bitmap_typedefs.h"
 
 
-#define USE_LABEL
-#define USE_BUTTON
-#define USE_LINE_CHART
+#define LUI_MAX_SCENES						1
+#define LUI_MAX_LABELS_PER_SCENE			10
+#define LUI_MAX_LINE_CHARTS_PER_SCENE		3
+#define LUI_MAX_BUTTONS_PER_SCENE			3
+
+#define LUI_DEFAULT_TEXT_FORECOLOR			0xFFFF
+#define LUI_DEFAULT_TEXT_BGCOLOR			0x0000
+#define LUI_DEFAULT_SCENE_BACKGROUND		0x0000
+#define LUI_DEFAULT_LINE_CHART_FORECOLOR	0xFFFF
+#define LUI_DEFAULT_LINE_CHART_BGCOLOR		0x0000
 
 
-#define MAX_SCENES						1
-#define MAX_LABELS_PER_SCENE			10
-#define MAX_LINE_CHARTS_PER_SCENE		3
-#define MAX_BUTTONS_PER_SCENE			3
+#define	_LUI_R_POS_RGB   11	// Red last bit position for RGB display
+#define	_LUI_G_POS_RGB   5 	// Green last bit position for RGB display
+#define	_LUI_B_POS_RGB   0	// Blue last bit position for RGB display
 
-#define DEFAULT_TEXT_FORECOLOR			0xFFFF
-#define DEFAULT_TEXT_BGCOLOR			0x0000
-#define DEFAULT_SCENE_BACKGROUND		0x0000
-#define DEFAULT_LINE_CHART_FORECOLOR	0xFFFF
-#define DEFAULT_LINE_CHART_BGCOLOR		0x0000
+#define	LUI_RGB(R,G,B) \
+	(((uint16_t)(R >> 3) << _LUI_R_POS_RGB) | \
+	((uint16_t)(G >> 2) << _LUI_G_POS_RGB) | \
+	((uint16_t)(B >> 3) << _LUI_B_POS_RGB))
 
 enum lui_state_e
 {
@@ -153,7 +158,7 @@ typedef struct lui_switch_s
 	uint8_t state;
 	uint8_t event;
 	uint8_t value;
-	void (*sw_event_cb)(uint8_t event);
+	void (*sw_event_cb)(uint8_t event, uint8_t value);
 
 	tLuiCommon common_data;
 }tLuiSwitch;
@@ -236,7 +241,7 @@ typedef struct lui_dpad_input_dev_s
 
 typedef struct lui_main_s
 {
-	tLuiScene *scenes[MAX_SCENES];
+	tLuiScene *scenes[LUI_MAX_SCENES];
 	tLuiDispDrv *disp_drv;
 	tLuiTouchInputDev *touch_input_dev;
 	tLuiDpadInputDev *dpad_input_dev;
@@ -269,7 +274,8 @@ void lui_linechart_set_border_visible(uint8_t state, tLuiLineChart *chart);
 void lui_linechart_set_grid(uint16_t color, uint16_t hor_lines, uint16_t vert_lines, tLuiLineChart *chart);
 void lui_linechart_set_grid_visible(uint8_t state, tLuiLineChart *chart);
 void lui_linechart_set_colors(uint16_t line_color, uint16_t bg_color, tLuiLineChart *chart);
-void lui_linechart_set_data_range(uint16_t y_min, uint16_t y_max, tLuiLineChart *chart);
+void lui_linechart_set_data_auto_scale(uint8_t auto_scale, tLuiLineChart *chart);
+void lui_linechart_set_data_range(double y_min, double y_max, tLuiLineChart *chart);
 void lui_linechart_set_data_source(double *source, uint16_t points, tLuiLineChart *chart);
 
 
@@ -284,7 +290,8 @@ void lui_button_set_label_text(const char *text, tLuiButton *btn);
 void lui_button_set_label_color(uint16_t color, tLuiButton *btn);
 void lui_button_set_label_font(const tFont *font, tLuiButton *btn);
 void lui_button_set_colors(uint16_t bg_color, uint16_t pressed_color, uint16_t selection_color, tLuiButton *btn);
-void lui_button_set_event_cb(void (*btn_event_state_change_cb)(uint8_t), tLuiButton *btn);
+int8_t lui_button_get_state(tLuiButton *btn);
+void lui_button_set_event_cb(void (*btn_event_cb)(uint8_t), tLuiButton *btn);
 
 
 tLuiSwitch* lui_switch_create();
@@ -294,6 +301,12 @@ void lui_switch_remove_from_scene(tLuiSwitch *swtch);
 void* lui_switch_destroy(tLuiSwitch *swtch);
 void lui_switch_set_position(uint16_t x, uint16_t y, tLuiSwitch *swtch);
 void lui_switch_set_area(uint16_t width, uint16_t height, tLuiSwitch *swtch);
+void lui_switch_set_colors(uint16_t fore_color, uint16_t bg_color, uint16_t selection_color, tLuiSwitch *swtch);
+int8_t lui_switch_get_value(tLuiSwitch *swtch);
+int8_t lui_switch_get_state(tLuiSwitch *swtch);
+void lui_switch_set_value(uint8_t value, tLuiSwitch *swtch);
+void lui_switch_set_event_cb(void (*sw_event_cb)(uint8_t, uint8_t), tLuiSwitch *swtch);
+
 
 
 tLuiScene* lui_scene_create();
@@ -305,14 +318,14 @@ void lui_scene_set_bg_image(const tImage *image, tLuiScene *scene);
 void lui_scene_set_font(const tFont *font, tLuiScene *scene);
 
 
-void lui_object_add_to_scene(void *object, tLuiCommon *common_data, tLuiScene *scene);
-void lui_object_remove_from_scene(tLuiCommon *common_data);
-void lui_object_destroy(void *object, tLuiCommon *obj_common_data);
-void lui_object_set_area(uint16_t width, uint16_t height, tLuiCommon *common_data);
-void lui_object_set_position(uint16_t x, uint16_t y, tLuiCommon *common_data);
+void _lui_object_add_to_scene(void *object, tLuiCommon *common_data, tLuiScene *scene);
+void _lui_object_remove_from_scene(tLuiCommon *common_data);
+void _lui_object_destroy(void *object, tLuiCommon *obj_common_data);
+void _lui_object_set_area(uint16_t width, uint16_t height, tLuiCommon *common_data);
+void _lui_object_set_position(uint16_t x, uint16_t y, tLuiCommon *common_data);
 
-void lui_process_touch_input(tLuiScene *scene);
-void lui_process_dpad_input(tLuiScene *scene);
+void _lui_process_touch_input(tLuiScene *scene);
+void _lui_process_dpad_input(tLuiScene *scene);
 
 
 tLuiDispDrv* lui_dispdrv_create();
@@ -321,7 +334,7 @@ void* lui_dispdrv_destroy(tLuiDispDrv *dispdrv);
 void lui_dispdrv_set_resolution(uint16_t hor_res, uint16_t vert_res, tLuiDispDrv *dispdrv);
 void lui_dispdrv_set_draw_pixel_cb(void (*draw_pixel_cb)(uint16_t x, uint16_t y, uint16_t color), tLuiDispDrv *dispdrv);
 void lui_dispdrv_set_draw_pixels_area_cb(void (*draw_pixels_area_cb)(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color), tLuiDispDrv *dispdrv);
-uint8_t lui_disp_drv_check();
+uint8_t _lui_disp_drv_check();
 
 
 tLuiTouchInputDev* lui_touch_inputdev_create();
@@ -335,14 +348,14 @@ void lui_dpad_inputdev_set_read_input_cb(void (*read_dpad_input_cb)(tLuiDpadInpu
 //-------------------------------------------------------------------------------
 //------------ PRIVATE HELPER FUNCTIONS TO BE USED BY THIS LIBRARY ONLY----------
 //-------------------------------------------------------------------------------
-uint8_t lui_get_event_against_state(uint8_t new_state, uint8_t old_state);
-void lui_draw_char(uint16_t x, uint16_t y, uint16_t fore_color, const tImage *glyph);
-void get_string_dimension(const char *str, const tFont *font, uint8_t *str_dim);
-void lui_plot_line_low(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color);
-void lui_plot_line_high(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color);
-void lui_draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color);
-double lui_map_range(double old_val, double old_max, double old_min, double new_max, double new_min);
-void lui_draw_rect(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint8_t line_width, uint16_t color);
-void lui_draw_rect_fill(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color);
+uint8_t _lui_get_event_against_state(uint8_t new_state, uint8_t old_state);
+void _lui_draw_char(uint16_t x, uint16_t y, uint16_t fore_color, const tImage *glyph);
+void _get_string_dimension(const char *str, const tFont *font_obj, uint8_t *str_dim);
+void _lui_plot_line_low(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color);
+void _lui_plot_line_high(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color);
+void _lui_draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color);
+double _lui_map_range(double old_val, double old_max, double old_min, double new_max, double new_min);
+void _lui_draw_rect(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint8_t line_width, uint16_t color);
+void _lui_draw_rect_fill(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color);
 
 #endif /* INC_LAME_UI_H_ */
