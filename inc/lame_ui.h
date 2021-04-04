@@ -23,6 +23,7 @@
 #define LUI_MAX_LINE_CHARTS_PER_SCENE		3
 #define LUI_MAX_BUTTONS_PER_SCENE			3
 
+#define LUI_DEFAULT_PANEL_BG_COLOR			0x0000
 #define LUI_DEFAULT_TEXT_FORECOLOR			0xFFFF
 #define LUI_DEFAULT_TEXT_BGCOLOR			0x0000
 #define LUI_DEFAULT_SCENE_BACKGROUND		0x0000
@@ -77,6 +78,7 @@ typedef struct lui_obj_s
 
 	uint16_t bg_color;
 	uint16_t border_color;
+	uint8_t border_visible;
 	uint8_t state;
 	uint8_t event;
 	int32_t value;
@@ -139,7 +141,6 @@ typedef struct lui_button_s
 
 	uint16_t pressed_color;
 	uint16_t selection_color;
-	uint16_t color;
 
 	int8_t dpad_row_pos;
 	int8_t dpad_col_pos;
@@ -159,13 +160,13 @@ typedef struct lui_switch_s
 
 typedef struct lui_panel_s
 {
-	
+	tImage *bg_image;
 }lui_panel_t;
 
 typedef struct lui_scene_s
 {
 	tImage *bg_image;
-
+	lui_obj_t *obj_popup;
 	tFont *font;
 	struct
 	{
@@ -263,13 +264,16 @@ void lui_switch_set_colors(uint16_t fore_color, uint16_t bg_color, uint16_t sele
 int8_t lui_switch_get_value(lui_obj_t *obj);
 void lui_switch_set_value(uint8_t value, lui_obj_t *obj);
 
+lui_obj_t* lui_panel_create();
+void lui_panel_set_bg_image(const tImage *image, lui_obj_t *obj_scene);
 
 lui_obj_t* lui_scene_create();
-void lui_scene_set_active(lui_obj_t *scene);
+void lui_scene_set_active(lui_obj_t *obj_scene);
 lui_obj_t* lui_scene_get_active();
-void lui_scene_render(lui_obj_t *scene);
-void lui_scene_set_bg_image(const tImage *image, lui_obj_t *scene);
-void lui_scene_set_font(const tFont *font, lui_obj_t *scene);
+void lui_scene_set_bg_image(const tImage *image, lui_obj_t *obj_scene);
+void lui_scene_set_font(const tFont *font, lui_obj_t *obj_scene);
+void lui_scene_set_popup(lui_obj_t *obj, lui_obj_t *obj_scene);
+void lui_scene_unset_popup(lui_obj_t *obj_scene);
 
 
 void lui_object_add_to_parent(lui_obj_t *obj, lui_obj_t *parent_obj);
@@ -277,11 +281,13 @@ void lui_object_remove_from_parent(lui_obj_t *obj);
 void lui_object_set_area(uint16_t width, uint16_t height, lui_obj_t *obj);
 void lui_object_set_position(uint16_t x, uint16_t y, lui_obj_t *obj);
 void lui_object_set_border_color(uint16_t border_color, lui_obj_t *obj);
+void lui_object_set_border_visibility(uint8_t is_visible, lui_obj_t *obj);
 void lui_object_set_bg_color(uint16_t color, lui_obj_t *obj);
 void lui_object_set_callback(void (*obj_event_cb)(lui_obj_t *), lui_obj_t *obj);
 int8_t lui_object_get_state(lui_obj_t *obj);
 int8_t lui_object_get_event(lui_obj_t *obj);
 
+void lui_update();
 
 lui_obj_t* _lui_process_touch_input_of_act_scene();
 void _lui_process_dpad_input(lui_scene_t *scene);
@@ -313,7 +319,8 @@ void _lui_object_set_need_refresh(lui_obj_t *obj);
 void _lui_object_render_parent_with_children(lui_obj_t *obj);
 void _lui_object_render(lui_obj_t *obj);
 //void _lui_scan_all_objects_recurse(lui_touch_input_data_t input_data, lui_obj_t *obj, lui_obj_t *obj_caused_cb);
-lui_obj_t* _lui_scan_all_obj_except_last_act_obj(lui_touch_input_data_t input_data, lui_obj_t *obj_root, lui_obj_t *last_act_obj);
+lui_obj_t* _lui_scan_all_obj_for_input(lui_touch_input_data_t input_data, lui_obj_t *obj_root, lui_obj_t *obj_excluded);
+lui_obj_t* _lui_scan_individual_object_for_input(lui_touch_input_data_t input_data, lui_obj_t *obj, lui_obj_t *obj_excluded);
 tFont* _lui_get_font_from_active_scene();
 uint8_t _lui_get_event_against_state(uint8_t new_state, uint8_t old_state);
 void _lui_draw_char(uint16_t x, uint16_t y, uint16_t fore_color, const tImage *glyph);
