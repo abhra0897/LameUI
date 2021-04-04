@@ -309,9 +309,10 @@ void lui_dpad_inputdev_set_read_input_cb(void (*read_dpad_input_cb)(lui_dpad_inp
 //-------------------------------------------------------------------------------
 //------------ PRIVATE HELPER FUNCTIONS TO BE USED BY THIS LIBRARY ONLY----------
 //-------------------------------------------------------------------------------
-void _lui_object_set_need_refresh_recurse(lui_obj_t *obj);
-void _lui_object_render_recurse(lui_obj_t *obj);
-void _lui_scan_all_objects_recurse(lui_touch_input_data_t input_data, lui_obj_t *obj, lui_obj_t *obj_caused_cb);
+void _lui_object_set_need_refresh(lui_obj_t *obj);
+void _lui_object_render_parent_with_children(lui_obj_t *obj);
+void _lui_object_render(lui_obj_t *obj);
+//void _lui_scan_all_objects_recurse(lui_touch_input_data_t input_data, lui_obj_t *obj, lui_obj_t *obj_caused_cb);
 lui_obj_t* _lui_scan_all_obj_except_last_act_obj(lui_touch_input_data_t input_data, lui_obj_t *obj_root, lui_obj_t *last_act_obj);
 tFont* _lui_get_font_from_active_scene();
 uint8_t _lui_get_event_against_state(uint8_t new_state, uint8_t old_state);

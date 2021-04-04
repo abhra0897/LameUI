@@ -182,7 +182,7 @@ void lui_label_set_font(const tFont *font, lui_obj_t *obj)
 		return;
 	lui_label_t *lbl = (lui_label_t *)(obj->obj_main_data);
 	lbl->font = (tFont *)font;
-	_lui_object_set_need_refresh_recurse(obj->parent);
+	_lui_object_set_need_refresh(obj->parent);
 	obj->needs_refresh = 1;	//not quite neccesary, the above function already sets the flag for children too.
 		//g_lui_main.scenes[obj->parent_index]->needs_refresh = 1;
 }
@@ -636,7 +636,7 @@ void lui_button_set_label_font(const tFont *font, lui_obj_t *obj)
 	lui_button_t *btn = (lui_button_t *)(obj->obj_main_data);
 	btn->label.font = (tFont *)font;
 	// parent needs refresh (along with all its children)
-	_lui_object_set_need_refresh_recurse(obj->parent);
+	_lui_object_set_need_refresh(obj->parent);
 	obj->needs_refresh = 1;	//not quite neccesary, the above function already sets the flag for children too.
 }
 
@@ -823,7 +823,7 @@ lui_obj_t* lui_scene_create()
 	obj->parent = NULL;
 	obj->children = NULL;
 	obj->children_count = 0;
-	_lui_object_set_need_refresh_recurse(obj);
+	_lui_object_set_need_refresh(obj);
 	obj->needs_refresh = 1;
 
 	obj->obj_main_data = (void *)initial_scene;
@@ -844,7 +844,7 @@ void lui_scene_set_bg_image(const tImage *image, lui_obj_t *obj_scene)
 	lui_scene_t *scene = (lui_scene_t *)(obj_scene->obj_main_data);
 	scene->bg_image = (tImage *)image;
 
-	_lui_object_set_need_refresh_recurse(obj_scene); 
+	_lui_object_set_need_refresh(obj_scene); 
 }
 
 void lui_scene_set_font(const tFont *font, lui_obj_t *obj_scene)
@@ -854,7 +854,7 @@ void lui_scene_set_font(const tFont *font, lui_obj_t *obj_scene)
 	lui_scene_t *scene = (lui_scene_t *)(obj_scene->obj_main_data);
 	scene->font = (tFont *)font;
 	
-	_lui_object_set_need_refresh_recurse(obj_scene); 
+	_lui_object_set_need_refresh(obj_scene); 
 }
 
 void lui_scene_set_active(lui_obj_t *obj_scene)
@@ -891,7 +891,7 @@ void lui_scene_render(lui_obj_t *obj_scene)
 	// 	_lui_process_dpad_input(scene);
 
 
-	_lui_object_render_recurse(obj_scene);
+	_lui_object_render_parent_with_children(obj_scene);
 
 	// If user is buffering the draw_pixels_area calls instead of instantly flushing to display, 
 	// this callback signals that render is finished and buffer should be flushed to display now
@@ -942,7 +942,7 @@ void lui_object_add_to_parent(lui_obj_t *obj, lui_obj_t *parent_obj)
 
 	// Common things to do
 	obj->parent = parent_obj;
-	_lui_object_set_need_refresh_recurse(obj->parent);
+	_lui_object_set_need_refresh(obj->parent);
 	obj->needs_refresh = 1;
 }
 
@@ -975,7 +975,7 @@ void lui_object_remove_from_parent(lui_obj_t *obj)
 	
 	// common things to do
 	obj->index = -1;
-	_lui_object_set_need_refresh_recurse(obj->parent);
+	_lui_object_set_need_refresh(obj->parent);
 	obj->parent = NULL;
 }
 
@@ -996,7 +996,7 @@ void lui_object_set_position(uint16_t x, uint16_t y, lui_obj_t *obj)
 		lui_object_set_position(child_new_x, child_new_y, obj->children[i]);
 	}
 
-	_lui_object_set_need_refresh_recurse(obj->parent);
+	_lui_object_set_need_refresh(obj->parent);
 	obj->needs_refresh = 1;
 }
 
@@ -1011,7 +1011,7 @@ void lui_object_set_area(uint16_t width, uint16_t height, lui_obj_t *obj)
 	if (obj->width < width && obj->height < height)
 		obj->needs_refresh = 1;
 	else
-	{	_lui_object_set_need_refresh_recurse(obj->parent);
+	{	_lui_object_set_need_refresh(obj->parent);
 		obj->needs_refresh = 1;	//not quite neccesary, the above function already sets the flag for children too.
 	}
 		
@@ -1036,7 +1036,7 @@ void lui_object_set_bg_color(uint16_t bg_color, lui_obj_t *obj)
 	if (obj->bg_color == bg_color)
 		return;
 	obj->bg_color = bg_color;
-	_lui_object_set_need_refresh_recurse(obj);
+	_lui_object_set_need_refresh(obj);
 	obj->needs_refresh = 1;
 }
 
@@ -1252,42 +1252,42 @@ lui_obj_t* _lui_process_touch_input_of_act_scene()
 
 }
 
-void _lui_scan_all_objects_recurse(lui_touch_input_data_t input_data, lui_obj_t *obj, lui_obj_t *obj_caused_cb)
-{
-	lui_obj_t *last_active_obj = g_lui_main.active_obj;
-	// we already considered the case of last_active_object, so we won't do it here
-	if (obj == last_active_obj)
-		return;
+// void _lui_scan_all_objects_recurse(lui_touch_input_data_t input_data, lui_obj_t *obj, lui_obj_t *obj_caused_cb)
+// {
+// 	lui_obj_t *last_active_obj = g_lui_main.active_obj;
+// 	// we already considered the case of last_active_object, so we won't do it here
+// 	if (obj == last_active_obj)
+// 		return;
 
-	// If object is not button or switch, go to the next object
-	if (obj->obj_type == LUI_OBJ_BUTTON ||
-		obj->obj_type == LUI_OBJ_SWITCH)
-	{
-		// sets object parameters based on input. also, may modify lui_scene->active_obj
-		_lui_set_obj_props_on_input(input_data, obj);
-		if (obj->event != LUI_EVENT_NONE)
-		{
-			obj_caused_cb = obj;
-			return;
-		}
-		else
-		{
-			obj_caused_cb = last_active_obj;	//last_active_object can be NULL too
-		}
-	}
-	else if (obj->obj_type == LUI_OBJ_PANEL ||
-		obj->obj_type == LUI_OBJ_SCENE)
-	{
-		for (uint8_t i = 0; i < obj->children_count; i++)
-		{
-			_lui_scan_all_objects_recurse(input_data, obj->children[i], obj_caused_cb);
-			// if obj_caused_cb becomes not NULL, break
-			if (obj_caused_cb != NULL)
-				break;
-		}
-	}
+// 	// If object is not button or switch, go to the next object
+// 	if (obj->obj_type == LUI_OBJ_BUTTON ||
+// 		obj->obj_type == LUI_OBJ_SWITCH)
+// 	{
+// 		// sets object parameters based on input. also, may modify lui_scene->active_obj
+// 		_lui_set_obj_props_on_input(input_data, obj);
+// 		if (obj->event != LUI_EVENT_NONE)
+// 		{
+// 			obj_caused_cb = obj;
+// 			return;
+// 		}
+// 		else
+// 		{
+// 			obj_caused_cb = last_active_obj;	//last_active_object can be NULL too
+// 		}
+// 	}
+// 	else if (obj->obj_type == LUI_OBJ_PANEL ||
+// 		obj->obj_type == LUI_OBJ_SCENE)
+// 	{
+// 		for (uint8_t i = 0; i < obj->children_count; i++)
+// 		{
+// 			_lui_scan_all_objects_recurse(input_data, obj->children[i], obj_caused_cb);
+// 			// if obj_caused_cb becomes not NULL, break
+// 			if (obj_caused_cb != NULL)
+// 				break;
+// 		}
+// 	}
 	
-}
+// }
 
 lui_obj_t* _lui_scan_all_obj_except_last_act_obj(lui_touch_input_data_t input_data, lui_obj_t *obj_root, lui_obj_t *last_act_obj)
 {
@@ -1532,12 +1532,45 @@ void lui_dpad_inputdev_set_read_input_cb(void (*read_dpad_input_cb)(lui_dpad_inp
  * 			These functions are helper functions
  *------------------------------------------------------------------------------
  */
-void _lui_object_render_recurse(lui_obj_t *obj)
+void _lui_object_render_parent_with_children(lui_obj_t *obj_parent)
+{
+	if (obj_parent == NULL)
+		return;
+
+	// first render the parent, then render all its children in a loop
+	_lui_object_render(obj_parent);
+
+	for (uint8_t i = 0; i < obj_parent->children_count; i++)
+	{
+		lui_obj_t *obj_stack[LUI_MAX_OBJECTS] = {NULL};
+		uint8_t stack_cnt = 0;
+		obj_stack[stack_cnt++] = obj_parent->children[i];
+
+		while (stack_cnt > 0)
+		{
+			lui_obj_t *obj_current = obj_stack[--stack_cnt];
+
+			_lui_object_render(obj_current);
+
+			// push current object's children into stack
+			for (uint8_t j = 0; j < obj_current->children_count; j++)
+			{
+				// for safety, if stack is about to overflow, return
+				if (stack_cnt > LUI_MAX_OBJECTS)
+					return;
+				obj_stack[stack_cnt++] = obj_current->children[j]; // push to stack
+			}
+		}
+	}
+}
+
+
+void _lui_object_render(lui_obj_t *obj)
 {
 	if (obj == NULL)
 		return;
-
-	// draw the object id it needs refresh (if its parent need refresh, then the object is also set to need refresh)
+	
+	// rdraw it only if it needs refresh
 	if (obj->needs_refresh == 1)
 	{
 		switch (obj->obj_type)
@@ -1565,28 +1598,42 @@ void _lui_object_render_recurse(lui_obj_t *obj)
 			default:
 				break;
 		}
-	}
 
-	//render all children recursively (if any)
-	for (uint8_t i = 0; i < obj->children_count; i++)
-	{
-		_lui_object_render_recurse(obj->children[i]);
+		obj->needs_refresh = 0;	// drawing is done, so set need_refresh back to 0
 	}
-
-	obj->needs_refresh = 0;
 }
 
-void _lui_object_set_need_refresh_recurse(lui_obj_t *obj)
+
+void _lui_object_set_need_refresh(lui_obj_t *obj)
 {
 	if (obj == NULL)
 		return;
-	// already flasg is 1, no need to recursively waste time. Return.
+
+	// already flag is 1, no need to waste time in loop. Return.
 	if (obj->needs_refresh == 1)
 		return;
+
 	obj->needs_refresh = 1;
 	for (uint8_t i = 0; i < obj->children_count; i++)
 	{
-		_lui_object_set_need_refresh_recurse(obj->children[i]);
+		lui_obj_t *obj_stack[LUI_MAX_OBJECTS] = {NULL};
+		uint8_t stack_cnt = 0;
+		obj_stack[stack_cnt++] = obj->children[i];
+
+		while (stack_cnt > 0)
+		{
+			lui_obj_t *obj_current = obj_stack[--stack_cnt]; //pop from stack
+			obj_current->needs_refresh = 1;
+
+			// push all children of current object into stack too
+			for (uint8_t j = 0; j < obj_current->children_count; j++)
+			{
+				// for safety, if stack is about to overflow, return
+				if (stack_cnt > LUI_MAX_OBJECTS)
+					return;
+				obj_stack[stack_cnt++] = obj_current->children[j]; // push to stack
+			}
+		}
 	}
 }
 
