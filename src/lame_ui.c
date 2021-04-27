@@ -7,6 +7,7 @@
  */
 
 #include "lame_ui.h"
+#include <stdio.h>
 
 // lui_main_t g_lui_main = {
 // 	.scenes = {NULL},
@@ -466,7 +467,7 @@ lui_obj_t* lui_linechart_create()
 	return obj;
 }
 
-void lui_linechart_set_grid(uint16_t color, uint16_t hor_lines, uint16_t vert_lines, lui_obj_t *obj)
+void lui_linechart_set_grid_count(uint16_t hor_lines, uint16_t vert_lines, lui_obj_t *obj)
 {
 	if (obj == NULL)
 		return;
@@ -476,12 +477,27 @@ void lui_linechart_set_grid(uint16_t color, uint16_t hor_lines, uint16_t vert_li
 		return;
 
 	lui_chart_t *chart = (lui_chart_t *)(obj->obj_main_data);
-	if (chart->style.grid_color == color && chart->grid.hor_count == hor_lines && chart->grid.vert_count == vert_lines)
+	if (chart->grid.hor_count == hor_lines && chart->grid.vert_count == vert_lines)
+		return;	
+	_lui_object_set_need_refresh(obj);
+	chart->grid.hor_count = hor_lines;
+	chart->grid.vert_count = vert_lines;
+}
+
+void lui_linechart_set_grid_color(uint16_t color, lui_obj_t *obj)
+{
+	if (obj == NULL)
+		return;
+
+	// type check
+	if (obj->obj_type != LUI_OBJ_LINECHART)
+		return;
+
+	lui_chart_t *chart = (lui_chart_t *)(obj->obj_main_data);
+	if (chart->style.grid_color == color)
 		return;	
 	_lui_object_set_need_refresh(obj);
 	chart->style.grid_color = color;
-	chart->grid.hor_count = hor_lines;
-	chart->grid.vert_count = vert_lines;
 }
 
 void lui_linechart_set_grid_visible(uint8_t state, lui_obj_t *obj)
@@ -542,11 +558,12 @@ void lui_linechart_set_data_range(double y_min, double y_max, lui_obj_t *obj)
 		return;
 	
 	lui_chart_t *chart = (lui_chart_t *)(obj->obj_main_data);
-	if (chart->data.y_max_value == y_max && chart->data.y_min_value == y_min)
+	if (chart->data.y_max_value == y_max && chart->data.y_min_value == y_min && chart->data.auto_scale == 0)
 		return;
 	_lui_object_set_need_refresh(obj);
 	chart->data.y_max_value = y_max;
 	chart->data.y_min_value = y_min;
+	chart->data.auto_scale = 0;
 }
 
 void lui_linechart_set_data_source(double *source, uint16_t points, lui_obj_t *obj)
@@ -638,27 +655,37 @@ void lui_button_draw(lui_obj_t *obj)
 	temp_x = temp_x + (btn_width - str_width_height[0]) / 2;
 	temp_y = temp_y + (btn_height - str_width_height[1]) / 2;
 
-	lui_label_t btn_label;
-	lui_obj_t lbl_obj;
-	lbl_obj.obj_type = LUI_OBJ_LABEL;
-	lbl_obj.visible = 1;
-	btn_label.text = btn->label.text;
-	btn_label.style.text_color = btn->style.label_color;
+	// lui_obj_t *lbl_obj =  malloc(sizeof(*lbl_obj));
+	// lui_label_t *btn_label =  malloc(sizeof(*btn_label));
+
+	lui_obj_t *lbl_obj =  lui_label_create();
+	lui_label_t *btn_label =  lbl_obj->obj_main_data;
+
+	lbl_obj->obj_type = LUI_OBJ_LABEL;
+	lbl_obj->visible = 1;
+	btn_label->text = btn->label.text;
+	btn_label->style.text_color = btn->style.label_color;
 	// bg_color depends on button's current state color
 	if (obj->state == LUI_STATE_IDLE)
-		lbl_obj.common_style.bg_color = obj->common_style.bg_color; // normal situation
+		lbl_obj->common_style.bg_color = obj->common_style.bg_color; // normal situation
 	else if (obj->state == LUI_STATE_SELECTED)
-		lbl_obj.common_style.bg_color = btn->style.selection_color;
+		lbl_obj->common_style.bg_color = btn->style.selection_color;
 	else if (obj->state == LUI_STATE_PRESSED)
-		lbl_obj.common_style.bg_color = btn->style.pressed_color;
-	lbl_obj.common_style.border_color = lbl_obj.common_style.bg_color;
-	lbl_obj.x = temp_x;
-	lbl_obj.y = temp_y;
-	lbl_obj.common_style.width = str_width_height[0];
-	lbl_obj.common_style.height = str_width_height[1];
-	btn_label.font = temp_font;
-	lbl_obj.obj_main_data = &btn_label;
-	lui_label_draw(&lbl_obj);
+		lbl_obj->common_style.bg_color = btn->style.pressed_color;
+	lbl_obj->common_style.border_color = lbl_obj->common_style.bg_color;
+	lbl_obj->x = temp_x;
+	lbl_obj->y = temp_y;
+	lbl_obj->common_style.width = str_width_height[0];
+	lbl_obj->common_style.height = str_width_height[1];
+	btn_label->font = temp_font;
+	lbl_obj->obj_main_data = btn_label;
+	lui_label_draw(lbl_obj);
+
+	//lbl_obj = NULL;
+	free(btn_label);
+	free(lbl_obj);
+	g_lui_main.total_created_objects--;
+	
 
 	// Finally Draw the border if needed
 	if (obj->common_style.border_visible == 1)
@@ -801,6 +828,13 @@ void lui_list_draw(lui_obj_t *obj)
 
 	// draw the background first (hard coding the color for now)
 	g_lui_main.disp_drv->draw_pixels_area_cb(obj->x, obj->y, obj->common_style.width, obj->common_style.height, obj->common_style.bg_color);
+
+	// draw the border if needed
+	// Finally Draw the border if needed
+	if (obj->common_style.border_visible == 1)
+	{
+		_lui_draw_rect(obj->x, obj->y,  obj->common_style.width, obj->common_style.height, 1, obj->common_style.border_color);
+	}
 }
 
 
@@ -863,7 +897,7 @@ void lui_list_prepare(lui_obj_t *obj)
 
 	// usable height depends on navigation buttons' existense
 	// if no nav button (for single page list), total height is usable
-	uint16_t list_usable_height = obj->common_style.height;
+	uint16_t list_usable_height = obj->common_style.height - 1;
 	if (list->button_item_min_height < list->font->chars[0].image->height)
 		list->button_item_min_height = list->font->chars[0].image->height;
 	uint8_t button_height = list->button_item_min_height;
@@ -877,7 +911,7 @@ void lui_list_prepare(lui_obj_t *obj)
 	// we have 2 extra children for nav buttons, so subtracting 2 from children count
 	if (list->buttons_per_page < obj->children_count - 2)
 	{
-		list_usable_height = (obj->common_style.height) - button_height; // leaving some space for navigation buttons
+		list_usable_height = (obj->common_style.height - 1) - button_height; // leaving some space for navigation buttons
 		list->buttons_per_page = list_usable_height / button_height;
 		
 	}
@@ -887,7 +921,7 @@ void lui_list_prepare(lui_obj_t *obj)
 	else
 	{
 		list->buttons_per_page = obj->children_count - 2;
-		button_height = obj->common_style.height / list->buttons_per_page;
+		button_height = (obj->common_style.height - 1) / list->buttons_per_page;
 	}
 	
 	// fast way to round up a/b: (a+b-1)/b
@@ -901,11 +935,11 @@ void lui_list_prepare(lui_obj_t *obj)
 	{
 		uint8_t index = i + 2; //first 2 children objects are nav button. after that original list items start.
 		lui_button_t *button_item = obj->children[index]->obj_main_data;
-		obj->children[index]->x = obj->x;
+		obj->children[index]->x = obj->x + 1;
 		// starting offset is set by i and btn_per_page. Taking remainder of i/btn_per_page so that 
 		// everytime i becomes big enough to come to next page, the offset becomes 0
-		obj->children[index]->y = obj->y + ((i % list->buttons_per_page) * button_height);
-		obj->children[index]->common_style.width = obj->common_style.width;
+		obj->children[index]->y = obj->y + ((i % list->buttons_per_page) * button_height) + 1;
+		obj->children[index]->common_style.width = obj->common_style.width - 2;
 		obj->children[index]->common_style.height = button_height;
 		button_item->label.font = list->font;
 
@@ -996,6 +1030,27 @@ lui_obj_t* lui_list_add_item(const char *text, lui_obj_t *obj)
 	_lui_list_add_button_obj(obj_btn_item, obj);
 
 	return  obj_btn_item;
+}
+
+
+void lui_list_delete_item(lui_obj_t **obj_item_addr)
+{
+	if (obj_item_addr == NULL)
+		return;
+	if (*obj_item_addr == NULL)
+		return;
+	
+	if ((*obj_item_addr)->obj_type != LUI_OBJ_BUTTON)
+		return;
+	if ((*obj_item_addr)->parent == NULL)
+		return;
+	if ((*obj_item_addr)->parent->obj_type != LUI_OBJ_LIST)
+		return;
+
+	lui_object_remove_from_parent(*obj_item_addr);
+	*obj_item_addr = NULL;
+	free(*obj_item_addr);
+	g_lui_main.total_created_objects--;
 }
 
 
@@ -1242,9 +1297,20 @@ void lui_switch_draw(lui_obj_t *obj)
 	uint16_t temp_height = obj->common_style.height;
 	uint16_t temp_width = obj->common_style.width;
 
-	uint16_t swtch_color = swtch->style.knob_color;
+	uint16_t swtch_color;	
+	if (obj->value == 1)
+	{
+		swtch_color = swtch->style.knob_on_color;
+	}
+	else
+	{
+		swtch_color = swtch->style.knob_off_color;
+	}
 	if (obj->state == LUI_STATE_SELECTED || obj->state == LUI_STATE_PRESSED)
+	{
 		swtch_color = swtch->style.selection_color;
+	}
+	
 	
 	_lui_draw_rect_fill(temp_x, temp_y, temp_width, temp_height, obj->common_style.bg_color);	// switch bg (color is constant regardless the state)
 	if (obj->common_style.border_visible == 1)
@@ -1270,7 +1336,8 @@ lui_obj_t* lui_switch_create()
 
 	lui_switch_t *initial_switch = malloc(sizeof(*initial_switch));
 	
-	initial_switch->style.knob_color = LUI_STYLE_SWITCH_KNOB_COLOR;
+	initial_switch->style.knob_off_color = LUI_STYLE_SWITCH_KNOB_OFF_COLOR;
+	initial_switch->style.knob_on_color = LUI_STYLE_SWITCH_KNOB_ON_COLOR;
 	initial_switch->style.selection_color = LUI_STYLE_SWITCH_SELECTION_COLOR;
 	initial_switch->dpad_row_pos = -1;
 	initial_switch->dpad_col_pos = -1;
@@ -1290,7 +1357,7 @@ lui_obj_t* lui_switch_create()
 	return  obj;
 }
 
-void lui_switch_set_extra_colors(uint16_t knob_color, uint16_t selection_color, lui_obj_t *obj)
+void lui_switch_set_extra_colors(uint16_t knob_off_color, uint16_t knob_on_color, uint16_t selection_color, lui_obj_t *obj)
 {
 	if (obj == NULL)
 		return;
@@ -1301,9 +1368,10 @@ void lui_switch_set_extra_colors(uint16_t knob_color, uint16_t selection_color, 
 	
 	lui_switch_t *swtch = (lui_switch_t *)(obj->obj_main_data);
 
-	if (swtch->style.knob_color == knob_color && swtch->style.selection_color == selection_color)
+	if (swtch->style.knob_off_color == knob_off_color && swtch->style.knob_on_color == knob_on_color && swtch->style.selection_color == selection_color)
 		return;
-	swtch->style.knob_color = knob_color;
+	swtch->style.knob_off_color = knob_off_color;
+	swtch->style.knob_on_color = knob_on_color;
 	swtch->style.selection_color = selection_color;
 	_lui_object_set_need_refresh(obj);
 }
@@ -1349,6 +1417,359 @@ void lui_switch_set_off(lui_obj_t *obj)
  * 							END
  *-------------------------------------------------------------------------------
  */
+
+
+/*-------------------------------------------------------------------------------
+ * 				LUI_CHECKBOX related functions
+ *-------------------------------------------------------------------------------
+ */
+
+void lui_checkbox_draw(lui_obj_t *obj)
+{
+	if (obj == NULL)
+		return;
+	
+	// type check
+	if (obj->obj_type != LUI_OBJ_CHECKBOX)
+		return;
+
+	if (!(obj->visible))
+		return;
+	
+	lui_checkbox_t *chkbox = obj->obj_main_data;
+	// if no display driver is registered, return
+	if (_lui_disp_drv_check() == 0)
+		return;
+
+	uint16_t bg_color;
+	if (obj->value == 1)
+	{
+		bg_color = chkbox->style.bg_checked_color;
+	}
+	else
+	{
+		bg_color = obj->common_style.bg_color;
+	}
+	if (obj->state == LUI_STATE_SELECTED || obj->state == LUI_STATE_PRESSED)
+	{
+		bg_color = chkbox->style.selection_color;
+	}
+
+	_lui_draw_rect_fill(obj->x, obj->y, obj->common_style.width, obj->common_style.width, bg_color);
+	// draw the tick mark if needed
+	if (obj->value == 1)
+	{
+		uint16_t point_1_x = obj->x + (obj->common_style.width * .2), point_1_y = obj->y + (obj->common_style.width * .55);
+		uint16_t point_2_x = obj->x + (obj->common_style.width * .4), point_2_y = obj->y + (obj->common_style.width * .75);
+		uint16_t point_3_x = obj->x + (obj->common_style.width * .75), point_3_y = obj->y + (obj->common_style.width * .3);
+		
+		_lui_draw_line(point_1_x, point_1_y, point_2_x, point_2_y, 2, chkbox->style.tick_color);
+		_lui_draw_line(point_2_x, point_2_y, point_3_x, point_3_y, 2, chkbox->style.tick_color);
+	}
+
+	// draw the border if needed
+	if (obj->common_style.border_visible == 1)
+	{
+		_lui_draw_rect(obj->x, obj->y,  obj->common_style.width,  obj->common_style.width, 1, obj->common_style.border_color);
+	}
+	
+}
+
+lui_obj_t* lui_checkbox_create()
+{
+	// if total created objects become more than max allowed objects, don't create the object
+	if (g_lui_main.total_created_objects + 1 > LUI_MAX_OBJECTS)
+		return NULL;
+	g_lui_main.total_created_objects++;
+
+
+	lui_checkbox_t *initial_chkbox = malloc(sizeof(*initial_chkbox));
+	
+	initial_chkbox->style.bg_checked_color = LUI_STYLE_CHECKBOX_BG_CHECKED_COLOR;
+	initial_chkbox->style.selection_color = LUI_STYLE_CHECKBOX_SELECTION_COLOR;
+	initial_chkbox->style.tick_color = LUI_STYLE_CHECKBOX_TICK_COLOR;
+	initial_chkbox->dpad_row_pos = -1;
+	initial_chkbox->dpad_col_pos = -1;
+
+	lui_obj_t *obj = _lui_object_create();
+	// object type
+	obj->obj_type = LUI_OBJ_CHECKBOX;
+	// object common style
+	obj->common_style.bg_color = LUI_STYLE_CHECKBOX_BG_COLOR;
+	obj->common_style.border_color = LUI_STYLE_CHECKBOX_BORDER_COLOR;
+	obj->common_style.border_visible = LUI_STYLE_CHECKBOX_BORDER_VISIBLE;
+	obj->common_style.width = LUI_STYLE_CHECKBOX_WIDTH;
+	obj->common_style.height = LUI_STYLE_CHECKBOX_HEIGHT;
+	
+	obj->obj_main_data = (void *)initial_chkbox;
+
+	return  obj;
+}
+
+void lui_checkbox_set_extra_colors(uint16_t bg_checked_color, uint16_t tick_color, uint16_t selection_color, lui_obj_t *obj)
+{
+	if (obj == NULL)
+		return;
+	
+	// type check
+	if (obj->obj_type != LUI_OBJ_CHECKBOX)
+		return;
+	
+	lui_checkbox_t *chkbox = obj->obj_main_data;
+
+	if (chkbox->style.bg_checked_color == bg_checked_color && chkbox->style.tick_color == tick_color && chkbox->style.selection_color == selection_color)
+		return;
+	chkbox->style.bg_checked_color = bg_checked_color;
+	chkbox->style.tick_color = tick_color;
+	chkbox->style.selection_color = selection_color;
+	_lui_object_set_need_refresh(obj);
+}
+
+int8_t lui_checkbox_get_value(lui_obj_t *obj)
+{
+	if (obj == NULL)
+		return -1;
+	
+	// type check
+	if (obj->obj_type != LUI_OBJ_CHECKBOX)
+		return -1;
+	
+	return obj->value;
+}
+
+void lui_checkbox_set_value(uint8_t value, lui_obj_t *obj)
+{
+	if (obj == NULL)
+		return;
+	
+	// type check
+	if (obj->obj_type != LUI_OBJ_CHECKBOX)
+		return;
+	
+	if (value > 1)
+		value = 1;
+	obj->value = value;
+	_lui_object_set_need_refresh(obj);
+}
+
+void lui_switch_set_checked(lui_obj_t *obj)
+{
+	lui_checkbox_set_value(1, obj);
+}
+
+void lui_switch_set_unchecked(lui_obj_t *obj)
+{
+	lui_checkbox_set_value(0, obj);
+}
+
+
+/*-------------------------------------------------------------------------------
+ * 							END
+ *-------------------------------------------------------------------------------
+ */
+
+
+/*-------------------------------------------------------------------------------
+ * 				LUI_SLIDER related functions
+ *-------------------------------------------------------------------------------
+ */
+
+void lui_slider_draw(lui_obj_t *obj)
+{
+	if (obj == NULL)
+		return;
+	
+	// type check
+	if (obj->obj_type != LUI_OBJ_SLIDER)
+		return;
+
+	if (!(obj->visible))
+		return;
+	
+	lui_slider_t *slider = obj->obj_main_data;
+	// if no display driver is registered, return
+	if (_lui_disp_drv_check() == 0)
+		return;
+
+	uint16_t knob_color = slider->style.knob_color;
+	if (/*obj->state == LUI_STATE_SELECTED ||*/ obj->state == LUI_STATE_PRESSED)
+	{
+		knob_color = slider->style.selection_color;
+	}
+
+	// draw the filled region (left) first
+	_lui_draw_rect_fill(obj->x, obj->y, slider->knob_center_rel_x, obj->common_style.height, slider->style.bg_filled_color);
+	// draw the remaining region (right) 
+	_lui_draw_rect_fill(obj->x + slider->knob_center_rel_x, obj->y, obj->common_style.width - slider->knob_center_rel_x, obj->common_style.height, obj->common_style.bg_color);
+	// draw the knob
+	_lui_draw_rect_fill(obj->x + slider->knob_center_rel_x - (slider->style.knob_width / 2), obj->y, slider->style.knob_width, obj->common_style.height, knob_color);
+
+	// draw the border if needed
+	if (obj->common_style.border_visible == 1)
+	{
+		_lui_draw_rect(obj->x, obj->y,  obj->common_style.width,  obj->common_style.height, 1, obj->common_style.border_color);
+	}
+}
+
+lui_obj_t* lui_slider_create()
+{
+	// if total created objects become more than max allowed objects, don't create the object
+	if (g_lui_main.total_created_objects + 1 > LUI_MAX_OBJECTS)
+		return NULL;
+	g_lui_main.total_created_objects++;
+
+
+	lui_slider_t *initial_slider = malloc(sizeof(*initial_slider));
+	
+	initial_slider->style.bg_filled_color = LUI_STYLE_SLIDER_BG_FILLED_COLOR;
+	initial_slider->style.knob_color = LUI_STYLE_SLIDER_KNOB_COLOR;
+	initial_slider->style.selection_color = LUI_STYLE_SLIDER_SELECTION_COLOR;
+	initial_slider->style.knob_width = LUI_STYLE_SLIDER_KNOB_WIDTH;
+	initial_slider->range_min = 0;
+	initial_slider->range_max = 100;
+	initial_slider->knob_center_rel_x = (LUI_STYLE_SLIDER_KNOB_WIDTH / 2);
+	initial_slider->dpad_row_pos = -1;
+	initial_slider->dpad_col_pos = -1;
+
+	lui_obj_t *obj = _lui_object_create();
+	// object type
+	obj->obj_type = LUI_OBJ_SLIDER;
+	// object common style
+	obj->common_style.bg_color = LUI_STYLE_SLIDER_BG_COLOR;
+	obj->common_style.border_color = LUI_STYLE_SLIDER_BORDER_COLOR;
+	obj->common_style.border_visible = LUI_STYLE_SLIDER_BORDER_VISIBLE;
+	obj->common_style.width = LUI_STYLE_SLIDER_WIDTH;
+	obj->common_style.height = LUI_STYLE_SLIDER_HEIGHT;
+
+	obj->obj_main_data = (void *)initial_slider;
+
+	return  obj;
+}
+
+
+void lui_slider_set_extra_colors(uint16_t knob_color, uint16_t bg_filled_color, uint16_t selection_color, lui_obj_t *obj)
+{
+	if (obj == NULL)
+		return;
+	
+	// type check
+	if (obj->obj_type != LUI_OBJ_SLIDER)
+		return;
+	
+	lui_slider_t *slider = obj->obj_main_data;
+
+	if (slider->style.knob_color == knob_color && slider->style.bg_filled_color == bg_filled_color && slider->style.selection_color == selection_color)
+		return;
+	slider->style.knob_color = knob_color;
+	slider->style.bg_filled_color = bg_filled_color;
+	slider->style.selection_color = selection_color;
+	_lui_object_set_need_refresh(obj);
+}
+
+void lui_slider_set_value(int16_t value, lui_obj_t *obj)
+{
+	if (obj == NULL)
+		return;
+	
+	// type check
+	if (obj->obj_type != LUI_OBJ_SLIDER)
+		return;
+	
+	lui_slider_t *slider = obj->obj_main_data;
+	
+	
+	if (value == obj->value)
+		return;
+
+	if (value > slider->range_max)
+	{
+		obj->value = slider->range_max;
+	}
+	else if (value < slider->range_min)
+	{
+		obj->value = slider->range_min;
+	}
+	else
+	{
+		obj->value = value;
+	}
+	
+
+	// calculate knob's center x position relative to the slider, when value of slider is manually set by user (y is always same)
+	slider->knob_center_rel_x = _lui_map_range(obj->value, slider->range_max, slider->range_min, obj->common_style.width - (slider->style.knob_width / 2), (slider->style.knob_width / 2));
+	
+	_lui_object_set_need_refresh(obj);
+}
+void lui_slider_set_range(int16_t range_min, int16_t range_max, lui_obj_t *obj)
+{
+	if (obj == NULL)
+		return;
+	
+	// type check
+	if (obj->obj_type != LUI_OBJ_SLIDER)
+		return;
+	
+	lui_slider_t *slider = obj->obj_main_data;
+
+	if (range_min == slider->range_min && range_max == slider->range_max)
+		return;
+	
+	slider->range_max = range_max;
+	slider->range_min = range_min;
+
+	// limiting within max and min
+	obj->value = obj->value > range_max ? range_max : (obj->value < range_min ? range_min : obj->value);
+
+	// calculate knob's center x position relative to the slider, when value of slider is manually set by user (y is always same)
+	slider->knob_center_rel_x = _lui_map_range(obj->value, slider->range_max, slider->range_min, obj->common_style.width - (slider->style.knob_width / 2), (slider->style.knob_width / 2));
+
+	_lui_object_set_need_refresh(obj);
+}
+
+
+int16_t lui_slider_get_value(lui_obj_t *obj)
+{
+	if (obj == NULL)
+		return -1;
+	
+	// type check
+	if (obj->obj_type != LUI_OBJ_SLIDER)
+		return -1;
+	
+	return obj->value;
+}
+
+int16_t lui_slider_get_min_value(lui_obj_t *obj)
+{
+	if (obj == NULL)
+		return -1;
+
+	// type check
+	if (obj->obj_type != LUI_OBJ_SLIDER)
+		return -1;
+	lui_slider_t *slider = obj->obj_main_data;
+
+	return slider->range_min;
+}
+
+int16_t lui_slider_get_max_value(lui_obj_t *obj)
+{
+	if (obj == NULL)
+		return -1;
+
+	// type check
+	if (obj->obj_type != LUI_OBJ_SLIDER)
+		return -1;
+	lui_slider_t *slider = obj->obj_main_data;
+	
+	return slider->range_max;
+}
+
+/*-------------------------------------------------------------------------------
+ * 							END
+ *-------------------------------------------------------------------------------
+ */
+
 
 /*-------------------------------------------------------------------------------
  * 				LUI_PANEL related functions
@@ -1449,8 +1870,7 @@ void lui_scene_draw(lui_obj_t *obj)
 	if (!(obj->visible))
 		return;
 
-	g_lui_main.disp_drv->draw_pixels_area_cb(obj->x, obj->y, obj->common_style.width,  obj->common_style.height, obj->common_style.bg_color);
-	
+	_lui_draw_rect_fill(obj->x, obj->y, obj->common_style.width, obj->common_style.height, obj->common_style.bg_color);
 	// TBD: draw background image
 }
 
@@ -1542,6 +1962,7 @@ void lui_scene_set_active(lui_obj_t *obj_scene)
 		return;
 	
 	g_lui_main.active_scene = obj_scene;
+	_lui_object_set_need_refresh(obj_scene);
 }
 
 lui_obj_t* lui_scene_get_active()
@@ -1641,9 +2062,12 @@ void lui_object_remove_from_parent(lui_obj_t *obj)
 	obj->parent = NULL;
 }
 
+
 void lui_object_set_position(uint16_t x, uint16_t y, lui_obj_t *obj)
 {
 	if (obj == NULL)
+		return;
+	if (obj->obj_type == LUI_OBJ_SCENE)
 		return;
 	if (obj->x == x && obj->y == y)
 		return;	
@@ -1651,9 +2075,17 @@ void lui_object_set_position(uint16_t x, uint16_t y, lui_obj_t *obj)
 	uint16_t obj_old_x = obj->x;
 	uint16_t obj_old_y = obj->y;
 
-	obj->x = x;
-	obj->y = y;
-
+	if (obj->parent != NULL)
+	{
+		obj->x = obj->parent->x + x;
+		obj->y = obj->parent->y + y;
+	}
+	else
+	{
+		obj->x = x;
+		obj->y = y;
+	}
+	
 	// setting position of children as well.
 	for(uint8_t i = 0; i < obj->children_count; i++)
 	{
@@ -1852,15 +2284,19 @@ void _lui_set_obj_props_on_input(lui_touch_input_data_t input, lui_obj_t *obj)
 	uint8_t is_obj_active = _lui_check_if_active_obj(input, obj);
 	uint8_t new_state = LUI_STATE_IDLE;
 
+	
 	if (is_obj_active == 1)
 	{
 		// if pressed, then....well, then state = PRESSED
 		if (input.is_pressed == 1)
+		{
 			new_state = LUI_STATE_PRESSED;
-		
+		}	
 		// else not pressed, state = SELECTED
 		else
+		{
 			new_state = LUI_STATE_SELECTED;
+		}
 	}
 	obj->event = _lui_get_event_against_state(new_state, obj->state);		
 
@@ -1872,15 +2308,48 @@ void _lui_set_obj_props_on_input(lui_touch_input_data_t input, lui_obj_t *obj)
 	
 
 	
-	// Special case for switch: if event is LUI_EVENT_PRESSED, then set event to LUI_EVENT_VALUE_CHANGED
+	// Special case for switch and checkbox: if event is LUI_EVENT_PRESSED, then set event to LUI_EVENT_VALUE_CHANGED
 	// then set the value to `value` property
-	if (obj->obj_type == LUI_OBJ_SWITCH)
+	if (obj->obj_type == LUI_OBJ_SWITCH ||
+		obj->obj_type == LUI_OBJ_CHECKBOX)
 	{	
 		if (obj->event == LUI_EVENT_RELEASED)
 		{
-			obj->event = LUI_EVENT_VALUE_CHANGED;	// for switch, being pressed means being toggled, thus value changed
+			obj->event = LUI_EVENT_VALUE_CHANGED;	// for switch and checkbox, being pressed means being toggled, thus value changed
 			obj->value = (obj->value == 1) ? 0 : 1;	// toggle the value (1->0 or 0-1)
+			obj->needs_refresh = 1;
 		}	
+	}
+
+	// Special case for slider: If knob is kep pressed and if input pos is not same as knob's current position,
+	// set new position to knob  and value to slider, also set VALUE_CHANGED event
+	else if (obj->obj_type == LUI_OBJ_SLIDER)
+	{
+		lui_slider_t *slider = obj->obj_main_data;
+		if (obj->state == LUI_STATE_PRESSED &&
+			input.x != (obj->x + slider->knob_center_rel_x))
+		{
+			uint16_t max_knob_center_actual_x = obj->x + obj->common_style.width - (slider->style.knob_width / 2);
+			uint16_t min_knob_center_actual_x = obj->x + (slider->style.knob_width / 2);
+
+			// cap to minimum/maximum allowed position to prevent the knob from going out of boundary
+			if (input.x > max_knob_center_actual_x)
+			{
+				slider->knob_center_rel_x = max_knob_center_actual_x - obj->x;
+			}
+			else if (input.x < min_knob_center_actual_x)
+			{
+				slider->knob_center_rel_x = min_knob_center_actual_x - obj->x;
+			}
+			else
+			{
+				slider->knob_center_rel_x = input.x - obj->x;
+			}
+			
+			obj->value = _lui_map_range(slider->knob_center_rel_x, obj->common_style.width - (slider->style.knob_width / 2), (slider->style.knob_width / 2), slider->range_max, slider->range_min);
+			obj->event = LUI_EVENT_VALUE_CHANGED;
+			obj->needs_refresh = 1;
+		}
 	}
 }
 
@@ -1994,7 +2463,9 @@ lui_obj_t* _lui_scan_individual_object_for_input(lui_touch_input_data_t input_da
 
 	// we are only interested in objects that take input, like button, switch
 	if (obj->obj_type == LUI_OBJ_BUTTON ||
-		obj->obj_type == LUI_OBJ_SWITCH)
+		obj->obj_type == LUI_OBJ_SWITCH ||
+		obj->obj_type == LUI_OBJ_CHECKBOX ||
+		obj->obj_type == LUI_OBJ_SLIDER)
 	{
 		// sets object parameters based on input. also, may modify g_lui_main.active_obj
 		_lui_set_obj_props_on_input(input_data, obj);
@@ -2198,6 +2669,12 @@ void _lui_object_render(lui_obj_t *obj)
 				break;
 			case LUI_OBJ_SWITCH:
 				lui_switch_draw(obj);
+				break;
+			case LUI_OBJ_CHECKBOX:
+				lui_checkbox_draw(obj);
+				break;
+			case LUI_OBJ_SLIDER:
+				lui_slider_draw(obj);
 				break;
 			case LUI_OBJ_LABEL:
 				lui_label_draw(obj);
@@ -2471,7 +2948,6 @@ void _lui_draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t 
 	else if (y0 == y1)		//horizontal line
 	{
 		g_lui_main.disp_drv->draw_pixels_area_cb((x0 < x1 ? x0 : x1), y0, (uint16_t)abs(x1 - x0 + 1), (uint16_t)line_width, color);
-		//printf("x0:%d y0:%d x1:%d y1:%d w:%d h:%d\n", x0, y0, x1, y1, (uint16_t)abs(x1 - x0 + 1), (uint16_t)line_width);
 	}
 	else
 	{
@@ -2565,10 +3041,12 @@ void _lui_plot_line_high(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uin
  */
 void _lui_draw_rect(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint8_t line_width, uint16_t color)
 {
-	_lui_draw_line(x, y, x+w-1, y, line_width, color);
-	_lui_draw_line(x+w-1, y, x+w-1, y+h-1, line_width, color);
-	_lui_draw_line(x, y+h-1, x+w-1, y+h-1, line_width, color);
-	_lui_draw_line(x, y, x, y+h-1, line_width, color);
+	uint16_t x_new = x+w-1;
+	uint16_t y_new = y+h-1;
+	_lui_draw_line(x, y, x_new, y, line_width, color);
+	_lui_draw_line(x_new, y, x_new, y_new, line_width, color);
+	_lui_draw_line(x, y_new, x_new, y_new, line_width, color);
+	_lui_draw_line(x, y, x, y_new, line_width, color);
 }
 
 /*
