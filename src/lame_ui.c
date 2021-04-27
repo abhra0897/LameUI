@@ -2,27 +2,12 @@
  * lame_ui.c
  *
  *  Created on: 02-Apr-2020
- *	Last updated: 18-Apr-2021
+ *	Last updated: 27-Apr-2021
  *      Author: rik
  */
 
 #include "lame_ui.h"
-#include <stdio.h>
 
-// lui_main_t g_lui_main = {
-// 	.scenes = {NULL},
-// 	.global_style = NULL,
-// 	.disp_drv = NULL,
-// 	.touch_input_dev = NULL,
-// 	.dpad_input_dev = NULL,
-// 	.last_touch_data.x = -1,
-// 	.last_touch_data.y = -1,
-// 	.last_touch_data.is_pressed = -1,
-// 	.total_scenes = 0,
-// 	.active_scene = NULL,
-// 	.active_obj = NULL,
-// 	.total_created_objects = 0
-// };
 lui_main_t g_lui_main;
 
 
