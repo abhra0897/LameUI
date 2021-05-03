@@ -916,41 +916,47 @@ void lui_list_prepare(lui_obj_t *obj)
 	
 	// set x, y coordinates and height, width of all the list items.
 	// list items are treated as children
-	for (uint8_t i = 0; i < obj->children_count - 2; i++)
+	// since first two children are nav buttons, we start from 3rd child
+	lui_obj_t *list_item = obj->first_child->next_sibling->next_sibling;
+	uint8_t item_pos = 0; 
+	uint16_t first_item_pos = (list->current_page_index * list->buttons_per_page);
+	uint16_t last_item_pos = first_item_pos + list->buttons_per_page - 1;
+	while (list_item != NULL)
 	{
-		uint8_t index = i + 2; //first 2 children objects are nav button. after that original list items start.
-		lui_button_t *button_item = obj->children[index]->obj_main_data;
-		obj->children[index]->x = obj->x + 1;
-		// starting offset is set by i and btn_per_page. Taking remainder of i/btn_per_page so that 
-		// everytime i becomes big enough to come to next page, the offset becomes 0
-		obj->children[index]->y = obj->y + ((i % list->buttons_per_page) * button_height) + 1;
-		obj->children[index]->common_style.width = obj->common_style.width - 2;
-		obj->children[index]->common_style.height = button_height;
+		lui_button_t *button_item = list_item->obj_main_data;
+		list_item->x = obj->x + 1;
+		// starting offset is set by item_pos and btn_per_page. Taking remainder of item_pos/btn_per_page so that 
+		// everytime item_pos becomes big enough to come to next page, the offset becomes 0
+		list_item->y = obj->y + ((item_pos % list->buttons_per_page) * button_height) + 1;
+		list_item->common_style.width = obj->common_style.width - 2;
+		list_item->common_style.height = button_height;
 		button_item->label.font = list->font;
 
 		// here, we're checking if the item is in current page. Only the it will be visible
 		// this is done by checking if the index of item is within the range of current page
-		// the `+2` is done because first two children are always nav buttons and actual items start from index 2
-		if (index >= (list->current_page_index * list->buttons_per_page) + 2 &&
-			index < ((list->current_page_index + 1) * list->buttons_per_page) + 2)
+		if (item_pos >= first_item_pos && item_pos <= last_item_pos)
 		{
-			obj->children[index]->visible = 1;
+			list_item->visible = 1;
 		}
 		else
 		{
-			obj->children[index]->visible = 0;
-		}	
+			list_item->visible = 0;
+		}
+
+		// go to next list item
+		list_item = list_item->next_sibling;
+		item_pos++;
 	}
 
 	// navigation button (prev and next) x,y, w, h set.
-	lui_button_t *button_nav_nxt = obj->children[1]->obj_main_data;
-	lui_button_t *button_nav_prev = obj->children[0]->obj_main_data;
+	lui_button_t *button_nav_prev = obj->first_child->obj_main_data;
+	lui_button_t *button_nav_nxt = obj->first_child->next_sibling->obj_main_data;
 
-	obj->children[1]->x = obj->x + (obj->common_style.width / 2) + 10; // index 1 = nav button nxt
-	obj->children[0]->x = obj->x + 10;	// index 0 = nav button prev
-	obj->children[1]->y = obj->children[0]->y = obj->y + list_usable_height;
-	obj->children[1]->common_style.width = obj->children[0]->common_style.width = (obj->common_style.width / 2) - 20; // 4 is just margin
-	obj->children[1]->common_style.height = obj->children[0]->common_style.height = button_height - 2;
+	obj->first_child->next_sibling->x = obj->x + (obj->common_style.width / 2) + 10; // index 1 = nav button nxt
+	obj->first_child->x = obj->x + 10;	// index 0 = nav button prev
+	obj->first_child->next_sibling->y = obj->first_child->y = obj->y + list_usable_height;
+	obj->first_child->next_sibling->common_style.width = obj->first_child->common_style.width = (obj->common_style.width / 2) - 20; // 4 is just margin
+	obj->first_child->next_sibling->common_style.height = obj->first_child->common_style.height = button_height - 2;
 	button_nav_nxt->label.font = button_nav_prev->label.font = list->font;
 	
 	// both nav buttons won't be rendered unless the list is multi page
@@ -959,14 +965,14 @@ void lui_list_prepare(lui_obj_t *obj)
 	{
 		// draw "next" or "prev" button only if there's a next ore previous page
 			if (list->current_page_index + 1 < list->page_count)
-				obj->children[1]->visible = 1;
+				obj->first_child->next_sibling->visible = 1;
 			else
-				obj->children[1]->visible = 0;
+				obj->first_child->next_sibling->visible = 0;
 
 			if (list->current_page_index - 1 >= 0)
-				obj->children[0]->visible = 1;
+				obj->first_child->visible = 1;
 			else
-				obj->children[0]->visible = 0;
+				obj->first_child->visible = 0;
 	}
 
 	// whenever prepare function is called, list (and all children of it) will be redrawn
@@ -1093,8 +1099,8 @@ void lui_list_set_nav_btn_label_color(uint16_t color, lui_obj_t *obj)
 	if (obj->obj_type != LUI_OBJ_LIST)
 		return;
 
-	lui_button_set_label_color(color, obj->children[0]);
-	lui_button_set_label_color(color, obj->children[1]);
+	lui_button_set_label_color(color, obj->first_child);
+	lui_button_set_label_color(color, obj->first_child->next_sibling);
 }
 
 
@@ -1107,8 +1113,8 @@ void lui_list_set_nav_btn_bg_color(uint16_t color, lui_obj_t *obj)
 	if (obj->obj_type != LUI_OBJ_LIST)
 		return;
 
-	lui_object_set_bg_color(color, obj->children[0]);
-	lui_object_set_bg_color(color, obj->children[1]);
+	lui_object_set_bg_color(color, obj->first_child);
+	lui_object_set_bg_color(color, obj->first_child->next_sibling);
 }
 
 
@@ -1121,8 +1127,8 @@ void lui_list_set_nav_btn_extra_colors(uint16_t pressed_color, uint16_t selectio
 	if (obj->obj_type != LUI_OBJ_LIST)
 		return;
 
-	lui_button_set_extra_colors(pressed_color, selection_color, obj->children[0]);
-	lui_button_set_extra_colors(pressed_color, selection_color, obj->children[1]);
+	lui_button_set_extra_colors(pressed_color, selection_color, obj->first_child);
+	lui_button_set_extra_colors(pressed_color, selection_color, obj->first_child->next_sibling);
 }
 
 
@@ -1135,8 +1141,8 @@ void lui_list_set_nav_btn_label_text(const char *btn_prev_text, const char *btn_
 	if (obj->obj_type != LUI_OBJ_LIST)
 		return;
 
-	lui_button_set_label_text(btn_prev_text, obj->children[0]);
-	lui_button_set_label_text(btn_nxt_text, obj->children[1]);
+	lui_button_set_label_text(btn_prev_text, obj->first_child);
+	lui_button_set_label_text(btn_nxt_text, obj->first_child->next_sibling);
 }
 
 
@@ -1149,23 +1155,32 @@ void lui_list_set_nav_btn_border_color(uint16_t color, lui_obj_t *obj)
 	if (obj->obj_type != LUI_OBJ_LIST)
 		return;
 
-	lui_object_set_border_color(color, obj->children[0]);
-	lui_object_set_border_color(color, obj->children[1]);
+	lui_object_set_border_color(color, obj->first_child);
+	lui_object_set_border_color(color, obj->first_child->next_sibling);
 }
 
 
 void _lui_list_add_button_obj(lui_obj_t *obj_btn, lui_obj_t *obj_list)
 {
-	obj_btn->index = obj_list->children_count++;
-	if (obj_list->children == NULL)
-		obj_list->children = malloc(sizeof(obj_list->children));
-	else
-		obj_list->children = realloc(obj_list->children, sizeof(obj_list->children) * (obj_list->children_count));
-	obj_list->children[obj_btn->index] = (lui_obj_t *)obj_btn;
-
+	if (obj_list->first_child == NULL)
+    {
+        obj_list->first_child = obj_btn;
+    }
+    else
+    {
+        lui_obj_t *next_child = obj_list->first_child;
+        
+        while (next_child->next_sibling != NULL)
+        {
+            next_child = next_child->next_sibling;
+        }
+        
+        next_child->next_sibling = obj_btn;
+    }
 
 	// Common things to do
 	obj_btn->parent = obj_list;
+	obj_list->children_count++;
 	_lui_object_set_need_refresh(obj_btn->parent);
 }
 
@@ -1198,7 +1213,7 @@ void _lui_list_nav_btn_cb(lui_obj_t *obj)
 	lui_list_t *list = obj->parent->obj_main_data;
 	if (event == LUI_EVENT_RELEASED)
 	{
-		if (obj == obj->parent->children[0])	// 0th child is nav_prev btn
+		if (obj == obj->parent->first_child)	// first child is nav_prev btn
 		{
 			if (list->current_page_index > 0)
 			{
@@ -1206,7 +1221,7 @@ void _lui_list_nav_btn_cb(lui_obj_t *obj)
 				_lui_object_set_need_refresh(obj->parent);	
 			}
 		}
-		else if (obj == obj->parent->children[1])	// 1st child is nav_nxt button
+		else if (obj == obj->parent->first_child->next_sibling)	// 2nd child is nav_nxt button
 		{
 			if (list->current_page_index < list->page_count - 1)
 			{
@@ -1215,22 +1230,27 @@ void _lui_list_nav_btn_cb(lui_obj_t *obj)
 			}
 		}
 
-		for (uint8_t i = 0; i < obj->parent->children_count - 2; i++)
+		// list items start after first two buttons. First two buttons are nav buttons
+		lui_obj_t *list_item = obj->parent->first_child->next_sibling->next_sibling;
+		uint8_t item_pos = 0; 
+		uint16_t first_item_pos = (list->current_page_index * list->buttons_per_page);
+		uint16_t last_item_pos = first_item_pos + list->buttons_per_page - 1;
+		while (list_item != NULL)
 		{
-			uint8_t index = i + 2; //first 2 children objects are nav button. after that original list items start.
-
 			// here, we're checking if the item is in current page. Only the it will be visible
 			// this is done by checking if the index of item is within the range of current page
-			// the `+2` is done because first two children are always nav buttons and actual items start from index 2
-			if (index >= (list->current_page_index * list->buttons_per_page) + 2 &&
-				index < ((list->current_page_index + 1) * list->buttons_per_page) + 2)
+			if (item_pos >= first_item_pos && item_pos <= last_item_pos)
 			{
-				obj->parent->children[index]->visible = 1;
+				list_item->visible = 1;
 			}
 			else
 			{
-				obj->parent->children[index]->visible = 0;
+				list_item->visible = 0;
 			}
+
+			// go to next list item
+			list_item = list_item->next_sibling;
+			item_pos++;
 			
 		}
 
@@ -1239,14 +1259,14 @@ void _lui_list_nav_btn_cb(lui_obj_t *obj)
 		{
 			// draw "next" or "prev" button only if there's a next ore previous page
 			if (list->current_page_index + 1 < list->page_count)
-				lui_object_set_visibility(1, obj->parent->children[1]); // index 1 : nav_nxt
+				lui_object_set_visibility(1, obj->parent->first_child->next_sibling); // 2nd child: NEXT button
 			else
-				lui_object_set_visibility(0, obj->parent->children[1]);
+				lui_object_set_visibility(0, obj->parent->first_child->next_sibling);
 
 			if (list->current_page_index - 1 >= 0)
-				lui_object_set_visibility(1, obj->parent->children[0]);	// index 0 : nav_prev
+				lui_object_set_visibility(1, obj->parent->first_child);	// 1st child: PREV button
 			else
-				lui_object_set_visibility(0, obj->parent->children[0]);
+				lui_object_set_visibility(0, obj->parent->first_child);
 		}
 	}
 }
@@ -1916,7 +1936,7 @@ void lui_scene_set_popup(lui_obj_t *obj, lui_obj_t *obj_scene)
 	}
 	
 
-	_lui_object_set_need_refresh(obj_scene); 
+	_lui_object_set_need_refresh(obj); 
 }
 
 void lui_scene_unset_popup(lui_obj_t *obj_scene)
@@ -1977,41 +1997,49 @@ lui_obj_t* _lui_object_create()
 	obj->obj_event_cb = NULL;
 	obj->needs_refresh = 1;
 	obj->visible = 1;
-	obj->index = -1;
+	//obj->index_in_pool = -1;
 	obj->parent = NULL;
-	obj->children = NULL;
+	obj->first_child = NULL;
+	obj->next_sibling = NULL;
 	obj->children_count = 0;
 
 	return obj;
 }
 
-void lui_object_add_to_parent(lui_obj_t *obj, lui_obj_t *parent_obj)
+void lui_object_add_to_parent(lui_obj_t *obj_child, lui_obj_t *obj_parent)
 {
-	if (obj == NULL || parent_obj == NULL)
+	if (obj_child == NULL || obj_parent == NULL)
 		return;
 	// scene cannot be added to any parent, so return
-	if (obj->obj_type == LUI_OBJ_SCENE)
+	if (obj_child->obj_type == LUI_OBJ_SCENE)
 		return;
 	// only panel and scene can be parent, otherwise return
-	if (parent_obj->obj_type != LUI_OBJ_PANEL && parent_obj->obj_type != LUI_OBJ_SCENE)
+	if (obj_parent->obj_type != LUI_OBJ_PANEL && obj_parent->obj_type != LUI_OBJ_SCENE)
 		return;
 
     //add the ui element with a new index to scene only if no parent already exists
-    if (obj->parent != NULL)
+    if (obj_child->parent != NULL)
 		return;
 	
 
-	obj->index = parent_obj->children_count++;
-	if (parent_obj->children == NULL)
-		parent_obj->children = malloc(sizeof(parent_obj->children));
-	else
-		parent_obj->children = realloc(parent_obj->children, sizeof(parent_obj->children) * (parent_obj->children_count));
-	parent_obj->children[obj->index] = (lui_obj_t *)obj;
-
-
-	// Common things to do
-	obj->parent = parent_obj;
-	_lui_object_set_need_refresh(obj->parent);
+	if (obj_parent->first_child == NULL)
+    {
+        obj_parent->first_child = obj_child;
+    }
+    else
+    {
+        lui_obj_t *next_child = obj_parent->first_child;
+        
+        while (next_child->next_sibling != NULL)
+        {
+            next_child = next_child->next_sibling;
+        }
+        
+        next_child->next_sibling = obj_child;
+    }
+    obj_child->parent = obj_parent;
+	obj_parent->children_count++;
+	_lui_object_set_need_refresh(obj_child);
 }
 
 void lui_object_remove_from_parent(lui_obj_t *obj)
@@ -2019,30 +2047,27 @@ void lui_object_remove_from_parent(lui_obj_t *obj)
 	if (obj == NULL)
 		return;
 	// If item's or parent's index is -1, return
-	if (obj->index == -1 || obj->parent == NULL)
+	if (obj->parent == NULL)
     	return;
 
-	for (int i = obj->index; i < obj->parent->children_count - 1; i++)
-	{
-		obj->parent->children[i] = obj->parent->children[i+1];
-		obj->parent->children[i]->index = i;
-	}
+	// if object is the head (first child)
+    if (obj == obj->parent->first_child)
+    {
+        obj->parent->first_child = obj->next_sibling;
+    }
+    else
+    {
+        lui_obj_t *child = obj->parent->first_child;
+        while (child->next_sibling != obj)
+        {
+            child = child->next_sibling;
+        }
+        child->next_sibling = obj->next_sibling;
+    }
 
-	obj->parent->children_count--;
-
-	// resize the array
-	if (obj->parent->children_count == 0)
-	{
-		free(obj->parent->children);
-		obj->parent->children = NULL;
-	}
-	else
-	{
-		obj->parent->children = realloc(obj->parent->children, sizeof(lui_obj_t *) * (obj->parent->children_count));
-	}
-	
 	// common things to do
-	obj->index = -1;
+	obj->parent->children_count--; 
+    obj->next_sibling = NULL;
 	_lui_object_set_need_refresh(obj->parent);
 	obj->parent = NULL;
 }
@@ -2071,29 +2096,32 @@ void lui_object_set_position(uint16_t x, uint16_t y, lui_obj_t *obj)
 		obj->y = y;
 	}
 	
-	// setting position of children as well.
-	for(uint8_t i = 0; i < obj->children_count; i++)
+	lui_obj_t *child_of_root = obj->first_child;
+	while (child_of_root != NULL)
 	{
-		lui_obj_t *obj_stack[LUI_MAX_OBJECTS]; //30 is maximum no ob objects in ascene. replace it with macro later
-		uint8_t stack_cnt = 0;
-		obj_stack[stack_cnt++] = obj->children[i];	//push child to stack
+		lui_obj_t *obj_stack[LUI_MAX_OBJECTS] = {NULL};
+        uint8_t stack_counter = 0;
+        obj_stack[stack_counter++] = child_of_root;
+        child_of_root = child_of_root->next_sibling;
 		
 		// loop until stack is empty. in this way all children (and their children too) will be traversed
-		while (stack_cnt > 0)
+		while (stack_counter > 0)
 		{
-			// get current object (child) from stack
-			lui_obj_t *obj_current = obj_stack[--stack_cnt];	//pop
+			// pop from stack
+			lui_obj_t *child = obj_stack[--stack_counter]; 
 
-			obj_current->x = obj_current->x + (obj->x - obj_old_x); // offset the child (currewnt obj) based on parent
-			obj_current->y = obj_current->y + (obj->y - obj_old_y);
+			child->x = child->x + (obj->x - obj_old_x); // offset the child (currewnt obj) based on parent
+			child->y = child->y + (obj->y - obj_old_y);
 
-			// push current object's children into stack
-			for (uint8_t j = 0; j < obj_current->children_count; j++)
+			// get the child of current object
+            child = child->first_child;
+			// push all children of current object into stack too
+			while (child != NULL)
 			{
-				// for safety, if stack is about to overflow, return result
-				if (stack_cnt > LUI_MAX_OBJECTS)
-					return;
-				obj_stack[stack_cnt++] = obj_current->children[j]; // push to stack
+				// push child to stack
+				obj_stack[stack_counter++] = child; 
+				// get sibling of the child
+                child = child->next_sibling;
 			}
 
 		}
@@ -2211,24 +2239,30 @@ void lui_object_set_visibility(uint8_t visible, lui_obj_t *obj)
 		return;
 
 	obj->visible = visible;
-	for (uint8_t i = 0; i < obj->children_count; i++)
+
+	lui_obj_t *child_of_root = obj->first_child;
+	while (child_of_root != NULL)
 	{
 		lui_obj_t *obj_stack[LUI_MAX_OBJECTS] = {NULL};
-		uint8_t stack_cnt = 0;
-		obj_stack[stack_cnt++] = obj->children[i];
+        uint8_t stack_counter = 0;
+        obj_stack[stack_counter++] = child_of_root;
+        child_of_root = child_of_root->next_sibling;
 
-		while (stack_cnt > 0)
+		while (stack_counter > 0)
 		{
-			lui_obj_t *obj_current = obj_stack[--stack_cnt]; //pop from stack
-			obj_current->visible = visible;
+			// pop from stack
+			lui_obj_t *child = obj_stack[--stack_counter]; 
+			child->visible = visible;
 
+			// get the child of current object
+            child = child->first_child;
 			// push all children of current object into stack too
-			for (uint8_t j = 0; j < obj_current->children_count; j++)
+			while (child != NULL)
 			{
-				// for safety, if stack is about to overflow, return
-				if (stack_cnt > LUI_MAX_OBJECTS)
-					return;
-				obj_stack[stack_cnt++] = obj_current->children[j]; // push to stack
+				// push child to stack
+				obj_stack[stack_counter++] = child; 
+				// get sibling of the child
+                child = child->next_sibling;
 			}
 		}
 	}
@@ -2403,29 +2437,33 @@ lui_obj_t* _lui_scan_all_obj_for_input(lui_touch_input_data_t input_data, lui_ob
 	if (obj_caused_cb != NULL)
 		return obj_caused_cb;
 
-	for (uint8_t i = 0; i < obj_root->children_count; i++)
+	lui_obj_t *child_of_root = obj_root->first_child;
+	while (child_of_root != NULL)
 	{
-		lui_obj_t *obj_stack[30]; //30 is maximum no ob objects in ascene. replace it with macro later
-		uint8_t stack_cnt = 0;
-		obj_stack[stack_cnt++] = obj_root->children[i];	//push to stack
+		lui_obj_t *obj_stack[LUI_MAX_OBJECTS] = {NULL};
+        uint8_t stack_counter = 0;
+        obj_stack[stack_counter++] = child_of_root;
+        child_of_root = child_of_root->next_sibling;
 		
 		// loop until stack is empty. in this way all children (and their children too) will be traversed
-		while (stack_cnt > 0)
+		while (stack_counter > 0)
 		{
-			// get current object from stack
-			lui_obj_t *obj_current = obj_stack[--stack_cnt];	//pop
+			// pop from stack
+			lui_obj_t *child = obj_stack[--stack_counter]; 
 
-			obj_caused_cb = _lui_scan_individual_object_for_input(input_data, obj_current, obj_excluded);
+			obj_caused_cb = _lui_scan_individual_object_for_input(input_data, child, obj_excluded);
 			if (obj_caused_cb != NULL)
 				return obj_caused_cb;
 
-			// push current object's children into stack
-			for (uint8_t j = 0; j < obj_current->children_count; j++)
+			// get the child of current object
+            child = child->first_child;
+			// push all children of current object into stack too
+			while (child != NULL)
 			{
-				// for safety, if stack is about to overflow, return result
-				if (stack_cnt > LUI_MAX_OBJECTS)
-					return obj_caused_cb;
-				obj_stack[stack_cnt++] = obj_current->children[j]; // push to stack
+				// push child to stack
+				obj_stack[stack_counter++] = child; 
+				// get sibling of the child
+                child = child->next_sibling;
 			}
 
 		}
@@ -2609,25 +2647,30 @@ void _lui_object_render_parent_with_children(lui_obj_t *obj_parent)
 	// first render the parent, then render all its children in a loop
 	_lui_object_render(obj_parent);
 
-	for (uint8_t i = 0; i < obj_parent->children_count; i++)
+	lui_obj_t *child_of_root = obj_parent->first_child;
+	while (child_of_root != NULL)
 	{
 		lui_obj_t *obj_stack[LUI_MAX_OBJECTS] = {NULL};
-		uint8_t stack_cnt = 0;
-		obj_stack[stack_cnt++] = obj_parent->children[i];
+		uint8_t stack_counter = 0;
+        obj_stack[stack_counter++] = child_of_root;
+        child_of_root = child_of_root->next_sibling;
 
-		while (stack_cnt > 0)
+		while (stack_counter > 0)
 		{
-			lui_obj_t *obj_current = obj_stack[--stack_cnt];
+			// pop from stack
+			lui_obj_t *child = obj_stack[--stack_counter]; 
 
-			_lui_object_render(obj_current);
+			_lui_object_render(child);
 
-			// push current object's children into stack
-			for (uint8_t j = 0; j < obj_current->children_count; j++)
+			// get the child of current object
+            child = child->first_child;
+			// push all children of current object into stack too
+			while (child != NULL)
 			{
-				// for safety, if stack is about to overflow, return
-				if (stack_cnt > LUI_MAX_OBJECTS)
-					return;
-				obj_stack[stack_cnt++] = obj_current->children[j]; // push to stack
+				// push child to stack
+				obj_stack[stack_counter++] = child; 
+				// get sibling of the child
+                child = child->next_sibling;
 			}
 		}
 	}
@@ -2688,24 +2731,30 @@ void _lui_object_set_need_refresh(lui_obj_t *obj)
 		return;
 
 	obj->needs_refresh = 1;
-	for (uint8_t i = 0; i < obj->children_count; i++)
+
+	lui_obj_t *child_of_root = obj->first_child;
+	while (child_of_root != NULL)
 	{
 		lui_obj_t *obj_stack[LUI_MAX_OBJECTS] = {NULL};
-		uint8_t stack_cnt = 0;
-		obj_stack[stack_cnt++] = obj->children[i];
+        uint8_t stack_counter = 0;
+        obj_stack[stack_counter++] = child_of_root;
+        child_of_root = child_of_root->next_sibling;
 
-		while (stack_cnt > 0)
+		while (stack_counter > 0)
 		{
-			lui_obj_t *obj_current = obj_stack[--stack_cnt]; //pop from stack
-			obj_current->needs_refresh = 1;
+			// pop from stack
+			lui_obj_t *child = obj_stack[--stack_counter]; 
+			child->needs_refresh = 1;
 
+			// get the child of current object
+            child = child->first_child;
 			// push all children of current object into stack too
-			for (uint8_t j = 0; j < obj_current->children_count; j++)
+			while (child != NULL)
 			{
-				// for safety, if stack is about to overflow, return
-				if (stack_cnt > LUI_MAX_OBJECTS)
-					return;
-				obj_stack[stack_cnt++] = obj_current->children[j]; // push to stack
+				// push child to stack
+				obj_stack[stack_counter++] = child; 
+				// get sibling of the child
+                child = child->next_sibling;
 			}
 		}
 	}

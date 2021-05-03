@@ -207,14 +207,15 @@ typedef struct _lui_obj_s
 	//private use only
 	uint8_t needs_refresh;
 	uint8_t visible;
-	int8_t index;
-	//int8_t parent_index;
+	//int8_t index;
 	
 	uint8_t obj_type;
 
 	struct _lui_obj_s *parent;
-	struct _lui_obj_s **children;
 	uint8_t children_count;
+	struct _lui_obj_s *first_child;
+	struct _lui_obj_s *next_sibling;
+	
 
 	void *obj_main_data;
 }lui_obj_t;
