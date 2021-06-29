@@ -8,7 +8,9 @@
 
 #include "lame_ui.h"
 
-lui_main_t g_lui_main;
+
+_lui_mem_block_t g_mem_block;
+lui_main_t *g_lui_main;
 
 
 /*-------------------------------------------------------------------------------
@@ -18,17 +20,20 @@ lui_main_t g_lui_main;
 
 void lui_init()
 {
-	//g_lui_main.scenes = {NULL};
-	g_lui_main.disp_drv = NULL;
-	g_lui_main.touch_input_dev = NULL;
-	g_lui_main.dpad_input_dev = NULL;
-	// g_lui_main.last_touch_data.x = -1;
-	// g_lui_main.last_touch_data.y = -1;
-	// g_lui_main.last_touch_data.is_pressed = -1;
-	g_lui_main.total_scenes = 0;
-	g_lui_main.active_scene = NULL;
-	g_lui_main.active_obj = NULL;
-	g_lui_main.total_created_objects = 0;
+	_lui_mem_init();
+	g_lui_main = _lui_mem_alloc(sizeof(lui_main_t));
+
+	// g_lui_main->scenes = {NULL};
+	 g_lui_main->disp_drv = NULL;
+	 g_lui_main->touch_input_dev = NULL;
+	 g_lui_main->dpad_input_dev = NULL;
+	//  g_lui_main->last_touch_data.x = -1;
+	//  g_lui_main->last_touch_data.y = -1;
+	//  g_lui_main->last_touch_data.is_pressed = -1;
+	 g_lui_main->total_scenes = 0;
+	 g_lui_main->active_scene = NULL;
+	 g_lui_main->active_obj = NULL;
+	 g_lui_main->total_created_objects = 0;
 }
 
 /*
@@ -36,7 +41,7 @@ void lui_init()
  */
 void lui_update()
 {
-	if (g_lui_main.active_scene == NULL)
+	if ( g_lui_main->active_scene == NULL)
 		return;
 
 	// if no display driver is registered, return
@@ -46,18 +51,18 @@ void lui_update()
 
 	lui_obj_t *obj_caused_cb = NULL;
 	// Reading input only if user provided input reading callback function
-	if (g_lui_main.touch_input_dev != NULL)
+	if ( g_lui_main->touch_input_dev != NULL)
 		obj_caused_cb = _lui_process_touch_input_of_act_scene();
-	// else if (g_lui_main.dpad_input_dev != NULL)
+	// else if ( g_lui_main->dpad_input_dev != NULL)
 	// 	_lui_process_dpad_input(scene);
 
 
-	_lui_object_render_parent_with_children(g_lui_main.active_scene);
+	_lui_object_render_parent_with_children( g_lui_main->active_scene);
 
 	// If user is buffering the draw_pixels_area calls instead of instantly flushing to display, 
 	// this callback signals that render is finished and buffer should be flushed to display now
-	if (g_lui_main.disp_drv->render_complete_cb != NULL)
-		g_lui_main.disp_drv->render_complete_cb();
+	if ( g_lui_main->disp_drv->render_complete_cb != NULL)
+		 g_lui_main->disp_drv->render_complete_cb();
 
 	//All rendering done, now we'll handle the callback
 	// if the object that caused callback is not NULL and if the object has a callback func,
@@ -113,7 +118,7 @@ void lui_label_draw(lui_obj_t *obj)
 	// If no scene present, i.e., parent_scene_index == -1, return
 	// If scene is there but scene has no font, return
 	// So, if label has no parent scene, it must have its own font to be rendered
-	if (temp_font == NULL && g_lui_main.active_scene != NULL)
+	if (temp_font == NULL &&  g_lui_main->active_scene != NULL)
 	{
 		temp_font = _lui_get_font_from_active_scene();
 	}
@@ -181,11 +186,11 @@ void lui_label_draw(lui_obj_t *obj)
 lui_obj_t* lui_label_create()
 {
 	// if total created objects become more than max allowed objects, don't create the object
-	if (g_lui_main.total_created_objects + 1 > LUI_MAX_OBJECTS)
+	if ( g_lui_main->total_created_objects + 1 > LUI_MAX_OBJECTS)
 		return NULL;
-	g_lui_main.total_created_objects++;
+	 g_lui_main->total_created_objects++;
 
-	lui_label_t *initial_label = malloc(sizeof(*initial_label));
+	lui_label_t *initial_label =  _lui_mem_alloc(sizeof(*initial_label));
 	
 	initial_label->text = "";
 	initial_label->font = NULL;
@@ -289,7 +294,7 @@ void lui_linechart_draw(lui_obj_t *obj)
 	uint16_t line_color = chart->style.line_color;
 	uint16_t data_points = chart->data.points;
 
-	double mapped_data[g_lui_main.disp_drv->display_hor_res * 2];
+	double mapped_data[ g_lui_main->disp_drv->display_hor_res * 2];
 
 	double x_data_min_new = temp_x;
 	double x_data_max_new = temp_x + width - 1;
@@ -335,7 +340,7 @@ void lui_linechart_draw(lui_obj_t *obj)
 	// Set font for using in chart
 	tFont *temp_font = chart->font;
 	// If object has no font set for it, check the global set font in scene
-	if (temp_font == NULL && g_lui_main.active_scene != NULL)
+	if (temp_font == NULL &&  g_lui_main->active_scene != NULL)
 	{
 		temp_font = _lui_get_font_from_active_scene();
 	}
@@ -391,7 +396,7 @@ void lui_linechart_draw(lui_obj_t *obj)
 		if (i == data_points - 1)
 		{
 			// Don't draw line here, just draw the point
-			g_lui_main.disp_drv->draw_pixels_area_cb(current_x, current_y, 1, 1, line_color);
+			 g_lui_main->disp_drv->draw_pixels_area_cb(current_x, current_y, 1, 1, line_color);
 		}
 
 		// We have next points after thispoint
@@ -417,16 +422,16 @@ void lui_linechart_draw(lui_obj_t *obj)
 lui_obj_t* lui_linechart_create()
 {
 	// if total created objects become more than max allowed objects, don't create the object
-	if (g_lui_main.total_created_objects + 1 > LUI_MAX_OBJECTS)
+	if ( g_lui_main->total_created_objects + 1 > LUI_MAX_OBJECTS)
 		return NULL;
-	g_lui_main.total_created_objects++;
+	 g_lui_main->total_created_objects++;
 
-	lui_chart_t *initial_line_chart = malloc(sizeof(*initial_line_chart));
+	lui_chart_t *initial_line_chart =  _lui_mem_alloc(sizeof(*initial_line_chart));
 
 	double tmp_data[] = {0};
 	initial_line_chart->data.source = tmp_data;
 	initial_line_chart->data.y_max_value = 0;
-	initial_line_chart->data.y_min_value = g_lui_main.disp_drv->display_vert_res;
+	initial_line_chart->data.y_min_value =  g_lui_main->disp_drv->display_vert_res;
 	initial_line_chart->data.points = 0;
 	initial_line_chart->data.auto_scale = 1;
 
@@ -627,7 +632,7 @@ void lui_button_draw(lui_obj_t *obj)
 	// If no scene present, i.e., parent_scene_index == -1, return
 	// If scene is there but scene has no font, return
 	// So, if it has no parent scene, it must have its own font to be rendered
-	if (temp_font == NULL && g_lui_main.active_scene != NULL)
+	if (temp_font == NULL &&  g_lui_main->active_scene != NULL)
 	{
 		temp_font = _lui_get_font_from_active_scene();
 	}
@@ -640,8 +645,8 @@ void lui_button_draw(lui_obj_t *obj)
 	temp_x = temp_x + (btn_width - str_width_height[0]) / 2;
 	temp_y = temp_y + (btn_height - str_width_height[1]) / 2;
 
-	// lui_obj_t *lbl_obj =  malloc(sizeof(*lbl_obj));
-	// lui_label_t *btn_label =  malloc(sizeof(*btn_label));
+	// lui_obj_t *lbl_obj =   _lui_mem_alloc(sizeof(*lbl_obj));
+	// lui_label_t *btn_label =   _lui_mem_alloc(sizeof(*btn_label));
 
 	lui_obj_t *lbl_obj =  lui_label_create();
 	lui_label_t *btn_label =  lbl_obj->obj_main_data;
@@ -667,9 +672,9 @@ void lui_button_draw(lui_obj_t *obj)
 	lui_label_draw(lbl_obj);
 
 	//lbl_obj = NULL;
-	free(btn_label);
-	free(lbl_obj);
-	g_lui_main.total_created_objects--;
+	 _lui_mem_free(btn_label);
+	 _lui_mem_free(lbl_obj);
+	 g_lui_main->total_created_objects--;
 	
 
 	// Finally Draw the border if needed
@@ -685,11 +690,11 @@ void lui_button_draw(lui_obj_t *obj)
 lui_obj_t* lui_button_create()
 {
 	// if total created objects become more than max allowed objects, don't create the object
-	if (g_lui_main.total_created_objects + 1 > LUI_MAX_OBJECTS)
+	if ( g_lui_main->total_created_objects + 1 > LUI_MAX_OBJECTS)
 		return NULL;
-	g_lui_main.total_created_objects++;
+	 g_lui_main->total_created_objects++;
 
-	lui_button_t *initial_button = malloc(sizeof(*initial_button));
+	lui_button_t *initial_button =  _lui_mem_alloc(sizeof(*initial_button));
 
 	initial_button->style.pressed_color = LUI_STYLE_BUTTON_PRESSED_COLOR;
 	initial_button->style.selection_color = LUI_STYLE_BUTTON_SELECTION_COLOR;
@@ -812,7 +817,7 @@ void lui_list_draw(lui_obj_t *obj)
 		return;
 
 	// draw the background first (hard coding the color for now)
-	g_lui_main.disp_drv->draw_pixels_area_cb(obj->x, obj->y, obj->common_style.width, obj->common_style.height, obj->common_style.bg_color);
+	 g_lui_main->disp_drv->draw_pixels_area_cb(obj->x, obj->y, obj->common_style.width, obj->common_style.height, obj->common_style.bg_color);
 
 	// draw the border if needed
 	// Finally Draw the border if needed
@@ -826,11 +831,11 @@ void lui_list_draw(lui_obj_t *obj)
 lui_obj_t* lui_list_create()
 {
 	// if total created objects become more than max allowed objects, don't create the object
-	if (g_lui_main.total_created_objects + 1 > LUI_MAX_OBJECTS)
+	if ( g_lui_main->total_created_objects + 1 > LUI_MAX_OBJECTS)
 		return NULL;
-	g_lui_main.total_created_objects++;
+	 g_lui_main->total_created_objects++;
 
-	lui_list_t *initial_list = malloc(sizeof(*initial_list));
+	lui_list_t *initial_list =  _lui_mem_alloc(sizeof(*initial_list));
 
 	lui_obj_t *obj = _lui_object_create();
 	// object type
@@ -989,14 +994,14 @@ lui_obj_t* lui_list_add_item(const char *text, lui_obj_t *obj)
 		return NULL;
 
 	// if total created objects become more than max allowed objects, don't create the object
-	if (g_lui_main.total_created_objects + 1 > LUI_MAX_OBJECTS)
+	if ( g_lui_main->total_created_objects + 1 > LUI_MAX_OBJECTS)
 		return NULL;
-	g_lui_main.total_created_objects++;
+	 g_lui_main->total_created_objects++;
 
 	lui_list_t *list = obj->obj_main_data;
 	list->button_item_min_height = LUI_STYLE_LIST_ITEM_MIN_HEIGHT;
 
-	lui_button_t *initial_button = malloc(sizeof(*initial_button));
+	lui_button_t *initial_button =  _lui_mem_alloc(sizeof(*initial_button));
 	initial_button->style.pressed_color = LUI_STYLE_LIST_ITEM_PRESSED_COLOR;
 	initial_button->style.selection_color = LUI_STYLE_LIST_ITEM_SELECTION_COLOR;
 	initial_button->label.text = (char*)text;
@@ -1040,8 +1045,8 @@ void lui_list_delete_item(lui_obj_t **obj_item_addr)
 
 	lui_object_remove_from_parent(*obj_item_addr);
 	*obj_item_addr = NULL;
-	free(*obj_item_addr);
-	g_lui_main.total_created_objects--;
+	 _lui_mem_free(*obj_item_addr);
+	 g_lui_main->total_created_objects--;
 }
 
 
@@ -1334,12 +1339,12 @@ void lui_switch_draw(lui_obj_t *obj)
 lui_obj_t* lui_switch_create()
 {
 	// if total created objects become more than max allowed objects, don't create the object
-	if (g_lui_main.total_created_objects + 1 > LUI_MAX_OBJECTS)
+	if ( g_lui_main->total_created_objects + 1 > LUI_MAX_OBJECTS)
 		return NULL;
-	g_lui_main.total_created_objects++;
+	 g_lui_main->total_created_objects++;
 
 
-	lui_switch_t *initial_switch = malloc(sizeof(*initial_switch));
+	lui_switch_t *initial_switch =  _lui_mem_alloc(sizeof(*initial_switch));
 	
 	initial_switch->style.knob_off_color = LUI_STYLE_SWITCH_KNOB_OFF_COLOR;
 	initial_switch->style.knob_on_color = LUI_STYLE_SWITCH_KNOB_ON_COLOR;
@@ -1483,12 +1488,12 @@ void lui_checkbox_draw(lui_obj_t *obj)
 lui_obj_t* lui_checkbox_create()
 {
 	// if total created objects become more than max allowed objects, don't create the object
-	if (g_lui_main.total_created_objects + 1 > LUI_MAX_OBJECTS)
+	if ( g_lui_main->total_created_objects + 1 > LUI_MAX_OBJECTS)
 		return NULL;
-	g_lui_main.total_created_objects++;
+	 g_lui_main->total_created_objects++;
 
 
-	lui_checkbox_t *initial_chkbox = malloc(sizeof(*initial_chkbox));
+	lui_checkbox_t *initial_chkbox =  _lui_mem_alloc(sizeof(*initial_chkbox));
 	
 	initial_chkbox->style.bg_checked_color = LUI_STYLE_CHECKBOX_BG_CHECKED_COLOR;
 	initial_chkbox->style.selection_color = LUI_STYLE_CHECKBOX_SELECTION_COLOR;
@@ -1619,12 +1624,12 @@ void lui_slider_draw(lui_obj_t *obj)
 lui_obj_t* lui_slider_create()
 {
 	// if total created objects become more than max allowed objects, don't create the object
-	if (g_lui_main.total_created_objects + 1 > LUI_MAX_OBJECTS)
+	if ( g_lui_main->total_created_objects + 1 > LUI_MAX_OBJECTS)
 		return NULL;
-	g_lui_main.total_created_objects++;
+	 g_lui_main->total_created_objects++;
 
 
-	lui_slider_t *initial_slider = malloc(sizeof(*initial_slider));
+	lui_slider_t *initial_slider =  _lui_mem_alloc(sizeof(*initial_slider));
 	
 	initial_slider->style.bg_filled_color = LUI_STYLE_SLIDER_BG_FILLED_COLOR;
 	initial_slider->style.knob_color = LUI_STYLE_SLIDER_KNOB_COLOR;
@@ -1787,9 +1792,9 @@ int16_t lui_slider_get_max_value(lui_obj_t *obj)
 lui_obj_t* lui_panel_create()
 {
 	// if total created objects become more than max allowed objects, don't create the object
-	if (g_lui_main.total_created_objects + 1 > LUI_MAX_OBJECTS)
+	if ( g_lui_main->total_created_objects + 1 > LUI_MAX_OBJECTS)
 		return NULL;
-	g_lui_main.total_created_objects++;
+	 g_lui_main->total_created_objects++;
 
 
 	lui_obj_t *obj = _lui_object_create();
@@ -1815,7 +1820,7 @@ void lui_panel_draw(lui_obj_t *obj)
 		return;
 	
 	// for panel, just draw background and optional border
-	g_lui_main.disp_drv->draw_pixels_area_cb(obj->x, obj->y, obj->common_style.width,  obj->common_style.height, obj->common_style.bg_color);
+	 g_lui_main->disp_drv->draw_pixels_area_cb(obj->x, obj->y, obj->common_style.width,  obj->common_style.height, obj->common_style.bg_color);
 	if (obj->common_style.border_visible == 1)
 		_lui_draw_rect(obj->x, obj->y, obj->common_style.width, obj->common_style.height, 1, obj->common_style.border_color);
 }
@@ -1835,11 +1840,11 @@ void lui_panel_draw(lui_obj_t *obj)
 lui_obj_t* lui_scene_create()
 {
 	// if total created objects become more than max allowed objects, don't create the object
-	if (g_lui_main.total_created_objects + 1 > LUI_MAX_OBJECTS)
+	if ( g_lui_main->total_created_objects + 1 > LUI_MAX_OBJECTS)
 		return NULL;
-	g_lui_main.total_created_objects++;
+	 g_lui_main->total_created_objects++;
 
-	lui_scene_t *initial_scene = malloc(sizeof(*initial_scene));
+	lui_scene_t *initial_scene =  _lui_mem_alloc(sizeof(*initial_scene));
 
 	initial_scene->font = NULL;
 	initial_scene->bg_image = NULL;
@@ -1849,16 +1854,16 @@ lui_obj_t* lui_scene_create()
 	// object type
 	obj->obj_type = LUI_OBJ_SCENE;
 	// object common style
-	obj->common_style.width = g_lui_main.disp_drv->display_hor_res;
-	obj->common_style.height = g_lui_main.disp_drv->display_vert_res;
+	obj->common_style.width =  g_lui_main->disp_drv->display_hor_res;
+	obj->common_style.height =  g_lui_main->disp_drv->display_vert_res;
 	obj->common_style.bg_color = LUI_STYLE_SCENE_BG_COLOR;	
 	
-	obj->index = g_lui_main.total_scenes;
+	//obj->index =  g_lui_main->total_scenes;
 	obj->obj_main_data = (void *)initial_scene;
 
 	_lui_object_set_need_refresh(obj);
-	g_lui_main.scenes[obj->index] = obj;
-	g_lui_main.total_scenes++;
+	 //g_lui_main->scenes[obj->index] = obj;
+	 g_lui_main->total_scenes++;
 
 	return obj;
 }
@@ -1929,10 +1934,10 @@ void lui_scene_set_popup(lui_obj_t *obj, lui_obj_t *obj_scene)
 	scene->obj_popup = obj;
 
 	// when setting a popup, reset the current active object. because now only popup will get input
-	if (g_lui_main.active_obj != NULL)
+	if ( g_lui_main->active_obj != NULL)
 	{
-		g_lui_main.active_obj->state = LUI_STATE_IDLE;
-		g_lui_main.active_obj = NULL;
+		 g_lui_main->active_obj->state = LUI_STATE_IDLE;
+		 g_lui_main->active_obj = NULL;
 	}
 	
 
@@ -1966,13 +1971,13 @@ void lui_scene_set_active(lui_obj_t *obj_scene)
 	if (obj_scene->obj_type != LUI_OBJ_SCENE)
 		return;
 	
-	g_lui_main.active_scene = obj_scene;
+	 g_lui_main->active_scene = obj_scene;
 	_lui_object_set_need_refresh(obj_scene);
 }
 
 lui_obj_t* lui_scene_get_active()
 {
-	return g_lui_main.active_scene;
+	return  g_lui_main->active_scene;
 }
 
 /*-------------------------------------------------------------------------------
@@ -1987,7 +1992,7 @@ lui_obj_t* lui_scene_get_active()
 
 lui_obj_t* _lui_object_create()
 {
-	lui_obj_t *obj = malloc(sizeof(*obj));
+	lui_obj_t *obj =  _lui_mem_alloc(sizeof(*obj));
 
 	obj->x = 0;
 	obj->y = 0;
@@ -2285,15 +2290,15 @@ uint8_t _lui_check_if_active_obj(lui_touch_input_data_t input, lui_obj_t *obj)
 		input.y >= obj->y &&
 		input.y < obj->y + obj->common_style.height)
 	{
-		g_lui_main.active_obj = obj;
+		 g_lui_main->active_obj = obj;
 		return 1;
 	}
 	else
 	{
 		// in case input is not on "obj" and previous "active_obj" is same as "obj",
 		// set "input_on_obj" to NULL.
-		if (g_lui_main.active_obj == obj)
-			g_lui_main.active_obj = NULL;
+		if ( g_lui_main->active_obj == obj)
+			 g_lui_main->active_obj = NULL;
 		return 0;
 	}	
 }
@@ -2376,10 +2381,10 @@ lui_obj_t* _lui_process_touch_input_of_act_scene()
 {	
 	uint8_t scan_all_objs_flag = 0;
 	lui_obj_t *obj_caused_cb = NULL;
-	lui_obj_t *last_active_obj = g_lui_main.active_obj;
-	lui_scene_t *scene_main_data = (lui_scene_t *)(g_lui_main.active_scene->obj_main_data);
+	lui_obj_t *last_active_obj =  g_lui_main->active_obj;
+	lui_scene_t *scene_main_data = (lui_scene_t *)( g_lui_main->active_scene->obj_main_data);
 	lui_touch_input_data_t input_data;
-	g_lui_main.touch_input_dev->read_touch_input_cb(&input_data);
+	 g_lui_main->touch_input_dev->read_touch_input_cb(&input_data);
 
 	if (last_active_obj == NULL)
 	{
@@ -2388,11 +2393,11 @@ lui_obj_t* _lui_process_touch_input_of_act_scene()
 
 	else
 	{
-		// sets object parameters based on input. also may modify g_lui_main.active_obj
+		// sets object parameters based on input. also may modify  g_lui_main->active_obj
 		_lui_set_obj_props_on_input(input_data, last_active_obj);
 		if (last_active_obj->event != LUI_EVENT_NONE)
 		{
-			if (g_lui_main.active_obj != last_active_obj /* *state == LUI_STATE_IDLE*/)
+			if ( g_lui_main->active_obj != last_active_obj /* *state == LUI_STATE_IDLE*/)
 			{
 				scan_all_objs_flag = 1;
 			}
@@ -2416,7 +2421,7 @@ lui_obj_t* _lui_process_touch_input_of_act_scene()
 			obj_caused_cb = _lui_scan_all_obj_for_input(input_data, scene_main_data->obj_popup, last_active_obj);
 		// else scan is for active scene and its children
 		else
-			obj_caused_cb = _lui_scan_all_obj_for_input(input_data, g_lui_main.active_scene, last_active_obj);
+			obj_caused_cb = _lui_scan_all_obj_for_input(input_data,  g_lui_main->active_scene, last_active_obj);
 		
 		if (obj_caused_cb == NULL)
 			obj_caused_cb = last_active_obj;
@@ -2490,7 +2495,7 @@ lui_obj_t* _lui_scan_individual_object_for_input(lui_touch_input_data_t input_da
 		obj->obj_type == LUI_OBJ_CHECKBOX ||
 		obj->obj_type == LUI_OBJ_SLIDER)
 	{
-		// sets object parameters based on input. also, may modify g_lui_main.active_obj
+		// sets object parameters based on input. also, may modify  g_lui_main->active_obj
 		_lui_set_obj_props_on_input(input_data, obj);
 		if (obj->event != LUI_EVENT_NONE)
 		{
@@ -2518,7 +2523,7 @@ lui_obj_t* _lui_scan_individual_object_for_input(lui_touch_input_data_t input_da
 
 lui_dispdrv_t* lui_dispdrv_create()
 {
-	lui_dispdrv_t *initial_disp_drv = malloc(sizeof(*initial_disp_drv));
+	lui_dispdrv_t *initial_disp_drv =  _lui_mem_alloc(sizeof(*initial_disp_drv));
 
 	initial_disp_drv->draw_pixels_area_cb = NULL;
 	initial_disp_drv->render_complete_cb = NULL;
@@ -2532,13 +2537,13 @@ void lui_dispdrv_register(lui_dispdrv_t *dispdrv)
 {
 	if (dispdrv == NULL)
 		return;
-	g_lui_main.disp_drv = dispdrv;
+	 g_lui_main->disp_drv = dispdrv;
 }
 
 void* lui_dispdrv_destroy(lui_dispdrv_t *dispdrv)
 {
 	if (dispdrv != NULL)
-		free(dispdrv);
+		 _lui_mem_free(dispdrv);
 	return NULL;
 }
 
@@ -2576,7 +2581,7 @@ void lui_dispdrv_set_render_complete_cb(void (*render_complete_cb)(), lui_dispdr
 
 lui_touch_input_dev_t* lui_touch_inputdev_create()
 {
-	lui_touch_input_dev_t *initial_touch_inputdev = malloc(sizeof(*initial_touch_inputdev));
+	lui_touch_input_dev_t *initial_touch_inputdev =  _lui_mem_alloc(sizeof(*initial_touch_inputdev));
 
 	initial_touch_inputdev->read_touch_input_cb = NULL;
 	// initial_touch_inputdev.touch_data.is_pressed = 0;
@@ -2590,7 +2595,7 @@ void lui_touch_inputdev_register (lui_touch_input_dev_t *inputdev)
 {
 	if (inputdev == NULL)
 		return;
-	g_lui_main.touch_input_dev = inputdev;
+	 g_lui_main->touch_input_dev = inputdev;
 }
 
 void lui_touch_inputdev_set_read_input_cb(void (*read_touch_input_cb)(lui_touch_input_data_t *inputdata), lui_touch_input_dev_t *inputdev)
@@ -2602,7 +2607,7 @@ void lui_touch_inputdev_set_read_input_cb(void (*read_touch_input_cb)(lui_touch_
 
 lui_dpad_input_dev_t* lui_dpad_inputdev_create()
 {
-	lui_dpad_input_dev_t *initial_dpad_inputdev = malloc(sizeof(*initial_dpad_inputdev));
+	lui_dpad_input_dev_t *initial_dpad_inputdev =  _lui_mem_alloc(sizeof(*initial_dpad_inputdev));
 
 	initial_dpad_inputdev->read_dpad_input_cb = NULL;
 	// initial_dpad_inputdev.dpad_data.is_up_pressed = 0;
@@ -2619,7 +2624,7 @@ void lui_dpad_inputdev_register (lui_dpad_input_dev_t *inputdev)
 {
 	if (inputdev == NULL)
 		return;
-	g_lui_main.dpad_input_dev = inputdev;
+	 g_lui_main->dpad_input_dev = inputdev;
 }
 
 void lui_dpad_inputdev_set_read_input_cb(void (*read_dpad_input_cb)(lui_dpad_input_data_t *inputdata), lui_dpad_input_dev_t *inputdev)
@@ -2763,9 +2768,9 @@ void _lui_object_set_need_refresh(lui_obj_t *obj)
 
 tFont* _lui_get_font_from_active_scene()
 {
-	if (g_lui_main.active_scene == NULL)
+	if ( g_lui_main->active_scene == NULL)
 		return NULL;
-	lui_scene_t *act_scene = (lui_scene_t *)(g_lui_main.active_scene->obj_main_data);
+	lui_scene_t *act_scene = (lui_scene_t *)( g_lui_main->active_scene->obj_main_data);
 	return (act_scene->font);
 }
 
@@ -2912,14 +2917,14 @@ void _lui_draw_char(uint16_t x, uint16_t y, uint16_t fore_color, const tImage *g
 				 * So, here we're doing nothing when pixel is blank
 				 */
 				// Draw the background color
-				//g_lui_main.disp_drv->draw_pixels_area_cb(temp_x, temp_y, 1, 1, back_color);
+				// g_lui_main->disp_drv->draw_pixels_area_cb(temp_x, temp_y, 1, 1, back_color);
 			}
 
 			//if pixel is not blank
 			else
 			{
 				// Draw the foreground color
-				g_lui_main.disp_drv->draw_pixels_area_cb(temp_x, temp_y, 1, 1, fore_color);
+				 g_lui_main->disp_drv->draw_pixels_area_cb(temp_x, temp_y, 1, 1, fore_color);
 			}
 
 			glyph_data <<= 1;
@@ -2977,11 +2982,11 @@ void _lui_draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t 
 
 	if (x0 == x1)	//vertical line
 	{
-		g_lui_main.disp_drv->draw_pixels_area_cb(x0, (y0 < y1 ? y0 : y1), (uint16_t)line_width, (uint16_t)abs(y1 - y0 + 1), color);
+		 g_lui_main->disp_drv->draw_pixels_area_cb(x0, (y0 < y1 ? y0 : y1), (uint16_t)line_width, (uint16_t)abs(y1 - y0 + 1), color);
 	}
 	else if (y0 == y1)		//horizontal line
 	{
-		g_lui_main.disp_drv->draw_pixels_area_cb((x0 < x1 ? x0 : x1), y0, (uint16_t)abs(x1 - x0 + 1), (uint16_t)line_width, color);
+		 g_lui_main->disp_drv->draw_pixels_area_cb((x0 < x1 ? x0 : x1), y0, (uint16_t)abs(x1 - x0 + 1), (uint16_t)line_width, color);
 	}
 	else
 	{
@@ -3025,7 +3030,7 @@ void _lui_plot_line_low(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint
 
 	while (x <= x1)
 	{
-		g_lui_main.disp_drv->draw_pixels_area_cb(x, y, line_width, line_width, color);
+		 g_lui_main->disp_drv->draw_pixels_area_cb(x, y, line_width, line_width, color);
 
 		if (D > 0)
 		{
@@ -3058,7 +3063,7 @@ void _lui_plot_line_high(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uin
 
 	while (y <= y1)
 	{
-		g_lui_main.disp_drv->draw_pixels_area_cb(x, y, line_width, line_width, color);
+		 g_lui_main->disp_drv->draw_pixels_area_cb(x, y, line_width, line_width, color);
 
 		if (D > 0)
 		{
@@ -3088,7 +3093,7 @@ void _lui_draw_rect(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint8_t line
  */
 void _lui_draw_rect_fill(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color)
 {
-	g_lui_main.disp_drv->draw_pixels_area_cb(x, y, w, h, color);
+	 g_lui_main->disp_drv->draw_pixels_area_cb(x, y, w, h, color);
 }
 
 /*
@@ -3108,10 +3113,10 @@ uint8_t _lui_disp_drv_check()
 {
 	uint8_t status = 0;
 	// if no display driver is registered, return
-	if (g_lui_main.disp_drv == NULL)
+	if ( g_lui_main->disp_drv == NULL)
 		status = 0;
 	// If no callback function (for drawing) is provided by user, return
-	else if (g_lui_main.disp_drv->draw_pixels_area_cb == NULL)
+	else if ( g_lui_main->disp_drv->draw_pixels_area_cb == NULL)
 		status = 0;
 	else
 		status = 1;
@@ -3122,6 +3127,157 @@ uint8_t _lui_disp_drv_check()
 uint16_t lui_rgb(uint16_t red, uint16_t green, uint16_t blue)
 {
 	return _LUI_RGB(red, green, blue);
+}
+
+void _lui_mem_init()
+{
+    g_mem_block.mem_start = &(g_mem_block.mem_block[0]);
+    g_mem_block.mem_end = g_mem_block.mem_start + LUI_MEM_MAX_SIZE;
+    g_mem_block.mem_chunk_count = 0;
+    g_mem_block.mem_allocated = 0;
+    
+    _lui_mem_chunk_t *first_chunk = (_lui_mem_chunk_t *)(g_mem_block.mem_start);
+    first_chunk->next_chunk = NULL;
+    first_chunk->prev_chunk = NULL;
+    first_chunk->alloc_size = 0;
+    first_chunk->alloc_status = LUI_MEM_CHUNK_STATUS_FREE;
+}
+
+void* _lui_mem_alloc(uint16_t element_size)
+{
+    _lui_mem_chunk_t *chunk_metadata = (_lui_mem_chunk_t *)(g_mem_block.mem_start);
+    
+    
+    uint16_t chunk_metadata_size = sizeof(_lui_mem_chunk_t);
+    uint8_t chunk_type =  LUI_MEM_CHUNK_TYPE_NONE;
+    
+    if ((element_size + chunk_metadata_size) > ( LUI_MEM_MAX_SIZE - (g_mem_block.mem_allocated + g_mem_block.mem_chunk_count * chunk_metadata_size)))
+    {
+        return NULL;
+    }
+    while (g_mem_block.mem_end > (uint8_t *)chunk_metadata + element_size + chunk_metadata_size)
+    {
+        if (chunk_metadata->alloc_status ==  LUI_MEM_CHUNK_STATUS_FREE)
+        {
+            if (chunk_metadata->alloc_size == 0 ||
+                chunk_metadata->alloc_size > (element_size + chunk_metadata_size))
+            {
+                chunk_type =  LUI_MEM_CHUNK_TYPE_NEW;
+                break;
+            }
+            else if (chunk_metadata->alloc_size == (element_size + chunk_metadata_size))
+            {
+                chunk_type =  LUI_MEM_CHUNK_TYPE_REUSE;
+                break;
+            }
+        }
+        chunk_metadata = (_lui_mem_chunk_t *)((uint8_t *)chunk_metadata + chunk_metadata->alloc_size);
+    }
+    
+    if (chunk_type !=  LUI_MEM_CHUNK_TYPE_NONE)
+    {
+        chunk_metadata->alloc_status =  LUI_MEM_CHUNK_STATUS_USED;
+        if (chunk_type ==  LUI_MEM_CHUNK_TYPE_NEW)
+        {
+            /* Resize the chunk */
+            chunk_metadata->alloc_size = element_size + chunk_metadata_size;
+            /* Set next chunk address */
+            chunk_metadata->next_chunk = (_lui_mem_chunk_t *)((uint8_t *)chunk_metadata + chunk_metadata->alloc_size);
+            /* Set next chunk's previous chunk address which is the current chunk */
+            chunk_metadata->next_chunk->prev_chunk = chunk_metadata;
+            /* Increase chunk count by 1 */
+            ++(g_mem_block.mem_chunk_count);
+        }
+
+        g_mem_block.mem_allocated += element_size;
+        return ((uint8_t *)chunk_metadata + chunk_metadata_size);
+    }
+    else
+    {
+        return NULL;
+    }
+}
+
+
+void _lui_mem_free(void *ptr)
+{
+    _lui_mem_chunk_t *chunk_metadata = (_lui_mem_chunk_t *)ptr;
+    // Get the actual chunk_metadata
+    --chunk_metadata;
+    
+    if (chunk_metadata == NULL)
+    {
+        return;
+    }
+    if (chunk_metadata->alloc_status == LUI_MEM_CHUNK_STATUS_FREE)
+    {
+        return;
+    }
+    
+    chunk_metadata->alloc_status =  LUI_MEM_CHUNK_STATUS_FREE;
+    g_mem_block.mem_allocated -= chunk_metadata->alloc_size - sizeof(_lui_mem_chunk_t);
+    
+    /* If only one chunk is there, set the chunk count to 0 */
+    if (g_mem_block.mem_chunk_count == 1)
+    {
+        g_mem_block.mem_chunk_count = 0;
+        chunk_metadata->alloc_size = 0;
+        chunk_metadata->next_chunk = NULL;
+        chunk_metadata->prev_chunk = NULL;
+        
+        return;
+    }
+    
+    // merge with next chunk if that is free too
+    /* Note: Theoretically, for the right-most chunk, `next_chunk` should be NULL and this condition
+     * should not be called. BUT, the right-most chunk actually has a not-null `next_chunk` which is
+     * set during allocation to point out which one will be it's next chunk.
+     * So, even for right-most chunk, this condition is satisfied and `chunk_count` is decremented
+     * even though nothing is "actually" merged
+     */
+    if (chunk_metadata->next_chunk != NULL)
+    {
+        if (chunk_metadata->next_chunk->alloc_status == LUI_MEM_CHUNK_STATUS_FREE)
+        {
+            /* merge next chunk with current chunk and increase current chunk's size */
+            chunk_metadata->alloc_size += chunk_metadata->next_chunk->alloc_size;
+            chunk_metadata->next_chunk = chunk_metadata->next_chunk->next_chunk;
+            if (chunk_metadata->next_chunk != NULL)
+            {
+                chunk_metadata->next_chunk->prev_chunk = chunk_metadata;
+            }
+            /* As two chunks are merged, chunk count reduced*/
+            --(g_mem_block.mem_chunk_count);
+        }
+    }
+    
+    // merge with previous chunk if that is free too
+    if (chunk_metadata->prev_chunk != NULL)
+    {
+        if (chunk_metadata->prev_chunk->alloc_status == LUI_MEM_CHUNK_STATUS_FREE)
+        {
+            /* merge current chunk with previous chunk and increase previous chunk's size */
+            chunk_metadata->prev_chunk->alloc_size += chunk_metadata->alloc_size;
+            chunk_metadata->prev_chunk->next_chunk = chunk_metadata->next_chunk;
+            if (chunk_metadata->next_chunk != NULL)
+            {
+                chunk_metadata->next_chunk->prev_chunk = chunk_metadata->prev_chunk;
+            }
+            /* As two chunks are merged, chunk count reduced*/
+            --(g_mem_block.mem_chunk_count);
+        }
+    }
+    
+    /* If chunk count becomes 0 after merging, set the remaining chunk's size to 0
+     * Also set its prev_chunk and next_chunk to NULL
+     */
+    if (g_mem_block.mem_chunk_count == 0)
+    {
+        _lui_mem_chunk_t *first_chunk = (_lui_mem_chunk_t *)(g_mem_block.mem_start);
+        first_chunk->alloc_size = 0;
+        first_chunk->next_chunk = NULL;
+        first_chunk->prev_chunk = NULL;
+    }  
 }
 /*-------------------------------------------------------------------------------
  * 							END

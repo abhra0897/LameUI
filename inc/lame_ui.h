@@ -16,7 +16,7 @@
 #ifndef NULL
 	#define NULL							((void *)0)
 #endif
-
+#define LUI_MEM_MAX_SIZE					20000	// Max allocable size (in Bytes) for UI elements
 #define	LUI_MAX_OBJECTS						130
 #define LUI_MAX_SCENES						3
 
@@ -143,6 +143,34 @@
 #define LUI_OBJ_LIST						8
 #define LUI_OBJ_CHECKBOX					9
 #define LUI_OBJ_SLIDER						10
+
+/* Defined at the top for user's convenience */
+// #define LUI_MEM_MAX_SIZE					10000
+
+#define LUI_MEM_CHUNK_STATUS_FREE			0
+#define LUI_MEM_CHUNK_STATUS_USED			1
+#define LUI_MEM_CHUNK_TYPE_NEW				2
+#define LUI_MEM_CHUNK_TYPE_REUSE			3
+#define LUI_MEM_CHUNK_TYPE_NONE				4
+
+#pragma pack(push, 1)
+
+typedef struct
+{
+    uint8_t mem_block[LUI_MEM_MAX_SIZE];
+    uint8_t *mem_start;
+    uint8_t *mem_end;
+    uint16_t mem_chunk_count;
+    uint16_t mem_allocated;
+}_lui_mem_block_t;
+
+typedef struct _lui_mem_chunk
+{
+    uint16_t alloc_size;
+    uint8_t alloc_status;
+    struct _lui_mem_chunk *prev_chunk;
+    struct _lui_mem_chunk *next_chunk;
+}_lui_mem_chunk_t;
 
 struct _lui_common_style_s
 {
@@ -395,7 +423,7 @@ typedef struct _lui_main_s
 	uint8_t total_created_objects;	//increases as new objs are created. It never decreases
 }lui_main_t;
 
-
+#pragma pack(pop)
 
 void lui_init();
 void lui_update();
@@ -530,6 +558,9 @@ void lui_dpad_inputdev_set_read_input_cb(void (*read_dpad_input_cb)(lui_dpad_inp
 //-------------------------------------------------------------------------------
 //-------------------------------- HELPER FUNCTIONS------------------------------
 //-------------------------------------------------------------------------------
+void _lui_mem_init();
+void* _lui_mem_alloc(uint16_t element_size);
+void _lui_mem_free(void *ptr);
 void _lui_object_set_need_refresh(lui_obj_t *obj);
 void _lui_object_render_parent_with_children(lui_obj_t *obj);
 void _lui_object_render(lui_obj_t *obj);
