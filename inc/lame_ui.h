@@ -17,6 +17,8 @@
 	#define NULL							((void *)0)
 #endif
 #define LUI_MEM_MAX_SIZE					20000	// Max allocable size (in Bytes) for UI elements
+/* NOTE: LUI_MEM_DEFRAG_EN increases memory overhead. Enable it only if free() and destroy() are used often */
+#define LUI_MEM_DEFRAG_EN					0		// Enable memory defragment (1: enable, 0: disable) 
 #define	LUI_MAX_OBJECTS						130
 #define LUI_MAX_SCENES						3
 
@@ -158,8 +160,8 @@
 typedef struct
 {
     uint8_t mem_block[LUI_MEM_MAX_SIZE];
-    uint8_t *mem_start;
-    uint8_t *mem_end;
+	uint8_t *mem_start;
+	uint8_t *mem_end;
     uint16_t mem_chunk_count;
     uint16_t mem_allocated;
 }_lui_mem_block_t;
@@ -168,8 +170,10 @@ typedef struct _lui_mem_chunk
 {
     uint16_t alloc_size;
     uint8_t alloc_status;
-    struct _lui_mem_chunk *prev_chunk;
-    struct _lui_mem_chunk *next_chunk;
+	#if (LUI_MEM_DEFRAG_EN == 1)
+		struct _lui_mem_chunk *prev_chunk;
+		struct _lui_mem_chunk *next_chunk;
+	#endif
 }_lui_mem_chunk_t;
 
 struct _lui_common_style_s
@@ -357,6 +361,7 @@ typedef struct _lui_scene_s
 {
 	tImage *bg_image;
 	lui_obj_t *obj_popup;
+	uint8_t popup_type_locked; // Locked: can't be dismissed by clicking outside
 	tFont *font;
 	struct
 	{
@@ -419,6 +424,8 @@ typedef struct _lui_main_s
 	lui_touch_input_dev_t *touch_input_dev;
 	lui_dpad_input_dev_t *dpad_input_dev;
 	// lui_touch_input_data_t last_touch_data;
+	uint8_t input_state_pressed;
+	uint8_t input_event_clicked;
 	uint8_t total_scenes;
 	uint8_t total_created_objects;	//increases as new objs are created. It never decreases
 }lui_main_t;
@@ -530,6 +537,7 @@ void lui_scene_set_bg_image(const tImage *image, lui_obj_t *obj_scene);
 void lui_scene_set_font(const tFont *font, lui_obj_t *obj_scene);
 void lui_scene_set_popup(lui_obj_t *obj, lui_obj_t *obj_scene);
 void lui_scene_unset_popup(lui_obj_t *obj_scene);
+void lui_scene_set_popup_locked(uint8_t is_locked, lui_obj_t *obj_scene);
 
 
 lui_obj_t* _lui_process_touch_input_of_act_scene();

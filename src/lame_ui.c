@@ -30,6 +30,8 @@ void lui_init()
 	//  g_lui_main->last_touch_data.x = -1;
 	//  g_lui_main->last_touch_data.y = -1;
 	//  g_lui_main->last_touch_data.is_pressed = -1;
+	g_lui_main->input_event_clicked = 0;
+	g_lui_main->input_state_pressed = 0;
 	 g_lui_main->total_scenes = 0;
 	 g_lui_main->active_scene = NULL;
 	 g_lui_main->active_obj = NULL;
@@ -1849,6 +1851,7 @@ lui_obj_t* lui_scene_create()
 	initial_scene->font = NULL;
 	initial_scene->bg_image = NULL;
 	initial_scene->obj_popup = NULL;
+	initial_scene->popup_type_locked = 1;
 
 	lui_obj_t *obj = _lui_object_create();
 	// object type
@@ -1959,6 +1962,19 @@ void lui_scene_unset_popup(lui_obj_t *obj_scene)
 		lui_object_remove_from_parent(scene->obj_popup);
 		scene->obj_popup = NULL;
 	}
+	
+}
+
+void lui_scene_set_popup_locked(uint8_t is_locked, lui_obj_t *obj_scene)
+{
+	if (obj_scene == NULL)
+		return;
+	// type check
+	if (obj_scene->obj_type != LUI_OBJ_SCENE)
+		return;
+
+	lui_scene_t *scene = (lui_scene_t *)(obj_scene->obj_main_data);
+	scene->popup_type_locked = is_locked;
 	
 }
 
@@ -2384,7 +2400,19 @@ lui_obj_t* _lui_process_touch_input_of_act_scene()
 	lui_obj_t *last_active_obj =  g_lui_main->active_obj;
 	lui_scene_t *scene_main_data = (lui_scene_t *)( g_lui_main->active_scene->obj_main_data);
 	lui_touch_input_data_t input_data;
-	 g_lui_main->touch_input_dev->read_touch_input_cb(&input_data);
+	g_lui_main->touch_input_dev->read_touch_input_cb(&input_data);
+
+	/* If previous "pressed" value is 1 and now it's 0, that means a "click" happened */
+	if (g_lui_main->input_state_pressed && !input_data.is_pressed)
+	{
+		g_lui_main->input_event_clicked = 1;
+	}
+	else
+	{
+		g_lui_main->input_event_clicked = 0;
+	}
+	g_lui_main->input_state_pressed = input_data.is_pressed;
+	
 
 	if (last_active_obj == NULL)
 	{
@@ -2418,13 +2446,37 @@ lui_obj_t* _lui_process_touch_input_of_act_scene()
 	{
 		// if popup exists, only scan input for popup (and its children)
 		if (scene_main_data->obj_popup != NULL)
+		{
+			/* If popup type is "unlocked" (locked = 0), check if outside of popup is clicked. If yes, unset it */
+			if (!scene_main_data->popup_type_locked)
+			{
+				if (g_lui_main->input_event_clicked)
+				{
+					if (!_lui_check_if_active_obj(input_data, scene_main_data->obj_popup))
+					{
+						lui_scene_unset_popup(g_lui_main->active_scene);
+						return NULL;
+					}
+					else
+					{
+						g_lui_main->active_obj = NULL;
+					}
+				}
+			}
+
 			obj_caused_cb = _lui_scan_all_obj_for_input(input_data, scene_main_data->obj_popup, last_active_obj);
+
+		}
 		// else scan is for active scene and its children
 		else
+		{
 			obj_caused_cb = _lui_scan_all_obj_for_input(input_data,  g_lui_main->active_scene, last_active_obj);
+		}
 		
 		if (obj_caused_cb == NULL)
+		{
 			obj_caused_cb = last_active_obj;
+		}
 	}
 	
 	return obj_caused_cb;
@@ -3137,8 +3189,10 @@ void _lui_mem_init()
     g_mem_block.mem_allocated = 0;
     
     _lui_mem_chunk_t *first_chunk = (_lui_mem_chunk_t *)(g_mem_block.mem_start);
-    first_chunk->next_chunk = NULL;
-    first_chunk->prev_chunk = NULL;
+	#if (LUI_MEM_DEFRAG_EN == 1)
+		first_chunk->next_chunk = NULL;
+		first_chunk->prev_chunk = NULL;
+	#endif
     first_chunk->alloc_size = 0;
     first_chunk->alloc_status = LUI_MEM_CHUNK_STATUS_FREE;
 }
@@ -3181,10 +3235,13 @@ void* _lui_mem_alloc(uint16_t element_size)
         {
             /* Resize the chunk */
             chunk_metadata->alloc_size = element_size + chunk_metadata_size;
-            /* Set next chunk address */
-            chunk_metadata->next_chunk = (_lui_mem_chunk_t *)((uint8_t *)chunk_metadata + chunk_metadata->alloc_size);
-            /* Set next chunk's previous chunk address which is the current chunk */
-            chunk_metadata->next_chunk->prev_chunk = chunk_metadata;
+			
+			#if (LUI_MEM_DEFRAG_EN == 1)
+				/* Set next chunk address */
+				chunk_metadata->next_chunk = (_lui_mem_chunk_t *)((uint8_t *)chunk_metadata + chunk_metadata->alloc_size);
+				/* Set next chunk's previous chunk address which is the current chunk */
+				chunk_metadata->next_chunk->prev_chunk = chunk_metadata;
+			#endif
             /* Increase chunk count by 1 */
             ++(g_mem_block.mem_chunk_count);
         }
@@ -3222,12 +3279,16 @@ void _lui_mem_free(void *ptr)
     {
         g_mem_block.mem_chunk_count = 0;
         chunk_metadata->alloc_size = 0;
-        chunk_metadata->next_chunk = NULL;
-        chunk_metadata->prev_chunk = NULL;
+
+		#if (LUI_MEM_DEFRAG_EN == 1)
+			chunk_metadata->next_chunk = NULL;
+			chunk_metadata->prev_chunk = NULL;
+		#endif
         
         return;
     }
     
+	#if (LUI_MEM_DEFRAG_EN == 1)
     // merge with next chunk if that is free too
     /* Note: Theoretically, for the right-most chunk, `next_chunk` should be NULL and this condition
      * should not be called. BUT, the right-most chunk actually has a not-null `next_chunk` which is
@@ -3278,6 +3339,7 @@ void _lui_mem_free(void *ptr)
         first_chunk->next_chunk = NULL;
         first_chunk->prev_chunk = NULL;
     }  
+	#endif
 }
 /*-------------------------------------------------------------------------------
  * 							END
