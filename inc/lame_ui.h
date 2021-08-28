@@ -2,7 +2,7 @@
  * lame_ui.h
  *
  *  Created on: 02-Apr-2020
- *	Last updated: 29-Jun-2021
+ *	Last updated: 08-Aug-2021
  *      Author: rik
  */
 
@@ -13,14 +13,12 @@
 #include <stdio.h>
 #include "bitmap_typedefs.h"
 
-#ifndef NULL
-	#define NULL							((void *)0)
-#endif
+
 #define LUI_MEM_MAX_SIZE					20000	// Max allocable size (in Bytes) for UI elements
 /* NOTE: LUI_MEM_DEFRAG_EN increases memory overhead. Enable it only if free() and destroy() are used often */
-#define LUI_MEM_DEFRAG_EN					0		// Enable memory defragment (1: enable, 0: disable) 
+#define LUI_MEM_DEFRAG_EN					1		// Enable memory defragment (1: enable, 0: disable) 
 #define	LUI_MAX_OBJECTS						130
-#define LUI_MAX_SCENES						3
+//#define LUI_MAX_SCENES						3
 
 
 #define	_LUI_R_POS_RGB   					11	// Red last bit position for RGB display
@@ -113,10 +111,17 @@
 
 #define LUI_STYLE_SCENE_BG_COLOR			_LUI_RGB(23, 33, 43)
 /*------------------------------------------------------------------------------------
- *									End
+ *									End Theme
  *------------------------------------------------------------------------------------
  */
 
+#ifndef NULL
+	#define NULL							((void *)0)
+#endif
+
+
+#define LUI_INPUT_TYPE_TOUCH				1
+#define LUI_INPUT_TYPE_ENCODER				2
 
 #define	LUI_STATE_IDLE						0
 #define	LUI_STATE_SELECTED					1
@@ -300,17 +305,14 @@ typedef struct _lui_button_s
 	//uint16_t pressed_color;
 	//uint16_t selection_color;
 
-	int8_t dpad_row_pos;
-	int8_t dpad_col_pos;
-
+	int8_t encoder_index;
 	struct _lui_button_style_s style;
 }lui_button_t;
 
 
 typedef struct _lui_switch_s
 {
-	int8_t dpad_row_pos;
-	int8_t dpad_col_pos;
+	int8_t encoder_index;
 
 	struct _lui_switch_style_s style;
 }lui_switch_t;
@@ -318,8 +320,7 @@ typedef struct _lui_switch_s
 
 typedef struct _lui_checkbox_s
 {
-	int8_t dpad_row_pos;
-	int8_t dpad_col_pos;
+	int8_t encoder_index;
 
 	struct _lui_checkbox_style_s style;
 }lui_checkbox_t;
@@ -327,8 +328,7 @@ typedef struct _lui_checkbox_s
 
 typedef struct _lui_slider_s
 {
-	int8_t dpad_row_pos;
-	int8_t dpad_col_pos;
+	int8_t encoder_index;
 
 	int16_t range_min;
 	int16_t range_max;
@@ -351,10 +351,17 @@ typedef struct _lui_list_s
 	//struct _lui_list_style_s style;
 }lui_list_t;
 
+typedef struct _lui_encoder_processed_s
+{
+	int8_t max_encoder_index;
+	int8_t current_encoder_index;
+	uint8_t object_state;
+}_lui_encoder_processed_t;
 
 typedef struct _lui_panel_s
 {
 	tImage *bg_image;
+	_lui_encoder_processed_t encoder; // these encoder controls are required when the panel is a popup
 }lui_panel_t;
 
 typedef struct _lui_scene_s
@@ -363,13 +370,7 @@ typedef struct _lui_scene_s
 	lui_obj_t *obj_popup;
 	uint8_t popup_type_locked; // Locked: can't be dismissed by clicking outside
 	tFont *font;
-	struct
-	{
-		int8_t max_row_pos;
-		int8_t max_col_pos;
-		int8_t current_row_pos;
-		int8_t current_col_pos;
-	}dpad; // dpad controls are scene specific, so storing it in the scene variable
+	_lui_encoder_processed_t encoder; // encoder controls are scene specific, so storing it in the scene variable
 
 }lui_scene_t;
 
@@ -382,15 +383,11 @@ typedef struct _lui_touch_input_data_s
 }lui_touch_input_data_t;
 
 
-typedef struct _lui_dpad_input_data_s
+typedef struct _lui_encoder_input_data_s
 {
-	uint8_t is_left_pressed;
-	uint8_t is_right_pressed;
-	uint8_t is_down_pressed;
-	uint8_t is_up_pressed;
-	uint8_t is_enter_pressed;
-	uint8_t is_cancel_pressed;
-}lui_dpad_input_data_t;
+	int16_t steps;
+	uint8_t is_pressed;
+}lui_encoder_input_data_t;
 
 
 typedef struct _lui_disp_drv_s
@@ -407,22 +404,22 @@ typedef struct _lui_touch_input_dev_s
 	//lui_touch_input_data_t touch_data;
 }lui_touch_input_dev_t;
 
-typedef struct _lui_dpad_input_dev_s
+typedef struct _lui_encoder_input_dev_s
 {
-	void (*read_dpad_input_cb)(lui_dpad_input_data_t *input);
-	//lui_dpad_input_data_t dpad_data;
+	void (*read_encoder_input_cb)(lui_encoder_input_data_t *input);
+	//lui_encoder_input_data_t encoder_data;
 	
-}lui_dpad_input_dev_t;
+}lui_encoder_input_dev_t;
 
 
 typedef struct _lui_main_s
 {
-	lui_obj_t *scenes[LUI_MAX_SCENES];
+	//lui_obj_t *scenes[LUI_MAX_SCENES];
 	lui_obj_t *active_scene;
 	lui_obj_t *active_obj;
 	lui_dispdrv_t *disp_drv;
 	lui_touch_input_dev_t *touch_input_dev;
-	lui_dpad_input_dev_t *dpad_input_dev;
+	lui_encoder_input_dev_t *encoder_input_dev;
 	// lui_touch_input_data_t last_touch_data;
 	uint8_t input_state_pressed;
 	uint8_t input_event_clicked;
@@ -439,6 +436,7 @@ void lui_update();
 lui_obj_t* _lui_object_create();
 void lui_object_add_to_parent(lui_obj_t *obj, lui_obj_t *parent_obj);
 void lui_object_remove_from_parent(lui_obj_t *obj);
+void* lui_object_destroy(lui_obj_t *obj);
 void lui_object_set_area(uint16_t width, uint16_t height, lui_obj_t *obj);
 void lui_object_set_width(uint16_t width, lui_obj_t *obj);
 void lui_object_set_height(uint16_t height, lui_obj_t *obj);
@@ -478,6 +476,7 @@ void lui_button_set_label_text(const char *text, lui_obj_t *obj_btn);
 void lui_button_set_label_color(uint16_t color, lui_obj_t *obj_btn);
 void lui_button_set_label_font(const tFont *font, lui_obj_t *obj_btn);
 void lui_button_set_extra_colors(uint16_t pressed_color, uint16_t selection_color, lui_obj_t *obj_btn);
+void lui_button_set_encoder_index(uint8_t index, lui_obj_t *obj_btn);
 
 
 lui_obj_t* lui_switch_create();
@@ -487,6 +486,7 @@ int8_t lui_switch_get_value(lui_obj_t *obj_swtch);
 void lui_switch_set_value(uint8_t value, lui_obj_t *obj_swtch);
 void lui_switch_set_on(lui_obj_t *obj_swtch);
 void lui_switch_set_off(lui_obj_t *obj_swtch);
+void lui_switch_set_encoder_index(uint8_t index, lui_obj_t *obj_swtch);
 
 
 lui_obj_t* lui_checkbox_create();
@@ -494,8 +494,9 @@ void lui_checkbox_draw(lui_obj_t *obj_checkbox);
 void lui_checkbox_set_extra_colors(uint16_t bg_checked_color, uint16_t tick_color, uint16_t selection_color, lui_obj_t *obj_checkbox);
 int8_t lui_checkbox_get_value(lui_obj_t *obj_checkbox);
 void lui_checkbox_set_value(uint8_t value, lui_obj_t *obj_checkbox);
-void lui_switch_set_checked(lui_obj_t *obj_swtch);
-void lui_switch_set_unchecked(lui_obj_t *obj_swtch);
+void lui_checkbox_set_checked(lui_obj_t *obj_swtch);
+void lui_checkbox_set_unchecked(lui_obj_t *obj_swtch);
+void lui_checkbox_set_encoder_index(uint8_t index, lui_obj_t *obj_checkbox);
 
 
 lui_obj_t* lui_slider_create();
@@ -507,6 +508,7 @@ int16_t lui_slider_get_value(lui_obj_t *obj_slider);
 int16_t lui_slider_get_min_value(lui_obj_t *obj_slider);
 int16_t lui_slider_get_max_value(lui_obj_t *obj_slider);
 //void lui_slider_set_knob_length(uint8_t length, lui_obj_t *obj_slider);
+void lui_slider_set_encoder_index(uint8_t index, lui_obj_t *obj_slider);
 
 
 lui_obj_t* lui_list_create();
@@ -540,12 +542,6 @@ void lui_scene_unset_popup(lui_obj_t *obj_scene);
 void lui_scene_set_popup_locked(uint8_t is_locked, lui_obj_t *obj_scene);
 
 
-lui_obj_t* _lui_process_touch_input_of_act_scene();
-void _lui_process_dpad_input(lui_scene_t *scene);
-void _lui_set_obj_props_on_input(lui_touch_input_data_t input, lui_obj_t *obj);
-uint8_t _lui_check_if_active_obj(lui_touch_input_data_t input, lui_obj_t *obj);
-
-
 lui_dispdrv_t* lui_dispdrv_create();
 void lui_dispdrv_register(lui_dispdrv_t *dispdrv);
 void* lui_dispdrv_destroy(lui_dispdrv_t *dispdrv);
@@ -558,9 +554,9 @@ uint8_t _lui_disp_drv_check();
 lui_touch_input_dev_t* lui_touch_inputdev_create();
 void lui_touch_inputdev_register (lui_touch_input_dev_t *touch_inputdev);
 void lui_touch_inputdev_set_read_input_cb(void (*read_touch_input_cb)(lui_touch_input_data_t *touch_inputdata), lui_touch_input_dev_t *touch_inputdev);
-lui_dpad_input_dev_t* lui_dpad_inputdev_create();
-void lui_dpad_inputdev_register (lui_dpad_input_dev_t *dpad_inputdev);
-void lui_dpad_inputdev_set_read_input_cb(void (*read_dpad_input_cb)(lui_dpad_input_data_t *dpad_inputdata), lui_dpad_input_dev_t *dpad_inputdev);
+lui_encoder_input_dev_t* lui_encoder_inputdev_create();
+void lui_encoder_inputdev_register (lui_encoder_input_dev_t *encoder_inputdev);
+void lui_encoder_inputdev_set_read_input_cb(void (*read_encoder_input_cb)(lui_encoder_input_data_t *encoder_inputdata), lui_encoder_input_dev_t *encoder_inputdev);
 
 
 //-------------------------------------------------------------------------------
@@ -572,8 +568,13 @@ void _lui_mem_free(void *ptr);
 void _lui_object_set_need_refresh(lui_obj_t *obj);
 void _lui_object_render_parent_with_children(lui_obj_t *obj);
 void _lui_object_render(lui_obj_t *obj);
-lui_obj_t* _lui_scan_all_obj_for_input(lui_touch_input_data_t input_data, lui_obj_t *obj_root, lui_obj_t *obj_excluded);
-lui_obj_t* _lui_scan_individual_object_for_input(lui_touch_input_data_t input_data, lui_obj_t *obj, lui_obj_t *obj_excluded);
+lui_obj_t* _lui_process_input_of_act_scene();
+lui_obj_t* _lui_scan_all_obj_for_input(lui_touch_input_data_t *touch_input_data, lui_encoder_input_data_t *encoder_input_data, _lui_encoder_processed_t *encoder_processed, lui_obj_t *obj_root, lui_obj_t *obj_excluded);
+lui_obj_t* _lui_scan_individual_object_for_input(lui_touch_input_data_t *touch_input_data, lui_encoder_input_data_t *encoder_input_data, _lui_encoder_processed_t *encoder_processed, lui_obj_t *obj, lui_obj_t *obj_excluded);
+void _lui_set_obj_props_on_touch_input(lui_touch_input_data_t *input_data, lui_obj_t *obj);
+uint8_t _lui_check_if_active_obj_touch_input(lui_touch_input_data_t *input_data, lui_obj_t *obj);
+void _lui_set_obj_props_on_encoder_input(lui_encoder_input_data_t *input, _lui_encoder_processed_t *encoder_processed, lui_obj_t *obj);
+uint8_t _lui_check_if_active_obj_encoder_input(_lui_encoder_processed_t *encoder_processed, lui_obj_t *obj);
 tFont* _lui_get_font_from_active_scene();
 uint8_t _lui_get_event_against_state(uint8_t new_state, uint8_t old_state);
 void _lui_draw_char(uint16_t x, uint16_t y, uint16_t fore_color, const tImage *glyph);
