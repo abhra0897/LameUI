@@ -2260,6 +2260,7 @@ void lui_object_set_visibility(uint8_t visible, lui_obj_t *obj)
 		return;
 
 	obj->visible = visible;
+	obj->needs_refresh = 1;
 
 	lui_obj_t *child_of_root = obj->first_child;
 	while (child_of_root != NULL)
