@@ -2,7 +2,7 @@
  * lame_ui.c
  *
  *  Created on: 02-Apr-2020
- *	Last updated: 29-Jun-2021
+ *	Last updated: 08-Aug-2021
  *      Author: rik
  */
 
@@ -26,7 +26,7 @@ void lui_init()
 	// g_lui_main->scenes = {NULL};
 	 g_lui_main->disp_drv = NULL;
 	 g_lui_main->touch_input_dev = NULL;
-	 g_lui_main->dpad_input_dev = NULL;
+	 g_lui_main->encoder_input_dev = NULL;
 	//  g_lui_main->last_touch_data.x = -1;
 	//  g_lui_main->last_touch_data.y = -1;
 	//  g_lui_main->last_touch_data.is_pressed = -1;
@@ -52,11 +52,8 @@ void lui_update()
 
 
 	lui_obj_t *obj_caused_cb = NULL;
-	// Reading input only if user provided input reading callback function
-	if ( g_lui_main->touch_input_dev != NULL)
-		obj_caused_cb = _lui_process_touch_input_of_act_scene();
-	// else if ( g_lui_main->dpad_input_dev != NULL)
-	// 	_lui_process_dpad_input(scene);
+	// Reading input
+	obj_caused_cb = _lui_process_input_of_act_scene();
 
 
 	_lui_object_render_parent_with_children( g_lui_main->active_scene);
@@ -705,8 +702,7 @@ lui_obj_t* lui_button_create()
 	initial_button->style.label_color = LUI_STYLE_BUTTON_LABEL_COLOR;
 	initial_button->label.font = NULL;
 
-	initial_button->dpad_row_pos = -1;
-	initial_button->dpad_col_pos = -1;
+	initial_button->encoder_index = -1;
 
 	lui_obj_t *obj = _lui_object_create();
 	// object type
@@ -785,16 +781,14 @@ void lui_button_set_extra_colors(uint16_t pressed_color, uint16_t selection_colo
 	_lui_object_set_need_refresh(obj);
 }
 
-void lui_button_set_dpad_position(uint8_t row, uint8_t col, lui_obj_t *obj)
+void lui_button_set_encoder_index(uint8_t index, lui_obj_t *obj)
 {
 	if (obj == NULL)
 		return;
 	lui_button_t *btn = (lui_button_t *)(obj->obj_main_data);
-	if ((btn->dpad_row_pos == row && btn->dpad_col_pos == col) ||	// if row/col pos are unchanged or either of them are negative, return
-		(btn->dpad_row_pos < 0 ||btn->dpad_col_pos < 0))
+	if (btn->encoder_index == index || btn->encoder_index < 0)
 		return;
-	btn->dpad_row_pos = row;
-	btn->dpad_col_pos = col;
+	btn->encoder_index = index;
 }
 
 /*-------------------------------------------------------------------------------
@@ -1010,8 +1004,7 @@ lui_obj_t* lui_list_add_item(const char *text, lui_obj_t *obj)
 	initial_button->style.label_color = LUI_STYLE_LIST_ITEM_LABEL_COLOR;
 	initial_button->label.font = list->font; // here it can be null too
 
-	initial_button->dpad_row_pos = -1;
-	initial_button->dpad_col_pos = -1;
+	initial_button->encoder_index = -1;
 
 	lui_obj_t *obj_btn_item = _lui_object_create();
 	// object type
@@ -1351,8 +1344,7 @@ lui_obj_t* lui_switch_create()
 	initial_switch->style.knob_off_color = LUI_STYLE_SWITCH_KNOB_OFF_COLOR;
 	initial_switch->style.knob_on_color = LUI_STYLE_SWITCH_KNOB_ON_COLOR;
 	initial_switch->style.selection_color = LUI_STYLE_SWITCH_SELECTION_COLOR;
-	initial_switch->dpad_row_pos = -1;
-	initial_switch->dpad_col_pos = -1;
+	initial_switch->encoder_index = -1;
 
 	lui_obj_t *obj = _lui_object_create();
 	// object type
@@ -1423,6 +1415,16 @@ void lui_switch_set_on(lui_obj_t *obj)
 void lui_switch_set_off(lui_obj_t *obj)
 {
 	lui_switch_set_value(0, obj);
+}
+
+void lui_switch_set_encoder_index(uint8_t index, lui_obj_t *obj)
+{
+	if (obj == NULL)
+		return;
+	lui_switch_t *swtch = (lui_switch_t *)(obj->obj_main_data);
+	if (swtch->encoder_index == index || swtch->encoder_index < 0)
+		return;
+	swtch->encoder_index = index;
 }
 
 /*-------------------------------------------------------------------------------
@@ -1500,8 +1502,7 @@ lui_obj_t* lui_checkbox_create()
 	initial_chkbox->style.bg_checked_color = LUI_STYLE_CHECKBOX_BG_CHECKED_COLOR;
 	initial_chkbox->style.selection_color = LUI_STYLE_CHECKBOX_SELECTION_COLOR;
 	initial_chkbox->style.tick_color = LUI_STYLE_CHECKBOX_TICK_COLOR;
-	initial_chkbox->dpad_row_pos = -1;
-	initial_chkbox->dpad_col_pos = -1;
+	initial_chkbox->encoder_index = -1;
 
 	lui_obj_t *obj = _lui_object_create();
 	// object type
@@ -1564,16 +1565,25 @@ void lui_checkbox_set_value(uint8_t value, lui_obj_t *obj)
 	_lui_object_set_need_refresh(obj);
 }
 
-void lui_switch_set_checked(lui_obj_t *obj)
+void lui_checkbox_set_checked(lui_obj_t *obj)
 {
 	lui_checkbox_set_value(1, obj);
 }
 
-void lui_switch_set_unchecked(lui_obj_t *obj)
+void lui_checkbox_set_unchecked(lui_obj_t *obj)
 {
 	lui_checkbox_set_value(0, obj);
 }
 
+void lui_checkbox_set_encoder_index(uint8_t index, lui_obj_t *obj)
+{
+	if (obj == NULL)
+		return;
+	lui_checkbox_t *chkbox = (lui_checkbox_t *)(obj->obj_main_data);
+	if (chkbox->encoder_index == index || chkbox->encoder_index < 0)
+		return;
+	chkbox->encoder_index = index;
+}
 
 /*-------------------------------------------------------------------------------
  * 							END
@@ -1604,7 +1614,7 @@ void lui_slider_draw(lui_obj_t *obj)
 		return;
 
 	uint16_t knob_color = slider->style.knob_color;
-	if (/*obj->state == LUI_STATE_SELECTED ||*/ obj->state == LUI_STATE_PRESSED)
+	if (obj->state == LUI_STATE_SELECTED || obj->state == LUI_STATE_PRESSED)
 	{
 		knob_color = slider->style.selection_color;
 	}
@@ -1640,8 +1650,7 @@ lui_obj_t* lui_slider_create()
 	initial_slider->range_min = 0;
 	initial_slider->range_max = 100;
 	initial_slider->knob_center_rel_x = (LUI_STYLE_SLIDER_KNOB_WIDTH / 2);
-	initial_slider->dpad_row_pos = -1;
-	initial_slider->dpad_col_pos = -1;
+	initial_slider->encoder_index = -1;
 
 	lui_obj_t *obj = _lui_object_create();
 	// object type
@@ -1777,6 +1786,16 @@ int16_t lui_slider_get_max_value(lui_obj_t *obj)
 	return slider->range_max;
 }
 
+void lui_slider_set_encoder_index(uint8_t index, lui_obj_t *obj)
+{
+	if (obj == NULL)
+		return;
+	lui_slider_t *slider = (lui_slider_t *)(obj->obj_main_data);
+	if (slider->encoder_index == index || slider->encoder_index < 0)
+		return;
+	slider->encoder_index = index;
+}
+
 /*-------------------------------------------------------------------------------
  * 							END
  *-------------------------------------------------------------------------------
@@ -1798,6 +1817,10 @@ lui_obj_t* lui_panel_create()
 		return NULL;
 	 g_lui_main->total_created_objects++;
 
+	lui_panel_t *initial_panel = _lui_mem_alloc(sizeof(*initial_panel));
+	initial_panel->encoder.current_encoder_index = -1;
+	initial_panel->encoder.max_encoder_index = 0;
+	initial_panel->encoder.object_state = LUI_STATE_IDLE;
 
 	lui_obj_t *obj = _lui_object_create();
 	// object type
@@ -1808,7 +1831,7 @@ lui_obj_t* lui_panel_create()
 	obj->common_style.border_visible = LUI_STYLE_PANEL_BORDER_VISIBLE;
 	obj->common_style.width = LUI_STYLE_PANEL_WIDTH;
 	obj->common_style.height = LUI_STYLE_PANEL_HEIGHT;
-	obj->obj_main_data = (void *)NULL;	// will add panel specific main data later
+	obj->obj_main_data = (void *)initial_panel;	// will add panel specific main data later
 
 	return obj;
 }
@@ -1852,6 +1875,9 @@ lui_obj_t* lui_scene_create()
 	initial_scene->bg_image = NULL;
 	initial_scene->obj_popup = NULL;
 	initial_scene->popup_type_locked = 1;
+	initial_scene->encoder.current_encoder_index = -1;
+	initial_scene->encoder.max_encoder_index = 0;
+	initial_scene->encoder.object_state = LUI_STATE_IDLE;
 
 	lui_obj_t *obj = _lui_object_create();
 	// object type
@@ -1925,6 +1951,9 @@ void lui_scene_set_popup(lui_obj_t *obj, lui_obj_t *obj_scene)
 	
 	// type check
 	if (obj_scene->obj_type != LUI_OBJ_SCENE)
+		return;
+	
+	if (obj->obj_type != LUI_OBJ_PANEL)
 		return;
 	
 	// object can only be used as popup if it has no parent. Because, here it'll be added to this scene
@@ -2091,6 +2120,23 @@ void lui_object_remove_from_parent(lui_obj_t *obj)
     obj->next_sibling = NULL;
 	_lui_object_set_need_refresh(obj->parent);
 	obj->parent = NULL;
+}
+
+void* lui_object_destroy(lui_obj_t *obj)
+{
+	if (obj == NULL)
+		return NULL;
+
+	// If object has parent, remove itself from parent
+	if (obj->parent != NULL)
+	{
+		lui_object_remove_from_parent(obj);
+	}
+	/* Note: Object's children will NOT be automatically destroyed, they should be
+	 * manually destroyed else they'll remain orphaned
+	 */
+	_lui_mem_free(obj);
+	return NULL;
 }
 
 
@@ -2300,12 +2346,433 @@ void lui_object_set_visibility(uint8_t visible, lui_obj_t *obj)
  *------------------------------------------------------------------------------
  */
 
-uint8_t _lui_check_if_active_obj(lui_touch_input_data_t input, lui_obj_t *obj)
+lui_obj_t* _lui_process_input_of_act_scene()
+{	
+	uint8_t input_dev_type = 0;
+
+	if ( g_lui_main->touch_input_dev != NULL)
+	{
+		input_dev_type = LUI_INPUT_TYPE_TOUCH;
+	}
+	else if (g_lui_main->encoder_input_dev != NULL)
+	{
+		input_dev_type = LUI_INPUT_TYPE_ENCODER;
+	}
+	else
+	{
+		return NULL;
+	}
+
+	uint8_t scan_all_objs_flag = 0;
+	lui_obj_t *obj_caused_cb = NULL;
+	lui_obj_t *last_active_obj =  g_lui_main->active_obj;
+	lui_scene_t *scene_main_data = (lui_scene_t *)( g_lui_main->active_scene->obj_main_data);
+	lui_touch_input_data_t input_touch_data;
+	lui_encoder_input_data_t input_encoder_data;
+	_lui_encoder_processed_t *encoder_processed;
+	uint8_t input_is_pressed = 0;
+	
+	
+	if (input_dev_type == LUI_INPUT_TYPE_TOUCH)
+	{
+		g_lui_main->touch_input_dev->read_touch_input_cb(&input_touch_data);
+		input_is_pressed = input_touch_data.is_pressed;
+	}
+	else if (input_dev_type == LUI_INPUT_TYPE_ENCODER)
+	{
+		g_lui_main->encoder_input_dev->read_encoder_input_cb(&input_encoder_data);
+		input_is_pressed = input_encoder_data.is_pressed;
+
+		if (scene_main_data->obj_popup != NULL)
+		{
+			lui_panel_t *panel_main_data = scene_main_data->obj_popup->obj_main_data;
+			encoder_processed = &(panel_main_data->encoder);
+		}
+		else
+		{
+			lui_scene_t *scene_main_data = g_lui_main->active_scene->obj_main_data;
+			encoder_processed = &(scene_main_data->encoder);
+		}
+		/* Increase/decrease index only if object is not in ENTERED state */
+		if (encoder_processed->object_state != LUI_STATE_ENTERED)
+		{
+			encoder_processed->current_encoder_index += input_encoder_data.steps;
+		}
+		/* Rollover the index to 0 in case of overflow/underflow */
+		if (encoder_processed->current_encoder_index > encoder_processed->max_encoder_index ||
+			encoder_processed->current_encoder_index < 0)
+		{
+			encoder_processed->current_encoder_index = 0;
+		}
+	}
+
+	
+
+	/* If previous "pressed" value is 1 and now it's 0, that means a "click" happened */
+	if (g_lui_main->input_state_pressed && !input_is_pressed)
+	{
+		g_lui_main->input_event_clicked = 1;
+	}
+	else
+	{
+		g_lui_main->input_event_clicked = 0;
+	}
+	g_lui_main->input_state_pressed = input_is_pressed;
+	
+
+	if (last_active_obj == NULL)
+	{
+		scan_all_objs_flag = 1;
+	}
+
+	else
+	{
+		// sets object parameters based on input. also may modify  g_lui_main->active_obj
+		if ( input_dev_type == LUI_INPUT_TYPE_TOUCH)
+		{
+			_lui_set_obj_props_on_touch_input(&input_touch_data, last_active_obj);
+		}
+		else if (input_dev_type == LUI_INPUT_TYPE_ENCODER)
+		{
+			_lui_set_obj_props_on_encoder_input(&input_encoder_data, encoder_processed, last_active_obj);
+		}
+
+		if (last_active_obj->event != LUI_EVENT_NONE)
+		{
+			if ( g_lui_main->active_obj != last_active_obj /* *state == LUI_STATE_IDLE*/)
+			{
+				scan_all_objs_flag = 1;
+			}
+			else
+			{
+				obj_caused_cb = last_active_obj;
+			}
+			
+		}
+		else
+		{
+			obj_caused_cb = NULL;
+		}
+		
+	}
+
+	if (scan_all_objs_flag)
+	{
+		// if popup exists, only scan input for popup (and its children)
+		if (scene_main_data->obj_popup != NULL)
+		{
+			/* If popup type is "unlocked" (locked = 0), check if outside of popup is clicked. If yes, unset it */
+			if (!scene_main_data->popup_type_locked)
+			{
+				if (g_lui_main->input_event_clicked)
+				{
+					uint8_t obj_is_active = 0;
+					if (input_dev_type == LUI_INPUT_TYPE_TOUCH)
+					{
+						obj_is_active = _lui_check_if_active_obj_touch_input(&input_touch_data, scene_main_data->obj_popup);
+					}
+					else if (input_dev_type == LUI_INPUT_TYPE_ENCODER)
+					{
+						obj_is_active = _lui_check_if_active_obj_encoder_input(encoder_processed, scene_main_data->obj_popup);
+					}
+
+					if (!obj_is_active)
+					{
+						lui_scene_unset_popup(g_lui_main->active_scene);
+						return NULL;
+					}
+					else
+					{
+						g_lui_main->active_obj = NULL;
+					}
+				}
+			}
+
+			if (input_dev_type == LUI_INPUT_TYPE_TOUCH)
+			{
+				obj_caused_cb = _lui_scan_all_obj_for_input(&input_touch_data, NULL, NULL, scene_main_data->obj_popup, last_active_obj);
+			}
+			else if (input_dev_type == LUI_INPUT_TYPE_ENCODER)
+			{
+				obj_caused_cb = _lui_scan_all_obj_for_input(NULL, &input_encoder_data, encoder_processed, scene_main_data->obj_popup, last_active_obj);
+			}
+
+		}
+		// else scan is for active scene and its children
+		else
+		{
+			if (input_dev_type == LUI_INPUT_TYPE_TOUCH)
+			{
+				obj_caused_cb = _lui_scan_all_obj_for_input(&input_touch_data, NULL, NULL, g_lui_main->active_scene, last_active_obj);
+			}
+			else if (input_dev_type == LUI_INPUT_TYPE_ENCODER)
+			{
+				obj_caused_cb = _lui_scan_all_obj_for_input(NULL, &input_encoder_data, encoder_processed, g_lui_main->active_scene, last_active_obj);
+			}
+		}
+		
+		if (obj_caused_cb == NULL)
+		{
+			obj_caused_cb = last_active_obj;
+		}
+	}
+	
+	return obj_caused_cb;
+
+}
+
+lui_obj_t* _lui_scan_all_obj_for_input(lui_touch_input_data_t *touch_input_data, lui_encoder_input_data_t *encoder_input_data, _lui_encoder_processed_t *encoder_processed, lui_obj_t *obj_root, lui_obj_t *obj_excluded)
 {
-	if (input.x >= obj->x && 
-		input.x < obj->x + obj->common_style.width &&
-		input.y >= obj->y &&
-		input.y < obj->y + obj->common_style.height)
+	// Note: This function is made by converting a tail-recursive function to iterative function
+	// The simple way is to use a stack.
+	// see the answer: https://codereview.stackexchange.com/a/163621
+	lui_obj_t *obj_caused_cb = NULL;
+
+	obj_caused_cb = _lui_scan_individual_object_for_input(touch_input_data, encoder_input_data, encoder_processed, obj_root, obj_excluded);
+	if (obj_caused_cb != NULL)
+		return obj_caused_cb;
+
+	lui_obj_t *child_of_root = obj_root->first_child;
+	while (child_of_root != NULL)
+	{
+		lui_obj_t *obj_stack[LUI_MAX_OBJECTS] = {NULL};
+        uint8_t stack_counter = 0;
+        obj_stack[stack_counter++] = child_of_root;
+        child_of_root = child_of_root->next_sibling;
+		
+		// loop until stack is empty. in this way all children (and their children too) will be traversed
+		while (stack_counter > 0)
+		{
+			// pop from stack
+			lui_obj_t *child = obj_stack[--stack_counter]; 
+
+			obj_caused_cb = _lui_scan_individual_object_for_input(touch_input_data, encoder_input_data, encoder_processed, child, obj_excluded);
+			if (obj_caused_cb != NULL)
+				return obj_caused_cb;
+
+			// get the child of current object
+            child = child->first_child;
+			// push all children of current object into stack too
+			while (child != NULL)
+			{
+				// push child to stack
+				obj_stack[stack_counter++] = child; 
+				// get sibling of the child
+                child = child->next_sibling;
+			}
+
+		}
+	}
+
+	return obj_caused_cb;
+}
+
+lui_obj_t* _lui_scan_individual_object_for_input(lui_touch_input_data_t *touch_input_data, lui_encoder_input_data_t *encoder_input_data, _lui_encoder_processed_t *encoder_processed, lui_obj_t *obj, lui_obj_t *obj_excluded)
+{
+	lui_obj_t *obj_caused_cb = NULL;
+	// if current object is == last_active_object, continue. because, last_active_object is already processed
+	if (obj == obj_excluded)
+		return NULL;
+
+	// TODO: if invisible, still proceed. But, return NULL if disabled.
+	// So, add a `disabled` property in object. 
+	if (!(obj->visible))
+		return NULL;
+
+	// we are only interested in objects that take input, like button, switch
+	if (obj->obj_type == LUI_OBJ_BUTTON ||
+		obj->obj_type == LUI_OBJ_SWITCH ||
+		obj->obj_type == LUI_OBJ_CHECKBOX ||
+		obj->obj_type == LUI_OBJ_SLIDER)
+	{
+		if (touch_input_data != NULL) // Touch input
+		{
+			// sets object parameters based on input. also, may modify  g_lui_main->active_obj
+			_lui_set_obj_props_on_touch_input(touch_input_data, obj);
+		}
+		else if (encoder_input_data != NULL) // Encoder input
+		{
+			// sets object parameters based on input. also, may modify  g_lui_main->active_obj
+			_lui_set_obj_props_on_encoder_input(encoder_input_data, encoder_processed, obj);
+		}
+		
+		if (obj->event != LUI_EVENT_NONE)
+		{
+			obj_caused_cb = obj;
+		}
+		else
+		{
+			obj_caused_cb = NULL;
+		}
+	}
+
+	return obj_caused_cb;
+}
+
+/* ------ Encoder related input processing ------ */
+
+uint8_t _lui_check_if_active_obj_encoder_input(_lui_encoder_processed_t *encoder_processed, lui_obj_t *obj)
+{
+	int16_t encoder_index_of_obj = 0;
+	if (obj->obj_type == LUI_OBJ_BUTTON)
+	{
+		lui_button_t *button_data = obj->obj_main_data;
+		encoder_index_of_obj = button_data->encoder_index;
+	}
+	else if (obj->obj_type == LUI_OBJ_SWITCH)
+	{
+		lui_switch_t *switch_data = obj->obj_main_data;
+		encoder_index_of_obj = switch_data->encoder_index;
+	}
+	else if (obj->obj_type == LUI_OBJ_CHECKBOX)
+	{
+		lui_checkbox_t *chkbox_data = obj->obj_main_data;
+		encoder_index_of_obj = chkbox_data->encoder_index;
+	}
+	else if (obj->obj_type == LUI_OBJ_SLIDER)
+	{
+		lui_slider_t *slider_data = obj->obj_main_data;
+		encoder_index_of_obj = slider_data->encoder_index;
+	}
+	
+	if (encoder_processed->current_encoder_index == encoder_index_of_obj)
+	{
+		g_lui_main->active_obj = obj;
+		return 1;
+	}
+	else
+	{
+		// in case input is not on "obj" and previous "active_obj" is same as "obj",
+		// set "input_on_obj" to NULL.
+		if ( g_lui_main->active_obj == obj)
+			 g_lui_main->active_obj = NULL;
+		return 0;
+	}		
+}
+
+void _lui_set_obj_props_on_encoder_input(lui_encoder_input_data_t *encoder_input, _lui_encoder_processed_t *encoder_processed, lui_obj_t *obj)
+{
+	uint8_t is_obj_active = _lui_check_if_active_obj_encoder_input(encoder_processed, obj);
+	uint8_t new_state = LUI_STATE_IDLE;
+
+	if (is_obj_active == 1)
+	{
+		/* Special case for slider (and for other objects who have "ENTERED" state) */
+		if (obj->obj_type == LUI_OBJ_SLIDER)
+		{
+			if (encoder_input->is_pressed == 1)
+			{
+				/* When encoder is pressed, slider will become "ENTERED" if it was "SELECTED" and vice versa */
+				if (obj->state == LUI_STATE_SELECTED)
+				{
+					new_state = LUI_STATE_ENTERED;
+				}
+				else if (obj->state == LUI_STATE_ENTERED)
+				{
+					new_state = LUI_STATE_SELECTED;
+				}
+			}
+			else
+			{
+				/* When encoder is not pressed, then slider will remain "ENTERED" if it was in that state already
+				* If it was in some other state, it will be "SELECTED"
+				*/
+				if (obj->state == LUI_STATE_ENTERED)
+				{
+					new_state = LUI_STATE_ENTERED;
+				}
+				else
+				{
+					new_state = LUI_STATE_SELECTED;
+				}
+			}		
+		}
+
+		/* For all other objects, just the normal routine */
+		else
+		{
+			// if pressed, then....well, then state = PRESSED
+			if (encoder_input->is_pressed == 1)
+			{
+				new_state = LUI_STATE_PRESSED;
+			}	
+			// else not pressed, state = SELECTED
+			else
+			{
+				new_state = LUI_STATE_SELECTED;
+			}
+		}
+
+		encoder_processed->object_state = new_state;
+	}
+	else
+	{
+		new_state = LUI_STATE_IDLE;
+	}
+	
+	obj->event = _lui_get_event_against_state(new_state, obj->state);		
+
+	if (obj->event != LUI_EVENT_NONE)
+	{
+		obj->state = new_state;
+		_lui_object_set_need_refresh(obj);
+	}
+	
+
+	
+	/* Special case for switch and checkbox: if event is LUI_EVENT_PRESSED (or RELEASED, whichever feels better), 
+	then set event to LUI_EVENT_VALUE_CHANGED then set the value to `value` property */
+	if (obj->obj_type == LUI_OBJ_SWITCH ||
+		obj->obj_type == LUI_OBJ_CHECKBOX)
+	{	
+		if (obj->event == LUI_EVENT_RELEASED)
+		{
+			obj->event = LUI_EVENT_VALUE_CHANGED;	// for switch and checkbox, being pressed means being toggled, thus value changed
+			obj->value = (obj->value == 1) ? 0 : 1;	// toggle the value (1->0 or 0-1)
+			obj->needs_refresh = 1;
+		}	
+	}
+
+	// Special case for slider: If knob is kep pressed and if input pos is not same as knob's current position,
+	// set new position to knob  and value to slider, also set VALUE_CHANGED event
+	else if (obj->obj_type == LUI_OBJ_SLIDER)
+	{
+		lui_slider_t *slider = obj->obj_main_data;
+		if (obj->state == LUI_STATE_ENTERED  &&
+			encoder_input->steps != 0 )
+		{
+			uint16_t max_knob_center_actual_x = obj->x + obj->common_style.width - (slider->style.knob_width / 2);
+			uint16_t min_knob_center_actual_x = obj->x + (slider->style.knob_width / 2);
+
+			// cap to minimum/maximum allowed position to prevent the knob from going out of boundary
+			if (encoder_input->steps + slider->knob_center_rel_x + obj->x > max_knob_center_actual_x)
+			{
+				slider->knob_center_rel_x = max_knob_center_actual_x - obj->x;
+			}
+			else if (encoder_input->steps + slider->knob_center_rel_x + obj->x < min_knob_center_actual_x)
+			{
+				slider->knob_center_rel_x = min_knob_center_actual_x - obj->x;
+			}
+			else
+			{
+				slider->knob_center_rel_x += encoder_input->steps;
+			}
+			
+			obj->value = _lui_map_range(slider->knob_center_rel_x, obj->common_style.width - (slider->style.knob_width / 2), (slider->style.knob_width / 2), slider->range_max, slider->range_min);
+			obj->event = LUI_EVENT_VALUE_CHANGED;
+			obj->needs_refresh = 1;
+		}
+	}
+}
+
+/* ------ Touch related input processing ------ */
+
+uint8_t _lui_check_if_active_obj_touch_input(lui_touch_input_data_t *input, lui_obj_t *obj)
+{
+	if (input->x >= obj->x && 
+		input->x < obj->x + obj->common_style.width &&
+		input->y >= obj->y &&
+		input->y < obj->y + obj->common_style.height)
 	{
 		 g_lui_main->active_obj = obj;
 		return 1;
@@ -2320,16 +2787,16 @@ uint8_t _lui_check_if_active_obj(lui_touch_input_data_t input, lui_obj_t *obj)
 	}	
 }
 
-void _lui_set_obj_props_on_input(lui_touch_input_data_t input, lui_obj_t *obj)
+void _lui_set_obj_props_on_touch_input(lui_touch_input_data_t *input, lui_obj_t *obj)
 {
-	uint8_t is_obj_active = _lui_check_if_active_obj(input, obj);
+	uint8_t is_obj_active = _lui_check_if_active_obj_touch_input(input, obj);
 	uint8_t new_state = LUI_STATE_IDLE;
 
 	
 	if (is_obj_active == 1)
 	{
 		// if pressed, then....well, then state = PRESSED
-		if (input.is_pressed == 1)
+		if (input->is_pressed == 1)
 		{
 			new_state = LUI_STATE_PRESSED;
 		}	
@@ -2338,6 +2805,10 @@ void _lui_set_obj_props_on_input(lui_touch_input_data_t input, lui_obj_t *obj)
 		{
 			new_state = LUI_STATE_SELECTED;
 		}
+	}
+	else
+	{
+		new_state = LUI_STATE_IDLE;
 	}
 	obj->event = _lui_get_event_against_state(new_state, obj->state);		
 
@@ -2368,23 +2839,23 @@ void _lui_set_obj_props_on_input(lui_touch_input_data_t input, lui_obj_t *obj)
 	{
 		lui_slider_t *slider = obj->obj_main_data;
 		if (obj->state == LUI_STATE_PRESSED &&
-			input.x != (obj->x + slider->knob_center_rel_x))
+			input->x != (obj->x + slider->knob_center_rel_x))
 		{
 			uint16_t max_knob_center_actual_x = obj->x + obj->common_style.width - (slider->style.knob_width / 2);
 			uint16_t min_knob_center_actual_x = obj->x + (slider->style.knob_width / 2);
 
 			// cap to minimum/maximum allowed position to prevent the knob from going out of boundary
-			if (input.x > max_knob_center_actual_x)
+			if (input->x > max_knob_center_actual_x)
 			{
 				slider->knob_center_rel_x = max_knob_center_actual_x - obj->x;
 			}
-			else if (input.x < min_knob_center_actual_x)
+			else if (input->x < min_knob_center_actual_x)
 			{
 				slider->knob_center_rel_x = min_knob_center_actual_x - obj->x;
 			}
 			else
 			{
-				slider->knob_center_rel_x = input.x - obj->x;
+				slider->knob_center_rel_x = input->x - obj->x;
 			}
 			
 			obj->value = _lui_map_range(slider->knob_center_rel_x, obj->common_style.width - (slider->style.knob_width / 2), (slider->style.knob_width / 2), slider->range_max, slider->range_min);
@@ -2392,175 +2863,6 @@ void _lui_set_obj_props_on_input(lui_touch_input_data_t input, lui_obj_t *obj)
 			obj->needs_refresh = 1;
 		}
 	}
-}
-
-lui_obj_t* _lui_process_touch_input_of_act_scene()
-{	
-	uint8_t scan_all_objs_flag = 0;
-	lui_obj_t *obj_caused_cb = NULL;
-	lui_obj_t *last_active_obj =  g_lui_main->active_obj;
-	lui_scene_t *scene_main_data = (lui_scene_t *)( g_lui_main->active_scene->obj_main_data);
-	lui_touch_input_data_t input_data;
-	g_lui_main->touch_input_dev->read_touch_input_cb(&input_data);
-
-	/* If previous "pressed" value is 1 and now it's 0, that means a "click" happened */
-	if (g_lui_main->input_state_pressed && !input_data.is_pressed)
-	{
-		g_lui_main->input_event_clicked = 1;
-	}
-	else
-	{
-		g_lui_main->input_event_clicked = 0;
-	}
-	g_lui_main->input_state_pressed = input_data.is_pressed;
-	
-
-	if (last_active_obj == NULL)
-	{
-		scan_all_objs_flag = 1;
-	}
-
-	else
-	{
-		// sets object parameters based on input. also may modify  g_lui_main->active_obj
-		_lui_set_obj_props_on_input(input_data, last_active_obj);
-		if (last_active_obj->event != LUI_EVENT_NONE)
-		{
-			if ( g_lui_main->active_obj != last_active_obj /* *state == LUI_STATE_IDLE*/)
-			{
-				scan_all_objs_flag = 1;
-			}
-			else
-			{
-				obj_caused_cb = last_active_obj;
-			}
-			
-		}
-		else
-		{
-			obj_caused_cb = NULL;
-		}
-		
-	}
-
-	if (scan_all_objs_flag)
-	{
-		// if popup exists, only scan input for popup (and its children)
-		if (scene_main_data->obj_popup != NULL)
-		{
-			/* If popup type is "unlocked" (locked = 0), check if outside of popup is clicked. If yes, unset it */
-			if (!scene_main_data->popup_type_locked)
-			{
-				if (g_lui_main->input_event_clicked)
-				{
-					if (!_lui_check_if_active_obj(input_data, scene_main_data->obj_popup))
-					{
-						lui_scene_unset_popup(g_lui_main->active_scene);
-						return NULL;
-					}
-					else
-					{
-						g_lui_main->active_obj = NULL;
-					}
-				}
-			}
-
-			obj_caused_cb = _lui_scan_all_obj_for_input(input_data, scene_main_data->obj_popup, last_active_obj);
-
-		}
-		// else scan is for active scene and its children
-		else
-		{
-			obj_caused_cb = _lui_scan_all_obj_for_input(input_data,  g_lui_main->active_scene, last_active_obj);
-		}
-		
-		if (obj_caused_cb == NULL)
-		{
-			obj_caused_cb = last_active_obj;
-		}
-	}
-	
-	return obj_caused_cb;
-
-}
-
-lui_obj_t* _lui_scan_all_obj_for_input(lui_touch_input_data_t input_data, lui_obj_t *obj_root, lui_obj_t *obj_excluded)
-{
-	// Note: This function is made by converting a tail-recursive function to iterative function
-	// The simple way is to use a stack.
-	// see the answer: https://codereview.stackexchange.com/a/163621
-	lui_obj_t *obj_caused_cb = NULL;
-
-	obj_caused_cb = _lui_scan_individual_object_for_input(input_data, obj_root, obj_excluded);
-	if (obj_caused_cb != NULL)
-		return obj_caused_cb;
-
-	lui_obj_t *child_of_root = obj_root->first_child;
-	while (child_of_root != NULL)
-	{
-		lui_obj_t *obj_stack[LUI_MAX_OBJECTS] = {NULL};
-        uint8_t stack_counter = 0;
-        obj_stack[stack_counter++] = child_of_root;
-        child_of_root = child_of_root->next_sibling;
-		
-		// loop until stack is empty. in this way all children (and their children too) will be traversed
-		while (stack_counter > 0)
-		{
-			// pop from stack
-			lui_obj_t *child = obj_stack[--stack_counter]; 
-
-			obj_caused_cb = _lui_scan_individual_object_for_input(input_data, child, obj_excluded);
-			if (obj_caused_cb != NULL)
-				return obj_caused_cb;
-
-			// get the child of current object
-            child = child->first_child;
-			// push all children of current object into stack too
-			while (child != NULL)
-			{
-				// push child to stack
-				obj_stack[stack_counter++] = child; 
-				// get sibling of the child
-                child = child->next_sibling;
-			}
-
-		}
-	}
-
-	return obj_caused_cb;
-}
-
-lui_obj_t* _lui_scan_individual_object_for_input(lui_touch_input_data_t input_data, lui_obj_t *obj, lui_obj_t *obj_excluded)
-{
-	lui_obj_t *obj_caused_cb = NULL;
-	// if current object is == last_active_object, continue. because, last_active_object is already processed
-	if (obj == obj_excluded)
-		return NULL;
-
-	// TODO: if invisible, still proceed. But, return NULL if disabled.
-	// So, add a `disabled` property in object. 
-	if (!(obj->visible))
-		return NULL;
-
-	// we are only interested in objects that take input, like button, switch
-	if (obj->obj_type == LUI_OBJ_BUTTON ||
-		obj->obj_type == LUI_OBJ_SWITCH ||
-		obj->obj_type == LUI_OBJ_CHECKBOX ||
-		obj->obj_type == LUI_OBJ_SLIDER)
-	{
-		// sets object parameters based on input. also, may modify  g_lui_main->active_obj
-		_lui_set_obj_props_on_input(input_data, obj);
-		if (obj->event != LUI_EVENT_NONE)
-		{
-			obj_caused_cb = obj;
-		}
-		else
-		{
-			obj_caused_cb = NULL;
-		}
-	}
-
-	return obj_caused_cb;
 }
 
 /*-------------------------------------------------------------------------------
@@ -2596,7 +2898,7 @@ void lui_dispdrv_register(lui_dispdrv_t *dispdrv)
 void* lui_dispdrv_destroy(lui_dispdrv_t *dispdrv)
 {
 	if (dispdrv != NULL)
-		 _lui_mem_free(dispdrv);
+		_lui_mem_free(dispdrv);
 	return NULL;
 }
 
@@ -2658,11 +2960,11 @@ void lui_touch_inputdev_set_read_input_cb(void (*read_touch_input_cb)(lui_touch_
 	inputdev->read_touch_input_cb = read_touch_input_cb;
 }
 
-lui_dpad_input_dev_t* lui_dpad_inputdev_create()
+lui_encoder_input_dev_t* lui_encoder_inputdev_create()
 {
-	lui_dpad_input_dev_t *initial_dpad_inputdev =  _lui_mem_alloc(sizeof(*initial_dpad_inputdev));
+	lui_encoder_input_dev_t *initial_encoder_inputdev =  _lui_mem_alloc(sizeof(*initial_encoder_inputdev));
 
-	initial_dpad_inputdev->read_dpad_input_cb = NULL;
+	initial_encoder_inputdev->read_encoder_input_cb = NULL;
 	// initial_dpad_inputdev.dpad_data.is_up_pressed = 0;
 	// initial_dpad_inputdev.dpad_data.is_down_pressed = 0;
 	// initial_dpad_inputdev.dpad_data.is_left_pressed = 0;
@@ -2670,21 +2972,21 @@ lui_dpad_input_dev_t* lui_dpad_inputdev_create()
 	// initial_dpad_inputdev.dpad_data.is_cancel_pressed = 0;
 	// initial_dpad_inputdev.dpad_data.is_enter_pressed = 0;
 
-	return initial_dpad_inputdev;
+	return initial_encoder_inputdev;
 }
 
-void lui_dpad_inputdev_register (lui_dpad_input_dev_t *inputdev)
+void lui_encoder_inputdev_register (lui_encoder_input_dev_t *inputdev)
 {
 	if (inputdev == NULL)
 		return;
-	 g_lui_main->dpad_input_dev = inputdev;
+	 g_lui_main->encoder_input_dev = inputdev;
 }
 
-void lui_dpad_inputdev_set_read_input_cb(void (*read_dpad_input_cb)(lui_dpad_input_data_t *inputdata), lui_dpad_input_dev_t *inputdev)
+void lui_encoder_inputdev_set_read_input_cb(void (*read_encoder_input_cb)(lui_encoder_input_data_t *inputdata), lui_encoder_input_dev_t *inputdev)
 {
 	if (inputdev == NULL)
 		return;
-	inputdev->read_dpad_input_cb = read_dpad_input_cb;
+	inputdev->read_encoder_input_cb = read_encoder_input_cb;
 }
 
 /*-------------------------------------------------------------------------------
