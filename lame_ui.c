@@ -2275,6 +2275,7 @@ void lui_object_set_visibility(uint8_t visible, lui_obj_t *obj)
 			// pop from stack
 			lui_obj_t *child = obj_stack[--stack_counter]; 
 			child->visible = visible;
+			child->needs_refresh = 1;
 
 			// get the child of current object
             child = child->first_child;
