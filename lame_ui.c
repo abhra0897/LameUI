@@ -181,92 +181,6 @@ void lui_label_draw(lui_obj_t *obj)
 
 }
 
-
-void lui_gfx_draw_string_advanced(const char *str, uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t fore_color, uint16_t bg_color, uint8_t is_bg, const tFont *font)
-{
-	const tImage *img = {0};
-	uint16_t glyph_width = 0, glyph_height = 0;
-	uint16_t x_temp = x;
-	uint16_t y_temp = y;
-	if (w == 0 || h == 0)
-	{
-		uint16_t max_w = w == 0 ? g_lui_main->disp_drv->display_hor_res - x : w;
-		uint16_t max_h = h == 0 ? g_lui_main->disp_drv->display_vert_res - y : h;
-		uint16_t area[2] = {0, 0};
-
-		lui_gfx_get_string_dimension(str, font, max_w, area);
-		area[1] = area[1] > max_h ? max_h : area[1];
-
-		w = w == 0 ? area[0] : w;
-		h = h == 0 ? area[1] : h;
-	}
-	if (is_bg)
-	{
-		lui_gfx_draw_rect_fill(x, y, w, h, bg_color);
-	}
-	
-	// Scan chars one by one from the string
-	//char
-	for (uint16_t char_cnt = 0; *(str+char_cnt) != '\0'; char_cnt++)
-	{
-		if (*(str+char_cnt) == '\n')
-		{
-			x_temp = x;					//go to first col
-			y_temp += (font->chars[0].image->height);	//go to next row (row height = height of space)
-		}
-
-		else if (*(str+char_cnt) == '\t')
-		{
-			if (x_temp + (4 * font->chars[0].image->width) > x + w)
-			{
-				y_temp += (font->chars[0].image->height);	//go to next row (row height = height of space)
-				x_temp = x; // go to first col
-			}
-
-			x_temp += (4 * font->chars[0].image->width);	//Skip 4 spaces (width = width of space)
-			// check if not enough space available at the bottom
-			if(y_temp + glyph_height > y + h - 1)
-				return;
-		}
-		else
-		{
-			// Find the glyph for the char from the font
-			for (uint8_t i = 0; i < font->length; i++)
-			{
-				if (font->chars[i].code == *(str+char_cnt))
-				{
-					img = font->chars[i].image;
-					break;
-				}
-			}
-			glyph_width = img->width;
-			glyph_height = img->height;
-
-
-			// check if not enough space available at the right side
-			if (x_temp + glyph_width > x + w)
-			{
-				x_temp = x;					//go to first col
-				y_temp += glyph_height;	//go to next row
-
-				// check if not enough space available at the bottom
-				if(y_temp + glyph_height > y + h - 1)
-					return;
-			}
-
-			_lui_gfx_draw_char_glyph(x_temp, y_temp, fore_color, img);
-
-			x_temp += glyph_width;		//next char position
-		}
-	}
-}
-
-
-void lui_gfx_draw_string_simple(const char *str, uint16_t x, uint16_t y, uint16_t fore_color, const tFont *font)
-{
-	lui_gfx_draw_string_advanced(str, x, y, 0, 0, fore_color, 0, 0, font);
-}
-
 /*
  * Initialize a label with default values
  */
@@ -3289,6 +3203,93 @@ uint8_t _lui_get_event_against_state(uint8_t new_state, uint8_t old_state)
 	return event;
 }
 
+
+void lui_gfx_draw_string_advanced(const char *str, uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t fore_color, uint16_t bg_color, uint8_t is_bg, const tFont *font)
+{
+	const tImage *img = {0};
+	uint16_t glyph_width = 0, glyph_height = 0;
+	uint16_t x_temp = x;
+	uint16_t y_temp = y;
+	if (w == 0 || h == 0)
+	{
+		uint16_t max_w = w == 0 ? g_lui_main->disp_drv->display_hor_res - x : w;
+		uint16_t max_h = h == 0 ? g_lui_main->disp_drv->display_vert_res - y : h;
+		uint16_t area[2] = {0, 0};
+
+		lui_gfx_get_string_dimension(str, font, max_w, area);
+		area[1] = area[1] > max_h ? max_h : area[1];
+
+		w = w == 0 ? area[0] : w;
+		h = h == 0 ? area[1] : h;
+	}
+	if (is_bg)
+	{
+		lui_gfx_draw_rect_fill(x, y, w, h, bg_color);
+	}
+	
+	// Scan chars one by one from the string
+	//char
+	for (uint16_t char_cnt = 0; *(str+char_cnt) != '\0'; char_cnt++)
+	{
+		if (*(str+char_cnt) == '\n')
+		{
+			x_temp = x;					//go to first col
+			y_temp += (font->chars[0].image->height);	//go to next row (row height = height of space)
+		}
+
+		else if (*(str+char_cnt) == '\t')
+		{
+			if (x_temp + (4 * font->chars[0].image->width) > x + w)
+			{
+				y_temp += (font->chars[0].image->height);	//go to next row (row height = height of space)
+				x_temp = x; // go to first col
+			}
+
+			x_temp += (4 * font->chars[0].image->width);	//Skip 4 spaces (width = width of space)
+			// check if not enough space available at the bottom
+			if(y_temp + glyph_height > y + h)
+				return;
+		}
+		else
+		{
+			// Find the glyph for the char from the font
+			for (uint8_t i = 0; i < font->length; i++)
+			{
+				if (font->chars[i].code == *(str+char_cnt))
+				{
+					img = font->chars[i].image;
+					break;
+				}
+			}
+			glyph_width = img->width;
+			glyph_height = img->height;
+
+
+			// check if not enough space available at the right side
+			if (x_temp + glyph_width > x + w)
+			{
+				x_temp = x;					//go to first col
+				y_temp += glyph_height;	//go to next row
+
+				// check if not enough space available at the bottom
+				if(y_temp + glyph_height > y + h)
+					return;
+			}
+
+			_lui_gfx_draw_char_glyph(x_temp, y_temp, fore_color, img);
+
+			x_temp += glyph_width;		//next char position
+		}
+	}
+}
+
+
+void lui_gfx_draw_string_simple(const char *str, uint16_t x, uint16_t y, uint16_t fore_color, const tFont *font)
+{
+	lui_gfx_draw_string_advanced(str, x, y, 0, 0, fore_color, 0, 0, font);
+}
+
+
 /*
  * Draws a character glyph in left-to-right order
  * Monochrome fonts generated with lcd-image-converter software are supported only
@@ -3373,7 +3374,9 @@ void lui_gfx_get_string_dimension(const char *str, const tFont *font_obj, uint16
 	str_dim[0] = 0;	// -> width
 	str_dim[1] = 0;	// -> height
 
+	uint8_t needs_wrap = 0;
 	uint16_t temp_w = 0;
+	uint16_t temp_w_highest = 0;
 	// height is the height of space
 	uint16_t temp_h = font_obj->chars[0].image->height;
 
@@ -3392,9 +3395,11 @@ void lui_gfx_get_string_dimension(const char *str, const tFont *font_obj, uint16
 			{
 				temp_h += font_obj->chars[0].image->height;
 				temp_w = 0;
+				needs_wrap = 1;
 			}
 
 			temp_w += (4 * font_obj->chars[0].image->width);	
+			temp_w_highest = temp_w_highest < temp_w ? temp_w : temp_w_highest;
 		}
 
 		else
@@ -3408,18 +3413,19 @@ void lui_gfx_get_string_dimension(const char *str, const tFont *font_obj, uint16
 					if (temp_w + font_obj->chars[i].image->width > max_w)
 					{
 						temp_h += font_obj->chars[0].image->height;
-						temp_w = font_obj->chars[i].image->width;
+						temp_w = 0;
+						needs_wrap = 1;
 					}
-					else
-					{
-						temp_w += font_obj->chars[i].image->width;
-					}	
+
+					temp_w += font_obj->chars[i].image->width;
+					temp_w_highest = temp_w_highest < temp_w ? temp_w : temp_w_highest;
+
 					break;
 				}
 			}
 		}
 	}
-	str_dim[0] = temp_h > font_obj->chars[0].image->height ? max_w : temp_w;
+	str_dim[0] = needs_wrap ? max_w : temp_w_highest;
 	str_dim[1] = temp_h; 
 
 }
