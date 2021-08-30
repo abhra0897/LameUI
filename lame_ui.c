@@ -122,31 +122,120 @@ void lui_label_draw(lui_obj_t *obj)
 		temp_font = _lui_get_font_from_active_scene();
 	}
 
-	// Draw the label background color
-	_lui_draw_rect_fill(obj->x, obj->y, obj->common_style.width, obj->common_style.height, obj->common_style.bg_color);
+	lui_gfx_draw_string_advanced(lbl->text, obj->x, obj->y, obj->common_style.width, obj->common_style.height, lbl->style.text_color, obj->common_style.bg_color, 1, temp_font);
 
+	// // Draw the label background color
+	// lui_gfx_draw_rect_fill(obj->x, obj->y, obj->common_style.width, obj->common_style.height, obj->common_style.bg_color);
+
+	// // Scan chars one by one from the string
+	// //char
+	// for (uint16_t char_cnt = 0; *(lbl->text+char_cnt) != '\0'; char_cnt++)
+	// {
+	// 	if (*(lbl->text+char_cnt) == '\n')
+	// 	{
+	// 		x_temp = obj->x;					//go to first col
+	// 		y_temp += (temp_font->chars[0].image->height);	//go to next row (row height = height of space)
+	// 	}
+
+	// 	else if (*(lbl->text+char_cnt) == '\t')
+	// 	{
+	// 		x_temp += 4 * (temp_font->chars[0].image->width);	//Skip 4 spaces (width = width of space)
+	// 	}
+	// 	else
+	// 	{
+	// 		// Find the glyph for the char from the font
+	// 		for (uint8_t i = 0; i < temp_font->length; i++)
+	// 		{
+	// 			if (temp_font->chars[i].code == *(lbl->text+char_cnt))
+	// 			{
+	// 				img = temp_font->chars[i].image;
+	// 				break;
+	// 			}
+	// 		}
+	// 		glyph_width = img->width;
+	// 		glyph_height = img->height;
+
+
+	// 		// check if not enough space available at the right side
+	// 		if (x_temp + glyph_width > obj->x + obj->common_style.width)
+	// 		{
+	// 			x_temp = obj->x;					//go to first col
+	// 			y_temp += glyph_height;	//go to next row
+
+	// 			// check if not enough space available at the bottom
+	// 			if(y_temp + glyph_height > obj->y + obj->common_style.height - 1)
+	// 				return;
+	// 		}
+
+	// 		_lui_gfx_draw_char_glyph(x_temp, y_temp, lbl->style.text_color, img);
+
+	// 		x_temp += glyph_width;		//next char position
+	// 	}
+	// }
+
+	// Draw the label border if needed
+	if (obj->common_style.border_visible == 1)
+	{
+		lui_gfx_draw_rect(obj->x, obj->y, obj->common_style.width, obj->common_style.height, 1, obj->common_style.border_color);
+	}
+
+}
+
+
+void lui_gfx_draw_string_advanced(const char *str, uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t fore_color, uint16_t bg_color, uint8_t is_bg, const tFont *font)
+{
+	const tImage *img = {0};
+	uint16_t glyph_width = 0, glyph_height = 0;
+	uint16_t x_temp = x;
+	uint16_t y_temp = y;
+	if (w == 0 || h == 0)
+	{
+		uint16_t max_w = w == 0 ? g_lui_main->disp_drv->display_hor_res - x : w;
+		uint16_t max_h = h == 0 ? g_lui_main->disp_drv->display_vert_res - y : h;
+		uint16_t area[2] = {0, 0};
+
+		lui_gfx_get_string_dimension(str, font, max_w, area);
+		area[1] = area[1] > max_h ? max_h : area[1];
+
+		w = w == 0 ? area[0] : w;
+		h = h == 0 ? area[1] : h;
+	}
+	if (is_bg)
+	{
+		lui_gfx_draw_rect_fill(x, y, w, h, bg_color);
+	}
+	
 	// Scan chars one by one from the string
 	//char
-	for (uint16_t char_cnt = 0; *(lbl->text+char_cnt) != '\0'; char_cnt++)
+	for (uint16_t char_cnt = 0; *(str+char_cnt) != '\0'; char_cnt++)
 	{
-		if (*(lbl->text+char_cnt) == '\n')
+		if (*(str+char_cnt) == '\n')
 		{
-			x_temp = obj->x;					//go to first col
-			y_temp += (temp_font->chars[0].image->height);	//go to next row (row height = height of space)
+			x_temp = x;					//go to first col
+			y_temp += (font->chars[0].image->height);	//go to next row (row height = height of space)
 		}
 
-		else if (*(lbl->text+char_cnt) == '\t')
+		else if (*(str+char_cnt) == '\t')
 		{
-			x_temp += 4 * (temp_font->chars[0].image->height);	//Skip 4 spaces (width = width of space)
+			if (x_temp + (4 * font->chars[0].image->width) > x + w)
+			{
+				y_temp += (font->chars[0].image->height);	//go to next row (row height = height of space)
+				x_temp = x; // go to first col
+			}
+
+			x_temp += (4 * font->chars[0].image->width);	//Skip 4 spaces (width = width of space)
+			// check if not enough space available at the bottom
+			if(y_temp + glyph_height > y + h - 1)
+				return;
 		}
 		else
 		{
 			// Find the glyph for the char from the font
-			for (uint8_t i = 0; i < temp_font->length; i++)
+			for (uint8_t i = 0; i < font->length; i++)
 			{
-				if (temp_font->chars[i].code == *(lbl->text+char_cnt))
+				if (font->chars[i].code == *(str+char_cnt))
 				{
-					img = temp_font->chars[i].image;
+					img = font->chars[i].image;
 					break;
 				}
 			}
@@ -155,28 +244,27 @@ void lui_label_draw(lui_obj_t *obj)
 
 
 			// check if not enough space available at the right side
-			if (x_temp + glyph_width > obj->x + obj->common_style.width)
+			if (x_temp + glyph_width > x + w)
 			{
-				x_temp = obj->x;					//go to first col
+				x_temp = x;					//go to first col
 				y_temp += glyph_height;	//go to next row
 
 				// check if not enough space available at the bottom
-				if(y_temp + glyph_height > obj->y + obj->common_style.height - 1)
+				if(y_temp + glyph_height > y + h - 1)
 					return;
 			}
 
-			_lui_draw_char(x_temp, y_temp, lbl->style.text_color, img);
+			_lui_gfx_draw_char_glyph(x_temp, y_temp, fore_color, img);
 
 			x_temp += glyph_width;		//next char position
 		}
 	}
+}
 
-	// Draw the chart border if needed
-	if (obj->common_style.border_visible == 1)
-	{
-		_lui_draw_rect(obj->x, obj->y, obj->common_style.width, obj->common_style.height, 1, obj->common_style.border_color);
-	}
 
+void lui_gfx_draw_string_simple(const char *str, uint16_t x, uint16_t y, uint16_t fore_color, const tFont *font)
+{
+	lui_gfx_draw_string_advanced(str, x, y, 0, 0, fore_color, 0, 0, font);
 }
 
 /*
@@ -346,7 +434,7 @@ void lui_linechart_draw(lui_obj_t *obj)
 
 
 	// Draw the chart background
-	_lui_draw_rect_fill(temp_x, temp_y, width, height, obj->common_style.bg_color);
+	lui_gfx_draw_rect_fill(temp_x, temp_y, width, height, obj->common_style.bg_color);
 
 	// Draw the scale numbers
 
@@ -360,7 +448,7 @@ void lui_linechart_draw(lui_obj_t *obj)
 		for (int i = 1; i <= chart->grid.vert_count; i++)
 		{
 			uint16_t temp_x_new = temp_x + (i * vert_grid_spacing);
-			_lui_draw_line(temp_x_new, temp_y, temp_x_new, temp_y + height - 1, 1, chart->style.grid_color);
+			lui_gfx_draw_line(temp_x_new, temp_y, temp_x_new, temp_y + height - 1, 1, chart->style.grid_color);
 		}
 
 		// Draw the horizontal grids from bottom to top
@@ -368,7 +456,7 @@ void lui_linechart_draw(lui_obj_t *obj)
 		for (int i = 1; i <= chart->grid.hor_count; i++)
 		{
 			uint16_t temp_y_new = y_bottom - (i * hor_grid_spacing);
-			_lui_draw_line(temp_x, temp_y_new, temp_x + width - 1, temp_y_new, 1, chart->style.grid_color);
+			lui_gfx_draw_line(temp_x, temp_y_new, temp_x + width - 1, temp_y_new, 1, chart->style.grid_color);
 		}
 	}
 
@@ -404,14 +492,14 @@ void lui_linechart_draw(lui_obj_t *obj)
 			uint16_t next_x = mapped_data [i*2 + 2];
 			uint16_t next_y = mapped_data [i*2 + 3];
 
-			_lui_draw_line(current_x, current_y, next_x, next_y, 1, line_color);
+			lui_gfx_draw_line(current_x, current_y, next_x, next_y, 1, line_color);
 		}
 	}
 
 	// Draw the chart border if needed
 	if (obj->common_style.border_visible == 1)
 	{
-		_lui_draw_rect(temp_x, temp_y, width, height, 1, obj->common_style.border_color);
+		lui_gfx_draw_rect(temp_x, temp_y, width, height, 1, obj->common_style.border_color);
 	}
 }
 
@@ -609,7 +697,7 @@ void lui_button_draw(lui_obj_t *obj)
 	uint16_t btn_width = obj->common_style.width;
 
 
-	uint8_t str_width_height[2];
+	uint16_t str_width_height[2];
 
 	// Draw the button's body color depending on its current state
 	uint16_t btn_color = obj->common_style.bg_color;
@@ -620,7 +708,7 @@ void lui_button_draw(lui_obj_t *obj)
 	// else if (btn->state == LUI_STATE_IDLE)
 	// 	btn_color = btn->color;
 
-	_lui_draw_rect_fill(temp_x, temp_y, btn_width, btn_height, btn_color);
+	lui_gfx_draw_rect_fill(temp_x, temp_y, btn_width, btn_height, btn_color);
 	
 	// Draw the button label (text)
 	// Text will be in the miidle of the button.
@@ -636,7 +724,7 @@ void lui_button_draw(lui_obj_t *obj)
 		temp_font = _lui_get_font_from_active_scene();
 	}
 
-	_get_string_dimension(btn->label.text, temp_font, str_width_height);
+	lui_gfx_get_string_dimension(btn->label.text, temp_font, btn_width, str_width_height);
 
 	str_width_height[0] = str_width_height[0] > btn_width ? btn_width : str_width_height[0];
 	str_width_height[1] = str_width_height[1] > btn_height ? btn_height : str_width_height[1];
@@ -644,42 +732,21 @@ void lui_button_draw(lui_obj_t *obj)
 	temp_x = temp_x + (btn_width - str_width_height[0]) / 2;
 	temp_y = temp_y + (btn_height - str_width_height[1]) / 2;
 
-	// lui_obj_t *lbl_obj =   _lui_mem_alloc(sizeof(*lbl_obj));
-	// lui_label_t *btn_label =   _lui_mem_alloc(sizeof(*btn_label));
+	// uint16_t bg_color;
+	// if (obj->state == LUI_STATE_IDLE)
+	// 	bg_color = obj->common_style.bg_color; // normal situation
+	// else if (obj->state == LUI_STATE_SELECTED)
+	// 	bg_color = btn->style.selection_color;
+	// else if (obj->state == LUI_STATE_PRESSED)
+	// 	bg_color = btn->style.pressed_color;
 
-	lui_obj_t *lbl_obj =  lui_label_create();
-	lui_label_t *btn_label =  lbl_obj->obj_main_data;
-
-	lbl_obj->obj_type = LUI_OBJ_LABEL;
-	lbl_obj->visible = 1;
-	btn_label->text = btn->label.text;
-	btn_label->style.text_color = btn->style.label_color;
-	// bg_color depends on button's current state color
-	if (obj->state == LUI_STATE_IDLE)
-		lbl_obj->common_style.bg_color = obj->common_style.bg_color; // normal situation
-	else if (obj->state == LUI_STATE_SELECTED)
-		lbl_obj->common_style.bg_color = btn->style.selection_color;
-	else if (obj->state == LUI_STATE_PRESSED)
-		lbl_obj->common_style.bg_color = btn->style.pressed_color;
-	lbl_obj->common_style.border_color = lbl_obj->common_style.bg_color;
-	lbl_obj->x = temp_x;
-	lbl_obj->y = temp_y;
-	lbl_obj->common_style.width = str_width_height[0];
-	lbl_obj->common_style.height = str_width_height[1];
-	btn_label->font = temp_font;
-	lbl_obj->obj_main_data = btn_label;
-	lui_label_draw(lbl_obj);
-
-	//lbl_obj = NULL;
-	 _lui_mem_free(btn_label);
-	 _lui_mem_free(lbl_obj);
-	 g_lui_main->total_created_objects--;
+	lui_gfx_draw_string_advanced(btn->label.text, temp_x, temp_y, str_width_height[0], str_width_height[1], btn->style.label_color, 0, 0, temp_font);
 	
 
 	// Finally Draw the border if needed
 	if (obj->common_style.border_visible == 1)
 	{
-		_lui_draw_rect(obj->x, obj->y, btn_width, btn_height, 1, obj->common_style.border_color);
+		lui_gfx_draw_rect(obj->x, obj->y, btn_width, btn_height, 1, obj->common_style.border_color);
 	}
 }
 
@@ -819,7 +886,7 @@ void lui_list_draw(lui_obj_t *obj)
 	// Finally Draw the border if needed
 	if (obj->common_style.border_visible == 1)
 	{
-		_lui_draw_rect(obj->x, obj->y,  obj->common_style.width, obj->common_style.height, 1, obj->common_style.border_color);
+		lui_gfx_draw_rect(obj->x, obj->y,  obj->common_style.width, obj->common_style.height, 1, obj->common_style.border_color);
 	}
 }
 
@@ -1317,9 +1384,9 @@ void lui_switch_draw(lui_obj_t *obj)
 	}
 	
 	
-	_lui_draw_rect_fill(temp_x, temp_y, temp_width, temp_height, obj->common_style.bg_color);	// switch bg (color is constant regardless the state)
+	lui_gfx_draw_rect_fill(temp_x, temp_y, temp_width, temp_height, obj->common_style.bg_color);	// switch bg (color is constant regardless the state)
 	if (obj->common_style.border_visible == 1)
-		_lui_draw_rect(temp_x, temp_y, temp_width, temp_height, 1, obj->common_style.border_color);	// switch border
+		lui_gfx_draw_rect(temp_x, temp_y, temp_width, temp_height, 1, obj->common_style.border_color);	// switch border
 
 	temp_width = (float)temp_width * 0.3;
 	temp_height = (float)temp_height * 0.6;
@@ -1328,7 +1395,7 @@ void lui_switch_draw(lui_obj_t *obj)
 		temp_x += (obj->common_style.width / 2);
 	temp_y = temp_y + (obj->common_style.height - temp_height) / 2;
 
-	_lui_draw_rect_fill(temp_x, temp_y, temp_width, temp_height, swtch_color);// switch slider
+	lui_gfx_draw_rect_fill(temp_x, temp_y, temp_width, temp_height, swtch_color);// switch slider
 }
 
 lui_obj_t* lui_switch_create()
@@ -1469,7 +1536,7 @@ void lui_checkbox_draw(lui_obj_t *obj)
 		bg_color = chkbox->style.selection_color;
 	}
 
-	_lui_draw_rect_fill(obj->x, obj->y, obj->common_style.width, obj->common_style.width, bg_color);
+	lui_gfx_draw_rect_fill(obj->x, obj->y, obj->common_style.width, obj->common_style.width, bg_color);
 	// draw the tick mark if needed
 	if (obj->value == 1)
 	{
@@ -1477,14 +1544,14 @@ void lui_checkbox_draw(lui_obj_t *obj)
 		uint16_t point_2_x = obj->x + (obj->common_style.width * .4), point_2_y = obj->y + (obj->common_style.width * .75);
 		uint16_t point_3_x = obj->x + (obj->common_style.width * .75), point_3_y = obj->y + (obj->common_style.width * .3);
 		
-		_lui_draw_line(point_1_x, point_1_y, point_2_x, point_2_y, 2, chkbox->style.tick_color);
-		_lui_draw_line(point_2_x, point_2_y, point_3_x, point_3_y, 2, chkbox->style.tick_color);
+		lui_gfx_draw_line(point_1_x, point_1_y, point_2_x, point_2_y, 2, chkbox->style.tick_color);
+		lui_gfx_draw_line(point_2_x, point_2_y, point_3_x, point_3_y, 2, chkbox->style.tick_color);
 	}
 
 	// draw the border if needed
 	if (obj->common_style.border_visible == 1)
 	{
-		_lui_draw_rect(obj->x, obj->y,  obj->common_style.width,  obj->common_style.width, 1, obj->common_style.border_color);
+		lui_gfx_draw_rect(obj->x, obj->y,  obj->common_style.width,  obj->common_style.width, 1, obj->common_style.border_color);
 	}
 	
 }
@@ -1620,16 +1687,16 @@ void lui_slider_draw(lui_obj_t *obj)
 	}
 
 	// draw the filled region (left) first
-	_lui_draw_rect_fill(obj->x, obj->y, slider->knob_center_rel_x, obj->common_style.height, slider->style.bg_filled_color);
+	lui_gfx_draw_rect_fill(obj->x, obj->y, slider->knob_center_rel_x, obj->common_style.height, slider->style.bg_filled_color);
 	// draw the remaining region (right) 
-	_lui_draw_rect_fill(obj->x + slider->knob_center_rel_x, obj->y, obj->common_style.width - slider->knob_center_rel_x, obj->common_style.height, obj->common_style.bg_color);
+	lui_gfx_draw_rect_fill(obj->x + slider->knob_center_rel_x, obj->y, obj->common_style.width - slider->knob_center_rel_x, obj->common_style.height, obj->common_style.bg_color);
 	// draw the knob
-	_lui_draw_rect_fill(obj->x + slider->knob_center_rel_x - (slider->style.knob_width / 2), obj->y, slider->style.knob_width, obj->common_style.height, knob_color);
+	lui_gfx_draw_rect_fill(obj->x + slider->knob_center_rel_x - (slider->style.knob_width / 2), obj->y, slider->style.knob_width, obj->common_style.height, knob_color);
 
 	// draw the border if needed
 	if (obj->common_style.border_visible == 1)
 	{
-		_lui_draw_rect(obj->x, obj->y,  obj->common_style.width,  obj->common_style.height, 1, obj->common_style.border_color);
+		lui_gfx_draw_rect(obj->x, obj->y,  obj->common_style.width,  obj->common_style.height, 1, obj->common_style.border_color);
 	}
 }
 
@@ -1847,7 +1914,7 @@ void lui_panel_draw(lui_obj_t *obj)
 	// for panel, just draw background and optional border
 	 g_lui_main->disp_drv->draw_pixels_area_cb(obj->x, obj->y, obj->common_style.width,  obj->common_style.height, obj->common_style.bg_color);
 	if (obj->common_style.border_visible == 1)
-		_lui_draw_rect(obj->x, obj->y, obj->common_style.width, obj->common_style.height, 1, obj->common_style.border_color);
+		lui_gfx_draw_rect(obj->x, obj->y, obj->common_style.width, obj->common_style.height, 1, obj->common_style.border_color);
 }
 /*-------------------------------------------------------------------------------
  * 							END
@@ -1909,7 +1976,7 @@ void lui_scene_draw(lui_obj_t *obj)
 	if (!(obj->visible))
 		return;
 
-	_lui_draw_rect_fill(obj->x, obj->y, obj->common_style.width, obj->common_style.height, obj->common_style.bg_color);
+	lui_gfx_draw_rect_fill(obj->x, obj->y, obj->common_style.width, obj->common_style.height, obj->common_style.bg_color);
 	// TBD: draw background image
 }
 
@@ -3229,7 +3296,7 @@ uint8_t _lui_get_event_against_state(uint8_t new_state, uint8_t old_state)
  *
  * Returns the last written pixel's X position
  */
-void _lui_draw_char(uint16_t x, uint16_t y, uint16_t fore_color, const tImage *glyph)
+void _lui_gfx_draw_char_glyph(uint16_t x, uint16_t y, uint16_t fore_color, const tImage *glyph)
 {
 	uint16_t width = 0, height = 0;
 
@@ -3301,27 +3368,60 @@ void _lui_draw_char(uint16_t x, uint16_t y, uint16_t fore_color, const tImage *g
  * Width: by adding up the width of each glyph (representing a character)
  * Height: Height of any glyph (representing a character)
  */
-void _get_string_dimension(const char *str, const tFont *font_obj, uint8_t *str_dim)
+void lui_gfx_get_string_dimension(const char *str, const tFont *font_obj, uint16_t max_w, uint16_t *str_dim)
 {
-	 str_dim[0] = 0;	// -> width
-	 str_dim[1] = 0;	// -> height
+	str_dim[0] = 0;	// -> width
+	str_dim[1] = 0;	// -> height
+
+	uint16_t temp_w = 0;
+	// height is the height of space
+	uint16_t temp_h = font_obj->chars[0].image->height;
 
 	// Scan chars one by one from the string
 	for (uint16_t char_cnt = 0; *(str+char_cnt) != '\0'; char_cnt++)
 	{
-		// Find the glyph for the char from the font
-		for (uint8_t i = 0; i < font_obj->length; i++)
+		if (*(str+char_cnt) == '\n')
 		{
-			if (font_obj->chars[i].code == *(str+char_cnt))
+			temp_h += font_obj->chars[0].image->height;
+			temp_w = 0;
+		}
+
+		else if (*(str+char_cnt) == '\t')
+		{
+			if (temp_w + (4 * font_obj->chars[0].image->width) > max_w)
 			{
-				// Add width of glyphs
-				str_dim[0] += font_obj->chars[i].image->width;
-				break;
+				temp_h += font_obj->chars[0].image->height;
+				temp_w = 0;
+			}
+
+			temp_w += (4 * font_obj->chars[0].image->width);	
+		}
+
+		else
+		{
+			// Find the glyph for the char from the font
+			for (uint8_t i = 0; i < font_obj->length; i++)
+			{
+				if (font_obj->chars[i].code == *(str+char_cnt))
+				{
+					// Add width of glyphs
+					if (temp_w + font_obj->chars[i].image->width > max_w)
+					{
+						temp_h += font_obj->chars[0].image->height;
+						temp_w = font_obj->chars[i].image->width;
+					}
+					else
+					{
+						temp_w += font_obj->chars[i].image->width;
+					}	
+					break;
+				}
 			}
 		}
 	}
-	// Set height as the height of the glyph of "space"
-	str_dim[1] = font_obj->chars[0].image->height;
+	str_dim[0] = temp_h > font_obj->chars[0].image->height ? max_w : temp_w;
+	str_dim[1] = temp_h; 
+
 }
 
 /*
@@ -3329,7 +3429,7 @@ void _get_string_dimension(const char *str, const tFont *font_obj, uint8_t *str_
  * Draw line between ANY two points.
  * Not necessarily start points has to be less than end points.
  */
-void _lui_draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color)
+void lui_gfx_draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color)
 {
 	/*
 	* Brehensen's algorithm is used.
@@ -3349,17 +3449,17 @@ void _lui_draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t 
 		if (abs(y1 - y0) < abs(x1 - x0))
 		{
 			if (x0 > x1)
-				_lui_plot_line_low(x1, y1, x0, y0, line_width, color);
+				_lui_gfx_plot_line_low(x1, y1, x0, y0, line_width, color);
 			else
-				_lui_plot_line_low(x0, y0, x1, y1, line_width, color);
+				_lui_gfx_plot_line_low(x0, y0, x1, y1, line_width, color);
 		}
 
 		else
 		{
 			if (y0 > y1)
-				_lui_plot_line_high(x1, y1, x0, y0, line_width, color);
+				_lui_gfx_plot_line_high(x1, y1, x0, y0, line_width, color);
 			else
-				_lui_plot_line_high(x0, y0, x1, y1, line_width, color) ;
+				_lui_gfx_plot_line_high(x0, y0, x1, y1, line_width, color) ;
 		}
 	}
 
@@ -3369,7 +3469,7 @@ void _lui_draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t 
  * When dy < 0
  * It's called only by line_draw function. Not for user
  */
-void _lui_plot_line_low(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color)
+void _lui_gfx_plot_line_low(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color)
 {
 	int16_t dx = x1 - x0;
 	int16_t dy = y1 - y0;
@@ -3402,7 +3502,7 @@ void _lui_plot_line_low(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint
  * When dx < 0
  * It's called only by line_draw function. Not for user
  */
-void _lui_plot_line_high(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color)
+void _lui_gfx_plot_line_high(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color)
 {
 	int16_t dx = x1 - x0;
 	int16_t dy = y1 - y0;
@@ -3434,20 +3534,20 @@ void _lui_plot_line_high(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uin
 /*
  * Draw a rectangle with a given color and line width
  */
-void _lui_draw_rect(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint8_t line_width, uint16_t color)
+void lui_gfx_draw_rect(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint8_t line_width, uint16_t color)
 {
 	uint16_t x_new = x+w-1;
 	uint16_t y_new = y+h-1;
-	_lui_draw_line(x, y, x_new, y, line_width, color);
-	_lui_draw_line(x_new, y, x_new, y_new, line_width, color);
-	_lui_draw_line(x, y_new, x_new, y_new, line_width, color);
-	_lui_draw_line(x, y, x, y_new, line_width, color);
+	lui_gfx_draw_line(x, y, x_new, y, line_width, color);
+	lui_gfx_draw_line(x_new, y, x_new, y_new, line_width, color);
+	lui_gfx_draw_line(x, y_new, x_new, y_new, line_width, color);
+	lui_gfx_draw_line(x, y, x, y_new, line_width, color);
 }
 
 /*
  * Fill a rectangular area with a color
  */
-void _lui_draw_rect_fill(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color)
+void lui_gfx_draw_rect_fill(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color)
 {
 	 g_lui_main->disp_drv->draw_pixels_area_cb(x, y, w, h, color);
 }

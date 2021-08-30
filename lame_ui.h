@@ -577,13 +577,16 @@ void _lui_set_obj_props_on_encoder_input(lui_encoder_input_data_t *input, _lui_e
 uint8_t _lui_check_if_active_obj_encoder_input(_lui_encoder_processed_t *encoder_processed, lui_obj_t *obj);
 tFont* _lui_get_font_from_active_scene();
 uint8_t _lui_get_event_against_state(uint8_t new_state, uint8_t old_state);
-void _lui_draw_char(uint16_t x, uint16_t y, uint16_t fore_color, const tImage *glyph);
-void _get_string_dimension(const char *str, const tFont *font_obj, uint8_t *str_dim);
-void _lui_plot_line_low(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color);
-void _lui_plot_line_high(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color);
-void _lui_draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color);
+
+void lui_gfx_draw_string_advanced(const char *str, uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t fore_color, uint16_t bg_color, uint8_t is_bg, const tFont *font);
+void lui_gfx_draw_string_simple(const char *str, uint16_t x, uint16_t y, uint16_t fore_color, const tFont *font);
+void _lui_gfx_draw_char_glyph(uint16_t x, uint16_t y, uint16_t fore_color, const tImage *glyph);
+void lui_gfx_get_string_dimension(const char *str, const tFont *font_obj, uint16_t max_w, uint16_t *str_dim);
+void _lui_gfx_plot_line_low(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color);
+void _lui_gfx_plot_line_high(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color);
+void lui_gfx_draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color);
+void lui_gfx_draw_rect(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint8_t line_width, uint16_t color);
+void lui_gfx_draw_rect_fill(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color);
 double _lui_map_range(double old_val, double old_max, double old_min, double new_max, double new_min);
-void _lui_draw_rect(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint8_t line_width, uint16_t color);
-void _lui_draw_rect_fill(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color);
 uint16_t lui_rgb(uint16_t red, uint16_t green, uint16_t blue);
 #endif /* INC_LAME_UI_H_ */
