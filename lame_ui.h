@@ -2,7 +2,7 @@
  * lame_ui.h
  *
  *  Created on: 02-Apr-2020
- *	Last updated: 08-Aug-2021
+ *	Last updated: 31-Aug-2021
  *      Author: rik
  */
 
@@ -244,6 +244,7 @@ typedef struct _lui_obj_s
 	//private use only
 	uint8_t needs_refresh;
 	uint8_t visible;
+	uint8_t enabled;
 	//int8_t index;
 	
 	uint8_t obj_type;
@@ -301,7 +302,6 @@ typedef struct _lui_button_s
 		//uint16_t color;
 		tFont *font;
 	}label;
-
 	//uint16_t pressed_color;
 	//uint16_t selection_color;
 
@@ -329,7 +329,6 @@ typedef struct _lui_checkbox_s
 typedef struct _lui_slider_s
 {
 	int8_t encoder_index;
-
 	int16_t range_min;
 	int16_t range_max;
 	// knob's center's x position relative to slider's start x position
@@ -450,6 +449,7 @@ void lui_object_set_callback(void (*obj_event_cb)(lui_obj_t *), lui_obj_t *obj);
 int8_t lui_object_get_state(lui_obj_t *obj);
 int8_t lui_object_get_event(lui_obj_t *obj);
 void lui_object_set_visibility(uint8_t visible, lui_obj_t *obj);
+uint8_t lui_object_set_enable_input(lui_obj_t *obj,  uint8_t is_enabled);
 
 
 lui_obj_t* lui_label_create();

@@ -2,7 +2,7 @@
  * lame_ui.c
  *
  *  Created on: 02-Apr-2020
- *	Last updated: 08-Aug-2021
+ *	Last updated: 31-Aug-2021
  *      Author: rik
  */
 
@@ -106,12 +106,6 @@ void lui_label_draw(lui_obj_t *obj)
 	if (_lui_disp_drv_check() == 0)
 		return;
 
-	uint16_t x_temp = obj->x;
-	uint16_t y_temp = obj->y;
-
-	const tImage *img = {0};
-	uint16_t glyph_width = 0, glyph_height = 0;
-
 	tFont *temp_font = lbl->font;
 	// If label has no font set for it, check the global set font in scene
 	// If no scene present, i.e., parent_scene_index == -1, return
@@ -123,55 +117,6 @@ void lui_label_draw(lui_obj_t *obj)
 	}
 
 	lui_gfx_draw_string_advanced(lbl->text, obj->x, obj->y, obj->common_style.width, obj->common_style.height, lbl->style.text_color, obj->common_style.bg_color, 1, temp_font);
-
-	// // Draw the label background color
-	// lui_gfx_draw_rect_fill(obj->x, obj->y, obj->common_style.width, obj->common_style.height, obj->common_style.bg_color);
-
-	// // Scan chars one by one from the string
-	// //char
-	// for (uint16_t char_cnt = 0; *(lbl->text+char_cnt) != '\0'; char_cnt++)
-	// {
-	// 	if (*(lbl->text+char_cnt) == '\n')
-	// 	{
-	// 		x_temp = obj->x;					//go to first col
-	// 		y_temp += (temp_font->chars[0].image->height);	//go to next row (row height = height of space)
-	// 	}
-
-	// 	else if (*(lbl->text+char_cnt) == '\t')
-	// 	{
-	// 		x_temp += 4 * (temp_font->chars[0].image->width);	//Skip 4 spaces (width = width of space)
-	// 	}
-	// 	else
-	// 	{
-	// 		// Find the glyph for the char from the font
-	// 		for (uint8_t i = 0; i < temp_font->length; i++)
-	// 		{
-	// 			if (temp_font->chars[i].code == *(lbl->text+char_cnt))
-	// 			{
-	// 				img = temp_font->chars[i].image;
-	// 				break;
-	// 			}
-	// 		}
-	// 		glyph_width = img->width;
-	// 		glyph_height = img->height;
-
-
-	// 		// check if not enough space available at the right side
-	// 		if (x_temp + glyph_width > obj->x + obj->common_style.width)
-	// 		{
-	// 			x_temp = obj->x;					//go to first col
-	// 			y_temp += glyph_height;	//go to next row
-
-	// 			// check if not enough space available at the bottom
-	// 			if(y_temp + glyph_height > obj->y + obj->common_style.height - 1)
-	// 				return;
-	// 		}
-
-	// 		_lui_gfx_draw_char_glyph(x_temp, y_temp, lbl->style.text_color, img);
-
-	// 		x_temp += glyph_width;		//next char position
-	// 	}
-	// }
 
 	// Draw the label border if needed
 	if (obj->common_style.border_visible == 1)
@@ -682,12 +627,12 @@ lui_obj_t* lui_button_create()
 	initial_button->label.text = "";
 	initial_button->style.label_color = LUI_STYLE_BUTTON_LABEL_COLOR;
 	initial_button->label.font = NULL;
-
 	initial_button->encoder_index = -1;
 
 	lui_obj_t *obj = _lui_object_create();
 	// object type
 	obj->obj_type = LUI_OBJ_BUTTON;
+	obj->enabled = 1;
 	// object common style
 	obj->common_style.bg_color = LUI_STYLE_BUTTON_BG_COLOR;
 	obj->common_style.border_color = LUI_STYLE_BUTTON_BORDER_COLOR;
@@ -1330,6 +1275,7 @@ lui_obj_t* lui_switch_create()
 	lui_obj_t *obj = _lui_object_create();
 	// object type
 	obj->obj_type = LUI_OBJ_SWITCH;
+	obj->enabled = 1;
 	// object common style
 	obj->common_style.bg_color = LUI_STYLE_SWITCH_BG_COLOR;
 	obj->common_style.border_color = LUI_STYLE_SWITCH_BORDER_COLOR;
@@ -1488,6 +1434,7 @@ lui_obj_t* lui_checkbox_create()
 	lui_obj_t *obj = _lui_object_create();
 	// object type
 	obj->obj_type = LUI_OBJ_CHECKBOX;
+	obj->enabled = 1;
 	// object common style
 	obj->common_style.bg_color = LUI_STYLE_CHECKBOX_BG_COLOR;
 	obj->common_style.border_color = LUI_STYLE_CHECKBOX_BORDER_COLOR;
@@ -1636,6 +1583,7 @@ lui_obj_t* lui_slider_create()
 	lui_obj_t *obj = _lui_object_create();
 	// object type
 	obj->obj_type = LUI_OBJ_SLIDER;
+	obj->enabled = 1;
 	// object common style
 	obj->common_style.bg_color = LUI_STYLE_SLIDER_BG_COLOR;
 	obj->common_style.border_color = LUI_STYLE_SLIDER_BORDER_COLOR;
@@ -2028,6 +1976,7 @@ lui_obj_t* _lui_object_create()
 	obj->obj_event_cb = NULL;
 	obj->needs_refresh = 1;
 	obj->visible = 1;
+	obj->enabled = 0;
 	//obj->index_in_pool = -1;
 	obj->parent = NULL;
 	obj->first_child = NULL;
@@ -2318,6 +2267,25 @@ void lui_object_set_visibility(uint8_t visible, lui_obj_t *obj)
 	}
 }
 
+uint8_t lui_object_set_enable_input(lui_obj_t *obj,  uint8_t is_enabled)
+{
+	if (obj == NULL)
+		return 0;
+
+	if (obj->obj_type == LUI_OBJ_BUTTON ||
+		obj->obj_type == LUI_OBJ_SWITCH ||
+		obj->obj_type == LUI_OBJ_CHECKBOX ||
+		obj->obj_type == LUI_OBJ_SLIDER)
+	{
+		obj->enabled = is_enabled;
+	}
+	else
+	{
+		obj->enabled = 0;
+	}
+	return obj->enabled;
+}
+
 /*-------------------------------------------------------------------------------
  * 							END
  *-------------------------------------------------------------------------------
@@ -2380,7 +2348,7 @@ lui_obj_t* _lui_process_input_of_act_scene()
 		{
 			encoder_processed->current_encoder_index += input_encoder_data.steps;
 		}
-		/* Rollover the index to 0 in case of overflow/underflow */
+		/* Set the index to 0 in case of overflow/underflow */
 		if (encoder_processed->current_encoder_index > encoder_processed->max_encoder_index ||
 			encoder_processed->current_encoder_index < 0)
 		{
@@ -2503,6 +2471,7 @@ lui_obj_t* _lui_process_input_of_act_scene()
 
 }
 
+
 lui_obj_t* _lui_scan_all_obj_for_input(lui_touch_input_data_t *touch_input_data, lui_encoder_input_data_t *encoder_input_data, _lui_encoder_processed_t *encoder_processed, lui_obj_t *obj_root, lui_obj_t *obj_excluded)
 {
 	// Note: This function is made by converting a tail-recursive function to iterative function
@@ -2556,10 +2525,10 @@ lui_obj_t* _lui_scan_individual_object_for_input(lui_touch_input_data_t *touch_i
 	if (obj == obj_excluded)
 		return NULL;
 
-	// TODO: if invisible, still proceed. But, return NULL if disabled.
-	// So, add a `disabled` property in object. 
-	if (!(obj->visible))
+	if (!(obj->enabled) || !(obj->visible))
+	{
 		return NULL;
+	}
 
 	// we are only interested in objects that take input, like button, switch
 	if (obj->obj_type == LUI_OBJ_BUTTON ||
