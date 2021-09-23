@@ -22,6 +22,8 @@ void lui_init()
 {
 	_lui_mem_init();
 	g_lui_main = _lui_mem_alloc(sizeof(lui_main_t));
+	if (g_lui_main == NULL)
+		return;
 
 	// g_lui_main->scenes = {NULL};
 	 g_lui_main->disp_drv = NULL;
@@ -137,12 +139,16 @@ lui_obj_t* lui_label_create()
 	 g_lui_main->total_created_objects++;
 
 	lui_label_t *initial_label =  _lui_mem_alloc(sizeof(*initial_label));
+	if (initial_label == NULL)
+		return NULL;
 	
 	initial_label->text = "";
 	initial_label->font = NULL;
 	initial_label->style.text_color = LUI_STYLE_LABEL_TEXT_COLOR;
 
 	lui_obj_t *obj = _lui_object_create();
+	if (obj == NULL)
+		return NULL;
 	// objeect type
 	obj->obj_type = LUI_OBJ_LABEL;
 	// object common style
@@ -373,6 +379,8 @@ lui_obj_t* lui_linechart_create()
 	 g_lui_main->total_created_objects++;
 
 	lui_chart_t *initial_line_chart =  _lui_mem_alloc(sizeof(*initial_line_chart));
+	if (initial_line_chart == NULL)
+		return NULL;
 
 	double tmp_data[] = {0};
 	initial_line_chart->data.source = tmp_data;
@@ -389,6 +397,8 @@ lui_obj_t* lui_linechart_create()
 	initial_line_chart->font = NULL;
 
 	lui_obj_t *obj = _lui_object_create();
+	if (obj == NULL)
+		return NULL;
 	// object type
 	obj->obj_type = LUI_OBJ_LINECHART;
 	// object common style
@@ -620,6 +630,8 @@ lui_obj_t* lui_button_create()
 	 g_lui_main->total_created_objects++;
 
 	lui_button_t *initial_button =  _lui_mem_alloc(sizeof(*initial_button));
+	if (initial_button == NULL)
+		return NULL;
 
 	initial_button->style.pressed_color = LUI_STYLE_BUTTON_PRESSED_COLOR;
 	initial_button->style.selection_color = LUI_STYLE_BUTTON_SELECTION_COLOR;
@@ -630,6 +642,8 @@ lui_obj_t* lui_button_create()
 	initial_button->encoder_index = -1;
 
 	lui_obj_t *obj = _lui_object_create();
+	if (obj == NULL)
+		return NULL;
 	// object type
 	obj->obj_type = LUI_OBJ_BUTTON;
 	obj->enabled = 1;
@@ -758,8 +772,12 @@ lui_obj_t* lui_list_create()
 	 g_lui_main->total_created_objects++;
 
 	lui_list_t *initial_list =  _lui_mem_alloc(sizeof(*initial_list));
+	if (initial_list == NULL)
+		return NULL;
 
 	lui_obj_t *obj = _lui_object_create();
+	if (obj == NULL)
+		return NULL;
 	// object type
 	obj->obj_type = LUI_OBJ_LIST;
 	obj->obj_main_data = (void *)initial_list;
@@ -924,6 +942,8 @@ lui_obj_t* lui_list_add_item(const char *text, lui_obj_t *obj)
 	list->button_item_min_height = LUI_STYLE_LIST_ITEM_MIN_HEIGHT;
 
 	lui_button_t *initial_button =  _lui_mem_alloc(sizeof(*initial_button));
+	if (initial_button == NULL)
+		return NULL;
 	initial_button->style.pressed_color = LUI_STYLE_LIST_ITEM_PRESSED_COLOR;
 	initial_button->style.selection_color = LUI_STYLE_LIST_ITEM_SELECTION_COLOR;
 	initial_button->label.text = (char*)text;
@@ -1266,6 +1286,8 @@ lui_obj_t* lui_switch_create()
 
 
 	lui_switch_t *initial_switch =  _lui_mem_alloc(sizeof(*initial_switch));
+	if (initial_switch == NULL)
+		return NULL;
 	
 	initial_switch->style.knob_off_color = LUI_STYLE_SWITCH_KNOB_OFF_COLOR;
 	initial_switch->style.knob_on_color = LUI_STYLE_SWITCH_KNOB_ON_COLOR;
@@ -1273,6 +1295,8 @@ lui_obj_t* lui_switch_create()
 	initial_switch->encoder_index = -1;
 
 	lui_obj_t *obj = _lui_object_create();
+	if (obj == NULL)
+		return NULL;
 	// object type
 	obj->obj_type = LUI_OBJ_SWITCH;
 	obj->enabled = 1;
@@ -1425,6 +1449,8 @@ lui_obj_t* lui_checkbox_create()
 
 
 	lui_checkbox_t *initial_chkbox =  _lui_mem_alloc(sizeof(*initial_chkbox));
+	if (initial_chkbox == NULL)
+		return NULL;
 	
 	initial_chkbox->style.bg_checked_color = LUI_STYLE_CHECKBOX_BG_CHECKED_COLOR;
 	initial_chkbox->style.selection_color = LUI_STYLE_CHECKBOX_SELECTION_COLOR;
@@ -1432,6 +1458,8 @@ lui_obj_t* lui_checkbox_create()
 	initial_chkbox->encoder_index = -1;
 
 	lui_obj_t *obj = _lui_object_create();
+	if (obj == NULL)
+		return NULL;
 	// object type
 	obj->obj_type = LUI_OBJ_CHECKBOX;
 	obj->enabled = 1;
@@ -1570,6 +1598,8 @@ lui_obj_t* lui_slider_create()
 
 
 	lui_slider_t *initial_slider =  _lui_mem_alloc(sizeof(*initial_slider));
+	if (initial_slider == NULL)
+		return NULL;
 	
 	initial_slider->style.bg_filled_color = LUI_STYLE_SLIDER_BG_FILLED_COLOR;
 	initial_slider->style.knob_color = LUI_STYLE_SLIDER_KNOB_COLOR;
@@ -1581,6 +1611,8 @@ lui_obj_t* lui_slider_create()
 	initial_slider->encoder_index = -1;
 
 	lui_obj_t *obj = _lui_object_create();
+	if (obj == NULL)
+		return NULL;
 	// object type
 	obj->obj_type = LUI_OBJ_SLIDER;
 	obj->enabled = 1;
@@ -1732,6 +1764,240 @@ void lui_slider_set_encoder_index(uint8_t index, lui_obj_t *obj)
 
 
 /*-------------------------------------------------------------------------------
+ * 				LUI_BTNGRID related functions
+ *-------------------------------------------------------------------------------
+ */
+
+void lui_btngrid_draw(lui_obj_t *obj)
+{
+	if (obj == NULL)
+		return;
+	
+	// type check
+	if (obj->obj_type != LUI_OBJ_BTNGRID)
+		return;
+
+	if (!(obj->visible))
+		return;
+	
+	// if no display driver is registered, return
+	if (_lui_disp_drv_check() == 0)
+		return;
+
+	lui_btngrid_t *btngrid = obj->obj_main_data;
+
+	
+	uint16_t btn_color = btngrid->style.btn_bg_color;
+
+	/* If no particular button is active, that means whole grid will be drawns. So, draw the base area*/
+	if (btngrid->active_btn_index == -1 && obj->needs_refresh)
+	{
+		
+		lui_gfx_draw_rect_fill(obj->x, obj->y, obj->common_style.width,  obj->common_style.height, obj->common_style.bg_color);
+		for (uint16_t i = 0; i < btngrid->btn_cnt; i++)
+		{	
+			if (!(btngrid->btn_properties[i] & _LUI_BTNGRID_MASK_BTN_IS_HIDDEN))
+			{
+				btn_color = btngrid->style.btn_bg_color;
+				if (i == btngrid->active_btn_index)
+				{
+					if (obj->state == LUI_STATE_SELECTED)
+						btn_color = btngrid->style.btn_selection_color;
+					else if (obj->state == LUI_STATE_PRESSED)
+						btn_color = btngrid->style.btn_pressed_color;
+				}
+				lui_gfx_draw_rect_fill(btngrid->btn_area[i].x1, btngrid->btn_area[i].y1, btngrid->btn_area[i].x2 - btngrid->btn_area[i].x1 + 1, btngrid->btn_area[i].y2 - btngrid->btn_area[i].y1 + 1, btn_color);
+			}
+		}
+	}
+
+	else
+	{
+		uint16_t i = btngrid->active_btn_index;
+		if (!(btngrid->btn_properties[i] & _LUI_BTNGRID_MASK_BTN_IS_HIDDEN))
+		{
+			if (obj->state == LUI_STATE_SELECTED)
+				btn_color = btngrid->style.btn_selection_color;
+			else if (obj->state == LUI_STATE_PRESSED)
+				btn_color = btngrid->style.btn_pressed_color;
+			lui_gfx_draw_rect_fill(btngrid->btn_area[i].x1, btngrid->btn_area[i].x2, btngrid->btn_area[i].x2 - btngrid->btn_area[i].x1 + 1, btngrid->btn_area[i].y2 - btngrid->btn_area[i].y1 + 1, btn_color);
+		
+		}
+	}
+}
+
+
+
+lui_obj_t* lui_btngrid_create()
+{
+	// if total created objects become more than max allowed objects, don't create the object
+	if ( g_lui_main->total_created_objects + 1 > LUI_MAX_OBJECTS)
+		return NULL;
+	 g_lui_main->total_created_objects++;
+
+
+	lui_btngrid_t *initial_btngrid =  _lui_mem_alloc(sizeof(*initial_btngrid));
+	if (initial_btngrid == NULL)
+		return NULL;
+	
+	initial_btngrid->style.btn_label_color = LUI_STYLE_BTNGRID_LABEL_COLOR;
+	initial_btngrid->style.btn_pressed_color = LUI_STYLE_BTNGRID_PRESSED_COLOR;
+	initial_btngrid->style.btn_selection_color = LUI_STYLE_BTNGRID_SELECTION_COLOR;
+	initial_btngrid->style.btn_bg_color = LUI_STYLE_BTNGRID_BG_COLOR;
+	initial_btngrid->texts = NULL;
+	initial_btngrid->btn_properties = NULL;
+	initial_btngrid->btn_area = NULL;
+	initial_btngrid->btn_cnt = 0;
+	initial_btngrid->active_btn_index = -1;
+	initial_btngrid->btn_margin_hor = 2;
+	initial_btngrid->btn_margin_vert = 0;
+
+	lui_obj_t *obj = _lui_object_create();
+	if (obj == NULL)
+		return NULL;
+	// object type
+	obj->obj_type = LUI_OBJ_BTNGRID;
+	obj->enabled = 1;
+	// object common style
+	obj->common_style.bg_color = LUI_STYLE_BTNGRID_BASE_BG_COLOR;
+	obj->common_style.border_color = LUI_STYLE_BTNGRID_BORDER_COLOR;
+	obj->common_style.border_visible = LUI_STYLE_BTNGRID_BORDER_VISIBLE;
+	obj->common_style.width = LUI_STYLE_BTNGRID_WIDTH;
+	obj->common_style.height = LUI_STYLE_BTNGRID_HEIGHT;
+
+	obj->obj_main_data = (void *)initial_btngrid;
+
+	return  obj;
+}
+
+
+void lui_btngrid_set_textmap(lui_obj_t *obj, const char *texts[])
+{
+	if (obj == NULL)
+		return;
+	if (texts == NULL)
+		return;
+
+	lui_btngrid_t *btngrid = obj->obj_main_data;
+	if (btngrid->texts != NULL)
+		return;
+	
+
+	uint16_t buttons = 0;
+	uint8_t rows = 1;
+	uint8_t btns_in_row = 0;
+    uint8_t units_in_row = 0;
+	uint8_t btn_index = 0;
+    uint8_t unit_index = 0;
+	uint16_t raw_height = 0;
+    
+    uint16_t w = 0;
+    uint16_t h = 0;
+
+	for (uint16_t i = 0; texts[i][0] != '\0'; i++)
+    {
+        if (strcmp(texts[i], "\n") != 0)
+        {
+            ++buttons;
+        }
+        else
+        {
+            ++rows;
+        }
+    }
+		
+    btngrid->btn_area = _lui_mem_alloc(buttons * sizeof(lui_area_t));
+	if (btngrid->btn_area == NULL)
+		return;
+
+    btngrid->btn_properties = _lui_mem_alloc(buttons * sizeof(uint8_t));
+	if (btngrid->btn_properties == NULL)
+		return;
+
+    for (int i = 0; i < buttons; i++)
+    {
+		btngrid->btn_area[i].x1 = 0;
+		btngrid->btn_area[i].y1 = 0;
+		btngrid->btn_area[i].x2 = 0;
+		btngrid->btn_area[i].y2 = 0;
+        btngrid->btn_properties[i] = 1;
+    }
+
+	btngrid->btn_cnt = buttons;
+	btngrid->row_cnt = rows;
+	btngrid->texts = (char **)texts;
+
+	_lui_btngrid_calc_btn_area(obj);
+}
+
+void lui_btngrid_set_propertymap(lui_obj_t *obj, uint8_t properties[])
+{
+	if (obj == NULL)
+		return;
+	if (properties == NULL)
+		return;
+
+	lui_btngrid_t *btngrid = obj->obj_main_data;
+	if (btngrid->btn_properties == NULL)
+		return;
+	
+	btngrid->btn_properties = properties;
+	_lui_btngrid_calc_btn_area(obj);
+}
+
+void _lui_btngrid_calc_btn_area(lui_obj_t *obj)
+{
+	lui_btngrid_t *btngrid = obj->obj_main_data;
+	uint8_t units_in_row = 0;
+	uint8_t btns_in_row = 0;
+	uint8_t btn_index = 0;
+    uint8_t unit_index = 0;
+	uint16_t raw_height = obj->common_style.height / btngrid->row_cnt;
+
+
+	uint16_t w = 0;
+    uint16_t h = 0;
+
+    for (uint16_t i = 0; i < btngrid->btn_cnt + btngrid->row_cnt; i++)
+    {
+        while (strcmp(btngrid->texts[i], "\n") != 0 && strcmp(btngrid->texts[i], "\0") != 0)
+        {
+            units_in_row += btngrid->btn_properties[unit_index++];
+            ++btns_in_row;
+            ++i;          
+        }
+        
+        float raw_width = (float)(obj->common_style.width) / (float)units_in_row;
+        w = 0;
+        h += raw_height;
+        for (int j = 0; j < btns_in_row; j++)
+        {
+            lui_area_t area;
+            int this_btn_w = raw_width * (btngrid->btn_properties[btn_index]);
+            w += this_btn_w;
+
+            area.x1 = obj->x + w - this_btn_w + btngrid->btn_margin_hor;
+            area.x2 = obj->x + w - btngrid->btn_margin_hor;
+            area.y1 = obj->y + h - raw_height + btngrid->btn_margin_vert;
+            area.y2 = obj->y + h - btngrid->btn_margin_vert;
+
+            btngrid->btn_area[btn_index++] = area;
+            
+        }
+        
+        btns_in_row = 0;
+        units_in_row = 0;
+    }
+
+	obj->needs_refresh = 1;
+}
+
+/*-------------------------------------------------------------------------------
+ * 							END
+ *-------------------------------------------------------------------------------
+ */
+
+/*-------------------------------------------------------------------------------
  * 				LUI_PANEL related functions
  *-------------------------------------------------------------------------------
  */
@@ -1747,11 +2013,15 @@ lui_obj_t* lui_panel_create()
 	 g_lui_main->total_created_objects++;
 
 	lui_panel_t *initial_panel = _lui_mem_alloc(sizeof(*initial_panel));
+	if (initial_panel == NULL)
+		return NULL;
 	initial_panel->encoder.current_encoder_index = -1;
 	initial_panel->encoder.max_encoder_index = 0;
 	initial_panel->encoder.object_state = LUI_STATE_IDLE;
 
 	lui_obj_t *obj = _lui_object_create();
+	if (obj == NULL)
+		return NULL;
 	// object type
 	obj->obj_type = LUI_OBJ_PANEL;
 	// object comon style
@@ -1774,7 +2044,7 @@ void lui_panel_draw(lui_obj_t *obj)
 		return;
 	
 	// for panel, just draw background and optional border
-	 g_lui_main->disp_drv->draw_pixels_area_cb(obj->x, obj->y, obj->common_style.width,  obj->common_style.height, obj->common_style.bg_color);
+	g_lui_main->disp_drv->draw_pixels_area_cb(obj->x, obj->y, obj->common_style.width,  obj->common_style.height, obj->common_style.bg_color);
 	if (obj->common_style.border_visible == 1)
 		lui_gfx_draw_rect(obj->x, obj->y, obj->common_style.width, obj->common_style.height, 1, obj->common_style.border_color);
 }
@@ -1799,6 +2069,8 @@ lui_obj_t* lui_scene_create()
 	 g_lui_main->total_created_objects++;
 
 	lui_scene_t *initial_scene =  _lui_mem_alloc(sizeof(*initial_scene));
+	if (initial_scene == NULL)
+		return NULL;
 
 	initial_scene->font = NULL;
 	initial_scene->bg_image = NULL;
@@ -1809,6 +2081,8 @@ lui_obj_t* lui_scene_create()
 	initial_scene->encoder.object_state = LUI_STATE_IDLE;
 
 	lui_obj_t *obj = _lui_object_create();
+	if (obj == NULL)
+		return NULL;
 	// object type
 	obj->obj_type = LUI_OBJ_SCENE;
 	// object common style
@@ -1967,6 +2241,8 @@ lui_obj_t* lui_scene_get_active()
 lui_obj_t* _lui_object_create()
 {
 	lui_obj_t *obj =  _lui_mem_alloc(sizeof(*obj));
+	if (obj == NULL)
+		return NULL;
 
 	obj->x = 0;
 	obj->y = 0;
@@ -2830,6 +3106,8 @@ void _lui_set_obj_props_on_touch_input(lui_touch_input_data_t *input, lui_obj_t 
 lui_dispdrv_t* lui_dispdrv_create()
 {
 	lui_dispdrv_t *initial_disp_drv =  _lui_mem_alloc(sizeof(*initial_disp_drv));
+	if (initial_disp_drv == NULL)
+		return NULL;
 
 	initial_disp_drv->draw_pixels_area_cb = NULL;
 	initial_disp_drv->render_complete_cb = NULL;
@@ -2888,6 +3166,8 @@ void lui_dispdrv_set_render_complete_cb(void (*render_complete_cb)(), lui_dispdr
 lui_touch_input_dev_t* lui_touch_inputdev_create()
 {
 	lui_touch_input_dev_t *initial_touch_inputdev =  _lui_mem_alloc(sizeof(*initial_touch_inputdev));
+	if (initial_touch_inputdev == NULL)
+		return NULL;
 
 	initial_touch_inputdev->read_touch_input_cb = NULL;
 	// initial_touch_inputdev.touch_data.is_pressed = 0;
@@ -2914,6 +3194,8 @@ void lui_touch_inputdev_set_read_input_cb(void (*read_touch_input_cb)(lui_touch_
 lui_encoder_input_dev_t* lui_encoder_inputdev_create()
 {
 	lui_encoder_input_dev_t *initial_encoder_inputdev =  _lui_mem_alloc(sizeof(*initial_encoder_inputdev));
+	if (initial_encoder_inputdev == NULL)
+		return NULL;
 
 	initial_encoder_inputdev->read_encoder_input_cb = NULL;
 	// initial_dpad_inputdev.dpad_data.is_up_pressed = 0;

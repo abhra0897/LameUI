@@ -10,6 +10,7 @@
 #define INC_LAME_UI_H_
 
 #include <stdlib.h>
+#include <string.h>
 #include <stdio.h>
 #include "bitmap_typedefs.h"
 
@@ -103,6 +104,16 @@
 #define LUI_STYLE_LIST_WIDTH				40
 #define LUI_STYLE_LIST_HEIGHT				60
 
+#define	LUI_STYLE_BTNGRID_BASE_BG_COLOR		_LUI_RGB(23, 33, 43)
+#define LUI_STYLE_BTNGRID_LABEL_COLOR		_LUI_RGB(238, 238, 238)
+#define LUI_STYLE_BTNGRID_PRESSED_COLOR		_LUI_RGB(91, 160, 235)
+#define	LUI_STYLE_BTNGRID_BG_COLOR			_LUI_RGB(39, 55, 71)
+#define	LUI_STYLE_BTNGRID_SELECTION_COLOR	_LUI_RGB(82, 143, 209)
+#define LUI_STYLE_BTNGRID_BORDER_COLOR		_LUI_RGB(75, 81, 92)
+#define LUI_STYLE_BTNGRID_BORDER_VISIBLE	0
+#define	LUI_STYLE_BTNGRID_WIDTH				300
+#define LUI_STYLE_BTNGRID_HEIGHT			180
+
 #define LUI_STYLE_PANEL_BG_COLOR			_LUI_RGB(23, 33, 43)
 #define LUI_STYLE_PANEL_BORDER_COLOR		_LUI_RGB(74, 129, 188)
 #define LUI_STYLE_PANEL_BORDER_VISIBLE		1
@@ -150,6 +161,12 @@
 #define LUI_OBJ_LIST						8
 #define LUI_OBJ_CHECKBOX					9
 #define LUI_OBJ_SLIDER						10
+#define LUI_OBJ_BTNGRID						11
+
+#define _LUI_BTNGRID_MASK_BTN_IS_ENABLED	0x40
+#define _LUI_BTNGRID_MASK_BTN_IS_HIDDEN		0x20
+#define _LUI_BTNGRID_MASK_BTN_IS_CHECKABLE	0x10
+#define _LUI_BTNGRID_MASK_BTN_WIDTH_UNIT	0x0F
 
 /* Defined at the top for user's convenience */
 // #define LUI_MEM_MAX_SIZE					10000
@@ -180,6 +197,16 @@ typedef struct _lui_mem_chunk
 		struct _lui_mem_chunk *next_chunk;
 	#endif
 }_lui_mem_chunk_t;
+
+
+typedef struct _lui_area_s
+{
+    uint16_t x1;
+    uint16_t y1;
+	uint16_t x2;
+    uint16_t y2;
+}lui_area_t;
+
 
 struct _lui_common_style_s
 {
@@ -229,6 +256,13 @@ struct _lui_list_style_s
 {
 	struct _lui_button_style_s item_btn;
 	struct _lui_common_style_s item_btn_common;
+};
+struct _lui_btngrid_style_s
+{
+	uint16_t btn_label_color;
+	uint16_t btn_pressed_color;
+	uint16_t btn_selection_color;
+	uint16_t btn_bg_color;
 };
 
 
@@ -349,6 +383,22 @@ typedef struct _lui_list_s
 
 	//struct _lui_list_style_s style;
 }lui_list_t;
+
+
+typedef struct _lui_btngrid_s
+{
+	const char **texts;
+    uint8_t *btn_properties;
+    lui_area_t *btn_area;
+    uint8_t btn_cnt;
+	uint8_t row_cnt;
+    uint8_t btn_margin_hor;
+    uint8_t btn_margin_vert;
+    tFont *font;
+	int16_t active_btn_index;
+	struct _lui_btngrid_style_s style;
+}lui_btngrid_t;
+
 
 typedef struct _lui_encoder_processed_s
 {
@@ -509,6 +559,13 @@ int16_t lui_slider_get_min_value(lui_obj_t *obj_slider);
 int16_t lui_slider_get_max_value(lui_obj_t *obj_slider);
 //void lui_slider_set_knob_length(uint8_t length, lui_obj_t *obj_slider);
 void lui_slider_set_encoder_index(uint8_t index, lui_obj_t *obj_slider);
+
+
+lui_obj_t* lui_btngrid_create();
+void lui_btngrid_draw(lui_obj_t *obj);
+void lui_btngrid_set_textmap(lui_obj_t *obj, const char *texts[]);
+void lui_btngrid_set_propertymap(lui_obj_t *obj, uint8_t properties[]);
+void _lui_btngrid_calc_btn_area(lui_obj_t *obj);
 
 
 lui_obj_t* lui_list_create();
