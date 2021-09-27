@@ -601,14 +601,6 @@ void lui_button_draw(lui_obj_t *obj)
 	temp_x = temp_x + (btn_width - str_width_height[0]) / 2;
 	temp_y = temp_y + (btn_height - str_width_height[1]) / 2;
 
-	// uint16_t bg_color;
-	// if (obj->state == LUI_STATE_IDLE)
-	// 	bg_color = obj->common_style.bg_color; // normal situation
-	// else if (obj->state == LUI_STATE_SELECTED)
-	// 	bg_color = btn->style.selection_color;
-	// else if (obj->state == LUI_STATE_PRESSED)
-	// 	bg_color = btn->style.pressed_color;
-
 	lui_gfx_draw_string_advanced(btn->label.text, temp_x, temp_y, str_width_height[0], str_width_height[1], btn->style.label_color, 0, 0, temp_font);
 	
 
@@ -1786,44 +1778,98 @@ void lui_btngrid_draw(lui_obj_t *obj)
 
 	lui_btngrid_t *btngrid = obj->obj_main_data;
 
-	
-	uint16_t btn_color = btngrid->style.btn_bg_color;
-
-	/* If no particular button is active, that means whole grid will be drawns. So, draw the base area*/
-	if (btngrid->active_btn_index == -1 && obj->needs_refresh)
+	tFont *temp_font = btngrid->font;
+	// If it has no font set for it, check the global set font in scene
+	// If no scene present, i.e., parent_scene_index == -1, return
+	// If scene is there but scene has no font, return
+	// So, if it has no parent scene, it must have its own font to be rendered
+	if (temp_font == NULL &&  g_lui_main->active_scene != NULL)
 	{
-		
+		temp_font = _lui_get_font_from_active_scene();
+		if (temp_font == NULL)
+			return;
+	}			
+	uint16_t btn_color = btngrid->style.btn_bg_color;
+	uint16_t btn_width = 0;
+	uint16_t btn_height = 0;
+	uint8_t draw_all_btns = 0;
+	static int16_t last_act_btn_index = -1;
+
+	
+	/* If no event occured yet drawing function is called, that means first time rendering of a btngrid.
+	 * So, draw the base first
+	*/
+	if (obj->event == LUI_EVENT_NONE && obj->needs_refresh)
+	{
 		lui_gfx_draw_rect_fill(obj->x, obj->y, obj->common_style.width,  obj->common_style.height, obj->common_style.bg_color);
-		for (uint16_t i = 0; i < btngrid->btn_cnt; i++)
-		{	
+		draw_all_btns = 1;
+	}
+
+	uint16_t j = 0;
+	for (uint16_t i = 0; i < btngrid->btn_cnt; i++)
+	{	
+		while (btngrid->texts[j][0] == '\n' || btngrid->texts[j][0] == '\0')
+		{
+			++j;
+		}
+
+		/**
+		 * Draw a button only if no specific button is acctive (i.e., needs refresh), 
+		 * or when a buttons index matches an active button's index 
+		 */
+		if (draw_all_btns || (i == btngrid->active_btn_index || i == last_act_btn_index))
+		{
 			if (!(btngrid->btn_properties[i] & _LUI_BTNGRID_MASK_BTN_IS_HIDDEN))
 			{
 				btn_color = btngrid->style.btn_bg_color;
 				if (i == btngrid->active_btn_index)
 				{
 					if (obj->state == LUI_STATE_SELECTED)
+					{
 						btn_color = btngrid->style.btn_selection_color;
+					}
 					else if (obj->state == LUI_STATE_PRESSED)
+					{
 						btn_color = btngrid->style.btn_pressed_color;
+					}
 				}
-				lui_gfx_draw_rect_fill(btngrid->btn_area[i].x1, btngrid->btn_area[i].y1, btngrid->btn_area[i].x2 - btngrid->btn_area[i].x1 + 1, btngrid->btn_area[i].y2 - btngrid->btn_area[i].y1 + 1, btn_color);
+
+				/**
+				 * This is to handle when a checkable button lost its focus but check state
+				 * is changed to "Checked". 
+				 */
+				else if (i == last_act_btn_index)
+				{
+					if (btngrid->btn_properties[i] & _LUI_BTNGRID_MASK_BTN_IS_CHECKABLE)
+					{ 
+						if (btngrid->btn_properties[i] & _LUI_BTNGRID_MASK_BTN_IS_CHECKED)
+						{
+							btn_color = btngrid->style.btn_pressed_color;
+						}
+					}
+				}
+
+				btn_width = btngrid->btn_area[i].x2 - btngrid->btn_area[i].x1 + 1;
+				btn_height = btngrid->btn_area[i].y2 - btngrid->btn_area[i].y1 + 1;
+				lui_gfx_draw_rect_fill(btngrid->btn_area[i].x1, btngrid->btn_area[i].y1, btn_width, btn_height, btn_color);
+
+				uint16_t str_width_height[2];
+				lui_gfx_get_string_dimension(btngrid->texts[j], temp_font, btn_width, str_width_height);
+
+				str_width_height[0] = str_width_height[0] > btn_width ? btn_width : str_width_height[0];
+				str_width_height[1] = str_width_height[1] > btn_height ? btn_height : str_width_height[1];
+
+				uint16_t temp_x = btngrid->btn_area[i].x1 + (btn_width - str_width_height[0]) / 2;
+				uint16_t temp_y = btngrid->btn_area[i].y1 + (btn_height - str_width_height[1]) / 2;
+
+				lui_gfx_draw_string_advanced(btngrid->texts[j], temp_x, temp_y, str_width_height[0], str_width_height[1], btngrid->style.btn_label_color, 0, 0, temp_font);
 			}
 		}
-	}
 
-	else
-	{
-		uint16_t i = btngrid->active_btn_index;
-		if (!(btngrid->btn_properties[i] & _LUI_BTNGRID_MASK_BTN_IS_HIDDEN))
-		{
-			if (obj->state == LUI_STATE_SELECTED)
-				btn_color = btngrid->style.btn_selection_color;
-			else if (obj->state == LUI_STATE_PRESSED)
-				btn_color = btngrid->style.btn_pressed_color;
-			lui_gfx_draw_rect_fill(btngrid->btn_area[i].x1, btngrid->btn_area[i].x2, btngrid->btn_area[i].x2 - btngrid->btn_area[i].x1 + 1, btngrid->btn_area[i].y2 - btngrid->btn_area[i].y1 + 1, btn_color);
-		
-		}
+		++j;
 	}
+	draw_all_btns = 0;
+	last_act_btn_index = btngrid->active_btn_index;
 }
 
 
@@ -1850,7 +1896,7 @@ lui_obj_t* lui_btngrid_create()
 	initial_btngrid->btn_cnt = 0;
 	initial_btngrid->active_btn_index = -1;
 	initial_btngrid->btn_margin_hor = 2;
-	initial_btngrid->btn_margin_vert = 0;
+	initial_btngrid->btn_margin_vert = 2;
 
 	lui_obj_t *obj = _lui_object_create();
 	if (obj == NULL)
@@ -1870,7 +1916,6 @@ lui_obj_t* lui_btngrid_create()
 	return  obj;
 }
 
-
 void lui_btngrid_set_textmap(lui_obj_t *obj, const char *texts[])
 {
 	if (obj == NULL)
@@ -1885,14 +1930,7 @@ void lui_btngrid_set_textmap(lui_obj_t *obj, const char *texts[])
 
 	uint16_t buttons = 0;
 	uint8_t rows = 1;
-	uint8_t btns_in_row = 0;
-    uint8_t units_in_row = 0;
-	uint8_t btn_index = 0;
-    uint8_t unit_index = 0;
-	uint16_t raw_height = 0;
-    
-    uint16_t w = 0;
-    uint16_t h = 0;
+
 
 	for (uint16_t i = 0; texts[i][0] != '\0'; i++)
     {
@@ -1925,7 +1963,7 @@ void lui_btngrid_set_textmap(lui_obj_t *obj, const char *texts[])
 
 	btngrid->btn_cnt = buttons;
 	btngrid->row_cnt = rows;
-	btngrid->texts = (char **)texts;
+	btngrid->texts = texts;
 
 	_lui_btngrid_calc_btn_area(obj);
 }
@@ -1955,25 +1993,26 @@ void _lui_btngrid_calc_btn_area(lui_obj_t *obj)
 	uint16_t raw_height = obj->common_style.height / btngrid->row_cnt;
 
 
-	uint16_t w = 0;
+	float w = 0;
     uint16_t h = 0;
 
     for (uint16_t i = 0; i < btngrid->btn_cnt + btngrid->row_cnt; i++)
     {
         while (strcmp(btngrid->texts[i], "\n") != 0 && strcmp(btngrid->texts[i], "\0") != 0)
         {
-            units_in_row += btngrid->btn_properties[unit_index++];
+            units_in_row += (btngrid->btn_properties[unit_index++] & _LUI_BTNGRID_MASK_BTN_WIDTH_UNIT);
             ++btns_in_row;
             ++i;          
         }
         
         float raw_width = (float)(obj->common_style.width) / (float)units_in_row;
-        w = 0;
+
+        w = 0.0;
         h += raw_height;
         for (int j = 0; j < btns_in_row; j++)
         {
             lui_area_t area;
-            int this_btn_w = raw_width * (btngrid->btn_properties[btn_index]);
+            float this_btn_w = raw_width * (float)(btngrid->btn_properties[btn_index] & _LUI_BTNGRID_MASK_BTN_WIDTH_UNIT);
             w += this_btn_w;
 
             area.x1 = obj->x + w - this_btn_w + btngrid->btn_margin_hor;
@@ -2810,7 +2849,8 @@ lui_obj_t* _lui_scan_individual_object_for_input(lui_touch_input_data_t *touch_i
 	if (obj->obj_type == LUI_OBJ_BUTTON ||
 		obj->obj_type == LUI_OBJ_SWITCH ||
 		obj->obj_type == LUI_OBJ_CHECKBOX ||
-		obj->obj_type == LUI_OBJ_SLIDER)
+		obj->obj_type == LUI_OBJ_SLIDER ||
+		obj->obj_type == LUI_OBJ_BTNGRID)
 	{
 		if (touch_input_data != NULL) // Touch input
 		{
@@ -2996,30 +3036,76 @@ void _lui_set_obj_props_on_encoder_input(lui_encoder_input_data_t *encoder_input
 
 uint8_t _lui_check_if_active_obj_touch_input(lui_touch_input_data_t *input, lui_obj_t *obj)
 {
+	uint8_t is_active = 0;
+
 	if (input->x >= obj->x && 
 		input->x < obj->x + obj->common_style.width &&
 		input->y >= obj->y &&
 		input->y < obj->y + obj->common_style.height)
 	{
-		 g_lui_main->active_obj = obj;
-		return 1;
+		
+		if (obj->obj_type == LUI_OBJ_BTNGRID)
+		{
+			lui_btngrid_t *btngrid = obj->obj_main_data;
+			for (uint16_t i = 0; i < btngrid->btn_cnt; i++)
+			{
+				if (input->x >= btngrid->btn_area[i].x1 && 
+					input->x <  btngrid->btn_area[i].x2 &&
+					input->y >= btngrid->btn_area[i].y1 &&
+					input->y <  btngrid->btn_area[i].y2)
+				{
+					if (!(btngrid->btn_properties[i] & _LUI_BTNGRID_MASK_BTN_IS_DISABLED) &&
+						!(btngrid->btn_properties[i] & _LUI_BTNGRID_MASK_BTN_IS_HIDDEN))
+					{
+						btngrid->active_btn_index = i;
+						g_lui_main->active_obj = obj;
+						is_active = 1;
+					}
+					break;
+				}
+			}
+		}
+		else
+		{
+			g_lui_main->active_obj = obj;
+			is_active = 1;
+		}
 	}
-	else
+
+	if (is_active == 0)
 	{
 		// in case input is not on "obj" and previous "active_obj" is same as "obj",
 		// set "input_on_obj" to NULL.
-		if ( g_lui_main->active_obj == obj)
-			 g_lui_main->active_obj = NULL;
-		return 0;
-	}	
+		if (g_lui_main->active_obj == obj)
+		{
+			g_lui_main->active_obj = NULL;
+			if (obj->obj_type == LUI_OBJ_BTNGRID)
+			{
+				((lui_btngrid_t *)(obj->obj_main_data))->active_btn_index = -1;
+			}
+		}
+	}
+
+	return is_active;
 }
 
 void _lui_set_obj_props_on_touch_input(lui_touch_input_data_t *input, lui_obj_t *obj)
 {
 	uint8_t is_obj_active = _lui_check_if_active_obj_touch_input(input, obj);
 	uint8_t new_state = LUI_STATE_IDLE;
+	uint8_t old_state = obj->state;
+	uint8_t is_checkable = 0;
 
-	
+	if (obj->obj_type == LUI_OBJ_BUTTON)
+	{
+		// is_checkable = button->is_checkable;
+	}
+	else if (obj->obj_type == LUI_OBJ_BTNGRID)
+	{
+		lui_btngrid_t *btngrid = obj->obj_main_data;
+		is_checkable = btngrid->btn_properties[btngrid->active_btn_index] & _LUI_BTNGRID_MASK_BTN_IS_CHECKABLE;
+	}
+
 	if (is_obj_active == 1)
 	{
 		// if pressed, then....well, then state = PRESSED
@@ -3037,11 +3123,16 @@ void _lui_set_obj_props_on_touch_input(lui_touch_input_data_t *input, lui_obj_t 
 	{
 		new_state = LUI_STATE_IDLE;
 	}
-	obj->event = _lui_get_event_against_state(new_state, obj->state);		
+	obj->event = _lui_get_event_against_state(new_state, old_state);		
 
 	if (obj->event != LUI_EVENT_NONE)
 	{
 		obj->state = new_state;
+		if (obj->obj_type == LUI_OBJ_BTNGRID)
+		{
+			lui_btngrid_t *btngrid = obj->obj_main_data;
+			btngrid->btn_properties[btngrid->active_btn_index] |= (new_state & _LUI_BTNGRID_MASK_BTN_IS_CHECKED);
+		}
 		_lui_object_set_need_refresh(obj);
 	}
 	
@@ -3052,7 +3143,7 @@ void _lui_set_obj_props_on_touch_input(lui_touch_input_data_t *input, lui_obj_t 
 	if (obj->obj_type == LUI_OBJ_SWITCH ||
 		obj->obj_type == LUI_OBJ_CHECKBOX)
 	{	
-		if (obj->event == LUI_EVENT_RELEASED)
+		if (obj->event == LUI_EVENT_RELEASED || obj->event == LUI_EVENT_SELECTION_LOST)
 		{
 			obj->event = LUI_EVENT_VALUE_CHANGED;	// for switch and checkbox, being pressed means being toggled, thus value changed
 			obj->value = (obj->value == 1) ? 0 : 1;	// toggle the value (1->0 or 0-1)
@@ -3060,8 +3151,10 @@ void _lui_set_obj_props_on_touch_input(lui_touch_input_data_t *input, lui_obj_t 
 		}	
 	}
 
-	// Special case for slider: If knob is kep pressed and if input pos is not same as knob's current position,
-	// set new position to knob  and value to slider, also set VALUE_CHANGED event
+	/**
+	 * Special case for slider: If knob is kep pressed and if input pos is not same as knob's current position,
+	 * set new position to knob  and value to slider, also set VALUE_CHANGED event 
+	 */
 	else if (obj->obj_type == LUI_OBJ_SLIDER)
 	{
 		lui_slider_t *slider = obj->obj_main_data;
@@ -3089,6 +3182,51 @@ void _lui_set_obj_props_on_touch_input(lui_touch_input_data_t *input, lui_obj_t 
 			obj->event = LUI_EVENT_VALUE_CHANGED;
 			obj->needs_refresh = 1;
 		}
+	}
+
+	/**
+	 * When a different button in a grid is active than the previous one,
+	 * then the state of btngrid doesn't change and so no event occurs. 
+	 * To handle this, when we detect btn index change, we compare current or old state with STATE_IDLE
+	 * so we get a proper event.
+	 * To visualize the difference, comment out the below block and move the mouse really fast in a 
+	 * densely populated btngrid(like qwerty kb). You'll see the previous button remains selected
+	 * even though mouse is on a different button.
+	 */
+	else if (obj->obj_type == LUI_OBJ_BTNGRID)
+	{
+		static int16_t last_active_btn = -1;
+		lui_btngrid_t *btngrid = obj->obj_main_data;
+		if (btngrid->active_btn_index != last_active_btn)
+		{
+			if (btngrid->active_btn_index == -1)
+			{
+				obj->event = _lui_get_event_against_state(LUI_STATE_IDLE, old_state);	
+			}
+			else
+			{
+				obj->event = _lui_get_event_against_state(new_state, LUI_STATE_IDLE);
+			}		
+		}
+
+		if (obj->event == LUI_EVENT_PRESSED)
+		{
+			uint8_t cond = btngrid->btn_properties[btngrid->active_btn_index] & _LUI_BTNGRID_MASK_BTN_IS_CHECKABLE;
+			if (cond)
+			{
+				obj->event = LUI_EVENT_CHECK_CHANGED;	
+				uint8_t prop = btngrid->btn_properties[btngrid->active_btn_index];
+				btngrid->btn_properties[btngrid->active_btn_index] ^= _LUI_BTNGRID_MASK_BTN_IS_CHECKED;	// toggle check state of the active button
+				prop = btngrid->btn_properties[btngrid->active_btn_index];
+				int hj = 4;
+			}
+		}	
+
+		if (obj->event != LUI_EVENT_NONE)
+		{
+			obj->needs_refresh = 1;
+		}
+		last_active_btn = btngrid->active_btn_index;
 	}
 }
 
@@ -3305,6 +3443,9 @@ void _lui_object_render(lui_obj_t *obj)
 				break;
 			case LUI_OBJ_LIST:
 				lui_list_draw(obj);
+				break;
+			case LUI_OBJ_BTNGRID:
+				lui_btngrid_draw(obj);
 				break;
 			default:
 				break;

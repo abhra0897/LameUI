@@ -148,6 +148,7 @@
 #define	LUI_EVENT_ENTERED					5
 #define	LUI_EVENT_EXITED					6
 #define	LUI_EVENT_VALUE_CHANGED				7
+#define	LUI_EVENT_CHECK_CHANGED				8
 
 
 #define	LUI_OBJ_NONE						0
@@ -163,9 +164,10 @@
 #define LUI_OBJ_SLIDER						10
 #define LUI_OBJ_BTNGRID						11
 
-#define _LUI_BTNGRID_MASK_BTN_IS_ENABLED	0x40
+#define _LUI_BTNGRID_MASK_BTN_IS_DISABLED	0x40
 #define _LUI_BTNGRID_MASK_BTN_IS_HIDDEN		0x20
 #define _LUI_BTNGRID_MASK_BTN_IS_CHECKABLE	0x10
+#define _LUI_BTNGRID_MASK_BTN_IS_CHECKED	0x80
 #define _LUI_BTNGRID_MASK_BTN_WIDTH_UNIT	0x0F
 
 /* Defined at the top for user's convenience */
