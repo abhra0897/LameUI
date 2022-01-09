@@ -10,7 +10,7 @@
 
 
 _lui_mem_block_t g_mem_block;
-lui_main_t *g_lui_main;
+lui_main_t* g_lui_main;
 
 
 /*-------------------------------------------------------------------------------
@@ -53,7 +53,7 @@ void lui_update()
 		return;
 
 
-	lui_obj_t *obj_caused_cb = NULL;
+	lui_obj_t* obj_caused_cb = NULL;
 	// Reading input
 	obj_caused_cb = _lui_process_input_of_act_scene();
 
@@ -90,7 +90,7 @@ void lui_update()
  * Render a label. This label may or maynot be a part of any scene.
  * The entire scene is not updated.
  */
-void lui_label_draw(lui_obj_t *obj)
+void lui_label_draw(lui_obj_t* obj)
 {
 	if (obj == NULL)
 		return;
@@ -102,13 +102,13 @@ void lui_label_draw(lui_obj_t *obj)
 	if (!(obj->visible))
 		return;
 	
-	lui_label_t *lbl = (lui_label_t *)(obj->obj_main_data);
+	lui_label_t* lbl = (lui_label_t* )(obj->obj_main_data);
 
 	// if no display driver is registered, return
 	if (_lui_disp_drv_check() == 0)
 		return;
 
-	tFont *temp_font = lbl->font;
+	tFont* temp_font = lbl->font;
 	// If label has no font set for it, check the global set font in scene
 	// If no scene present, i.e., parent_scene_index == -1, return
 	// If scene is there but scene has no font, return
@@ -138,7 +138,7 @@ lui_obj_t* lui_label_create()
 		return NULL;
 	 g_lui_main->total_created_objects++;
 
-	lui_label_t *initial_label =  _lui_mem_alloc(sizeof(*initial_label));
+	lui_label_t* initial_label =  _lui_mem_alloc(sizeof(*initial_label));
 	if (initial_label == NULL)
 		return NULL;
 	
@@ -146,7 +146,7 @@ lui_obj_t* lui_label_create()
 	initial_label->font = NULL;
 	initial_label->style.text_color = LUI_STYLE_LABEL_TEXT_COLOR;
 
-	lui_obj_t *obj = _lui_object_create();
+	lui_obj_t* obj = _lui_object_create();
 	if (obj == NULL)
 		return NULL;
 	// objeect type
@@ -158,12 +158,12 @@ lui_obj_t* lui_label_create()
 	obj->common_style.width = LUI_STYLE_LABEL_WIDTH;
 	obj->common_style.height = LUI_STYLE_LABEL_HEIGHT;
 
-	obj->obj_main_data = (void *)initial_label;
+	obj->obj_main_data = (void* )initial_label;
 
 	return obj;
 }
 
-void lui_label_set_font(const tFont *font, lui_obj_t *obj)
+void lui_label_set_font(lui_obj_t* obj, const tFont* font)
 {
 	if (obj == NULL)
 		return;
@@ -172,12 +172,12 @@ void lui_label_set_font(const tFont *font, lui_obj_t *obj)
 	if (obj->obj_type != LUI_OBJ_LABEL)
 		return;
 	
-	lui_label_t *lbl = (lui_label_t *)(obj->obj_main_data);
-	lbl->font = (tFont *)font;
+	lui_label_t* lbl = (lui_label_t* )(obj->obj_main_data);
+	lbl->font = (tFont* )font;
 	_lui_object_set_need_refresh(obj->parent);
 }
 
-void lui_label_set_text(const char *text, lui_obj_t *obj)
+void lui_label_set_text(lui_obj_t* obj, const char* text)
 {
 	if (obj == NULL)
 		return;
@@ -186,13 +186,13 @@ void lui_label_set_text(const char *text, lui_obj_t *obj)
 	if (obj->obj_type != LUI_OBJ_LABEL)
 		return;
 	
-	lui_label_t *lbl = (lui_label_t *)(obj->obj_main_data);
-	lbl->text = (char *)text;
+	lui_label_t* lbl = (lui_label_t* )(obj->obj_main_data);
+	lbl->text = (char* )text;
 
 	_lui_object_set_need_refresh(obj);
 }
 
-void lui_label_set_text_color(uint16_t text_color, lui_obj_t *obj)
+void lui_label_set_text_color(lui_obj_t* obj, uint16_t text_color)
 {
 	if (obj == NULL)
 		return;
@@ -201,7 +201,7 @@ void lui_label_set_text_color(uint16_t text_color, lui_obj_t *obj)
 	if (obj->obj_type != LUI_OBJ_LABEL)
 		return;
 
-	lui_label_t *lbl = (lui_label_t *)(obj->obj_main_data);
+	lui_label_t* lbl = (lui_label_t* )(obj->obj_main_data);
 	if (lbl->style.text_color == text_color)
 		return;
 	_lui_object_set_need_refresh(obj);
@@ -221,7 +221,7 @@ void lui_label_set_text_color(uint16_t text_color, lui_obj_t *obj)
 /*
 * Draw a line chart
 */
-void lui_linechart_draw(lui_obj_t *obj)
+void lui_linechart_draw(lui_obj_t* obj)
 {
 	if (obj == NULL)
 		return;
@@ -237,7 +237,7 @@ void lui_linechart_draw(lui_obj_t *obj)
 	if (_lui_disp_drv_check() == 0)
 		return;
 
-	lui_chart_t *chart = (lui_chart_t *)(obj->obj_main_data);
+	lui_chart_t* chart = (lui_chart_t* )(obj->obj_main_data);
 
 	uint16_t temp_x = obj->x;
 	uint16_t temp_y = obj->y;
@@ -290,7 +290,7 @@ void lui_linechart_draw(lui_obj_t *obj)
 	}
 
 	// Set font for using in chart
-	tFont *temp_font = chart->font;
+	tFont* temp_font = chart->font;
 	// If object has no font set for it, check the global set font in scene
 	if (temp_font == NULL &&  g_lui_main->active_scene != NULL)
 	{
@@ -378,7 +378,7 @@ lui_obj_t* lui_linechart_create()
 		return NULL;
 	 g_lui_main->total_created_objects++;
 
-	lui_chart_t *initial_line_chart =  _lui_mem_alloc(sizeof(*initial_line_chart));
+	lui_chart_t* initial_line_chart =  _lui_mem_alloc(sizeof(*initial_line_chart));
 	if (initial_line_chart == NULL)
 		return NULL;
 
@@ -396,7 +396,7 @@ lui_obj_t* lui_linechart_create()
 	initial_line_chart->grid.vert_count = 5;
 	initial_line_chart->font = NULL;
 
-	lui_obj_t *obj = _lui_object_create();
+	lui_obj_t* obj = _lui_object_create();
 	if (obj == NULL)
 		return NULL;
 	// object type
@@ -408,12 +408,12 @@ lui_obj_t* lui_linechart_create()
 	obj->common_style.height = LUI_STYLE_LINECHART_HEIGHT;
 	obj->common_style.width = LUI_STYLE_LINECHART_WIDTH;
 	
-	obj->obj_main_data = (void *)initial_line_chart;
+	obj->obj_main_data = (void* )initial_line_chart;
 
 	return obj;
 }
 
-void lui_linechart_set_grid_count(uint16_t hor_lines, uint16_t vert_lines, lui_obj_t *obj)
+void lui_linechart_set_grid_count(lui_obj_t* obj, uint16_t hor_lines, uint16_t vert_lines)
 {
 	if (obj == NULL)
 		return;
@@ -422,7 +422,7 @@ void lui_linechart_set_grid_count(uint16_t hor_lines, uint16_t vert_lines, lui_o
 	if (obj->obj_type != LUI_OBJ_LINECHART)
 		return;
 
-	lui_chart_t *chart = (lui_chart_t *)(obj->obj_main_data);
+	lui_chart_t* chart = (lui_chart_t* )(obj->obj_main_data);
 	if (chart->grid.hor_count == hor_lines && chart->grid.vert_count == vert_lines)
 		return;	
 	_lui_object_set_need_refresh(obj);
@@ -430,7 +430,7 @@ void lui_linechart_set_grid_count(uint16_t hor_lines, uint16_t vert_lines, lui_o
 	chart->grid.vert_count = vert_lines;
 }
 
-void lui_linechart_set_grid_color(uint16_t color, lui_obj_t *obj)
+void lui_linechart_set_grid_color(lui_obj_t* obj, uint16_t color)
 {
 	if (obj == NULL)
 		return;
@@ -439,14 +439,14 @@ void lui_linechart_set_grid_color(uint16_t color, lui_obj_t *obj)
 	if (obj->obj_type != LUI_OBJ_LINECHART)
 		return;
 
-	lui_chart_t *chart = (lui_chart_t *)(obj->obj_main_data);
+	lui_chart_t* chart = (lui_chart_t* )(obj->obj_main_data);
 	if (chart->style.grid_color == color)
 		return;	
 	_lui_object_set_need_refresh(obj);
 	chart->style.grid_color = color;
 }
 
-void lui_linechart_set_grid_visible(uint8_t state, lui_obj_t *obj)
+void lui_linechart_set_grid_visible(lui_obj_t* obj, uint8_t state)
 {
 	if (obj == NULL)
 		return;
@@ -455,14 +455,14 @@ void lui_linechart_set_grid_visible(uint8_t state, lui_obj_t *obj)
 	if (obj->obj_type != LUI_OBJ_LINECHART)
 		return;
 	
-	lui_chart_t *chart = (lui_chart_t *)(obj->obj_main_data);
+	lui_chart_t* chart = (lui_chart_t* )(obj->obj_main_data);
 	if (chart->style.grid_visible == state)
 		return;	
 	_lui_object_set_need_refresh(obj);
 	chart->style.grid_visible = state;
 }
 
-void lui_linechart_set_line_color(uint16_t line_color, lui_obj_t *obj)
+void lui_linechart_set_line_color(lui_obj_t* obj, uint16_t line_color)
 {
 	if (obj == NULL)
 		return;
@@ -471,14 +471,14 @@ void lui_linechart_set_line_color(uint16_t line_color, lui_obj_t *obj)
 	if (obj->obj_type != LUI_OBJ_LINECHART)
 		return;
 	
-	lui_chart_t *chart = (lui_chart_t *)(obj->obj_main_data);
+	lui_chart_t* chart = (lui_chart_t* )(obj->obj_main_data);
 	if (chart->style.line_color == line_color)
 		return;	
 	_lui_object_set_need_refresh(obj);
 	chart->style.line_color = line_color;
 }
 
-void lui_linechart_set_data_auto_scale(uint8_t auto_scale, lui_obj_t *obj)
+void lui_linechart_set_data_auto_scale(lui_obj_t* obj, uint8_t auto_scale)
 {
 	if (obj == NULL)
 		return;
@@ -487,14 +487,14 @@ void lui_linechart_set_data_auto_scale(uint8_t auto_scale, lui_obj_t *obj)
 	if (obj->obj_type != LUI_OBJ_LINECHART)
 		return;
 	
-	lui_chart_t *chart = (lui_chart_t *)(obj->obj_main_data);
+	lui_chart_t* chart = (lui_chart_t* )(obj->obj_main_data);
 	if (auto_scale == chart->data.auto_scale)
 		return;
 	chart->data.auto_scale = auto_scale ? 1 : 0;
 	_lui_object_set_need_refresh(obj);
 }
 
-void lui_linechart_set_data_range(double y_min, double y_max, lui_obj_t *obj)
+void lui_linechart_set_data_range(lui_obj_t* obj, double y_min, double y_max)
 {
 	if (obj == NULL)
 		return;
@@ -503,7 +503,7 @@ void lui_linechart_set_data_range(double y_min, double y_max, lui_obj_t *obj)
 	if (obj->obj_type != LUI_OBJ_LINECHART)
 		return;
 	
-	lui_chart_t *chart = (lui_chart_t *)(obj->obj_main_data);
+	lui_chart_t* chart = (lui_chart_t* )(obj->obj_main_data);
 	if (chart->data.y_max_value == y_max && chart->data.y_min_value == y_min && chart->data.auto_scale == 0)
 		return;
 	_lui_object_set_need_refresh(obj);
@@ -512,7 +512,7 @@ void lui_linechart_set_data_range(double y_min, double y_max, lui_obj_t *obj)
 	chart->data.auto_scale = 0;
 }
 
-void lui_linechart_set_data_source(double *source, uint16_t points, lui_obj_t *obj)
+void lui_linechart_set_data_source(lui_obj_t* obj, double* source, uint16_t points)
 {
 	if (obj == NULL)
 		return;
@@ -521,7 +521,7 @@ void lui_linechart_set_data_source(double *source, uint16_t points, lui_obj_t *o
 	if (obj->obj_type != LUI_OBJ_LINECHART)
 		return;
 	
-	lui_chart_t *chart = (lui_chart_t *)(obj->obj_main_data);
+	lui_chart_t* chart = (lui_chart_t* )(obj->obj_main_data);
 	// if (chart->data.points == points)
 	// 	return;
 	_lui_object_set_need_refresh(obj);
@@ -542,7 +542,7 @@ void lui_linechart_set_data_source(double *source, uint16_t points, lui_obj_t *o
 /*
  * Draw a button
  */
-void lui_button_draw(lui_obj_t *obj)
+void lui_button_draw(lui_obj_t* obj)
 {
 	if (obj == NULL)
 		return;
@@ -558,7 +558,7 @@ void lui_button_draw(lui_obj_t *obj)
 	if (_lui_disp_drv_check() == 0)
 		return;
 
-	lui_button_t *btn = (lui_button_t *)(obj->obj_main_data);
+	lui_button_t* btn = (lui_button_t* )(obj->obj_main_data);
 
 	uint16_t temp_x = obj->x;
 	uint16_t temp_y = obj->y;
@@ -583,7 +583,7 @@ void lui_button_draw(lui_obj_t *obj)
 	// Text will be in the miidle of the button.
 	// So, at first we need to calculate its position
 
-	tFont *temp_font = btn->label.font;
+	tFont* temp_font = btn->label.font;
 	// If it has no font set for it, check the global set font in scene
 	// If no scene present, i.e., parent_scene_index == -1, return
 	// If scene is there but scene has no font, return
@@ -621,7 +621,7 @@ lui_obj_t* lui_button_create()
 		return NULL;
 	 g_lui_main->total_created_objects++;
 
-	lui_button_t *initial_button =  _lui_mem_alloc(sizeof(*initial_button));
+	lui_button_t* initial_button =  _lui_mem_alloc(sizeof(*initial_button));
 	if (initial_button == NULL)
 		return NULL;
 
@@ -633,7 +633,7 @@ lui_obj_t* lui_button_create()
 	initial_button->label.font = NULL;
 	initial_button->encoder_index = -1;
 
-	lui_obj_t *obj = _lui_object_create();
+	lui_obj_t* obj = _lui_object_create();
 	if (obj == NULL)
 		return NULL;
 	// object type
@@ -646,12 +646,12 @@ lui_obj_t* lui_button_create()
 	obj->common_style.width = LUI_STYLE_BUTTON_WIDTH;
 	obj->common_style.height = LUI_STYLE_BUTTON_HEIGHT;
 	
-	obj->obj_main_data = (void *)initial_button;
+	obj->obj_main_data = (void* )initial_button;
 
 	return  obj;
 }
 
-void lui_button_set_label_text(const char *text, lui_obj_t *obj)
+void lui_button_set_label_text(lui_obj_t* obj, const char* text)
 {
 	if (obj == NULL)
 		return;
@@ -660,12 +660,12 @@ void lui_button_set_label_text(const char *text, lui_obj_t *obj)
 	if (obj->obj_type != LUI_OBJ_BUTTON)
 		return;
 	
-	lui_button_t *btn = (lui_button_t *)(obj->obj_main_data);
-	btn->label.text = (char *)text;
+	lui_button_t* btn = (lui_button_t* )(obj->obj_main_data);
+	btn->label.text = (char* )text;
 	_lui_object_set_need_refresh(obj);
 }
 
-void lui_button_set_label_color(uint16_t color, lui_obj_t *obj)
+void lui_button_set_label_color(lui_obj_t* obj, uint16_t color)
 {
 	if (obj == NULL)
 		return;
@@ -674,14 +674,14 @@ void lui_button_set_label_color(uint16_t color, lui_obj_t *obj)
 	if (obj->obj_type != LUI_OBJ_BUTTON)
 		return;
 	
-	lui_button_t *btn = (lui_button_t *)(obj->obj_main_data);
+	lui_button_t* btn = (lui_button_t* )(obj->obj_main_data);
 	if (btn->style.label_color == color)
 		return;
 	btn->style.label_color = color;
 	_lui_object_set_need_refresh(obj);
 }
 
-void lui_button_set_label_font(const tFont *font, lui_obj_t *obj)
+void lui_button_set_label_font(lui_obj_t* obj, const tFont* font)
 {
 	if (obj == NULL)
 		return;
@@ -690,13 +690,13 @@ void lui_button_set_label_font(const tFont *font, lui_obj_t *obj)
 	if (obj->obj_type != LUI_OBJ_BUTTON)
 		return;
 	
-	lui_button_t *btn = (lui_button_t *)(obj->obj_main_data);
-	btn->label.font = (tFont *)font;
+	lui_button_t* btn = (lui_button_t* )(obj->obj_main_data);
+	btn->label.font = (tFont* )font;
 	// parent needs refresh (along with all its children)
 	_lui_object_set_need_refresh(obj->parent);
 }
 
-void lui_button_set_extra_colors(uint16_t pressed_color, uint16_t selection_color, lui_obj_t *obj)
+void lui_button_set_extra_colors(lui_obj_t* obj, uint16_t pressed_color, uint16_t selection_color)
 {
 	if (obj == NULL)
 		return;
@@ -705,7 +705,7 @@ void lui_button_set_extra_colors(uint16_t pressed_color, uint16_t selection_colo
 	if (obj->obj_type != LUI_OBJ_BUTTON)
 		return;
 	
-	lui_button_t *btn = (lui_button_t *)(obj->obj_main_data);
+	lui_button_t* btn = (lui_button_t* )(obj->obj_main_data);
 	if (btn->style.pressed_color == pressed_color && btn->style.selection_color == selection_color)
 		return;
 	btn->style.pressed_color = pressed_color;
@@ -713,11 +713,11 @@ void lui_button_set_extra_colors(uint16_t pressed_color, uint16_t selection_colo
 	_lui_object_set_need_refresh(obj);
 }
 
-void lui_button_set_encoder_index(uint8_t index, lui_obj_t *obj)
+void lui_button_set_encoder_index(lui_obj_t* obj, uint8_t index)
 {
 	if (obj == NULL)
 		return;
-	lui_button_t *btn = (lui_button_t *)(obj->obj_main_data);
+	lui_button_t* btn = (lui_button_t* )(obj->obj_main_data);
 	if (btn->encoder_index == index || btn->encoder_index < 0)
 		return;
 	btn->encoder_index = index;
@@ -733,7 +733,7 @@ void lui_button_set_encoder_index(uint8_t index, lui_obj_t *obj)
  *-------------------------------------------------------------------------------
  */
 
-void lui_list_draw(lui_obj_t *obj)
+void lui_list_draw(lui_obj_t* obj)
 {
 	if (obj == NULL)
 		return;
@@ -763,16 +763,16 @@ lui_obj_t* lui_list_create()
 		return NULL;
 	 g_lui_main->total_created_objects++;
 
-	lui_list_t *initial_list =  _lui_mem_alloc(sizeof(*initial_list));
+	lui_list_t* initial_list =  _lui_mem_alloc(sizeof(*initial_list));
 	if (initial_list == NULL)
 		return NULL;
 
-	lui_obj_t *obj = _lui_object_create();
+	lui_obj_t* obj = _lui_object_create();
 	if (obj == NULL)
 		return NULL;
 	// object type
 	obj->obj_type = LUI_OBJ_LIST;
-	obj->obj_main_data = (void *)initial_list;
+	obj->obj_main_data = (void* )initial_list;
 
 	initial_list->page_count = 0;
 	initial_list->current_page_index = 0;
@@ -795,8 +795,7 @@ lui_obj_t* lui_list_create()
 	return obj;
 }
 
-
-void lui_list_prepare(lui_obj_t *obj)
+void lui_list_prepare(lui_obj_t* obj)
 {
 	if (obj == NULL)
 		return;
@@ -808,7 +807,7 @@ void lui_list_prepare(lui_obj_t *obj)
 	if (obj->children_count == 0)
 		return;
 
-	lui_list_t *list = (lui_list_t *)(obj->obj_main_data);
+	lui_list_t* list = (lui_list_t* )(obj->obj_main_data);
 	
 	// set font to active scene's font if no font is given
 	// is active scene's font is null too, return
@@ -854,13 +853,13 @@ void lui_list_prepare(lui_obj_t *obj)
 	// set x, y coordinates and height, width of all the list items.
 	// list items are treated as children
 	// since first two children are nav buttons, we start from 3rd child
-	lui_obj_t *list_item = obj->first_child->next_sibling->next_sibling;
+	lui_obj_t* list_item = obj->first_child->next_sibling->next_sibling;
 	uint8_t item_pos = 0; 
 	uint16_t first_item_pos = (list->current_page_index * list->buttons_per_page);
 	uint16_t last_item_pos = first_item_pos + list->buttons_per_page - 1;
 	while (list_item != NULL)
 	{
-		lui_button_t *button_item = list_item->obj_main_data;
+		lui_button_t* button_item = list_item->obj_main_data;
 		list_item->x = obj->x + 1;
 		// starting offset is set by item_pos and btn_per_page. Taking remainder of item_pos/btn_per_page so that 
 		// everytime item_pos becomes big enough to come to next page, the offset becomes 0
@@ -886,8 +885,8 @@ void lui_list_prepare(lui_obj_t *obj)
 	}
 
 	// navigation button (prev and next) x,y, w, h set.
-	lui_button_t *button_nav_prev = obj->first_child->obj_main_data;
-	lui_button_t *button_nav_nxt = obj->first_child->next_sibling->obj_main_data;
+	lui_button_t* button_nav_prev = obj->first_child->obj_main_data;
+	lui_button_t* button_nav_nxt = obj->first_child->next_sibling->obj_main_data;
 
 	obj->first_child->next_sibling->x = obj->x + (obj->common_style.width / 2) + 10; // index 1 = nav button nxt
 	obj->first_child->x = obj->x + 10;	// index 0 = nav button prev
@@ -916,8 +915,7 @@ void lui_list_prepare(lui_obj_t *obj)
 	_lui_object_set_need_refresh(obj);
 }
 
-
-lui_obj_t* lui_list_add_item(const char *text, lui_obj_t *obj)
+lui_obj_t* lui_list_add_item(lui_obj_t* obj, const char* text)
 {
 	if (obj == NULL)
 		return NULL;
@@ -930,10 +928,10 @@ lui_obj_t* lui_list_add_item(const char *text, lui_obj_t *obj)
 		return NULL;
 	 g_lui_main->total_created_objects++;
 
-	lui_list_t *list = obj->obj_main_data;
+	lui_list_t* list = obj->obj_main_data;
 	list->button_item_min_height = LUI_STYLE_LIST_ITEM_MIN_HEIGHT;
 
-	lui_button_t *initial_button =  _lui_mem_alloc(sizeof(*initial_button));
+	lui_button_t* initial_button =  _lui_mem_alloc(sizeof(*initial_button));
 	if (initial_button == NULL)
 		return NULL;
 	initial_button->style.pressed_color = LUI_STYLE_LIST_ITEM_PRESSED_COLOR;
@@ -944,7 +942,7 @@ lui_obj_t* lui_list_add_item(const char *text, lui_obj_t *obj)
 
 	initial_button->encoder_index = -1;
 
-	lui_obj_t *obj_btn_item = _lui_object_create();
+	lui_obj_t* obj_btn_item = _lui_object_create();
 	// object type
 	obj_btn_item->obj_type = LUI_OBJ_BUTTON;
 	// object common style
@@ -954,15 +952,14 @@ lui_obj_t* lui_list_add_item(const char *text, lui_obj_t *obj)
 	obj_btn_item->common_style.width = LUI_STYLE_LIST_WIDTH;
 	obj_btn_item->common_style.height = LUI_STYLE_LIST_ITEM_MIN_HEIGHT;
 	
-	obj_btn_item->obj_main_data = (void *)initial_button;
+	obj_btn_item->obj_main_data = (void* )initial_button;
 
-	_lui_list_add_button_obj(obj_btn_item, obj);
+	_lui_list_add_button_obj(obj, obj_btn_item);
 
 	return  obj_btn_item;
 }
 
-
-void lui_list_delete_item(lui_obj_t **obj_item_addr)
+void lui_list_delete_item(lui_obj_t** obj_item_addr)
 {
 	if (obj_item_addr == NULL)
 		return;
@@ -982,12 +979,11 @@ void lui_list_delete_item(lui_obj_t **obj_item_addr)
 	 g_lui_main->total_created_objects--;
 }
 
-
-void lui_list_set_item_min_height(uint8_t height, lui_obj_t *obj)
+void lui_list_set_item_min_height(lui_obj_t* obj, uint8_t height)
 {
 	if (obj == NULL)
 		return;
-	lui_list_t *list = obj->obj_main_data;
+	lui_list_t* list = obj->obj_main_data;
 
 	// if list has a font and the item height is >= the glyph's height, only then set that height
 	if (list->font != NULL)
@@ -1008,8 +1004,7 @@ void lui_list_set_item_min_height(uint8_t height, lui_obj_t *obj)
 	// this min_height is applied to all items in `prepare` funt
 }
 
-
-void lui_list_set_font(const tFont *font, lui_obj_t *obj)
+void lui_list_set_font(lui_obj_t* obj, const tFont* font)
 {
 	if (obj == NULL)
 		return;
@@ -1018,8 +1013,8 @@ void lui_list_set_font(const tFont *font, lui_obj_t *obj)
 	if (obj->obj_type != LUI_OBJ_LIST)
 		return;
 	
-	lui_list_t *list = obj->obj_main_data;
-	list->font = (tFont *)font;
+	lui_list_t* list = obj->obj_main_data;
+	list->font = (tFont* )font;
 
 	// parent needs refresh (along with all its children)
 	_lui_object_set_need_refresh(obj->parent);
@@ -1027,8 +1022,7 @@ void lui_list_set_font(const tFont *font, lui_obj_t *obj)
 	// this font is set to all items in `prepare` func
 }
 
-
-void lui_list_set_nav_btn_label_color(uint16_t color, lui_obj_t *obj)
+void lui_list_set_nav_btn_label_color(lui_obj_t* obj, uint16_t color)
 {
 	if (obj == NULL)
 		return;
@@ -1037,12 +1031,11 @@ void lui_list_set_nav_btn_label_color(uint16_t color, lui_obj_t *obj)
 	if (obj->obj_type != LUI_OBJ_LIST)
 		return;
 
-	lui_button_set_label_color(color, obj->first_child);
-	lui_button_set_label_color(color, obj->first_child->next_sibling);
+	lui_button_set_label_color(obj->first_child, color);
+	lui_button_set_label_color(obj->first_child->next_sibling, color);
 }
 
-
-void lui_list_set_nav_btn_bg_color(uint16_t color, lui_obj_t *obj)
+void lui_list_set_nav_btn_bg_color(lui_obj_t* obj, uint16_t color)
 {
 	if (obj == NULL)
 		return;
@@ -1051,12 +1044,11 @@ void lui_list_set_nav_btn_bg_color(uint16_t color, lui_obj_t *obj)
 	if (obj->obj_type != LUI_OBJ_LIST)
 		return;
 
-	lui_object_set_bg_color(color, obj->first_child);
-	lui_object_set_bg_color(color, obj->first_child->next_sibling);
+	lui_object_set_bg_color(obj->first_child, color);
+	lui_object_set_bg_color(obj->first_child->next_sibling, color);
 }
 
-
-void lui_list_set_nav_btn_extra_colors(uint16_t pressed_color, uint16_t selection_color, lui_obj_t *obj)
+void lui_list_set_nav_btn_extra_colors(lui_obj_t* obj, uint16_t pressed_color, uint16_t selection_color)
 {
 	if (obj == NULL)
 		return;
@@ -1065,12 +1057,11 @@ void lui_list_set_nav_btn_extra_colors(uint16_t pressed_color, uint16_t selectio
 	if (obj->obj_type != LUI_OBJ_LIST)
 		return;
 
-	lui_button_set_extra_colors(pressed_color, selection_color, obj->first_child);
-	lui_button_set_extra_colors(pressed_color, selection_color, obj->first_child->next_sibling);
+	lui_button_set_extra_colors(obj->first_child, pressed_color, selection_color);
+	lui_button_set_extra_colors(obj->first_child->next_sibling, pressed_color, selection_color);
 }
 
-
-void lui_list_set_nav_btn_label_text(const char *btn_prev_text, const char *btn_nxt_text, lui_obj_t *obj)
+void lui_list_set_nav_btn_label_text(lui_obj_t* obj, const char* btn_prev_text, const char* btn_nxt_text)
 {
 	if (obj == NULL)
 		return;
@@ -1079,12 +1070,11 @@ void lui_list_set_nav_btn_label_text(const char *btn_prev_text, const char *btn_
 	if (obj->obj_type != LUI_OBJ_LIST)
 		return;
 
-	lui_button_set_label_text(btn_prev_text, obj->first_child);
-	lui_button_set_label_text(btn_nxt_text, obj->first_child->next_sibling);
+	lui_button_set_label_text(obj->first_child, btn_prev_text);
+	lui_button_set_label_text(obj->first_child->next_sibling, btn_nxt_text);
 }
 
-
-void lui_list_set_nav_btn_border_color(uint16_t color, lui_obj_t *obj)
+void lui_list_set_nav_btn_border_color(lui_obj_t* obj, uint16_t color)
 {
 	if (obj == NULL)
 		return;
@@ -1093,28 +1083,27 @@ void lui_list_set_nav_btn_border_color(uint16_t color, lui_obj_t *obj)
 	if (obj->obj_type != LUI_OBJ_LIST)
 		return;
 
-	lui_object_set_border_color(color, obj->first_child);
-	lui_object_set_border_color(color, obj->first_child->next_sibling);
+	lui_object_set_border_color(obj->first_child, color);
+	lui_object_set_border_color(obj->first_child->next_sibling, color);
 }
 
-
-void _lui_list_add_button_obj(lui_obj_t *obj_btn, lui_obj_t *obj_list)
+void _lui_list_add_button_obj(lui_obj_t* obj_list, lui_obj_t* obj_btn)
 {
 	if (obj_list->first_child == NULL)
-    {
-        obj_list->first_child = obj_btn;
-    }
-    else
-    {
-        lui_obj_t *next_child = obj_list->first_child;
-        
-        while (next_child->next_sibling != NULL)
-        {
-            next_child = next_child->next_sibling;
-        }
-        
-        next_child->next_sibling = obj_btn;
-    }
+	{
+		obj_list->first_child = obj_btn;
+	}
+	else
+	{
+		lui_obj_t* next_child = obj_list->first_child;
+		
+		while (next_child->next_sibling != NULL)
+		{
+			next_child = next_child->next_sibling;
+		}
+		
+		next_child->next_sibling = obj_btn;
+	}
 
 	// Common things to do
 	obj_btn->parent = obj_list;
@@ -1122,33 +1111,31 @@ void _lui_list_add_button_obj(lui_obj_t *obj_btn, lui_obj_t *obj_list)
 	_lui_object_set_need_refresh(obj_btn->parent);
 }
 
-
-void _lui_list_add_nav_buttons(lui_obj_t *obj)
+void _lui_list_add_nav_buttons(lui_obj_t* obj)
 {
 	// create navigation buttons
-	lui_obj_t *obj_nav_btn_prev = lui_button_create();
-	lui_obj_t *obj_nav_btn_nxt = lui_button_create();
-	lui_button_set_label_text("Prev", obj_nav_btn_prev);
-	lui_button_set_label_text("Next", obj_nav_btn_nxt);
+	lui_obj_t* obj_nav_btn_prev = lui_button_create();
+	lui_obj_t* obj_nav_btn_nxt = lui_button_create();
+	lui_button_set_label_text(obj_nav_btn_prev, "Prev");
+	lui_button_set_label_text( obj_nav_btn_nxt, "Next");
 	// set nav button styles (nav button height and width are calculated y `prepare` function)
-	lui_button_set_label_color(LUI_STYLE_LIST_NAV_LABEL_COLOR, obj_nav_btn_prev);
-	lui_button_set_label_color(LUI_STYLE_LIST_NAV_LABEL_COLOR, obj_nav_btn_nxt);
-	lui_button_set_extra_colors(LUI_STYLE_LIST_NAV_PRESSED_COLOR, LUI_STYLE_LIST_NAV_SELECTION_COLOR, obj_nav_btn_prev);
-	lui_button_set_extra_colors(LUI_STYLE_LIST_NAV_PRESSED_COLOR, LUI_STYLE_LIST_NAV_SELECTION_COLOR, obj_nav_btn_nxt);
+	lui_button_set_label_color(obj_nav_btn_prev, LUI_STYLE_LIST_NAV_LABEL_COLOR);
+	lui_button_set_label_color(obj_nav_btn_nxt, LUI_STYLE_LIST_NAV_LABEL_COLOR);
+	lui_button_set_extra_colors(obj_nav_btn_prev, LUI_STYLE_LIST_NAV_PRESSED_COLOR, LUI_STYLE_LIST_NAV_SELECTION_COLOR);
+	lui_button_set_extra_colors(obj_nav_btn_nxt, LUI_STYLE_LIST_NAV_PRESSED_COLOR, LUI_STYLE_LIST_NAV_SELECTION_COLOR);
 	obj_nav_btn_nxt->common_style.border_visible = obj_nav_btn_prev->common_style.border_visible = 0;
 	obj_nav_btn_nxt->common_style.border_color = obj_nav_btn_prev->common_style.border_color = LUI_STYLE_LIST_ITEM_BORDER_COLOR;
 	obj_nav_btn_nxt->common_style.bg_color = obj_nav_btn_prev->common_style.bg_color = LUI_STYLE_LIST_NAV_BG_COLOR;
 	obj_nav_btn_prev->obj_event_cb = obj_nav_btn_nxt->obj_event_cb = _lui_list_nav_btn_cb;
 
-	_lui_list_add_button_obj(obj_nav_btn_prev, obj);
-	_lui_list_add_button_obj(obj_nav_btn_nxt, obj);
+	_lui_list_add_button_obj(obj, obj_nav_btn_prev);
+	_lui_list_add_button_obj(obj, obj_nav_btn_nxt);
 }
 
-
-void _lui_list_nav_btn_cb(lui_obj_t *obj)
+void _lui_list_nav_btn_cb(lui_obj_t* obj)
 {
 	uint8_t event = lui_object_get_event(obj);
-	lui_list_t *list = obj->parent->obj_main_data;
+	lui_list_t* list = obj->parent->obj_main_data;
 	if (event == LUI_EVENT_RELEASED)
 	{
 		if (obj == obj->parent->first_child)	// first child is nav_prev btn
@@ -1169,7 +1156,7 @@ void _lui_list_nav_btn_cb(lui_obj_t *obj)
 		}
 
 		// list items start after first two buttons. First two buttons are nav buttons
-		lui_obj_t *list_item = obj->parent->first_child->next_sibling->next_sibling;
+		lui_obj_t* list_item = obj->parent->first_child->next_sibling->next_sibling;
 		uint8_t item_pos = 0; 
 		uint16_t first_item_pos = (list->current_page_index * list->buttons_per_page);
 		uint16_t last_item_pos = first_item_pos + list->buttons_per_page - 1;
@@ -1195,16 +1182,16 @@ void _lui_list_nav_btn_cb(lui_obj_t *obj)
 		// if list page count is more than 0, draw the nav button
 		if (list->page_count > 0)
 		{
-			// draw "next" or "prev" button only if there's a next ore previous page
+			// draw "next" or "prev" button only if there's a next or a previous page
 			if (list->current_page_index + 1 < list->page_count)
-				lui_object_set_visibility(1, obj->parent->first_child->next_sibling); // 2nd child: NEXT button
+				lui_object_set_visibility(obj->parent->first_child->next_sibling, 1); // 2nd child: NEXT button
 			else
-				lui_object_set_visibility(0, obj->parent->first_child->next_sibling);
+				lui_object_set_visibility(obj->parent->first_child->next_sibling, 0);
 
 			if (list->current_page_index - 1 >= 0)
-				lui_object_set_visibility(1, obj->parent->first_child);	// 1st child: PREV button
+				lui_object_set_visibility(obj->parent->first_child, 1);	// 1st child: PREV button
 			else
-				lui_object_set_visibility(0, obj->parent->first_child);
+				lui_object_set_visibility(obj->parent->first_child, 0);
 		}
 	}
 }
@@ -1218,7 +1205,7 @@ void _lui_list_nav_btn_cb(lui_obj_t *obj)
  *-------------------------------------------------------------------------------
  */
 
-void lui_switch_draw(lui_obj_t *obj)
+void lui_switch_draw(lui_obj_t* obj)
 {
 	if (obj == NULL)
 		return;
@@ -1230,7 +1217,7 @@ void lui_switch_draw(lui_obj_t *obj)
 	if (!(obj->visible))
 		return;
 	
-	lui_switch_t *swtch = (lui_switch_t *)(obj->obj_main_data);
+	lui_switch_t* swtch = (lui_switch_t* )(obj->obj_main_data);
 	// if no display driver is registered, return
 	if (_lui_disp_drv_check() == 0)
 		return;
@@ -1277,7 +1264,7 @@ lui_obj_t* lui_switch_create()
 	 g_lui_main->total_created_objects++;
 
 
-	lui_switch_t *initial_switch =  _lui_mem_alloc(sizeof(*initial_switch));
+	lui_switch_t* initial_switch =  _lui_mem_alloc(sizeof(*initial_switch));
 	if (initial_switch == NULL)
 		return NULL;
 	
@@ -1286,7 +1273,7 @@ lui_obj_t* lui_switch_create()
 	initial_switch->style.selection_color = LUI_STYLE_SWITCH_SELECTION_COLOR;
 	initial_switch->encoder_index = -1;
 
-	lui_obj_t *obj = _lui_object_create();
+	lui_obj_t* obj = _lui_object_create();
 	if (obj == NULL)
 		return NULL;
 	// object type
@@ -1299,12 +1286,12 @@ lui_obj_t* lui_switch_create()
 	obj->common_style.width = LUI_STYLE_SWITCH_WIDTH;
 	obj->common_style.height = LUI_STYLE_SWITCH_HEIGHT;
 	
-	obj->obj_main_data = (void *)initial_switch;
+	obj->obj_main_data = (void* )initial_switch;
 
 	return  obj;
 }
 
-void lui_switch_set_extra_colors(uint16_t knob_off_color, uint16_t knob_on_color, uint16_t selection_color, lui_obj_t *obj)
+void lui_switch_set_extra_colors(lui_obj_t* obj, uint16_t knob_off_color, uint16_t knob_on_color, uint16_t selection_color)
 {
 	if (obj == NULL)
 		return;
@@ -1313,7 +1300,7 @@ void lui_switch_set_extra_colors(uint16_t knob_off_color, uint16_t knob_on_color
 	if (obj->obj_type != LUI_OBJ_SWITCH)
 		return;
 	
-	lui_switch_t *swtch = (lui_switch_t *)(obj->obj_main_data);
+	lui_switch_t* swtch = (lui_switch_t* )(obj->obj_main_data);
 
 	if (swtch->style.knob_off_color == knob_off_color && swtch->style.knob_on_color == knob_on_color && swtch->style.selection_color == selection_color)
 		return;
@@ -1323,7 +1310,7 @@ void lui_switch_set_extra_colors(uint16_t knob_off_color, uint16_t knob_on_color
 	_lui_object_set_need_refresh(obj);
 }
 
-int8_t lui_switch_get_value(lui_obj_t *obj)
+int8_t lui_switch_get_value(lui_obj_t* obj)
 {
 	if (obj == NULL)
 		return -1;
@@ -1335,7 +1322,7 @@ int8_t lui_switch_get_value(lui_obj_t *obj)
 	return obj->value;
 }
 
-void lui_switch_set_value(uint8_t value, lui_obj_t *obj)
+void lui_switch_set_value(lui_obj_t* obj, uint8_t value)
 {
 	if (obj == NULL)
 		return;
@@ -1350,21 +1337,21 @@ void lui_switch_set_value(uint8_t value, lui_obj_t *obj)
 	_lui_object_set_need_refresh(obj);
 }
 
-void lui_switch_set_on(lui_obj_t *obj)
+void lui_switch_set_on(lui_obj_t* obj)
 {
-	lui_switch_set_value(1, obj);
+	lui_switch_set_value(obj, 1);
 }
 
-void lui_switch_set_off(lui_obj_t *obj)
+void lui_switch_set_off(lui_obj_t* obj)
 {
-	lui_switch_set_value(0, obj);
+	lui_switch_set_value(obj, 0);
 }
 
-void lui_switch_set_encoder_index(uint8_t index, lui_obj_t *obj)
+void lui_switch_set_encoder_index(lui_obj_t* obj, uint8_t index)
 {
 	if (obj == NULL)
 		return;
-	lui_switch_t *swtch = (lui_switch_t *)(obj->obj_main_data);
+	lui_switch_t* swtch = (lui_switch_t* )(obj->obj_main_data);
 	if (swtch->encoder_index == index || swtch->encoder_index < 0)
 		return;
 	swtch->encoder_index = index;
@@ -1381,7 +1368,7 @@ void lui_switch_set_encoder_index(uint8_t index, lui_obj_t *obj)
  *-------------------------------------------------------------------------------
  */
 
-void lui_checkbox_draw(lui_obj_t *obj)
+void lui_checkbox_draw(lui_obj_t* obj)
 {
 	if (obj == NULL)
 		return;
@@ -1393,7 +1380,7 @@ void lui_checkbox_draw(lui_obj_t *obj)
 	if (!(obj->visible))
 		return;
 	
-	lui_checkbox_t *chkbox = obj->obj_main_data;
+	lui_checkbox_t* chkbox = obj->obj_main_data;
 	// if no display driver is registered, return
 	if (_lui_disp_drv_check() == 0)
 		return;
@@ -1440,7 +1427,7 @@ lui_obj_t* lui_checkbox_create()
 	 g_lui_main->total_created_objects++;
 
 
-	lui_checkbox_t *initial_chkbox =  _lui_mem_alloc(sizeof(*initial_chkbox));
+	lui_checkbox_t* initial_chkbox =  _lui_mem_alloc(sizeof(*initial_chkbox));
 	if (initial_chkbox == NULL)
 		return NULL;
 	
@@ -1449,7 +1436,7 @@ lui_obj_t* lui_checkbox_create()
 	initial_chkbox->style.tick_color = LUI_STYLE_CHECKBOX_TICK_COLOR;
 	initial_chkbox->encoder_index = -1;
 
-	lui_obj_t *obj = _lui_object_create();
+	lui_obj_t* obj = _lui_object_create();
 	if (obj == NULL)
 		return NULL;
 	// object type
@@ -1462,12 +1449,12 @@ lui_obj_t* lui_checkbox_create()
 	obj->common_style.width = LUI_STYLE_CHECKBOX_WIDTH;
 	obj->common_style.height = LUI_STYLE_CHECKBOX_HEIGHT;
 	
-	obj->obj_main_data = (void *)initial_chkbox;
+	obj->obj_main_data = (void* )initial_chkbox;
 
 	return  obj;
 }
 
-void lui_checkbox_set_extra_colors(uint16_t bg_checked_color, uint16_t tick_color, uint16_t selection_color, lui_obj_t *obj)
+void lui_checkbox_set_extra_colors(lui_obj_t* obj, uint16_t bg_checked_color, uint16_t tick_color, uint16_t selection_color)
 {
 	if (obj == NULL)
 		return;
@@ -1476,7 +1463,7 @@ void lui_checkbox_set_extra_colors(uint16_t bg_checked_color, uint16_t tick_colo
 	if (obj->obj_type != LUI_OBJ_CHECKBOX)
 		return;
 	
-	lui_checkbox_t *chkbox = obj->obj_main_data;
+	lui_checkbox_t* chkbox = obj->obj_main_data;
 
 	if (chkbox->style.bg_checked_color == bg_checked_color && chkbox->style.tick_color == tick_color && chkbox->style.selection_color == selection_color)
 		return;
@@ -1486,7 +1473,7 @@ void lui_checkbox_set_extra_colors(uint16_t bg_checked_color, uint16_t tick_colo
 	_lui_object_set_need_refresh(obj);
 }
 
-int8_t lui_checkbox_get_value(lui_obj_t *obj)
+int8_t lui_checkbox_get_value(lui_obj_t* obj)
 {
 	if (obj == NULL)
 		return -1;
@@ -1498,7 +1485,7 @@ int8_t lui_checkbox_get_value(lui_obj_t *obj)
 	return obj->value;
 }
 
-void lui_checkbox_set_value(uint8_t value, lui_obj_t *obj)
+void lui_checkbox_set_value(lui_obj_t* obj, uint8_t value)
 {
 	if (obj == NULL)
 		return;
@@ -1513,21 +1500,21 @@ void lui_checkbox_set_value(uint8_t value, lui_obj_t *obj)
 	_lui_object_set_need_refresh(obj);
 }
 
-void lui_checkbox_set_checked(lui_obj_t *obj)
+void lui_checkbox_set_checked(lui_obj_t* obj)
 {
-	lui_checkbox_set_value(1, obj);
+	lui_checkbox_set_value(obj, 1);
 }
 
-void lui_checkbox_set_unchecked(lui_obj_t *obj)
+void lui_checkbox_set_unchecked(lui_obj_t* obj)
 {
-	lui_checkbox_set_value(0, obj);
+	lui_checkbox_set_value(obj, 0);
 }
 
-void lui_checkbox_set_encoder_index(uint8_t index, lui_obj_t *obj)
+void lui_checkbox_set_encoder_index(lui_obj_t* obj, uint8_t index)
 {
 	if (obj == NULL)
 		return;
-	lui_checkbox_t *chkbox = (lui_checkbox_t *)(obj->obj_main_data);
+	lui_checkbox_t* chkbox = (lui_checkbox_t* )(obj->obj_main_data);
 	if (chkbox->encoder_index == index || chkbox->encoder_index < 0)
 		return;
 	chkbox->encoder_index = index;
@@ -1544,7 +1531,7 @@ void lui_checkbox_set_encoder_index(uint8_t index, lui_obj_t *obj)
  *-------------------------------------------------------------------------------
  */
 
-void lui_slider_draw(lui_obj_t *obj)
+void lui_slider_draw(lui_obj_t* obj)
 {
 	if (obj == NULL)
 		return;
@@ -1556,7 +1543,7 @@ void lui_slider_draw(lui_obj_t *obj)
 	if (!(obj->visible))
 		return;
 	
-	lui_slider_t *slider = obj->obj_main_data;
+	lui_slider_t* slider = obj->obj_main_data;
 	// if no display driver is registered, return
 	if (_lui_disp_drv_check() == 0)
 		return;
@@ -1589,7 +1576,7 @@ lui_obj_t* lui_slider_create()
 	 g_lui_main->total_created_objects++;
 
 
-	lui_slider_t *initial_slider =  _lui_mem_alloc(sizeof(*initial_slider));
+	lui_slider_t* initial_slider =  _lui_mem_alloc(sizeof(*initial_slider));
 	if (initial_slider == NULL)
 		return NULL;
 	
@@ -1602,7 +1589,7 @@ lui_obj_t* lui_slider_create()
 	initial_slider->knob_center_rel_x = (LUI_STYLE_SLIDER_KNOB_WIDTH / 2);
 	initial_slider->encoder_index = -1;
 
-	lui_obj_t *obj = _lui_object_create();
+	lui_obj_t* obj = _lui_object_create();
 	if (obj == NULL)
 		return NULL;
 	// object type
@@ -1615,13 +1602,12 @@ lui_obj_t* lui_slider_create()
 	obj->common_style.width = LUI_STYLE_SLIDER_WIDTH;
 	obj->common_style.height = LUI_STYLE_SLIDER_HEIGHT;
 
-	obj->obj_main_data = (void *)initial_slider;
+	obj->obj_main_data = (void* )initial_slider;
 
 	return  obj;
 }
 
-
-void lui_slider_set_extra_colors(uint16_t knob_color, uint16_t bg_filled_color, uint16_t selection_color, lui_obj_t *obj)
+void lui_slider_set_extra_colors(lui_obj_t* obj, uint16_t knob_color, uint16_t bg_filled_color, uint16_t selection_color)
 {
 	if (obj == NULL)
 		return;
@@ -1630,7 +1616,7 @@ void lui_slider_set_extra_colors(uint16_t knob_color, uint16_t bg_filled_color, 
 	if (obj->obj_type != LUI_OBJ_SLIDER)
 		return;
 	
-	lui_slider_t *slider = obj->obj_main_data;
+	lui_slider_t* slider = obj->obj_main_data;
 
 	if (slider->style.knob_color == knob_color && slider->style.bg_filled_color == bg_filled_color && slider->style.selection_color == selection_color)
 		return;
@@ -1640,7 +1626,7 @@ void lui_slider_set_extra_colors(uint16_t knob_color, uint16_t bg_filled_color, 
 	_lui_object_set_need_refresh(obj);
 }
 
-void lui_slider_set_value(int16_t value, lui_obj_t *obj)
+void lui_slider_set_value(lui_obj_t* obj, int16_t value)
 {
 	if (obj == NULL)
 		return;
@@ -1649,7 +1635,7 @@ void lui_slider_set_value(int16_t value, lui_obj_t *obj)
 	if (obj->obj_type != LUI_OBJ_SLIDER)
 		return;
 	
-	lui_slider_t *slider = obj->obj_main_data;
+	lui_slider_t* slider = obj->obj_main_data;
 	
 	
 	if (value == obj->value)
@@ -1674,7 +1660,8 @@ void lui_slider_set_value(int16_t value, lui_obj_t *obj)
 	
 	_lui_object_set_need_refresh(obj);
 }
-void lui_slider_set_range(int16_t range_min, int16_t range_max, lui_obj_t *obj)
+
+void lui_slider_set_range(lui_obj_t* obj, int16_t range_min, int16_t range_max)
 {
 	if (obj == NULL)
 		return;
@@ -1683,7 +1670,7 @@ void lui_slider_set_range(int16_t range_min, int16_t range_max, lui_obj_t *obj)
 	if (obj->obj_type != LUI_OBJ_SLIDER)
 		return;
 	
-	lui_slider_t *slider = obj->obj_main_data;
+	lui_slider_t* slider = obj->obj_main_data;
 
 	if (range_min == slider->range_min && range_max == slider->range_max)
 		return;
@@ -1700,8 +1687,7 @@ void lui_slider_set_range(int16_t range_min, int16_t range_max, lui_obj_t *obj)
 	_lui_object_set_need_refresh(obj);
 }
 
-
-int16_t lui_slider_get_value(lui_obj_t *obj)
+int16_t lui_slider_get_value(lui_obj_t* obj)
 {
 	if (obj == NULL)
 		return -1;
@@ -1713,7 +1699,7 @@ int16_t lui_slider_get_value(lui_obj_t *obj)
 	return obj->value;
 }
 
-int16_t lui_slider_get_min_value(lui_obj_t *obj)
+int16_t lui_slider_get_min_value(lui_obj_t* obj)
 {
 	if (obj == NULL)
 		return -1;
@@ -1721,12 +1707,12 @@ int16_t lui_slider_get_min_value(lui_obj_t *obj)
 	// type check
 	if (obj->obj_type != LUI_OBJ_SLIDER)
 		return -1;
-	lui_slider_t *slider = obj->obj_main_data;
+	lui_slider_t* slider = obj->obj_main_data;
 
 	return slider->range_min;
 }
 
-int16_t lui_slider_get_max_value(lui_obj_t *obj)
+int16_t lui_slider_get_max_value(lui_obj_t* obj)
 {
 	if (obj == NULL)
 		return -1;
@@ -1734,16 +1720,16 @@ int16_t lui_slider_get_max_value(lui_obj_t *obj)
 	// type check
 	if (obj->obj_type != LUI_OBJ_SLIDER)
 		return -1;
-	lui_slider_t *slider = obj->obj_main_data;
+	lui_slider_t* slider = obj->obj_main_data;
 	
 	return slider->range_max;
 }
 
-void lui_slider_set_encoder_index(uint8_t index, lui_obj_t *obj)
+void lui_slider_set_encoder_index(lui_obj_t* obj, uint8_t index)
 {
 	if (obj == NULL)
 		return;
-	lui_slider_t *slider = (lui_slider_t *)(obj->obj_main_data);
+	lui_slider_t* slider = (lui_slider_t* )(obj->obj_main_data);
 	if (slider->encoder_index == index || slider->encoder_index < 0)
 		return;
 	slider->encoder_index = index;
@@ -1760,7 +1746,7 @@ void lui_slider_set_encoder_index(uint8_t index, lui_obj_t *obj)
  *-------------------------------------------------------------------------------
  */
 
-void lui_btngrid_draw(lui_obj_t *obj)
+void lui_btngrid_draw(lui_obj_t* obj)
 {
 	if (obj == NULL)
 		return;
@@ -1776,9 +1762,9 @@ void lui_btngrid_draw(lui_obj_t *obj)
 	if (_lui_disp_drv_check() == 0)
 		return;
 
-	lui_btngrid_t *btngrid = obj->obj_main_data;
+	lui_btngrid_t* btngrid = obj->obj_main_data;
 
-	tFont *temp_font = btngrid->font;
+	tFont* temp_font = btngrid->font;
 	// If it has no font set for it, check the global set font in scene
 	// If no scene present, i.e., parent_scene_index == -1, return
 	// If scene is there but scene has no font, return
@@ -1792,17 +1778,15 @@ void lui_btngrid_draw(lui_obj_t *obj)
 	uint16_t btn_color = btngrid->style.btn_bg_color;
 	uint16_t btn_width = 0;
 	uint16_t btn_height = 0;
-	uint8_t draw_all_btns = 0;
 	static int16_t last_act_btn_index = -1;
 
 	
 	/* If no event occured yet drawing function is called, that means first time rendering of a btngrid.
 	 * So, draw the base first
 	*/
-	if (obj->event == LUI_EVENT_NONE && obj->needs_refresh)
+	if (/* obj->event == LUI_EVENT_NONE && obj->needs_refresh */ btngrid->needs_full_render)
 	{
 		lui_gfx_draw_rect_fill(obj->x, obj->y, obj->common_style.width,  obj->common_style.height, obj->common_style.bg_color);
-		draw_all_btns = 1;
 	}
 
 	uint16_t j = 0;
@@ -1814,10 +1798,10 @@ void lui_btngrid_draw(lui_obj_t *obj)
 		}
 
 		/**
-		 * Draw a button only if no specific button is acctive (i.e., needs refresh), 
+		 * Draw a button only if the btngrid needs full render,
 		 * or when a buttons index matches an active button's index 
 		 */
-		if (draw_all_btns || (i == btngrid->active_btn_index || i == last_act_btn_index))
+		if (btngrid->needs_full_render || (i == btngrid->active_btn_index || i == last_act_btn_index))
 		{
 			if (!(btngrid->btn_properties[i] & _LUI_BTNGRID_MASK_BTN_IS_HIDDEN))
 			{
@@ -1836,9 +1820,9 @@ void lui_btngrid_draw(lui_obj_t *obj)
 
 				/**
 				 * This is to handle when a checkable button lost its focus but check state
-				 * is changed to "Checked". 
+				 * is changed to "Checked". Or, when manually the check state is set
 				 */
-				else if (i == last_act_btn_index)
+				else if (i == last_act_btn_index || btngrid->needs_full_render)
 				{
 					if (btngrid->btn_properties[i] & _LUI_BTNGRID_MASK_BTN_IS_CHECKABLE)
 					{ 
@@ -1868,11 +1852,9 @@ void lui_btngrid_draw(lui_obj_t *obj)
 
 		++j;
 	}
-	draw_all_btns = 0;
 	last_act_btn_index = btngrid->active_btn_index;
+	btngrid->needs_full_render = 0;
 }
-
-
 
 lui_obj_t* lui_btngrid_create()
 {
@@ -1882,7 +1864,7 @@ lui_obj_t* lui_btngrid_create()
 	 g_lui_main->total_created_objects++;
 
 
-	lui_btngrid_t *initial_btngrid =  _lui_mem_alloc(sizeof(*initial_btngrid));
+	lui_btngrid_t* initial_btngrid =  _lui_mem_alloc(sizeof(*initial_btngrid));
 	if (initial_btngrid == NULL)
 		return NULL;
 	
@@ -1897,8 +1879,9 @@ lui_obj_t* lui_btngrid_create()
 	initial_btngrid->active_btn_index = -1;
 	initial_btngrid->btn_margin_hor = 2;
 	initial_btngrid->btn_margin_vert = 2;
+	initial_btngrid->needs_full_render = 1;
 
-	lui_obj_t *obj = _lui_object_create();
+	lui_obj_t* obj = _lui_object_create();
 	if (obj == NULL)
 		return NULL;
 	// object type
@@ -1911,124 +1894,520 @@ lui_obj_t* lui_btngrid_create()
 	obj->common_style.width = LUI_STYLE_BTNGRID_WIDTH;
 	obj->common_style.height = LUI_STYLE_BTNGRID_HEIGHT;
 
-	obj->obj_main_data = (void *)initial_btngrid;
+	obj->obj_main_data = (void* )initial_btngrid;
 
 	return  obj;
 }
 
-void lui_btngrid_set_textmap(lui_obj_t *obj, const char *texts[])
+void lui_btngrid_set_textmap(lui_obj_t* obj, const char* texts[])
 {
 	if (obj == NULL)
 		return;
+
+	// type check
+	if (obj->obj_type != LUI_OBJ_BTNGRID)
+		return;
+
 	if (texts == NULL)
 		return;
 
-	lui_btngrid_t *btngrid = obj->obj_main_data;
-	if (btngrid->texts != NULL)
-		return;
-	
-
+	lui_btngrid_t* btngrid = obj->obj_main_data;
 	uint16_t buttons = 0;
 	uint8_t rows = 1;
 
 
 	for (uint16_t i = 0; texts[i][0] != '\0'; i++)
-    {
-        if (strcmp(texts[i], "\n") != 0)
-        {
-            ++buttons;
-        }
-        else
-        {
-            ++rows;
-        }
-    }
-		
-    btngrid->btn_area = _lui_mem_alloc(buttons * sizeof(lui_area_t));
+	{
+		if (strcmp(texts[i], "\n") != 0)
+		{
+			++buttons;
+		}
+		else
+		{
+			++rows;
+		}
+	}
+
+	if (btngrid->btn_area != NULL || btngrid->btn_properties != NULL)
+	{
+		_lui_mem_free(btngrid->btn_area);
+		_lui_mem_free(btngrid->btn_properties);
+		btngrid->btn_area = NULL;
+		btngrid->btn_properties = NULL;
+	}
+
+	btngrid->btn_area = _lui_mem_alloc(buttons * sizeof(lui_area_t));
 	if (btngrid->btn_area == NULL)
 		return;
-
-    btngrid->btn_properties = _lui_mem_alloc(buttons * sizeof(uint8_t));
+	btngrid->btn_properties = _lui_mem_alloc(buttons * sizeof(uint8_t));
 	if (btngrid->btn_properties == NULL)
 		return;
 
-    for (int i = 0; i < buttons; i++)
-    {
+	for (int i = 0; i < buttons; i++)
+	{
 		btngrid->btn_area[i].x1 = 0;
 		btngrid->btn_area[i].y1 = 0;
 		btngrid->btn_area[i].x2 = 0;
 		btngrid->btn_area[i].y2 = 0;
-        btngrid->btn_properties[i] = 1;
-    }
+		btngrid->btn_properties[i] = 1;
+	}
 
 	btngrid->btn_cnt = buttons;
 	btngrid->row_cnt = rows;
 	btngrid->texts = texts;
+	btngrid->needs_full_render = 1;
+	obj->needs_refresh = 1;
 
 	_lui_btngrid_calc_btn_area(obj);
 }
 
-void lui_btngrid_set_propertymap(lui_obj_t *obj, uint8_t properties[])
+void lui_btngrid_set_propertymap(lui_obj_t* obj, uint8_t properties[])
 {
 	if (obj == NULL)
+		return;
+	// type check
+	if (obj->obj_type != LUI_OBJ_BTNGRID)
 		return;
 	if (properties == NULL)
 		return;
 
-	lui_btngrid_t *btngrid = obj->obj_main_data;
+	lui_btngrid_t* btngrid = obj->obj_main_data;
 	if (btngrid->btn_properties == NULL)
 		return;
 	
 	btngrid->btn_properties = properties;
+	btngrid->needs_full_render = 1;
+	obj->needs_refresh = 1;
 	_lui_btngrid_calc_btn_area(obj);
 }
 
-void _lui_btngrid_calc_btn_area(lui_obj_t *obj)
+void lui_btngrid_set_btn_property_bits(lui_obj_t* obj, uint16_t btn_index, uint8_t property_byte)
 {
-	lui_btngrid_t *btngrid = obj->obj_main_data;
+	if (obj == NULL)
+		return;
+		// type check
+	if (obj->obj_type != LUI_OBJ_BTNGRID)
+		return;
+	
+	lui_btngrid_t* btngrid = obj->obj_main_data;
+
+	if (btngrid->btn_properties == NULL || btn_index >= btngrid->btn_cnt)
+		return;
+	if (btngrid->btn_properties[btn_index] == property_byte)
+		return;
+	if ((property_byte & _LUI_BTNGRID_MASK_BTN_WIDTH_UNIT) == 0)
+		return;
+
+	btngrid->btn_properties[btn_index] = property_byte;
+	_lui_btngrid_calc_btn_area(obj);
+
+	obj->needs_refresh = 1;
+	btngrid->needs_full_render = 1;
+}
+
+void lui_btngrid_set_btn_text(lui_obj_t* obj, uint8_t btn_index, char* text)
+{
+	if (obj == NULL)
+		return;
+		// type check
+	if (obj->obj_type != LUI_OBJ_BTNGRID)
+		return;
+	
+	lui_btngrid_t* btngrid = obj->obj_main_data;
+
+	if (btngrid->texts == NULL)
+		return;
+
+	uint8_t txt_index = 0;
+	for (txt_index = 0; txt_index < btn_index; txt_index++)
+	{	
+		while (btngrid->texts[txt_index][0] == '\n' || btngrid->texts[txt_index][0] == '\0')
+		{
+			++txt_index;
+		}
+	}
+	btngrid->texts[txt_index] = text;
+	obj->needs_refresh = 1;
+}
+
+void lui_btngrid_set_btn_width_unit(lui_obj_t* obj, uint16_t btn_index, uint8_t width_unit)
+{
+	if (obj == NULL)
+		return;
+	// type check
+	if (obj->obj_type != LUI_OBJ_BTNGRID)
+		return;
+	uint8_t property = ((lui_btngrid_t* )(obj->obj_main_data))->btn_properties[btn_index] & ~_LUI_BTNGRID_MASK_BTN_WIDTH_UNIT;
+	lui_btngrid_set_btn_property_bits(obj, btn_index, property | (width_unit & _LUI_BTNGRID_MASK_BTN_WIDTH_UNIT));
+}
+
+void lui_btngrid_set_btn_hidden(lui_obj_t* obj, uint16_t btn_index, uint8_t hidden)
+{
+	if (obj == NULL)
+		return;
+	// type check
+	if (obj->obj_type != LUI_OBJ_BTNGRID)
+		return;
+	uint8_t property = ((lui_btngrid_t* )(obj->obj_main_data))->btn_properties[btn_index] & ~_LUI_BTNGRID_MASK_BTN_IS_HIDDEN;
+	property = hidden ? (property | _LUI_BTNGRID_MASK_BTN_IS_HIDDEN) : property;
+	lui_btngrid_set_btn_property_bits(obj, btn_index, property);
+}
+
+void lui_btngrid_set_btn_checkable(lui_obj_t* obj, uint16_t btn_index, uint8_t checkable)
+{
+	if (obj == NULL)
+		return;
+	// type check
+	if (obj->obj_type != LUI_OBJ_BTNGRID)
+		return;
+	uint8_t property = ((lui_btngrid_t* )(obj->obj_main_data))->btn_properties[btn_index] & ~_LUI_BTNGRID_MASK_BTN_IS_CHECKABLE;
+	property = checkable ? (property | _LUI_BTNGRID_MASK_BTN_IS_CHECKABLE) : property;
+	lui_btngrid_set_btn_property_bits(obj, btn_index, property);
+	if (checkable)
+	{
+		((lui_btngrid_t* )(obj->obj_main_data))->needs_full_render = 0; /* if something is set to checkable, no need to redarw entire btngrid */
+	}
+}
+
+void lui_btngrid_set_btn_checked(lui_obj_t* obj, uint16_t btn_index, uint8_t checked)
+{
+	if (obj == NULL)
+		return;
+	// type check
+	if (obj->obj_type != LUI_OBJ_BTNGRID)
+		return;
+	uint8_t property = ((lui_btngrid_t* )(obj->obj_main_data))->btn_properties[btn_index] & ~_LUI_BTNGRID_MASK_BTN_IS_CHECKED;
+	property = checked ? (property | _LUI_BTNGRID_MASK_BTN_IS_CHECKED) : property;
+	lui_btngrid_set_btn_property_bits(obj, btn_index, property);
+}
+
+int16_t lui_btngrid_get_acive_btn_index(lui_obj_t* obj)
+{
+	if (obj == NULL)
+		return -1;
+	// type check
+	if (obj->obj_type != LUI_OBJ_BTNGRID)
+		return -1;
+	
+	return ((lui_btngrid_t* )(obj->obj_main_data))->active_btn_index;
+}
+
+int8_t lui_btngrid_get_btn_check_status(lui_obj_t* obj, uint8_t btn_index)
+{
+	if (obj == NULL)
+		return -1;
+	// type check
+	if (obj->obj_type != LUI_OBJ_BTNGRID)
+		return -1;
+	
+	uint8_t props = ((lui_btngrid_t* )(obj->obj_main_data))->btn_properties[btn_index];
+	return  (props & _LUI_BTNGRID_MASK_BTN_IS_CHECKED) ? 1 : 0;
+}
+
+void _lui_btngrid_calc_btn_area(lui_obj_t* obj)
+{
+	if (obj == NULL)
+		return;
+	// type check
+	if (obj->obj_type != LUI_OBJ_BTNGRID)
+		return;
+		
+	lui_btngrid_t* btngrid = obj->obj_main_data;
 	uint8_t units_in_row = 0;
 	uint8_t btns_in_row = 0;
 	uint8_t btn_index = 0;
-    uint8_t unit_index = 0;
+	uint8_t unit_index = 0;
 	uint16_t raw_height = obj->common_style.height / btngrid->row_cnt;
 
 
 	float w = 0;
-    uint16_t h = 0;
+	uint16_t h = 0;
 
-    for (uint16_t i = 0; i < btngrid->btn_cnt + btngrid->row_cnt; i++)
-    {
-        while (strcmp(btngrid->texts[i], "\n") != 0 && strcmp(btngrid->texts[i], "\0") != 0)
-        {
-            units_in_row += (btngrid->btn_properties[unit_index++] & _LUI_BTNGRID_MASK_BTN_WIDTH_UNIT);
-            ++btns_in_row;
-            ++i;          
-        }
-        
-        float raw_width = (float)(obj->common_style.width) / (float)units_in_row;
+	for (uint16_t i = 0; i < btngrid->btn_cnt + btngrid->row_cnt; i++)
+	{
+		while (strcmp(btngrid->texts[i], "\n") != 0 && strcmp(btngrid->texts[i], "\0") != 0)
+		{
+			units_in_row += (btngrid->btn_properties[unit_index++] & _LUI_BTNGRID_MASK_BTN_WIDTH_UNIT);
+			++btns_in_row;
+			++i;          
+		}
+		
+		float raw_width = (float)(obj->common_style.width) / (float)units_in_row;
 
-        w = 0.0;
-        h += raw_height;
-        for (int j = 0; j < btns_in_row; j++)
-        {
-            lui_area_t area;
-            float this_btn_w = raw_width * (float)(btngrid->btn_properties[btn_index] & _LUI_BTNGRID_MASK_BTN_WIDTH_UNIT);
-            w += this_btn_w;
+		w = 0.0;
+		h += raw_height;
+		for (int j = 0; j < btns_in_row; j++)
+		{
+			lui_area_t area;
+			float this_btn_w = raw_width * (float)(btngrid->btn_properties[btn_index] & _LUI_BTNGRID_MASK_BTN_WIDTH_UNIT);
+			w += this_btn_w;
 
-            area.x1 = obj->x + w - this_btn_w + btngrid->btn_margin_hor;
-            area.x2 = obj->x + w - btngrid->btn_margin_hor;
-            area.y1 = obj->y + h - raw_height + btngrid->btn_margin_vert;
-            area.y2 = obj->y + h - btngrid->btn_margin_vert;
+			area.x1 = obj->x + w - this_btn_w + btngrid->btn_margin_hor;
+			area.x2 = obj->x + w - btngrid->btn_margin_hor;
+			area.y1 = obj->y + h - raw_height + btngrid->btn_margin_vert;
+			area.y2 = obj->y + h - btngrid->btn_margin_vert;
 
-            btngrid->btn_area[btn_index++] = area;
-            
-        }
-        
-        btns_in_row = 0;
-        units_in_row = 0;
-    }
+			btngrid->btn_area[btn_index++] = area;
+			
+		}
+		
+		btns_in_row = 0;
+		units_in_row = 0;
+	}
 
 	obj->needs_refresh = 1;
+	((lui_btngrid_t*)(obj->obj_main_data))->needs_full_render = 1;
+}
+
+
+
+
+void lui_textbox_draw(lui_obj_t* obj)
+{
+	if (obj == NULL)
+		return;
+	
+	// type check
+	if (obj->obj_type != LUI_OBJ_TEXTBOX)
+		return;
+
+	if (!(obj->visible))
+		return;
+	
+	// if no display driver is registered, return
+	if (_lui_disp_drv_check() == 0)
+		return;
+
+	
+	lui_textbox_t* txtbox = obj->obj_main_data;
+	
+	if (txtbox->needs_full_render == 1)
+	{
+		lui_gfx_draw_rect_fill(obj->x, obj->y, obj->common_style.width, obj->common_style.height, obj->common_style.bg_color);
+		if (obj->common_style.border_visible)
+		{
+			
+			lui_gfx_draw_rect(obj->x, obj->y, obj->common_style.width, obj->common_style.height, 1, obj->common_style.border_color);
+		}
+
+		txtbox->needs_full_render = 0;
+	}
+
+	if (txtbox->text_buffer == NULL || txtbox->font == NULL)
+		return;
+
+	uint8_t txt_is_bg = 0;
+	/* Delete opearation */
+	/* Use background color for text only when delete operation is done, OR when it's insert operation AND caret is inside the text  */
+	if (txtbox->edit_operation == -1 ||
+		(txtbox->edit_operation == 1 && txtbox->caret_index < txtbox->used_chars - 1))
+	{
+		txt_is_bg = 1;
+	}
+	else
+	{
+		txt_is_bg = 0;
+	}
+
+	uint8_t pad_x = 4;
+	uint16_t caret_x = obj->x + pad_x;
+	uint16_t caret_y = obj->y;
+	uint8_t caret_h = txtbox->font->chars[0].image->height;
+	uint8_t caret_w = 2;
+	uint8_t glyph_w = 0;
+	uint8_t glyph_h = 0;
+
+	lui_gfx_draw_string_advanced(txtbox->text_buffer, obj->x + pad_x, obj->y, obj->common_style.width - 2*pad_x, 
+									obj->common_style.height, txtbox->style.text_color, 
+									obj->common_style.bg_color, txt_is_bg, txtbox->font);
+	
+	/* Calculate caret coordinates */
+	for (uint16_t i = 0; i < txtbox->caret_index; i++)
+	{
+		if (txtbox->text_buffer[i] == '\n')
+		{
+			caret_x = obj->x + pad_x;
+			caret_y += (txtbox->font->chars[0].image->height);	//go to next row (row height = height of space)
+		}
+		else
+		{
+			// Find the glyph for the char from the font
+			for (uint8_t j = 0; j < txtbox->font->length; j++)
+			{
+				if (txtbox->font->chars[j].code == txtbox->text_buffer[i])
+				{
+					glyph_w = txtbox->font->chars[j].image->width;
+					glyph_h = txtbox->font->chars[j].image->height;
+					break;
+				}
+			}
+
+
+			// check if not enough space available at the right side
+			if (caret_x + glyph_w > obj->x + obj->common_style.width - pad_x)
+			{
+				caret_x = obj->x + pad_x;			//go to first col
+				caret_y += glyph_h;					//go to next row
+
+				// check if not enough space available at the bottom
+				if(caret_y + glyph_h > obj->y + obj->common_style.height)
+				{
+					break;
+				}
+					
+			}
+			caret_x += glyph_w;		//next char position
+		}
+	}
+
+	
+	if (caret_x > obj->x)
+		--caret_x;
+	/* Draw the caret now, only if the caret does not go out of the boundary */
+	if ((caret_x + caret_w < obj->x + obj->common_style.width - pad_x) &&
+		(caret_y + caret_h - 1 < obj->y + obj->common_style.height))
+	{
+		lui_gfx_draw_line(caret_x, caret_y + 1, caret_x, caret_y + caret_h - 1, caret_w, ~(obj->common_style.bg_color));
+		//lui_gfx_draw_char(txtbox->text_buffer[txtbox->caret_index], caret_x, caret_y, obj->common_style.bg_color, txtbox->style.text_color, 1, txtbox->font);
+	}
+}
+
+lui_obj_t* lui_textbox_create()
+{
+	// if total created objects become more than max allowed objects, don't create the object
+	if ( g_lui_main->total_created_objects + 1 > LUI_MAX_OBJECTS)
+		return NULL;
+	 g_lui_main->total_created_objects++;
+
+
+	lui_textbox_t* initial_textbox =  _lui_mem_alloc(sizeof(*initial_textbox));
+	if (initial_textbox == NULL)
+		return NULL;
+	
+	initial_textbox->style.text_color = lui_rgb(200, 50, 50);
+	initial_textbox->text_buffer = NULL;
+	initial_textbox->caret_index = 0;
+	initial_textbox->edit_operation = 0;
+	initial_textbox->font = NULL;
+	initial_textbox->max_len = 0;
+	initial_textbox->used_chars = 1;
+	initial_textbox->edit_len = 0;
+	initial_textbox->needs_full_render = 1;
+
+	lui_obj_t* obj = _lui_object_create();
+	if (obj == NULL)
+		return NULL;
+	// object type
+	obj->obj_type = LUI_OBJ_TEXTBOX;
+	obj->enabled = 1;
+	// object common style
+	obj->common_style.bg_color = lui_rgb(255, 255, 255);
+	obj->common_style.border_color = lui_rgb(255, 0, 0);
+	obj->common_style.border_visible = 1;
+	obj->common_style.width = 100;
+	obj->common_style.height = 48;
+
+	obj->obj_main_data = (void* )initial_textbox;
+
+	return  obj;
+}
+
+void lui_textbox_set_caret_index(lui_obj_t* obj, uint16_t caret_index)
+{
+	if (obj == NULL)
+		return;
+	// type check
+	if (obj->obj_type != LUI_OBJ_TEXTBOX)
+		return;
+	
+	lui_textbox_t* txtbox = (lui_textbox_t* )obj->obj_main_data;
+
+	if (txtbox->caret_index == caret_index)
+		return;
+
+	txtbox->caret_index = caret_index;
+	if (caret_index > txtbox->used_chars - 1)
+		txtbox->caret_index = txtbox->used_chars - 1;
+	
+	obj->needs_refresh = 1;
+}
+
+void lui_textbox_insert_char(lui_obj_t* obj, char c)
+{
+	if (obj == NULL)
+		return;
+	// type check
+	if (obj->obj_type != LUI_OBJ_TEXTBOX)
+		return;
+	if (((lui_textbox_t* )obj->obj_main_data)->text_buffer == NULL)
+		return;
+	
+	lui_textbox_t* txtbox = (lui_textbox_t* )obj->obj_main_data;
+	if (txtbox->used_chars + 1 > txtbox->max_len)
+		return;
+	for (int32_t i = txtbox->used_chars - 1; i >= txtbox->caret_index; i--)
+	{
+		txtbox->text_buffer[i + 1] = txtbox->text_buffer[i];
+	}
+	txtbox->text_buffer[txtbox->caret_index] = c;
+	++(txtbox->used_chars);
+
+	obj->needs_refresh = 1;
+}
+
+void lui_textbox_insert_string(lui_obj_t* obj, char* str, uint16_t len)
+{
+	if (obj == NULL)
+		return;
+	// type check
+	if (obj->obj_type != LUI_OBJ_TEXTBOX)
+		return;
+	if (((lui_textbox_t* )obj->obj_main_data)->text_buffer == NULL)
+		return;
+	lui_textbox_t* txtbox = obj->obj_main_data;
+	uint16_t caret_index = txtbox->caret_index;
+	for (uint16_t i = 0; i < len; i++)
+	{
+		if (str[i] == '\0')
+			return;
+		lui_textbox_insert_char(obj, str[i]);
+		++txtbox->caret_index;
+	}
+	/* Restore the original caret index */
+	txtbox->caret_index = caret_index;
+	obj->needs_refresh = 1;
+}
+
+void lui_textbox_set_text_buffer(lui_obj_t* obj, char* text_buffer, uint16_t buff_size)
+{
+	if (obj == NULL)
+		return;
+	// type check
+	if (obj->obj_type != LUI_OBJ_TEXTBOX)
+		return;
+
+	lui_textbox_t* txtbox = (lui_textbox_t* )obj->obj_main_data;
+	txtbox->text_buffer = text_buffer;
+	txtbox->max_len = buff_size;
+	txtbox->text_buffer[0] = '\0';
+	txtbox->used_chars = 1;
+	txtbox->caret_index = 0;
+
+	obj->needs_refresh = 1;
+}
+
+void lui_textbox_set_font(lui_obj_t* obj, const tFont* font)
+{
+	if (obj == NULL)
+		return;
+	// type check
+	if (obj->obj_type != LUI_OBJ_TEXTBOX)
+		return;
+
+	lui_textbox_t* txtbox = (lui_textbox_t* )obj->obj_main_data;
+	txtbox->font = font;
+	obj->needs_refresh = 1;
+	txtbox->needs_full_render = 1;
 }
 
 /*-------------------------------------------------------------------------------
@@ -2051,14 +2430,14 @@ lui_obj_t* lui_panel_create()
 		return NULL;
 	 g_lui_main->total_created_objects++;
 
-	lui_panel_t *initial_panel = _lui_mem_alloc(sizeof(*initial_panel));
+	lui_panel_t* initial_panel = _lui_mem_alloc(sizeof(*initial_panel));
 	if (initial_panel == NULL)
 		return NULL;
 	initial_panel->encoder.current_encoder_index = -1;
 	initial_panel->encoder.max_encoder_index = 0;
 	initial_panel->encoder.object_state = LUI_STATE_IDLE;
 
-	lui_obj_t *obj = _lui_object_create();
+	lui_obj_t* obj = _lui_object_create();
 	if (obj == NULL)
 		return NULL;
 	// object type
@@ -2069,12 +2448,12 @@ lui_obj_t* lui_panel_create()
 	obj->common_style.border_visible = LUI_STYLE_PANEL_BORDER_VISIBLE;
 	obj->common_style.width = LUI_STYLE_PANEL_WIDTH;
 	obj->common_style.height = LUI_STYLE_PANEL_HEIGHT;
-	obj->obj_main_data = (void *)initial_panel;	// will add panel specific main data later
+	obj->obj_main_data = (void* )initial_panel;	// will add panel specific main data later
 
 	return obj;
 }
 
-void lui_panel_draw(lui_obj_t *obj)
+void lui_panel_draw(lui_obj_t* obj)
 {
 	if (obj == NULL)
 		return;
@@ -2107,7 +2486,7 @@ lui_obj_t* lui_scene_create()
 		return NULL;
 	 g_lui_main->total_created_objects++;
 
-	lui_scene_t *initial_scene =  _lui_mem_alloc(sizeof(*initial_scene));
+	lui_scene_t* initial_scene =  _lui_mem_alloc(sizeof(*initial_scene));
 	if (initial_scene == NULL)
 		return NULL;
 
@@ -2119,7 +2498,7 @@ lui_obj_t* lui_scene_create()
 	initial_scene->encoder.max_encoder_index = 0;
 	initial_scene->encoder.object_state = LUI_STATE_IDLE;
 
-	lui_obj_t *obj = _lui_object_create();
+	lui_obj_t* obj = _lui_object_create();
 	if (obj == NULL)
 		return NULL;
 	// object type
@@ -2130,7 +2509,7 @@ lui_obj_t* lui_scene_create()
 	obj->common_style.bg_color = LUI_STYLE_SCENE_BG_COLOR;	
 	
 	//obj->index =  g_lui_main->total_scenes;
-	obj->obj_main_data = (void *)initial_scene;
+	obj->obj_main_data = (void* )initial_scene;
 
 	_lui_object_set_need_refresh(obj);
 	 //g_lui_main->scenes[obj->index] = obj;
@@ -2139,7 +2518,7 @@ lui_obj_t* lui_scene_create()
 	return obj;
 }
 
-void lui_scene_draw(lui_obj_t *obj)
+void lui_scene_draw(lui_obj_t* obj)
 {
 	if (obj == NULL)
 		return;
@@ -2155,7 +2534,7 @@ void lui_scene_draw(lui_obj_t *obj)
 	// TBD: draw background image
 }
 
-void lui_scene_set_bg_image(const tImage *image, lui_obj_t *obj_scene)
+void lui_scene_set_bg_image(lui_obj_t* obj_scene, const tImage* image)
 {
 	// NOTE: image rendering is not implemented yet
 	if (obj_scene == NULL)
@@ -2165,13 +2544,13 @@ void lui_scene_set_bg_image(const tImage *image, lui_obj_t *obj_scene)
 	if (obj_scene->obj_type != LUI_OBJ_SCENE)
 		return;
 	
-	lui_scene_t *scene = (lui_scene_t *)(obj_scene->obj_main_data);
-	scene->bg_image = (tImage *)image;
+	lui_scene_t* scene = (lui_scene_t* )(obj_scene->obj_main_data);
+	scene->bg_image = (tImage* )image;
 
 	_lui_object_set_need_refresh(obj_scene); 
 }
 
-void lui_scene_set_font(const tFont *font, lui_obj_t *obj_scene)
+void lui_scene_set_font(lui_obj_t* obj_scene, const tFont* font)
 {
 	if (obj_scene == NULL)
 		return;
@@ -2180,13 +2559,13 @@ void lui_scene_set_font(const tFont *font, lui_obj_t *obj_scene)
 	if (obj_scene->obj_type != LUI_OBJ_SCENE)
 		return;
 	
-	lui_scene_t *scene = (lui_scene_t *)(obj_scene->obj_main_data);
-	scene->font = (tFont *)font;
+	lui_scene_t* scene = (lui_scene_t* )(obj_scene->obj_main_data);
+	scene->font = (tFont* )font;
 	
 	_lui_object_set_need_refresh(obj_scene); 
 }
 
-void lui_scene_set_popup(lui_obj_t *obj, lui_obj_t *obj_scene)
+void lui_scene_set_popup(lui_obj_t* obj, lui_obj_t* obj_scene)
 {
 	if (obj_scene == NULL || obj == NULL)
 		return;
@@ -2204,7 +2583,7 @@ void lui_scene_set_popup(lui_obj_t *obj, lui_obj_t *obj_scene)
 
 	lui_object_add_to_parent(obj, obj_scene);
 
-	lui_scene_t *scene = (lui_scene_t *)(obj_scene->obj_main_data);
+	lui_scene_t* scene = (lui_scene_t* )(obj_scene->obj_main_data);
 	scene->obj_popup = obj;
 
 	// when setting a popup, reset the current active object. because now only popup will get input
@@ -2218,7 +2597,7 @@ void lui_scene_set_popup(lui_obj_t *obj, lui_obj_t *obj_scene)
 	_lui_object_set_need_refresh(obj); 
 }
 
-void lui_scene_unset_popup(lui_obj_t *obj_scene)
+void lui_scene_unset_popup(lui_obj_t* obj_scene)
 {
 	if (obj_scene == NULL)
 		return;
@@ -2227,7 +2606,7 @@ void lui_scene_unset_popup(lui_obj_t *obj_scene)
 	if (obj_scene->obj_type != LUI_OBJ_SCENE)
 		return;
 
-	lui_scene_t *scene = (lui_scene_t *)(obj_scene->obj_main_data);
+	lui_scene_t* scene = (lui_scene_t* )(obj_scene->obj_main_data);
 	if (scene->obj_popup != NULL)
 	{
 		lui_object_remove_from_parent(scene->obj_popup);
@@ -2236,7 +2615,7 @@ void lui_scene_unset_popup(lui_obj_t *obj_scene)
 	
 }
 
-void lui_scene_set_popup_locked(uint8_t is_locked, lui_obj_t *obj_scene)
+void lui_scene_set_popup_locked(lui_obj_t* obj_scene, uint8_t is_locked)
 {
 	if (obj_scene == NULL)
 		return;
@@ -2244,12 +2623,12 @@ void lui_scene_set_popup_locked(uint8_t is_locked, lui_obj_t *obj_scene)
 	if (obj_scene->obj_type != LUI_OBJ_SCENE)
 		return;
 
-	lui_scene_t *scene = (lui_scene_t *)(obj_scene->obj_main_data);
+	lui_scene_t* scene = (lui_scene_t* )(obj_scene->obj_main_data);
 	scene->popup_type_locked = is_locked;
 	
 }
 
-void lui_scene_set_active(lui_obj_t *obj_scene)
+void lui_scene_set_active(lui_obj_t* obj_scene)
 {
 	if (obj_scene == NULL)
 		return;
@@ -2279,7 +2658,7 @@ lui_obj_t* lui_scene_get_active()
 
 lui_obj_t* _lui_object_create()
 {
-	lui_obj_t *obj =  _lui_mem_alloc(sizeof(*obj));
+	lui_obj_t* obj =  _lui_mem_alloc(sizeof(*obj));
 	if (obj == NULL)
 		return NULL;
 
@@ -2301,7 +2680,7 @@ lui_obj_t* _lui_object_create()
 	return obj;
 }
 
-void lui_object_add_to_parent(lui_obj_t *obj_child, lui_obj_t *obj_parent)
+void lui_object_add_to_parent(lui_obj_t* obj_child, lui_obj_t* obj_parent)
 {
 	if (obj_child == NULL || obj_parent == NULL)
 		return;
@@ -2312,62 +2691,62 @@ void lui_object_add_to_parent(lui_obj_t *obj_child, lui_obj_t *obj_parent)
 	if (obj_parent->obj_type != LUI_OBJ_PANEL && obj_parent->obj_type != LUI_OBJ_SCENE)
 		return;
 
-    //add the ui element with a new index to scene only if no parent already exists
-    if (obj_child->parent != NULL)
+	//add the ui element with a new index to scene only if no parent already exists
+	if (obj_child->parent != NULL)
 		return;
 	
 
 	if (obj_parent->first_child == NULL)
-    {
-        obj_parent->first_child = obj_child;
-    }
-    else
-    {
-        lui_obj_t *next_child = obj_parent->first_child;
-        
-        while (next_child->next_sibling != NULL)
-        {
-            next_child = next_child->next_sibling;
-        }
-        
-        next_child->next_sibling = obj_child;
-    }
-    obj_child->parent = obj_parent;
+	{
+		obj_parent->first_child = obj_child;
+	}
+	else
+	{
+		lui_obj_t* next_child = obj_parent->first_child;
+		
+		while (next_child->next_sibling != NULL)
+		{
+			next_child = next_child->next_sibling;
+		}
+		
+		next_child->next_sibling = obj_child;
+	}
+	obj_child->parent = obj_parent;
 	obj_parent->children_count++;
 	_lui_object_set_need_refresh(obj_child);
 }
 
-void lui_object_remove_from_parent(lui_obj_t *obj)
+void lui_object_remove_from_parent(lui_obj_t* obj)
 {
 	if (obj == NULL)
 		return;
 	// If item's or parent's index is -1, return
 	if (obj->parent == NULL)
-    	return;
+		return;
 
 	// if object is the head (first child)
-    if (obj == obj->parent->first_child)
-    {
-        obj->parent->first_child = obj->next_sibling;
-    }
-    else
-    {
-        lui_obj_t *child = obj->parent->first_child;
-        while (child->next_sibling != obj)
-        {
-            child = child->next_sibling;
-        }
-        child->next_sibling = obj->next_sibling;
-    }
+	if (obj == obj->parent->first_child)
+	{
+		obj->parent->first_child = obj->next_sibling;
+	}
+	else
+	{
+		lui_obj_t* child = obj->parent->first_child;
+		while (child->next_sibling != obj)
+		{
+			child = child->next_sibling;
+		}
+		child->next_sibling = obj->next_sibling;
+	}
 
 	// common things to do
 	obj->parent->children_count--; 
-    obj->next_sibling = NULL;
+	obj->next_sibling = NULL;
 	_lui_object_set_need_refresh(obj->parent);
 	obj->parent = NULL;
 }
 
-void* lui_object_destroy(lui_obj_t *obj)
+void* lui_object_destroy(lui_obj_t* obj)
 {
 	if (obj == NULL)
 		return NULL;
@@ -2385,7 +2764,7 @@ void* lui_object_destroy(lui_obj_t *obj)
 }
 
 
-void lui_object_set_position(uint16_t x, uint16_t y, lui_obj_t *obj)
+void lui_object_set_position(lui_obj_t* obj, uint16_t x, uint16_t y)
 {
 	if (obj == NULL)
 		return;
@@ -2408,32 +2787,32 @@ void lui_object_set_position(uint16_t x, uint16_t y, lui_obj_t *obj)
 		obj->y = y;
 	}
 	
-	lui_obj_t *child_of_root = obj->first_child;
+	lui_obj_t* child_of_root = obj->first_child;
 	while (child_of_root != NULL)
 	{
-		lui_obj_t *obj_stack[LUI_MAX_OBJECTS] = {NULL};
-        uint8_t stack_counter = 0;
-        obj_stack[stack_counter++] = child_of_root;
-        child_of_root = child_of_root->next_sibling;
+		lui_obj_t* obj_stack[LUI_MAX_OBJECTS] = {NULL};
+		uint8_t stack_counter = 0;
+		obj_stack[stack_counter++] = child_of_root;
+		child_of_root = child_of_root->next_sibling;
 		
 		// loop until stack is empty. in this way all children (and their children too) will be traversed
 		while (stack_counter > 0)
 		{
 			// pop from stack
-			lui_obj_t *child = obj_stack[--stack_counter]; 
+			lui_obj_t* child = obj_stack[--stack_counter]; 
 
 			child->x = child->x + (obj->x - obj_old_x); // offset the child (currewnt obj) based on parent
 			child->y = child->y + (obj->y - obj_old_y);
 
 			// get the child of current object
-            child = child->first_child;
+			child = child->first_child;
 			// push all children of current object into stack too
 			while (child != NULL)
 			{
 				// push child to stack
 				obj_stack[stack_counter++] = child; 
 				// get sibling of the child
-                child = child->next_sibling;
+				child = child->next_sibling;
 			}
 
 		}
@@ -2443,21 +2822,21 @@ void lui_object_set_position(uint16_t x, uint16_t y, lui_obj_t *obj)
 	_lui_object_set_need_refresh(obj->parent);
 }
 
-void lui_object_set_x_pos(uint16_t x, lui_obj_t *obj)
+void lui_object_set_x_pos(lui_obj_t* obj, uint16_t x)
 {
 	if (obj == NULL)
 		return;
-	lui_object_set_position(x, obj->y, obj);
+	lui_object_set_position(obj, x, obj->y);
 }
 
-void lui_object_set_y_pos(uint16_t y, lui_obj_t *obj)
+void lui_object_set_y_pos(lui_obj_t* obj, uint16_t y)
 {
 	if (obj == NULL)
 		return;
-	lui_object_set_position(obj->x, y, obj);
+	lui_object_set_position(obj, obj->x, y);
 }
 
-void lui_object_set_area(uint16_t width, uint16_t height, lui_obj_t *obj)
+void lui_object_set_area(lui_obj_t* obj, uint16_t width, uint16_t height)
 {
 	if (obj == NULL)
 		return;
@@ -2472,25 +2851,33 @@ void lui_object_set_area(uint16_t width, uint16_t height, lui_obj_t *obj)
 
 		
 	obj->common_style.width = width;
-	obj->common_style.height = height;	
+	obj->common_style.height = height;
+
+	/* If object is an button grid, we need to recalculate the layout when area is changed
+	 * But, we must check if text map is not null.
+	 */
+	if (obj->obj_type == LUI_OBJ_BTNGRID && ((lui_btngrid_t* )(obj->obj_main_data))->texts != NULL)
+	{
+		_lui_btngrid_calc_btn_area(obj);
+	}
 
 }
 
-void lui_object_set_width(uint16_t width, lui_obj_t *obj)
+void lui_object_set_width(lui_obj_t* obj, uint16_t width)
 {
 	if (obj == NULL)
 		return;	
-	lui_object_set_area(width, obj->common_style.height, obj);
+	lui_object_set_area(obj, width, obj->common_style.height);
 }
 
-void lui_object_set_height(uint16_t height, lui_obj_t *obj)
+void lui_object_set_height(lui_obj_t* obj, uint16_t height)
 {
 	if (obj == NULL)
 		return;	
-	lui_object_set_area(obj->common_style.width, height, obj);
+	lui_object_set_area(obj, obj->common_style.width, height);
 }
 
-void lui_object_set_border_color(uint16_t border_color, lui_obj_t *obj)
+void lui_object_set_border_color(lui_obj_t* obj, uint16_t border_color)
 {
 	if (obj == NULL)
 		return;
@@ -2500,7 +2887,7 @@ void lui_object_set_border_color(uint16_t border_color, lui_obj_t *obj)
 	_lui_object_set_need_refresh(obj);
 }
 
-void lui_object_set_border_visibility(uint8_t is_visible, lui_obj_t *obj)
+void lui_object_set_border_visibility(lui_obj_t* obj, uint8_t is_visible)
 {
 	if (obj == NULL)
 		return;
@@ -2510,7 +2897,7 @@ void lui_object_set_border_visibility(uint8_t is_visible, lui_obj_t *obj)
 	_lui_object_set_need_refresh(obj);
 }
 
-void lui_object_set_bg_color(uint16_t bg_color, lui_obj_t *obj)
+void lui_object_set_bg_color(lui_obj_t* obj, uint16_t bg_color)
 {
 	if (obj == NULL)
 		return;
@@ -2520,28 +2907,28 @@ void lui_object_set_bg_color(uint16_t bg_color, lui_obj_t *obj)
 	_lui_object_set_need_refresh(obj);
 }
 
-void lui_object_set_callback(void (*obj_event_cb)(lui_obj_t *), lui_obj_t *obj)
+void lui_object_set_callback(lui_obj_t* obj, void (*obj_event_cb)(lui_obj_t* ))
 {
 	if (obj == NULL)
 		return;
 	obj->obj_event_cb = obj_event_cb;
 }
 
-int8_t lui_object_get_state(lui_obj_t *obj)
+int8_t lui_object_get_state(lui_obj_t* obj)
 {
 	if (obj == NULL)
 		return -1;
 	return obj->state;
 }
 
-int8_t lui_object_get_event(lui_obj_t *obj)
+int8_t lui_object_get_event(lui_obj_t* obj)
 {
 	if (obj == NULL)
 		return -1;
 	return obj->event;
 }
 
-void lui_object_set_visibility(uint8_t visible, lui_obj_t *obj)
+void lui_object_set_visibility(lui_obj_t* obj, uint8_t visible)
 {
 	if (obj == NULL)
 		return;
@@ -2552,37 +2939,45 @@ void lui_object_set_visibility(uint8_t visible, lui_obj_t *obj)
 
 	obj->visible = visible;
 	obj->needs_refresh = 1;
+	if (obj->obj_type == LUI_OBJ_BTNGRID)
+	{
+		((lui_btngrid_t* )(obj->obj_main_data))->needs_full_render = 1;
+	}
 
-	lui_obj_t *child_of_root = obj->first_child;
+	lui_obj_t* child_of_root = obj->first_child;
 	while (child_of_root != NULL)
 	{
-		lui_obj_t *obj_stack[LUI_MAX_OBJECTS] = {NULL};
-        uint8_t stack_counter = 0;
-        obj_stack[stack_counter++] = child_of_root;
-        child_of_root = child_of_root->next_sibling;
+		lui_obj_t* obj_stack[LUI_MAX_OBJECTS] = {NULL};
+		uint8_t stack_counter = 0;
+		obj_stack[stack_counter++] = child_of_root;
+		child_of_root = child_of_root->next_sibling;
 
 		while (stack_counter > 0)
 		{
 			// pop from stack
-			lui_obj_t *child = obj_stack[--stack_counter]; 
+			lui_obj_t* child = obj_stack[--stack_counter]; 
 			child->visible = visible;
 			child->needs_refresh = 1;
+			if (obj->obj_type == LUI_OBJ_BTNGRID)
+			{
+				((lui_btngrid_t* )(obj->obj_main_data))->needs_full_render = 1;
+			}
 
 			// get the child of current object
-            child = child->first_child;
+			child = child->first_child;
 			// push all children of current object into stack too
 			while (child != NULL)
 			{
 				// push child to stack
 				obj_stack[stack_counter++] = child; 
 				// get sibling of the child
-                child = child->next_sibling;
+				child = child->next_sibling;
 			}
 		}
 	}
 }
 
-uint8_t lui_object_set_enable_input(lui_obj_t *obj,  uint8_t is_enabled)
+uint8_t lui_object_set_enable_input(lui_obj_t* obj,  uint8_t is_enabled)
 {
 	if (obj == NULL)
 		return 0;
@@ -2629,12 +3024,12 @@ lui_obj_t* _lui_process_input_of_act_scene()
 	}
 
 	uint8_t scan_all_objs_flag = 0;
-	lui_obj_t *obj_caused_cb = NULL;
-	lui_obj_t *last_active_obj =  g_lui_main->active_obj;
-	lui_scene_t *scene_main_data = (lui_scene_t *)( g_lui_main->active_scene->obj_main_data);
+	lui_obj_t* obj_caused_cb = NULL;
+	lui_obj_t* last_active_obj =  g_lui_main->active_obj;
+	lui_scene_t* scene_main_data = (lui_scene_t* )( g_lui_main->active_scene->obj_main_data);
 	lui_touch_input_data_t input_touch_data;
 	lui_encoder_input_data_t input_encoder_data;
-	_lui_encoder_processed_t *encoder_processed;
+	_lui_encoder_processed_t* encoder_processed;
 	uint8_t input_is_pressed = 0;
 	
 	
@@ -2650,12 +3045,12 @@ lui_obj_t* _lui_process_input_of_act_scene()
 
 		if (scene_main_data->obj_popup != NULL)
 		{
-			lui_panel_t *panel_main_data = scene_main_data->obj_popup->obj_main_data;
+			lui_panel_t* panel_main_data = scene_main_data->obj_popup->obj_main_data;
 			encoder_processed = &(panel_main_data->encoder);
 		}
 		else
 		{
-			lui_scene_t *scene_main_data = g_lui_main->active_scene->obj_main_data;
+			lui_scene_t* scene_main_data = g_lui_main->active_scene->obj_main_data;
 			encoder_processed = &(scene_main_data->encoder);
 		}
 		/* Increase/decrease index only if object is not in ENTERED state */
@@ -2787,44 +3182,44 @@ lui_obj_t* _lui_process_input_of_act_scene()
 }
 
 
-lui_obj_t* _lui_scan_all_obj_for_input(lui_touch_input_data_t *touch_input_data, lui_encoder_input_data_t *encoder_input_data, _lui_encoder_processed_t *encoder_processed, lui_obj_t *obj_root, lui_obj_t *obj_excluded)
+lui_obj_t* _lui_scan_all_obj_for_input(lui_touch_input_data_t* touch_input_data, lui_encoder_input_data_t* encoder_input_data, _lui_encoder_processed_t* encoder_processed, lui_obj_t* obj_root, lui_obj_t* obj_excluded)
 {
 	// Note: This function is made by converting a tail-recursive function to iterative function
 	// The simple way is to use a stack.
 	// see the answer: https://codereview.stackexchange.com/a/163621
-	lui_obj_t *obj_caused_cb = NULL;
+	lui_obj_t* obj_caused_cb = NULL;
 
 	obj_caused_cb = _lui_scan_individual_object_for_input(touch_input_data, encoder_input_data, encoder_processed, obj_root, obj_excluded);
 	if (obj_caused_cb != NULL)
 		return obj_caused_cb;
 
-	lui_obj_t *child_of_root = obj_root->first_child;
+	lui_obj_t* child_of_root = obj_root->first_child;
 	while (child_of_root != NULL)
 	{
-		lui_obj_t *obj_stack[LUI_MAX_OBJECTS] = {NULL};
-        uint8_t stack_counter = 0;
-        obj_stack[stack_counter++] = child_of_root;
-        child_of_root = child_of_root->next_sibling;
+		lui_obj_t* obj_stack[LUI_MAX_OBJECTS] = {NULL};
+		uint8_t stack_counter = 0;
+		obj_stack[stack_counter++] = child_of_root;
+		child_of_root = child_of_root->next_sibling;
 		
 		// loop until stack is empty. in this way all children (and their children too) will be traversed
 		while (stack_counter > 0)
 		{
 			// pop from stack
-			lui_obj_t *child = obj_stack[--stack_counter]; 
+			lui_obj_t* child = obj_stack[--stack_counter]; 
 
 			obj_caused_cb = _lui_scan_individual_object_for_input(touch_input_data, encoder_input_data, encoder_processed, child, obj_excluded);
 			if (obj_caused_cb != NULL)
 				return obj_caused_cb;
 
 			// get the child of current object
-            child = child->first_child;
+			child = child->first_child;
 			// push all children of current object into stack too
 			while (child != NULL)
 			{
 				// push child to stack
 				obj_stack[stack_counter++] = child; 
 				// get sibling of the child
-                child = child->next_sibling;
+				child = child->next_sibling;
 			}
 
 		}
@@ -2833,9 +3228,9 @@ lui_obj_t* _lui_scan_all_obj_for_input(lui_touch_input_data_t *touch_input_data,
 	return obj_caused_cb;
 }
 
-lui_obj_t* _lui_scan_individual_object_for_input(lui_touch_input_data_t *touch_input_data, lui_encoder_input_data_t *encoder_input_data, _lui_encoder_processed_t *encoder_processed, lui_obj_t *obj, lui_obj_t *obj_excluded)
+lui_obj_t* _lui_scan_individual_object_for_input(lui_touch_input_data_t* touch_input_data, lui_encoder_input_data_t* encoder_input_data, _lui_encoder_processed_t* encoder_processed, lui_obj_t* obj, lui_obj_t* obj_excluded)
 {
-	lui_obj_t *obj_caused_cb = NULL;
+	lui_obj_t* obj_caused_cb = NULL;
 	// if current object is == last_active_object, continue. because, last_active_object is already processed
 	if (obj == obj_excluded)
 		return NULL;
@@ -2878,27 +3273,27 @@ lui_obj_t* _lui_scan_individual_object_for_input(lui_touch_input_data_t *touch_i
 
 /* ------ Encoder related input processing ------ */
 
-uint8_t _lui_check_if_active_obj_encoder_input(_lui_encoder_processed_t *encoder_processed, lui_obj_t *obj)
+uint8_t _lui_check_if_active_obj_encoder_input(_lui_encoder_processed_t* encoder_processed, lui_obj_t* obj)
 {
 	int16_t encoder_index_of_obj = 0;
 	if (obj->obj_type == LUI_OBJ_BUTTON)
 	{
-		lui_button_t *button_data = obj->obj_main_data;
+		lui_button_t* button_data = obj->obj_main_data;
 		encoder_index_of_obj = button_data->encoder_index;
 	}
 	else if (obj->obj_type == LUI_OBJ_SWITCH)
 	{
-		lui_switch_t *switch_data = obj->obj_main_data;
+		lui_switch_t* switch_data = obj->obj_main_data;
 		encoder_index_of_obj = switch_data->encoder_index;
 	}
 	else if (obj->obj_type == LUI_OBJ_CHECKBOX)
 	{
-		lui_checkbox_t *chkbox_data = obj->obj_main_data;
+		lui_checkbox_t* chkbox_data = obj->obj_main_data;
 		encoder_index_of_obj = chkbox_data->encoder_index;
 	}
 	else if (obj->obj_type == LUI_OBJ_SLIDER)
 	{
-		lui_slider_t *slider_data = obj->obj_main_data;
+		lui_slider_t* slider_data = obj->obj_main_data;
 		encoder_index_of_obj = slider_data->encoder_index;
 	}
 	
@@ -2917,7 +3312,7 @@ uint8_t _lui_check_if_active_obj_encoder_input(_lui_encoder_processed_t *encoder
 	}		
 }
 
-void _lui_set_obj_props_on_encoder_input(lui_encoder_input_data_t *encoder_input, _lui_encoder_processed_t *encoder_processed, lui_obj_t *obj)
+void _lui_set_obj_props_on_encoder_input(lui_encoder_input_data_t* encoder_input, _lui_encoder_processed_t* encoder_processed, lui_obj_t* obj)
 {
 	uint8_t is_obj_active = _lui_check_if_active_obj_encoder_input(encoder_processed, obj);
 	uint8_t new_state = LUI_STATE_IDLE;
@@ -3004,7 +3399,7 @@ void _lui_set_obj_props_on_encoder_input(lui_encoder_input_data_t *encoder_input
 	// set new position to knob  and value to slider, also set VALUE_CHANGED event
 	else if (obj->obj_type == LUI_OBJ_SLIDER)
 	{
-		lui_slider_t *slider = obj->obj_main_data;
+		lui_slider_t* slider = obj->obj_main_data;
 		if (obj->state == LUI_STATE_ENTERED  &&
 			encoder_input->steps != 0 )
 		{
@@ -3034,7 +3429,7 @@ void _lui_set_obj_props_on_encoder_input(lui_encoder_input_data_t *encoder_input
 
 /* ------ Touch related input processing ------ */
 
-uint8_t _lui_check_if_active_obj_touch_input(lui_touch_input_data_t *input, lui_obj_t *obj)
+uint8_t _lui_check_if_active_obj_touch_input(lui_touch_input_data_t* input, lui_obj_t* obj)
 {
 	uint8_t is_active = 0;
 
@@ -3046,7 +3441,7 @@ uint8_t _lui_check_if_active_obj_touch_input(lui_touch_input_data_t *input, lui_
 		
 		if (obj->obj_type == LUI_OBJ_BTNGRID)
 		{
-			lui_btngrid_t *btngrid = obj->obj_main_data;
+			lui_btngrid_t* btngrid = obj->obj_main_data;
 			for (uint16_t i = 0; i < btngrid->btn_cnt; i++)
 			{
 				if (input->x >= btngrid->btn_area[i].x1 && 
@@ -3081,7 +3476,7 @@ uint8_t _lui_check_if_active_obj_touch_input(lui_touch_input_data_t *input, lui_
 			g_lui_main->active_obj = NULL;
 			if (obj->obj_type == LUI_OBJ_BTNGRID)
 			{
-				((lui_btngrid_t *)(obj->obj_main_data))->active_btn_index = -1;
+				((lui_btngrid_t* )(obj->obj_main_data))->active_btn_index = -1;
 			}
 		}
 	}
@@ -3089,22 +3484,11 @@ uint8_t _lui_check_if_active_obj_touch_input(lui_touch_input_data_t *input, lui_
 	return is_active;
 }
 
-void _lui_set_obj_props_on_touch_input(lui_touch_input_data_t *input, lui_obj_t *obj)
+void _lui_set_obj_props_on_touch_input(lui_touch_input_data_t* input, lui_obj_t* obj)
 {
 	uint8_t is_obj_active = _lui_check_if_active_obj_touch_input(input, obj);
 	uint8_t new_state = LUI_STATE_IDLE;
 	uint8_t old_state = obj->state;
-	uint8_t is_checkable = 0;
-
-	if (obj->obj_type == LUI_OBJ_BUTTON)
-	{
-		// is_checkable = button->is_checkable;
-	}
-	else if (obj->obj_type == LUI_OBJ_BTNGRID)
-	{
-		lui_btngrid_t *btngrid = obj->obj_main_data;
-		is_checkable = btngrid->btn_properties[btngrid->active_btn_index] & _LUI_BTNGRID_MASK_BTN_IS_CHECKABLE;
-	}
 
 	if (is_obj_active == 1)
 	{
@@ -3130,7 +3514,7 @@ void _lui_set_obj_props_on_touch_input(lui_touch_input_data_t *input, lui_obj_t 
 		obj->state = new_state;
 		if (obj->obj_type == LUI_OBJ_BTNGRID)
 		{
-			lui_btngrid_t *btngrid = obj->obj_main_data;
+			lui_btngrid_t* btngrid = obj->obj_main_data;
 			btngrid->btn_properties[btngrid->active_btn_index] |= (new_state & _LUI_BTNGRID_MASK_BTN_IS_CHECKED);
 		}
 		_lui_object_set_need_refresh(obj);
@@ -3157,7 +3541,7 @@ void _lui_set_obj_props_on_touch_input(lui_touch_input_data_t *input, lui_obj_t 
 	 */
 	else if (obj->obj_type == LUI_OBJ_SLIDER)
 	{
-		lui_slider_t *slider = obj->obj_main_data;
+		lui_slider_t* slider = obj->obj_main_data;
 		if (obj->state == LUI_STATE_PRESSED &&
 			input->x != (obj->x + slider->knob_center_rel_x))
 		{
@@ -3196,7 +3580,7 @@ void _lui_set_obj_props_on_touch_input(lui_touch_input_data_t *input, lui_obj_t 
 	else if (obj->obj_type == LUI_OBJ_BTNGRID)
 	{
 		static int16_t last_active_btn = -1;
-		lui_btngrid_t *btngrid = obj->obj_main_data;
+		lui_btngrid_t* btngrid = obj->obj_main_data;
 		if (btngrid->active_btn_index != last_active_btn)
 		{
 			if (btngrid->active_btn_index == -1)
@@ -3211,14 +3595,13 @@ void _lui_set_obj_props_on_touch_input(lui_touch_input_data_t *input, lui_obj_t 
 
 		if (obj->event == LUI_EVENT_PRESSED)
 		{
-			uint8_t cond = btngrid->btn_properties[btngrid->active_btn_index] & _LUI_BTNGRID_MASK_BTN_IS_CHECKABLE;
-			if (cond)
+			uint8_t is_checkable = btngrid->btn_properties[btngrid->active_btn_index] & _LUI_BTNGRID_MASK_BTN_IS_CHECKABLE;
+			if (is_checkable)
 			{
 				obj->event = LUI_EVENT_CHECK_CHANGED;	
-				uint8_t prop = btngrid->btn_properties[btngrid->active_btn_index];
+				//uint8_t prop = btngrid->btn_properties[btngrid->active_btn_index];
 				btngrid->btn_properties[btngrid->active_btn_index] ^= _LUI_BTNGRID_MASK_BTN_IS_CHECKED;	// toggle check state of the active button
-				prop = btngrid->btn_properties[btngrid->active_btn_index];
-				int hj = 4;
+				//prop = btngrid->btn_properties[btngrid->active_btn_index];
 			}
 		}	
 
@@ -3243,7 +3626,7 @@ void _lui_set_obj_props_on_touch_input(lui_touch_input_data_t *input, lui_obj_t 
 
 lui_dispdrv_t* lui_dispdrv_create()
 {
-	lui_dispdrv_t *initial_disp_drv =  _lui_mem_alloc(sizeof(*initial_disp_drv));
+	lui_dispdrv_t* initial_disp_drv =  _lui_mem_alloc(sizeof(*initial_disp_drv));
 	if (initial_disp_drv == NULL)
 		return NULL;
 
@@ -3255,21 +3638,21 @@ lui_dispdrv_t* lui_dispdrv_create()
 	return initial_disp_drv;
 }
 
-void lui_dispdrv_register(lui_dispdrv_t *dispdrv)
+void lui_dispdrv_register(lui_dispdrv_t* dispdrv)
 {
 	if (dispdrv == NULL)
 		return;
 	 g_lui_main->disp_drv = dispdrv;
 }
 
-void* lui_dispdrv_destroy(lui_dispdrv_t *dispdrv)
+void* lui_dispdrv_destroy(lui_dispdrv_t* dispdrv)
 {
 	if (dispdrv != NULL)
 		_lui_mem_free(dispdrv);
 	return NULL;
 }
 
-void lui_dispdrv_set_resolution(uint16_t hor_res, uint16_t vert_res, lui_dispdrv_t *dispdrv)
+void lui_dispdrv_set_resolution(lui_dispdrv_t* dispdrv, uint16_t hor_res, uint16_t vert_res)
 {
 	if (dispdrv == NULL)
 		return;
@@ -3277,14 +3660,14 @@ void lui_dispdrv_set_resolution(uint16_t hor_res, uint16_t vert_res, lui_dispdrv
 	dispdrv->display_vert_res = vert_res;
 }
 
-void lui_dispdrv_set_draw_pixels_area_cb(void (*draw_pixels_area_cb)(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color), lui_dispdrv_t *dispdrv)
+void lui_dispdrv_set_draw_pixels_area_cb(lui_dispdrv_t* dispdrv, void (*draw_pixels_area_cb)(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color))
 {
 	if (dispdrv == NULL)
 		return;
 	dispdrv->draw_pixels_area_cb = draw_pixels_area_cb;
 }
 
-void lui_dispdrv_set_render_complete_cb(void (*render_complete_cb)(), lui_dispdrv_t *dispdrv)
+void lui_dispdrv_set_render_complete_cb(lui_dispdrv_t* dispdrv, void (*render_complete_cb)())
 {
 	if (dispdrv == NULL)
 		return;
@@ -3303,7 +3686,7 @@ void lui_dispdrv_set_render_complete_cb(void (*render_complete_cb)(), lui_dispdr
 
 lui_touch_input_dev_t* lui_touch_inputdev_create()
 {
-	lui_touch_input_dev_t *initial_touch_inputdev =  _lui_mem_alloc(sizeof(*initial_touch_inputdev));
+	lui_touch_input_dev_t* initial_touch_inputdev =  _lui_mem_alloc(sizeof(*initial_touch_inputdev));
 	if (initial_touch_inputdev == NULL)
 		return NULL;
 
@@ -3315,14 +3698,14 @@ lui_touch_input_dev_t* lui_touch_inputdev_create()
 	return initial_touch_inputdev;
 }
 
-void lui_touch_inputdev_register (lui_touch_input_dev_t *inputdev)
+void lui_touch_inputdev_register (lui_touch_input_dev_t* inputdev)
 {
 	if (inputdev == NULL)
 		return;
 	 g_lui_main->touch_input_dev = inputdev;
 }
 
-void lui_touch_inputdev_set_read_input_cb(void (*read_touch_input_cb)(lui_touch_input_data_t *inputdata), lui_touch_input_dev_t *inputdev)
+void lui_touch_inputdev_set_read_input_cb(lui_touch_input_dev_t* inputdev, void (*read_touch_input_cb)(lui_touch_input_data_t* inputdata))
 {
 	if (inputdev == NULL)
 		return;
@@ -3331,7 +3714,7 @@ void lui_touch_inputdev_set_read_input_cb(void (*read_touch_input_cb)(lui_touch_
 
 lui_encoder_input_dev_t* lui_encoder_inputdev_create()
 {
-	lui_encoder_input_dev_t *initial_encoder_inputdev =  _lui_mem_alloc(sizeof(*initial_encoder_inputdev));
+	lui_encoder_input_dev_t* initial_encoder_inputdev =  _lui_mem_alloc(sizeof(*initial_encoder_inputdev));
 	if (initial_encoder_inputdev == NULL)
 		return NULL;
 
@@ -3346,14 +3729,14 @@ lui_encoder_input_dev_t* lui_encoder_inputdev_create()
 	return initial_encoder_inputdev;
 }
 
-void lui_encoder_inputdev_register (lui_encoder_input_dev_t *inputdev)
+void lui_encoder_inputdev_register(lui_encoder_input_dev_t* inputdev)
 {
 	if (inputdev == NULL)
 		return;
 	 g_lui_main->encoder_input_dev = inputdev;
 }
 
-void lui_encoder_inputdev_set_read_input_cb(void (*read_encoder_input_cb)(lui_encoder_input_data_t *inputdata), lui_encoder_input_dev_t *inputdev)
+void lui_encoder_inputdev_set_read_input_cb(lui_encoder_input_dev_t* inputdev, void (*read_encoder_input_cb)(lui_encoder_input_data_t* inputdata))
 {
 	if (inputdev == NULL)
 		return;
@@ -3370,7 +3753,7 @@ void lui_encoder_inputdev_set_read_input_cb(void (*read_encoder_input_cb)(lui_en
  *------------------------------------------------------------------------------
  */
 
-void _lui_object_render_parent_with_children(lui_obj_t *obj_parent)
+void _lui_object_render_parent_with_children(lui_obj_t* obj_parent)
 {
 	if (obj_parent == NULL)
 		return;
@@ -3378,36 +3761,36 @@ void _lui_object_render_parent_with_children(lui_obj_t *obj_parent)
 	// first render the parent, then render all its children in a loop
 	_lui_object_render(obj_parent);
 
-	lui_obj_t *child_of_root = obj_parent->first_child;
+	lui_obj_t* child_of_root = obj_parent->first_child;
 	while (child_of_root != NULL)
 	{
-		lui_obj_t *obj_stack[LUI_MAX_OBJECTS] = {NULL};
+		lui_obj_t* obj_stack[LUI_MAX_OBJECTS] = {NULL};
 		uint8_t stack_counter = 0;
-        obj_stack[stack_counter++] = child_of_root;
-        child_of_root = child_of_root->next_sibling;
+		obj_stack[stack_counter++] = child_of_root;
+		child_of_root = child_of_root->next_sibling;
 
 		while (stack_counter > 0)
 		{
 			// pop from stack
-			lui_obj_t *child = obj_stack[--stack_counter]; 
+			lui_obj_t* child = obj_stack[--stack_counter]; 
 
 			_lui_object_render(child);
 
 			// get the child of current object
-            child = child->first_child;
+			child = child->first_child;
 			// push all children of current object into stack too
 			while (child != NULL)
 			{
 				// push child to stack
 				obj_stack[stack_counter++] = child; 
 				// get sibling of the child
-                child = child->next_sibling;
+				child = child->next_sibling;
 			}
 		}
 	}
 }
 
-void _lui_object_render(lui_obj_t *obj)
+void _lui_object_render(lui_obj_t* obj)
 {
 	if (obj == NULL)
 		return;
@@ -3447,6 +3830,9 @@ void _lui_object_render(lui_obj_t *obj)
 			case LUI_OBJ_BTNGRID:
 				lui_btngrid_draw(obj);
 				break;
+			case LUI_OBJ_TEXTBOX:
+				lui_textbox_draw(obj);
+				break;
 			default:
 				break;
 		}
@@ -3455,7 +3841,7 @@ void _lui_object_render(lui_obj_t *obj)
 	}
 }
 
-void _lui_object_set_need_refresh(lui_obj_t *obj)
+void _lui_object_set_need_refresh(lui_obj_t* obj)
 {
 	if (obj == NULL)
 		return;
@@ -3466,40 +3852,39 @@ void _lui_object_set_need_refresh(lui_obj_t *obj)
 
 	obj->needs_refresh = 1;
 
-	lui_obj_t *child_of_root = obj->first_child;
+	lui_obj_t* child_of_root = obj->first_child;
 	while (child_of_root != NULL)
 	{
-		lui_obj_t *obj_stack[LUI_MAX_OBJECTS] = {NULL};
-        uint8_t stack_counter = 0;
-        obj_stack[stack_counter++] = child_of_root;
-        child_of_root = child_of_root->next_sibling;
+		lui_obj_t* obj_stack[LUI_MAX_OBJECTS] = {NULL};
+		uint8_t stack_counter = 0;
+		obj_stack[stack_counter++] = child_of_root;
+		child_of_root = child_of_root->next_sibling;
 
 		while (stack_counter > 0)
 		{
 			// pop from stack
-			lui_obj_t *child = obj_stack[--stack_counter]; 
+			lui_obj_t* child = obj_stack[--stack_counter]; 
 			child->needs_refresh = 1;
 
 			// get the child of current object
-            child = child->first_child;
+			child = child->first_child;
 			// push all children of current object into stack too
 			while (child != NULL)
 			{
 				// push child to stack
 				obj_stack[stack_counter++] = child; 
 				// get sibling of the child
-                child = child->next_sibling;
+				child = child->next_sibling;
 			}
 		}
 	}
 }
 
-
 tFont* _lui_get_font_from_active_scene()
 {
 	if ( g_lui_main->active_scene == NULL)
 		return NULL;
-	lui_scene_t *act_scene = (lui_scene_t *)( g_lui_main->active_scene->obj_main_data);
+	lui_scene_t* act_scene = (lui_scene_t* )( g_lui_main->active_scene->obj_main_data);
 	return (act_scene->font);
 }
 
@@ -3595,10 +3980,9 @@ uint8_t _lui_get_event_against_state(uint8_t new_state, uint8_t old_state)
 	return event;
 }
 
-
-void lui_gfx_draw_string_advanced(const char *str, uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t fore_color, uint16_t bg_color, uint8_t is_bg, const tFont *font)
+void lui_gfx_draw_string_advanced(const char* str, uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t fore_color, uint16_t bg_color, uint8_t is_bg, const tFont* font)
 {
-	const tImage *img = {0};
+	const tImage* img = {0};
 	uint16_t glyph_width = 0, glyph_height = 0;
 	uint16_t x_temp = x;
 	uint16_t y_temp = y;
@@ -3628,20 +4012,6 @@ void lui_gfx_draw_string_advanced(const char *str, uint16_t x, uint16_t y, uint1
 			x_temp = x;					//go to first col
 			y_temp += (font->chars[0].image->height);	//go to next row (row height = height of space)
 		}
-
-		else if (*(str+char_cnt) == '\t')
-		{
-			if (x_temp + (4 * font->chars[0].image->width) > x + w)
-			{
-				y_temp += (font->chars[0].image->height);	//go to next row (row height = height of space)
-				x_temp = x; // go to first col
-			}
-
-			x_temp += (4 * font->chars[0].image->width);	//Skip 4 spaces (width = width of space)
-			// check if not enough space available at the bottom
-			if(y_temp + glyph_height > y + h)
-				return;
-		}
 		else
 		{
 			// Find the glyph for the char from the font
@@ -3668,19 +4038,31 @@ void lui_gfx_draw_string_advanced(const char *str, uint16_t x, uint16_t y, uint1
 					return;
 			}
 
-			_lui_gfx_draw_char_glyph(x_temp, y_temp, fore_color, img);
+			_lui_gfx_render_char_glyph(x_temp, y_temp, fore_color, 0, 0, img);
 
 			x_temp += glyph_width;		//next char position
 		}
 	}
 }
 
-
-void lui_gfx_draw_string_simple(const char *str, uint16_t x, uint16_t y, uint16_t fore_color, const tFont *font)
+void lui_gfx_draw_string_simple(const char* str, uint16_t x, uint16_t y, uint16_t fore_color, const tFont* font)
 {
 	lui_gfx_draw_string_advanced(str, x, y, 0, 0, fore_color, 0, 0, font);
 }
 
+void lui_gfx_draw_char(char c, uint16_t x, uint16_t y, uint16_t fore_color, uint16_t bg_color, uint8_t is_bg, const tFont* font)
+{
+	if (c == '\0')
+		return;
+	for (uint8_t i = 0; i < font->length; i++)
+	{
+		if (font->chars[i].code == c)
+		{
+			_lui_gfx_render_char_glyph(x, y, fore_color, bg_color, is_bg, font->chars[i].image);
+			break;
+		}
+	}
+}
 
 /*
  * Draws a character glyph in left-to-right order
@@ -3689,7 +4071,7 @@ void lui_gfx_draw_string_simple(const char *str, uint16_t x, uint16_t y, uint16_
  *
  * Returns the last written pixel's X position
  */
-void _lui_gfx_draw_char_glyph(uint16_t x, uint16_t y, uint16_t fore_color, const tImage *glyph)
+void _lui_gfx_render_char_glyph(uint16_t x, uint16_t y, uint16_t fore_color, uint16_t bg_color, uint8_t is_bg, const tImage* glyph)
 {
 	uint16_t width = 0, height = 0;
 
@@ -3702,7 +4084,7 @@ void _lui_gfx_draw_char_glyph(uint16_t x, uint16_t y, uint16_t fore_color, const
 	uint8_t mask = 0x80;
 	uint8_t bit_counter = 0;
 
-	const uint8_t *glyph_data_ptr = (const uint8_t *)(glyph->data);
+	const uint8_t* glyph_data_ptr = (const uint8_t* )(glyph->data);
 	uint8_t glyph_data = 0;
 
 	// font bitmaps are stored in column major order (scanned from left-to-right, not the conventional top-to-bottom)
@@ -3729,11 +4111,9 @@ void _lui_gfx_draw_char_glyph(uint16_t x, uint16_t y, uint16_t fore_color, const
 			//If pixel is blank
 			if (glyph_data & mask)
 			{
-				/* Glyph's bg color is drawn by label drawing function.
-				 * So, here we're doing nothing when pixel is blank
-				 */
 				// Draw the background color
-				// g_lui_main->disp_drv->draw_pixels_area_cb(temp_x, temp_y, 1, 1, back_color);
+				if (is_bg)
+					g_lui_main->disp_drv->draw_pixels_area_cb(temp_x, temp_y, 1, 1, bg_color);
 			}
 
 			//if pixel is not blank
@@ -3761,7 +4141,7 @@ void _lui_gfx_draw_char_glyph(uint16_t x, uint16_t y, uint16_t fore_color, const
  * Width: by adding up the width of each glyph (representing a character)
  * Height: Height of any glyph (representing a character)
  */
-void lui_gfx_get_string_dimension(const char *str, const tFont *font_obj, uint16_t max_w, uint16_t *str_dim)
+void lui_gfx_get_string_dimension(const char* str, const tFont* font_obj, uint16_t max_w, uint16_t* str_dim)
 {
 	str_dim[0] = 0;	// -> width
 	str_dim[1] = 0;	// -> height
@@ -3780,20 +4160,6 @@ void lui_gfx_get_string_dimension(const char *str, const tFont *font_obj, uint16
 			temp_h += font_obj->chars[0].image->height;
 			temp_w = 0;
 		}
-
-		else if (*(str+char_cnt) == '\t')
-		{
-			if (temp_w + (4 * font_obj->chars[0].image->width) > max_w)
-			{
-				temp_h += font_obj->chars[0].image->height;
-				temp_w = 0;
-				needs_wrap = 1;
-			}
-
-			temp_w += (4 * font_obj->chars[0].image->width);	
-			temp_w_highest = temp_w_highest < temp_w ? temp_w : temp_w_highest;
-		}
-
 		else
 		{
 			// Find the glyph for the char from the font
@@ -3955,8 +4321,8 @@ void lui_gfx_draw_rect_fill(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint
  */
 double _lui_map_range(double old_val, double old_max, double old_min, double new_max, double new_min)
 {
-    double new_val = ((((old_val - old_min) * (new_max - new_min)) / (old_max - old_min)) + new_min);
-    return new_val;
+	double new_val = ((((old_val - old_min) * (new_max - new_min)) / (old_max - old_min)) + new_min);
+	return new_val;
 }
 
 /*
@@ -3985,162 +4351,162 @@ uint16_t lui_rgb(uint16_t red, uint16_t green, uint16_t blue)
 
 void _lui_mem_init()
 {
-    g_mem_block.mem_start = &(g_mem_block.mem_block[0]);
-    g_mem_block.mem_end = g_mem_block.mem_start + LUI_MEM_MAX_SIZE;
-    g_mem_block.mem_chunk_count = 0;
-    g_mem_block.mem_allocated = 0;
-    
-    _lui_mem_chunk_t *first_chunk = (_lui_mem_chunk_t *)(g_mem_block.mem_start);
+	g_mem_block.mem_start = &(g_mem_block.mem_block[0]);
+	g_mem_block.mem_end = g_mem_block.mem_start + LUI_MEM_MAX_SIZE;
+	g_mem_block.mem_chunk_count = 0;
+	g_mem_block.mem_allocated = 0;
+	
+	_lui_mem_chunk_t* first_chunk = (_lui_mem_chunk_t* )(g_mem_block.mem_start);
 	#if (LUI_MEM_DEFRAG_EN == 1)
 		first_chunk->next_chunk = NULL;
 		first_chunk->prev_chunk = NULL;
 	#endif
-    first_chunk->alloc_size = 0;
-    first_chunk->alloc_status = LUI_MEM_CHUNK_STATUS_FREE;
+	first_chunk->alloc_size = 0;
+	first_chunk->alloc_status = LUI_MEM_CHUNK_STATUS_FREE;
 }
 
 void* _lui_mem_alloc(uint16_t element_size)
 {
-    _lui_mem_chunk_t *chunk_metadata = (_lui_mem_chunk_t *)(g_mem_block.mem_start);
-    
-    
-    uint16_t chunk_metadata_size = sizeof(_lui_mem_chunk_t);
-    uint8_t chunk_type =  LUI_MEM_CHUNK_TYPE_NONE;
-    
-    if ((element_size + chunk_metadata_size) > ( LUI_MEM_MAX_SIZE - (g_mem_block.mem_allocated + g_mem_block.mem_chunk_count * chunk_metadata_size)))
-    {
-        return NULL;
-    }
-    while (g_mem_block.mem_end > (uint8_t *)chunk_metadata + element_size + chunk_metadata_size)
-    {
-        if (chunk_metadata->alloc_status ==  LUI_MEM_CHUNK_STATUS_FREE)
-        {
-            if (chunk_metadata->alloc_size == 0 ||
-                chunk_metadata->alloc_size > (element_size + chunk_metadata_size))
-            {
-                chunk_type =  LUI_MEM_CHUNK_TYPE_NEW;
-                break;
-            }
-            else if (chunk_metadata->alloc_size == (element_size + chunk_metadata_size))
-            {
-                chunk_type =  LUI_MEM_CHUNK_TYPE_REUSE;
-                break;
-            }
-        }
-        chunk_metadata = (_lui_mem_chunk_t *)((uint8_t *)chunk_metadata + chunk_metadata->alloc_size);
-    }
-    
-    if (chunk_type !=  LUI_MEM_CHUNK_TYPE_NONE)
-    {
-        chunk_metadata->alloc_status =  LUI_MEM_CHUNK_STATUS_USED;
-        if (chunk_type ==  LUI_MEM_CHUNK_TYPE_NEW)
-        {
-            /* Resize the chunk */
-            chunk_metadata->alloc_size = element_size + chunk_metadata_size;
+	_lui_mem_chunk_t* chunk_metadata = (_lui_mem_chunk_t* )(g_mem_block.mem_start);
+	
+	
+	uint16_t chunk_metadata_size = sizeof(_lui_mem_chunk_t);
+	uint8_t chunk_type =  LUI_MEM_CHUNK_TYPE_NONE;
+	
+	if ((element_size + chunk_metadata_size) > ( LUI_MEM_MAX_SIZE - (g_mem_block.mem_allocated + g_mem_block.mem_chunk_count * chunk_metadata_size)))
+	{
+		return NULL;
+	}
+	while (g_mem_block.mem_end > (uint8_t* )chunk_metadata + element_size + chunk_metadata_size)
+	{
+		if (chunk_metadata->alloc_status ==  LUI_MEM_CHUNK_STATUS_FREE)
+		{
+			if (chunk_metadata->alloc_size == 0 ||
+				chunk_metadata->alloc_size > (element_size + chunk_metadata_size))
+			{
+				chunk_type =  LUI_MEM_CHUNK_TYPE_NEW;
+				break;
+			}
+			else if (chunk_metadata->alloc_size == (element_size + chunk_metadata_size))
+			{
+				chunk_type =  LUI_MEM_CHUNK_TYPE_REUSE;
+				break;
+			}
+		}
+		chunk_metadata = (_lui_mem_chunk_t* )((uint8_t* )chunk_metadata + chunk_metadata->alloc_size);
+	}
+	
+	if (chunk_type !=  LUI_MEM_CHUNK_TYPE_NONE)
+	{
+		chunk_metadata->alloc_status =  LUI_MEM_CHUNK_STATUS_USED;
+		if (chunk_type ==  LUI_MEM_CHUNK_TYPE_NEW)
+		{
+			/* Resize the chunk */
+			chunk_metadata->alloc_size = element_size + chunk_metadata_size;
 			
 			#if (LUI_MEM_DEFRAG_EN == 1)
 				/* Set next chunk address */
-				chunk_metadata->next_chunk = (_lui_mem_chunk_t *)((uint8_t *)chunk_metadata + chunk_metadata->alloc_size);
+				chunk_metadata->next_chunk = (_lui_mem_chunk_t* )((uint8_t* )chunk_metadata + chunk_metadata->alloc_size);
 				/* Set next chunk's previous chunk address which is the current chunk */
 				chunk_metadata->next_chunk->prev_chunk = chunk_metadata;
 			#endif
-            /* Increase chunk count by 1 */
-            ++(g_mem_block.mem_chunk_count);
-        }
+			/* Increase chunk count by 1 */
+			++(g_mem_block.mem_chunk_count);
+		}
 
-        g_mem_block.mem_allocated += element_size;
-        return ((uint8_t *)chunk_metadata + chunk_metadata_size);
-    }
-    else
-    {
-        return NULL;
-    }
+		g_mem_block.mem_allocated += element_size;
+		return ((uint8_t* )chunk_metadata + chunk_metadata_size);
+	}
+	else
+	{
+		return NULL;
+	}
 }
 
 
-void _lui_mem_free(void *ptr)
+void _lui_mem_free(void* ptr)
 {
-    _lui_mem_chunk_t *chunk_metadata = (_lui_mem_chunk_t *)ptr;
-    // Get the actual chunk_metadata
-    --chunk_metadata;
-    
-    if (chunk_metadata == NULL)
-    {
-        return;
-    }
-    if (chunk_metadata->alloc_status == LUI_MEM_CHUNK_STATUS_FREE)
-    {
-        return;
-    }
-    
-    chunk_metadata->alloc_status =  LUI_MEM_CHUNK_STATUS_FREE;
-    g_mem_block.mem_allocated -= chunk_metadata->alloc_size - sizeof(_lui_mem_chunk_t);
-    
-    /* If only one chunk is there, set the chunk count to 0 */
-    if (g_mem_block.mem_chunk_count == 1)
-    {
-        g_mem_block.mem_chunk_count = 0;
-        chunk_metadata->alloc_size = 0;
+	_lui_mem_chunk_t* chunk_metadata = (_lui_mem_chunk_t* )ptr;
+	// Get the actual chunk_metadata
+	--chunk_metadata;
+	
+	if (chunk_metadata == NULL)
+	{
+		return;
+	}
+	if (chunk_metadata->alloc_status == LUI_MEM_CHUNK_STATUS_FREE)
+	{
+		return;
+	}
+	
+	chunk_metadata->alloc_status =  LUI_MEM_CHUNK_STATUS_FREE;
+	g_mem_block.mem_allocated -= chunk_metadata->alloc_size - sizeof(_lui_mem_chunk_t);
+	
+	/* If only one chunk is there, set the chunk count to 0 */
+	if (g_mem_block.mem_chunk_count == 1)
+	{
+		g_mem_block.mem_chunk_count = 0;
+		chunk_metadata->alloc_size = 0;
 
 		#if (LUI_MEM_DEFRAG_EN == 1)
 			chunk_metadata->next_chunk = NULL;
 			chunk_metadata->prev_chunk = NULL;
 		#endif
-        
-        return;
-    }
-    
+		
+		return;
+	}
+	
 	#if (LUI_MEM_DEFRAG_EN == 1)
-    // merge with next chunk if that is free too
-    /* Note: Theoretically, for the right-most chunk, `next_chunk` should be NULL and this condition
-     * should not be called. BUT, the right-most chunk actually has a not-null `next_chunk` which is
-     * set during allocation to point out which one will be it's next chunk.
-     * So, even for right-most chunk, this condition is satisfied and `chunk_count` is decremented
-     * even though nothing is "actually" merged
-     */
-    if (chunk_metadata->next_chunk != NULL)
-    {
-        if (chunk_metadata->next_chunk->alloc_status == LUI_MEM_CHUNK_STATUS_FREE)
-        {
-            /* merge next chunk with current chunk and increase current chunk's size */
-            chunk_metadata->alloc_size += chunk_metadata->next_chunk->alloc_size;
-            chunk_metadata->next_chunk = chunk_metadata->next_chunk->next_chunk;
-            if (chunk_metadata->next_chunk != NULL)
-            {
-                chunk_metadata->next_chunk->prev_chunk = chunk_metadata;
-            }
-            /* As two chunks are merged, chunk count reduced*/
-            --(g_mem_block.mem_chunk_count);
-        }
-    }
-    
-    // merge with previous chunk if that is free too
-    if (chunk_metadata->prev_chunk != NULL)
-    {
-        if (chunk_metadata->prev_chunk->alloc_status == LUI_MEM_CHUNK_STATUS_FREE)
-        {
-            /* merge current chunk with previous chunk and increase previous chunk's size */
-            chunk_metadata->prev_chunk->alloc_size += chunk_metadata->alloc_size;
-            chunk_metadata->prev_chunk->next_chunk = chunk_metadata->next_chunk;
-            if (chunk_metadata->next_chunk != NULL)
-            {
-                chunk_metadata->next_chunk->prev_chunk = chunk_metadata->prev_chunk;
-            }
-            /* As two chunks are merged, chunk count reduced*/
-            --(g_mem_block.mem_chunk_count);
-        }
-    }
-    
-    /* If chunk count becomes 0 after merging, set the remaining chunk's size to 0
-     * Also set its prev_chunk and next_chunk to NULL
-     */
-    if (g_mem_block.mem_chunk_count == 0)
-    {
-        _lui_mem_chunk_t *first_chunk = (_lui_mem_chunk_t *)(g_mem_block.mem_start);
-        first_chunk->alloc_size = 0;
-        first_chunk->next_chunk = NULL;
-        first_chunk->prev_chunk = NULL;
-    }  
+	// merge with next chunk if that is free too
+	/* Note: Theoretically, for the right-most chunk, `next_chunk` should be NULL and this condition
+	 * should not be called. BUT, the right-most chunk actually has a not-null `next_chunk` which is
+	 * set during allocation to point out which one will be it's next chunk.
+	 * So, even for right-most chunk, this condition is satisfied and `chunk_count` is decremented
+	 * even though nothing is "actually" merged
+	 */
+	if (chunk_metadata->next_chunk != NULL)
+	{
+		if (chunk_metadata->next_chunk->alloc_status == LUI_MEM_CHUNK_STATUS_FREE)
+		{
+			/* merge next chunk with current chunk and increase current chunk's size */
+			chunk_metadata->alloc_size += chunk_metadata->next_chunk->alloc_size;
+			chunk_metadata->next_chunk = chunk_metadata->next_chunk->next_chunk;
+			if (chunk_metadata->next_chunk != NULL)
+			{
+				chunk_metadata->next_chunk->prev_chunk = chunk_metadata;
+			}
+			/* As two chunks are merged, chunk count reduced*/
+			--(g_mem_block.mem_chunk_count);
+		}
+	}
+	
+	// merge with previous chunk if that is free too
+	if (chunk_metadata->prev_chunk != NULL)
+	{
+		if (chunk_metadata->prev_chunk->alloc_status == LUI_MEM_CHUNK_STATUS_FREE)
+		{
+			/* merge current chunk with previous chunk and increase previous chunk's size */
+			chunk_metadata->prev_chunk->alloc_size += chunk_metadata->alloc_size;
+			chunk_metadata->prev_chunk->next_chunk = chunk_metadata->next_chunk;
+			if (chunk_metadata->next_chunk != NULL)
+			{
+				chunk_metadata->next_chunk->prev_chunk = chunk_metadata->prev_chunk;
+			}
+			/* As two chunks are merged, chunk count reduced*/
+			--(g_mem_block.mem_chunk_count);
+		}
+	}
+	
+	/* If chunk count becomes 0 after merging, set the remaining chunk's size to 0
+	 * Also set its prev_chunk and next_chunk to NULL
+	 */
+	if (g_mem_block.mem_chunk_count == 0)
+	{
+		_lui_mem_chunk_t* first_chunk = (_lui_mem_chunk_t* )(g_mem_block.mem_start);
+		first_chunk->alloc_size = 0;
+		first_chunk->next_chunk = NULL;
+		first_chunk->prev_chunk = NULL;
+	}  
 	#endif
 }
 /*-------------------------------------------------------------------------------
