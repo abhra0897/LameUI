@@ -15,6 +15,10 @@ simulator: https://github.com/abhra0897/LameUI_simulation
 
 ![Example gif](lameUI_demo3.gif)
 
+Keyboard and Textbox demo (Work in progress)
+
+![demo gif](lameUI_demo_keyboard.gif)
+
 I currently don't have an lcd display in my stock, so, this emulator is the only way. :(
 
 ## UI Elements
