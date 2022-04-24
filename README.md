@@ -1,3 +1,7 @@
+### [Check the ["Development"](https://github.com/abhra0897/LameUI/tree/development) branch for latest changes. This (master) branch has less features and will be updated later.]
+
+
+
 ## LameUI - a lame & lightweight(?) non-buffered UI library for embedded systems
 
 This is a useless readme, I'll make a proper once later.
