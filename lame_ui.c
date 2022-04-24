@@ -1,9 +1,15 @@
 /*
- * lame_ui.c
- *
  *  Created on: 02-Apr-2020
- *	Last updated: 31-Aug-2021
- *      Author: rik
+ */
+/**
+ * @file lame_ui.c
+ * @author Avra Mitra
+ * @brief Source FIle of LameUI GUI library. Must include lame_ui.h. No other file is mandatory.
+ * @version 0.1
+ * @date 2022-04-24
+ * 
+ * @copyright Copyright (c) 2022
+ * 
  */
 
 #include "lame_ui.h"
@@ -25,19 +31,20 @@ void lui_init()
 	if (g_lui_main == NULL)
 		return;
 
-	// g_lui_main->scenes = {NULL};
-	 g_lui_main->disp_drv = NULL;
-	 g_lui_main->touch_input_dev = NULL;
-	 g_lui_main->encoder_input_dev = NULL;
+	// 	g_lui_main->scenes = {NULL};
+	g_lui_main->default_font = &FONT_lui_default;
+	g_lui_main->disp_drv = NULL;
+	g_lui_main->touch_input_dev = NULL;
+	//	g_lui_main->encoder_input_dev = NULL;
 	//  g_lui_main->last_touch_data.x = -1;
 	//  g_lui_main->last_touch_data.y = -1;
 	//  g_lui_main->last_touch_data.is_pressed = -1;
 	g_lui_main->input_event_clicked = 0;
 	g_lui_main->input_state_pressed = 0;
-	 g_lui_main->total_scenes = 0;
-	 g_lui_main->active_scene = NULL;
-	 g_lui_main->active_obj = NULL;
-	 g_lui_main->total_created_objects = 0;
+	g_lui_main->total_scenes = 0;
+	g_lui_main->active_scene = NULL;
+	g_lui_main->active_obj = NULL;
+	g_lui_main->total_created_objects = 0;
 }
 
 /*
@@ -108,17 +115,8 @@ void lui_label_draw(lui_obj_t* obj)
 	if (_lui_disp_drv_check() == 0)
 		return;
 
-	tFont* temp_font = lbl->font;
-	// If label has no font set for it, check the global set font in scene
-	// If no scene present, i.e., parent_scene_index == -1, return
-	// If scene is there but scene has no font, return
-	// So, if label has no parent scene, it must have its own font to be rendered
-	if (temp_font == NULL &&  g_lui_main->active_scene != NULL)
-	{
-		temp_font = _lui_get_font_from_active_scene();
-	}
 
-	lui_gfx_draw_string_advanced(lbl->text, obj->x, obj->y, obj->common_style.width, obj->common_style.height, lbl->style.text_color, obj->common_style.bg_color, 1, temp_font);
+	lui_gfx_draw_string_advanced(lbl->text, obj->x, obj->y, obj->common_style.width, obj->common_style.height, lbl->style.text_color, obj->common_style.bg_color, 1, lbl->font);
 
 	// Draw the label border if needed
 	if (obj->common_style.border_visible == 1)
@@ -143,7 +141,7 @@ lui_obj_t* lui_label_create()
 		return NULL;
 	
 	initial_label->text = "";
-	initial_label->font = NULL;
+	initial_label->font = g_lui_main->default_font;
 	initial_label->style.text_color = LUI_STYLE_LABEL_TEXT_COLOR;
 
 	lui_obj_t* obj = _lui_object_create();
@@ -163,17 +161,18 @@ lui_obj_t* lui_label_create()
 	return obj;
 }
 
-void lui_label_set_font(lui_obj_t* obj, const tFont* font)
+void lui_label_set_font(lui_obj_t* obj, const lui_font_t* font)
 {
 	if (obj == NULL)
 		return;
-
+	if (font == NULL)
+		return;
 	// type check
 	if (obj->obj_type != LUI_OBJ_LABEL)
 		return;
 	
 	lui_label_t* lbl = (lui_label_t* )(obj->obj_main_data);
-	lbl->font = (tFont* )font;
+	lbl->font = font;
 	_lui_object_set_need_refresh(obj->parent);
 }
 
@@ -289,14 +288,6 @@ void lui_linechart_draw(lui_obj_t* obj)
 		y_data_max_old = chart->data.y_max_value;
 	}
 
-	// Set font for using in chart
-	tFont* temp_font = chart->font;
-	// If object has no font set for it, check the global set font in scene
-	if (temp_font == NULL &&  g_lui_main->active_scene != NULL)
-	{
-		temp_font = _lui_get_font_from_active_scene();
-	}
-
 
 	// Draw the chart background
 	lui_gfx_draw_rect_fill(temp_x, temp_y, width, height, obj->common_style.bg_color);
@@ -394,7 +385,7 @@ lui_obj_t* lui_linechart_create()
 	initial_line_chart->style.grid_visible = LUI_STYLE_LINECHART_GRID_VISIBLE;
 	initial_line_chart->grid.hor_count = 5;
 	initial_line_chart->grid.vert_count = 5;
-	initial_line_chart->font = NULL;
+	initial_line_chart->font = g_lui_main->default_font;
 
 	lui_obj_t* obj = _lui_object_create();
 	if (obj == NULL)
@@ -583,17 +574,8 @@ void lui_button_draw(lui_obj_t* obj)
 	// Text will be in the miidle of the button.
 	// So, at first we need to calculate its position
 
-	tFont* temp_font = btn->label.font;
-	// If it has no font set for it, check the global set font in scene
-	// If no scene present, i.e., parent_scene_index == -1, return
-	// If scene is there but scene has no font, return
-	// So, if it has no parent scene, it must have its own font to be rendered
-	if (temp_font == NULL &&  g_lui_main->active_scene != NULL)
-	{
-		temp_font = _lui_get_font_from_active_scene();
-	}
 
-	lui_gfx_get_string_dimension(btn->label.text, temp_font, btn_width, str_width_height);
+	lui_gfx_get_string_dimension(btn->label.text, btn->label.font, btn_width, str_width_height);
 
 	str_width_height[0] = str_width_height[0] > btn_width ? btn_width : str_width_height[0];
 	str_width_height[1] = str_width_height[1] > btn_height ? btn_height : str_width_height[1];
@@ -601,7 +583,7 @@ void lui_button_draw(lui_obj_t* obj)
 	temp_x = temp_x + (btn_width - str_width_height[0]) / 2;
 	temp_y = temp_y + (btn_height - str_width_height[1]) / 2;
 
-	lui_gfx_draw_string_advanced(btn->label.text, temp_x, temp_y, str_width_height[0], str_width_height[1], btn->style.label_color, 0, 0, temp_font);
+	lui_gfx_draw_string_advanced(btn->label.text, temp_x, temp_y, str_width_height[0], str_width_height[1], btn->style.label_color, 0, 0, btn->label.font);
 	
 
 	// Finally Draw the border if needed
@@ -630,7 +612,7 @@ lui_obj_t* lui_button_create()
 	
 	initial_button->label.text = "";
 	initial_button->style.label_color = LUI_STYLE_BUTTON_LABEL_COLOR;
-	initial_button->label.font = NULL;
+	initial_button->label.font = g_lui_main->default_font;
 	initial_button->encoder_index = -1;
 
 	lui_obj_t* obj = _lui_object_create();
@@ -681,7 +663,7 @@ void lui_button_set_label_color(lui_obj_t* obj, uint16_t color)
 	_lui_object_set_need_refresh(obj);
 }
 
-void lui_button_set_label_font(lui_obj_t* obj, const tFont* font)
+void lui_button_set_label_font(lui_obj_t* obj, const lui_font_t* font)
 {
 	if (obj == NULL)
 		return;
@@ -691,7 +673,7 @@ void lui_button_set_label_font(lui_obj_t* obj, const tFont* font)
 		return;
 	
 	lui_button_t* btn = (lui_button_t* )(obj->obj_main_data);
-	btn->label.font = (tFont* )font;
+	btn->label.font = (lui_font_t* )font;
 	// parent needs refresh (along with all its children)
 	_lui_object_set_need_refresh(obj->parent);
 }
@@ -744,7 +726,7 @@ void lui_list_draw(lui_obj_t* obj)
 	if (!(obj->visible))
 		return;
 
-	// draw the background first (hard coding the color for now)
+	// draw the background first
 	 g_lui_main->disp_drv->draw_pixels_area_cb(obj->x, obj->y, obj->common_style.width, obj->common_style.height, obj->common_style.bg_color);
 
 	// draw the border if needed
@@ -754,7 +736,6 @@ void lui_list_draw(lui_obj_t* obj)
 		lui_gfx_draw_rect(obj->x, obj->y,  obj->common_style.width, obj->common_style.height, 1, obj->common_style.border_color);
 	}
 }
-
 
 lui_obj_t* lui_list_create()
 {
@@ -790,7 +771,7 @@ lui_obj_t* lui_list_create()
 	// create navigation buttons
 	_lui_list_add_nav_buttons(obj);
 
-	initial_list->font = NULL;
+	initial_list->font = g_lui_main->default_font;
 
 	return obj;
 }
@@ -809,18 +790,12 @@ void lui_list_prepare(lui_obj_t* obj)
 
 	lui_list_t* list = (lui_list_t* )(obj->obj_main_data);
 	
-	// set font to active scene's font if no font is given
-	// is active scene's font is null too, return
-	if (list->font == NULL)
-		list->font = _lui_get_font_from_active_scene();
-	if (list->font == NULL)
-		return;
 
 	// usable height depends on navigation buttons' existense
 	// if no nav button (for single page list), total height is usable
 	uint16_t list_usable_height = obj->common_style.height - 1;
-	if (list->button_item_min_height < list->font->chars[0].image->height)
-		list->button_item_min_height = list->font->chars[0].image->height;
+	if (list->button_item_min_height < list->font->bitmap->size_y)
+		list->button_item_min_height = list->font->bitmap->size_y;
 	uint8_t button_height = list->button_item_min_height;
 
 	// buttons_per_page is calculated excluding the nav butons. Only items are considered
@@ -915,6 +890,8 @@ void lui_list_prepare(lui_obj_t* obj)
 	_lui_object_set_need_refresh(obj);
 }
 
+
+
 lui_obj_t* lui_list_add_item(lui_obj_t* obj, const char* text)
 {
 	if (obj == NULL)
@@ -926,7 +903,8 @@ lui_obj_t* lui_list_add_item(lui_obj_t* obj, const char* text)
 	// if total created objects become more than max allowed objects, don't create the object
 	if ( g_lui_main->total_created_objects + 1 > LUI_MAX_OBJECTS)
 		return NULL;
-	 g_lui_main->total_created_objects++;
+	g_lui_main->total_created_objects++;
+
 
 	lui_list_t* list = obj->obj_main_data;
 	list->button_item_min_height = LUI_STYLE_LIST_ITEM_MIN_HEIGHT;
@@ -945,6 +923,7 @@ lui_obj_t* lui_list_add_item(lui_obj_t* obj, const char* text)
 	lui_obj_t* obj_btn_item = _lui_object_create();
 	// object type
 	obj_btn_item->obj_type = LUI_OBJ_BUTTON;
+	obj_btn_item->enabled = 1;
 	// object common style
 	obj_btn_item->common_style.bg_color = LUI_STYLE_LIST_ITEM_BG_COLOR;
 	obj_btn_item->common_style.border_color = LUI_STYLE_LIST_ITEM_BORDER_COLOR;
@@ -988,7 +967,7 @@ void lui_list_set_item_min_height(lui_obj_t* obj, uint8_t height)
 	// if list has a font and the item height is >= the glyph's height, only then set that height
 	if (list->font != NULL)
 	{
-		if (height >= list->font->chars[0].image->height)
+		if (height >= list->font->bitmap->size_y)
 		{
 			list->button_item_min_height = height;
 			_lui_object_set_need_refresh(obj);
@@ -1004,17 +983,18 @@ void lui_list_set_item_min_height(lui_obj_t* obj, uint8_t height)
 	// this min_height is applied to all items in `prepare` funt
 }
 
-void lui_list_set_font(lui_obj_t* obj, const tFont* font)
+void lui_list_set_font(lui_obj_t* obj, const lui_font_t* font)
 {
 	if (obj == NULL)
 		return;
-	
+	if (font == NULL)
+		return;
 	// type check
 	if (obj->obj_type != LUI_OBJ_LIST)
 		return;
 	
 	lui_list_t* list = obj->obj_main_data;
-	list->font = (tFont* )font;
+	list->font = font;
 
 	// parent needs refresh (along with all its children)
 	_lui_object_set_need_refresh(obj->parent);
@@ -1136,7 +1116,7 @@ void _lui_list_nav_btn_cb(lui_obj_t* obj)
 {
 	uint8_t event = lui_object_get_event(obj);
 	lui_list_t* list = obj->parent->obj_main_data;
-	if (event == LUI_EVENT_RELEASED)
+	if (event == LUI_EVENT_PRESSED)
 	{
 		if (obj == obj->parent->first_child)	// first child is nav_prev btn
 		{
@@ -1763,18 +1743,7 @@ void lui_btngrid_draw(lui_obj_t* obj)
 		return;
 
 	lui_btngrid_t* btngrid = obj->obj_main_data;
-
-	tFont* temp_font = btngrid->font;
-	// If it has no font set for it, check the global set font in scene
-	// If no scene present, i.e., parent_scene_index == -1, return
-	// If scene is there but scene has no font, return
-	// So, if it has no parent scene, it must have its own font to be rendered
-	if (temp_font == NULL &&  g_lui_main->active_scene != NULL)
-	{
-		temp_font = _lui_get_font_from_active_scene();
-		if (temp_font == NULL)
-			return;
-	}			
+		
 	uint16_t btn_color = btngrid->style.btn_bg_color;
 	uint16_t btn_width = 0;
 	uint16_t btn_height = 0;
@@ -1810,7 +1779,7 @@ void lui_btngrid_draw(lui_obj_t* obj)
 				{
 					if (obj->state == LUI_STATE_SELECTED)
 					{
-						btn_color = btngrid->style.btn_selection_color;
+						btn_color = btngrid->style.btn_pressed_color;
 					}
 					else if (obj->state == LUI_STATE_PRESSED)
 					{
@@ -1838,7 +1807,7 @@ void lui_btngrid_draw(lui_obj_t* obj)
 				lui_gfx_draw_rect_fill(btngrid->btn_area[i].x1, btngrid->btn_area[i].y1, btn_width, btn_height, btn_color);
 
 				uint16_t str_width_height[2];
-				lui_gfx_get_string_dimension(btngrid->texts[j], temp_font, btn_width, str_width_height);
+				lui_gfx_get_string_dimension(btngrid->texts[j], btngrid->font, btn_width, str_width_height);
 
 				str_width_height[0] = str_width_height[0] > btn_width ? btn_width : str_width_height[0];
 				str_width_height[1] = str_width_height[1] > btn_height ? btn_height : str_width_height[1];
@@ -1846,7 +1815,7 @@ void lui_btngrid_draw(lui_obj_t* obj)
 				uint16_t temp_x = btngrid->btn_area[i].x1 + (btn_width - str_width_height[0]) / 2;
 				uint16_t temp_y = btngrid->btn_area[i].y1 + (btn_height - str_width_height[1]) / 2;
 
-				lui_gfx_draw_string_advanced(btngrid->texts[j], temp_x, temp_y, str_width_height[0], str_width_height[1], btngrid->style.btn_label_color, 0, 0, temp_font);
+				lui_gfx_draw_string_advanced(btngrid->texts[j], temp_x, temp_y, str_width_height[0], str_width_height[1], btngrid->style.btn_label_color, 0, 0, btngrid->font);
 			}
 		}
 
@@ -1870,16 +1839,17 @@ lui_obj_t* lui_btngrid_create()
 	
 	initial_btngrid->style.btn_label_color = LUI_STYLE_BTNGRID_LABEL_COLOR;
 	initial_btngrid->style.btn_pressed_color = LUI_STYLE_BTNGRID_PRESSED_COLOR;
-	initial_btngrid->style.btn_selection_color = LUI_STYLE_BTNGRID_SELECTION_COLOR;
 	initial_btngrid->style.btn_bg_color = LUI_STYLE_BTNGRID_BG_COLOR;
+	initial_btngrid->font = g_lui_main->default_font;
 	initial_btngrid->texts = NULL;
 	initial_btngrid->btn_properties = NULL;
 	initial_btngrid->btn_area = NULL;
 	initial_btngrid->btn_cnt = 0;
 	initial_btngrid->active_btn_index = -1;
-	initial_btngrid->btn_margin_hor = 2;
-	initial_btngrid->btn_margin_vert = 2;
+	initial_btngrid->style.btn_margin_hor = 2;
+	initial_btngrid->style.btn_margin_vert = 2;
 	initial_btngrid->needs_full_render = 1;
+	initial_btngrid->kb_data = NULL;
 
 	lui_obj_t* obj = _lui_object_create();
 	if (obj == NULL)
@@ -1956,7 +1926,7 @@ void lui_btngrid_set_textmap(lui_obj_t* obj, const char* texts[])
 	btngrid->row_cnt = rows;
 	btngrid->texts = texts;
 	btngrid->needs_full_render = 1;
-	obj->needs_refresh = 1;
+	_lui_object_set_need_refresh(obj);
 
 	_lui_btngrid_calc_btn_area(obj);
 }
@@ -1975,9 +1945,9 @@ void lui_btngrid_set_propertymap(lui_obj_t* obj, uint8_t properties[])
 	if (btngrid->btn_properties == NULL)
 		return;
 	
-	btngrid->btn_properties = properties;
+	memcpy(btngrid->btn_properties, properties, btngrid->btn_cnt);
 	btngrid->needs_full_render = 1;
-	obj->needs_refresh = 1;
+	_lui_object_set_need_refresh(obj);
 	_lui_btngrid_calc_btn_area(obj);
 }
 
@@ -2001,7 +1971,7 @@ void lui_btngrid_set_btn_property_bits(lui_obj_t* obj, uint16_t btn_index, uint8
 	btngrid->btn_properties[btn_index] = property_byte;
 	_lui_btngrid_calc_btn_area(obj);
 
-	obj->needs_refresh = 1;
+	_lui_object_set_need_refresh(obj);
 	btngrid->needs_full_render = 1;
 }
 
@@ -2027,7 +1997,7 @@ void lui_btngrid_set_btn_text(lui_obj_t* obj, uint8_t btn_index, char* text)
 		}
 	}
 	btngrid->texts[txt_index] = text;
-	obj->needs_refresh = 1;
+	_lui_object_set_need_refresh(obj);
 }
 
 void lui_btngrid_set_btn_width_unit(lui_obj_t* obj, uint16_t btn_index, uint8_t width_unit)
@@ -2104,6 +2074,65 @@ int8_t lui_btngrid_get_btn_check_status(lui_obj_t* obj, uint8_t btn_index)
 	return  (props & _LUI_BTNGRID_MASK_BTN_IS_CHECKED) ? 1 : 0;
 }
 
+void lui_btngrid_set_font(lui_obj_t* obj, const lui_font_t* font)
+{
+	if (obj == NULL)
+		return;
+	if (font == NULL)
+		return;
+	// type check
+	if (obj->obj_type != LUI_OBJ_BTNGRID)
+		return;
+
+	lui_btngrid_t* btngrid = obj->obj_main_data;
+	btngrid->font = font;
+	_lui_object_set_need_refresh(obj);
+	btngrid->needs_full_render = 1;
+}
+
+void lui_btngrid_set_extra_colors(lui_obj_t* obj, uint16_t btn_color, uint16_t label_color, uint16_t btn_pressed_color)
+{
+	if (obj == NULL)
+		return;
+	
+	// type check
+	if (obj->obj_type != LUI_OBJ_BTNGRID)
+		return;
+	
+	lui_btngrid_t* btngrid = obj->obj_main_data;
+
+	if (btngrid->style.btn_bg_color == btn_color && btngrid->style.btn_label_color == label_color && btngrid->style.btn_pressed_color == btn_pressed_color)
+		return;
+	btngrid->style.btn_bg_color = btn_color;
+	btngrid->style.btn_label_color = label_color;
+	btngrid->style.btn_pressed_color = btn_pressed_color;
+	
+	_lui_object_set_need_refresh(obj);
+	btngrid->needs_full_render = 1;
+}
+
+void lui_btngrid_set_btn_margin(lui_obj_t* obj, uint8_t margin_x, uint16_t margin_y)
+{
+	if (obj == NULL)
+		return;
+	
+	// type check
+	if (obj->obj_type != LUI_OBJ_BTNGRID)
+		return;
+	
+	lui_btngrid_t* btngrid = obj->obj_main_data;
+
+	if (btngrid->style.btn_margin_hor == margin_x && btngrid->style.btn_margin_vert == margin_y)
+		return;
+	btngrid->style.btn_margin_hor = margin_x;
+	btngrid->style.btn_margin_vert = margin_y;
+	
+	_lui_btngrid_calc_btn_area(obj);
+
+	_lui_object_set_need_refresh(obj);
+	btngrid->needs_full_render = 1;
+}
+
 void _lui_btngrid_calc_btn_area(lui_obj_t* obj)
 {
 	if (obj == NULL)
@@ -2142,10 +2171,10 @@ void _lui_btngrid_calc_btn_area(lui_obj_t* obj)
 			float this_btn_w = raw_width * (float)(btngrid->btn_properties[btn_index] & _LUI_BTNGRID_MASK_BTN_WIDTH_UNIT);
 			w += this_btn_w;
 
-			area.x1 = obj->x + w - this_btn_w + btngrid->btn_margin_hor;
-			area.x2 = obj->x + w - btngrid->btn_margin_hor;
-			area.y1 = obj->y + h - raw_height + btngrid->btn_margin_vert;
-			area.y2 = obj->y + h - btngrid->btn_margin_vert;
+			area.x1 = obj->x + w - this_btn_w + btngrid->style.btn_margin_hor;
+			area.x2 = obj->x + w - btngrid->style.btn_margin_hor;
+			area.y1 = obj->y + h - raw_height + btngrid->style.btn_margin_vert;
+			area.y2 = obj->y + h - btngrid->style.btn_margin_vert;
 
 			btngrid->btn_area[btn_index++] = area;
 			
@@ -2155,10 +2184,185 @@ void _lui_btngrid_calc_btn_area(lui_obj_t* obj)
 		units_in_row = 0;
 	}
 
-	obj->needs_refresh = 1;
+	_lui_object_set_need_refresh(obj);
 	((lui_btngrid_t*)(obj->obj_main_data))->needs_full_render = 1;
 }
 
+
+static const char* kb_txt_lower_textmap[] = 
+{
+	"1#", "q", "w", "e", "r", "t", "y","u","i","o","p", LUI_ICON_BACKSPACE,"\n", //buttons: 0-11
+	"ABC", "a", "s", "d", "f", "g", "h","j","k","l", LUI_ICON_RETURN_DOWN_BACK,"\n",   //buttons: 12-22
+	"-","_","z", "x", "c","v","b","n","m",",",".",":","\n",           //buttons: 23-34
+	LUI_ICON_CLOSE, LUI_ICON_ARROW_BACK, "  ", LUI_ICON_ARROW_FORWARD, LUI_ICON_CHECKMARK, "\0"
+};
+static const char* kb_txt_upper_textmap[] = 
+{
+	"1#", "Q", "W", "E", "R", "T", "Y","U","I","O","P", LUI_ICON_BACKSPACE,"\n", //BUTTONS: 0-11
+	"abc", "A", "S", "D", "F", "G", "H","J","K","L", LUI_ICON_RETURN_DOWN_BACK,"\n",   //BUTTONS: 12-22
+	"-","_","Z", "X", "C","V","B","N","M",",",".",":","\n",           //BUTTONS: 23-34
+	LUI_ICON_CLOSE, LUI_ICON_ARROW_BACK, "  ", LUI_ICON_ARROW_FORWARD, LUI_ICON_CHECKMARK, "\0"
+};
+static const char* kb_spcl_textmap[] = 
+{
+	"1", "2", "3", "4", "5", "6", "7","8","9","0",".", LUI_ICON_BACKSPACE,"\n", //BUTTONS: 0-11
+	"abc", "+", "-", "/", "*", "=", "%","!","?","#", "\\","\n",   //BUTTONS: 12-22
+	"<",">","(", ")", "{","}","[","]","\"","'",";","@","\n",           //BUTTONS: 23-34
+	LUI_ICON_CLOSE, LUI_ICON_ARROW_BACK, "  ", LUI_ICON_ARROW_FORWARD, LUI_ICON_CHECKMARK, "\0"
+};
+static const uint8_t kb_txt_propertymap[] = 
+{
+	5, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 7,
+	6, 3, 3, 3, 3, 3, 3, 3, 3, 3, 7,
+	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+	2, 2, 6, 2, 2
+};
+
+void lui_keyboard_sys_cb(lui_obj_t* obj_sender)
+{
+	if (obj_sender == NULL)
+		return;
+
+	if (obj_sender->obj_type != LUI_OBJ_BTNGRID)
+		return;
+
+	lui_btngrid_t* btngrid = obj_sender->obj_main_data;
+
+	int16_t active_btn_id = btngrid->active_btn_index;
+	const char* btn_text = lui_keyboard_get_key_text(obj_sender, active_btn_id);
+	if (active_btn_id == -1)
+		return;
+
+	if (btngrid->kb_data->keyboard_mode == LUI_KEYBOARD_MODE_NUMPAD)
+	{
+
+	}
+	
+	else
+	{
+		uint16_t caret_index = lui_textbox_get_caret_index(btngrid->kb_data->target_txtbox);
+		if (strcmp(btn_text, LUI_ICON_ARROW_BACK) == 0)
+		{
+			lui_textbox_set_caret_index(btngrid->kb_data->target_txtbox, --caret_index);
+		}
+		else if (strcmp(btn_text, LUI_ICON_ARROW_FORWARD) == 0)
+		{
+			lui_textbox_set_caret_index(btngrid->kb_data->target_txtbox, ++caret_index);
+		}
+		else if (strcmp(btn_text, LUI_ICON_BACKSPACE) == 0)
+		{
+			if (caret_index > 0)
+			{
+				lui_textbox_set_caret_index(btngrid->kb_data->target_txtbox, --caret_index);
+				lui_textbox_delete_char(btngrid->kb_data->target_txtbox);
+			}
+		}
+		else if (strcmp(btn_text, LUI_ICON_RETURN_DOWN_BACK) == 0)
+		{
+			lui_textbox_insert_char(btngrid->kb_data->target_txtbox, '\n');
+			lui_textbox_set_caret_index(btngrid->kb_data->target_txtbox, ++caret_index);
+		}
+		else if (strcmp(btn_text, "ABC") == 0 || strcmp(btn_text, "abc") == 0 || strcmp(btn_text, "1#") == 0 )
+		{
+			if (strcmp(btn_text, "1#") == 0)
+			{
+				btngrid->kb_data->keyboard_mode = LUI_KEYBOARD_MODE_TXT_SPCL;
+				btngrid->texts = kb_spcl_textmap;
+			}
+			else if (strcmp(btn_text, "ABC") == 0)
+			{
+				btngrid->kb_data->keyboard_mode = LUI_KEYBOARD_MODE_TXT_UPPER;
+				btngrid->texts = kb_txt_upper_textmap;
+			}
+			else
+			{
+				btngrid->kb_data->keyboard_mode = LUI_KEYBOARD_MODE_TXT_LOWER;
+				btngrid->texts = kb_txt_lower_textmap;
+			}
+			obj_sender->needs_refresh = 1;
+			btngrid->needs_full_render = 1;
+		}
+		else
+		{
+			lui_textbox_insert_char(btngrid->kb_data->target_txtbox, btn_text[0]);
+			lui_textbox_set_caret_index(btngrid->kb_data->target_txtbox, lui_textbox_get_caret_index(btngrid->kb_data->target_txtbox) + 1);
+		}
+	}
+
+}
+// TODO : Complete keyboard implementation, also complete textbox
+lui_obj_t* lui_keyboard_create()
+{
+	// if total created objects become more than max allowed objects, don't create the object
+	if ( g_lui_main->total_created_objects + 1 > LUI_MAX_OBJECTS)
+		return NULL;
+	 g_lui_main->total_created_objects++;
+
+	lui_keyboard_t* initial_kb =  _lui_mem_alloc(sizeof(*initial_kb));
+	if (initial_kb == NULL)
+		return NULL;
+	initial_kb->target_txtbox = NULL;
+	initial_kb->keyboard_mode = LUI_KEYBOARD_MODE_TXT_LOWER;
+	
+	lui_obj_t* obj_btngrid = lui_btngrid_create();
+	if (obj_btngrid == NULL)
+		return NULL;
+	((lui_btngrid_t* )(obj_btngrid->obj_main_data))->kb_data = initial_kb;
+	uint16_t h = 0.4 * (float)g_lui_main->disp_drv->display_vert_res;
+	lui_object_set_position(obj_btngrid, 0, (g_lui_main->disp_drv->display_vert_res - h) - 2);
+	lui_object_set_area(obj_btngrid, g_lui_main->disp_drv->display_hor_res, h);
+	lui_btngrid_set_textmap(obj_btngrid, kb_txt_lower_textmap);
+	lui_btngrid_set_propertymap(obj_btngrid, kb_txt_propertymap);
+	lui_object_set_callback(obj_btngrid, lui_keyboard_sys_cb);
+	
+	return  obj_btngrid;
+}
+
+void lui_keyboard_set_font(lui_obj_t* obj, const lui_font_t* font)
+{
+	lui_btngrid_set_font(obj, font);
+}
+
+const char* lui_keyboard_get_key_text(lui_obj_t* obj, uint8_t btn_index)
+{
+	if (obj == NULL)
+		return NULL;
+	// type check
+	if (obj->obj_type != LUI_OBJ_BTNGRID)
+		return NULL;
+	
+	lui_btngrid_t* btngrid = obj->obj_main_data;
+
+	uint8_t counter = 0;
+	uint8_t txt_index = 0;
+	while (counter <= btn_index)
+	{
+		if ((strcmp(btngrid->texts[txt_index], "\0") == 0))
+		{
+			return NULL;
+		}
+		if ((strcmp(btngrid->texts[txt_index], "\n") != 0))
+		{
+			++counter;
+		}
+		++txt_index;
+	}
+
+	return btngrid->texts[--txt_index];
+}
+
+void lui_keyboard_set_target_txtbox(lui_obj_t* obj_kb, lui_obj_t* obj_txtbox)
+{
+	if (obj_kb == NULL || obj_txtbox == NULL)
+		return;
+	// type check
+	if (obj_kb->obj_type != LUI_OBJ_BTNGRID || obj_txtbox->obj_type != LUI_OBJ_TEXTBOX)
+		return;
+
+	lui_btngrid_t* btngrid_kb = obj_kb->obj_main_data;
+
+	btngrid_kb->kb_data->target_txtbox = obj_txtbox;
+}
 
 
 
@@ -2193,7 +2397,7 @@ void lui_textbox_draw(lui_obj_t* obj)
 		txtbox->needs_full_render = 0;
 	}
 
-	if (txtbox->text_buffer == NULL || txtbox->font == NULL)
+	if (txtbox->text_buffer == NULL)
 		return;
 
 	uint8_t txt_is_bg = 0;
@@ -2209,48 +2413,45 @@ void lui_textbox_draw(lui_obj_t* obj)
 		txt_is_bg = 0;
 	}
 
-	uint8_t pad_x = 4;
-	uint16_t caret_x = obj->x + pad_x;
-	uint16_t caret_y = obj->y;
-	uint8_t caret_h = txtbox->font->chars[0].image->height;
-	uint8_t caret_w = 2;
+	uint8_t pad = 20;
+	uint16_t caret_x = obj->x + pad;
+	uint16_t caret_y = obj->y + pad;
+	uint8_t caret_h = txtbox->font->bitmap->size_y;
+	uint8_t caret_w = 4;
 	uint8_t glyph_w = 0;
 	uint8_t glyph_h = 0;
 
-	lui_gfx_draw_string_advanced(txtbox->text_buffer, obj->x + pad_x, obj->y, obj->common_style.width - 2*pad_x, 
-									obj->common_style.height, txtbox->style.text_color, 
-									obj->common_style.bg_color, txt_is_bg, txtbox->font);
+	lui_gfx_draw_string_advanced(txtbox->text_buffer, obj->x + pad, obj->y + pad, obj->common_style.width - 2*pad, 
+									obj->common_style.height - 2*pad, txtbox->style.text_color, 
+									obj->common_style.bg_color, 1, txtbox->font);
 	
 	/* Calculate caret coordinates */
 	for (uint16_t i = 0; i < txtbox->caret_index; i++)
 	{
 		if (txtbox->text_buffer[i] == '\n')
 		{
-			caret_x = obj->x + pad_x;
-			caret_y += (txtbox->font->chars[0].image->height);	//go to next row (row height = height of space)
+			caret_x = obj->x + pad;
+			caret_y += (txtbox->font->bitmap->size_y);	//go to next row (row height = height of space)
 		}
 		else
 		{
 			// Find the glyph for the char from the font
-			for (uint8_t j = 0; j < txtbox->font->length; j++)
-			{
-				if (txtbox->font->chars[j].code == txtbox->text_buffer[i])
-				{
-					glyph_w = txtbox->font->chars[j].image->width;
-					glyph_h = txtbox->font->chars[j].image->height;
-					break;
-				}
-			}
+			_lui_glyph_t* glyph = _lui_gfx_get_glyph_from_char(txtbox->text_buffer[i], txtbox->font);
+			glyph_h = txtbox->font->bitmap->size_y;
+			if (glyph == NULL)
+				glyph_w = txtbox->font->bitmap->size_y / 2;
+			else
+				glyph_w = glyph->width;
 
 
 			// check if not enough space available at the right side
-			if (caret_x + glyph_w > obj->x + obj->common_style.width - pad_x)
+			if (caret_x + glyph_w > obj->x + obj->common_style.width - pad)
 			{
-				caret_x = obj->x + pad_x;			//go to first col
+				caret_x = obj->x + pad;			//go to first col
 				caret_y += glyph_h;					//go to next row
 
 				// check if not enough space available at the bottom
-				if(caret_y + glyph_h > obj->y + obj->common_style.height)
+				if(caret_y + glyph_h > obj->y + obj->common_style.height - pad)
 				{
 					break;
 				}
@@ -2264,10 +2465,10 @@ void lui_textbox_draw(lui_obj_t* obj)
 	if (caret_x > obj->x)
 		--caret_x;
 	/* Draw the caret now, only if the caret does not go out of the boundary */
-	if ((caret_x + caret_w < obj->x + obj->common_style.width - pad_x) &&
+	if ((caret_x + caret_w < obj->x + obj->common_style.width - pad) &&
 		(caret_y + caret_h - 1 < obj->y + obj->common_style.height))
 	{
-		lui_gfx_draw_line(caret_x, caret_y + 1, caret_x, caret_y + caret_h - 1, caret_w, ~(obj->common_style.bg_color));
+		lui_gfx_draw_line(caret_x + 2, caret_y + 1, caret_x + 2, caret_y + caret_h - 1, caret_w, ~(obj->common_style.bg_color));
 		//lui_gfx_draw_char(txtbox->text_buffer[txtbox->caret_index], caret_x, caret_y, obj->common_style.bg_color, txtbox->style.text_color, 1, txtbox->font);
 	}
 }
@@ -2284,11 +2485,11 @@ lui_obj_t* lui_textbox_create()
 	if (initial_textbox == NULL)
 		return NULL;
 	
-	initial_textbox->style.text_color = lui_rgb(200, 50, 50);
+	initial_textbox->style.text_color = LUI_STYLE_TEXTBOX_TEXT_COLOR;
 	initial_textbox->text_buffer = NULL;
 	initial_textbox->caret_index = 0;
 	initial_textbox->edit_operation = 0;
-	initial_textbox->font = NULL;
+	initial_textbox->font = g_lui_main->default_font;
 	initial_textbox->max_len = 0;
 	initial_textbox->used_chars = 1;
 	initial_textbox->edit_len = 0;
@@ -2301,11 +2502,11 @@ lui_obj_t* lui_textbox_create()
 	obj->obj_type = LUI_OBJ_TEXTBOX;
 	obj->enabled = 1;
 	// object common style
-	obj->common_style.bg_color = lui_rgb(255, 255, 255);
-	obj->common_style.border_color = lui_rgb(255, 0, 0);
-	obj->common_style.border_visible = 1;
-	obj->common_style.width = 100;
-	obj->common_style.height = 48;
+	obj->common_style.bg_color = LUI_STYLE_TEXTBOX_BG_COLOR;
+	obj->common_style.border_color = LUI_STYLE_TEXTBOX_BORDER_COLOR;
+	obj->common_style.border_visible = LUI_STYLE_TEXTBOX_BORDER_VISIBLE;
+	obj->common_style.width = LUI_STYLE_TEXTBOX_WIDTH;
+	obj->common_style.height = LUI_STYLE_TEXTBOX_HEIGHT;
 
 	obj->obj_main_data = (void* )initial_textbox;
 
@@ -2329,7 +2530,18 @@ void lui_textbox_set_caret_index(lui_obj_t* obj, uint16_t caret_index)
 	if (caret_index > txtbox->used_chars - 1)
 		txtbox->caret_index = txtbox->used_chars - 1;
 	
-	obj->needs_refresh = 1;
+	_lui_object_set_need_refresh(obj);
+}
+
+uint16_t lui_textbox_get_caret_index(lui_obj_t* obj)
+{
+	if (obj == NULL)
+		return 0;
+	// type check
+	if (obj->obj_type != LUI_OBJ_TEXTBOX)
+		return 0;
+	lui_textbox_t* txtbox = (lui_textbox_t* )obj->obj_main_data;
+	return txtbox->caret_index;
 }
 
 void lui_textbox_insert_char(lui_obj_t* obj, char c)
@@ -2352,7 +2564,29 @@ void lui_textbox_insert_char(lui_obj_t* obj, char c)
 	txtbox->text_buffer[txtbox->caret_index] = c;
 	++(txtbox->used_chars);
 
-	obj->needs_refresh = 1;
+	_lui_object_set_need_refresh(obj);
+}
+
+void lui_textbox_delete_char(lui_obj_t* obj)
+{
+	if (obj == NULL)
+		return;
+	// type check
+	if (obj->obj_type != LUI_OBJ_TEXTBOX)
+		return;
+	if (((lui_textbox_t* )obj->obj_main_data)->text_buffer == NULL)
+		return;
+	
+	lui_textbox_t* txtbox = (lui_textbox_t* )obj->obj_main_data;
+	if (txtbox->used_chars <= 1)
+		return;
+	for (int32_t i = txtbox->caret_index; i < txtbox->used_chars; i++)
+	{
+		txtbox->text_buffer[i] = txtbox->text_buffer[i + 1];
+	}
+	--(txtbox->used_chars);
+
+	_lui_object_set_need_refresh(obj);
 }
 
 void lui_textbox_insert_string(lui_obj_t* obj, char* str, uint16_t len)
@@ -2375,7 +2609,7 @@ void lui_textbox_insert_string(lui_obj_t* obj, char* str, uint16_t len)
 	}
 	/* Restore the original caret index */
 	txtbox->caret_index = caret_index;
-	obj->needs_refresh = 1;
+	_lui_object_set_need_refresh(obj);
 }
 
 void lui_textbox_set_text_buffer(lui_obj_t* obj, char* text_buffer, uint16_t buff_size)
@@ -2393,10 +2627,10 @@ void lui_textbox_set_text_buffer(lui_obj_t* obj, char* text_buffer, uint16_t buf
 	txtbox->used_chars = 1;
 	txtbox->caret_index = 0;
 
-	obj->needs_refresh = 1;
+	_lui_object_set_need_refresh(obj);
 }
 
-void lui_textbox_set_font(lui_obj_t* obj, const tFont* font)
+void lui_textbox_set_text_color(lui_obj_t* obj, uint16_t text_color)
 {
 	if (obj == NULL)
 		return;
@@ -2404,9 +2638,25 @@ void lui_textbox_set_font(lui_obj_t* obj, const tFont* font)
 	if (obj->obj_type != LUI_OBJ_TEXTBOX)
 		return;
 
-	lui_textbox_t* txtbox = (lui_textbox_t* )obj->obj_main_data;
+	lui_textbox_t* txtbox = obj->obj_main_data;
+	txtbox->style.text_color = text_color;
+	_lui_object_set_need_refresh(obj);
+	txtbox->needs_full_render = 1;
+}
+
+void lui_textbox_set_font(lui_obj_t* obj, const lui_font_t* font)
+{
+	if (obj == NULL)
+		return;
+	if (font == NULL)
+		return;
+	// type check
+	if (obj->obj_type != LUI_OBJ_TEXTBOX)
+		return;
+
+	lui_textbox_t* txtbox = obj->obj_main_data;
 	txtbox->font = font;
-	obj->needs_refresh = 1;
+	_lui_object_set_need_refresh(obj);
 	txtbox->needs_full_render = 1;
 }
 
@@ -2490,7 +2740,7 @@ lui_obj_t* lui_scene_create()
 	if (initial_scene == NULL)
 		return NULL;
 
-	initial_scene->font = NULL;
+	initial_scene->font = g_lui_main->default_font;
 	initial_scene->bg_image = NULL;
 	initial_scene->obj_popup = NULL;
 	initial_scene->popup_type_locked = 1;
@@ -2534,7 +2784,7 @@ void lui_scene_draw(lui_obj_t* obj)
 	// TBD: draw background image
 }
 
-void lui_scene_set_bg_image(lui_obj_t* obj_scene, const tImage* image)
+void lui_scene_set_bg_image(lui_obj_t* obj_scene, const lui_bitmap_t* image)
 {
 	// NOTE: image rendering is not implemented yet
 	if (obj_scene == NULL)
@@ -2545,22 +2795,23 @@ void lui_scene_set_bg_image(lui_obj_t* obj_scene, const tImage* image)
 		return;
 	
 	lui_scene_t* scene = (lui_scene_t* )(obj_scene->obj_main_data);
-	scene->bg_image = (tImage* )image;
+	scene->bg_image = (lui_bitmap_t* )image;
 
 	_lui_object_set_need_refresh(obj_scene); 
 }
 
-void lui_scene_set_font(lui_obj_t* obj_scene, const tFont* font)
+void lui_scene_set_font(lui_obj_t* obj_scene, const lui_font_t* font)
 {
 	if (obj_scene == NULL)
 		return;
-	
+	if (font == NULL)
+		return;
 	// type check
 	if (obj_scene->obj_type != LUI_OBJ_SCENE)
 		return;
 	
 	lui_scene_t* scene = (lui_scene_t* )(obj_scene->obj_main_data);
-	scene->font = (tFont* )font;
+	scene->font = font;
 	
 	_lui_object_set_need_refresh(obj_scene); 
 }
@@ -2763,7 +3014,6 @@ void* lui_object_destroy(lui_obj_t* obj)
 	return NULL;
 }
 
-
 void lui_object_set_position(lui_obj_t* obj, uint16_t x, uint16_t y)
 {
 	if (obj == NULL)
@@ -2928,52 +3178,28 @@ int8_t lui_object_get_event(lui_obj_t* obj)
 	return obj->event;
 }
 
-void lui_object_set_visibility(lui_obj_t* obj, uint8_t visible)
+void lui_object_set_visibility(lui_obj_t* obj, uint8_t is_visible)
 {
 	if (obj == NULL)
 		return;
 
 	// already flag is same as `visible`, no need to waste time in loop. Return.
-	if (obj->visible == visible)
+	if (obj->visible == is_visible)
 		return;
 
-	obj->visible = visible;
-	obj->needs_refresh = 1;
-	if (obj->obj_type == LUI_OBJ_BTNGRID)
+	obj->visible = is_visible;
+
+	/**
+	 * @brief When object becomes visible, set needs_refresh bit for itself recursively. 
+	 * When object becomes invisble, set needs_refresh bit for its parent recursively.
+	 */
+	if (is_visible)
 	{
-		((lui_btngrid_t* )(obj->obj_main_data))->needs_full_render = 1;
+		_lui_object_set_need_refresh(obj);
 	}
-
-	lui_obj_t* child_of_root = obj->first_child;
-	while (child_of_root != NULL)
+	else
 	{
-		lui_obj_t* obj_stack[LUI_MAX_OBJECTS] = {NULL};
-		uint8_t stack_counter = 0;
-		obj_stack[stack_counter++] = child_of_root;
-		child_of_root = child_of_root->next_sibling;
-
-		while (stack_counter > 0)
-		{
-			// pop from stack
-			lui_obj_t* child = obj_stack[--stack_counter]; 
-			child->visible = visible;
-			child->needs_refresh = 1;
-			if (obj->obj_type == LUI_OBJ_BTNGRID)
-			{
-				((lui_btngrid_t* )(obj->obj_main_data))->needs_full_render = 1;
-			}
-
-			// get the child of current object
-			child = child->first_child;
-			// push all children of current object into stack too
-			while (child != NULL)
-			{
-				// push child to stack
-				obj_stack[stack_counter++] = child; 
-				// get sibling of the child
-				child = child->next_sibling;
-			}
-		}
+		_lui_object_set_need_refresh(obj->parent);
 	}
 }
 
@@ -3014,10 +3240,10 @@ lui_obj_t* _lui_process_input_of_act_scene()
 	{
 		input_dev_type = LUI_INPUT_TYPE_TOUCH;
 	}
-	else if (g_lui_main->encoder_input_dev != NULL)
-	{
-		input_dev_type = LUI_INPUT_TYPE_ENCODER;
-	}
+	// else if (g_lui_main->encoder_input_dev != NULL)
+	// {
+	// 	input_dev_type = LUI_INPUT_TYPE_ENCODER;
+	// }
 	else
 	{
 		return NULL;
@@ -3038,33 +3264,33 @@ lui_obj_t* _lui_process_input_of_act_scene()
 		g_lui_main->touch_input_dev->read_touch_input_cb(&input_touch_data);
 		input_is_pressed = input_touch_data.is_pressed;
 	}
-	else if (input_dev_type == LUI_INPUT_TYPE_ENCODER)
-	{
-		g_lui_main->encoder_input_dev->read_encoder_input_cb(&input_encoder_data);
-		input_is_pressed = input_encoder_data.is_pressed;
+	// else if (input_dev_type == LUI_INPUT_TYPE_ENCODER)
+	// {
+	// 	g_lui_main->encoder_input_dev->read_encoder_input_cb(&input_encoder_data);
+	// 	input_is_pressed = input_encoder_data.is_pressed;
 
-		if (scene_main_data->obj_popup != NULL)
-		{
-			lui_panel_t* panel_main_data = scene_main_data->obj_popup->obj_main_data;
-			encoder_processed = &(panel_main_data->encoder);
-		}
-		else
-		{
-			lui_scene_t* scene_main_data = g_lui_main->active_scene->obj_main_data;
-			encoder_processed = &(scene_main_data->encoder);
-		}
-		/* Increase/decrease index only if object is not in ENTERED state */
-		if (encoder_processed->object_state != LUI_STATE_ENTERED)
-		{
-			encoder_processed->current_encoder_index += input_encoder_data.steps;
-		}
-		/* Set the index to 0 in case of overflow/underflow */
-		if (encoder_processed->current_encoder_index > encoder_processed->max_encoder_index ||
-			encoder_processed->current_encoder_index < 0)
-		{
-			encoder_processed->current_encoder_index = 0;
-		}
-	}
+	// 	if (scene_main_data->obj_popup != NULL)
+	// 	{
+	// 		lui_panel_t* panel_main_data = scene_main_data->obj_popup->obj_main_data;
+	// 		encoder_processed = &(panel_main_data->encoder);
+	// 	}
+	// 	else
+	// 	{
+	// 		lui_scene_t* scene_main_data = g_lui_main->active_scene->obj_main_data;
+	// 		encoder_processed = &(scene_main_data->encoder);
+	// 	}
+	// 	/* Increase/decrease index only if object is not in ENTERED state */
+	// 	if (encoder_processed->object_state != LUI_STATE_ENTERED)
+	// 	{
+	// 		encoder_processed->current_encoder_index += input_encoder_data.steps;
+	// 	}
+	// 	/* Set the index to 0 in case of overflow/underflow */
+	// 	if (encoder_processed->current_encoder_index > encoder_processed->max_encoder_index ||
+	// 		encoder_processed->current_encoder_index < 0)
+	// 	{
+	// 		encoder_processed->current_encoder_index = 0;
+	// 	}
+	// }
 
 	
 
@@ -3092,10 +3318,10 @@ lui_obj_t* _lui_process_input_of_act_scene()
 		{
 			_lui_set_obj_props_on_touch_input(&input_touch_data, last_active_obj);
 		}
-		else if (input_dev_type == LUI_INPUT_TYPE_ENCODER)
-		{
-			_lui_set_obj_props_on_encoder_input(&input_encoder_data, encoder_processed, last_active_obj);
-		}
+		// else if (input_dev_type == LUI_INPUT_TYPE_ENCODER)
+		// {
+		// 	_lui_set_obj_props_on_encoder_input(&input_encoder_data, encoder_processed, last_active_obj);
+		// }
 
 		if (last_active_obj->event != LUI_EVENT_NONE)
 		{
@@ -3118,6 +3344,7 @@ lui_obj_t* _lui_process_input_of_act_scene()
 
 	if (scan_all_objs_flag)
 	{
+		// TODO : use Top-layer instead of popup and mage things accordingly.
 		// if popup exists, only scan input for popup (and its children)
 		if (scene_main_data->obj_popup != NULL)
 		{
@@ -3131,10 +3358,10 @@ lui_obj_t* _lui_process_input_of_act_scene()
 					{
 						obj_is_active = _lui_check_if_active_obj_touch_input(&input_touch_data, scene_main_data->obj_popup);
 					}
-					else if (input_dev_type == LUI_INPUT_TYPE_ENCODER)
-					{
-						obj_is_active = _lui_check_if_active_obj_encoder_input(encoder_processed, scene_main_data->obj_popup);
-					}
+					// else if (input_dev_type == LUI_INPUT_TYPE_ENCODER)
+					// {
+					// 	obj_is_active = _lui_check_if_active_obj_encoder_input(encoder_processed, scene_main_data->obj_popup);
+					// }
 
 					if (!obj_is_active)
 					{
@@ -3181,15 +3408,17 @@ lui_obj_t* _lui_process_input_of_act_scene()
 
 }
 
-
 lui_obj_t* _lui_scan_all_obj_for_input(lui_touch_input_data_t* touch_input_data, lui_encoder_input_data_t* encoder_input_data, _lui_encoder_processed_t* encoder_processed, lui_obj_t* obj_root, lui_obj_t* obj_excluded)
 {
 	// Note: This function is made by converting a tail-recursive function to iterative function
 	// The simple way is to use a stack.
 	// see the answer: https://codereview.stackexchange.com/a/163621
+
+	if (obj_root == obj_excluded)
+		return NULL;
 	lui_obj_t* obj_caused_cb = NULL;
 
-	obj_caused_cb = _lui_scan_individual_object_for_input(touch_input_data, encoder_input_data, encoder_processed, obj_root, obj_excluded);
+	obj_caused_cb = _lui_scan_individual_object_for_input(touch_input_data, encoder_input_data, encoder_processed, obj_root);
 	if (obj_caused_cb != NULL)
 		return obj_caused_cb;
 
@@ -3198,7 +3427,10 @@ lui_obj_t* _lui_scan_all_obj_for_input(lui_touch_input_data_t* touch_input_data,
 	{
 		lui_obj_t* obj_stack[LUI_MAX_OBJECTS] = {NULL};
 		uint8_t stack_counter = 0;
-		obj_stack[stack_counter++] = child_of_root;
+		if (child_of_root != obj_excluded)
+		{
+			obj_stack[stack_counter++] = child_of_root;
+		}
 		child_of_root = child_of_root->next_sibling;
 		
 		// loop until stack is empty. in this way all children (and their children too) will be traversed
@@ -3207,7 +3439,7 @@ lui_obj_t* _lui_scan_all_obj_for_input(lui_touch_input_data_t* touch_input_data,
 			// pop from stack
 			lui_obj_t* child = obj_stack[--stack_counter]; 
 
-			obj_caused_cb = _lui_scan_individual_object_for_input(touch_input_data, encoder_input_data, encoder_processed, child, obj_excluded);
+			obj_caused_cb = _lui_scan_individual_object_for_input(touch_input_data, encoder_input_data, encoder_processed, child);
 			if (obj_caused_cb != NULL)
 				return obj_caused_cb;
 
@@ -3216,8 +3448,11 @@ lui_obj_t* _lui_scan_all_obj_for_input(lui_touch_input_data_t* touch_input_data,
 			// push all children of current object into stack too
 			while (child != NULL)
 			{
-				// push child to stack
-				obj_stack[stack_counter++] = child; 
+				// push child to stack, only if it's not excluded
+				if (child != obj_excluded)
+				{
+					obj_stack[stack_counter++] = child;
+				}
 				// get sibling of the child
 				child = child->next_sibling;
 			}
@@ -3228,13 +3463,9 @@ lui_obj_t* _lui_scan_all_obj_for_input(lui_touch_input_data_t* touch_input_data,
 	return obj_caused_cb;
 }
 
-lui_obj_t* _lui_scan_individual_object_for_input(lui_touch_input_data_t* touch_input_data, lui_encoder_input_data_t* encoder_input_data, _lui_encoder_processed_t* encoder_processed, lui_obj_t* obj, lui_obj_t* obj_excluded)
+lui_obj_t* _lui_scan_individual_object_for_input(lui_touch_input_data_t* touch_input_data, lui_encoder_input_data_t* encoder_input_data, _lui_encoder_processed_t* encoder_processed, lui_obj_t* obj)
 {
 	lui_obj_t* obj_caused_cb = NULL;
-	// if current object is == last_active_object, continue. because, last_active_object is already processed
-	if (obj == obj_excluded)
-		return NULL;
-
 	if (!(obj->enabled) || !(obj->visible))
 	{
 		return NULL;
@@ -3733,7 +3964,7 @@ void lui_encoder_inputdev_register(lui_encoder_input_dev_t* inputdev)
 {
 	if (inputdev == NULL)
 		return;
-	 g_lui_main->encoder_input_dev = inputdev;
+	 //g_lui_main->encoder_input_dev = inputdev;
 }
 
 void lui_encoder_inputdev_set_read_input_cb(lui_encoder_input_dev_t* inputdev, void (*read_encoder_input_cb)(lui_encoder_input_data_t* inputdata))
@@ -3757,16 +3988,28 @@ void _lui_object_render_parent_with_children(lui_obj_t* obj_parent)
 {
 	if (obj_parent == NULL)
 		return;
+	if (!obj_parent->visible)
+		return;
 
 	// first render the parent, then render all its children in a loop
 	_lui_object_render(obj_parent);
+
+	/**
+	 * NOTE: objects are added to render stack only if they're visible.
+	 * That means, if a parent is not visible, its children also won't be 
+	 * added to the render stack, even if those children are visible.
+	 */
 
 	lui_obj_t* child_of_root = obj_parent->first_child;
 	while (child_of_root != NULL)
 	{
 		lui_obj_t* obj_stack[LUI_MAX_OBJECTS] = {NULL};
 		uint8_t stack_counter = 0;
-		obj_stack[stack_counter++] = child_of_root;
+		/* Push child in stack, but only if it's visible */
+		if (child_of_root->visible)
+		{
+			obj_stack[stack_counter++] = child_of_root;
+		}
 		child_of_root = child_of_root->next_sibling;
 
 		while (stack_counter > 0)
@@ -3781,8 +4024,11 @@ void _lui_object_render_parent_with_children(lui_obj_t* obj_parent)
 			// push all children of current object into stack too
 			while (child != NULL)
 			{
-				// push child to stack
-				obj_stack[stack_counter++] = child; 
+				// push child to stack, but only if it is visible
+				if (child->visible)
+				{
+					obj_stack[stack_counter++] = child;
+				}
 				// get sibling of the child
 				child = child->next_sibling;
 			}
@@ -3845,19 +4091,30 @@ void _lui_object_set_need_refresh(lui_obj_t* obj)
 {
 	if (obj == NULL)
 		return;
-
-	// already flag is 1, no need to waste time in loop. Return.
+	/* already flag is 1, no need to waste time in loop. Return. */
 	if (obj->needs_refresh == 1)
+		return;
+	/* Object's visibility is 0, return */
+	if (!obj->visible)
 		return;
 
 	obj->needs_refresh = 1;
+
+	/**
+	 * NOTE: needs_refresh_bit is set to 1 only when object is visible.
+	 * If a parent is invisible, its children's needs_refresh bit won't be changed too.
+	 */
 
 	lui_obj_t* child_of_root = obj->first_child;
 	while (child_of_root != NULL)
 	{
 		lui_obj_t* obj_stack[LUI_MAX_OBJECTS] = {NULL};
 		uint8_t stack_counter = 0;
-		obj_stack[stack_counter++] = child_of_root;
+		// push child to stack, but only if it's visible
+		if (child_of_root->visible)
+		{
+			obj_stack[stack_counter++] = child_of_root;
+		}
 		child_of_root = child_of_root->next_sibling;
 
 		while (stack_counter > 0)
@@ -3866,13 +4123,26 @@ void _lui_object_set_need_refresh(lui_obj_t* obj)
 			lui_obj_t* child = obj_stack[--stack_counter]; 
 			child->needs_refresh = 1;
 
+			/* When child is either btngrid or textbox, set needs_full_render bit to 1 */
+			if (child->obj_type == LUI_OBJ_BTNGRID)
+			{
+				((lui_btngrid_t* )(child->obj_main_data))->needs_full_render = 1;
+			}
+			else if (obj->obj_type == LUI_OBJ_TEXTBOX)
+			{
+				((lui_textbox_t* )(child->obj_main_data))->needs_full_render = 1;
+			}
+
 			// get the child of current object
 			child = child->first_child;
 			// push all children of current object into stack too
 			while (child != NULL)
 			{
-				// push child to stack
-				obj_stack[stack_counter++] = child; 
+				/* push child to stack, but only if it's visible */
+				if (child->visible)
+				{
+					obj_stack[stack_counter++] = child;
+				}
 				// get sibling of the child
 				child = child->next_sibling;
 			}
@@ -3880,7 +4150,7 @@ void _lui_object_set_need_refresh(lui_obj_t* obj)
 	}
 }
 
-tFont* _lui_get_font_from_active_scene()
+lui_font_t* _lui_get_font_from_active_scene()
 {
 	if ( g_lui_main->active_scene == NULL)
 		return NULL;
@@ -3980,12 +4250,12 @@ uint8_t _lui_get_event_against_state(uint8_t new_state, uint8_t old_state)
 	return event;
 }
 
-void lui_gfx_draw_string_advanced(const char* str, uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t fore_color, uint16_t bg_color, uint8_t is_bg, const tFont* font)
+void lui_gfx_draw_string_advanced(const char* str, uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t fore_color, uint16_t bg_color, uint8_t is_bg, const lui_font_t* font)
 {
-	const tImage* img = {0};
-	uint16_t glyph_width = 0, glyph_height = 0;
 	uint16_t x_temp = x;
 	uint16_t y_temp = y;
+    const _lui_glyph_t *glyph;
+
 	if (w == 0 || h == 0)
 	{
 		uint16_t max_w = w == 0 ? g_lui_main->disp_drv->display_hor_res - x : w;
@@ -4005,135 +4275,128 @@ void lui_gfx_draw_string_advanced(const char* str, uint16_t x, uint16_t y, uint1
 	
 	// Scan chars one by one from the string
 	//char
-	for (uint16_t char_cnt = 0; *(str+char_cnt) != '\0'; char_cnt++)
+	for (uint16_t char_cnt = 0; *str != '\0'; char_cnt++)
 	{
-		if (*(str+char_cnt) == '\n')
+		if (*str == '\n')
 		{
 			x_temp = x;					//go to first col
-			y_temp += (font->chars[0].image->height);	//go to next row (row height = height of space)
+			y_temp += (font->bitmap->size_y);	//go to next row (row height = height of space)
 		}
 		else
 		{
-			// Find the glyph for the char from the font
-			for (uint8_t i = 0; i < font->length; i++)
-			{
-				if (font->chars[i].code == *(str+char_cnt))
-				{
-					img = font->chars[i].image;
-					break;
-				}
-			}
-			glyph_width = img->width;
-			glyph_height = img->height;
-
-
+			uint8_t glyph_width = 0;
+            glyph = _lui_gfx_get_glyph_from_char(*str, font);
+			if (glyph == NULL)
+				glyph_width = font->bitmap->size_y / 2;
+			else
+				glyph_width = glyph->width;
 			// check if not enough space available at the right side
 			if (x_temp + glyph_width > x + w)
 			{
 				x_temp = x;					//go to first col
-				y_temp += glyph_height;	//go to next row
+				y_temp += font->bitmap->size_y;	//go to next row
 
 				// check if not enough space available at the bottom
-				if(y_temp + glyph_height > y + h)
+				if(y_temp + font->bitmap->size_y > y + h)
 					return;
 			}
 
-			_lui_gfx_render_char_glyph(x_temp, y_temp, fore_color, 0, 0, img);
+			_lui_gfx_render_char_glyph(x_temp, y_temp, fore_color, 0, 0, glyph, font);
 
 			x_temp += glyph_width;		//next char position
 		}
+
+        str++;
 	}
 }
 
-void lui_gfx_draw_string_simple(const char* str, uint16_t x, uint16_t y, uint16_t fore_color, const tFont* font)
+
+void lui_gfx_draw_string_simple(const char* str, uint16_t x, uint16_t y, uint16_t fore_color, const lui_font_t* font)
 {
 	lui_gfx_draw_string_advanced(str, x, y, 0, 0, fore_color, 0, 0, font);
 }
 
-void lui_gfx_draw_char(char c, uint16_t x, uint16_t y, uint16_t fore_color, uint16_t bg_color, uint8_t is_bg, const tFont* font)
+void lui_gfx_draw_char(char c, uint16_t x, uint16_t y, uint16_t fore_color, uint16_t bg_color, uint8_t is_bg, const lui_font_t* font)
 {
 	if (c == '\0')
 		return;
-	for (uint8_t i = 0; i < font->length; i++)
+	_lui_glyph_t* glyph = _lui_gfx_get_glyph_from_char(c, font);
+	_lui_gfx_render_char_glyph(x, y, fore_color, bg_color, is_bg, glyph, font);
+}
+
+_lui_glyph_t* _lui_gfx_get_glyph_from_char(char c, const lui_font_t* font)
+{
+	_lui_glyph_t* glyph = NULL;
+	uint8_t i = 0;
+	while (i < font->glyph_count)
 	{
-		if (font->chars[i].code == c)
+		if (font->glyphs[i].character == c)
 		{
-			_lui_gfx_render_char_glyph(x, y, fore_color, bg_color, is_bg, font->chars[i].image);
+			glyph = &(font->glyphs[i]);
 			break;
 		}
+		
+		++i;
 	}
+	return glyph;
 }
 
 /*
- * Draws a character glyph in left-to-right order
+ * Draws a character glyph in top-to-bottom, left-to-right order
  * Monochrome fonts generated with lcd-image-converter software are supported only
  * Font must be generated by scanning from left to right
  *
  * Returns the last written pixel's X position
  */
-void _lui_gfx_render_char_glyph(uint16_t x, uint16_t y, uint16_t fore_color, uint16_t bg_color, uint8_t is_bg, const tImage* glyph)
+void _lui_gfx_render_char_glyph(uint16_t x, uint16_t y, uint16_t fore_color, uint16_t bg_color, uint8_t is_bg, const _lui_glyph_t* glyph, const lui_font_t* font)
 {
-	uint16_t width = 0, height = 0;
-
-	width = glyph->width;
-	height = glyph->height;
+	if (font == NULL)
+		return;
+	
+	if (glyph == NULL)
+	{
+		lui_gfx_draw_rect_fill(x, y, font->bitmap->size_y / 2, font->bitmap->size_y, fore_color);
+		return;
+	}
 
 	uint16_t temp_x = x;
 	uint16_t temp_y = y;
 
-	uint8_t mask = 0x80;
-	uint8_t bit_counter = 0;
+	uint16_t width = 0;
+	uint16_t index_offset = 0;
+	width = glyph->width;
+	index_offset = glyph->payload_index;//((height / 8) + (height % 8 ? 1 : 0)) * x_offset;
 
-	const uint8_t* glyph_data_ptr = (const uint8_t* )(glyph->data);
-	uint8_t glyph_data = 0;
 
-	// font bitmaps are stored in column major order (scanned from left-to-right, not the conventional top-to-bottom)
-	// as font glyphs have heigher height than width, this scanning saves some storage.
-	// So, we also render in left-to-right manner.
-
-	// Along x axis (width)
-	for (int i = 0; i < width; i++)
-	{
-		// Along y axis (height)
-		for (int j = 0; j < height; j++)
-		{
-
-			// load new data only when previous byte (or word, depends on glyph->dataSize) is completely traversed by the mask
-			// bit_counter = 0 means glyph_data is completely traversed by the mask
-			if (bit_counter == 0)
-			{
-				glyph_data = *glyph_data_ptr++;
-				bit_counter = glyph->dataSize;
-			}
-			// Decrement bit counter
-			bit_counter--;
-
-			//If pixel is blank
-			if (glyph_data & mask)
-			{
-				// Draw the background color
-				if (is_bg)
-					g_lui_main->disp_drv->draw_pixels_area_cb(temp_x, temp_y, 1, 1, bg_color);
-			}
-
-			//if pixel is not blank
-			else
-			{
-				// Draw the foreground color
-				 g_lui_main->disp_drv->draw_pixels_area_cb(temp_x, temp_y, 1, 1, fore_color);
-			}
-
-			glyph_data <<= 1;
-			temp_y++;
-		}
-
-		//New col starts. So, row is set to initial value and col is increased by one
-		temp_y = y;
-		temp_x++;
-
-		//Reset the bit counter cause we're moving to next column, so we start with a new byte
-		bit_counter = 0;
-	}
+    uint8_t mask = 0x80;
+    uint8_t bit_counter = 0;
+    for (uint8_t w = 0; w < width; w++)
+    {
+        bit_counter = 0;
+        for (uint8_t h = 0; h < font->bitmap->size_y; h++)
+        {
+            if (bit_counter >= 8)   
+            {
+                ++index_offset;
+                bit_counter = 0;
+            }
+            uint8_t bit = mask & (font->bitmap->payload[index_offset] << bit_counter);
+            if (bit)
+            {
+                g_lui_main->disp_drv->draw_pixels_area_cb(temp_x, temp_y, 1, 1, fore_color);
+            }
+            else
+            {
+                if (is_bg)
+                    g_lui_main->disp_drv->draw_pixels_area_cb(temp_x, temp_y, 1, 1, bg_color);
+            }
+            ++bit_counter;
+            ++temp_y;
+        }
+        ++index_offset;
+        ++temp_x;
+        temp_y = y;
+    }
 }
 
 /*
@@ -4141,7 +4404,7 @@ void _lui_gfx_render_char_glyph(uint16_t x, uint16_t y, uint16_t fore_color, uin
  * Width: by adding up the width of each glyph (representing a character)
  * Height: Height of any glyph (representing a character)
  */
-void lui_gfx_get_string_dimension(const char* str, const tFont* font_obj, uint16_t max_w, uint16_t* str_dim)
+void lui_gfx_get_string_dimension(const char* str, const lui_font_t* font, uint16_t max_w, uint16_t* str_dim)
 {
 	str_dim[0] = 0;	// -> width
 	str_dim[1] = 0;	// -> height
@@ -4150,42 +4413,41 @@ void lui_gfx_get_string_dimension(const char* str, const tFont* font_obj, uint16
 	uint16_t temp_w = 0;
 	uint16_t temp_w_highest = 0;
 	// height is the height of space
-	uint16_t temp_h = font_obj->chars[0].image->height;
+	uint16_t temp_h = font->bitmap->size_y;
 
 	// Scan chars one by one from the string
-	for (uint16_t char_cnt = 0; *(str+char_cnt) != '\0'; char_cnt++)
+	while (*str != '\0')
 	{
-		if (*(str+char_cnt) == '\n')
+		if (*str == '\n')
 		{
-			temp_h += font_obj->chars[0].image->height;
+			temp_h += font->bitmap->size_y;
 			temp_w = 0;
 		}
 		else
 		{
-			// Find the glyph for the char from the font
-			for (uint8_t i = 0; i < font_obj->length; i++)
-			{
-				if (font_obj->chars[i].code == *(str+char_cnt))
-				{
-					// Add width of glyphs
-					if (temp_w + font_obj->chars[i].image->width > max_w)
-					{
-						temp_h += font_obj->chars[0].image->height;
-						temp_w = 0;
-						needs_wrap = 1;
-					}
+            uint8_t glyph_width = 0;
+            const _lui_glyph_t* glyph = _lui_gfx_get_glyph_from_char(*str, font);
+			if (glyph == NULL)
+				glyph_width = font->bitmap->size_y / 2;
+			else
+				glyph_width = glyph->width;
 
-					temp_w += font_obj->chars[i].image->width;
-					temp_w_highest = temp_w_highest < temp_w ? temp_w : temp_w_highest;
+            // Add width of glyphs
+            if (temp_w + glyph_width > max_w)
+            {
+                temp_h += font->bitmap->size_y;
+                temp_w = 0;
+                needs_wrap = 1;
+            }
 
-					break;
-				}
-			}
+            temp_w += glyph_width;
+            temp_w_highest = temp_w_highest < temp_w ? temp_w : temp_w_highest;
 		}
+
+        str++;
 	}
 	str_dim[0] = needs_wrap ? max_w : temp_w_highest;
 	str_dim[1] = temp_h; 
-
 }
 
 /*
@@ -4509,6 +4771,215 @@ void _lui_mem_free(void* ptr)
 	}  
 	#endif
 }
+
+//AUTOGENERATED FILE! DO NOT EDIT!
+static const uint8_t lui_default_payload[4164] ={
+0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x1F,0xE6,0x00,0x00,0x06,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x3C,0x00,0x00,0x00,0x00,0x00,0x00,
+0x00,0x00,0x3C,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x02,0x10,0x00,0x02,0x1E,0x00,0x03,0xF0,0x00,0x1E,0x10,0x00,0x02,0x10,0x00,0x02,0x1E,0x00,0x03,0xF8,
+0x00,0x1E,0x10,0x00,0x02,0x10,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x07,0x02,0x00,0x0C,0x82,0x00,0x08,0x42,0x00,0x38,0x43,0x80,0x08,0x42,0x00,0x08,0x26,0x00,
+0x08,0x1C,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x0F,0x00,0x00,0x10,0x80,0x00,0x10,0x82,0x00,0x10,0x8C,0x00,0x0F,0x18,0x00,0x00,0x60,0x00,0x01,0x80,0x00,0x06,
+0x3C,0x00,0x0C,0x42,0x00,0x10,0x42,0x00,0x00,0x42,0x00,0x00,0x3C,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x3C,0x00,0x0F,0x44,0x00,0x11,0x82,0x00,0x10,0xC2,
+0x00,0x10,0xC2,0x00,0x11,0x22,0x00,0x0E,0x14,0x00,0x00,0x08,0x00,0x00,0x74,0x00,0x00,0x02,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x3C,0x00,0x00,0x00,0x00,0x00,
+0x00,0x00,0x00,0x03,0xFC,0x00,0x0C,0x03,0x00,0x30,0x00,0xC0,0x00,0x00,0x40,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x40,0x30,0x00,0xC0,0x0C,0x03,0x00,0x03,
+0xFC,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x04,0x00,0x00,0x04,0x80,0x00,0x03,0x80,0x00,0x1E,0x00,0x00,0x03,0x80,0x00,0x04,0x80,0x00,0x04,0x00,0x00,0x00,0x00,
+0x00,0x00,0x00,0x00,0x00,0x40,0x00,0x00,0x40,0x00,0x00,0x40,0x00,0x03,0xFC,0x00,0x00,0x40,0x00,0x00,0x40,0x00,0x00,0x40,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+0x00,0x00,0x80,0x00,0x07,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x20,0x00,0x00,0x20,0x00,0x00,0x20,0x00,0x00,0x20,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+0x06,0x00,0x00,0x06,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x01,0xC0,0x00,0x07,0x00,0x00,0x38,0x00,0x01,0xC0,0x00,0x0E,0x00,0x00,0x70,0x00,0x00,0x40,0x00,
+0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x07,0xF8,0x00,0x0C,0x0C,0x00,0x10,0x02,0x00,0x10,0x02,0x00,0x10,0x02,0x00,0x0C,0x0C,0x00,0x07,0xF8,0x00,0x00,0x00,0x00,
+0x00,0x00,0x00,0x04,0x00,0x00,0x04,0x00,0x00,0x08,0x00,0x00,0x1F,0xFE,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x08,0x06,0x00,0x10,0x1A,0x00,0x10,0x32,0x00,0x10,
+0x42,0x00,0x18,0x82,0x00,0x0F,0x02,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x08,0x02,0x00,0x10,0x02,0x00,0x10,0x82,0x00,0x10,0x82,0x00,0x19,0x82,0x00,0x0E,0x44,
+0x00,0x00,0x38,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x10,0x00,0x00,0x70,0x00,0x01,0x90,0x00,0x03,0x10,0x00,0x04,0x10,0x00,0x18,0x10,0x00,0x1F,0xFE,0x00,
+0x00,0x10,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x02,0x00,0x1F,0x82,0x00,0x10,0x82,0x00,0x10,0x82,0x00,0x10,0xC2,0x00,0x10,0x44,0x00,0x10,0x38,0x00,0x00,
+0x00,0x00,0x00,0x00,0x00,0x01,0xF8,0x00,0x06,0x84,0x00,0x08,0x82,0x00,0x18,0x82,0x00,0x10,0x82,0x00,0x10,0xC4,0x00,0x00,0x78,0x00,0x00,0x00,0x00,0x00,0x00,
+0x00,0x10,0x00,0x00,0x10,0x00,0x00,0x10,0x1E,0x00,0x10,0xE0,0x00,0x13,0x00,0x00,0x1C,0x00,0x00,0x18,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x0F,0x3C,0x00,
+0x19,0xC6,0x00,0x10,0x82,0x00,0x10,0x82,0x00,0x10,0xC2,0x00,0x18,0xC6,0x00,0x0F,0x3C,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x07,0x82,0x00,0x08,0xC2,0x00,0x10,
+0x42,0x00,0x10,0x44,0x00,0x10,0x44,0x00,0x08,0x58,0x00,0x07,0xE0,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x03,0x06,0x00,0x03,0x06,0x00,0x00,0x00,0x00,0x00,0x00,
+0x00,0x03,0x07,0x80,0x03,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x60,0x00,0x00,0x60,0x00,0x00,0x50,0x00,0x00,0x90,0x00,0x00,0x98,0x00,0x01,0x08,0x00,
+0x01,0x08,0x00,0x01,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x01,0x10,0x00,0x01,0x10,0x00,0x01,0x10,0x00,0x01,0x10,0x00,0x01,0x10,0x00,0x01,0x10,0x00,0x01,
+0x10,0x00,0x01,0x10,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x01,0x00,0x00,0x01,0x08,0x00,0x01,0x08,0x00,0x00,0x98,0x00,0x00,0x90,0x00,0x00,0x50,0x00,0x00,0x60,
+0x00,0x00,0x60,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x10,0x00,0x00,0x10,0x66,0x00,0x10,0x86,0x00,0x11,0x00,0x00,0x0E,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+0x01,0xF8,0x00,0x06,0x06,0x00,0x0C,0x03,0x00,0x08,0x01,0x00,0x10,0xF1,0x80,0x11,0x08,0x80,0x12,0x04,0x80,0x12,0x04,0x80,0x12,0x04,0x80,0x0B,0xF8,0x80,0x0C,
+0x04,0x00,0x06,0x0C,0x00,0x01,0xF0,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x02,0x00,0x00,0x1E,0x00,0x00,0x70,0x00,0x03,0x90,0x00,0x0E,0x10,0x00,0x18,0x10,
+0x00,0x0E,0x10,0x00,0x01,0xD0,0x00,0x00,0x78,0x00,0x00,0x0E,0x00,0x00,0x02,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x1F,0xFE,0x00,0x10,0x82,0x00,0x10,0x82,0x00,
+0x10,0x82,0x00,0x10,0x82,0x00,0x10,0x82,0x00,0x09,0xC4,0x00,0x0F,0x78,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x03,0xF0,0x00,0x04,0x08,0x00,0x08,0x04,0x00,0x10,
+0x02,0x00,0x10,0x02,0x00,0x10,0x02,0x00,0x10,0x02,0x00,0x10,0x02,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x1F,0xFE,0x00,0x10,0x02,0x00,0x10,0x02,
+0x00,0x10,0x02,0x00,0x10,0x02,0x00,0x18,0x06,0x00,0x08,0x04,0x00,0x06,0x18,0x00,0x03,0xF0,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x1F,0xFE,0x00,0x10,0x82,0x00,
+0x10,0x82,0x00,0x10,0x82,0x00,0x10,0x82,0x00,0x10,0x82,0x00,0x10,0x02,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x1F,0xFE,0x00,0x10,0x80,0x00,0x10,0x80,0x00,0x10,
+0x80,0x00,0x10,0x80,0x00,0x10,0x80,0x00,0x10,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x03,0xF0,0x00,0x04,0x08,0x00,0x08,0x04,0x00,0x10,0x02,0x00,0x10,0x02,
+0x00,0x10,0x02,0x00,0x10,0x02,0x00,0x10,0x02,0x00,0x08,0x7E,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x1F,0xFE,0x00,0x00,0x80,0x00,0x00,0x80,0x00,0x00,0x80,0x00,
+0x00,0x80,0x00,0x00,0x80,0x00,0x00,0x80,0x00,0x00,0x80,0x00,0x1F,0xFE,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x1F,0xFE,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+0x00,0x00,0x00,0x06,0x00,0x00,0x02,0x00,0x00,0x02,0x00,0x00,0x02,0x00,0x00,0x06,0x00,0x1F,0xFC,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x1F,0xFE,0x00,0x00,0x80,
+0x00,0x01,0x40,0x00,0x03,0x20,0x00,0x06,0x30,0x00,0x0C,0x18,0x00,0x18,0x0C,0x00,0x00,0x02,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x1F,0xFE,0x00,0x00,0x02,0x00,
+0x00,0x02,0x00,0x00,0x02,0x00,0x00,0x02,0x00,0x00,0x02,0x00,0x00,0x02,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x1F,0xFE,0x00,0x18,0x00,0x00,0x06,0x00,0x00,0x01,
+0x80,0x00,0x00,0x60,0x00,0x00,0x18,0x00,0x00,0x18,0x00,0x00,0x60,0x00,0x01,0x80,0x00,0x06,0x00,0x00,0x18,0x00,0x00,0x1F,0xFE,0x00,0x00,0x00,0x00,0x00,0x00,
+0x00,0x1F,0xFE,0x00,0x0C,0x00,0x00,0x06,0x00,0x00,0x03,0x00,0x00,0x00,0x80,0x00,0x00,0x60,0x00,0x00,0x30,0x00,0x00,0x0C,0x00,0x1F,0xFE,0x00,0x00,0x00,0x00,
+0x00,0x00,0x00,0x03,0xF0,0x00,0x04,0x08,0x00,0x08,0x04,0x00,0x10,0x02,0x00,0x10,0x02,0x00,0x10,0x02,0x00,0x10,0x02,0x00,0x10,0x02,0x00,0x08,0x04,0x00,0x06,
+0x18,0x00,0x03,0xF0,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x1F,0xFE,0x00,0x10,0x40,0x00,0x10,0x40,0x00,0x10,0x40,0x00,0x10,0x40,0x00,0x10,0x40,0x00,0x08,0x80,
+0x00,0x07,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x03,0xF0,0x00,0x04,0x08,0x00,0x08,0x04,0x00,0x10,0x02,0x00,0x10,0x02,0x00,0x10,0x03,0x00,0x10,0x03,0x80,
+0x10,0x02,0x80,0x08,0x04,0x40,0x06,0x18,0x40,0x03,0xF0,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x1F,0xFE,0x00,0x10,0x40,0x00,0x10,0x40,0x00,0x10,0x40,0x00,0x10,
+0x40,0x00,0x10,0x70,0x00,0x08,0x98,0x00,0x07,0x06,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x0F,0x06,0x00,0x19,0x02,0x00,0x10,0x82,0x00,0x10,0x82,
+0x00,0x10,0x42,0x00,0x10,0x64,0x00,0x00,0x3C,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x10,0x00,0x00,0x10,0x00,0x00,0x10,0x00,0x00,0x10,0x00,0x00,0x1F,0xFE,0x00,
+0x10,0x00,0x00,0x10,0x00,0x00,0x10,0x00,0x00,0x10,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x1F,0xF8,0x00,0x00,0x0C,0x00,0x00,0x02,0x00,0x00,0x02,0x00,0x00,
+0x02,0x00,0x00,0x02,0x00,0x00,0x02,0x00,0x00,0x0C,0x00,0x1F,0xF8,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x10,0x00,0x00,0x1E,0x00,0x00,0x03,0xC0,0x00,0x00,0x70,
+0x00,0x00,0x0C,0x00,0x00,0x06,0x00,0x00,0x1C,0x00,0x00,0xE0,0x00,0x07,0x00,0x00,0x1C,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x1F,0x00,0x00,0x01,0xF0,0x00,
+0x00,0x1E,0x00,0x00,0x06,0x00,0x00,0x38,0x00,0x01,0xC0,0x00,0x0E,0x00,0x00,0x07,0x00,0x00,0x00,0xE0,0x00,0x00,0x1C,0x00,0x00,0x06,0x00,0x00,0x3C,0x00,0x07,
+0xE0,0x00,0x1C,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x10,0x06,0x00,0x0C,0x1C,0x00,0x06,0x30,0x00,0x01,0xC0,0x00,0x01,0xC0,0x00,0x03,0x30,
+0x00,0x0C,0x18,0x00,0x18,0x06,0x00,0x00,0x02,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x10,0x00,0x00,0x0C,0x00,0x00,0x03,0x00,0x00,0x01,0x80,0x00,0x00,0x7E,0x00,
+0x01,0x80,0x00,0x03,0x00,0x00,0x0C,0x00,0x00,0x10,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x10,0x06,0x00,0x10,0x1A,0x00,0x10,0x22,0x00,0x10,0xC2,0x00,0x11,
+0x82,0x00,0x16,0x02,0x00,0x1C,0x02,0x00,0x18,0x02,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x7F,0xFF,0xC0,0x40,0x00,0x40,0x40,0x00,0x40,0x00,0x00,0x00,0x00,0x00,
+0x00,0x70,0x00,0x00,0x0E,0x00,0x00,0x01,0xC0,0x00,0x00,0x78,0x00,0x00,0x0E,0x00,0x00,0x01,0xC0,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x40,0x00,0x40,
+0x40,0x00,0x40,0x7F,0xFF,0xC0,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x80,0x00,0x03,0x00,0x00,0x0C,0x00,0x00,0x10,0x00,0x00,0x18,0x00,0x00,0x06,0x00,0x00,0x01,
+0x80,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x40,0x00,0x00,0x40,0x00,0x00,0x40,0x00,0x00,0x40,0x00,0x00,0x40,0x00,0x00,0x40,0x00,0x00,
+0x40,0x00,0x00,0x40,0x00,0x00,0x00,0x00,0x00,0x00,0x20,0x00,0x00,0x10,0x00,0x00,0x18,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x1C,0x00,0x02,0x32,0x00,
+0x02,0x22,0x00,0x02,0x22,0x00,0x03,0x22,0x00,0x01,0xFE,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x3F,0xFE,0x00,0x02,0x02,0x00,0x02,0x02,0x00,0x02,0x02,0x00,0x02,
+0x02,0x00,0x01,0x04,0x00,0x00,0xF8,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0xF8,0x00,0x01,0x04,0x00,0x02,0x02,0x00,0x02,0x02,0x00,0x02,0x02,0x00,0x02,0x02,
+0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0xF8,0x00,0x01,0x04,0x00,0x02,0x02,0x00,0x02,0x02,0x00,0x02,0x02,0x00,0x02,0x02,0x00,0x3F,0xFE,0x00,0x00,0x00,0x00,
+0x00,0x00,0x00,0x00,0xF8,0x00,0x01,0x24,0x00,0x02,0x22,0x00,0x02,0x22,0x00,0x02,0x22,0x00,0x01,0x22,0x00,0x00,0xE0,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x1F,
+0xFE,0x00,0x32,0x00,0x00,0x22,0x00,0x00,0x22,0x00,0x00,0x22,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0xF8,0x40,0x01,0x04,0x40,0x02,0x02,0x40,0x02,0x02,
+0x40,0x02,0x02,0x40,0x02,0x02,0x80,0x03,0xFF,0x80,0x00,0x00,0x00,0x00,0x00,0x00,0x3F,0xFE,0x00,0x02,0x00,0x00,0x02,0x00,0x00,0x02,0x00,0x00,0x02,0x00,0x00,
+0x01,0x00,0x00,0x00,0xFE,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x13,0xFE,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x40,0x00,0x00,0x40,0x13,0xFF,0x80,0x00,
+0x00,0x00,0x00,0x00,0x00,0x3F,0xFE,0x00,0x00,0x20,0x00,0x00,0x70,0x00,0x01,0x98,0x00,0x03,0x0C,0x00,0x02,0x06,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+0x00,0x3F,0xFC,0x00,0x00,0x02,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x03,0xFE,0x00,0x02,0x00,0x00,0x02,0x00,0x00,0x02,0x00,0x00,0x03,0x00,0x00,0x01,0xFE,0x00,
+0x02,0x00,0x00,0x02,0x00,0x00,0x02,0x00,0x00,0x03,0x00,0x00,0x01,0xFE,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x03,0xFE,0x00,0x02,0x00,0x00,0x02,0x00,0x00,0x02,
+0x00,0x00,0x02,0x00,0x00,0x03,0x00,0x00,0x00,0xFE,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0xF8,0x00,0x01,0x04,0x00,0x02,0x02,0x00,0x02,0x02,0x00,0x02,0x02,
+0x00,0x02,0x02,0x00,0x01,0x04,0x00,0x00,0xF8,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x03,0xFF,0xC0,0x02,0x02,0x00,0x02,0x02,0x00,0x02,0x02,0x00,0x02,0x02,0x00,
+0x01,0x04,0x00,0x00,0xF8,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0xF8,0x00,0x01,0x04,0x00,0x02,0x02,0x00,0x02,0x02,0x00,0x02,0x02,0x00,0x02,0x02,0x00,0x03,
+0xFF,0xC0,0x00,0x00,0x00,0x00,0x00,0x00,0x03,0xFE,0x00,0x02,0x00,0x00,0x02,0x00,0x00,0x02,0x00,0x00,0x02,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x01,0xC2,
+0x00,0x02,0x42,0x00,0x02,0x22,0x00,0x02,0x22,0x00,0x02,0x12,0x00,0x02,0x1C,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x1F,0xFC,0x00,0x02,0x02,0x00,0x02,0x02,0x00,
+0x02,0x02,0x00,0x02,0x02,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x03,0xF8,0x00,0x00,0x04,0x00,0x00,0x02,0x00,0x00,0x02,0x00,0x00,0x02,0x00,0x00,0x02,0x00,0x03,
+0xFE,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x02,0x00,0x00,0x03,0xC0,0x00,0x00,0x38,0x00,0x00,0x0E,0x00,0x00,0x06,0x00,0x00,0x38,0x00,0x01,0xC0,0x00,0x02,0x00,
+0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x02,0x00,0x00,0x03,0xC0,0x00,0x00,0x38,0x00,0x00,0x06,0x00,0x00,0x0E,0x00,0x00,0x70,0x00,0x03,0x80,0x00,0x00,0xE0,0x00,
+0x00,0x1C,0x00,0x00,0x06,0x00,0x00,0x38,0x00,0x01,0xE0,0x00,0x02,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x02,0x06,0x00,0x01,0x8C,0x00,0x00,
+0xF0,0x00,0x00,0x60,0x00,0x00,0x98,0x00,0x03,0x0C,0x00,0x00,0x02,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x02,0x00,0x40,0x03,0xC0,0x40,0x00,0x70,0x40,0x00,0x0C,
+0x80,0x00,0x07,0x00,0x00,0x3C,0x00,0x03,0xE0,0x00,0x02,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x02,0x06,0x00,0x02,0x0E,0x00,0x02,0x32,0x00,0x02,0x62,0x00,
+0x02,0x82,0x00,0x03,0x02,0x00,0x02,0x02,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x40,0x00,0x00,0x60,0x00,0x1F,0x9F,0x80,0x20,0x00,0x40,0x20,0x00,0x40,0x00,
+0x00,0x00,0x00,0x00,0x00,0x7F,0xFF,0xC0,0x00,0x00,0x00,0x00,0x00,0x00,0x20,0x00,0x40,0x20,0x00,0x40,0x1F,0xBF,0x80,0x00,0x40,0x00,0x00,0x40,0x00,0x00,0x00,
+0x00,0x00,0x00,0x00,0x00,0x20,0x00,0x00,0x40,0x00,0x00,0x40,0x00,0x00,0x40,0x00,0x00,0x20,0x00,0x00,0x20,0x00,0x00,0x20,0x00,0x00,0x40,0x00,0x00,0x00,0x00,
+0x00,0x00,0x00,0x00,0x40,0x00,0x00,0xFF,0xC0,0x01,0xFF,0xC0,0x03,0xFF,0xC0,0x07,0xFF,0xC0,0x0F,0xFF,0xC0,0x1F,0xFF,0xC0,0x3F,0xF0,0x00,0x7F,0xF0,0x00,0x3F,
+0xF0,0x00,0x1F,0xFF,0xC0,0x3F,0xFF,0xC0,0x3F,0xFF,0xC0,0x3F,0xFF,0xC0,0x03,0xFF,0xC0,0x00,0xFF,0xC0,0x00,0x40,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x01,0xF0,
+0x00,0x07,0x1C,0x00,0x0C,0x06,0x00,0x18,0x03,0x00,0x10,0x01,0x00,0x20,0x00,0x80,0x20,0x00,0x80,0x20,0x00,0x80,0x20,0x00,0x80,0x20,0x00,0x80,0x30,0x01,0x80,
+0x11,0x01,0x00,0x1B,0x03,0x00,0x0F,0x06,0x00,0x0F,0x1C,0x00,0x1F,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x07,0xFC,0x00,0x04,0x04,0x00,0x05,
+0xF4,0x00,0x05,0xF4,0x00,0x05,0xF4,0x00,0x05,0xF4,0x00,0x05,0xF4,0x00,0x05,0xF4,0x00,0x04,0x04,0x00,0x04,0x04,0x00,0x04,0x04,0x00,0x04,0x04,0x00,0x04,0x04,
+0x00,0x04,0x04,0x00,0x07,0xFC,0x00,0x07,0xFC,0x00,0x01,0xF0,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x0F,0xC0,0x00,
+0x1F,0xF0,0x00,0x3F,0xFC,0x00,0x7C,0xFE,0x00,0x78,0x7F,0x80,0x78,0x7F,0xC0,0x78,0x7F,0x80,0x7C,0xFE,0x00,0x3F,0xFC,0x00,0x1F,0xF0,0x00,0x0F,0xC0,0x00,0x00,
+0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x07,0xFC,0x00,0x04,0x04,0x00,0x05,0xF4,0x00,0x05,0xF4,0x00,0x05,0xF4,0x00,0x05,0xF4,
+0x00,0x05,0xF4,0x00,0x05,0xF4,0x00,0x05,0xF4,0x00,0x05,0xF4,0x00,0x05,0xF4,0x00,0x05,0xF4,0x00,0x05,0xF4,0x00,0x05,0xF4,0x00,0x07,0xFC,0x00,0x07,0xFC,0x00,
+0x01,0xF0,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x30,0x00,0x00,0x38,0x00,0x00,0x1C,0x00,0x00,0x0E,0x00,0x00,0x06,0x00,0x00,
+0x1C,0x00,0x00,0x38,0x00,0x00,0x70,0x00,0x00,0xE0,0x00,0x01,0x80,0x00,0x03,0x00,0x00,0x06,0x00,0x00,0x0C,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+0x00,0x00,0x00,0x00,0x00,0x20,0x00,0x00,0x70,0x00,0x00,0xE8,0x00,0x00,0xA4,0x00,0x00,0x20,0x00,0x00,0x20,0x00,0x00,0x20,0x00,0x00,0x20,0x00,0x00,0x20,0x00,
+0x00,0x20,0x00,0x00,0x20,0x00,0x00,0x20,0x00,0x00,0x20,0x00,0x00,0x20,0x00,0x00,0x20,0x00,0x00,0x20,0x00,0x07,0xE0,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+0x00,0x00,0x00,0x00,0x00,0x00,0x60,0x00,0x00,0x70,0x00,0x00,0x38,0x00,0x00,0x1C,0x00,0x00,0x0E,0x00,0x00,0x07,0x00,0x1F,0xFF,0x80,0x00,0x07,0x00,0x00,0x0E,
+0x00,0x00,0x1C,0x00,0x00,0x38,0x00,0x00,0x70,0x00,0x00,0x60,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x40,0x00,0x00,0xE0,0x00,
+0x03,0xF8,0x00,0x07,0xFC,0x00,0x0F,0xFE,0x00,0x0F,0xFE,0x00,0x0C,0xE6,0x00,0x0E,0x4E,0x00,0x0F,0x1E,0x00,0x0F,0x1E,0x00,0x0E,0x4E,0x00,0x0C,0xE6,0x00,0x0F,
+0xFE,0x00,0x0F,0xFE,0x00,0x0F,0xFE,0x00,0x0F,0xFE,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+0x00,0x1F,0xFF,0x00,0x1F,0xFF,0x00,0x1F,0xFF,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x1F,0xFF,0x00,0x1F,0xFF,0x00,0x1F,0xFF,0x00,0x00,0x00,0x00,
+0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x40,0x00,0x00,0x40,0x00,0x00,
+0x40,0x00,0x00,0x40,0x00,0x00,0x40,0x00,0x00,0x40,0x00,0x00,0x40,0x00,0x00,0x40,0x00,0x00,0x40,0x00,0x00,0x40,0x00,0x00,0x40,0x00,0x00,0x00,0x00,0x00,0x00,
+0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x03,0xF8,0x00,0x07,0xBC,0x00,0x0C,0x06,0x00,0x18,0x03,0x00,0x00,0x01,0x80,0x00,0x01,0x80,
+0x00,0x01,0x80,0x3F,0xC0,0x80,0x00,0x01,0x80,0x00,0x01,0x80,0x00,0x01,0x80,0x18,0x03,0x00,0x0C,0x06,0x00,0x07,0xBC,0x00,0x03,0xF8,0x00,0x00,0x00,0x00,0x00,
+0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x7C,0x07,0xC0,0x7E,0x0F,0xC0,0x7B,0x1E,0xC0,0x79,0xBC,0xC0,0x78,0xF8,0xC0,0x78,0x00,
+0xC0,0x78,0xF8,0xC0,0x79,0xBC,0xC0,0x7B,0x1E,0xC0,0x7E,0x0F,0xC0,0x7C,0x07,0xC0,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+0x00,0x00,0x00,0x01,0xF0,0x00,0x01,0xF0,0x00,0x01,0xF0,0x00,0x01,0xF0,0x00,0x03,0xF8,0x00,0x07,0xFC,0x00,0x0F,0xFE,0x00,0x0F,0xFE,0x00,0x1F,0xFF,0x00,0x00,
+0x00,0x00,0x00,0x00,0x00,0x01,0xF0,0x00,0x04,0x04,0x00,0x07,0xFC,0x00,0x00,0xE0,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x40,
+0x00,0x00,0xE0,0x00,0x01,0xF0,0x00,0x03,0xF8,0x00,0x07,0x5C,0x00,0x0E,0x4E,0x00,0x1C,0x47,0x00,0x18,0x43,0x00,0x00,0x40,0x00,0x00,0x40,0x00,0x00,0x40,0x00,
+0x00,0x40,0x00,0x00,0x40,0x00,0x00,0x40,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x04,
+0x04,0x00,0x0E,0x0E,0x00,0x07,0x1C,0x00,0x03,0xB8,0x00,0x01,0xF0,0x00,0x00,0xE0,0x00,0x01,0xF0,0x00,0x03,0xB8,0x00,0x07,0x1C,0x00,0x0E,0x0E,0x00,0x04,0x04,
+0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x06,0x0C,0x00,
+0x03,0x18,0x00,0x01,0xB0,0x00,0x00,0xE0,0x00,0x7F,0xFF,0xC0,0x30,0xE1,0x80,0x19,0xB3,0x00,0x0F,0x1E,0x00,0x06,0x0C,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x1F,0xFF,0x00,0x0F,0xFE,0x00,0x0F,0xFE,0x00,0x07,0xFC,
+0x00,0x07,0xFC,0x00,0x03,0xF8,0x00,0x03,0xF8,0x00,0x01,0xF0,0x00,0x00,0xE0,0x00,0x00,0xE0,0x00,0x00,0x40,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x01,0xF0,0x00,0x01,0xF0,0x00,0x01,0xF0,0x00,0x01,0xF0,0x00,0x03,
+0xF8,0x00,0x07,0xFC,0x00,0x0F,0xFE,0x00,0x0F,0xFE,0x00,0x1F,0xFF,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x40,0x00,0x00,0x40,0x00,0x00,0x40,0x00,0x00,0x40,0x00,0x00,0x40,0x00,0x00,0x40,0x00,0x18,0x43,0x00,0x1C,0x47,0x00,
+0x0E,0x4E,0x00,0x07,0x5C,0x00,0x03,0xF8,0x00,0x01,0xF0,0x00,0x00,0xE0,0x00,0x00,0x40,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x07,0xFC,0x00,0x04,
+0x04,0x00,0x05,0xF4,0x00,0x05,0xF4,0x00,0x05,0xD4,0x00,0x05,0x54,0x00,0x04,0xC4,0x00,0x01,0xF8,0x00,0x06,0x64,0x00,0x01,0x54,0x00,0x05,0x34,0x00,0x05,0x74,
+0x00,0x05,0xF4,0x00,0x05,0xF4,0x00,0x07,0xFC,0x00,0x07,0xFC,0x00,0x01,0xF0,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0xC0,0x00,
+0x01,0xC0,0x00,0x03,0x80,0x00,0x07,0x00,0x00,0x0E,0x00,0x00,0x1C,0x00,0x00,0x3F,0xFF,0x00,0x1C,0x00,0x00,0x0E,0x00,0x00,0x07,0x00,0x00,0x03,0x80,0x00,0x01,
+0xC0,0x00,0x00,0xC0,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x03,0x00,0x00,0x06,0x40,0x00,0x06,0xE0,0x00,0x0C,0xC0,
+0x00,0x0D,0x98,0x00,0x09,0xB0,0x00,0x09,0x32,0x00,0x09,0x37,0x00,0x09,0x32,0x00,0x09,0xB0,0x00,0x0D,0x98,0x00,0x0C,0xC0,0x00,0x06,0xE0,0x00,0x06,0x40,0x00,
+0x03,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x07,0xE0,0x00,0x0F,0xF0,0x00,0x18,0x38,0x00,0x30,0x18,0x00,0x30,0x0C,0x00,0x30,
+0x0C,0x00,0x30,0x0C,0x00,0x30,0x1C,0x00,0x38,0x18,0x00,0x1C,0x78,0x00,0x0F,0xFC,0x00,0x03,0xCE,0x00,0x00,0x07,0x00,0x00,0x03,0x80,0x00,0x01,0x80,0x00,0x00,
+0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x01,0x80,0x00,0x07,0x80,0x00,0x1F,0x80,0x00,0x7F,0x80,0x01,0xFF,0x80,0x03,0xFF,0x80,0x0F,0xFF,0x80,
+0x3E,0x05,0x80,0x1F,0xFF,0x80,0x07,0xFF,0x80,0x01,0xFF,0x80,0x00,0x7F,0x80,0x00,0x3F,0x80,0x00,0x0F,0x80,0x00,0x03,0x80,0x00,0x00,0x80,0x00,0x00,0x00,0x00,
+0x00,0x00,0x02,0x08,0x00,0x0F,0x1E,0x00,0x0F,0xFE,0x00,0x0F,0xFE,0x00,0x0F,0xFE,0x00,0x0F,0xFE,0x00,0x7E,0x0F,0xC0,0x7E,0x0F,0xC0,0x7E,0x0F,0xC0,0x7E,0x0F,
+0xC0,0x7E,0x0F,0xC0,0x0F,0xFE,0x00,0x0F,0xFE,0x00,0x0F,0xFE,0x00,0x0F,0xFE,0x00,0x0F,0x1E,0x00,0x02,0x08,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x40,0x00,0x00,0x40,0x00,0x00,0x40,0x00,0x00,0x40,0x00,0x00,0x40,0x00,0x0F,0xFE,0x00,0x00,0x40,0x00,0x00,0x40,0x00,0x00,
+0x40,0x00,0x00,0x40,0x00,0x00,0x40,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x07,0xFC,0x00,0x04,0x04,0x00,0x04,0x04,
+0x00,0x04,0x04,0x00,0x04,0x04,0x00,0x04,0x04,0x00,0x04,0x04,0x00,0x04,0x04,0x00,0x04,0x04,0x00,0x04,0x04,0x00,0x04,0x04,0x00,0x04,0x04,0x00,0x04,0x04,0x00,
+0x04,0x04,0x00,0x07,0xFC,0x00,0x07,0xFC,0x00,0x01,0xF0,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x1F,0xFF,0x00,0x1F,0xFF,0x00,0x1F,
+0xFF,0x00,0x1F,0xFF,0x00,0x1F,0xFF,0x00,0x1F,0xFF,0x00,0x1F,0xFF,0x00,0x1F,0xFF,0x00,0x1F,0xFF,0x00,0x1F,0xFF,0x00,0x1F,0xFF,0x00,0x1F,0xFF,0x00,0x1F,0xFF,
+0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00};
+
+const lui_bitmap_t BITMAP_lui_default = {.size_x=1388, .size_y=19, .payload=lui_default_payload};
+static const _lui_glyph_t FONT_GLYPHS_lui_default[] = {
+{ .character=32/* */, .width=3, .payload_index=0 }, 			{ .character=33/*!*/, .width=4, .payload_index=9 }, 
+{ .character=34/*"*/, .width=6, .payload_index=21 }, 			{ .character=35/*#*/, .width=11, .payload_index=39 }, 
+{ .character=36/*$*/, .width=9, .payload_index=72 }, 			{ .character=37/*%*/, .width=14, .payload_index=99 }, 
+{ .character=38/*&*/, .width=12, .payload_index=141 }, 			{ .character=39/*'*/, .width=3, .payload_index=177 }, 
+{ .character=40/*(*/, .width=6, .payload_index=186 }, 			{ .character=41/*)*/, .width=6, .payload_index=204 }, 
+{ .character=42/***/, .width=9, .payload_index=222 }, 			{ .character=43/*+*/, .width=9, .payload_index=249 }, 
+{ .character=44/*,*/, .width=4, .payload_index=276 }, 			{ .character=45/*-*/, .width=6, .payload_index=288 }, 
+{ .character=46/*.*/, .width=4, .payload_index=306 }, 			{ .character=47/*/*/, .width=9, .payload_index=318 }, 
+{ .character=48/*0*/, .width=9, .payload_index=345 }, 			{ .character=49/*1*/, .width=6, .payload_index=372 }, 
+{ .character=50/*2*/, .width=8, .payload_index=390 }, 			{ .character=51/*3*/, .width=9, .payload_index=414 }, 
+{ .character=52/*4*/, .width=10, .payload_index=441 }, 			{ .character=53/*5*/, .width=9, .payload_index=471 }, 
+{ .character=54/*6*/, .width=9, .payload_index=498 }, 			{ .character=55/*7*/, .width=9, .payload_index=525 }, 
+{ .character=56/*8*/, .width=9, .payload_index=552 }, 			{ .character=57/*9*/, .width=9, .payload_index=579 }, 
+{ .character=58/*:*/, .width=4, .payload_index=606 }, 			{ .character=59/*;*/, .width=4, .payload_index=618 }, 
+{ .character=60/*<*/, .width=10, .payload_index=630 }, 			{ .character=61/*=*/, .width=10, .payload_index=660 }, 
+{ .character=62/*>*/, .width=10, .payload_index=690 }, 			{ .character=63/*?*/, .width=7, .payload_index=720 }, 
+{ .character=64/*@*/, .width=15, .payload_index=741 }, 			{ .character=65/*A*/, .width=13, .payload_index=786 }, 
+{ .character=66/*B*/, .width=10, .payload_index=825 }, 			{ .character=67/*C*/, .width=11, .payload_index=855 }, 
+{ .character=68/*D*/, .width=11, .payload_index=888 }, 			{ .character=69/*E*/, .width=9, .payload_index=921 }, 
+{ .character=70/*F*/, .width=9, .payload_index=948 }, 			{ .character=71/*G*/, .width=11, .payload_index=975 }, 
+{ .character=72/*H*/, .width=11, .payload_index=1008 }, 			{ .character=73/*I*/, .width=3, .payload_index=1041 }, 
+{ .character=74/*J*/, .width=9, .payload_index=1050 }, 			{ .character=75/*K*/, .width=10, .payload_index=1077 }, 
+{ .character=76/*L*/, .width=9, .payload_index=1107 }, 			{ .character=77/*M*/, .width=14, .payload_index=1134 }, 
+{ .character=78/*N*/, .width=11, .payload_index=1176 }, 			{ .character=79/*O*/, .width=13, .payload_index=1209 }, 
+{ .character=80/*P*/, .width=10, .payload_index=1248 }, 			{ .character=81/*Q*/, .width=13, .payload_index=1278 }, 
+{ .character=82/*R*/, .width=11, .payload_index=1317 }, 			{ .character=83/*S*/, .width=9, .payload_index=1350 }, 
+{ .character=84/*T*/, .width=11, .payload_index=1377 }, 			{ .character=85/*U*/, .width=11, .payload_index=1410 }, 
+{ .character=86/*V*/, .width=12, .payload_index=1443 }, 			{ .character=87/*W*/, .width=16, .payload_index=1479 }, 
+{ .character=88/*X*/, .width=12, .payload_index=1527 }, 			{ .character=89/*Y*/, .width=11, .payload_index=1563 }, 
+{ .character=90/*Z*/, .width=10, .payload_index=1596 }, 			{ .character=91/*[*/, .width=5, .payload_index=1626 }, 
+{ .character=92/*\*/, .width=9, .payload_index=1641 }, 			{ .character=93/*]*/, .width=5, .payload_index=1668 }, 
+{ .character=94/*^*/, .width=10, .payload_index=1683 }, 			{ .character=95/*_*/, .width=10, .payload_index=1713 }, 
+{ .character=96/*`*/, .width=5, .payload_index=1743 }, 			{ .character=97/*a*/, .width=8, .payload_index=1758 }, 
+{ .character=98/*b*/, .width=9, .payload_index=1782 }, 			{ .character=99/*c*/, .width=8, .payload_index=1809 }, 
+{ .character=100/*d*/, .width=9, .payload_index=1833 }, 			{ .character=101/*e*/, .width=9, .payload_index=1860 }, 
+{ .character=102/*f*/, .width=7, .payload_index=1887 }, 			{ .character=103/*g*/, .width=9, .payload_index=1908 }, 
+{ .character=104/*h*/, .width=9, .payload_index=1935 }, 			{ .character=105/*i*/, .width=3, .payload_index=1962 }, 
+{ .character=106/*j*/, .width=5, .payload_index=1971 }, 			{ .character=107/*k*/, .width=9, .payload_index=1986 }, 
+{ .character=108/*l*/, .width=4, .payload_index=2013 }, 			{ .character=109/*m*/, .width=13, .payload_index=2025 }, 
+{ .character=110/*n*/, .width=9, .payload_index=2064 }, 			{ .character=111/*o*/, .width=10, .payload_index=2091 }, 
+{ .character=112/*p*/, .width=9, .payload_index=2121 }, 			{ .character=113/*q*/, .width=9, .payload_index=2148 }, 
+{ .character=114/*r*/, .width=7, .payload_index=2175 }, 			{ .character=115/*s*/, .width=8, .payload_index=2196 }, 
+{ .character=116/*t*/, .width=7, .payload_index=2220 }, 			{ .character=117/*u*/, .width=9, .payload_index=2241 }, 
+{ .character=118/*v*/, .width=10, .payload_index=2268 }, 			{ .character=119/*w*/, .width=15, .payload_index=2298 }, 
+{ .character=120/*x*/, .width=10, .payload_index=2343 }, 			{ .character=121/*y*/, .width=10, .payload_index=2373 }, 
+{ .character=122/*z*/, .width=9, .payload_index=2403 }, 			{ .character=123/*{*/, .width=7, .payload_index=2430 }, 
+{ .character=124/*|*/, .width=3, .payload_index=2451 }, 			{ .character=125/*}*/, .width=7, .payload_index=2460 }, 
+{ .character=126/*~*/, .width=10, .payload_index=2481 }, 			
+{ .character=1/*[01]home.png*/, .width=19, .payload_index=2511 }, 
+{ .character=2/*[02]reload.png*/, .width=19, .payload_index=2568 }, 			{ .character=3/*[03]battery-half.png*/, .width=19, .payload_index=2625 }, 
+{ .character=4/*[04]location.png*/, .width=19, .payload_index=2682 }, 			{ .character=5/*[05]battery-full.png*/, .width=19, .payload_index=2739 }, 
+{ .character=6/*[06]checkmark.png*/, .width=19, .payload_index=2796 }, 			{ .character=7/*[07]return-down-back.png*/, .width=19, .payload_index=2853 }, 
+{ .character=8/*[08]arrow-down.png*/, .width=19, .payload_index=2910 }, 			{ .character=9/*[09]backspace.png*/, .width=19, .payload_index=2967 }, 
+{ .character=10/*[0A]pause.png*/, .width=19, .payload_index=3024 }, 			{ .character=11/*[0B]remove.png*/, .width=19, .payload_index=3081 }, 
+{ .character=12/*[0C]power.png*/, .width=19, .payload_index=3138 }, 			{ .character=13/*[0D]hourglass.png*/, .width=19, .payload_index=3195 }, 
+{ .character=14/*[0E]volume-medium.png*/, .width=19, .payload_index=3252 }, 			{ .character=15/*[0F]arrow-back.png*/, .width=19, .payload_index=3309 }, 
+{ .character=16/*[10]close.png*/, .width=19, .payload_index=3366 }, 			{ .character=17/*[11]bluetooth.png*/, .width=19, .payload_index=3423 }, 
+{ .character=18/*[12]play.png*/, .width=19, .payload_index=3480 }, 			{ .character=19/*[13]volume-off.png*/, .width=19, .payload_index=3537 }, 
+{ .character=20/*[14]arrow-forward.png*/, .width=19, .payload_index=3594 }, 			{ .character=21/*[15]battery-charging.png*/, .width=19, .payload_index=3651 }, 
+{ .character=22/*[16]arrow-up.png*/, .width=19, .payload_index=3708 }, 			{ .character=23/*[17]wifi.png*/, .width=19, .payload_index=3765 }, 
+{ .character=24/*[18]search.png*/, .width=19, .payload_index=3822 }, 			{ .character=25/*[19]warning.png*/, .width=19, .payload_index=3879 }, 
+{ .character=26/*[1A]settings.png*/, .width=19, .payload_index=3936 }, 			{ .character=27/*[1B]add.png*/, .width=19, .payload_index=3993 }, 
+{ .character=28/*[1C]battery-dead.png*/, .width=19, .payload_index=4050 }, 			{ .character=29/*[1D]stop.png*/, .width=19, .payload_index=4107 },};
+
+
+const lui_font_t FONT_lui_default = { .bitmap = &BITMAP_lui_default, .glyph_count = 124, .glyphs = FONT_GLYPHS_lui_default };
+
+
 /*-------------------------------------------------------------------------------
  * 							END
  *-------------------------------------------------------------------------------

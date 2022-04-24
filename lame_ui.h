@@ -1,9 +1,15 @@
 /*
- * lame_ui.h
- *
  *  Created on: 02-Apr-2020
- *	Last updated: 31-Aug-2021
- *      Author: rik
+ */
+/**
+ * @file lame_ui.h
+ * @author Avra Mitra
+ * @brief One and only header file for LameUI library.
+ * @version 0.1
+ * @date 2022-04-24
+ * 
+ * @copyright Copyright (c) 2022
+ * 
  */
 
 #ifndef INC_LAME_UI_H_
@@ -12,8 +18,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
-#include "bitmap_typedefs.h"
-
+#include <stdint.h>
 
 #define LUI_MEM_MAX_SIZE					20000	// Max allocable size (in Bytes) for UI elements
 /* NOTE: LUI_MEM_DEFRAG_EN increases memory overhead. Enable it only if free() and destroy() are used often */
@@ -114,6 +119,13 @@
 #define	LUI_STYLE_BTNGRID_WIDTH				300
 #define LUI_STYLE_BTNGRID_HEIGHT			180
 
+#define LUI_STYLE_TEXTBOX_TEXT_COLOR		_LUI_RGB(238, 238, 238)
+#define LUI_STYLE_TEXTBOX_BG_COLOR			_LUI_RGB(45, 56, 70)
+#define LUI_STYLE_TEXTBOX_BORDER_COLOR		_LUI_RGB(74, 129, 188)
+#define LUI_STYLE_TEXTBOX_BORDER_VISIBLE	1
+#define LUI_STYLE_TEXTBOX_WIDTH				200
+#define LUI_STYLE_TEXTBOX_HEIGHT			20
+
 #define LUI_STYLE_PANEL_BG_COLOR			_LUI_RGB(23, 33, 43)
 #define LUI_STYLE_PANEL_BORDER_COLOR		_LUI_RGB(74, 129, 188)
 #define LUI_STYLE_PANEL_BORDER_VISIBLE		1
@@ -165,6 +177,43 @@
 #define LUI_OBJ_BTNGRID						11
 #define LUI_OBJ_TEXTBOX						12
 
+#define LUI_KEYBOARD_MODE_TXT_LOWER			1
+#define LUI_KEYBOARD_MODE_TXT_UPPER			2
+#define LUI_KEYBOARD_MODE_TXT_SPCL			3
+#define LUI_KEYBOARD_MODE_NUMPAD			4
+
+#define LUI_ICON_HOME						"\x01"
+#define LUI_ICON_RELAOD						"\x02"
+#define LUI_ICON_BATTERY_HALF				"\x03"
+#define LUI_ICON_LOCATION					"\x04"
+#define LUI_ICON_BATTERY_FULL				"\x05"
+#define LUI_ICON_CHECKMARK					"\x06"
+#define LUI_ICON_RETURN_DOWN_BACK			"\x07"
+#define LUI_ICON_ARROW_DOWN					"\x08"
+#define LUI_ICON_BACKSPACE					"\x09"
+#define LUI_ICON_PAUSE						"\x0A"
+#define LUI_ICON_REMOVE						"\x0B"
+#define LUI_ICON_POWER						"\x0C"
+#define LUI_ICON_HOURGLASS					"\x0D"
+#define LUI_ICON_VOLUME_MEDIUM				"\x0E"
+#define LUI_ICON_ARROW_BACK					"\x0F"
+#define LUI_ICON_CLOSE						"\x10"
+#define LUI_ICON_BLUETOOTH					"\x11"
+#define LUI_ICON_PLAY						"\x12"
+#define LUI_ICON_VOLUME_OFF					"\x13"
+#define LUI_ICON_ARROW_FORWARD				"\x14"
+#define LUI_ICON_BATTERY_CHARGING			"\x15"
+#define LUI_ICON_ARROW_UP					"\x16"
+#define LUI_ICON_WIFI						"\x17"
+#define LUI_ICON_SEARCH						"\x18"
+#define LUI_ICON_WARNING					"\x19"
+#define LUI_ICON_SETTINGS					"\x1A"
+#define LUI_ICON_ADD						"\x1B"
+#define LUI_ICON_BATTERy_DEAED				"\x1C"
+#define LUI_ICON_STOP						"\x1D"
+
+
+
 #define _LUI_BTNGRID_MASK_BTN_IS_DISABLED	0x40
 #define _LUI_BTNGRID_MASK_BTN_IS_HIDDEN		0x20
 #define _LUI_BTNGRID_MASK_BTN_IS_CHECKABLE	0x10
@@ -201,6 +250,31 @@ typedef struct _lui_mem_chunk
 		struct _lui_mem_chunk* next_chunk;
 	#endif
 }_lui_mem_chunk_t;
+
+/* This is a generic bitmap */
+typedef struct 
+{
+    const uint16_t size_x; //size is in pixels
+    const uint16_t size_y;
+    const uint8_t * const payload;
+} lui_bitmap_t;
+ 
+/* This is a font glyph description - for now it does not support kerning */
+typedef struct 
+{
+    const char character; //ASCII code
+    const uint8_t width;
+    const uint16_t payload_index;
+} _lui_glyph_t;
+ 
+typedef struct 
+{
+    const lui_bitmap_t * const bitmap;
+    const uint8_t glyph_count;
+    const _lui_glyph_t *glyphs; //pointer to array of glypt_t elements
+} lui_font_t; 
+
+extern const lui_font_t FONT_lui_default;
 
 
 typedef struct _lui_area_s
@@ -263,9 +337,10 @@ struct _lui_list_style_s
 };
 struct _lui_btngrid_style_s
 {
+	uint8_t btn_margin_hor;
+    uint8_t btn_margin_vert;
 	uint16_t btn_label_color;
 	uint16_t btn_pressed_color;
-	uint16_t btn_selection_color;
 	uint16_t btn_bg_color;
 };
 struct _lui_textbox_style_s
@@ -322,14 +397,14 @@ typedef struct _lui_linechart_s
 	}data;
 
 	//uint16_t color;
-	tFont* font;
+	const lui_font_t* font;
 }lui_chart_t;
 
 
 typedef struct _lui_label_s
 {
 	char* text;
-	tFont* font;
+	const lui_font_t* font;
 	//uint16_t color;
 	struct _lui_label_style_s style;
 }lui_label_t;
@@ -341,7 +416,7 @@ typedef struct _lui_button_s
 	{
 		char* text;
 		//uint16_t color;
-		tFont* font;
+		const lui_font_t* font;
 	}label;
 	//uint16_t pressed_color;
 	//uint16_t selection_color;
@@ -386,11 +461,17 @@ typedef struct _lui_list_s
 	int8_t selected_button_index; // not using currently
 	uint8_t buttons_per_page;
 	uint8_t button_item_min_height;
-	tFont* font;
+	const lui_font_t* font;
 
 	//struct _lui_list_style_s style;
 }lui_list_t;
 
+typedef struct _lui_keyboard_s
+{
+	lui_obj_t* target_txtbox;
+	uint8_t keyboard_mode;
+
+}lui_keyboard_t;
 
 typedef struct _lui_btngrid_s
 {
@@ -399,26 +480,20 @@ typedef struct _lui_btngrid_s
     lui_area_t* btn_area;
     uint8_t btn_cnt;
 	uint8_t row_cnt;
-    uint8_t btn_margin_hor;
-    uint8_t btn_margin_vert;
-    tFont* font;
+    const lui_font_t* font;
 	int16_t active_btn_index;
 	uint8_t needs_full_render;
 	struct _lui_btngrid_style_s style;
+	struct _lui_keyboard_s* kb_data;
 }lui_btngrid_t;
 
 
-// typedef struct _lui_keyboard_s
-// {
-// 	lui_btngrid_t* btngrid;
-
-// }
 
 
 typedef struct _lui_textbox_s
 {
 	char* text_buffer;
-	tFont* font;
+	const lui_font_t* font;
 	uint16_t max_len;
 	uint16_t caret_index;
 	int8_t edit_operation;
@@ -438,16 +513,16 @@ typedef struct _lui_encoder_processed_s
 
 typedef struct _lui_panel_s
 {
-	tImage* bg_image;
+	lui_bitmap_t* bg_image;
 	_lui_encoder_processed_t encoder; // these encoder controls are required when the panel is a popup
 }lui_panel_t;
 
 typedef struct _lui_scene_s
 {
-	tImage* bg_image;
+	lui_bitmap_t* bg_image;
 	lui_obj_t* obj_popup;
 	uint8_t popup_type_locked; // Locked: can't be dismissed by clicking outside
-	tFont* font;
+	const lui_font_t* font;
 	_lui_encoder_processed_t encoder; // encoder controls are scene specific, so storing it in the scene variable
 
 }lui_scene_t;
@@ -493,11 +568,12 @@ typedef struct _lui_encoder_input_dev_s
 typedef struct _lui_main_s
 {
 	//lui_obj_t* scenes[LUI_MAX_SCENES];
+	lui_font_t* default_font;
 	lui_obj_t* active_scene;
 	lui_obj_t* active_obj;
 	lui_dispdrv_t* disp_drv;
 	lui_touch_input_dev_t* touch_input_dev;
-	lui_encoder_input_dev_t* encoder_input_dev;
+	//lui_encoder_input_dev_t* encoder_input_dev;
 	// lui_touch_input_data_t last_touch_data;
 	uint8_t input_state_pressed;
 	uint8_t input_event_clicked;
@@ -533,7 +609,7 @@ uint8_t lui_object_set_enable_input(lui_obj_t* obj,  uint8_t is_enabled);
 
 lui_obj_t* lui_label_create();
 void lui_label_draw (lui_obj_t* obj_lbl);
-void lui_label_set_font(lui_obj_t* obj_lbl, const tFont* font);
+void lui_label_set_font(lui_obj_t* obj_lbl, const lui_font_t* font);
 void lui_label_set_text(lui_obj_t* obj_lbl, const char* text);
 void lui_label_set_text_color(lui_obj_t* obj_lbl, uint16_t text_color);
 
@@ -553,7 +629,7 @@ lui_obj_t* lui_button_create();
 void lui_button_draw(lui_obj_t* obj_btn);
 void lui_button_set_label_text(lui_obj_t* obj_btn, const char* text);
 void lui_button_set_label_color(lui_obj_t* obj_btn, uint16_t color);
-void lui_button_set_label_font(lui_obj_t* obj_btn, const tFont* font);
+void lui_button_set_label_font(lui_obj_t* obj_btn, const lui_font_t* font);
 void lui_button_set_extra_colors(lui_obj_t* obj_btn, uint16_t pressed_color, uint16_t selection_color);
 void lui_button_set_encoder_index(lui_obj_t* obj_btn, uint8_t index);
 
@@ -596,7 +672,7 @@ lui_obj_t* lui_list_add_item(lui_obj_t* obj_list, const char* text);
 void lui_list_delete_item(lui_obj_t** obj_item_addr);
 void lui_list_prepare(lui_obj_t* obj_list);
 void lui_list_set_item_min_height(lui_obj_t* obj_list, uint8_t height);
-void lui_list_set_font(lui_obj_t* obj_list, const tFont* font);
+void lui_list_set_font(lui_obj_t* obj_list, const lui_font_t* font);
 void lui_list_set_nav_btn_label_color(lui_obj_t* obj_list, uint16_t color);
 void lui_list_set_nav_btn_bg_color(lui_obj_t* obj_list, uint16_t color);
 void lui_list_set_nav_btn_extra_colors(lui_obj_t* obj_list, uint16_t pressed_color, uint16_t selection_color);
@@ -617,29 +693,39 @@ void lui_btngrid_set_btn_checkable(lui_obj_t* obj, uint16_t btn_index, uint8_t c
 void lui_btngrid_set_btn_checked(lui_obj_t* obj, uint16_t btn_index, uint8_t checked);
 int16_t lui_btngrid_get_acive_btn_index(lui_obj_t* obj);
 int8_t lui_btngrid_get_btn_check_status(lui_obj_t* obj, uint8_t btn_index);
+void lui_btngrid_set_font(lui_obj_t* obj, const lui_font_t* font);
+void lui_btngrid_set_extra_colors(lui_obj_t* obj, uint16_t btn_color, uint16_t label_color, uint16_t btn_pressed_color);
+void lui_btngrid_set_btn_margin(lui_obj_t* obj, uint8_t margin_x, uint16_t margin_y);
 void _lui_btngrid_calc_btn_area(lui_obj_t* obj);
 
+
+lui_obj_t* lui_keyboard_create();
+const char* lui_keyboard_get_key_text(lui_obj_t* obj, uint8_t btn_index);
+void lui_keyboard_set_font(lui_obj_t* obj, const lui_font_t* font);
+void lui_keyboard_set_target_txtbox(lui_obj_t* obj_kb, lui_obj_t* obj_txtbox);
 
 lui_obj_t* lui_textbox_create();
 void lui_textbox_draw();
 void lui_textbox_set_caret_index(lui_obj_t* obj, uint16_t caret_index);
+uint16_t lui_textbox_get_caret_index(lui_obj_t* obj);
 void lui_textbox_insert_char(lui_obj_t* obj, char c);
 void lui_textbox_insert_string(lui_obj_t* obj, char* str, uint16_t len);
+void lui_textbox_delete_char(lui_obj_t* obj);
 void lui_textbox_set_text_buffer(lui_obj_t* obj, char* text_buffer, uint16_t buff_size);
-void lui_textbox_set_font(lui_obj_t* obj, const tFont* font);
+void lui_textbox_set_font(lui_obj_t* obj, const lui_font_t* font);
 
 
 lui_obj_t* lui_panel_create();
 void lui_panel_draw(lui_obj_t* obj_panel);
-void lui_panel_set_bg_image(lui_obj_t* obj_panel, const tImage* image);
+void lui_panel_set_bg_image(lui_obj_t* obj_panel, const lui_bitmap_t* image);
 
 
 lui_obj_t* lui_scene_create();
 void lui_scene_draw(lui_obj_t* obj_scene);
 void lui_scene_set_active(lui_obj_t* obj_scene);
 lui_obj_t* lui_scene_get_active();
-void lui_scene_set_bg_image(lui_obj_t* obj_scene, const tImage* image);
-void lui_scene_set_font(lui_obj_t* obj_scene, const tFont* font);
+void lui_scene_set_bg_image(lui_obj_t* obj_scene, const lui_bitmap_t* image);
+void lui_scene_set_font(lui_obj_t* obj_scene, const lui_font_t* font);
 void lui_scene_set_popup(lui_obj_t* obj_scene, lui_obj_t* obj);
 void lui_scene_unset_popup(lui_obj_t* obj_scene);
 void lui_scene_set_popup_locked(lui_obj_t* obj_scene, uint8_t is_locked);
@@ -673,19 +759,20 @@ void _lui_object_render_parent_with_children(lui_obj_t* obj);
 void _lui_object_render(lui_obj_t* obj);
 lui_obj_t* _lui_process_input_of_act_scene();
 lui_obj_t* _lui_scan_all_obj_for_input(lui_touch_input_data_t* touch_input_data, lui_encoder_input_data_t* encoder_input_data, _lui_encoder_processed_t* encoder_processed, lui_obj_t* obj_root, lui_obj_t* obj_excluded);
-lui_obj_t* _lui_scan_individual_object_for_input(lui_touch_input_data_t* touch_input_data, lui_encoder_input_data_t* encoder_input_data, _lui_encoder_processed_t* encoder_processed, lui_obj_t* obj, lui_obj_t* obj_excluded);
+lui_obj_t* _lui_scan_individual_object_for_input(lui_touch_input_data_t* touch_input_data, lui_encoder_input_data_t* encoder_input_data, _lui_encoder_processed_t* encoder_processed, lui_obj_t* obj);
 void _lui_set_obj_props_on_touch_input(lui_touch_input_data_t* input_data, lui_obj_t* obj);
 uint8_t _lui_check_if_active_obj_touch_input(lui_touch_input_data_t* input_data, lui_obj_t* obj);
 void _lui_set_obj_props_on_encoder_input(lui_encoder_input_data_t* input, _lui_encoder_processed_t* encoder_processed, lui_obj_t* obj);
 uint8_t _lui_check_if_active_obj_encoder_input(_lui_encoder_processed_t* encoder_processed, lui_obj_t* obj);
-tFont* _lui_get_font_from_active_scene();
+lui_font_t* _lui_get_font_from_active_scene();
 uint8_t _lui_get_event_against_state(uint8_t new_state, uint8_t old_state);
 
-void lui_gfx_draw_string_advanced(const char* str, uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t fore_color, uint16_t bg_color, uint8_t is_bg, const tFont* font);
-void lui_gfx_draw_string_simple(const char* str, uint16_t x, uint16_t y, uint16_t fore_color, const tFont* font);
-void lui_gfx_draw_char(char c, uint16_t x, uint16_t y, uint16_t fore_color, uint16_t bg_color, uint8_t is_bg, const tFont* font);
-void _lui_gfx_render_char_glyph(uint16_t x, uint16_t y, uint16_t fore_color, uint16_t bg_color, uint8_t is_bg, const tImage* glyph);
-void lui_gfx_get_string_dimension(const char* str, const tFont* font_obj, uint16_t max_w, uint16_t* str_dim);
+void lui_gfx_draw_string_advanced(const char* str, uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t fore_color, uint16_t bg_color, uint8_t is_bg, const lui_font_t* font);
+void lui_gfx_draw_string_simple(const char* str, uint16_t x, uint16_t y, uint16_t fore_color, const lui_font_t* font);
+void lui_gfx_draw_char(char c, uint16_t x, uint16_t y, uint16_t fore_color, uint16_t bg_color, uint8_t is_bg, const lui_font_t* font);
+_lui_glyph_t* _lui_gfx_get_glyph_from_char(char c, const lui_font_t* font);
+void _lui_gfx_render_char_glyph(uint16_t x, uint16_t y, uint16_t fore_color, uint16_t bg_color, uint8_t is_bg, const _lui_glyph_t* glyph, const lui_font_t* font);
+void lui_gfx_get_string_dimension(const char* str, const lui_font_t* font_obj, uint16_t max_w, uint16_t* str_dim);
 void _lui_gfx_plot_line_low(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color);
 void _lui_gfx_plot_line_high(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color);
 void lui_gfx_draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color);
