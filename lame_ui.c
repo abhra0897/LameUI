@@ -2233,61 +2233,68 @@ void lui_keyboard_sys_cb(lui_obj_t* obj_sender)
 	if (active_btn_id == -1)
 		return;
 
-	if (btngrid->kb_data->keyboard_mode == LUI_KEYBOARD_MODE_NUMPAD)
-	{
 
-	}
-	
-	else
+	uint16_t caret_index = lui_textbox_get_caret_index(btngrid->kb_data->target_txtbox);
+	if (strcmp(btn_text, LUI_ICON_CHECKMARK) == 0)
 	{
-		uint16_t caret_index = lui_textbox_get_caret_index(btngrid->kb_data->target_txtbox);
-		if (strcmp(btn_text, LUI_ICON_ARROW_BACK) == 0)
+		btngrid->kb_data->target_txtbox->state = LUI_STATE_IDLE;
+		btngrid->kb_data->target_txtbox->event = LUI_EVENT_EXITED;
+		btngrid->kb_data->target_txtbox->obj_event_cb(btngrid->kb_data->target_txtbox);
+	}
+	else if (strcmp(btn_text, LUI_ICON_CLOSE) == 0)
+	{
+		lui_textbox_t* txtbox = btngrid->kb_data->target_txtbox->obj_main_data;
+		txtbox->used_chars = 1;
+		txtbox->text_buffer[0] = '\0';
+		txtbox->caret_index = 0;
+	}
+	else if (strcmp(btn_text, LUI_ICON_ARROW_BACK) == 0)
+	{
+		lui_textbox_set_caret_index(btngrid->kb_data->target_txtbox, --caret_index);
+	}
+	else if (strcmp(btn_text, LUI_ICON_ARROW_FORWARD) == 0)
+	{
+		lui_textbox_set_caret_index(btngrid->kb_data->target_txtbox, ++caret_index);
+	}
+	else if (strcmp(btn_text, LUI_ICON_BACKSPACE) == 0)
+	{
+		if (caret_index > 0)
 		{
 			lui_textbox_set_caret_index(btngrid->kb_data->target_txtbox, --caret_index);
+			lui_textbox_delete_char(btngrid->kb_data->target_txtbox);
 		}
-		else if (strcmp(btn_text, LUI_ICON_ARROW_FORWARD) == 0)
+	}
+	else if (strcmp(btn_text, LUI_ICON_RETURN_DOWN_BACK) == 0)
+	{
+		lui_textbox_insert_char(btngrid->kb_data->target_txtbox, '\n');
+		lui_textbox_set_caret_index(btngrid->kb_data->target_txtbox, ++caret_index);
+	}
+	else if (strcmp(btn_text, "ABC") == 0 || strcmp(btn_text, "abc") == 0 || strcmp(btn_text, "1#") == 0 )
+	{
+		if (strcmp(btn_text, "1#") == 0)
 		{
-			lui_textbox_set_caret_index(btngrid->kb_data->target_txtbox, ++caret_index);
+			btngrid->kb_data->keyboard_mode = LUI_KEYBOARD_MODE_TXT_SPCL;
+			btngrid->texts = kb_spcl_textmap;
 		}
-		else if (strcmp(btn_text, LUI_ICON_BACKSPACE) == 0)
+		else if (strcmp(btn_text, "ABC") == 0)
 		{
-			if (caret_index > 0)
-			{
-				lui_textbox_set_caret_index(btngrid->kb_data->target_txtbox, --caret_index);
-				lui_textbox_delete_char(btngrid->kb_data->target_txtbox);
-			}
-		}
-		else if (strcmp(btn_text, LUI_ICON_RETURN_DOWN_BACK) == 0)
-		{
-			lui_textbox_insert_char(btngrid->kb_data->target_txtbox, '\n');
-			lui_textbox_set_caret_index(btngrid->kb_data->target_txtbox, ++caret_index);
-		}
-		else if (strcmp(btn_text, "ABC") == 0 || strcmp(btn_text, "abc") == 0 || strcmp(btn_text, "1#") == 0 )
-		{
-			if (strcmp(btn_text, "1#") == 0)
-			{
-				btngrid->kb_data->keyboard_mode = LUI_KEYBOARD_MODE_TXT_SPCL;
-				btngrid->texts = kb_spcl_textmap;
-			}
-			else if (strcmp(btn_text, "ABC") == 0)
-			{
-				btngrid->kb_data->keyboard_mode = LUI_KEYBOARD_MODE_TXT_UPPER;
-				btngrid->texts = kb_txt_upper_textmap;
-			}
-			else
-			{
-				btngrid->kb_data->keyboard_mode = LUI_KEYBOARD_MODE_TXT_LOWER;
-				btngrid->texts = kb_txt_lower_textmap;
-			}
-			obj_sender->needs_refresh = 1;
-			btngrid->needs_full_render = 1;
+			btngrid->kb_data->keyboard_mode = LUI_KEYBOARD_MODE_TXT_UPPER;
+			btngrid->texts = kb_txt_upper_textmap;
 		}
 		else
 		{
-			lui_textbox_insert_char(btngrid->kb_data->target_txtbox, btn_text[0]);
-			lui_textbox_set_caret_index(btngrid->kb_data->target_txtbox, lui_textbox_get_caret_index(btngrid->kb_data->target_txtbox) + 1);
+			btngrid->kb_data->keyboard_mode = LUI_KEYBOARD_MODE_TXT_LOWER;
+			btngrid->texts = kb_txt_lower_textmap;
 		}
+		obj_sender->needs_refresh = 1;
+		btngrid->needs_full_render = 1;
 	}
+	else
+	{
+		lui_textbox_insert_char(btngrid->kb_data->target_txtbox, btn_text[0]);
+		lui_textbox_set_caret_index(btngrid->kb_data->target_txtbox, lui_textbox_get_caret_index(btngrid->kb_data->target_txtbox) + 1);
+	}
+
 
 }
 // TODO : Complete keyboard implementation, also complete textbox
@@ -2413,7 +2420,7 @@ void lui_textbox_draw(lui_obj_t* obj)
 		txt_is_bg = 0;
 	}
 
-	uint8_t pad = 20;
+	uint8_t pad = 10;
 	uint16_t caret_x = obj->x + pad;
 	uint16_t caret_y = obj->y + pad;
 	uint8_t caret_h = txtbox->font->bitmap->size_y;
@@ -2425,6 +2432,11 @@ void lui_textbox_draw(lui_obj_t* obj)
 									obj->common_style.height - 2*pad, txtbox->style.text_color, 
 									obj->common_style.bg_color, 1, txtbox->font);
 	
+	fprintf(stderr, "h: %d\n ", obj->common_style.height - 2*pad);
+
+	/* No need to draw caret when textbox is in Idle state */
+	if (obj->state == LUI_STATE_IDLE)
+		return;
 	/* Calculate caret coordinates */
 	for (uint16_t i = 0; i < txtbox->caret_index; i++)
 	{
@@ -2449,13 +2461,11 @@ void lui_textbox_draw(lui_obj_t* obj)
 			{
 				caret_x = obj->x + pad;			//go to first col
 				caret_y += glyph_h;					//go to next row
-
-				// check if not enough space available at the bottom
-				if(caret_y + glyph_h > obj->y + obj->common_style.height - pad)
-				{
-					break;
-				}
-					
+			}
+			// check if not enough space available at the bottom
+			if(caret_y + glyph_h > obj->y + obj->common_style.height - pad)
+			{
+				break;
 			}
 			caret_x += glyph_w;		//next char position
 		}
@@ -3196,6 +3206,14 @@ void lui_object_set_visibility(lui_obj_t* obj, uint8_t is_visible)
 	if (is_visible)
 	{
 		_lui_object_set_need_refresh(obj);
+		if (obj->obj_type == LUI_OBJ_BTNGRID)
+		{
+			((lui_btngrid_t* )(obj->obj_main_data))->needs_full_render = 1;
+		}
+		else if (obj->obj_type == LUI_OBJ_TEXTBOX)
+		{
+			((lui_textbox_t* )(obj->obj_main_data))->needs_full_render = 1;
+		}
 	}
 	else
 	{
@@ -3476,7 +3494,8 @@ lui_obj_t* _lui_scan_individual_object_for_input(lui_touch_input_data_t* touch_i
 		obj->obj_type == LUI_OBJ_SWITCH ||
 		obj->obj_type == LUI_OBJ_CHECKBOX ||
 		obj->obj_type == LUI_OBJ_SLIDER ||
-		obj->obj_type == LUI_OBJ_BTNGRID)
+		obj->obj_type == LUI_OBJ_BTNGRID ||
+		obj->obj_type == LUI_OBJ_TEXTBOX)
 	{
 		if (touch_input_data != NULL) // Touch input
 		{
@@ -3752,10 +3771,25 @@ void _lui_set_obj_props_on_touch_input(lui_touch_input_data_t* input, lui_obj_t*
 	}
 	
 
-	
+	// Special case for TextBox. When clicked on a textbox, the state becomes ENTERED
+	// To EXIT the state, the close or ok button from keyboard must be pressed
+	if (obj->obj_type == LUI_OBJ_TEXTBOX)
+	{
+		if (obj->event == LUI_EVENT_PRESSED)
+		{
+			obj->state = LUI_STATE_ENTERED;
+			obj->event = LUI_EVENT_ENTERED;
+		}
+		else
+		{
+			obj->state = old_state;
+			obj->event = LUI_EVENT_NONE;
+		}
+	}
+
 	// Special case for switch and checkbox: if event is LUI_EVENT_PRESSED, then set event to LUI_EVENT_VALUE_CHANGED
 	// then set the value to `value` property
-	if (obj->obj_type == LUI_OBJ_SWITCH ||
+	else if (obj->obj_type == LUI_OBJ_SWITCH ||
 		obj->obj_type == LUI_OBJ_CHECKBOX)
 	{	
 		if (obj->event == LUI_EVENT_RELEASED || obj->event == LUI_EVENT_SELECTION_LOST)
@@ -4100,6 +4134,7 @@ void _lui_object_set_need_refresh(lui_obj_t* obj)
 
 	obj->needs_refresh = 1;
 
+
 	/**
 	 * NOTE: needs_refresh_bit is set to 1 only when object is visible.
 	 * If a parent is invisible, its children's needs_refresh bit won't be changed too.
@@ -4128,7 +4163,7 @@ void _lui_object_set_need_refresh(lui_obj_t* obj)
 			{
 				((lui_btngrid_t* )(child->obj_main_data))->needs_full_render = 1;
 			}
-			else if (obj->obj_type == LUI_OBJ_TEXTBOX)
+			else if (child->obj_type == LUI_OBJ_TEXTBOX)
 			{
 				((lui_textbox_t* )(child->obj_main_data))->needs_full_render = 1;
 			}
@@ -4275,7 +4310,7 @@ void lui_gfx_draw_string_advanced(const char* str, uint16_t x, uint16_t y, uint1
 	
 	// Scan chars one by one from the string
 	//char
-	for (uint16_t char_cnt = 0; *str != '\0'; char_cnt++)
+	while (*str != '\0')
 	{
 		if (*str == '\n')
 		{
@@ -4295,11 +4330,11 @@ void lui_gfx_draw_string_advanced(const char* str, uint16_t x, uint16_t y, uint1
 			{
 				x_temp = x;					//go to first col
 				y_temp += font->bitmap->size_y;	//go to next row
-
-				// check if not enough space available at the bottom
-				if(y_temp + font->bitmap->size_y > y + h)
-					return;
 			}
+
+			// check if not enough space available at the bottom
+			if(y_temp + font->bitmap->size_y > y + h)
+				return;
 
 			_lui_gfx_render_char_glyph(x_temp, y_temp, fore_color, 0, 0, glyph, font);
 
