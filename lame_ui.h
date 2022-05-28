@@ -6,7 +6,7 @@
  * @author Avra Mitra
  * @brief One and only header file for LameUI library.
  * @version 0.1
- * @date 2022-04-24
+ * @date 2022-05-28
  * 
  * @copyright Copyright (c) 2022
  * 
@@ -20,9 +20,6 @@
 #include <stdio.h>
 #include <stdint.h>
 
-#define LUI_MEM_MAX_SIZE					20000	// Max allocable size (in Bytes) for UI elements
-/* NOTE: LUI_MEM_DEFRAG_EN increases memory overhead. Enable it only if free() and destroy() are used often */
-#define LUI_MEM_DEFRAG_EN					1		// Enable memory defragment (1: enable, 0: disable) 
 #define	LUI_MAX_OBJECTS						130
 //#define LUI_MAX_SCENES						3
 
@@ -221,35 +218,14 @@
 #define _LUI_BTNGRID_MASK_BTN_WIDTH_UNIT	0x0F
 
 
-/* Defined at the top for user's convenience */
-// #define LUI_MEM_MAX_SIZE					10000
-
-#define LUI_MEM_CHUNK_STATUS_FREE			0
-#define LUI_MEM_CHUNK_STATUS_USED			1
-#define LUI_MEM_CHUNK_TYPE_NEW				2
-#define LUI_MEM_CHUNK_TYPE_REUSE			3
-#define LUI_MEM_CHUNK_TYPE_NONE				4
-
 #pragma pack(push, 1)
 
 typedef struct
 {
-    uint8_t mem_block[LUI_MEM_MAX_SIZE];
-	uint8_t* mem_start;
-	uint8_t* mem_end;
-    uint16_t mem_chunk_count;
+	uint8_t* mem_block;
+	uint16_t block_max_sz;
     uint16_t mem_allocated;
 }_lui_mem_block_t;
-
-typedef struct _lui_mem_chunk
-{
-    uint16_t alloc_size;
-    uint8_t alloc_status;
-	#if (LUI_MEM_DEFRAG_EN == 1)
-		struct _lui_mem_chunk* prev_chunk;
-		struct _lui_mem_chunk* next_chunk;
-	#endif
-}_lui_mem_chunk_t;
 
 /* This is a generic bitmap */
 typedef struct 
@@ -550,18 +526,17 @@ typedef struct _lui_main_s
 	uint8_t input_event_clicked;
 	uint8_t total_scenes;
 	uint8_t total_created_objects;	//increases as new objs are created. It never decreases
-}lui_main_t;
+}_lui_main_t;
 
 #pragma pack(pop)
 
-void lui_init();
+void lui_init(uint8_t mem_block[], uint16_t size);
 void lui_update();
 
 
 lui_obj_t* _lui_object_create();
 void lui_object_add_to_parent(lui_obj_t* obj, lui_obj_t* parent_obj);
 void lui_object_remove_from_parent(lui_obj_t* obj);
-void* lui_object_destroy(lui_obj_t* obj);
 void lui_object_set_area(lui_obj_t* obj, uint16_t width, uint16_t height);
 void lui_object_set_width(lui_obj_t* obj, uint16_t width);
 void lui_object_set_height(lui_obj_t* obj, uint16_t height);
@@ -654,7 +629,7 @@ void _lui_list_add_button_obj(lui_obj_t* obj_list, lui_obj_t* obj_btn);
 lui_obj_t* lui_btngrid_create();
 void lui_btngrid_draw(lui_obj_t* obj);
 void lui_btngrid_set_textmap(lui_obj_t* obj, const char* texts[]);
-void lui_btngrid_set_propertymap(lui_obj_t* obj, uint8_t properties[]);
+void lui_btngrid_set_propertymap(lui_obj_t* obj, const uint8_t properties[]);
 void lui_btngrid_set_btn_property_bits(lui_obj_t* obj, uint16_t btn_index, uint8_t property_byte);
 void lui_btngrid_set_btn_text(lui_obj_t* obj, uint8_t btn_index, char* text);
 void lui_btngrid_set_btn_width_unit(lui_obj_t* obj, uint16_t btn_index, uint8_t width_unit);
@@ -700,7 +675,6 @@ void lui_scene_set_font(lui_obj_t* obj_scene, const lui_font_t* font);
 
 lui_dispdrv_t* lui_dispdrv_create();
 void lui_dispdrv_register(lui_dispdrv_t* dispdrv);
-void* lui_dispdrv_destroy(lui_dispdrv_t* dispdrv);
 void lui_dispdrv_set_resolution(lui_dispdrv_t* dispdrv, uint16_t hor_res, uint16_t vert_res);
 void lui_dispdrv_set_draw_pixels_area_cb(lui_dispdrv_t* dispdrv, void (*draw_pixels_area_cb)(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color));
 void lui_dispdrv_set_render_complete_cb(lui_dispdrv_t* dispdrv, void (*render_complete_cb)());
@@ -715,9 +689,8 @@ void lui_touch_inputdev_set_read_input_cb(lui_touch_input_dev_t* touch_inputdev,
 //-------------------------------------------------------------------------------
 //-------------------------------- HELPER FUNCTIONS------------------------------
 //-------------------------------------------------------------------------------
-void _lui_mem_init();
+void _lui_mem_init(uint8_t mem_block[], uint16_t size);
 void* _lui_mem_alloc(uint16_t element_size);
-void _lui_mem_free(void* ptr);
 void _lui_object_set_need_refresh(lui_obj_t* obj);
 void _lui_object_render_parent_with_children(lui_obj_t* obj);
 void _lui_object_render(lui_obj_t* obj);

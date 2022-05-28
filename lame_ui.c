@@ -6,7 +6,7 @@
  * @author Avra Mitra
  * @brief Source FIle of LameUI GUI library. Must include lame_ui.h. No other file is mandatory.
  * @version 0.1
- * @date 2022-04-24
+ * @date 2022-05-28
  * 
  * @copyright Copyright (c) 2022
  * 
@@ -17,7 +17,7 @@
 
 uint8_t g_needs_render = 0;
 _lui_mem_block_t g_mem_block;
-lui_main_t* g_lui_main;
+_lui_main_t* g_lui_main;
 
 
 /*-------------------------------------------------------------------------------
@@ -25,10 +25,10 @@ lui_main_t* g_lui_main;
  *-------------------------------------------------------------------------------
  */
 
-void lui_init()
+void lui_init(uint8_t mem_block[], uint16_t size)
 {
-	_lui_mem_init();
-	g_lui_main = _lui_mem_alloc(sizeof(lui_main_t));
+	_lui_mem_init(mem_block, size);
+	g_lui_main = _lui_mem_alloc(sizeof(_lui_main_t));
 	if (g_lui_main == NULL)
 		return;
 
@@ -63,7 +63,6 @@ void lui_update()
 	lui_obj_t* obj_caused_cb = NULL;
 	// Reading input
 	obj_caused_cb = _lui_process_input_of_act_scene();
-	//fprintf(stderr, "\t\t\t%d\n", g_needs_render);
 	if (g_needs_render)
 		_lui_object_render_parent_with_children( g_lui_main->active_scene);
 
@@ -716,11 +715,10 @@ void lui_list_draw(lui_obj_t* obj)
 	if (!(obj->visible))
 		return;
 
-	// draw the background first
-	 g_lui_main->disp_drv->draw_pixels_area_cb(obj->x, obj->y, obj->common_style.width, obj->common_style.height, obj->common_style.bg_color);
+	/* draw the background first */
+	g_lui_main->disp_drv->draw_pixels_area_cb(obj->x, obj->y, obj->common_style.width, obj->common_style.height, obj->common_style.bg_color);
 
-	// draw the border if needed
-	// Finally Draw the border if needed
+	/* Finally Draw the border if needed */
 	if (obj->common_style.border_visible == 1)
 	{
 		lui_gfx_draw_rect(obj->x, obj->y,  obj->common_style.width, obj->common_style.height, 1, obj->common_style.border_color);
@@ -942,8 +940,6 @@ void lui_list_delete_item(lui_obj_t** obj_item_addr)
 
 	lui_object_remove_from_parent(*obj_item_addr);
 	*obj_item_addr = NULL;
-	 _lui_mem_free(*obj_item_addr);
-	 g_lui_main->total_created_objects--;
 }
 
 void lui_list_set_item_min_height(lui_obj_t* obj, uint8_t height)
@@ -1084,8 +1080,8 @@ void _lui_list_add_nav_buttons(lui_obj_t* obj)
 	// create navigation buttons
 	lui_obj_t* obj_nav_btn_prev = lui_button_create();
 	lui_obj_t* obj_nav_btn_nxt = lui_button_create();
-	lui_button_set_label_text(obj_nav_btn_prev, "Prev");
-	lui_button_set_label_text( obj_nav_btn_nxt, "Next");
+	lui_button_set_label_text(obj_nav_btn_prev, LUI_ICON_ARROW_BACK);
+	lui_button_set_label_text( obj_nav_btn_nxt, LUI_ICON_ARROW_FORWARD);
 	// set nav button styles (nav button height and width are calculated y `prepare` function)
 	lui_button_set_label_color(obj_nav_btn_prev, LUI_STYLE_LIST_NAV_LABEL_COLOR);
 	lui_button_set_label_color(obj_nav_btn_nxt, LUI_STYLE_LIST_NAV_LABEL_COLOR);
@@ -1853,40 +1849,45 @@ void lui_btngrid_set_textmap(lui_obj_t* obj, const char* texts[])
 		}
 	}
 
-	if (btngrid->btn_area != NULL || btngrid->btn_properties != NULL)
+	/* Already btngrid exists and new button count is greater than prev button count */
+	if (btngrid->btn_cnt > 0 && buttons > btngrid->btn_cnt)
 	{
-		_lui_mem_free(btngrid->btn_area);
-		_lui_mem_free(btngrid->btn_properties);
-		btngrid->btn_area = NULL;
-		btngrid->btn_properties = NULL;
-	}
-
-	btngrid->btn_area = _lui_mem_alloc(buttons * sizeof(lui_area_t));
-	if (btngrid->btn_area == NULL)
 		return;
-	btngrid->btn_properties = _lui_mem_alloc(buttons * sizeof(uint8_t));
-	if (btngrid->btn_properties == NULL)
-		return;
-
-	for (int i = 0; i < buttons; i++)
-	{
-		btngrid->btn_area[i].x1 = 0;
-		btngrid->btn_area[i].y1 = 0;
-		btngrid->btn_area[i].x2 = 0;
-		btngrid->btn_area[i].y2 = 0;
-		btngrid->btn_properties[i] = 1;
 	}
+	/* Buttongrid may or maynot already exists */
+	else
+	{	
+		/* Btngrid doesn't already exists, so, allocate memory for area map and property map */
+		if (btngrid->btn_cnt == 0)
+		{
+			btngrid->btn_area = _lui_mem_alloc(buttons * sizeof(lui_area_t));
+			if (btngrid->btn_area == NULL)
+				return;
+			btngrid->btn_properties = _lui_mem_alloc(buttons * sizeof(uint8_t));
+			if (btngrid->btn_properties == NULL)
+				return;
+		}
 
-	btngrid->btn_cnt = buttons;
-	btngrid->row_cnt = rows;
-	btngrid->texts = texts;
-	btngrid->needs_full_render = 1;
-	_lui_object_set_need_refresh(obj);
+		for (int i = 0; i < buttons; i++)
+		{
+			btngrid->btn_area[i].x1 = 0;
+			btngrid->btn_area[i].y1 = 0;
+			btngrid->btn_area[i].x2 = 0;
+			btngrid->btn_area[i].y2 = 0;
+			btngrid->btn_properties[i] = 1;
+		}
 
-	_lui_btngrid_calc_btn_area(obj);
+		btngrid->btn_cnt = buttons;
+		btngrid->row_cnt = rows;
+		btngrid->texts = texts;
+		btngrid->needs_full_render = 1;
+		_lui_object_set_need_refresh(obj);
+
+		_lui_btngrid_calc_btn_area(obj);
+	}
 }
 
-void lui_btngrid_set_propertymap(lui_obj_t* obj, uint8_t properties[])
+void lui_btngrid_set_propertymap(lui_obj_t* obj, const uint8_t properties[])
 {
 	if (obj == NULL)
 		return;
@@ -2253,7 +2254,8 @@ void lui_keyboard_sys_cb(lui_obj_t* obj_sender)
 
 
 }
-// TODO : Complete keyboard implementation, also complete textbox
+
+
 lui_obj_t* lui_keyboard_create()
 {
 	// if total created objects become more than max allowed objects, don't create the object
@@ -2929,22 +2931,6 @@ void lui_object_remove_from_parent(lui_obj_t* obj)
 	obj->parent = NULL;
 }
 
-void* lui_object_destroy(lui_obj_t* obj)
-{
-	if (obj == NULL)
-		return NULL;
-
-	// If object has parent, remove itself from parent
-	if (obj->parent != NULL)
-	{
-		lui_object_remove_from_parent(obj);
-	}
-	/* Note: Object's children will NOT be automatically destroyed, they should be
-	 * manually destroyed else they'll remain orphaned
-	 */
-	_lui_mem_free(obj);
-	return NULL;
-}
 
 void lui_object_set_position(lui_obj_t* obj, uint16_t x, uint16_t y)
 {
@@ -3656,13 +3642,6 @@ void lui_dispdrv_register(lui_dispdrv_t* dispdrv)
 	 g_lui_main->disp_drv = dispdrv;
 }
 
-void* lui_dispdrv_destroy(lui_dispdrv_t* dispdrv)
-{
-	if (dispdrv != NULL)
-		_lui_mem_free(dispdrv);
-	return NULL;
-}
-
 void lui_dispdrv_set_resolution(lui_dispdrv_t* dispdrv, uint16_t hor_res, uint16_t vert_res)
 {
 	if (dispdrv == NULL)
@@ -3740,7 +3719,6 @@ static int _lui_obj_layer_cmprtr(const void* p1, const void* p2)
 	// int t1 = (*((lui_obj_t** )p1))->obj_type;
 	// int t2 = (*((lui_obj_t** )p2))->obj_type;
 
-	//fprintf(stderr, "\t\t l1: %d  l2: %d  l1-l2: %d  type1: %d  type2: %d....\n", l1, l2, l1-l2, t1, t2);
 	return (l1 - l2);
 }
 
@@ -3809,7 +3787,6 @@ void _lui_object_render_parent_with_children(lui_obj_t* obj_parent)
 
 	for (uint8_t i = 0; i < arr_counter; i++)
 	{
-		fprintf(stderr, "I: %d  L: %d   T: %d\n", i, obj_arr[i]->layer, obj_arr[i]->obj_type);
 		_lui_object_render(obj_arr[i]);
 	}
 	
@@ -4394,166 +4371,22 @@ uint16_t lui_rgb(uint16_t red, uint16_t green, uint16_t blue)
 	return _LUI_RGB(red, green, blue);
 }
 
-void _lui_mem_init()
+void _lui_mem_init(uint8_t mem_block[], uint16_t size)
 {
-	g_mem_block.mem_start = &(g_mem_block.mem_block[0]);
-	g_mem_block.mem_end = g_mem_block.mem_start + LUI_MEM_MAX_SIZE;
-	g_mem_block.mem_chunk_count = 0;
+	g_mem_block.mem_block = mem_block;
+	g_mem_block.block_max_sz = size;
 	g_mem_block.mem_allocated = 0;
-	
-	_lui_mem_chunk_t* first_chunk = (_lui_mem_chunk_t* )(g_mem_block.mem_start);
-	#if (LUI_MEM_DEFRAG_EN == 1)
-		first_chunk->next_chunk = NULL;
-		first_chunk->prev_chunk = NULL;
-	#endif
-	first_chunk->alloc_size = 0;
-	first_chunk->alloc_status = LUI_MEM_CHUNK_STATUS_FREE;
 }
 
 void* _lui_mem_alloc(uint16_t element_size)
 {
-	_lui_mem_chunk_t* chunk_metadata = (_lui_mem_chunk_t* )(g_mem_block.mem_start);
-	
-	
-	uint16_t chunk_metadata_size = sizeof(_lui_mem_chunk_t);
-	uint8_t chunk_type =  LUI_MEM_CHUNK_TYPE_NONE;
-	
-	if ((element_size + chunk_metadata_size) > ( LUI_MEM_MAX_SIZE - (g_mem_block.mem_allocated + g_mem_block.mem_chunk_count * chunk_metadata_size)))
-	{
+	if (g_mem_block.mem_allocated + element_size > g_mem_block.block_max_sz)
 		return NULL;
-	}
-	while (g_mem_block.mem_end > (uint8_t* )chunk_metadata + element_size + chunk_metadata_size)
-	{
-		if (chunk_metadata->alloc_status ==  LUI_MEM_CHUNK_STATUS_FREE)
-		{
-			if (chunk_metadata->alloc_size == 0 ||
-				chunk_metadata->alloc_size > (element_size + chunk_metadata_size))
-			{
-				chunk_type =  LUI_MEM_CHUNK_TYPE_NEW;
-				break;
-			}
-			else if (chunk_metadata->alloc_size == (element_size + chunk_metadata_size))
-			{
-				chunk_type =  LUI_MEM_CHUNK_TYPE_REUSE;
-				break;
-			}
-		}
-		chunk_metadata = (_lui_mem_chunk_t* )((uint8_t* )chunk_metadata + chunk_metadata->alloc_size);
-	}
-	
-	if (chunk_type !=  LUI_MEM_CHUNK_TYPE_NONE)
-	{
-		chunk_metadata->alloc_status =  LUI_MEM_CHUNK_STATUS_USED;
-		if (chunk_type ==  LUI_MEM_CHUNK_TYPE_NEW)
-		{
-			/* Resize the chunk */
-			chunk_metadata->alloc_size = element_size + chunk_metadata_size;
-			
-			#if (LUI_MEM_DEFRAG_EN == 1)
-				/* Set next chunk address */
-				chunk_metadata->next_chunk = (_lui_mem_chunk_t* )((uint8_t* )chunk_metadata + chunk_metadata->alloc_size);
-				/* Set next chunk's previous chunk address which is the current chunk */
-				chunk_metadata->next_chunk->prev_chunk = chunk_metadata;
-			#endif
-			/* Increase chunk count by 1 */
-			++(g_mem_block.mem_chunk_count);
-		}
-
-		g_mem_block.mem_allocated += element_size;
-		return ((uint8_t* )chunk_metadata + chunk_metadata_size);
-	}
-	else
-	{
-		return NULL;
-	}
+	uint8_t* nxt_addr = g_mem_block.mem_block + g_mem_block.mem_allocated;
+	g_mem_block.mem_allocated += element_size;
+	return nxt_addr;
 }
 
-
-void _lui_mem_free(void* ptr)
-{
-	_lui_mem_chunk_t* chunk_metadata = (_lui_mem_chunk_t* )ptr;
-	// Get the actual chunk_metadata
-	--chunk_metadata;
-	
-	if (chunk_metadata == NULL)
-	{
-		return;
-	}
-	if (chunk_metadata->alloc_status == LUI_MEM_CHUNK_STATUS_FREE)
-	{
-		return;
-	}
-	
-	chunk_metadata->alloc_status =  LUI_MEM_CHUNK_STATUS_FREE;
-	g_mem_block.mem_allocated -= chunk_metadata->alloc_size - sizeof(_lui_mem_chunk_t);
-	
-	/* If only one chunk is there, set the chunk count to 0 */
-	if (g_mem_block.mem_chunk_count == 1)
-	{
-		g_mem_block.mem_chunk_count = 0;
-		chunk_metadata->alloc_size = 0;
-
-		#if (LUI_MEM_DEFRAG_EN == 1)
-			chunk_metadata->next_chunk = NULL;
-			chunk_metadata->prev_chunk = NULL;
-		#endif
-		
-		return;
-	}
-	
-	#if (LUI_MEM_DEFRAG_EN == 1)
-	// merge with next chunk if that is free too
-	/* Note: Theoretically, for the right-most chunk, `next_chunk` should be NULL and this condition
-	 * should not be called. BUT, the right-most chunk actually has a not-null `next_chunk` which is
-	 * set during allocation to point out which one will be it's next chunk.
-	 * So, even for right-most chunk, this condition is satisfied and `chunk_count` is decremented
-	 * even though nothing is "actually" merged
-	 */
-	if (chunk_metadata->next_chunk != NULL)
-	{
-		if (chunk_metadata->next_chunk->alloc_status == LUI_MEM_CHUNK_STATUS_FREE)
-		{
-			/* merge next chunk with current chunk and increase current chunk's size */
-			chunk_metadata->alloc_size += chunk_metadata->next_chunk->alloc_size;
-			chunk_metadata->next_chunk = chunk_metadata->next_chunk->next_chunk;
-			if (chunk_metadata->next_chunk != NULL)
-			{
-				chunk_metadata->next_chunk->prev_chunk = chunk_metadata;
-			}
-			/* As two chunks are merged, chunk count reduced*/
-			--(g_mem_block.mem_chunk_count);
-		}
-	}
-	
-	// merge with previous chunk if that is free too
-	if (chunk_metadata->prev_chunk != NULL)
-	{
-		if (chunk_metadata->prev_chunk->alloc_status == LUI_MEM_CHUNK_STATUS_FREE)
-		{
-			/* merge current chunk with previous chunk and increase previous chunk's size */
-			chunk_metadata->prev_chunk->alloc_size += chunk_metadata->alloc_size;
-			chunk_metadata->prev_chunk->next_chunk = chunk_metadata->next_chunk;
-			if (chunk_metadata->next_chunk != NULL)
-			{
-				chunk_metadata->next_chunk->prev_chunk = chunk_metadata->prev_chunk;
-			}
-			/* As two chunks are merged, chunk count reduced*/
-			--(g_mem_block.mem_chunk_count);
-		}
-	}
-	
-	/* If chunk count becomes 0 after merging, set the remaining chunk's size to 0
-	 * Also set its prev_chunk and next_chunk to NULL
-	 */
-	if (g_mem_block.mem_chunk_count == 0)
-	{
-		_lui_mem_chunk_t* first_chunk = (_lui_mem_chunk_t* )(g_mem_block.mem_start);
-		first_chunk->alloc_size = 0;
-		first_chunk->next_chunk = NULL;
-		first_chunk->prev_chunk = NULL;
-	}  
-	#endif
-}
 
 //AUTOGENERATED FILE! DO NOT EDIT!
 static const uint8_t lui_default_payload[4164] ={
