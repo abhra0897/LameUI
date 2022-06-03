@@ -1096,67 +1096,77 @@ void _lui_list_add_nav_buttons(lui_obj_t* obj)
 	_lui_list_add_button_obj(obj, obj_nav_btn_nxt);
 }
 
+void lui_list_set_page_index(lui_obj_t* obj, uint8_t index)
+{
+	lui_list_t* list = obj->obj_main_data;
+
+	if (index >= list->page_count || index == list->current_page_index)
+		return;
+	list->current_page_index = index;
+	_lui_object_set_need_refresh(obj);
+
+
+	// list items start after first two buttons. First two buttons are nav buttons
+	lui_obj_t* list_item = obj->first_child->next_sibling->next_sibling;
+	uint8_t item_pos = 0; 
+	uint16_t first_item_pos = (list->current_page_index * list->buttons_per_page);
+	uint16_t last_item_pos = first_item_pos + list->buttons_per_page - 1;
+	while (list_item != NULL)
+	{
+		// here, we're checking if the item is in current page. Only the it will be visible
+		// this is done by checking if the index of item is within the range of current page
+		if (item_pos >= first_item_pos && item_pos <= last_item_pos)
+		{
+			list_item->visible = 1;
+		}
+		else
+		{
+			list_item->visible = 0;
+		}
+
+		// go to next list item
+		list_item = list_item->next_sibling;
+		item_pos++;
+		
+	}
+
+	// if list page count is more than 0, draw the nav button
+	if (list->page_count > 0)
+	{
+		// draw "next" or "prev" button only if there's a next or a previous page
+		if (list->current_page_index + 1 < list->page_count)
+			lui_object_set_visibility(obj->first_child->next_sibling, 1); // 2nd child: NEXT button
+		else
+			lui_object_set_visibility(obj->first_child->next_sibling, 0);
+
+		if (list->current_page_index - 1 >= 0)
+			lui_object_set_visibility(obj->first_child, 1);	// 1st child: PREV button
+		else
+			lui_object_set_visibility(obj->first_child, 0);
+	}
+	
+}
+
 void _lui_list_nav_btn_cb(lui_obj_t* obj)
 {
 	uint8_t event = lui_object_get_event(obj);
 	lui_list_t* list = obj->parent->obj_main_data;
+	uint8_t index = list->current_page_index;
+
 	if (event == LUI_EVENT_PRESSED)
 	{
-		if (obj == obj->parent->first_child)	// first child is nav_prev btn
+		/* first child is nav_prev btn */
+		if (obj == obj->parent->first_child && list->current_page_index > 0)
 		{
-			if (list->current_page_index > 0)
-			{
-				list->current_page_index--;
-				_lui_object_set_need_refresh(obj->parent);	
-			}
+			index--;
 		}
-		else if (obj == obj->parent->first_child->next_sibling)	// 2nd child is nav_nxt button
+		/* 2nd child is nav_nxt button */
+		else if (obj == obj->parent->first_child->next_sibling && list->current_page_index < list->page_count - 1)
 		{
-			if (list->current_page_index < list->page_count - 1)
-			{
-				list->current_page_index++;
-				_lui_object_set_need_refresh(obj->parent);
-			}
+			index++;
 		}
 
-		// list items start after first two buttons. First two buttons are nav buttons
-		lui_obj_t* list_item = obj->parent->first_child->next_sibling->next_sibling;
-		uint8_t item_pos = 0; 
-		uint16_t first_item_pos = (list->current_page_index * list->buttons_per_page);
-		uint16_t last_item_pos = first_item_pos + list->buttons_per_page - 1;
-		while (list_item != NULL)
-		{
-			// here, we're checking if the item is in current page. Only the it will be visible
-			// this is done by checking if the index of item is within the range of current page
-			if (item_pos >= first_item_pos && item_pos <= last_item_pos)
-			{
-				list_item->visible = 1;
-			}
-			else
-			{
-				list_item->visible = 0;
-			}
-
-			// go to next list item
-			list_item = list_item->next_sibling;
-			item_pos++;
-			
-		}
-
-		// if list page count is more than 0, draw the nav button
-		if (list->page_count > 0)
-		{
-			// draw "next" or "prev" button only if there's a next or a previous page
-			if (list->current_page_index + 1 < list->page_count)
-				lui_object_set_visibility(obj->parent->first_child->next_sibling, 1); // 2nd child: NEXT button
-			else
-				lui_object_set_visibility(obj->parent->first_child->next_sibling, 0);
-
-			if (list->current_page_index - 1 >= 0)
-				lui_object_set_visibility(obj->parent->first_child, 1);	// 1st child: PREV button
-			else
-				lui_object_set_visibility(obj->parent->first_child, 0);
-		}
+		lui_list_set_page_index(obj->parent, index);
 	}
 }
 /*-------------------------------------------------------------------------------
@@ -2251,6 +2261,41 @@ void lui_keyboard_sys_cb(lui_obj_t* obj_sender)
 		lui_textbox_insert_char(btngrid->kb_data->target_txtbox, btn_text[0]);
 		lui_textbox_set_caret_index(btngrid->kb_data->target_txtbox, lui_textbox_get_caret_index(btngrid->kb_data->target_txtbox) + 1);
 	}
+
+}
+
+void lui_keyboard_set_mode(lui_obj_t* obj, uint8_t mode)
+{
+	if (obj == NULL)
+		return;
+	if (obj->obj_type != LUI_OBJ_BTNGRID)
+		return;
+
+	lui_btngrid_t* btngrid = obj->obj_main_data;
+
+	if (mode == LUI_KEYBOARD_MODE_TXT_LOWER)
+	{
+		btngrid->kb_data->keyboard_mode = LUI_KEYBOARD_MODE_TXT_LOWER;
+		btngrid->texts = kb_txt_lower_textmap;
+	}
+	else if (mode == LUI_KEYBOARD_MODE_TXT_UPPER)
+	{
+		btngrid->kb_data->keyboard_mode = LUI_KEYBOARD_MODE_TXT_UPPER;
+		btngrid->texts = kb_txt_upper_textmap;
+	}
+	else if (mode == LUI_KEYBOARD_MODE_TXT_SPCL)
+	{
+		btngrid->kb_data->keyboard_mode = LUI_KEYBOARD_MODE_TXT_SPCL;
+		btngrid->texts = kb_spcl_textmap;
+	}
+	else
+	{
+		return;
+	}
+
+	obj->needs_refresh = 1;
+	btngrid->needs_full_render = 1;
+	g_needs_render = 1;
 
 
 }

@@ -621,6 +621,7 @@ void lui_list_set_font(lui_obj_t* obj_list, const lui_font_t* font);
 void lui_list_set_nav_btn_label_color(lui_obj_t* obj_list, uint16_t color);
 void lui_list_set_nav_btn_bg_color(lui_obj_t* obj_list, uint16_t color);
 void lui_list_set_nav_btn_extra_colors(lui_obj_t* obj_list, uint16_t pressed_color, uint16_t selection_color);
+void lui_list_set_page_index(lui_obj_t* obj, uint8_t index);
 void _lui_list_add_nav_buttons(lui_obj_t* obj_list);
 void _lui_list_nav_btn_cb(lui_obj_t* obj_list);
 void _lui_list_add_button_obj(lui_obj_t* obj_list, lui_obj_t* obj_btn);
@@ -646,6 +647,7 @@ void _lui_btngrid_calc_btn_area(lui_obj_t* obj);
 
 lui_obj_t* lui_keyboard_create();
 const char* lui_keyboard_get_key_text(lui_obj_t* obj, uint8_t btn_index);
+void lui_keyboard_set_mode(lui_obj_t* obj, uint8_t mode);
 void lui_keyboard_set_font(lui_obj_t* obj, const lui_font_t* font);
 void lui_keyboard_set_target_txtbox(lui_obj_t* obj_kb, lui_obj_t* obj_txtbox);
 
