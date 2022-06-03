@@ -1767,6 +1767,11 @@ void lui_btngrid_draw(lui_obj_t* obj)
 				btn_height = btngrid->btn_area[i].y2 - btngrid->btn_area[i].y1 + 1;
 				lui_gfx_draw_rect_fill(btngrid->btn_area[i].x1, btngrid->btn_area[i].y1, btn_width, btn_height, btn_color);
 
+				if (obj->common_style.border_visible)
+				{
+					lui_gfx_draw_rect(btngrid->btn_area[i].x1, btngrid->btn_area[i].y1, btn_width, btn_height, 1, obj->common_style.border_color);
+				}
+
 				uint16_t str_width_height[2];
 				lui_gfx_get_string_dimension(btngrid->texts[j], btngrid->font, btn_width, str_width_height);
 
