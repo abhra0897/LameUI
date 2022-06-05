@@ -20,15 +20,28 @@
 #include <stdio.h>
 #include <stdint.h>
 
-#define	LUI_MAX_OBJECTS						130
-//#define LUI_MAX_SCENES						3
+/*--------------------------------------------
+ *				User Config
+ *--------------------------------------------
+ */
+
+/* Set number of maximum objects that can be created */
+#define	LUI_MAX_OBJECTS			130
+
+/* Comment out OR set value to 0 for using light theme. */
+#define LUI_USE_DARK_THEME		1
+
+/*--------------------------------------------
+ *					End
+ *--------------------------------------------
+ */
 
 
 #define	_LUI_R_POS_RGB   					11	// Red last bit position for RGB display
 #define	_LUI_G_POS_RGB   					5 	// Green last bit position for RGB display
 #define	_LUI_B_POS_RGB   					0	// Blue last bit position for RGB display
 
-#define	_LUI_RGB(R,G,B) 					(((uint16_t)(R >> 3) << _LUI_R_POS_RGB) | \
+#define	LUI_RGB(R,G,B) 					(((uint16_t)(R >> 3) << _LUI_R_POS_RGB) | \
 											((uint16_t)(G >> 2) << _LUI_G_POS_RGB) | \
 											((uint16_t)(B >> 3) << _LUI_B_POS_RGB))
 
@@ -42,82 +55,82 @@
 
 
 #if LUI_USE_DARK_THEME == 1
-	#define LUI_STYLE_BUTTON_LABEL_COLOR		_LUI_RGB(238, 238, 238)
-	#define LUI_STYLE_BUTTON_PRESSED_COLOR		_LUI_RGB(91, 160, 235)
-	#define	LUI_STYLE_BUTTON_SELECTION_COLOR	_LUI_RGB(82, 143, 209)
-	#define LUI_STYLE_BUTTON_BG_COLOR			_LUI_RGB(74, 129, 188)
-	#define LUI_STYLE_BUTTON_BORDER_COLOR		_LUI_RGB(75, 81, 92)
+	#define LUI_STYLE_BUTTON_LABEL_COLOR		LUI_RGB(238, 238, 238)
+	#define LUI_STYLE_BUTTON_PRESSED_COLOR		LUI_RGB(91, 160, 235)
+	#define	LUI_STYLE_BUTTON_SELECTION_COLOR	LUI_RGB(82, 143, 209)
+	#define LUI_STYLE_BUTTON_BG_COLOR			LUI_RGB(74, 129, 188)
+	#define LUI_STYLE_BUTTON_BORDER_COLOR		LUI_RGB(75, 81, 92)
 #else
-	#define LUI_STYLE_BUTTON_LABEL_COLOR		_LUI_RGB(238, 238, 238)
-	#define LUI_STYLE_BUTTON_PRESSED_COLOR		_LUI_RGB(91, 160, 235)
-	#define	LUI_STYLE_BUTTON_SELECTION_COLOR	_LUI_RGB(82, 143, 209)
-	#define LUI_STYLE_BUTTON_BG_COLOR			_LUI_RGB(74, 129, 188)
-	#define LUI_STYLE_BUTTON_BORDER_COLOR		_LUI_RGB(75, 81, 92)
+	#define LUI_STYLE_BUTTON_LABEL_COLOR		LUI_RGB(238, 238, 238)
+	#define LUI_STYLE_BUTTON_PRESSED_COLOR		LUI_RGB(91, 160, 235)
+	#define	LUI_STYLE_BUTTON_SELECTION_COLOR	LUI_RGB(82, 143, 209)
+	#define LUI_STYLE_BUTTON_BG_COLOR			LUI_RGB(74, 129, 188)
+	#define LUI_STYLE_BUTTON_BORDER_COLOR		LUI_RGB(75, 81, 92)
 #endif
 #define LUI_STYLE_BUTTON_BORDER_VISIBLE		0
 #define LUI_STYLE_BUTTON_WIDTH				40
 #define LUI_STYLE_BUTTON_HEIGHT				30
 
 #if LUI_USE_DARK_THEME == 1
-	#define LUI_STYLE_LABEL_TEXT_COLOR			_LUI_RGB(238, 238, 238)
-	#define LUI_STYLE_LABEL_BG_COLOR			_LUI_RGB(23, 33, 43)
-	#define LUI_STYLE_LABEL_BORDER_COLOR		_LUI_RGB(74, 129, 188)
-	#define LUI_STYLE_LABEL_TEXT_COLOR			_LUI_RGB(238, 238, 238)
+	#define LUI_STYLE_LABEL_TEXT_COLOR			LUI_RGB(238, 238, 238)
+	#define LUI_STYLE_LABEL_BG_COLOR			LUI_RGB(23, 33, 43)
+	#define LUI_STYLE_LABEL_BORDER_COLOR		LUI_RGB(74, 129, 188)
+	#define LUI_STYLE_LABEL_TEXT_COLOR			LUI_RGB(238, 238, 238)
 #else
-	#define LUI_STYLE_LABEL_TEXT_COLOR			_LUI_RGB(0, 0, 0)
-	#define LUI_STYLE_LABEL_BG_COLOR			_LUI_RGB(255, 255, 255)
-	#define LUI_STYLE_LABEL_BORDER_COLOR		_LUI_RGB(74, 129, 188)
+	#define LUI_STYLE_LABEL_TEXT_COLOR			LUI_RGB(0, 0, 0)
+	#define LUI_STYLE_LABEL_BG_COLOR			LUI_RGB(255, 255, 255)
+	#define LUI_STYLE_LABEL_BORDER_COLOR		LUI_RGB(74, 129, 188)
 #endif
 #define LUI_STYLE_LABEL_BORDER_VISIBLE		0
 #define LUI_STYLE_LABEL_WIDTH				0 /*40*/
 #define LUI_STYLE_LABEL_HEIGHT				0 /*30*/
 
 #if LUI_USE_DARK_THEME == 1
-	#define	LUI_STYLE_SWITCH_SELECTION_COLOR	_LUI_RGB(0, 170, 179)
-	#define	LUI_STYLE_SWITCH_KNOB_OFF_COLOR		_LUI_RGB(57, 62, 70)
-	#define	LUI_STYLE_SWITCH_KNOB_ON_COLOR		_LUI_RGB(74, 129, 188)
-	#define LUI_STYLE_SWITCH_BG_COLOR			_LUI_RGB(23, 33, 43)
-	#define LUI_STYLE_SWITCH_BORDER_COLOR		_LUI_RGB(74, 129, 188)
+	#define	LUI_STYLE_SWITCH_SELECTION_COLOR	LUI_RGB(0, 170, 179)
+	#define	LUI_STYLE_SWITCH_KNOB_OFF_COLOR		LUI_RGB(57, 62, 70)
+	#define	LUI_STYLE_SWITCH_KNOB_ON_COLOR		LUI_RGB(74, 129, 188)
+	#define LUI_STYLE_SWITCH_BG_COLOR			LUI_RGB(23, 33, 43)
+	#define LUI_STYLE_SWITCH_BORDER_COLOR		LUI_RGB(74, 129, 188)
 #else
-	#define	LUI_STYLE_SWITCH_SELECTION_COLOR	_LUI_RGB(0, 170, 179)
-	#define	LUI_STYLE_SWITCH_KNOB_OFF_COLOR		_LUI_RGB(150, 150, 150)
-	#define	LUI_STYLE_SWITCH_KNOB_ON_COLOR		_LUI_RGB(74, 129, 188)
-	#define LUI_STYLE_SWITCH_BG_COLOR			_LUI_RGB(255, 255, 255)
-	#define LUI_STYLE_SWITCH_BORDER_COLOR		_LUI_RGB(74, 129, 188)
+	#define	LUI_STYLE_SWITCH_SELECTION_COLOR	LUI_RGB(0, 170, 179)
+	#define	LUI_STYLE_SWITCH_KNOB_OFF_COLOR		LUI_RGB(150, 150, 150)
+	#define	LUI_STYLE_SWITCH_KNOB_ON_COLOR		LUI_RGB(74, 129, 188)
+	#define LUI_STYLE_SWITCH_BG_COLOR			LUI_RGB(255, 255, 255)
+	#define LUI_STYLE_SWITCH_BORDER_COLOR		LUI_RGB(74, 129, 188)
 #endif
 #define LUI_STYLE_SWITCH_BORDER_VISIBLE		1
 #define LUI_STYLE_SWITCH_WIDTH				40
 #define LUI_STYLE_SWITCH_HEIGHT				20
 
 #if LUI_USE_DARK_THEME == 1
-	#define	LUI_STYLE_CHECKBOX_SELECTION_COLOR	_LUI_RGB(82, 143, 209)
-	#define	LUI_STYLE_CHECKBOX_TICK_COLOR		_LUI_RGB(238, 238, 238)
-	#define LUI_STYLE_CHECKBOX_BG_COLOR			_LUI_RGB(23, 33, 43)
-	#define LUI_STYLE_CHECKBOX_BG_CHECKED_COLOR	_LUI_RGB(74, 129, 188)
-	#define LUI_STYLE_CHECKBOX_BORDER_COLOR		_LUI_RGB(74, 129, 188)
+	#define	LUI_STYLE_CHECKBOX_SELECTION_COLOR	LUI_RGB(82, 143, 209)
+	#define	LUI_STYLE_CHECKBOX_TICK_COLOR		LUI_RGB(238, 238, 238)
+	#define LUI_STYLE_CHECKBOX_BG_COLOR			LUI_RGB(23, 33, 43)
+	#define LUI_STYLE_CHECKBOX_BG_CHECKED_COLOR	LUI_RGB(74, 129, 188)
+	#define LUI_STYLE_CHECKBOX_BORDER_COLOR		LUI_RGB(74, 129, 188)
 #else
-	#define	LUI_STYLE_CHECKBOX_SELECTION_COLOR	_LUI_RGB(82, 143, 209)
-	#define	LUI_STYLE_CHECKBOX_TICK_COLOR		_LUI_RGB(238, 238, 238)
-	#define LUI_STYLE_CHECKBOX_BG_COLOR			_LUI_RGB(255, 255, 255)
-	#define LUI_STYLE_CHECKBOX_BG_CHECKED_COLOR	_LUI_RGB(74, 129, 188)
-	#define LUI_STYLE_CHECKBOX_BORDER_COLOR		_LUI_RGB(74, 129, 188)
+	#define	LUI_STYLE_CHECKBOX_SELECTION_COLOR	LUI_RGB(82, 143, 209)
+	#define	LUI_STYLE_CHECKBOX_TICK_COLOR		LUI_RGB(238, 238, 238)
+	#define LUI_STYLE_CHECKBOX_BG_COLOR			LUI_RGB(255, 255, 255)
+	#define LUI_STYLE_CHECKBOX_BG_CHECKED_COLOR	LUI_RGB(74, 129, 188)
+	#define LUI_STYLE_CHECKBOX_BORDER_COLOR		LUI_RGB(74, 129, 188)
 #endif
 #define LUI_STYLE_CHECKBOX_BORDER_VISIBLE	1
 #define LUI_STYLE_CHECKBOX_WIDTH			20
 #define LUI_STYLE_CHECKBOX_HEIGHT			LUI_STYLE_CHECKBOX_WIDTH
 
 #if LUI_USE_DARK_THEME == 1
-	#define	LUI_STYLE_SLIDER_SELECTION_COLOR	_LUI_RGB(0, 170, 179)
-	#define	LUI_STYLE_SLIDER_KNOB_COLOR			_LUI_RGB(74, 129, 188)
-	#define LUI_STYLE_SLIDER_BG_COLOR			_LUI_RGB(57, 62, 70)
-	#define LUI_STYLE_SLIDER_BG_FILLED_COLOR	_LUI_RGB(45, 77, 112) /*54, 94, 138*/
-	#define LUI_STYLE_SLIDER_BORDER_COLOR		_LUI_RGB(74, 129, 188)
+	#define	LUI_STYLE_SLIDER_SELECTION_COLOR	LUI_RGB(0, 170, 179)
+	#define	LUI_STYLE_SLIDER_KNOB_COLOR			LUI_RGB(74, 129, 188)
+	#define LUI_STYLE_SLIDER_BG_COLOR			LUI_RGB(57, 62, 70)
+	#define LUI_STYLE_SLIDER_BG_FILLED_COLOR	LUI_RGB(45, 77, 112) /*54, 94, 138*/
+	#define LUI_STYLE_SLIDER_BORDER_COLOR		LUI_RGB(74, 129, 188)
 #else
-	#define	LUI_STYLE_SLIDER_SELECTION_COLOR	_LUI_RGB(0, 170, 179)
-	#define	LUI_STYLE_SLIDER_KNOB_COLOR			_LUI_RGB(74, 129, 188)
-	#define LUI_STYLE_SLIDER_BG_COLOR			_LUI_RGB(238, 238, 238)
-	#define LUI_STYLE_SLIDER_BG_FILLED_COLOR	_LUI_RGB(45, 77, 112) /*54, 94, 138*/
-	#define LUI_STYLE_SLIDER_BORDER_COLOR		_LUI_RGB(74, 129, 188)
+	#define	LUI_STYLE_SLIDER_SELECTION_COLOR	LUI_RGB(0, 170, 179)
+	#define	LUI_STYLE_SLIDER_KNOB_COLOR			LUI_RGB(74, 129, 188)
+	#define LUI_STYLE_SLIDER_BG_COLOR			LUI_RGB(238, 238, 238)
+	#define LUI_STYLE_SLIDER_BG_FILLED_COLOR	LUI_RGB(45, 77, 112) /*54, 94, 138*/
+	#define LUI_STYLE_SLIDER_BORDER_COLOR		LUI_RGB(74, 129, 188)
 #endif
 #define LUI_STYLE_SLIDER_BORDER_VISIBLE		0
 #define LUI_STYLE_SLIDER_KNOB_WIDTH			20
@@ -125,15 +138,15 @@
 #define LUI_STYLE_SLIDER_HEIGHT				20
 
 #if LUI_USE_DARK_THEME == 1
-	#define LUI_STYLE_LINECHART_LINE_COLOR		_LUI_RGB(74, 129, 188)
-	#define LUI_STYLE_LINECHART_GRID_COLOR		_LUI_RGB(75, 81, 92)
-	#define LUI_STYLE_LINECHART_BG_COLOR		_LUI_RGB(35, 46, 60)
-	#define LUI_STYLE_LINECHART_BORDER_COLOR	_LUI_RGB(74, 129, 188)
+	#define LUI_STYLE_LINECHART_LINE_COLOR		LUI_RGB(74, 129, 188)
+	#define LUI_STYLE_LINECHART_GRID_COLOR		LUI_RGB(75, 81, 92)
+	#define LUI_STYLE_LINECHART_BG_COLOR		LUI_RGB(35, 46, 60)
+	#define LUI_STYLE_LINECHART_BORDER_COLOR	LUI_RGB(74, 129, 188)
 #else
-	#define LUI_STYLE_LINECHART_LINE_COLOR		_LUI_RGB(74, 129, 188)
-	#define LUI_STYLE_LINECHART_GRID_COLOR		_LUI_RGB(150, 150, 150)
-	#define LUI_STYLE_LINECHART_BG_COLOR		_LUI_RGB(238, 238, 238)
-	#define LUI_STYLE_LINECHART_BORDER_COLOR	_LUI_RGB(74, 129, 188)
+	#define LUI_STYLE_LINECHART_LINE_COLOR		LUI_RGB(74, 129, 188)
+	#define LUI_STYLE_LINECHART_GRID_COLOR		LUI_RGB(150, 150, 150)
+	#define LUI_STYLE_LINECHART_BG_COLOR		LUI_RGB(238, 238, 238)
+	#define LUI_STYLE_LINECHART_BORDER_COLOR	LUI_RGB(74, 129, 188)
 #endif
 #define LUI_STYLE_LINECHART_GRID_VISIBLE	1
 #define LUI_STYLE_LINECHART_BORDER_VISIBLE	1
@@ -141,83 +154,83 @@
 #define LUI_STYLE_LINECHART_HEIGHT			20
 
 #if LUI_USE_DARK_THEME == 1
-	#define LUI_STYLE_LIST_NAV_BG_COLOR			_LUI_RGB(74, 129, 188)
-	#define LUI_STYLE_LIST_NAV_LABEL_COLOR		_LUI_RGB(238, 238, 238)
-	#define LUI_STYLE_LIST_NAV_PRESSED_COLOR	_LUI_RGB(91, 160, 235)
-	#define LUI_STYLE_LIST_NAV_SELECTION_COLOR	_LUI_RGB(82, 143, 209)
-	#define LUI_STYLE_LIST_ITEM_BG_COLOR		_LUI_RGB(57, 62, 70)
-	#define LUI_STYLE_LIST_ITEM_SELECTION_COLOR	_LUI_RGB(84, 91, 102)
-	#define LUI_STYLE_LIST_ITEM_PRESSED_COLOR	_LUI_RGB(109, 118, 133)
-	#define LUI_STYLE_LIST_ITEM_LABEL_COLOR		_LUI_RGB(238, 238, 238)
-	#define	LUI_STYLE_LIST_ITEM_BORDER_COLOR	_LUI_RGB(75, 81, 92)
+	#define LUI_STYLE_LIST_NAV_BG_COLOR			LUI_RGB(74, 129, 188)
+	#define LUI_STYLE_LIST_NAV_LABEL_COLOR		LUI_RGB(238, 238, 238)
+	#define LUI_STYLE_LIST_NAV_PRESSED_COLOR	LUI_RGB(91, 160, 235)
+	#define LUI_STYLE_LIST_NAV_SELECTION_COLOR	LUI_RGB(82, 143, 209)
+	#define LUI_STYLE_LIST_ITEM_BG_COLOR		LUI_RGB(57, 62, 70)
+	#define LUI_STYLE_LIST_ITEM_SELECTION_COLOR	LUI_RGB(84, 91, 102)
+	#define LUI_STYLE_LIST_ITEM_PRESSED_COLOR	LUI_RGB(109, 118, 133)
+	#define LUI_STYLE_LIST_ITEM_LABEL_COLOR		LUI_RGB(238, 238, 238)
+	#define	LUI_STYLE_LIST_ITEM_BORDER_COLOR	LUI_RGB(75, 81, 92)
 	#define LUI_STYLE_LIST_BORDER_VISIBLE		0
 #else
-	#define LUI_STYLE_LIST_NAV_BG_COLOR			_LUI_RGB(74, 129, 188)
-	#define LUI_STYLE_LIST_NAV_LABEL_COLOR		_LUI_RGB(238, 238, 238)
-	#define LUI_STYLE_LIST_NAV_PRESSED_COLOR	_LUI_RGB(91, 160, 235)
-	#define LUI_STYLE_LIST_NAV_SELECTION_COLOR	_LUI_RGB(82, 143, 209)
-	#define LUI_STYLE_LIST_ITEM_BG_COLOR		_LUI_RGB(200, 200, 200)
-	#define LUI_STYLE_LIST_ITEM_SELECTION_COLOR	_LUI_RGB(84, 91, 102)
-	#define LUI_STYLE_LIST_ITEM_PRESSED_COLOR	_LUI_RGB(109, 118, 133)
-	#define LUI_STYLE_LIST_ITEM_LABEL_COLOR		_LUI_RGB(0, 0, 0)
-	#define	LUI_STYLE_LIST_ITEM_BORDER_COLOR	_LUI_RGB(75, 81, 92)
+	#define LUI_STYLE_LIST_NAV_BG_COLOR			LUI_RGB(74, 129, 188)
+	#define LUI_STYLE_LIST_NAV_LABEL_COLOR		LUI_RGB(238, 238, 238)
+	#define LUI_STYLE_LIST_NAV_PRESSED_COLOR	LUI_RGB(91, 160, 235)
+	#define LUI_STYLE_LIST_NAV_SELECTION_COLOR	LUI_RGB(82, 143, 209)
+	#define LUI_STYLE_LIST_ITEM_BG_COLOR		LUI_RGB(238, 238, 238)
+	#define LUI_STYLE_LIST_ITEM_SELECTION_COLOR	LUI_RGB(84, 91, 102)
+	#define LUI_STYLE_LIST_ITEM_PRESSED_COLOR	LUI_RGB(109, 118, 133)
+	#define LUI_STYLE_LIST_ITEM_LABEL_COLOR		LUI_RGB(0, 0, 0)
+	#define	LUI_STYLE_LIST_ITEM_BORDER_COLOR	LUI_RGB(75, 81, 92)
 	#define LUI_STYLE_LIST_BORDER_VISIBLE		1
 #endif
 #define LUI_STYLE_LIST_ITEM_BORDER_VISIBLE	1
 #define LUI_STYLE_LIST_ITEM_MIN_HEIGHT		30
-#define LUI_STYLE_LIST_BORDER_COLOR			_LUI_RGB(74, 129, 188)
+#define LUI_STYLE_LIST_BORDER_COLOR			LUI_RGB(74, 129, 188)
 #define LUI_STYLE_LIST_WIDTH				40
 #define LUI_STYLE_LIST_HEIGHT				60
 
 #if LUI_USE_DARK_THEME == 1
-	#define	LUI_STYLE_BTNGRID_BASE_BG_COLOR		_LUI_RGB(23, 33, 43)
-	#define LUI_STYLE_BTNGRID_LABEL_COLOR		_LUI_RGB(238, 238, 238)
-	#define LUI_STYLE_BTNGRID_PRESSED_COLOR		_LUI_RGB(91, 160, 235)
-	#define	LUI_STYLE_BTNGRID_BG_COLOR			_LUI_RGB(39, 55, 71)
-	#define	LUI_STYLE_BTNGRID_SELECTION_COLOR	_LUI_RGB(82, 143, 209)
-	#define LUI_STYLE_BTNGRID_BORDER_COLOR		_LUI_RGB(75, 81, 92)
+	#define	LUI_STYLE_BTNGRID_BASE_BG_COLOR		LUI_RGB(23, 33, 43)
+	#define LUI_STYLE_BTNGRID_LABEL_COLOR		LUI_RGB(238, 238, 238)
+	#define LUI_STYLE_BTNGRID_PRESSED_COLOR		LUI_RGB(91, 160, 235)
+	#define	LUI_STYLE_BTNGRID_BG_COLOR			LUI_RGB(39, 55, 71)
+	#define	LUI_STYLE_BTNGRID_SELECTION_COLOR	LUI_RGB(82, 143, 209)
+	#define LUI_STYLE_BTNGRID_BORDER_COLOR		LUI_RGB(75, 81, 92)
 	#define LUI_STYLE_BTNGRID_BORDER_VISIBLE	0
 
 #else
-	#define	LUI_STYLE_BTNGRID_BASE_BG_COLOR		_LUI_RGB(255, 255, 255)
-	#define LUI_STYLE_BTNGRID_LABEL_COLOR		_LUI_RGB(0, 0, 0)
-	#define LUI_STYLE_BTNGRID_PRESSED_COLOR		_LUI_RGB(91, 160, 235)
-	#define	LUI_STYLE_BTNGRID_BG_COLOR			_LUI_RGB(200, 200, 200)
-	#define	LUI_STYLE_BTNGRID_SELECTION_COLOR	_LUI_RGB(82, 143, 209)
-	#define LUI_STYLE_BTNGRID_BORDER_COLOR		_LUI_RGB(150, 150, 150)
+	#define	LUI_STYLE_BTNGRID_BASE_BG_COLOR		LUI_RGB(255, 255, 255)
+	#define LUI_STYLE_BTNGRID_LABEL_COLOR		LUI_RGB(0, 0, 0)
+	#define LUI_STYLE_BTNGRID_PRESSED_COLOR		LUI_RGB(91, 160, 235)
+	#define	LUI_STYLE_BTNGRID_BG_COLOR			LUI_RGB(200, 200, 200)
+	#define	LUI_STYLE_BTNGRID_SELECTION_COLOR	LUI_RGB(82, 143, 209)
+	#define LUI_STYLE_BTNGRID_BORDER_COLOR		LUI_RGB(150, 150, 150)
 	#define LUI_STYLE_BTNGRID_BORDER_VISIBLE	1
 #endif
 #define	LUI_STYLE_BTNGRID_WIDTH				300
 #define LUI_STYLE_BTNGRID_HEIGHT			180
 
 #if LUI_USE_DARK_THEME == 1
-	#define LUI_STYLE_TEXTBOX_TEXT_COLOR		_LUI_RGB(238, 238, 238)
-	#define LUI_STYLE_TEXTBOX_BG_COLOR			_LUI_RGB(45, 56, 70)
-	#define LUI_STYLE_TEXTBOX_BORDER_COLOR		_LUI_RGB(74, 129, 188)
+	#define LUI_STYLE_TEXTBOX_TEXT_COLOR		LUI_RGB(238, 238, 238)
+	#define LUI_STYLE_TEXTBOX_BG_COLOR			LUI_RGB(45, 56, 70)
+	#define LUI_STYLE_TEXTBOX_BORDER_COLOR		LUI_RGB(74, 129, 188)
 #else
-	#define LUI_STYLE_TEXTBOX_TEXT_COLOR		_LUI_RGB(0, 0, 0)
-	#define LUI_STYLE_TEXTBOX_BG_COLOR			_LUI_RGB(255, 255, 255)
-	#define LUI_STYLE_TEXTBOX_BORDER_COLOR		_LUI_RGB(74, 129, 188)
+	#define LUI_STYLE_TEXTBOX_TEXT_COLOR		LUI_RGB(0, 0, 0)
+	#define LUI_STYLE_TEXTBOX_BG_COLOR			LUI_RGB(255, 255, 255)
+	#define LUI_STYLE_TEXTBOX_BORDER_COLOR		LUI_RGB(74, 129, 188)
 #endif
 #define LUI_STYLE_TEXTBOX_BORDER_VISIBLE	1
 #define LUI_STYLE_TEXTBOX_WIDTH				200
 #define LUI_STYLE_TEXTBOX_HEIGHT			20
 
 #if LUI_USE_DARK_THEME == 1
-	#define LUI_STYLE_PANEL_BG_COLOR			_LUI_RGB(23, 33, 43)
-	#define LUI_STYLE_PANEL_BORDER_COLOR		_LUI_RGB(74, 129, 188)
+	#define LUI_STYLE_PANEL_BG_COLOR			LUI_RGB(23, 33, 43)
+	#define LUI_STYLE_PANEL_BORDER_COLOR		LUI_RGB(74, 129, 188)
 #else
-	#define LUI_STYLE_PANEL_BG_COLOR			_LUI_RGB(255, 255, 255)
-	#define LUI_STYLE_PANEL_BORDER_COLOR		_LUI_RGB(74, 129, 188)
+	#define LUI_STYLE_PANEL_BG_COLOR			LUI_RGB(255, 255, 255)
+	#define LUI_STYLE_PANEL_BORDER_COLOR		LUI_RGB(74, 129, 188)
 	#endif
 #define LUI_STYLE_PANEL_BORDER_VISIBLE		1
 #define LUI_STYLE_PANEL_WIDTH				100
 #define LUI_STYLE_PANEL_HEIGHT				100
 
 #if LUI_USE_DARK_THEME == 1
-	#define LUI_STYLE_SCENE_BG_COLOR			_LUI_RGB(23, 33, 43)
+	#define LUI_STYLE_SCENE_BG_COLOR			LUI_RGB(23, 33, 43)
 #else
-	#define LUI_STYLE_SCENE_BG_COLOR			_LUI_RGB(255, 255, 255)
+	#define LUI_STYLE_SCENE_BG_COLOR			LUI_RGB(255, 255, 255)
 #endif
 
 /*------------------------------------------------------------------------------------
@@ -414,31 +427,34 @@ struct _lui_textbox_style_s
 	uint16_t text_color;
 };
 
+/**
+ * @brief Generic object datatype.
+ * 
+ * lui_obj_t contains all the common data of objects along with address of
+ * the extended data as per the type of the object 
+ * 
+ */
 typedef struct _lui_obj_s
 {
-	uint16_t x;
-	uint16_t y;
-	uint8_t layer;
-	struct _lui_common_style_s common_style;
-	uint8_t state;
-	uint8_t event;
-	int32_t value;
-	void (*obj_event_cb)(struct _lui_obj_s* obj);
-	//private use only
-	uint8_t needs_refresh;
-	uint8_t visible;
-	uint8_t enabled;
-	//int8_t index;
+	uint16_t x;		///< Horizontal position (px)
+	uint16_t y;		///< Vertical position (px)
+	uint8_t layer;	///< Rendering layer (0 - 128)
+	struct _lui_common_style_s common_style;	///< Common style properties of objects
+	uint8_t state;	///< Input state
+	uint8_t event;	///< Input event
+	int32_t value;	///< User defined value
+	void (*obj_event_cb)(struct _lui_obj_s* obj);	///< Input event callback function
 	
-	uint8_t obj_type;
-
-	struct _lui_obj_s* parent;
-	uint8_t children_count;
-	struct _lui_obj_s* first_child;
-	struct _lui_obj_s* next_sibling;
+	uint8_t needs_refresh;	///< Object refresh flag
+	uint8_t visible;		///< Object visibility flag
+	uint8_t enabled;		///< Object input enable flag
+	uint8_t obj_type;		///< Object type
+	struct _lui_obj_s* parent;	///< Parent of object
+	uint8_t children_count;		///< Object's children count
+	struct _lui_obj_s* first_child;		///< First child of object
+	struct _lui_obj_s* next_sibling;	///< Next sibling of object
 	
-
-	void* obj_main_data;
+	void* obj_main_data;	///< Main (extended) data of the object
 }lui_obj_t;
 
 
@@ -557,8 +573,6 @@ typedef struct _lui_textbox_s
 	const lui_font_t* font;
 	uint16_t max_len;
 	uint16_t caret_index;
-	int8_t edit_operation;
-	uint16_t edit_len;
 	uint16_t used_chars;
 	uint8_t needs_full_render;
 	struct _lui_textbox_style_s style;
@@ -624,7 +638,18 @@ void lui_init(uint8_t mem_block[], uint16_t size);
 void lui_update();
 
 
-lui_obj_t* _lui_object_create();
+/*-------------------------------------------------------------------------------
+ * 				LUI_OBJECT (generic) related functions
+ *-------------------------------------------------------------------------------
+ */
+
+/**
+ * @defgroup lui_object Generic object related API. Works with all widgets.
+ * @brief These functions are applicable for all types of objects.
+ * Only for a few particular types of objects, one or more of these functions have no effect.
+ * @{
+ */
+
 void lui_object_add_to_parent(lui_obj_t* obj, lui_obj_t* parent_obj);
 void lui_object_remove_from_parent(lui_obj_t* obj);
 void lui_object_set_area(lui_obj_t* obj, uint16_t width, uint16_t height);
@@ -643,16 +668,55 @@ void lui_object_set_visibility(lui_obj_t* obj, uint8_t visible);
 void lui_object_set_layer(lui_obj_t* obj, uint8_t layer_index);
 int16_t lui_object_get_layer(lui_obj_t* obj);
 uint8_t lui_object_set_enable_input(lui_obj_t* obj,  uint8_t is_enabled);
+
+/* Private functions (User must not call them) */
+/// @private
+lui_obj_t* _lui_object_create(void);
+/// @private
+void _lui_object_set_need_refresh(lui_obj_t* obj);
+/// @private
+void _lui_object_render_parent_with_children(lui_obj_t* obj);
+/// @private
+void _lui_object_render(lui_obj_t* obj);
+/// @private
 static int _lui_obj_layer_cmprtr(const void* p1, const void* p2);
+/* Private functions end */
 
+/**@}*/
 
-lui_obj_t* lui_label_create();
+/*-------------------------------------------------------------------------------
+ * 							END
+ *-------------------------------------------------------------------------------
+ */
+
+/*-------------------------------------------------------------------------------
+ * 				LUI_LABEL related functions
+ *-------------------------------------------------------------------------------
+ */
+
+/**
+ * @defgroup lui_label Label widget API
+ * @{
+ */
+lui_obj_t* lui_label_create(void);
 void lui_label_draw (lui_obj_t* obj_lbl);
 void lui_label_set_font(lui_obj_t* obj_lbl, const lui_font_t* font);
 void lui_label_set_text(lui_obj_t* obj_lbl, const char* text);
 void lui_label_set_text_color(lui_obj_t* obj_lbl, uint16_t text_color);
+/**@}*/
+/*-------------------------------------------------------------------------------
+ * 							END
+ *-------------------------------------------------------------------------------
+ */
 
-
+/*-------------------------------------------------------------------------------
+ * 				LUI_LINECHART related functions
+ *-------------------------------------------------------------------------------
+ */
+/**
+ * @defgroup lui_linechart Line Chart widget API
+ * @{
+ */
 lui_obj_t* lui_linechart_create();
 void lui_linechart_draw (lui_obj_t* obj_linechart);
 void lui_linechart_set_grid_count(lui_obj_t* obj_linechart, uint16_t hor_lines, uint16_t vert_lines);
@@ -662,16 +726,28 @@ void lui_linechart_set_line_color(lui_obj_t* obj_linechart, uint16_t line_color)
 void lui_linechart_set_data_auto_scale(lui_obj_t* obj_linechart, uint8_t auto_scale);
 void lui_linechart_set_data_range(lui_obj_t* obj_linechart, double y_min, double y_max);
 void lui_linechart_set_data_source(lui_obj_t* obj_linechart, double* source, uint16_t points);
+/**@}*/
+/*-------------------------------------------------------------------------------
+ * 							END
+ *-------------------------------------------------------------------------------
+ */
 
-
+/**
+ * @defgroup lui_button Button widget API
+ * @{
+ */
 lui_obj_t* lui_button_create();
 void lui_button_draw(lui_obj_t* obj_btn);
 void lui_button_set_label_text(lui_obj_t* obj_btn, const char* text);
 void lui_button_set_label_color(lui_obj_t* obj_btn, uint16_t color);
 void lui_button_set_label_font(lui_obj_t* obj_btn, const lui_font_t* font);
 void lui_button_set_extra_colors(lui_obj_t* obj_btn, uint16_t pressed_color, uint16_t selection_color);
+/**@}*/
 
-
+/**
+ * @defgroup lui_switch Switch widget API
+ * @{
+ */
 lui_obj_t* lui_switch_create();
 void lui_switch_draw(lui_obj_t* obj_swtch);
 void lui_switch_set_extra_colors(lui_obj_t* obj_swtch, uint16_t knob_off_color, uint16_t knob_on_color, uint16_t selection_color);
@@ -679,8 +755,12 @@ int8_t lui_switch_get_value(lui_obj_t* obj_swtch);
 void lui_switch_set_value(lui_obj_t* obj_swtch, uint8_t value);
 void lui_switch_set_on(lui_obj_t* obj_swtch);
 void lui_switch_set_off(lui_obj_t* obj_swtch);
+/**@}*/
 
-
+/**
+ * @defgroup lui_checkbox Checkbox widget API
+ * @{
+ */
 lui_obj_t* lui_checkbox_create();
 void lui_checkbox_draw(lui_obj_t* obj_checkbox);
 void lui_checkbox_set_extra_colors(lui_obj_t* obj_checkbox, uint16_t bg_checked_color, uint16_t tick_color, uint16_t selection_color);
@@ -688,8 +768,12 @@ int8_t lui_checkbox_get_value(lui_obj_t* obj_checkbox);
 void lui_checkbox_set_value(lui_obj_t* obj_checkbox, uint8_t value);
 void lui_checkbox_set_checked(lui_obj_t* obj_swtch);
 void lui_checkbox_set_unchecked(lui_obj_t* obj_swtch);
+/**@}*/
 
-
+/**
+ * @defgroup lui_slider Slider widget API
+ * @{
+ */
 lui_obj_t* lui_slider_create();
 void lui_slider_draw(lui_obj_t* obj_slider);
 void lui_slider_set_extra_colors(lui_obj_t* obj_slider, uint16_t knob_color, uint16_t bg_filled_color, uint16_t selection_color);
@@ -699,8 +783,12 @@ int16_t lui_slider_get_value(lui_obj_t* obj_slider);
 int16_t lui_slider_get_min_value(lui_obj_t* obj_slider);
 int16_t lui_slider_get_max_value(lui_obj_t* obj_slider);
 //void lui_slider_set_knob_length(uint8_t length, lui_obj_t* obj_slider);
+/**@}*/
 
-
+/**
+ * @defgroup lui_list List widget API
+ * @{
+ */
 lui_obj_t* lui_list_create();
 void lui_list_draw(lui_obj_t* obj_list);
 lui_obj_t* lui_list_add_item(lui_obj_t* obj_list, const char* text);
@@ -712,11 +800,15 @@ void lui_list_set_nav_btn_label_color(lui_obj_t* obj_list, uint16_t color);
 void lui_list_set_nav_btn_bg_color(lui_obj_t* obj_list, uint16_t color);
 void lui_list_set_nav_btn_extra_colors(lui_obj_t* obj_list, uint16_t pressed_color, uint16_t selection_color);
 void lui_list_set_page_index(lui_obj_t* obj, uint8_t index);
+/**@}*/
 void _lui_list_add_nav_buttons(lui_obj_t* obj_list);
 void _lui_list_nav_btn_cb(lui_obj_t* obj_list);
 void _lui_list_add_button_obj(lui_obj_t* obj_list, lui_obj_t* obj_btn);
 
-
+/**
+ * @defgroup lui_btngrid Buttongrid widget API
+ * @{
+ */
 lui_obj_t* lui_btngrid_create();
 void lui_btngrid_draw(lui_obj_t* obj);
 void lui_btngrid_set_textmap(lui_obj_t* obj, const char* texts[]);
@@ -732,15 +824,25 @@ int8_t lui_btngrid_get_btn_check_status(lui_obj_t* obj, uint8_t btn_index);
 void lui_btngrid_set_font(lui_obj_t* obj, const lui_font_t* font);
 void lui_btngrid_set_extra_colors(lui_obj_t* obj, uint16_t btn_color, uint16_t label_color, uint16_t btn_pressed_color);
 void lui_btngrid_set_btn_margin(lui_obj_t* obj, uint8_t margin_x, uint16_t margin_y);
+/**@}*/
 void _lui_btngrid_calc_btn_area(lui_obj_t* obj);
 
-
+/**
+ * @defgroup lui_keyboard Keyboard widget API
+ * @{
+ */
 lui_obj_t* lui_keyboard_create();
 const char* lui_keyboard_get_key_text(lui_obj_t* obj, uint8_t btn_index);
 void lui_keyboard_set_mode(lui_obj_t* obj, uint8_t mode);
 void lui_keyboard_set_font(lui_obj_t* obj, const lui_font_t* font);
 void lui_keyboard_set_target_txtbox(lui_obj_t* obj_kb, lui_obj_t* obj_txtbox);
+void lui_keyboard_sys_cb(lui_obj_t* obj_sender);
+/**@}*/
 
+/**
+ * @defgroup lui_textbox Textbox widget API
+ * @{
+ */
 lui_obj_t* lui_textbox_create();
 void lui_textbox_draw();
 void lui_textbox_set_caret_index(lui_obj_t* obj, uint16_t caret_index);
@@ -750,42 +852,55 @@ void lui_textbox_insert_string(lui_obj_t* obj, char* str, uint16_t len);
 void lui_textbox_delete_char(lui_obj_t* obj);
 void lui_textbox_set_text_buffer(lui_obj_t* obj, char* text_buffer, uint16_t buff_size);
 void lui_textbox_set_font(lui_obj_t* obj, const lui_font_t* font);
+/**@}*/
 
-
+/**
+ * @defgroup lui_panel Panel widget API
+ * @{
+ */
 lui_obj_t* lui_panel_create();
 void lui_panel_draw(lui_obj_t* obj_panel);
 void lui_panel_set_bg_image(lui_obj_t* obj_panel, const lui_bitmap_t* image);
+/**@}*/
 
-
+/**
+ * @defgroup lui_scene Scene widget API
+ * @{
+ */
 lui_obj_t* lui_scene_create();
 void lui_scene_draw(lui_obj_t* obj_scene);
 void lui_scene_set_active(lui_obj_t* obj_scene);
 lui_obj_t* lui_scene_get_active();
 void lui_scene_set_bg_image(lui_obj_t* obj_scene, const lui_bitmap_t* image);
 void lui_scene_set_font(lui_obj_t* obj_scene, const lui_font_t* font);
+/**@}*/
 
-
+/**
+ * @defgroup lui_dispdrv Display Driver API
+ * @{
+ */
 lui_dispdrv_t* lui_dispdrv_create();
 void lui_dispdrv_register(lui_dispdrv_t* dispdrv);
 void lui_dispdrv_set_resolution(lui_dispdrv_t* dispdrv, uint16_t hor_res, uint16_t vert_res);
 void lui_dispdrv_set_draw_pixels_area_cb(lui_dispdrv_t* dispdrv, void (*draw_pixels_area_cb)(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color));
 void lui_dispdrv_set_render_complete_cb(lui_dispdrv_t* dispdrv, void (*render_complete_cb)());
+/**@}*/
 uint8_t _lui_disp_drv_check();
 
-
+/**
+ * @defgroup lui_input Input Device API
+ * @{
+ */
 lui_touch_input_dev_t* lui_touch_inputdev_create();
 void lui_touch_inputdev_register (lui_touch_input_dev_t* touch_inputdev);
 void lui_touch_inputdev_set_read_input_cb(lui_touch_input_dev_t* touch_inputdev, void (*read_touch_input_cb)(lui_touch_input_data_t* touch_inputdata));
-
+/**@}*/
 
 //-------------------------------------------------------------------------------
 //-------------------------------- HELPER FUNCTIONS------------------------------
 //-------------------------------------------------------------------------------
 void _lui_mem_init(uint8_t mem_block[], uint16_t size);
 void* _lui_mem_alloc(uint16_t element_size);
-void _lui_object_set_need_refresh(lui_obj_t* obj);
-void _lui_object_render_parent_with_children(lui_obj_t* obj);
-void _lui_object_render(lui_obj_t* obj);
 lui_obj_t* _lui_process_input_of_act_scene();
 lui_obj_t* _lui_scan_all_obj_for_input(lui_touch_input_data_t* touch_input_data, lui_obj_t* obj_root, lui_obj_t* obj_excluded);
 lui_obj_t* _lui_scan_individual_object_for_input(lui_touch_input_data_t* touch_input_data, lui_obj_t* obj);
@@ -794,17 +909,22 @@ uint8_t _lui_check_if_active_obj_touch_input(lui_touch_input_data_t* input_data,
 lui_font_t* _lui_get_font_from_active_scene();
 uint8_t _lui_get_event_against_state(uint8_t new_state, uint8_t old_state);
 
+/**
+ * @defgroup lui_gfx Graphics related API (for drawing shapes and text)
+ * @{
+ */
 void lui_gfx_draw_string_advanced(const char* str, uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t fore_color, uint16_t bg_color, uint8_t is_bg, const lui_font_t* font);
 void lui_gfx_draw_string_simple(const char* str, uint16_t x, uint16_t y, uint16_t fore_color, const lui_font_t* font);
 void lui_gfx_draw_char(char c, uint16_t x, uint16_t y, uint16_t fore_color, uint16_t bg_color, uint8_t is_bg, const lui_font_t* font);
-_lui_glyph_t* _lui_gfx_get_glyph_from_char(char c, const lui_font_t* font);
-void _lui_gfx_render_char_glyph(uint16_t x, uint16_t y, uint16_t fore_color, uint16_t bg_color, uint8_t is_bg, const _lui_glyph_t* glyph, const lui_font_t* font);
 void lui_gfx_get_string_dimension(const char* str, const lui_font_t* font_obj, uint16_t max_w, uint16_t* str_dim);
-void _lui_gfx_plot_line_low(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color);
-void _lui_gfx_plot_line_high(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color);
 void lui_gfx_draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color);
 void lui_gfx_draw_rect(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint8_t line_width, uint16_t color);
 void lui_gfx_draw_rect_fill(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color);
-double _lui_map_range(double old_val, double old_max, double old_min, double new_max, double new_min);
 uint16_t lui_rgb(uint16_t red, uint16_t green, uint16_t blue);
+/**@}*/
+_lui_glyph_t* _lui_gfx_get_glyph_from_char(char c, const lui_font_t* font);
+void _lui_gfx_render_char_glyph(uint16_t x, uint16_t y, uint16_t fore_color, uint16_t bg_color, uint8_t is_bg, const _lui_glyph_t* glyph, const lui_font_t* font);
+void _lui_gfx_plot_line_low(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color);
+void _lui_gfx_plot_line_high(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color);
+double _lui_map_range(double old_val, double old_max, double old_min, double new_max, double new_min);
 #endif /* INC_LAME_UI_H_ */

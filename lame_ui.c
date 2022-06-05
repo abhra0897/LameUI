@@ -129,7 +129,7 @@ void lui_label_draw(lui_obj_t* obj)
 /*
  * Initialize a label with default values
  */
-lui_obj_t* lui_label_create()
+lui_obj_t* lui_label_create(void)
 {
 	// if total created objects become more than max allowed objects, don't create the object
 	if ( g_lui_main->total_created_objects + 1 > LUI_MAX_OBJECTS)
@@ -877,8 +877,6 @@ void lui_list_prepare(lui_obj_t* obj)
 	// whenever prepare function is called, list (and all children of it) will be redrawn
 	_lui_object_set_need_refresh(obj);
 }
-
-
 
 lui_obj_t* lui_list_add_item(lui_obj_t* obj, const char* text)
 {
@@ -2160,6 +2158,16 @@ void _lui_btngrid_calc_btn_area(lui_obj_t* obj)
 }
 
 
+/*-------------------------------------------------------------------------------
+ * 							END
+ *-------------------------------------------------------------------------------
+ */
+
+/*-------------------------------------------------------------------------------
+ * 				LUI_KEYBOARD related functions
+ *-------------------------------------------------------------------------------
+ */
+
 static const char* kb_txt_lower_textmap[] = 
 {
 	"1#", "q", "w", "e", "r", "t", "y","u","i","o","p", LUI_ICON_BACKSPACE,"\n", //buttons: 0-11
@@ -2188,6 +2196,37 @@ static const uint8_t kb_txt_propertymap[] =
 	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 	2, 2, 6, 2, 2
 };
+
+lui_obj_t* lui_keyboard_create()
+{
+	// if total created objects become more than max allowed objects, don't create the object
+	if ( g_lui_main->total_created_objects + 1 > LUI_MAX_OBJECTS)
+		return NULL;
+	 g_lui_main->total_created_objects++;
+
+	lui_keyboard_t* initial_kb =  _lui_mem_alloc(sizeof(*initial_kb));
+	if (initial_kb == NULL)
+		return NULL;
+	initial_kb->target_txtbox = NULL;
+	initial_kb->keyboard_mode = LUI_KEYBOARD_MODE_TXT_LOWER;
+	
+	lui_obj_t* obj_btngrid = lui_btngrid_create();
+	if (obj_btngrid == NULL)
+		return NULL;
+	((lui_btngrid_t* )(obj_btngrid->obj_main_data))->kb_data = initial_kb;
+	uint16_t h = 0.4 * (float)g_lui_main->disp_drv->display_vert_res;
+	lui_object_set_position(obj_btngrid, 0, (g_lui_main->disp_drv->display_vert_res - h) - 2);
+	lui_object_set_area(obj_btngrid, g_lui_main->disp_drv->display_hor_res, h);
+	lui_btngrid_set_textmap(obj_btngrid, kb_txt_lower_textmap);
+	lui_btngrid_set_propertymap(obj_btngrid, kb_txt_propertymap);
+	lui_object_set_callback(obj_btngrid, lui_keyboard_sys_cb);
+	/* For keyboard, by default it's invisible */
+	obj_btngrid->visible = 0;
+	/* Keyboard sits in the popup layer */
+	obj_btngrid->layer = LUI_LAYER_POPUP;
+
+	return  obj_btngrid;
+}
 
 void lui_keyboard_sys_cb(lui_obj_t* obj_sender)
 {
@@ -2218,6 +2257,7 @@ void lui_keyboard_sys_cb(lui_obj_t* obj_sender)
 		txtbox->used_chars = 1;
 		txtbox->text_buffer[0] = '\0';
 		txtbox->caret_index = 0;
+		btngrid->kb_data->target_txtbox->needs_refresh = 1;
 	}
 	else if (strcmp(btn_text, LUI_ICON_ARROW_BACK) == 0)
 	{
@@ -2305,38 +2345,6 @@ void lui_keyboard_set_mode(lui_obj_t* obj, uint8_t mode)
 
 }
 
-
-lui_obj_t* lui_keyboard_create()
-{
-	// if total created objects become more than max allowed objects, don't create the object
-	if ( g_lui_main->total_created_objects + 1 > LUI_MAX_OBJECTS)
-		return NULL;
-	 g_lui_main->total_created_objects++;
-
-	lui_keyboard_t* initial_kb =  _lui_mem_alloc(sizeof(*initial_kb));
-	if (initial_kb == NULL)
-		return NULL;
-	initial_kb->target_txtbox = NULL;
-	initial_kb->keyboard_mode = LUI_KEYBOARD_MODE_TXT_LOWER;
-	
-	lui_obj_t* obj_btngrid = lui_btngrid_create();
-	if (obj_btngrid == NULL)
-		return NULL;
-	((lui_btngrid_t* )(obj_btngrid->obj_main_data))->kb_data = initial_kb;
-	uint16_t h = 0.4 * (float)g_lui_main->disp_drv->display_vert_res;
-	lui_object_set_position(obj_btngrid, 0, (g_lui_main->disp_drv->display_vert_res - h) - 2);
-	lui_object_set_area(obj_btngrid, g_lui_main->disp_drv->display_hor_res, h);
-	lui_btngrid_set_textmap(obj_btngrid, kb_txt_lower_textmap);
-	lui_btngrid_set_propertymap(obj_btngrid, kb_txt_propertymap);
-	lui_object_set_callback(obj_btngrid, lui_keyboard_sys_cb);
-	/* For keyboard, by default it's invisible */
-	obj_btngrid->visible = 0;
-	/* Keyboard sits in the popup layer */
-	obj_btngrid->layer = LUI_LAYER_POPUP;
-
-	return  obj_btngrid;
-}
-
 void lui_keyboard_set_font(lui_obj_t* obj, const lui_font_t* font)
 {
 	lui_btngrid_set_font(obj, font);
@@ -2414,7 +2422,15 @@ void lui_keyboard_set_target_txtbox(lui_obj_t* obj_kb, lui_obj_t* obj_txtbox)
 	btngrid_kb->kb_data->target_txtbox = obj_txtbox;
 }
 
+/*-------------------------------------------------------------------------------
+ * 							END
+ *-------------------------------------------------------------------------------
+ */
 
+/*-------------------------------------------------------------------------------
+ * 				LUI_TEXTBOX related functions
+ *-------------------------------------------------------------------------------
+ */
 
 void lui_textbox_draw(lui_obj_t* obj)
 {
@@ -2443,25 +2459,11 @@ void lui_textbox_draw(lui_obj_t* obj)
 			
 			lui_gfx_draw_rect(obj->x, obj->y, obj->common_style.width, obj->common_style.height, 1, obj->common_style.border_color);
 		}
-
 		txtbox->needs_full_render = 0;
 	}
 
 	if (txtbox->text_buffer == NULL)
 		return;
-
-	uint8_t txt_is_bg = 0;
-	/* Delete opearation */
-	/* Use background color for text only when delete operation is done, OR when it's insert operation AND caret is inside the text  */
-	if (txtbox->edit_operation == -1 ||
-		(txtbox->edit_operation == 1 && txtbox->caret_index < txtbox->used_chars - 1))
-	{
-		txt_is_bg = 1;
-	}
-	else
-	{
-		txt_is_bg = 0;
-	}
 
 	uint8_t pad = 10;
 	uint16_t caret_x = obj->x + pad;
@@ -2540,11 +2542,9 @@ lui_obj_t* lui_textbox_create()
 	initial_textbox->style.text_color = LUI_STYLE_TEXTBOX_TEXT_COLOR;
 	initial_textbox->text_buffer = NULL;
 	initial_textbox->caret_index = 0;
-	initial_textbox->edit_operation = 0;
 	initial_textbox->font = g_lui_main->default_font;
 	initial_textbox->max_len = 0;
 	initial_textbox->used_chars = 1;
-	initial_textbox->edit_len = 0;
 	initial_textbox->needs_full_render = 1;
 
 	lui_obj_t* obj = _lui_object_create();
@@ -2890,7 +2890,7 @@ lui_obj_t* lui_scene_get_active()
  *-------------------------------------------------------------------------------
  */
 
-lui_obj_t* _lui_object_create()
+lui_obj_t* _lui_object_create(void)
 {
 	lui_obj_t* obj =  _lui_mem_alloc(sizeof(*obj));
 	if (obj == NULL)
@@ -2915,6 +2915,12 @@ lui_obj_t* _lui_object_create()
 	return obj;
 }
 
+/**
+ * @brief Add a child object to a parent object, thus grouping them together
+ * 
+ * @param obj child object
+ * @param parent_obj parent object
+ */
 void lui_object_add_to_parent(lui_obj_t* obj_child, lui_obj_t* obj_parent)
 {
 	if (obj_child == NULL || obj_parent == NULL)
@@ -2951,6 +2957,11 @@ void lui_object_add_to_parent(lui_obj_t* obj_child, lui_obj_t* obj_parent)
 	_lui_object_set_need_refresh(obj_child);
 }
 
+/**
+ * @brief Remove an object from its current parent
+ * 
+ * @param obj Child object
+ */
 void lui_object_remove_from_parent(lui_obj_t* obj)
 {
 	if (obj == NULL)
@@ -2981,7 +2992,13 @@ void lui_object_remove_from_parent(lui_obj_t* obj)
 	obj->parent = NULL;
 }
 
-
+/**
+ * @brief Set position of an object
+ * 
+ * @param obj target object
+ * @param x x position
+ * @param y y position
+ */
 void lui_object_set_position(lui_obj_t* obj, uint16_t x, uint16_t y)
 {
 	if (obj == NULL)
@@ -3040,6 +3057,12 @@ void lui_object_set_position(lui_obj_t* obj, uint16_t x, uint16_t y)
 	_lui_object_set_need_refresh(obj->parent);
 }
 
+/**
+ * @brief Set only x position of an object
+ * 
+ * @param obj target object
+ * @param x x position
+ */
 void lui_object_set_x_pos(lui_obj_t* obj, uint16_t x)
 {
 	if (obj == NULL)
@@ -3047,6 +3070,12 @@ void lui_object_set_x_pos(lui_obj_t* obj, uint16_t x)
 	lui_object_set_position(obj, x, obj->y);
 }
 
+/**
+ * @brief Set only y position of an object
+ * 
+ * @param obj target object
+ * @param y y position
+ */
 void lui_object_set_y_pos(lui_obj_t* obj, uint16_t y)
 {
 	if (obj == NULL)
@@ -3054,6 +3083,13 @@ void lui_object_set_y_pos(lui_obj_t* obj, uint16_t y)
 	lui_object_set_position(obj, obj->x, y);
 }
 
+/**
+ * @brief Set drawing area of an object
+ * 
+ * @param obj target object
+ * @param width width
+ * @param height height
+ */
 void lui_object_set_area(lui_obj_t* obj, uint16_t width, uint16_t height)
 {
 	if (obj == NULL)
@@ -3081,6 +3117,12 @@ void lui_object_set_area(lui_obj_t* obj, uint16_t width, uint16_t height)
 
 }
 
+/**
+ * @brief Set width of an object
+ * 
+ * @param obj target object
+ * @param width width
+ */
 void lui_object_set_width(lui_obj_t* obj, uint16_t width)
 {
 	if (obj == NULL)
@@ -3088,6 +3130,12 @@ void lui_object_set_width(lui_obj_t* obj, uint16_t width)
 	lui_object_set_area(obj, width, obj->common_style.height);
 }
 
+/**
+ * @brief Set height of an object
+ * 
+ * @param obj target object
+ * @param height height
+ */
 void lui_object_set_height(lui_obj_t* obj, uint16_t height)
 {
 	if (obj == NULL)
@@ -3095,6 +3143,12 @@ void lui_object_set_height(lui_obj_t* obj, uint16_t height)
 	lui_object_set_area(obj, obj->common_style.width, height);
 }
 
+/**
+ * @brief Set border color of an object
+ * 
+ * @param obj target object
+ * @param border_color border color
+ */
 void lui_object_set_border_color(lui_obj_t* obj, uint16_t border_color)
 {
 	if (obj == NULL)
@@ -3105,6 +3159,12 @@ void lui_object_set_border_color(lui_obj_t* obj, uint16_t border_color)
 	_lui_object_set_need_refresh(obj);
 }
 
+/**
+ * @brief Set border's visibility of an object
+ * 
+ * @param obj target object
+ * @param is_visible 1: visible; 0: invisible
+ */
 void lui_object_set_border_visibility(lui_obj_t* obj, uint8_t is_visible)
 {
 	if (obj == NULL)
@@ -3115,6 +3175,12 @@ void lui_object_set_border_visibility(lui_obj_t* obj, uint8_t is_visible)
 	_lui_object_set_need_refresh(obj);
 }
 
+/**
+ * @brief Set background color of an object
+ * 
+ * @param obj target object
+ * @param bg_color background color
+ */
 void lui_object_set_bg_color(lui_obj_t* obj, uint16_t bg_color)
 {
 	if (obj == NULL)
@@ -3125,6 +3191,14 @@ void lui_object_set_bg_color(lui_obj_t* obj, uint16_t bg_color)
 	_lui_object_set_need_refresh(obj);
 }
 
+/**
+ * @brief Set event call back function for input handling
+ * 
+ * This function is called when an event occurs against this object
+ * 
+ * @param obj target object
+ * @param obj_event_cb function pointer of the callback function
+ */
 void lui_object_set_callback(lui_obj_t* obj, void (*obj_event_cb)(lui_obj_t* ))
 {
 	if (obj == NULL)
@@ -3132,6 +3206,12 @@ void lui_object_set_callback(lui_obj_t* obj, void (*obj_event_cb)(lui_obj_t* ))
 	obj->obj_event_cb = obj_event_cb;
 }
 
+/**
+ * @brief Get the input state of an object
+ * 
+ * @param obj target object
+ * @return int8_t state ID
+ */
 int8_t lui_object_get_state(lui_obj_t* obj)
 {
 	if (obj == NULL)
@@ -3139,6 +3219,12 @@ int8_t lui_object_get_state(lui_obj_t* obj)
 	return obj->state;
 }
 
+/**
+ * @brief Get input event of an object
+ * 
+ * @param obj target object
+ * @return int8_t event ID
+ */
 int8_t lui_object_get_event(lui_obj_t* obj)
 {
 	if (obj == NULL)
@@ -3146,6 +3232,12 @@ int8_t lui_object_get_event(lui_obj_t* obj)
 	return obj->event;
 }
 
+/**
+ * @brief Set visibility of an object
+ * 
+ * @param obj target object
+ * @param is_visible 1: visible; 0: hidden
+ */
 void lui_object_set_visibility(lui_obj_t* obj, uint8_t is_visible)
 {
 	if (obj == NULL)
@@ -3179,6 +3271,14 @@ void lui_object_set_visibility(lui_obj_t* obj, uint8_t is_visible)
 	}
 }
 
+/**
+ * @brief Enable or disble input handling of an object. If disabled,
+ * object won't cause input event callback
+ * 
+ * @param obj target object
+ * @param is_enabled 1: input enabled; 0: input disabled
+ * @return uint8_t 1: success; 0: failed
+ */
 uint8_t lui_object_set_enable_input(lui_obj_t* obj,  uint8_t is_enabled)
 {
 	if (obj == NULL)
@@ -3198,6 +3298,16 @@ uint8_t lui_object_set_enable_input(lui_obj_t* obj,  uint8_t is_enabled)
 	return obj->enabled;
 }
 
+/**
+ * @brief Set rendering layer index of an object
+ * 
+ * Objects in higher layer will be rendered over the objects in lower layer.
+ * If 2 or more objects are in same layer, they're rendered based on the sequence
+ * they're added to parent.
+ * 
+ * @param obj target object
+ * @param layer_index layer index (0 - 128)
+ */
 void lui_object_set_layer(lui_obj_t* obj, uint8_t layer_index)
 {
 	if (obj == NULL)
@@ -3250,12 +3360,245 @@ void lui_object_set_layer(lui_obj_t* obj, uint8_t layer_index)
 	_lui_object_set_need_refresh(obj->parent);
 }
 
+/**
+ * @brief Get rendering layer index of an object
+ * 
+ * @param obj target object
+ * @return int16_t layer index. Returns -1 if object is NULL
+ */
 int16_t lui_object_get_layer(lui_obj_t* obj)
 {
 	if (obj == NULL)
 		return -1;
 	
 	return obj->layer;
+}
+
+/**
+ * @private
+ * @brief Compares two objects' layers and returns (layer1 - layer2)
+ * 
+ * @param p1 pointer to object 1
+ * @param p2 pointer to object 2
+ * @return int (layer1 - layer2)
+ */
+static int _lui_obj_layer_cmprtr(const void* p1, const void* p2)
+{
+	int l1 = (*((lui_obj_t** )p1))->layer;
+	int l2 = (*((lui_obj_t** )p2))->layer;
+	// int t1 = (*((lui_obj_t** )p1))->obj_type;
+	// int t2 = (*((lui_obj_t** )p2))->obj_type;
+
+	return (l1 - l2);
+}
+
+/**
+ * @private
+ * @brief Render an object along with all its children (if any)
+ * 
+ * @param obj_parent target object
+ */
+void _lui_object_render_parent_with_children(lui_obj_t* obj_parent)
+{
+	if (obj_parent == NULL)
+		return;
+	if (!obj_parent->visible)
+		return;
+
+
+	lui_obj_t* obj_arr[LUI_MAX_OBJECTS];
+	int16_t arr_counter = 0;
+
+	/* first render the parent, then render all its children in a loop */
+	if (obj_parent->layer > 0)
+		obj_arr[arr_counter++] = obj_parent;
+	else
+		_lui_object_render(obj_parent);
+	
+	/*
+	 * NOTE: objects are added to render stack only if they're visible.
+	 * That means, if a parent is not visible, its children also won't be 
+	 * added to the render stack, even if those children are visible.
+	 */
+
+	lui_obj_t* child_of_root = obj_parent->first_child;
+	while (child_of_root != NULL)
+	{
+		lui_obj_t* obj_stack[LUI_MAX_OBJECTS] = {NULL};
+		uint8_t stack_counter = 0;
+		/* Push child in stack, but only if it's visible */
+		if (child_of_root->visible)
+		{
+			obj_stack[stack_counter++] = child_of_root;
+		}
+		child_of_root = child_of_root->next_sibling;
+
+		while (stack_counter > 0)
+		{
+			/* pop from stack */
+			lui_obj_t* child = obj_stack[--stack_counter]; 
+
+			if (child->layer > 0)
+				obj_arr[arr_counter++] = child;
+			else
+				_lui_object_render(child);
+
+			/* get the child of current object */
+			child = child->first_child;
+			/* push all children of current object into stack too */
+			while (child != NULL)
+			{
+				/* push child to stack, but only if it is visible */
+				if (child->visible)
+				{
+					obj_stack[stack_counter++] = child;
+				}
+				/* get sibling of the child */
+				child = child->next_sibling;
+			}
+		}
+	}
+	/* Sort the objects based on their layers. bottom -> top */
+	qsort((void* )obj_arr, arr_counter, sizeof(obj_arr[0]), _lui_obj_layer_cmprtr);
+
+	for (uint8_t i = 0; i < arr_counter; i++)
+	{
+		_lui_object_render(obj_arr[i]);
+	}
+	
+	g_needs_render = 0;
+}
+
+/**
+ * @private
+ * @brief Render a single object (and NOT its children)
+ * 
+ * @param obj target object
+ */
+void _lui_object_render(lui_obj_t* obj)
+{
+	if (obj == NULL)
+		return;
+	
+	// draw it only if it needs refresh
+	if (obj->needs_refresh == 1)
+	{
+		switch (obj->obj_type)
+		{
+			case LUI_OBJ_SCENE:
+				lui_scene_draw(obj);
+				break;
+			case LUI_OBJ_PANEL:
+				lui_panel_draw(obj);
+				break;
+			case LUI_OBJ_BUTTON:
+				lui_button_draw(obj);
+				break;
+			case LUI_OBJ_SWITCH:
+				lui_switch_draw(obj);
+				break;
+			case LUI_OBJ_CHECKBOX:
+				lui_checkbox_draw(obj);
+				break;
+			case LUI_OBJ_SLIDER:
+				lui_slider_draw(obj);
+				break;
+			case LUI_OBJ_LABEL:
+				lui_label_draw(obj);
+				break;
+			case LUI_OBJ_LINECHART:
+				lui_linechart_draw(obj);
+				break;
+			case LUI_OBJ_LIST:
+				lui_list_draw(obj);
+				break;
+			case LUI_OBJ_BTNGRID:
+				lui_btngrid_draw(obj);
+				break;
+			case LUI_OBJ_TEXTBOX:
+				lui_textbox_draw(obj);
+				break;
+			default:
+				break;
+		}
+
+		obj->needs_refresh = 0;	// drawing is done, so set need_refresh back to 0
+	}
+}
+
+/**
+ * @private
+ * @brief Set needs_refresh flag for an object. This flag determines if onject will be redrawn
+ * 
+ * When setting this flag for an object, flags of children and/or parent might also be set,
+ * depending on the requirement.
+ * 
+ * @param obj target object
+ */
+void _lui_object_set_need_refresh(lui_obj_t* obj)
+{
+	if (obj == NULL)
+		return;
+	/* already flag is 1, no need to waste time in loop. Return. */
+	if (obj->needs_refresh == 1)
+		return;
+	/* Object's visibility is 0, return */
+	if (!obj->visible)
+		return;
+
+	obj->needs_refresh = 1;
+
+
+	/*
+	 * NOTE: needs_refresh_bit is set to 1 only when object is visible.
+	 * If a parent is invisible, its children's needs_refresh bit won't be changed too.
+	 */
+
+	lui_obj_t* child_of_root = obj->first_child;
+	while (child_of_root != NULL)
+	{
+		lui_obj_t* obj_stack[LUI_MAX_OBJECTS] = {NULL};
+		uint8_t stack_counter = 0;
+		// push child to stack, but only if it's visible
+		if (child_of_root->visible)
+		{
+			obj_stack[stack_counter++] = child_of_root;
+		}
+		child_of_root = child_of_root->next_sibling;
+
+		while (stack_counter > 0)
+		{
+			// pop from stack
+			lui_obj_t* child = obj_stack[--stack_counter]; 
+			child->needs_refresh = 1;
+
+			/* When child is either btngrid or textbox, set needs_full_render bit to 1 */
+			if (child->obj_type == LUI_OBJ_BTNGRID)
+			{
+				((lui_btngrid_t* )(child->obj_main_data))->needs_full_render = 1;
+			}
+			else if (child->obj_type == LUI_OBJ_TEXTBOX)
+			{
+				((lui_textbox_t* )(child->obj_main_data))->needs_full_render = 1;
+			}
+
+			// get the child of current object
+			child = child->first_child;
+			// push all children of current object into stack too
+			while (child != NULL)
+			{
+				/* push child to stack, but only if it's visible */
+				if (child->visible)
+				{
+					obj_stack[stack_counter++] = child;
+				}
+				// get sibling of the child
+				child = child->next_sibling;
+			}
+		}
+	}
+
+	g_needs_render = 1;
 }
 
 /*-------------------------------------------------------------------------------
@@ -3580,7 +3923,7 @@ void _lui_set_obj_props_on_touch_input(lui_touch_input_data_t* input, lui_obj_t*
 		}	
 	}
 
-	/**
+	/*
 	 * Special case for slider: If knob is kep pressed and if input pos is not same as knob's current position,
 	 * set new position to knob  and value to slider, also set VALUE_CHANGED event 
 	 */
@@ -3614,7 +3957,7 @@ void _lui_set_obj_props_on_touch_input(lui_touch_input_data_t* input, lui_obj_t*
 		}
 	}
 
-	/**
+	/*
 	 * When a different button in a grid is active than the previous one,
 	 * then the state of btngrid doesn't change and so no event occurs. 
 	 * To handle this, when we detect btn index change, we compare current or old state with STATE_IDLE
@@ -3757,208 +4100,353 @@ void lui_touch_inputdev_set_read_input_cb(lui_touch_input_dev_t* inputdev, void 
  */
 
 /*------------------------------------------------------------------------------
- * 			These functions are HELPER FUNCTIONS
+ * 			Graphics Functions
  *------------------------------------------------------------------------------
  */
 
-/* Compares two objects' layers and returns (layer1 - layer2) */
-static int _lui_obj_layer_cmprtr(const void* p1, const void* p2)
+void lui_gfx_draw_string_advanced(const char* str, uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t fore_color, uint16_t bg_color, uint8_t is_bg, const lui_font_t* font)
 {
-	int l1 = (*((lui_obj_t** )p1))->layer;
-	int l2 = (*((lui_obj_t** )p2))->layer;
-	// int t1 = (*((lui_obj_t** )p1))->obj_type;
-	// int t2 = (*((lui_obj_t** )p2))->obj_type;
+	uint16_t x_temp = x;
+	uint16_t y_temp = y;
+    const _lui_glyph_t *glyph;
 
-	return (l1 - l2);
-}
-
-void _lui_object_render_parent_with_children(lui_obj_t* obj_parent)
-{
-	if (obj_parent == NULL)
-		return;
-	if (!obj_parent->visible)
-		return;
-
-
-	lui_obj_t* obj_arr[LUI_MAX_OBJECTS];
-	int16_t arr_counter = 0;
-
-	/* first render the parent, then render all its children in a loop */
-	if (obj_parent->layer > 0)
-		obj_arr[arr_counter++] = obj_parent;
-	else
-		_lui_object_render(obj_parent);
-	
-	/**
-	 * NOTE: objects are added to render stack only if they're visible.
-	 * That means, if a parent is not visible, its children also won't be 
-	 * added to the render stack, even if those children are visible.
-	 */
-
-	lui_obj_t* child_of_root = obj_parent->first_child;
-	while (child_of_root != NULL)
+	if (w == 0 || h == 0)
 	{
-		lui_obj_t* obj_stack[LUI_MAX_OBJECTS] = {NULL};
-		uint8_t stack_counter = 0;
-		/* Push child in stack, but only if it's visible */
-		if (child_of_root->visible)
+		uint16_t max_w = w == 0 ? g_lui_main->disp_drv->display_hor_res - x : w;
+		uint16_t max_h = h == 0 ? g_lui_main->disp_drv->display_vert_res - y : h;
+		uint16_t area[2] = {0, 0};
+
+		lui_gfx_get_string_dimension(str, font, max_w, area);
+		area[1] = area[1] > max_h ? max_h : area[1];
+
+		w = w == 0 ? area[0] : w;
+		h = h == 0 ? area[1] : h;
+	}
+	if (is_bg)
+	{
+		lui_gfx_draw_rect_fill(x, y, w, h, bg_color);
+	}
+	
+	// Scan chars one by one from the string
+	//char
+	while (*str != '\0')
+	{
+		if (*str == '\n')
 		{
-			obj_stack[stack_counter++] = child_of_root;
+			x_temp = x;					//go to first col
+			y_temp += (font->bitmap->size_y);	//go to next row (row height = height of space)
 		}
-		child_of_root = child_of_root->next_sibling;
-
-		while (stack_counter > 0)
+		else
 		{
-			/* pop from stack */
-			lui_obj_t* child = obj_stack[--stack_counter]; 
-
-			if (child->layer > 0)
-				obj_arr[arr_counter++] = child;
+			uint8_t glyph_width = 0;
+            glyph = _lui_gfx_get_glyph_from_char(*str, font);
+			if (glyph == NULL)
+				glyph_width = font->bitmap->size_y / 2;
 			else
-				_lui_object_render(child);
-
-			/* get the child of current object */
-			child = child->first_child;
-			/* push all children of current object into stack too */
-			while (child != NULL)
+				glyph_width = glyph->width;
+			// check if not enough space available at the right side
+			if (x_temp + glyph_width > x + w)
 			{
-				/* push child to stack, but only if it is visible */
-				if (child->visible)
-				{
-					obj_stack[stack_counter++] = child;
-				}
-				/* get sibling of the child */
-				child = child->next_sibling;
+				x_temp = x;					//go to first col
+				y_temp += font->bitmap->size_y;	//go to next row
 			}
-		}
-	}
-	/* Sort the objects based on their layers. bottom -> top */
-	qsort((void* )obj_arr, arr_counter, sizeof(obj_arr[0]), _lui_obj_layer_cmprtr);
 
-	for (uint8_t i = 0; i < arr_counter; i++)
-	{
-		_lui_object_render(obj_arr[i]);
+			// check if not enough space available at the bottom
+			if(y_temp + font->bitmap->size_y > y + h)
+				return;
+
+			_lui_gfx_render_char_glyph(x_temp, y_temp, fore_color, 0, 0, glyph, font);
+
+			x_temp += glyph_width;		//next char position
+		}
+
+        str++;
 	}
-	
-	g_needs_render = 0;
 }
 
-void _lui_object_render(lui_obj_t* obj)
+void lui_gfx_draw_string_simple(const char* str, uint16_t x, uint16_t y, uint16_t fore_color, const lui_font_t* font)
 {
-	if (obj == NULL)
+	lui_gfx_draw_string_advanced(str, x, y, 0, 0, fore_color, 0, 0, font);
+}
+
+void lui_gfx_draw_char(char c, uint16_t x, uint16_t y, uint16_t fore_color, uint16_t bg_color, uint8_t is_bg, const lui_font_t* font)
+{
+	if (c == '\0')
+		return;
+	_lui_glyph_t* glyph = _lui_gfx_get_glyph_from_char(c, font);
+	_lui_gfx_render_char_glyph(x, y, fore_color, bg_color, is_bg, glyph, font);
+}
+
+/*
+ * Brehensen's algorithm is used.
+ * Draw line between ANY two points.
+ * Not necessarily start points has to be less than end points.
+ */
+void lui_gfx_draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color)
+{
+	/*
+	* Brehensen's algorithm is used.
+	* Not necessarily start points has to be less than end points.
+	*/
+
+	if (x0 == x1)	//vertical line
+	{
+		 g_lui_main->disp_drv->draw_pixels_area_cb(x0, (y0 < y1 ? y0 : y1), (uint16_t)line_width, (uint16_t)abs(y1 - y0 + 1), color);
+	}
+	else if (y0 == y1)		//horizontal line
+	{
+		 g_lui_main->disp_drv->draw_pixels_area_cb((x0 < x1 ? x0 : x1), y0, (uint16_t)abs(x1 - x0 + 1), (uint16_t)line_width, color);
+	}
+	else
+	{
+		if (abs(y1 - y0) < abs(x1 - x0))
+		{
+			if (x0 > x1)
+				_lui_gfx_plot_line_low(x1, y1, x0, y0, line_width, color);
+			else
+				_lui_gfx_plot_line_low(x0, y0, x1, y1, line_width, color);
+		}
+
+		else
+		{
+			if (y0 > y1)
+				_lui_gfx_plot_line_high(x1, y1, x0, y0, line_width, color);
+			else
+				_lui_gfx_plot_line_high(x0, y0, x1, y1, line_width, color) ;
+		}
+	}
+
+}
+
+/*
+ * Draw a rectangle with a given color and line width
+ */
+void lui_gfx_draw_rect(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint8_t line_width, uint16_t color)
+{
+	uint16_t x_new = x+w-1;
+	uint16_t y_new = y+h-1;
+	lui_gfx_draw_line(x, y, x_new, y, line_width, color);
+	lui_gfx_draw_line(x_new, y, x_new, y_new, line_width, color);
+	lui_gfx_draw_line(x, y_new, x_new, y_new, line_width, color);
+	lui_gfx_draw_line(x, y, x, y_new, line_width, color);
+}
+
+/*
+ * Fill a rectangular area with a color
+ */
+void lui_gfx_draw_rect_fill(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color)
+{
+	 g_lui_main->disp_drv->draw_pixels_area_cb(x, y, w, h, color);
+}
+
+/*
+ * Get the width and height of a string (in pixels).
+ * Width: by adding up the width of each glyph (representing a character)
+ * Height: Height of any glyph (representing a character)
+ */
+void lui_gfx_get_string_dimension(const char* str, const lui_font_t* font, uint16_t max_w, uint16_t* str_dim)
+{
+	str_dim[0] = 0;	// -> width
+	str_dim[1] = 0;	// -> height
+
+	uint8_t needs_wrap = 0;
+	uint16_t temp_w = 0;
+	uint16_t temp_w_highest = 0;
+	// height is the height of space
+	uint16_t temp_h = font->bitmap->size_y;
+
+	// Scan chars one by one from the string
+	while (*str != '\0')
+	{
+		if (*str == '\n')
+		{
+			temp_h += font->bitmap->size_y;
+			temp_w = 0;
+		}
+		else
+		{
+            uint8_t glyph_width = 0;
+            const _lui_glyph_t* glyph = _lui_gfx_get_glyph_from_char(*str, font);
+			if (glyph == NULL)
+				glyph_width = font->bitmap->size_y / 2;
+			else
+				glyph_width = glyph->width;
+
+            // Add width of glyphs
+            if (temp_w + glyph_width > max_w)
+            {
+                temp_h += font->bitmap->size_y;
+                temp_w = 0;
+                needs_wrap = 1;
+            }
+
+            temp_w += glyph_width;
+            temp_w_highest = temp_w_highest < temp_w ? temp_w : temp_w_highest;
+		}
+
+        str++;
+	}
+	str_dim[0] = needs_wrap ? max_w : temp_w_highest;
+	str_dim[1] = temp_h; 
+}
+
+
+uint16_t lui_rgb(uint16_t red, uint16_t green, uint16_t blue)
+{
+	return LUI_RGB(red, green, blue);
+}
+
+_lui_glyph_t* _lui_gfx_get_glyph_from_char(char c, const lui_font_t* font)
+{
+	_lui_glyph_t* glyph = NULL;
+	uint8_t i = 0;
+	while (i < font->glyph_count)
+	{
+		if (font->glyphs[i].character == c)
+		{
+			glyph = &(font->glyphs[i]);
+			break;
+		}
+		
+		++i;
+	}
+	return glyph;
+}
+
+/*
+ * Draws a character glyph in top-to-bottom, left-to-right order
+ * Monochrome fonts generated with lcd-image-converter software are supported only
+ * Font must be generated by scanning from left to right
+ *
+ * Returns the last written pixel's X position
+ */
+void _lui_gfx_render_char_glyph(uint16_t x, uint16_t y, uint16_t fore_color, uint16_t bg_color, uint8_t is_bg, const _lui_glyph_t* glyph, const lui_font_t* font)
+{
+	if (font == NULL)
 		return;
 	
-	// draw it only if it needs refresh
-	if (obj->needs_refresh == 1)
+	if (glyph == NULL)
 	{
-		switch (obj->obj_type)
-		{
-			case LUI_OBJ_SCENE:
-				lui_scene_draw(obj);
-				break;
-			case LUI_OBJ_PANEL:
-				lui_panel_draw(obj);
-				break;
-			case LUI_OBJ_BUTTON:
-				lui_button_draw(obj);
-				break;
-			case LUI_OBJ_SWITCH:
-				lui_switch_draw(obj);
-				break;
-			case LUI_OBJ_CHECKBOX:
-				lui_checkbox_draw(obj);
-				break;
-			case LUI_OBJ_SLIDER:
-				lui_slider_draw(obj);
-				break;
-			case LUI_OBJ_LABEL:
-				lui_label_draw(obj);
-				break;
-			case LUI_OBJ_LINECHART:
-				lui_linechart_draw(obj);
-				break;
-			case LUI_OBJ_LIST:
-				lui_list_draw(obj);
-				break;
-			case LUI_OBJ_BTNGRID:
-				lui_btngrid_draw(obj);
-				break;
-			case LUI_OBJ_TEXTBOX:
-				lui_textbox_draw(obj);
-				break;
-			default:
-				break;
-		}
-
-		obj->needs_refresh = 0;	// drawing is done, so set need_refresh back to 0
+		lui_gfx_draw_rect_fill(x, y, font->bitmap->size_y / 2, font->bitmap->size_y, fore_color);
+		return;
 	}
+
+	uint16_t temp_x = x;
+	uint16_t temp_y = y;
+
+	uint16_t width = 0;
+	uint16_t index_offset = 0;
+	width = glyph->width;
+	index_offset = glyph->payload_index;//((height / 8) + (height % 8 ? 1 : 0)) * x_offset;
+
+
+    uint8_t mask = 0x80;
+    uint8_t bit_counter = 0;
+    for (uint8_t w = 0; w < width; w++)
+    {
+        bit_counter = 0;
+        for (uint8_t h = 0; h < font->bitmap->size_y; h++)
+        {
+            if (bit_counter >= 8)   
+            {
+                ++index_offset;
+                bit_counter = 0;
+            }
+            uint8_t bit = mask & (font->bitmap->payload[index_offset] << bit_counter);
+            if (bit)
+            {
+                g_lui_main->disp_drv->draw_pixels_area_cb(temp_x, temp_y, 1, 1, fore_color);
+            }
+            else
+            {
+                if (is_bg)
+                    g_lui_main->disp_drv->draw_pixels_area_cb(temp_x, temp_y, 1, 1, bg_color);
+            }
+            ++bit_counter;
+            ++temp_y;
+        }
+        ++index_offset;
+        ++temp_x;
+        temp_y = y;
+    }
 }
 
-void _lui_object_set_need_refresh(lui_obj_t* obj)
+/*
+ * When dy < 0
+ * It's called only by line_draw function. Not for user
+ */
+void _lui_gfx_plot_line_low(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color)
 {
-	if (obj == NULL)
-		return;
-	/* already flag is 1, no need to waste time in loop. Return. */
-	if (obj->needs_refresh == 1)
-		return;
-	/* Object's visibility is 0, return */
-	if (!obj->visible)
-		return;
-
-	obj->needs_refresh = 1;
-
-
-	/**
-	 * NOTE: needs_refresh_bit is set to 1 only when object is visible.
-	 * If a parent is invisible, its children's needs_refresh bit won't be changed too.
-	 */
-
-	lui_obj_t* child_of_root = obj->first_child;
-	while (child_of_root != NULL)
+	int16_t dx = x1 - x0;
+	int16_t dy = y1 - y0;
+	int8_t yi = 1;
+	if (dy < 0)
 	{
-		lui_obj_t* obj_stack[LUI_MAX_OBJECTS] = {NULL};
-		uint8_t stack_counter = 0;
-		// push child to stack, but only if it's visible
-		if (child_of_root->visible)
-		{
-			obj_stack[stack_counter++] = child_of_root;
-		}
-		child_of_root = child_of_root->next_sibling;
-
-		while (stack_counter > 0)
-		{
-			// pop from stack
-			lui_obj_t* child = obj_stack[--stack_counter]; 
-			child->needs_refresh = 1;
-
-			/* When child is either btngrid or textbox, set needs_full_render bit to 1 */
-			if (child->obj_type == LUI_OBJ_BTNGRID)
-			{
-				((lui_btngrid_t* )(child->obj_main_data))->needs_full_render = 1;
-			}
-			else if (child->obj_type == LUI_OBJ_TEXTBOX)
-			{
-				((lui_textbox_t* )(child->obj_main_data))->needs_full_render = 1;
-			}
-
-			// get the child of current object
-			child = child->first_child;
-			// push all children of current object into stack too
-			while (child != NULL)
-			{
-				/* push child to stack, but only if it's visible */
-				if (child->visible)
-				{
-					obj_stack[stack_counter++] = child;
-				}
-				// get sibling of the child
-				child = child->next_sibling;
-			}
-		}
+		yi = -1;
+		dy = -dy;
 	}
 
-	g_needs_render = 1;
+	int16_t D = 2*dy - dx;
+	uint16_t y = y0;
+	uint16_t x = x0;
+
+	while (x <= x1)
+	{
+		 g_lui_main->disp_drv->draw_pixels_area_cb(x, y, line_width, line_width, color);
+
+		if (D > 0)
+		{
+			y = y + yi;
+			D = D - 2*dx;
+		}
+		D = D + 2*dy;
+		x++;
+	}
 }
+
+/*
+ * When dx < 0
+ * It's called only by line_draw function. Not for user
+ */
+void _lui_gfx_plot_line_high(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color)
+{
+	int16_t dx = x1 - x0;
+	int16_t dy = y1 - y0;
+	int8_t xi = 1;
+	if (dx < 0)
+	{
+		xi = -1;
+		dx = -dx;
+	}
+
+	int16_t D = 2*dx - dy;
+	uint16_t y = y0;
+	uint16_t x = x0;
+
+	while (y <= y1)
+	{
+		 g_lui_main->disp_drv->draw_pixels_area_cb(x, y, line_width, line_width, color);
+
+		if (D > 0)
+		{
+			x = x + xi;
+			D = D - 2*dy;
+		}
+		D = D + 2*dx;
+		y++;
+	}
+}
+
+/*-------------------------------------------------------------------------------
+ * 							END
+ *-------------------------------------------------------------------------------
+ */
+
+
+/*------------------------------------------------------------------------------
+ * 			Other Helper Functions
+ *------------------------------------------------------------------------------
+ */
 
 lui_font_t* _lui_get_font_from_active_scene()
 {
@@ -4060,334 +4548,6 @@ uint8_t _lui_get_event_against_state(uint8_t new_state, uint8_t old_state)
 	return event;
 }
 
-void lui_gfx_draw_string_advanced(const char* str, uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t fore_color, uint16_t bg_color, uint8_t is_bg, const lui_font_t* font)
-{
-	uint16_t x_temp = x;
-	uint16_t y_temp = y;
-    const _lui_glyph_t *glyph;
-
-	if (w == 0 || h == 0)
-	{
-		uint16_t max_w = w == 0 ? g_lui_main->disp_drv->display_hor_res - x : w;
-		uint16_t max_h = h == 0 ? g_lui_main->disp_drv->display_vert_res - y : h;
-		uint16_t area[2] = {0, 0};
-
-		lui_gfx_get_string_dimension(str, font, max_w, area);
-		area[1] = area[1] > max_h ? max_h : area[1];
-
-		w = w == 0 ? area[0] : w;
-		h = h == 0 ? area[1] : h;
-	}
-	if (is_bg)
-	{
-		lui_gfx_draw_rect_fill(x, y, w, h, bg_color);
-	}
-	
-	// Scan chars one by one from the string
-	//char
-	while (*str != '\0')
-	{
-		if (*str == '\n')
-		{
-			x_temp = x;					//go to first col
-			y_temp += (font->bitmap->size_y);	//go to next row (row height = height of space)
-		}
-		else
-		{
-			uint8_t glyph_width = 0;
-            glyph = _lui_gfx_get_glyph_from_char(*str, font);
-			if (glyph == NULL)
-				glyph_width = font->bitmap->size_y / 2;
-			else
-				glyph_width = glyph->width;
-			// check if not enough space available at the right side
-			if (x_temp + glyph_width > x + w)
-			{
-				x_temp = x;					//go to first col
-				y_temp += font->bitmap->size_y;	//go to next row
-			}
-
-			// check if not enough space available at the bottom
-			if(y_temp + font->bitmap->size_y > y + h)
-				return;
-
-			_lui_gfx_render_char_glyph(x_temp, y_temp, fore_color, 0, 0, glyph, font);
-
-			x_temp += glyph_width;		//next char position
-		}
-
-        str++;
-	}
-}
-
-
-void lui_gfx_draw_string_simple(const char* str, uint16_t x, uint16_t y, uint16_t fore_color, const lui_font_t* font)
-{
-	lui_gfx_draw_string_advanced(str, x, y, 0, 0, fore_color, 0, 0, font);
-}
-
-void lui_gfx_draw_char(char c, uint16_t x, uint16_t y, uint16_t fore_color, uint16_t bg_color, uint8_t is_bg, const lui_font_t* font)
-{
-	if (c == '\0')
-		return;
-	_lui_glyph_t* glyph = _lui_gfx_get_glyph_from_char(c, font);
-	_lui_gfx_render_char_glyph(x, y, fore_color, bg_color, is_bg, glyph, font);
-}
-
-_lui_glyph_t* _lui_gfx_get_glyph_from_char(char c, const lui_font_t* font)
-{
-	_lui_glyph_t* glyph = NULL;
-	uint8_t i = 0;
-	while (i < font->glyph_count)
-	{
-		if (font->glyphs[i].character == c)
-		{
-			glyph = &(font->glyphs[i]);
-			break;
-		}
-		
-		++i;
-	}
-	return glyph;
-}
-
-/*
- * Draws a character glyph in top-to-bottom, left-to-right order
- * Monochrome fonts generated with lcd-image-converter software are supported only
- * Font must be generated by scanning from left to right
- *
- * Returns the last written pixel's X position
- */
-void _lui_gfx_render_char_glyph(uint16_t x, uint16_t y, uint16_t fore_color, uint16_t bg_color, uint8_t is_bg, const _lui_glyph_t* glyph, const lui_font_t* font)
-{
-	if (font == NULL)
-		return;
-	
-	if (glyph == NULL)
-	{
-		lui_gfx_draw_rect_fill(x, y, font->bitmap->size_y / 2, font->bitmap->size_y, fore_color);
-		return;
-	}
-
-	uint16_t temp_x = x;
-	uint16_t temp_y = y;
-
-	uint16_t width = 0;
-	uint16_t index_offset = 0;
-	width = glyph->width;
-	index_offset = glyph->payload_index;//((height / 8) + (height % 8 ? 1 : 0)) * x_offset;
-
-
-    uint8_t mask = 0x80;
-    uint8_t bit_counter = 0;
-    for (uint8_t w = 0; w < width; w++)
-    {
-        bit_counter = 0;
-        for (uint8_t h = 0; h < font->bitmap->size_y; h++)
-        {
-            if (bit_counter >= 8)   
-            {
-                ++index_offset;
-                bit_counter = 0;
-            }
-            uint8_t bit = mask & (font->bitmap->payload[index_offset] << bit_counter);
-            if (bit)
-            {
-                g_lui_main->disp_drv->draw_pixels_area_cb(temp_x, temp_y, 1, 1, fore_color);
-            }
-            else
-            {
-                if (is_bg)
-                    g_lui_main->disp_drv->draw_pixels_area_cb(temp_x, temp_y, 1, 1, bg_color);
-            }
-            ++bit_counter;
-            ++temp_y;
-        }
-        ++index_offset;
-        ++temp_x;
-        temp_y = y;
-    }
-}
-
-/*
- * Get the width and height of a string (in pixels).
- * Width: by adding up the width of each glyph (representing a character)
- * Height: Height of any glyph (representing a character)
- */
-void lui_gfx_get_string_dimension(const char* str, const lui_font_t* font, uint16_t max_w, uint16_t* str_dim)
-{
-	str_dim[0] = 0;	// -> width
-	str_dim[1] = 0;	// -> height
-
-	uint8_t needs_wrap = 0;
-	uint16_t temp_w = 0;
-	uint16_t temp_w_highest = 0;
-	// height is the height of space
-	uint16_t temp_h = font->bitmap->size_y;
-
-	// Scan chars one by one from the string
-	while (*str != '\0')
-	{
-		if (*str == '\n')
-		{
-			temp_h += font->bitmap->size_y;
-			temp_w = 0;
-		}
-		else
-		{
-            uint8_t glyph_width = 0;
-            const _lui_glyph_t* glyph = _lui_gfx_get_glyph_from_char(*str, font);
-			if (glyph == NULL)
-				glyph_width = font->bitmap->size_y / 2;
-			else
-				glyph_width = glyph->width;
-
-            // Add width of glyphs
-            if (temp_w + glyph_width > max_w)
-            {
-                temp_h += font->bitmap->size_y;
-                temp_w = 0;
-                needs_wrap = 1;
-            }
-
-            temp_w += glyph_width;
-            temp_w_highest = temp_w_highest < temp_w ? temp_w : temp_w_highest;
-		}
-
-        str++;
-	}
-	str_dim[0] = needs_wrap ? max_w : temp_w_highest;
-	str_dim[1] = temp_h; 
-}
-
-/*
- * Brehensen's algorithm is used.
- * Draw line between ANY two points.
- * Not necessarily start points has to be less than end points.
- */
-void lui_gfx_draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color)
-{
-	/*
-	* Brehensen's algorithm is used.
-	* Not necessarily start points has to be less than end points.
-	*/
-
-	if (x0 == x1)	//vertical line
-	{
-		 g_lui_main->disp_drv->draw_pixels_area_cb(x0, (y0 < y1 ? y0 : y1), (uint16_t)line_width, (uint16_t)abs(y1 - y0 + 1), color);
-	}
-	else if (y0 == y1)		//horizontal line
-	{
-		 g_lui_main->disp_drv->draw_pixels_area_cb((x0 < x1 ? x0 : x1), y0, (uint16_t)abs(x1 - x0 + 1), (uint16_t)line_width, color);
-	}
-	else
-	{
-		if (abs(y1 - y0) < abs(x1 - x0))
-		{
-			if (x0 > x1)
-				_lui_gfx_plot_line_low(x1, y1, x0, y0, line_width, color);
-			else
-				_lui_gfx_plot_line_low(x0, y0, x1, y1, line_width, color);
-		}
-
-		else
-		{
-			if (y0 > y1)
-				_lui_gfx_plot_line_high(x1, y1, x0, y0, line_width, color);
-			else
-				_lui_gfx_plot_line_high(x0, y0, x1, y1, line_width, color) ;
-		}
-	}
-
-}
-
-/*
- * When dy < 0
- * It's called only by line_draw function. Not for user
- */
-void _lui_gfx_plot_line_low(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color)
-{
-	int16_t dx = x1 - x0;
-	int16_t dy = y1 - y0;
-	int8_t yi = 1;
-	if (dy < 0)
-	{
-		yi = -1;
-		dy = -dy;
-	}
-
-	int16_t D = 2*dy - dx;
-	uint16_t y = y0;
-	uint16_t x = x0;
-
-	while (x <= x1)
-	{
-		 g_lui_main->disp_drv->draw_pixels_area_cb(x, y, line_width, line_width, color);
-
-		if (D > 0)
-		{
-			y = y + yi;
-			D = D - 2*dx;
-		}
-		D = D + 2*dy;
-		x++;
-	}
-}
-
-/*
- * When dx < 0
- * It's called only by line_draw function. Not for user
- */
-void _lui_gfx_plot_line_high(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color)
-{
-	int16_t dx = x1 - x0;
-	int16_t dy = y1 - y0;
-	int8_t xi = 1;
-	if (dx < 0)
-	{
-		xi = -1;
-		dx = -dx;
-	}
-
-	int16_t D = 2*dx - dy;
-	uint16_t y = y0;
-	uint16_t x = x0;
-
-	while (y <= y1)
-	{
-		 g_lui_main->disp_drv->draw_pixels_area_cb(x, y, line_width, line_width, color);
-
-		if (D > 0)
-		{
-			x = x + xi;
-			D = D - 2*dy;
-		}
-		D = D + 2*dx;
-		y++;
-	}
-}
-
-/*
- * Draw a rectangle with a given color and line width
- */
-void lui_gfx_draw_rect(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint8_t line_width, uint16_t color)
-{
-	uint16_t x_new = x+w-1;
-	uint16_t y_new = y+h-1;
-	lui_gfx_draw_line(x, y, x_new, y, line_width, color);
-	lui_gfx_draw_line(x_new, y, x_new, y_new, line_width, color);
-	lui_gfx_draw_line(x, y_new, x_new, y_new, line_width, color);
-	lui_gfx_draw_line(x, y, x, y_new, line_width, color);
-}
-
-/*
- * Fill a rectangular area with a color
- */
-void lui_gfx_draw_rect_fill(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color)
-{
-	 g_lui_main->disp_drv->draw_pixels_area_cb(x, y, w, h, color);
-}
-
 /*
  * Map a range of data to a new range of data
  */
@@ -4416,11 +4576,6 @@ uint8_t _lui_disp_drv_check()
 	return status;
 }
 
-uint16_t lui_rgb(uint16_t red, uint16_t green, uint16_t blue)
-{
-	return _LUI_RGB(red, green, blue);
-}
-
 void _lui_mem_init(uint8_t mem_block[], uint16_t size)
 {
 	g_mem_block.mem_block = mem_block;
@@ -4436,9 +4591,17 @@ void* _lui_mem_alloc(uint16_t element_size)
 	g_mem_block.mem_allocated += element_size;
 	return nxt_addr;
 }
+/*-------------------------------------------------------------------------------
+ * 							END
+ *-------------------------------------------------------------------------------
+ */
 
 
-//AUTOGENERATED FILE! DO NOT EDIT!
+/*------------------------------------------------------------------------------
+ * 			Default Font data
+ *------------------------------------------------------------------------------
+ */
+/* Default Font data. DON'T EDIT!*/
 static const uint8_t lui_default_payload[4164] ={
 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x1F,0xE6,0x00,0x00,0x06,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x3C,0x00,0x00,0x00,0x00,0x00,0x00,
 0x00,0x00,0x3C,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x02,0x10,0x00,0x02,0x1E,0x00,0x03,0xF0,0x00,0x1E,0x10,0x00,0x02,0x10,0x00,0x02,0x1E,0x00,0x03,0xF8,
@@ -4577,6 +4740,7 @@ static const uint8_t lui_default_payload[4164] ={
 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00};
 
 const lui_bitmap_t BITMAP_lui_default = {.size_x=1388, .size_y=19, .payload=lui_default_payload};
+
 static const _lui_glyph_t FONT_GLYPHS_lui_default[] = {
 { .character=32/* */, .width=3, .payload_index=0 }, 			{ .character=33/*!*/, .width=4, .payload_index=9 }, 
 { .character=34/*"*/, .width=6, .payload_index=21 }, 			{ .character=35/*#*/, .width=11, .payload_index=39 }, 
@@ -4642,9 +4806,7 @@ static const _lui_glyph_t FONT_GLYPHS_lui_default[] = {
 { .character=26/*[1A]settings.png*/, .width=19, .payload_index=3936 }, 			{ .character=27/*[1B]add.png*/, .width=19, .payload_index=3993 }, 
 { .character=28/*[1C]battery-dead.png*/, .width=19, .payload_index=4050 }, 			{ .character=29/*[1D]stop.png*/, .width=19, .payload_index=4107 },};
 
-
 const lui_font_t FONT_lui_default = { .bitmap = &BITMAP_lui_default, .glyph_count = 124, .glyphs = FONT_GLYPHS_lui_default };
-
 
 /*-------------------------------------------------------------------------------
  * 							END
