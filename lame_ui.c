@@ -2953,6 +2953,7 @@ void lui_object_add_to_parent(lui_obj_t* obj_child, lui_obj_t* obj_parent)
 		next_child->next_sibling = obj_child;
 	}
 	obj_child->parent = obj_parent;
+	lui_object_set_layer(obj_child,obj_child->layer);
 	obj_parent->children_count++;
 	_lui_object_set_need_refresh(obj_child);
 }
@@ -3384,12 +3385,22 @@ int16_t lui_object_get_layer(lui_obj_t* obj)
  */
 static int _lui_obj_layer_cmprtr(const void* p1, const void* p2)
 {
-	int l1 = (*((lui_obj_t** )p1))->layer;
-	int l2 = (*((lui_obj_t** )p2))->layer;
-	// int t1 = (*((lui_obj_t** )p1))->obj_type;
-	// int t2 = (*((lui_obj_t** )p2))->obj_type;
+	uint8_t l1 = (*((lui_obj_t** )p1))->layer;
+	uint8_t l2 = (*((lui_obj_t** )p2))->layer;
+	uint8_t t1 = (*((lui_obj_t** )p1))->obj_type;
+	uint8_t t2 = (*((lui_obj_t** )p2))->obj_type;
+	int16_t ret = 0;
+	if (l1 == l2)
+	{
+		if (t1 == LUI_OBJ_PANEL && t2 != LUI_OBJ_PANEL)
+			ret = -1;
+		else if (t2 == LUI_OBJ_PANEL && t1 != LUI_OBJ_PANEL)
+			ret = 1;
+	}
+	else
+		ret = (l1 - l2);
 
-	return (l1 - l2);
+	return ret;
 }
 
 /**
@@ -3539,15 +3550,16 @@ void _lui_object_set_need_refresh(lui_obj_t* obj)
 {
 	if (obj == NULL)
 		return;
-	/* already flag is 1, no need to waste time in loop. Return. */
-	if (obj->needs_refresh == 1)
-		return;
 	/* Object's visibility is 0, return */
 	if (!obj->visible)
 		return;
 
+	g_needs_render = 1;
+	/* already flag is 1, no need to waste time in loop. Return. */
+	if (obj->needs_refresh == 1)
+		return;
+	
 	obj->needs_refresh = 1;
-
 
 	/*
 	 * NOTE: needs_refresh_bit is set to 1 only when object is visible.
@@ -3598,7 +3610,6 @@ void _lui_object_set_need_refresh(lui_obj_t* obj)
 		}
 	}
 
-	g_needs_render = 1;
 }
 
 /*-------------------------------------------------------------------------------
@@ -3735,7 +3746,7 @@ lui_obj_t* _lui_scan_all_obj_for_input(lui_touch_input_data_t* touch_input_data,
 			// pop from stack
 			lui_obj_t* child = obj_stack[--stack_counter]; 
 			obj_arr[arr_counter++] = child;
-			if (child->layer == 255)
+			if (child->layer == LUI_LAYER_POPUP)
 				popup_layer_exists = 1;
 
 			// get the child of current object
@@ -3760,7 +3771,7 @@ lui_obj_t* _lui_scan_all_obj_for_input(lui_touch_input_data_t* touch_input_data,
 	/* Scan for inputs from top layer to bottom layer */
 	while(arr_counter--)
 	{
-		if (popup_layer_exists && obj_arr[arr_counter]->layer < 255)
+		if (popup_layer_exists && obj_arr[arr_counter]->layer < LUI_LAYER_POPUP)
 			return NULL;
 		obj_caused_cb = _lui_scan_individual_object_for_input(touch_input_data, obj_arr[arr_counter]);
 		if (obj_caused_cb != NULL)
@@ -3889,7 +3900,8 @@ void _lui_set_obj_props_on_touch_input(lui_touch_input_data_t* input, lui_obj_t*
 			lui_btngrid_t* btngrid = obj->obj_main_data;
 			btngrid->btn_properties[btngrid->active_btn_index] |= (new_state & _LUI_BTNGRID_MASK_BTN_IS_CHECKED);
 		}
-		_lui_object_set_need_refresh(obj);
+		if (obj->obj_type != LUI_OBJ_PANEL)
+			_lui_object_set_need_refresh(obj);
 	}
 	
 
