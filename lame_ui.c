@@ -28,7 +28,7 @@ _lui_main_t* g_lui_main;
 void lui_init(uint8_t mem_block[], uint16_t size)
 {
 	_lui_mem_init(mem_block, size);
-	g_lui_main = _lui_mem_alloc(sizeof(_lui_main_t));
+	g_lui_main = (_lui_main_t* )_lui_mem_alloc(sizeof(_lui_main_t));
 	if (g_lui_main == NULL)
 		return;
 
@@ -93,10 +93,6 @@ void lui_update()
  *-------------------------------------------------------------------------------
  */
 
-/*
- * Render a label. This label may or maynot be a part of any scene.
- * The entire scene is not updated.
- */
 void lui_label_draw(lui_obj_t* obj)
 {
 	if (obj == NULL)
@@ -126,9 +122,6 @@ void lui_label_draw(lui_obj_t* obj)
 
 }
 
-/*
- * Initialize a label with default values
- */
 lui_obj_t* lui_label_create(void)
 {
 	// if total created objects become more than max allowed objects, don't create the object
@@ -136,7 +129,7 @@ lui_obj_t* lui_label_create(void)
 		return NULL;
 	 g_lui_main->total_created_objects++;
 
-	lui_label_t* initial_label =  _lui_mem_alloc(sizeof(*initial_label));
+	lui_label_t* initial_label =  (lui_label_t* )_lui_mem_alloc(sizeof(*initial_label));
 	if (initial_label == NULL)
 		return NULL;
 	
@@ -216,6 +209,8 @@ void lui_label_set_text_color(lui_obj_t* obj, uint16_t text_color)
  * 				LUI_LINE_CHART related functions
  *-------------------------------------------------------------------------------
  */
+
+#if defined(LUI_USE_LINECHART)
 
 /*
 * Draw a line chart
@@ -520,6 +515,8 @@ void lui_linechart_set_data_source(lui_obj_t* obj, double* source, uint16_t poin
 	chart->data.points = points;
 }
 
+#endif
+
 /*-------------------------------------------------------------------------------
  * 							END
  *-------------------------------------------------------------------------------
@@ -603,7 +600,7 @@ lui_obj_t* lui_button_create()
 		return NULL;
 	 g_lui_main->total_created_objects++;
 
-	lui_button_t* initial_button =  _lui_mem_alloc(sizeof(*initial_button));
+	lui_button_t* initial_button =  (lui_button_t* )_lui_mem_alloc(sizeof(*initial_button));
 	if (initial_button == NULL)
 		return NULL;
 
@@ -703,6 +700,8 @@ void lui_button_set_extra_colors(lui_obj_t* obj, uint16_t pressed_color, uint16_
  * 				LUI_LIST related functions
  *-------------------------------------------------------------------------------
  */
+
+#if defined(LUI_USE_LIST)
 
 void lui_list_draw(lui_obj_t* obj)
 {
@@ -922,22 +921,19 @@ lui_obj_t* lui_list_add_item(lui_obj_t* obj, const char* text)
 	return  obj_btn_item;
 }
 
-void lui_list_delete_item(lui_obj_t** obj_item_addr)
+void lui_list_delete_item(lui_obj_t* obj_item_addr)
 {
 	if (obj_item_addr == NULL)
 		return;
-	if (*obj_item_addr == NULL)
+
+	if (obj_item_addr->obj_type != LUI_OBJ_BUTTON)
 		return;
-	
-	if ((*obj_item_addr)->obj_type != LUI_OBJ_BUTTON)
+	if (obj_item_addr->parent == NULL)
 		return;
-	if ((*obj_item_addr)->parent == NULL)
-		return;
-	if ((*obj_item_addr)->parent->obj_type != LUI_OBJ_LIST)
+	if (obj_item_addr->parent->obj_type != LUI_OBJ_LIST)
 		return;
 
-	lui_object_remove_from_parent(*obj_item_addr);
-	*obj_item_addr = NULL;
+	lui_object_remove_from_parent(obj_item_addr);
 }
 
 void lui_list_set_item_min_height(lui_obj_t* obj, uint8_t height)
@@ -1167,6 +1163,9 @@ void _lui_list_nav_btn_cb(lui_obj_t* obj)
 		lui_list_set_page_index(obj->parent, index);
 	}
 }
+
+#endif
+
 /*-------------------------------------------------------------------------------
  * 							END
  *-------------------------------------------------------------------------------
@@ -1176,6 +1175,8 @@ void _lui_list_nav_btn_cb(lui_obj_t* obj)
  * 				LUI_SWITCH related functions
  *-------------------------------------------------------------------------------
  */
+
+#if defined(LUI_USE_SWITCH)
 
 void lui_switch_draw(lui_obj_t* obj)
 {
@@ -1318,6 +1319,8 @@ void lui_switch_set_off(lui_obj_t* obj)
 	lui_switch_set_value(obj, 0);
 }
 
+#endif
+
 /*-------------------------------------------------------------------------------
  * 							END
  *-------------------------------------------------------------------------------
@@ -1328,6 +1331,8 @@ void lui_switch_set_off(lui_obj_t* obj)
  * 				LUI_CHECKBOX related functions
  *-------------------------------------------------------------------------------
  */
+
+#if defined(LUI_USE_CHECKBOX)
 
 void lui_checkbox_draw(lui_obj_t* obj)
 {
@@ -1470,6 +1475,8 @@ void lui_checkbox_set_unchecked(lui_obj_t* obj)
 	lui_checkbox_set_value(obj, 0);
 }
 
+#endif
+
 /*-------------------------------------------------------------------------------
  * 							END
  *-------------------------------------------------------------------------------
@@ -1480,6 +1487,8 @@ void lui_checkbox_set_unchecked(lui_obj_t* obj)
  * 				LUI_SLIDER related functions
  *-------------------------------------------------------------------------------
  */
+
+#if defined(LUI_USE_SLIDER)
 
 void lui_slider_draw(lui_obj_t* obj)
 {
@@ -1674,16 +1683,19 @@ int16_t lui_slider_get_max_value(lui_obj_t* obj)
 	return slider->range_max;
 }
 
+#endif
+
 /*-------------------------------------------------------------------------------
  * 							END
  *-------------------------------------------------------------------------------
  */
 
-
 /*-------------------------------------------------------------------------------
  * 				LUI_BTNGRID related functions
  *-------------------------------------------------------------------------------
  */
+
+#if defined(LUI_USE_BUTTONGRID)
 
 void lui_btngrid_draw(lui_obj_t* obj)
 {
@@ -1701,7 +1713,7 @@ void lui_btngrid_draw(lui_obj_t* obj)
 	if (_lui_disp_drv_check() == 0)
 		return;
 
-	lui_btngrid_t* btngrid = obj->obj_main_data;
+	lui_btngrid_t* btngrid = (lui_btngrid_t* )(obj->obj_main_data);
 		
 	uint16_t btn_color = btngrid->style.btn_bg_color;
 	uint16_t btn_width = 0;
@@ -1797,7 +1809,7 @@ lui_obj_t* lui_btngrid_create()
 	 g_lui_main->total_created_objects++;
 
 
-	lui_btngrid_t* initial_btngrid =  _lui_mem_alloc(sizeof(*initial_btngrid));
+	lui_btngrid_t* initial_btngrid =  (lui_btngrid_t* )_lui_mem_alloc(sizeof(*initial_btngrid));
 	if (initial_btngrid == NULL)
 		return NULL;
 	
@@ -1813,7 +1825,9 @@ lui_obj_t* lui_btngrid_create()
 	initial_btngrid->style.btn_margin_hor = 2;
 	initial_btngrid->style.btn_margin_vert = 2;
 	initial_btngrid->needs_full_render = 1;
+	#if defined(LUI_USE_KEYBOARD)
 	initial_btngrid->kb_data = NULL;
+	#endif
 
 	lui_obj_t* obj = _lui_object_create();
 	if (obj == NULL)
@@ -1845,7 +1859,7 @@ void lui_btngrid_set_textmap(lui_obj_t* obj, const char* texts[])
 	if (texts == NULL)
 		return;
 
-	lui_btngrid_t* btngrid = obj->obj_main_data;
+	lui_btngrid_t* btngrid = (lui_btngrid_t* )(obj->obj_main_data);
 	uint16_t buttons = 0;
 	uint8_t rows = 1;
 
@@ -1873,10 +1887,10 @@ void lui_btngrid_set_textmap(lui_obj_t* obj, const char* texts[])
 		/* Btngrid doesn't already exists, so, allocate memory for area map and property map */
 		if (btngrid->btn_cnt == 0)
 		{
-			btngrid->btn_area = _lui_mem_alloc(buttons * sizeof(lui_area_t));
+			btngrid->btn_area = (lui_area_t* )_lui_mem_alloc(buttons * sizeof(lui_area_t));
 			if (btngrid->btn_area == NULL)
 				return;
-			btngrid->btn_properties = _lui_mem_alloc(buttons * sizeof(uint8_t));
+			btngrid->btn_properties = (uint8_t* )_lui_mem_alloc(buttons * sizeof(uint8_t));
 			if (btngrid->btn_properties == NULL)
 				return;
 		}
@@ -1910,7 +1924,7 @@ void lui_btngrid_set_propertymap(lui_obj_t* obj, const uint8_t properties[])
 	if (properties == NULL)
 		return;
 
-	lui_btngrid_t* btngrid = obj->obj_main_data;
+	lui_btngrid_t* btngrid = (lui_btngrid_t* )(obj->obj_main_data);
 	if (btngrid->btn_properties == NULL)
 		return;
 	
@@ -1928,7 +1942,7 @@ void lui_btngrid_set_btn_property_bits(lui_obj_t* obj, uint16_t btn_index, uint8
 	if (obj->obj_type != LUI_OBJ_BTNGRID)
 		return;
 	
-	lui_btngrid_t* btngrid = obj->obj_main_data;
+	lui_btngrid_t* btngrid = (lui_btngrid_t* )(obj->obj_main_data);
 
 	if (btngrid->btn_properties == NULL || btn_index >= btngrid->btn_cnt)
 		return;
@@ -1952,7 +1966,7 @@ void lui_btngrid_set_btn_text(lui_obj_t* obj, uint8_t btn_index, char* text)
 	if (obj->obj_type != LUI_OBJ_BTNGRID)
 		return;
 	
-	lui_btngrid_t* btngrid = obj->obj_main_data;
+	lui_btngrid_t* btngrid = (lui_btngrid_t* )(obj->obj_main_data);
 
 	if (btngrid->texts == NULL)
 		return;
@@ -2053,7 +2067,7 @@ void lui_btngrid_set_font(lui_obj_t* obj, const lui_font_t* font)
 	if (obj->obj_type != LUI_OBJ_BTNGRID)
 		return;
 
-	lui_btngrid_t* btngrid = obj->obj_main_data;
+	lui_btngrid_t* btngrid = (lui_btngrid_t* )(obj->obj_main_data);
 	btngrid->font = font;
 	_lui_object_set_need_refresh(obj);
 	btngrid->needs_full_render = 1;
@@ -2068,7 +2082,7 @@ void lui_btngrid_set_extra_colors(lui_obj_t* obj, uint16_t btn_color, uint16_t l
 	if (obj->obj_type != LUI_OBJ_BTNGRID)
 		return;
 	
-	lui_btngrid_t* btngrid = obj->obj_main_data;
+	lui_btngrid_t* btngrid = (lui_btngrid_t* )(obj->obj_main_data);
 
 	if (btngrid->style.btn_bg_color == btn_color && btngrid->style.btn_label_color == label_color && btngrid->style.btn_pressed_color == btn_pressed_color)
 		return;
@@ -2089,7 +2103,7 @@ void lui_btngrid_set_btn_margin(lui_obj_t* obj, uint8_t margin_x, uint16_t margi
 	if (obj->obj_type != LUI_OBJ_BTNGRID)
 		return;
 	
-	lui_btngrid_t* btngrid = obj->obj_main_data;
+	lui_btngrid_t* btngrid = (lui_btngrid_t* )(obj->obj_main_data);
 
 	if (btngrid->style.btn_margin_hor == margin_x && btngrid->style.btn_margin_vert == margin_y)
 		return;
@@ -2110,7 +2124,7 @@ void _lui_btngrid_calc_btn_area(lui_obj_t* obj)
 	if (obj->obj_type != LUI_OBJ_BTNGRID)
 		return;
 		
-	lui_btngrid_t* btngrid = obj->obj_main_data;
+	lui_btngrid_t* btngrid = (lui_btngrid_t* )(obj->obj_main_data);
 	uint8_t units_in_row = 0;
 	uint8_t btns_in_row = 0;
 	uint8_t btn_index = 0;
@@ -2157,6 +2171,7 @@ void _lui_btngrid_calc_btn_area(lui_obj_t* obj)
 	((lui_btngrid_t*)(obj->obj_main_data))->needs_full_render = 1;
 }
 
+#endif
 
 /*-------------------------------------------------------------------------------
  * 							END
@@ -2167,6 +2182,8 @@ void _lui_btngrid_calc_btn_area(lui_obj_t* obj)
  * 				LUI_KEYBOARD related functions
  *-------------------------------------------------------------------------------
  */
+
+#if defined(LUI_USE_KEYBOARD) && defined(LUI_USE_BUTTONGRID)
 
 static const char* kb_txt_lower_textmap[] = 
 {
@@ -2204,7 +2221,7 @@ lui_obj_t* lui_keyboard_create()
 		return NULL;
 	 g_lui_main->total_created_objects++;
 
-	lui_keyboard_t* initial_kb =  _lui_mem_alloc(sizeof(*initial_kb));
+	lui_keyboard_t* initial_kb = (lui_keyboard_t* )_lui_mem_alloc(sizeof(*initial_kb));
 	if (initial_kb == NULL)
 		return NULL;
 	initial_kb->target_txtbox = NULL;
@@ -2236,7 +2253,9 @@ void lui_keyboard_sys_cb(lui_obj_t* obj_sender)
 	if (obj_sender->obj_type != LUI_OBJ_BTNGRID)
 		return;
 
-	lui_btngrid_t* btngrid = obj_sender->obj_main_data;
+	lui_btngrid_t* btngrid = (lui_btngrid_t* )(obj_sender->obj_main_data);
+	if (btngrid->kb_data->target_txtbox == NULL)
+		return;
 
 	int16_t active_btn_id = btngrid->active_btn_index;
 	const char* btn_text = lui_keyboard_get_key_text(obj_sender, active_btn_id);
@@ -2253,7 +2272,7 @@ void lui_keyboard_sys_cb(lui_obj_t* obj_sender)
 	}
 	else if (strcmp(btn_text, LUI_ICON_CLOSE) == 0)
 	{
-		lui_textbox_t* txtbox = btngrid->kb_data->target_txtbox->obj_main_data;
+		lui_textbox_t* txtbox = (lui_textbox_t* )(btngrid->kb_data->target_txtbox->obj_main_data);
 		txtbox->used_chars = 1;
 		txtbox->text_buffer[0] = '\0';
 		txtbox->caret_index = 0;
@@ -2316,7 +2335,7 @@ void lui_keyboard_set_mode(lui_obj_t* obj, uint8_t mode)
 	if (obj->obj_type != LUI_OBJ_BTNGRID)
 		return;
 
-	lui_btngrid_t* btngrid = obj->obj_main_data;
+	lui_btngrid_t* btngrid = (lui_btngrid_t* )(obj->obj_main_data);
 
 	if (mode == LUI_KEYBOARD_MODE_TXT_LOWER)
 	{
@@ -2358,7 +2377,7 @@ const char* lui_keyboard_get_key_text(lui_obj_t* obj, uint8_t btn_index)
 	if (obj->obj_type != LUI_OBJ_BTNGRID)
 		return NULL;
 	
-	lui_btngrid_t* btngrid = obj->obj_main_data;
+	lui_btngrid_t* btngrid = (lui_btngrid_t* )(obj->obj_main_data);
 
 	uint8_t counter = 0;
 	uint8_t txt_index = 0;
@@ -2386,7 +2405,7 @@ void lui_keyboard_set_target_txtbox(lui_obj_t* obj_kb, lui_obj_t* obj_txtbox)
 	if (obj_kb->obj_type != LUI_OBJ_BTNGRID || (obj_txtbox != NULL && obj_txtbox->obj_type != LUI_OBJ_TEXTBOX))
 		return;
 
-	lui_btngrid_t* btngrid_kb = obj_kb->obj_main_data;
+	lui_btngrid_t* btngrid_kb = (lui_btngrid_t* )(obj_kb->obj_main_data);
 	static uint16_t txtbox_orig_w = 0, txtbox_orig_h = 0, txtbox_orig_x = 0, txtbox_orig_y = 0;
 	static uint8_t txtbox_orig_layer = 0;
 
@@ -2422,6 +2441,8 @@ void lui_keyboard_set_target_txtbox(lui_obj_t* obj_kb, lui_obj_t* obj_txtbox)
 	btngrid_kb->kb_data->target_txtbox = obj_txtbox;
 }
 
+#endif
+
 /*-------------------------------------------------------------------------------
  * 							END
  *-------------------------------------------------------------------------------
@@ -2431,6 +2452,8 @@ void lui_keyboard_set_target_txtbox(lui_obj_t* obj_kb, lui_obj_t* obj_txtbox)
  * 				LUI_TEXTBOX related functions
  *-------------------------------------------------------------------------------
  */
+
+#if defined(LUI_USE_TEXTBOX)
 
 void lui_textbox_draw(lui_obj_t* obj)
 {
@@ -2449,7 +2472,7 @@ void lui_textbox_draw(lui_obj_t* obj)
 		return;
 
 	
-	lui_textbox_t* txtbox = obj->obj_main_data;
+	lui_textbox_t* txtbox = (lui_textbox_t* )(obj->obj_main_data);
 	
 	if (txtbox->needs_full_render == 1)
 	{
@@ -2535,7 +2558,7 @@ lui_obj_t* lui_textbox_create()
 	 g_lui_main->total_created_objects++;
 
 
-	lui_textbox_t* initial_textbox =  _lui_mem_alloc(sizeof(*initial_textbox));
+	lui_textbox_t* initial_textbox =  (lui_textbox_t* )_lui_mem_alloc(sizeof(*initial_textbox));
 	if (initial_textbox == NULL)
 		return NULL;
 	
@@ -2650,7 +2673,7 @@ void lui_textbox_insert_string(lui_obj_t* obj, char* str, uint16_t len)
 		return;
 	if (((lui_textbox_t* )obj->obj_main_data)->text_buffer == NULL)
 		return;
-	lui_textbox_t* txtbox = obj->obj_main_data;
+	lui_textbox_t* txtbox = (lui_textbox_t* )(obj->obj_main_data);
 	uint16_t caret_index = txtbox->caret_index;
 	for (uint16_t i = 0; i < len; i++)
 	{
@@ -2690,7 +2713,7 @@ void lui_textbox_set_text_color(lui_obj_t* obj, uint16_t text_color)
 	if (obj->obj_type != LUI_OBJ_TEXTBOX)
 		return;
 
-	lui_textbox_t* txtbox = obj->obj_main_data;
+	lui_textbox_t* txtbox = (lui_textbox_t* )(obj->obj_main_data);
 	txtbox->style.text_color = text_color;
 	_lui_object_set_need_refresh(obj);
 	txtbox->needs_full_render = 1;
@@ -2706,11 +2729,13 @@ void lui_textbox_set_font(lui_obj_t* obj, const lui_font_t* font)
 	if (obj->obj_type != LUI_OBJ_TEXTBOX)
 		return;
 
-	lui_textbox_t* txtbox = obj->obj_main_data;
+	lui_textbox_t* txtbox = (lui_textbox_t* )(obj->obj_main_data);
 	txtbox->font = font;
 	_lui_object_set_need_refresh(obj);
 	txtbox->needs_full_render = 1;
 }
+
+#endif
 
 /*-------------------------------------------------------------------------------
  * 							END
@@ -2721,6 +2746,8 @@ void lui_textbox_set_font(lui_obj_t* obj, const lui_font_t* font)
  * 				LUI_PANEL related functions
  *-------------------------------------------------------------------------------
  */
+
+#if defined(LUI_USE_PANEL)
 
 /*
  * Initialize a label with default values
@@ -2766,6 +2793,9 @@ void lui_panel_draw(lui_obj_t* obj)
 	if (obj->common_style.border_visible == 1)
 		lui_gfx_draw_rect(obj->x, obj->y, obj->common_style.width, obj->common_style.height, 1, obj->common_style.border_color);
 }
+
+#endif
+
 /*-------------------------------------------------------------------------------
  * 							END
  *-------------------------------------------------------------------------------
@@ -2786,7 +2816,7 @@ lui_obj_t* lui_scene_create()
 		return NULL;
 	 g_lui_main->total_created_objects++;
 
-	lui_scene_t* initial_scene =  _lui_mem_alloc(sizeof(*initial_scene));
+	lui_scene_t* initial_scene =  (lui_scene_t* )_lui_mem_alloc(sizeof(*initial_scene));
 	if (initial_scene == NULL)
 		return NULL;
 
@@ -2892,7 +2922,7 @@ lui_obj_t* lui_scene_get_active()
 
 lui_obj_t* _lui_object_create(void)
 {
-	lui_obj_t* obj =  _lui_mem_alloc(sizeof(*obj));
+	lui_obj_t* obj =  (lui_obj_t* )_lui_mem_alloc(sizeof(*obj));
 	if (obj == NULL)
 		return NULL;
 
@@ -2915,12 +2945,6 @@ lui_obj_t* _lui_object_create(void)
 	return obj;
 }
 
-/**
- * @brief Add a child object to a parent object, thus grouping them together
- * 
- * @param obj child object
- * @param parent_obj parent object
- */
 void lui_object_add_to_parent(lui_obj_t* obj_child, lui_obj_t* obj_parent)
 {
 	if (obj_child == NULL || obj_parent == NULL)
@@ -2958,11 +2982,6 @@ void lui_object_add_to_parent(lui_obj_t* obj_child, lui_obj_t* obj_parent)
 	_lui_object_set_need_refresh(obj_child);
 }
 
-/**
- * @brief Remove an object from its current parent
- * 
- * @param obj Child object
- */
 void lui_object_remove_from_parent(lui_obj_t* obj)
 {
 	if (obj == NULL)
@@ -2993,13 +3012,6 @@ void lui_object_remove_from_parent(lui_obj_t* obj)
 	obj->parent = NULL;
 }
 
-/**
- * @brief Set position of an object
- * 
- * @param obj target object
- * @param x x position
- * @param y y position
- */
 void lui_object_set_position(lui_obj_t* obj, uint16_t x, uint16_t y)
 {
 	if (obj == NULL)
@@ -3058,12 +3070,6 @@ void lui_object_set_position(lui_obj_t* obj, uint16_t x, uint16_t y)
 	_lui_object_set_need_refresh(obj->parent);
 }
 
-/**
- * @brief Set only x position of an object
- * 
- * @param obj target object
- * @param x x position
- */
 void lui_object_set_x_pos(lui_obj_t* obj, uint16_t x)
 {
 	if (obj == NULL)
@@ -3071,12 +3077,6 @@ void lui_object_set_x_pos(lui_obj_t* obj, uint16_t x)
 	lui_object_set_position(obj, x, obj->y);
 }
 
-/**
- * @brief Set only y position of an object
- * 
- * @param obj target object
- * @param y y position
- */
 void lui_object_set_y_pos(lui_obj_t* obj, uint16_t y)
 {
 	if (obj == NULL)
@@ -3084,13 +3084,6 @@ void lui_object_set_y_pos(lui_obj_t* obj, uint16_t y)
 	lui_object_set_position(obj, obj->x, y);
 }
 
-/**
- * @brief Set drawing area of an object
- * 
- * @param obj target object
- * @param width width
- * @param height height
- */
 void lui_object_set_area(lui_obj_t* obj, uint16_t width, uint16_t height)
 {
 	if (obj == NULL)
@@ -3108,6 +3101,7 @@ void lui_object_set_area(lui_obj_t* obj, uint16_t width, uint16_t height)
 	obj->common_style.width = width;
 	obj->common_style.height = height;
 
+	#if defined(LUI_USE_BUTTONGRID)
 	/* If object is an button grid, we need to recalculate the layout when area is changed
 	 * But, we must check if text map is not null.
 	 */
@@ -3115,15 +3109,10 @@ void lui_object_set_area(lui_obj_t* obj, uint16_t width, uint16_t height)
 	{
 		_lui_btngrid_calc_btn_area(obj);
 	}
+	#endif
 
 }
 
-/**
- * @brief Set width of an object
- * 
- * @param obj target object
- * @param width width
- */
 void lui_object_set_width(lui_obj_t* obj, uint16_t width)
 {
 	if (obj == NULL)
@@ -3131,12 +3120,6 @@ void lui_object_set_width(lui_obj_t* obj, uint16_t width)
 	lui_object_set_area(obj, width, obj->common_style.height);
 }
 
-/**
- * @brief Set height of an object
- * 
- * @param obj target object
- * @param height height
- */
 void lui_object_set_height(lui_obj_t* obj, uint16_t height)
 {
 	if (obj == NULL)
@@ -3144,12 +3127,6 @@ void lui_object_set_height(lui_obj_t* obj, uint16_t height)
 	lui_object_set_area(obj, obj->common_style.width, height);
 }
 
-/**
- * @brief Set border color of an object
- * 
- * @param obj target object
- * @param border_color border color
- */
 void lui_object_set_border_color(lui_obj_t* obj, uint16_t border_color)
 {
 	if (obj == NULL)
@@ -3160,12 +3137,6 @@ void lui_object_set_border_color(lui_obj_t* obj, uint16_t border_color)
 	_lui_object_set_need_refresh(obj);
 }
 
-/**
- * @brief Set border's visibility of an object
- * 
- * @param obj target object
- * @param is_visible 1: visible; 0: invisible
- */
 void lui_object_set_border_visibility(lui_obj_t* obj, uint8_t is_visible)
 {
 	if (obj == NULL)
@@ -3176,12 +3147,6 @@ void lui_object_set_border_visibility(lui_obj_t* obj, uint8_t is_visible)
 	_lui_object_set_need_refresh(obj);
 }
 
-/**
- * @brief Set background color of an object
- * 
- * @param obj target object
- * @param bg_color background color
- */
 void lui_object_set_bg_color(lui_obj_t* obj, uint16_t bg_color)
 {
 	if (obj == NULL)
@@ -3192,14 +3157,6 @@ void lui_object_set_bg_color(lui_obj_t* obj, uint16_t bg_color)
 	_lui_object_set_need_refresh(obj);
 }
 
-/**
- * @brief Set event call back function for input handling
- * 
- * This function is called when an event occurs against this object
- * 
- * @param obj target object
- * @param obj_event_cb function pointer of the callback function
- */
 void lui_object_set_callback(lui_obj_t* obj, void (*obj_event_cb)(lui_obj_t* ))
 {
 	if (obj == NULL)
@@ -3207,12 +3164,6 @@ void lui_object_set_callback(lui_obj_t* obj, void (*obj_event_cb)(lui_obj_t* ))
 	obj->obj_event_cb = obj_event_cb;
 }
 
-/**
- * @brief Get the input state of an object
- * 
- * @param obj target object
- * @return int8_t state ID
- */
 int8_t lui_object_get_state(lui_obj_t* obj)
 {
 	if (obj == NULL)
@@ -3220,12 +3171,6 @@ int8_t lui_object_get_state(lui_obj_t* obj)
 	return obj->state;
 }
 
-/**
- * @brief Get input event of an object
- * 
- * @param obj target object
- * @return int8_t event ID
- */
 int8_t lui_object_get_event(lui_obj_t* obj)
 {
 	if (obj == NULL)
@@ -3233,12 +3178,6 @@ int8_t lui_object_get_event(lui_obj_t* obj)
 	return obj->event;
 }
 
-/**
- * @brief Set visibility of an object
- * 
- * @param obj target object
- * @param is_visible 1: visible; 0: hidden
- */
 void lui_object_set_visibility(lui_obj_t* obj, uint8_t is_visible)
 {
 	if (obj == NULL)
@@ -3259,11 +3198,15 @@ void lui_object_set_visibility(lui_obj_t* obj, uint8_t is_visible)
 		_lui_object_set_need_refresh(obj);
 		if (obj->obj_type == LUI_OBJ_BTNGRID)
 		{
+			#if defined(LUI_USE_BUTTONGRID)
 			((lui_btngrid_t* )(obj->obj_main_data))->needs_full_render = 1;
+			#endif
 		}
 		else if (obj->obj_type == LUI_OBJ_TEXTBOX)
 		{
+			#if defined(LUI_USE_TEXTBOX)
 			((lui_textbox_t* )(obj->obj_main_data))->needs_full_render = 1;
+			#endif
 		}
 	}
 	else
@@ -3272,14 +3215,6 @@ void lui_object_set_visibility(lui_obj_t* obj, uint8_t is_visible)
 	}
 }
 
-/**
- * @brief Enable or disble input handling of an object. If disabled,
- * object won't cause input event callback
- * 
- * @param obj target object
- * @param is_enabled 1: input enabled; 0: input disabled
- * @return uint8_t 1: success; 0: failed
- */
 uint8_t lui_object_set_enable_input(lui_obj_t* obj,  uint8_t is_enabled)
 {
 	if (obj == NULL)
@@ -3299,16 +3234,6 @@ uint8_t lui_object_set_enable_input(lui_obj_t* obj,  uint8_t is_enabled)
 	return obj->enabled;
 }
 
-/**
- * @brief Set rendering layer index of an object
- * 
- * Objects in higher layer will be rendered over the objects in lower layer.
- * If 2 or more objects are in same layer, they're rendered based on the sequence
- * they're added to parent.
- * 
- * @param obj target object
- * @param layer_index layer index (0 - 128)
- */
 void lui_object_set_layer(lui_obj_t* obj, uint8_t layer_index)
 {
 	if (obj == NULL)
@@ -3361,12 +3286,6 @@ void lui_object_set_layer(lui_obj_t* obj, uint8_t layer_index)
 	_lui_object_set_need_refresh(obj->parent);
 }
 
-/**
- * @brief Get rendering layer index of an object
- * 
- * @param obj target object
- * @return int16_t layer index. Returns -1 if object is NULL
- */
 int16_t lui_object_get_layer(lui_obj_t* obj)
 {
 	if (obj == NULL)
@@ -3375,14 +3294,6 @@ int16_t lui_object_get_layer(lui_obj_t* obj)
 	return obj->layer;
 }
 
-/**
- * @private
- * @brief Compares two objects' layers and returns (layer1 - layer2)
- * 
- * @param p1 pointer to object 1
- * @param p2 pointer to object 2
- * @return int (layer1 - layer2)
- */
 static int _lui_obj_layer_cmprtr(const void* p1, const void* p2)
 {
 	uint8_t l1 = (*((lui_obj_t** )p1))->layer;
@@ -3403,12 +3314,6 @@ static int _lui_obj_layer_cmprtr(const void* p1, const void* p2)
 	return ret;
 }
 
-/**
- * @private
- * @brief Render an object along with all its children (if any)
- * 
- * @param obj_parent target object
- */
 void _lui_object_render_parent_with_children(lui_obj_t* obj_parent)
 {
 	if (obj_parent == NULL)
@@ -3480,12 +3385,6 @@ void _lui_object_render_parent_with_children(lui_obj_t* obj_parent)
 	g_needs_render = 0;
 }
 
-/**
- * @private
- * @brief Render a single object (and NOT its children)
- * 
- * @param obj target object
- */
 void _lui_object_render(lui_obj_t* obj)
 {
 	if (obj == NULL)
@@ -3500,34 +3399,50 @@ void _lui_object_render(lui_obj_t* obj)
 				lui_scene_draw(obj);
 				break;
 			case LUI_OBJ_PANEL:
+				#ifdef LUI_USE_PANEL
 				lui_panel_draw(obj);
+				#endif
 				break;
 			case LUI_OBJ_BUTTON:
 				lui_button_draw(obj);
 				break;
 			case LUI_OBJ_SWITCH:
+				#ifdef LUI_USE_SWITCH
 				lui_switch_draw(obj);
+				#endif
 				break;
 			case LUI_OBJ_CHECKBOX:
+				#ifdef LUI_USE_CHECKBOX
 				lui_checkbox_draw(obj);
+				#endif
 				break;
 			case LUI_OBJ_SLIDER:
+				#ifdef LUI_USE_SLIDER
 				lui_slider_draw(obj);
+				#endif
 				break;
 			case LUI_OBJ_LABEL:
 				lui_label_draw(obj);
 				break;
 			case LUI_OBJ_LINECHART:
+				#ifdef LUI_USE_LINECHART
 				lui_linechart_draw(obj);
+				#endif
 				break;
 			case LUI_OBJ_LIST:
+				#ifdef LUI_USE_LIST
 				lui_list_draw(obj);
+				#endif
 				break;
 			case LUI_OBJ_BTNGRID:
+				#ifdef LUI_USE_BUTTONGRID
 				lui_btngrid_draw(obj);
+				#endif
 				break;
 			case LUI_OBJ_TEXTBOX:
+				#ifdef LUI_USE_TEXTBOX
 				lui_textbox_draw(obj);
+				#endif
 				break;
 			default:
 				break;
@@ -3537,15 +3452,6 @@ void _lui_object_render(lui_obj_t* obj)
 	}
 }
 
-/**
- * @private
- * @brief Set needs_refresh flag for an object. This flag determines if onject will be redrawn
- * 
- * When setting this flag for an object, flags of children and/or parent might also be set,
- * depending on the requirement.
- * 
- * @param obj target object
- */
 void _lui_object_set_need_refresh(lui_obj_t* obj)
 {
 	if (obj == NULL)
@@ -3587,11 +3493,15 @@ void _lui_object_set_need_refresh(lui_obj_t* obj)
 			/* When child is either btngrid or textbox, set needs_full_render bit to 1 */
 			if (child->obj_type == LUI_OBJ_BTNGRID)
 			{
+				#if defined(LUI_USE_BUTTONGRID)
 				((lui_btngrid_t* )(child->obj_main_data))->needs_full_render = 1;
+				#endif
 			}
 			else if (child->obj_type == LUI_OBJ_TEXTBOX)
 			{
+				#if defined(LUI_USE_TEXTBOX)
 				((lui_textbox_t* )(child->obj_main_data))->needs_full_render = 1;
+				#endif
 			}
 
 			// get the child of current object
@@ -3817,10 +3727,10 @@ uint8_t _lui_check_if_active_obj_touch_input(lui_touch_input_data_t* input, lui_
 		input->y >= obj->y &&
 		input->y < obj->y + obj->common_style.height)
 	{
-		
+		#if defined(LUI_USE_BUTTONGRID)
 		if (obj->obj_type == LUI_OBJ_BTNGRID)
 		{
-			lui_btngrid_t* btngrid = obj->obj_main_data;
+			lui_btngrid_t* btngrid = (lui_btngrid_t* )(obj->obj_main_data);
 			for (uint16_t i = 0; i < btngrid->btn_cnt; i++)
 			{
 				if (input->x >= btngrid->btn_area[i].x1 && 
@@ -3840,6 +3750,7 @@ uint8_t _lui_check_if_active_obj_touch_input(lui_touch_input_data_t* input, lui_
 			}
 		}
 		else
+		#endif
 		{
 			g_lui_main->active_obj = obj;
 			is_active = 1;
@@ -3853,10 +3764,12 @@ uint8_t _lui_check_if_active_obj_touch_input(lui_touch_input_data_t* input, lui_
 		if (g_lui_main->active_obj == obj)
 		{
 			g_lui_main->active_obj = NULL;
+			#if defined(LUI_USE_BUTTONGRID)
 			if (obj->obj_type == LUI_OBJ_BTNGRID)
 			{
 				((lui_btngrid_t* )(obj->obj_main_data))->active_btn_index = -1;
 			}
+			#endif
 		}
 	}
 
@@ -3895,13 +3808,18 @@ void _lui_set_obj_props_on_touch_input(lui_touch_input_data_t* input, lui_obj_t*
 	if (obj->event != LUI_EVENT_NONE)
 	{
 		obj->state = new_state;
+		#if defined(LUI_USE_BUTTONGRID)
 		if (obj->obj_type == LUI_OBJ_BTNGRID)
 		{
-			lui_btngrid_t* btngrid = obj->obj_main_data;
+			lui_btngrid_t* btngrid = (lui_btngrid_t* )(obj->obj_main_data);
 			btngrid->btn_properties[btngrid->active_btn_index] |= (new_state & _LUI_BTNGRID_MASK_BTN_IS_CHECKED);
 		}
+		#endif
+
+		#if defined(LUI_USE_PANEL)
 		if (obj->obj_type != LUI_OBJ_PANEL)
 			_lui_object_set_need_refresh(obj);
+		#endif
 	}
 	
 
@@ -3909,6 +3827,7 @@ void _lui_set_obj_props_on_touch_input(lui_touch_input_data_t* input, lui_obj_t*
 	// To EXIT the state, the close or ok button from keyboard must be pressed
 	if (obj->obj_type == LUI_OBJ_TEXTBOX)
 	{
+		#if defined(LUI_USE_TEXTBOX)
 		if (obj->event == LUI_EVENT_PRESSED)
 		{
 			obj->state = LUI_STATE_ENTERED;
@@ -3919,6 +3838,7 @@ void _lui_set_obj_props_on_touch_input(lui_touch_input_data_t* input, lui_obj_t*
 			obj->state = old_state;
 			obj->event = LUI_EVENT_NONE;
 		}
+		#endif
 	}
 
 	// Special case for switch and checkbox: if event is LUI_EVENT_PRESSED, then set event to LUI_EVENT_VALUE_CHANGED
@@ -3926,13 +3846,15 @@ void _lui_set_obj_props_on_touch_input(lui_touch_input_data_t* input, lui_obj_t*
 	else if (obj->obj_type == LUI_OBJ_SWITCH ||
 		obj->obj_type == LUI_OBJ_CHECKBOX)
 	{	
+		#if defined(LUI_USE_SWITCH) || defined(LUI_USE_CHECKBOX)
 		if (obj->event == LUI_EVENT_RELEASED || obj->event == LUI_EVENT_SELECTION_LOST)
 		{
 			obj->event = LUI_EVENT_VALUE_CHANGED;	// for switch and checkbox, being pressed means being toggled, thus value changed
 			obj->value = (obj->value == 1) ? 0 : 1;	// toggle the value (1->0 or 0-1)
 			obj->needs_refresh = 1;
 			g_needs_render = 1;
-		}	
+		}
+		#endif
 	}
 
 	/*
@@ -3941,7 +3863,8 @@ void _lui_set_obj_props_on_touch_input(lui_touch_input_data_t* input, lui_obj_t*
 	 */
 	else if (obj->obj_type == LUI_OBJ_SLIDER)
 	{
-		lui_slider_t* slider = obj->obj_main_data;
+		#if defined(LUI_USE_SLIDER)
+		lui_slider_t* slider = (lui_slider_t* )(obj->obj_main_data);
 		if (obj->state == LUI_STATE_PRESSED &&
 			input->x != (obj->x + slider->knob_center_rel_x))
 		{
@@ -3967,6 +3890,7 @@ void _lui_set_obj_props_on_touch_input(lui_touch_input_data_t* input, lui_obj_t*
 			obj->needs_refresh = 1;
 			g_needs_render = 1;
 		}
+		#endif
 	}
 
 	/*
@@ -3980,8 +3904,9 @@ void _lui_set_obj_props_on_touch_input(lui_touch_input_data_t* input, lui_obj_t*
 	 */
 	else if (obj->obj_type == LUI_OBJ_BTNGRID)
 	{
+		#if defined(LUI_USE_BUTTONGRID)
 		static int16_t last_active_btn = -1;
-		lui_btngrid_t* btngrid = obj->obj_main_data;
+		lui_btngrid_t* btngrid = (lui_btngrid_t* )(obj->obj_main_data);
 		if (btngrid->active_btn_index != last_active_btn)
 		{
 			if (btngrid->active_btn_index == -1)
@@ -4012,6 +3937,7 @@ void _lui_set_obj_props_on_touch_input(lui_touch_input_data_t* input, lui_obj_t*
 			g_needs_render = 1;
 		}
 		last_active_btn = btngrid->active_btn_index;
+		#endif
 	}
 }
 
@@ -4028,7 +3954,7 @@ void _lui_set_obj_props_on_touch_input(lui_touch_input_data_t* input, lui_obj_t*
 
 lui_dispdrv_t* lui_dispdrv_create()
 {
-	lui_dispdrv_t* initial_disp_drv =  _lui_mem_alloc(sizeof(*initial_disp_drv));
+	lui_dispdrv_t* initial_disp_drv =  (lui_dispdrv_t* )_lui_mem_alloc(sizeof(*initial_disp_drv));
 	if (initial_disp_drv == NULL)
 		return NULL;
 
@@ -4081,7 +4007,7 @@ void lui_dispdrv_set_render_complete_cb(lui_dispdrv_t* dispdrv, void (*render_co
 
 lui_touch_input_dev_t* lui_touch_inputdev_create()
 {
-	lui_touch_input_dev_t* initial_touch_inputdev =  _lui_mem_alloc(sizeof(*initial_touch_inputdev));
+	lui_touch_input_dev_t* initial_touch_inputdev =  (lui_touch_input_dev_t* )_lui_mem_alloc(sizeof(*initial_touch_inputdev));
 	if (initial_touch_inputdev == NULL)
 		return NULL;
 

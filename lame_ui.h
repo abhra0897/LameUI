@@ -31,6 +31,22 @@
 /* Comment out OR set value to 0 for using light theme. */
 #define LUI_USE_DARK_THEME		1
 
+/* Now select which widgets to use. This helps to save Flash 	*/
+/* Below, comment out the object that you don't want to use.	*/
+/* Unused objects won't compile and save some flash				*/
+//#define LUI_USE_LINECHART
+//#define LUI_USE_SWITCH
+//#define LUI_USE_CHECKBOX
+//#define LUI_USE_SLIDER
+//#define LUI_USE_LIST
+//#define LUI_USE_PANEL
+#define LUI_USE_TEXTBOX
+#define LUI_USE_BUTTONGRID
+//#if defined(LUI_USE_BUTTONGRID)
+	#define LUI_USE_KEYBOARD	/* To use keyboard, buttongrid must be used */
+//#endif
+
+
 /*--------------------------------------------
  *					End
  *--------------------------------------------
@@ -245,42 +261,68 @@
 
 #define LUI_INPUT_TYPE_TOUCH				1
 
-#define	LUI_STATE_IDLE						0
-#define	LUI_STATE_SELECTED					1
-#define	LUI_STATE_PRESSED					2
-#define	LUI_STATE_ENTERED					3
+/**
+ * @defgroup LUI_STATE LameUI input states
+ * @brief All input states of LameUI
+ * 
+ * Also see: @ref LUI_EVENT
+ * @{
+ */
+#define	LUI_STATE_IDLE						0	///< Idle state. Object is not under the pointing device
+#define	LUI_STATE_SELECTED					1	///< Object is under the pointing device
+#define	LUI_STATE_PRESSED					2	///< Object is under the pointig device and the pointing device button is pressed
+#define	LUI_STATE_ENTERED					3	///< Object is in entered state. Example: Text box is clicked
+/**@} */
 
+/**
+ * @defgroup LUI_EVENT LaemUI input events
+ * @brief All input events of LameUI. Events depend on previous and current state
+ * 
+ * Also see: @ref LUI_STATE
+ * @{
+ */
+#define	LUI_EVENT_NONE						0	///< No event occured
+#define	LUI_EVENT_SELECTED					1	///< Object is selected (under the pointing device)
+#define	LUI_EVENT_SELECTION_LOST			2	///< Selection of object is lost (no more under the pointing device)
+#define	LUI_EVENT_PRESSED					3	///< Object is pressed (object under pointing device and pointing device button is low)
+#define	LUI_EVENT_RELEASED					4	///< Object is released (object under pointing device but pointing device button is released)
+#define	LUI_EVENT_ENTERED					5	///< Object is entered to input mode. Example: Clicking on a text box
+#define	LUI_EVENT_EXITED					6	///< Opposite of above. Example: Clicking outside of a text box
+#define	LUI_EVENT_VALUE_CHANGED				7	///< Value of a object is changed. Example: a slider is dragged
+#define	LUI_EVENT_CHECK_CHANGED				8	///< Check status of an object is changed. Example: checkbox is checked/unchecked
+/**@} */
 
-#define	LUI_EVENT_NONE						0
-#define	LUI_EVENT_SELECTED					1
-#define	LUI_EVENT_SELECTION_LOST			2
-#define	LUI_EVENT_PRESSED					3
-#define	LUI_EVENT_RELEASED					4
-#define	LUI_EVENT_ENTERED					5
-#define	LUI_EVENT_EXITED					6
-#define	LUI_EVENT_VALUE_CHANGED				7
-#define	LUI_EVENT_CHECK_CHANGED				8
-
-
-#define	LUI_OBJ_NONE						0
-#define	LUI_OBJ_LABEL						1
-#define	LUI_OBJ_BUTTON						2
-#define	LUI_OBJ_SWITCH						3
-#define	LUI_OBJ_LINECHART					4
-#define	LUI_OBJ_PANEL						5
-#define	LUI_OBJ_SCENE						6
-#define	LUI_OBJ_GENERIC						7
-#define LUI_OBJ_LIST						8
-#define LUI_OBJ_CHECKBOX					9
-#define LUI_OBJ_SLIDER						10
-#define LUI_OBJ_BTNGRID						11
-#define LUI_OBJ_TEXTBOX						12
+/**
+ * @defgroup LUI_OBJ LameUI object types
+ * @brief All types of objects (widgets) in LameUI
+ * @{
+ */
+#define	LUI_OBJ_NONE						0	///< No type
+#define	LUI_OBJ_LABEL						1	///< Label widget. See: \ref lui_label
+#define	LUI_OBJ_BUTTON						2	///< Button widget. See: \ref lui_button
+#define	LUI_OBJ_SWITCH						3	///< Switch widget. See: \ref lui_switch
+#define	LUI_OBJ_LINECHART					4	///< Line Chart widget. See: \ref lui_linechart
+#define	LUI_OBJ_PANEL						5	///< Panel widget. See: \ref lui_panel
+#define	LUI_OBJ_SCENE						6	///< Scene widget. See: \ref lui_scene
+#define	LUI_OBJ_GENERIC						7	///< Generic widget (user defined widget)
+#define LUI_OBJ_LIST						8	///< List widget. See: \ref lui_list
+#define LUI_OBJ_CHECKBOX					9	///< Checknox widget. See: \ref lui_checkbox
+#define LUI_OBJ_SLIDER						10	///< Slider widget. See: \ref lui_slider
+#define LUI_OBJ_BTNGRID						11	///< Buttongrid widget. See: \ref lui_btngrid
+#define LUI_OBJ_TEXTBOX						12	///< Textbox widget. See: \ref lui_textbox
+/**@} */
 
 #define LUI_LAYER_POPUP						255
 
-#define LUI_KEYBOARD_MODE_TXT_LOWER			1
-#define LUI_KEYBOARD_MODE_TXT_UPPER			2
-#define LUI_KEYBOARD_MODE_TXT_SPCL			3
+/**
+ * @defgroup LUI_KEYBOARD_MODE Keyboard modes
+ * @brief Keyboard modes of LameUI
+ * @{
+ */
+#define LUI_KEYBOARD_MODE_TXT_LOWER			1	///< lowercase text mode
+#define LUI_KEYBOARD_MODE_TXT_UPPER			2	///< UPPERCASE TEXT MODE 
+#define LUI_KEYBOARD_MODE_TXT_SPCL			3	///< $pec!a1 charac+er m0d3;
+/**@} */
 
 #define LUI_ICON_HOME						"\x01"
 #define LUI_ICON_RELAOD						"\x02"
@@ -384,18 +426,26 @@ struct _lui_button_style_s
 	uint16_t pressed_color;
 	uint16_t selection_color;
 };
+
+#if defined(LUI_USE_SWITCH)
 struct _lui_switch_style_s
 {
 	uint16_t knob_on_color;
 	uint16_t knob_off_color;
 	uint16_t selection_color;
 };
+#endif
+
+#if defined(LUI_USE_CHECKBOX)
 struct _lui_checkbox_style_s
 {
 	uint16_t tick_color;
 	uint16_t bg_checked_color;
 	uint16_t selection_color;
 };
+#endif
+
+#if defined(LUI_USE_SLIDER)
 struct _lui_slider_style_s
 {
 	uint16_t knob_color;
@@ -403,17 +453,26 @@ struct _lui_slider_style_s
 	uint16_t selection_color;
 	uint8_t knob_width;
 };
+#endif
+
+#if defined(LUI_USE_LINECHART)
 struct _lui_linechart_style_s
 {
 	uint16_t line_color;
 	uint16_t grid_color;
 	uint8_t grid_visible;
 };
+#endif
+
+#if defined(LUI_USE_LIST)
 struct _lui_list_style_s
 {
 	struct _lui_button_style_s item_btn;
 	struct _lui_common_style_s item_btn_common;
 };
+#endif
+
+#if defined(LUI_USE_BUTTONGRID)
 struct _lui_btngrid_style_s
 {
 	uint8_t btn_margin_hor;
@@ -422,10 +481,14 @@ struct _lui_btngrid_style_s
 	uint16_t btn_pressed_color;
 	uint16_t btn_bg_color;
 };
+#endif
+
+#if defined(LUI_USE_TEXTBOX)
 struct _lui_textbox_style_s
 {
 	uint16_t text_color;
 };
+#endif
 
 /**
  * @brief Generic object datatype.
@@ -457,7 +520,7 @@ typedef struct _lui_obj_s
 	void* obj_main_data;	///< Main (extended) data of the object
 }lui_obj_t;
 
-
+#if defined(LUI_USE_LINECHART)
 typedef struct _lui_linechart_s
 {
 	struct
@@ -482,7 +545,7 @@ typedef struct _lui_linechart_s
 	//uint16_t color;
 	const lui_font_t* font;
 }lui_chart_t;
-
+#endif
 
 typedef struct _lui_label_s
 {
@@ -506,20 +569,22 @@ typedef struct _lui_button_s
 	struct _lui_button_style_s style;
 }lui_button_t;
 
-
+#if defined(LUI_USE_SWITCH)
 typedef struct _lui_switch_s
 {
 
 	struct _lui_switch_style_s style;
 }lui_switch_t;
+#endif
 
-
+#if defined(LUI_USE_CHECKBOX)
 typedef struct _lui_checkbox_s
 {
 	struct _lui_checkbox_style_s style;
 }lui_checkbox_t;
+#endif
 
-
+#if defined(LUI_USE_SLIDER)
 typedef struct _lui_slider_s
 {
 	int16_t range_min;
@@ -529,8 +594,9 @@ typedef struct _lui_slider_s
 
 	struct _lui_slider_style_s style;
 }lui_slider_t;
+#endif
 
-
+#if defined(LUI_USE_LIST)
 typedef struct _lui_list_s
 {
 	uint8_t page_count;
@@ -542,14 +608,18 @@ typedef struct _lui_list_s
 
 	//struct _lui_list_style_s style;
 }lui_list_t;
+#endif
 
+#if defined(LUI_USE_KEYBOARD)
 typedef struct _lui_keyboard_s
 {
 	lui_obj_t* target_txtbox;
 	uint8_t keyboard_mode;
 
 }lui_keyboard_t;
+#endif
 
+#if defined(LUI_USE_BUTTONGRID)
 typedef struct _lui_btngrid_s
 {
 	const char** texts;
@@ -561,12 +631,14 @@ typedef struct _lui_btngrid_s
 	int16_t active_btn_index;
 	uint8_t needs_full_render;
 	struct _lui_btngrid_style_s style;
-	struct _lui_keyboard_s* kb_data;
+	#if defined(LUI_USE_KEYBOARD)
+		struct _lui_keyboard_s* kb_data;
+	#endif
 }lui_btngrid_t;
+#endif
 
 
-
-
+#if defined(LUI_USE_TEXTBOX)
 typedef struct _lui_textbox_s
 {
 	char* text_buffer;
@@ -577,14 +649,15 @@ typedef struct _lui_textbox_s
 	uint8_t needs_full_render;
 	struct _lui_textbox_style_s style;
 }lui_textbox_t;
+#endif
 
 
-
-
+#if defined(LUI_USE_PANEL)
 typedef struct _lui_panel_s
 {
 	lui_bitmap_t* bg_image;
 }lui_panel_t;
+#endif
 
 typedef struct _lui_scene_s
 {
@@ -650,35 +723,226 @@ void lui_update();
  * @{
  */
 
+/**
+ * @brief Add a child object to a parent object, thus grouping them together
+ * 
+ * @code
+ * // Creating a scene which will be a parent object
+ * lui_obj_t* parent_scene = lui_scene_create();
+ * lui_scene_set_active(parent_scene);
+ * 
+ * // Creating a label which will be a child of the parent scene
+ * lui_obj_t* child_label = lui_label_create();
+ * lui_label_set_text(child_label, "I am child of a scene");
+ * lui_object_add_to_parent(child_label, parent_scene);		// Add child to parent
+ * @endcode
+ * 
+ * @param obj child object
+ * @param parent_obj parent object
+ */
 void lui_object_add_to_parent(lui_obj_t* obj, lui_obj_t* parent_obj);
+
+/**
+ * @brief Remove an object from its current parent
+ * 
+ * @param obj Child object
+ */
 void lui_object_remove_from_parent(lui_obj_t* obj);
+
+/**
+ * @brief Set drawing area of an object
+ * 
+ * @param obj target object
+ * @param width width
+ * @param height height
+ */
 void lui_object_set_area(lui_obj_t* obj, uint16_t width, uint16_t height);
+
+/**
+ * @brief Set width of an object
+ * 
+ * @param obj target object
+ * @param width width
+ */
 void lui_object_set_width(lui_obj_t* obj, uint16_t width);
+
+/**
+ * @brief Set height of an object
+ * 
+ * @param obj target object
+ * @param height height
+ */
 void lui_object_set_height(lui_obj_t* obj, uint16_t height);
+
+/**
+ * @brief Set position of an object
+ * 
+ * @param obj target object
+ * @param x x position
+ * @param y y position
+ */
 void lui_object_set_position(lui_obj_t* obj, uint16_t x, uint16_t y);
+
+/**
+ * @brief Set only x position of an object
+ * 
+ * @param obj target object
+ * @param x x position
+ */
 void lui_object_set_x_pos(lui_obj_t* obj, uint16_t x);
+
+/**
+ * @brief Set only y position of an object
+ * 
+ * @param obj target object
+ * @param y y position
+ */
 void lui_object_set_y_pos(lui_obj_t* obj, uint16_t y);
+
+/**
+ * @brief Set border color of an object
+ * 
+ * @param obj target object
+ * @param border_color border color
+ */
 void lui_object_set_border_color(lui_obj_t* obj, uint16_t border_color);
+
+/**
+ * @brief Set border's visibility of an object
+ * 
+ * @param obj target object
+ * @param is_visible 1: visible; 0: invisible
+ */
 void lui_object_set_border_visibility(lui_obj_t* obj, uint8_t is_visible);
+
+/**
+ * @brief Set background color of an object
+ * 
+ * @param obj target object
+ * @param bg_color background color
+ */
 void lui_object_set_bg_color(lui_obj_t* obj, uint16_t color);
+
+/**
+ * @brief Set event call back function for input handling
+ * 
+ * This function is called when an event occurs against this object
+ * 
+ * <b>Example:</b>
+ * @code
+ * lui_obj_t* my_button;
+ * void button_callback(lui_obj_t* btn_obj)
+ * {
+ *     // Do something
+ * }
+ * my_button = lui_button_create();
+ * lui_object_set_callback(my_button, button_callback);
+ * @endcode
+ * 
+ * @param obj target object
+ * @param obj_event_cb function pointer of the callback function
+ */
 void lui_object_set_callback(lui_obj_t* obj, void (*obj_event_cb)(lui_obj_t* ));
+
+/**
+ * @brief Get the input state of an object
+ * 
+ * @param obj target object
+ * @return int8_t state ID
+ */
 int8_t lui_object_get_state(lui_obj_t* obj);
+
+/**
+ * @brief Get input event of an object
+ * 
+ * @param obj target object
+ * @return int8_t event ID
+ */
 int8_t lui_object_get_event(lui_obj_t* obj);
+
+/**
+ * @brief Set visibility of an object
+ * 
+ * @param obj target object
+ * @param is_visible 1: visible; 0: hidden
+ */
 void lui_object_set_visibility(lui_obj_t* obj, uint8_t visible);
+
+/**
+ * @brief Set rendering layer index of an object
+ * 
+ * Objects in higher layer will be rendered over the objects in lower layer.
+ * If 2 or more objects are in same layer, they're rendered based on the sequence
+ * they're added to parent.
+ * 
+ * @param obj target object
+ * @param layer_index layer index (0 - 128)
+ */
 void lui_object_set_layer(lui_obj_t* obj, uint8_t layer_index);
+
+/**
+ * @brief Get rendering layer index of an object
+ * 
+ * @param obj target object
+ * @return int16_t layer index. Returns -1 if object is NULL
+ */
 int16_t lui_object_get_layer(lui_obj_t* obj);
+
+/**
+ * @brief Enable or disble input handling of an object. If disabled,
+ * object won't cause input event callback
+ * 
+ * @param obj target object
+ * @param is_enabled 1: input enabled; 0: input disabled
+ * @return uint8_t 1: success; 0: failed
+ */
 uint8_t lui_object_set_enable_input(lui_obj_t* obj,  uint8_t is_enabled);
 
 /* Private functions (User must not call them) */
-/// @private
+
+/**
+ * @private
+ * @brief Create a generic object with default values
+ * 
+ * @return lui_obj_t* created object
+ */
 lui_obj_t* _lui_object_create(void);
-/// @private
+
+/**
+ * @private
+ * @brief Set needs_refresh flag for an object. This flag determines if onject will be redrawn
+ * 
+ * When setting this flag for an object, flags of children and/or parent might also be set,
+ * depending on the requirement.
+ * 
+ * @param obj target object
+ */
 void _lui_object_set_need_refresh(lui_obj_t* obj);
-/// @private
+
+/**
+ * @private
+ * @brief Render an object along with all its children (if any)
+ * 
+ * @param obj_parent target object
+ */
 void _lui_object_render_parent_with_children(lui_obj_t* obj);
-/// @private
+
+/**
+ * @private
+ * @brief Render a single object (and NOT its children)
+ * 
+ * @param obj target object
+ */
 void _lui_object_render(lui_obj_t* obj);
-/// @private
+
+/**
+ * @private
+ * @brief Compares two objects' layers and returns (layer1 - layer2)
+ * 
+ * @param p1 pointer to object 1
+ * @param p2 pointer to object 2
+ * @return int (layer1 - layer2)
+ */
 static int _lui_obj_layer_cmprtr(const void* p1, const void* p2);
 /* Private functions end */
 
@@ -696,12 +960,57 @@ static int _lui_obj_layer_cmprtr(const void* p1, const void* p2);
 
 /**
  * @defgroup lui_label Label widget API
+ * API for <tt><b>label</b></tt> widgets
+ * 
+ * @subsection label_example Example
+ * @code
+ * const char* text = "Hi Universe";
+ * lui_obj_t* my_label = lui_label_create();
+ * lui_label_set_text(my_label, "Hello World");
+ * // lui_label_set_text(my_label, text);
+ * lui_label_set_text_color(my_label, lui_rgb(255, 20, 80));	// Setting text color
+ * lui_object_set_bg_color(my_label, lui_rgb(10, 10, 10));		// Setting background color
+ * @endcode
  * @{
  */
+
+/**
+ * @brief Create a label with initial values
+ * 
+ * @return lui_obj_t* Created label object
+ */
 lui_obj_t* lui_label_create(void);
+
+/**
+ * @brief Draw a <tt>label</tt> widget
+ * 
+ * @param obj label object
+ */
 void lui_label_draw (lui_obj_t* obj_lbl);
+
+/**
+ * @brief Set font of a label.
+ * 
+ * @param obj_lbl label object
+ * @param font font object. If NULL is passed, default font will be used
+ */
 void lui_label_set_font(lui_obj_t* obj_lbl, const lui_font_t* font);
+
+/**
+ * @brief Set text of a label
+ * 
+ * @param obj_lbl label object
+ * @param text char array of text
+ */
 void lui_label_set_text(lui_obj_t* obj_lbl, const char* text);
+
+/**
+ * @brief Set forecolor of a label. 
+ * @note this only changes text color and NOT background color
+ * 
+ * @param obj_lbl label object
+ * @param text_color 16-bit color
+ */
 void lui_label_set_text_color(lui_obj_t* obj_lbl, uint16_t text_color);
 /**@}*/
 /*-------------------------------------------------------------------------------
@@ -713,20 +1022,99 @@ void lui_label_set_text_color(lui_obj_t* obj_lbl, uint16_t text_color);
  * 				LUI_LINECHART related functions
  *-------------------------------------------------------------------------------
  */
+
+#if defined(LUI_USE_LINECHART)
 /**
  * @defgroup lui_linechart Line Chart widget API
+ * API for <b><tt>linechart</tt></b> widget
+ * 
+ * @subsection linechart_example Example
+ * @code
+ * double fib_data[10] = {0, 1, 1, 2, 3, 5, 8, 13, 21, 34};
+ * lui_obj_t* my_chart = lui_linechart_create();
+ * lui_linechart_set_data_source(my_chart, fib_data, 10);
+ * lui_linechart_set_grid_count(my_chart, 4, 2);
+ * // Setting line chart's area is important!
+ * lui_object_set_area(my_chart, 120, 80);
+ * @endcode
  * @{
  */
+
+/**
+ * @brief Create a linechart with initial values
+ * 
+ * @return lui_obj_t* Created linechart object
+ */
 lui_obj_t* lui_linechart_create();
+
+/**
+ * @brief Draw a linechart
+ * 
+ * @param obj_linechart linechart object
+ */
 void lui_linechart_draw (lui_obj_t* obj_linechart);
+
+/**
+ * @brief Set number of horizontal and vertical grid lines in a linechart
+ * 
+ * @param obj_linechart linechart object
+ * @param hor_lines number of horizontal grid lines
+ * @param vert_lines number of vertical grid lines
+ */
 void lui_linechart_set_grid_count(lui_obj_t* obj_linechart, uint16_t hor_lines, uint16_t vert_lines);
+
+/**
+ * @brief Set color of grid lines
+ * 
+ * @param obj_linechart linechart object
+ * @param color 16-bit color
+ */
 void lui_linechart_set_grid_color(lui_obj_t* obj_linechart, uint16_t color);
+
+/**
+ * @brief Set visibility of grid lines
+ * 
+ * @param obj_linechart linechart object
+ * @param state 0: hidden, 1: visible (default)
+ */
 void lui_linechart_set_grid_visible(lui_obj_t* obj_linechart, uint8_t state);
+
+/**
+ * @brief Set color of plot line
+ * 
+ * @param obj_linechart linechart object
+ * @param line_color 16-bit color
+ */
 void lui_linechart_set_line_color(lui_obj_t* obj_linechart, uint16_t line_color);
+
+/**
+ * @brief Set whether to apply automatic scaling on the data source or not.
+ * If auto scale is enabled, graph will always be in the boundary of drawing area.
+ * If auto scale is disabled, user must provide manual range
+ * @param obj_linechart linechart object
+ * @param auto_scale 1: enabled (default), 0: disabled
+ */
 void lui_linechart_set_data_auto_scale(lui_obj_t* obj_linechart, uint8_t auto_scale);
+
+/**
+ * @brief Set data range of line chart when auto scaling is disabled
+ * 
+ * @param obj_linechart linechart object
+ * @param y_min minimum value of y axis data
+ * @param y_max maximum value of y axis data
+ */
 void lui_linechart_set_data_range(lui_obj_t* obj_linechart, double y_min, double y_max);
+
+/**
+ * @brief Set data source of the line chart
+ * 
+ * @param obj_linechart linechart object
+ * @param source array of data points
+ * @param points number of data points
+ */
 void lui_linechart_set_data_source(lui_obj_t* obj_linechart, double* source, uint16_t points);
 /**@}*/
+#endif
 /*-------------------------------------------------------------------------------
  * 							END
  *-------------------------------------------------------------------------------
@@ -734,77 +1122,505 @@ void lui_linechart_set_data_source(lui_obj_t* obj_linechart, double* source, uin
 
 /**
  * @defgroup lui_button Button widget API
+ * 
+ * API for <b><tt>button</tt></b> widget
+ * 
+ * @subsection button_example Example
+ * @code
+ * void button_callback(lui_obj_t* btn_obj)
+ * {
+ *     static uint8_t light_state = 0;
+ *     // Only turn on/off light when button is pressed. For any other event, return.
+ *     if (lui_object_get_event(btn_obj) != LUI_EVENT_PRESSED)
+ *         return;
+ *     light_state = !light_state;
+ *     if (light_state)
+ *     {
+ *         lui_button_set_label_text(my_button, "Turn OFF Light");
+ *         // turn_on_light();
+ *     }
+ *     else
+ *     {
+ *         lui_button_set_label_text(my_button, "Turn ON Light");
+ *         // turn_off_light();
+ *     }
+ *     
+ *     // Do more stuffs...
+ * }
+ * lui_obj_t* my_button = lui_button_create();
+ * lui_button_set_label_text(my_button, "Turn ON Light");
+ * lui_object_set_callback(my_button, button_callback);		// set button call back function
+ * @endcode
  * @{
  */
+
+/**
+ * @brief Create a button with initial values
+ * 
+ * @return lui_obj_t* created button object
+ */
 lui_obj_t* lui_button_create();
+
+/**
+ * @brief Draw a button object
+ * 
+ * @param obj_btn button object
+ */
 void lui_button_draw(lui_obj_t* obj_btn);
+
+/**
+ * @brief Set the text of the button's label
+ * 
+ * @param obj_btn button object
+ * @param text char array of text
+ */
 void lui_button_set_label_text(lui_obj_t* obj_btn, const char* text);
+
+/**
+ * @brief Set text color of button's label
+ * 
+ * @param obj_btn button object
+ * @param color 16-bit text color
+ */
 void lui_button_set_label_color(lui_obj_t* obj_btn, uint16_t color);
+
+/**
+ * @brief Set font of button's label
+ * 
+ * @param obj_btn button object
+ * @param font font object. If NULL is passed, default font will be used
+ */
 void lui_button_set_label_font(lui_obj_t* obj_btn, const lui_font_t* font);
+
+/**
+ * @brief Set other colors of button object
+ * 
+ * @param obj_btn button object
+ * @param pressed_color 16-bit color of button when it's pressed
+ * @param selection_color 16-bit color of button when it's selected (hovering)
+ */
 void lui_button_set_extra_colors(lui_obj_t* obj_btn, uint16_t pressed_color, uint16_t selection_color);
 /**@}*/
 
+#if defined(LUI_USE_SWITCH)
 /**
  * @defgroup lui_switch Switch widget API
+ * 
+ * API for <b><tt>switch</tt></b> widget
+ * 
+ * @subsection switch_example Example
+ * @code
+ * void switch_callback(lui_obj_t* switch_obj)
+ * {
+ *     if (lui_object_get_event(switch_obj) != LUI_EVENT_VALUE_CHANGED)
+ *         return;
+ *     int8_t value = lui_switch_get_value(switch_obj);
+ *     if (value == 0)
+ *     {
+ *         // Switch is turned off. Do something now.
+ *     }
+ *     else if (value == 1)
+ *     {
+ *         // Switch is turned on. Do something now.
+ *     }
+ * }
+ * lui_obj_t* my_switch = lui_switch_create();
+ * // Let's keep the switch ON by default
+ * lui_switch_set_on(my_switch);
+ * // Set a callback function to do stuffs when switch is toggled
+ * lui_object_set_callback(my_switch, switch_callback)
+ * @endcode
  * @{
+ */
+
+/**
+ * @brief Create a switch with initial values
+ * 
+ * @return lui_obj_t* created switch object
  */
 lui_obj_t* lui_switch_create();
+
+/**
+ * @brief Draw a switch object
+ * 
+ * @param obj_swtch switch object
+ */
 void lui_switch_draw(lui_obj_t* obj_swtch);
+
+/**
+ * @brief Set extra colors of switch object
+ * 
+ * @param obj_swtch switch object
+ * @param knob_off_color 16-bit color of knob when switch is off
+ * @param knob_on_color 16-bit color of knob when switch is on
+ * @param selection_color 16-bit color when switch is selected
+ */
 void lui_switch_set_extra_colors(lui_obj_t* obj_swtch, uint16_t knob_off_color, uint16_t knob_on_color, uint16_t selection_color);
+
+/**
+ * @brief Get value of a switch
+ * 
+ * @param obj_swtch switch object
+ * @return int8_t value of switch. 0: Off, 1: On, -1: Error.
+ */
 int8_t lui_switch_get_value(lui_obj_t* obj_swtch);
+
+/**
+ * @brief Set value of switch
+ * 
+ * @param obj_swtch switch object
+ * @param value 1: switch on, 0: switch off
+ */
 void lui_switch_set_value(lui_obj_t* obj_swtch, uint8_t value);
+
+/**
+ * @brief Set switch to ON (value: 1)
+ * 
+ * @param obj_swtch switch object
+ */
 void lui_switch_set_on(lui_obj_t* obj_swtch);
+
+/**
+ * @brief Set switch to OFF (value: 0)
+ * 
+ * @param obj_swtch switch object
+ */
 void lui_switch_set_off(lui_obj_t* obj_swtch);
 /**@}*/
+#endif
 
+#if defined(LUI_USE_CHECKBOX)
 /**
  * @defgroup lui_checkbox Checkbox widget API
+ *
+ * API for <b><tt>checkbox</tt></b> widget
+ * 
+ * @subsection checkbox_example Example
+ * @code
+ * chkbox_cricket = lui_checkbox_create();
+ * lui_object_set_position(chkbox_cricket, 0, 0);
+ * lui_checkbox_set_value(chkbox_cricket, 1); // This checkbox is selected
+ * 
+ * lui_obj_t* lbl_cricket = lui_label_create();
+ * lui_label_set_text(lbl_cricket, "Cricket");
+ * lui_object_set_position(lbl_cricket, 25, 0);
+ * 
+ * chkbox_hockey = lui_checkbox_create();
+ * lui_object_set_position(chkbox_hockey, 0, 25);
+ * 
+ * lui_obj_t* lbl_hockey = lui_label_create();
+ * lui_label_set_text(lbl_hockey, "Hockey");
+ * lui_object_set_position(lbl_hockey, 25, 25);
+ * @endcode
  * @{
+ */
+
+/**
+ * @brief Create a checkbox object with initial values
+ * 
+ * @return lui_obj_t* 
  */
 lui_obj_t* lui_checkbox_create();
-void lui_checkbox_draw(lui_obj_t* obj_checkbox);
-void lui_checkbox_set_extra_colors(lui_obj_t* obj_checkbox, uint16_t bg_checked_color, uint16_t tick_color, uint16_t selection_color);
-int8_t lui_checkbox_get_value(lui_obj_t* obj_checkbox);
-void lui_checkbox_set_value(lui_obj_t* obj_checkbox, uint8_t value);
-void lui_checkbox_set_checked(lui_obj_t* obj_swtch);
-void lui_checkbox_set_unchecked(lui_obj_t* obj_swtch);
-/**@}*/
 
+/**
+ * @brief Draw a checbox object
+ * 
+ * @param obj_checkbox checkbox object
+ */
+void lui_checkbox_draw(lui_obj_t* obj_checkbox);
+
+/**
+ * @brief Set extra colors of checkbox
+ * 
+ * @param obj_checkbox checkbox object
+ * @param bg_checked_color 16-bit background color of checkbox when in checked status
+ * @param tick_color 16-bit color of the check mark (tick)
+ * @param selection_color 16-bit color of checkbox when it is selected (hovered)
+ */
+void lui_checkbox_set_extra_colors(lui_obj_t* obj_checkbox, uint16_t bg_checked_color, uint16_t tick_color, uint16_t selection_color);
+
+/**
+ * @brief Get value of checkbox
+ * 
+ * @param obj_checkbox checkbox object
+ * @return int8_t Value of checkbox. 0: Unchecked, 1: Checked, -1: Error
+ */
+int8_t lui_checkbox_get_value(lui_obj_t* obj_checkbox);
+
+/**
+ * @brief Set checkbox value
+ * 
+ * @param obj_checkbox checkbox object
+ * @param value 0: Unchecked, 1: Checked
+ */
+void lui_checkbox_set_value(lui_obj_t* obj_checkbox, uint8_t value);
+
+/**
+ * @brief Set checkbox status to Checked (value: 1)
+ * 
+ * @param obj_checkbox checkbox object
+ */
+void lui_checkbox_set_checked(lui_obj_t* obj_checkbox);
+
+/**
+ * @brief Set checkbox status to Unchecked (value: 0)
+ * 
+ * @param obj_checkbox checkbox object
+ */
+void lui_checkbox_set_unchecked(lui_obj_t* obj_checkbox);
+/**@}*/
+#endif
+
+#if defined(LUI_USE_SLIDER)
 /**
  * @defgroup lui_slider Slider widget API
+ * 
+ * API for <b><tt>slider</tt></b> widget
+ * 
+ * @subsection slider_example Example
+ * @code
+ * void slider_event_handler_cb(lui_obj_t* obj)
+ * {
+ *     if (lui_object_get_event(obj) == LUI_EVENT_VALUE_CHANGED)
+ *     {
+ *         int16_t val = lui_slider_get_value(obj);
+ *         // Do something with this value..
+ *     }
+ * }
+ * 
+ * // Create a slider object
+ * slider_led_brightness = lui_slider_create();
+ * // Setting slider's area is important
+ * lui_object_set_area(slider_led_brightness, 160, 20);
+ * // Set range of slider 0-255
+ * lui_slider_set_range(slider_led_brightness, 0, 255);
+ * // Set default value of slider
+ * lui_slider_set_value(slider_led_brightness, 50);
+ * // Set callback function 
+ * lui_object_set_callback(slider_led_brightness, slider_event_handler_cb);
+ * @endcode
  * @{
  */
-lui_obj_t* lui_slider_create();
-void lui_slider_draw(lui_obj_t* obj_slider);
-void lui_slider_set_extra_colors(lui_obj_t* obj_slider, uint16_t knob_color, uint16_t bg_filled_color, uint16_t selection_color);
-void lui_slider_set_value(lui_obj_t* obj_slider, int16_t value);
-void lui_slider_set_range(lui_obj_t* obj_slider, int16_t range_min, int16_t range_max);
-int16_t lui_slider_get_value(lui_obj_t* obj_slider);
-int16_t lui_slider_get_min_value(lui_obj_t* obj_slider);
-int16_t lui_slider_get_max_value(lui_obj_t* obj_slider);
-//void lui_slider_set_knob_length(uint8_t length, lui_obj_t* obj_slider);
-/**@}*/
 
 /**
+ * @brief Create a slider object with initial values
+ * 
+ * @return lui_obj_t* created slider object
+ */
+lui_obj_t* lui_slider_create();
+
+/**
+ * @brief Draw slider object
+ * 
+ * @param obj_slider slider object
+ */
+void lui_slider_draw(lui_obj_t* obj_slider);
+
+/**
+ * @brief Set extra colors of slider
+ * 
+ * @param obj_slider slider object
+ * @param knob_color 16-bit color of slider knob
+ * @param bg_filled_color 16-bit background color of the filled section of slider
+ * @param selection_color 16-bit color of slider when it's selected (hovered)
+ */
+void lui_slider_set_extra_colors(lui_obj_t* obj_slider, uint16_t knob_color, uint16_t bg_filled_color, uint16_t selection_color);
+
+/**
+ * @brief Set value of slider
+ * 
+ * @param obj_slider slider object
+ * @param value value of slider
+ */
+void lui_slider_set_value(lui_obj_t* obj_slider, int16_t value);
+
+/**
+ * @brief Set minimum and maximum values of slider
+ * 
+ * @param obj_slider slider object
+ * @param range_min minimum value of slider
+ * @param range_max maximum value of slider
+ */
+void lui_slider_set_range(lui_obj_t* obj_slider, int16_t range_min, int16_t range_max);
+
+/**
+ * @brief Get value of slider
+ * 
+ * @param obj_slider slider object
+ * @return int16_t value of slider
+ */
+int16_t lui_slider_get_value(lui_obj_t* obj_slider);
+
+/**
+ * @brief Get minimum value of slider's range
+ * 
+ * @param obj_slider slider object
+ * @return int16_t minimum value of slider
+ */
+int16_t lui_slider_get_min_value(lui_obj_t* obj_slider);
+
+/**
+ * @brief Get maximum value of slider's range
+ * 
+ * @param obj_slider slider object
+ * @return int16_t maximum value of slider
+ */
+int16_t lui_slider_get_max_value(lui_obj_t* obj_slider);
+/**@}*/
+#endif
+
+#if defined(LUI_USE_LIST)
+/**
  * @defgroup lui_list List widget API
+ * 
+ * API for <b><tt>list</tt></b> widget
+ * 
+ * <tt>list</tt> is a collection of <tt>button</tt> objects. Each item added to
+ * a list is returned as <tt>button</tt> object.
+ * 
+ * @subsection list_example Example
+ * @code
+ * lui_obj_t* my_list = lui_list_create();
+ * // Setting list area is important. Else items won't be properly rendered
+ * lui_object_set_area(my_list, 110, 160);
+ * 
+ * // Now, let's add some items. Each item is a button object.
+ * lui_obj_t* item1 = lui_list_add_item(my_list, LUI_ICON_POWER "Shut Down");
+ * lui_obj_t* item2 = lui_list_add_item(my_list, LUI_ICON_RELAOD " Restart ");
+ * lui_obj_t* item3 = lui_list_add_item(my_list, "Suspend");
+ * lui_obj_t* item4 = lui_list_add_item(my_list, "Log Out");
+ * lui_obj_t* item5 = lui_list_add_item(my_list, "Switch User");
+ * lui_obj_t* item6 = lui_list_add_item(my_list, "Hibernate");
+ * lui_obj_t* item7 = lui_list_add_item(my_list, "Lock screen");
+ * 
+ * // IMPORTANT! After everything is done, we must prepare the list. 
+ * // Else nothing will work
+ * lui_list_prepare(my_list);
+ * @endcode
  * @{
  */
-lui_obj_t* lui_list_create();
-void lui_list_draw(lui_obj_t* obj_list);
-lui_obj_t* lui_list_add_item(lui_obj_t* obj_list, const char* text);
-void lui_list_delete_item(lui_obj_t** obj_item_addr);
-void lui_list_prepare(lui_obj_t* obj_list);
-void lui_list_set_item_min_height(lui_obj_t* obj_list, uint8_t height);
-void lui_list_set_font(lui_obj_t* obj_list, const lui_font_t* font);
-void lui_list_set_nav_btn_label_color(lui_obj_t* obj_list, uint16_t color);
-void lui_list_set_nav_btn_bg_color(lui_obj_t* obj_list, uint16_t color);
-void lui_list_set_nav_btn_extra_colors(lui_obj_t* obj_list, uint16_t pressed_color, uint16_t selection_color);
-void lui_list_set_page_index(lui_obj_t* obj, uint8_t index);
-/**@}*/
-void _lui_list_add_nav_buttons(lui_obj_t* obj_list);
-void _lui_list_nav_btn_cb(lui_obj_t* obj_list);
-void _lui_list_add_button_obj(lui_obj_t* obj_list, lui_obj_t* obj_btn);
 
+/**
+ * @brief Create a list object with initial values
+ * 
+ * @return lui_obj_t* created list object
+ */
+lui_obj_t* lui_list_create();
+
+/**
+ * @brief Draw list object
+ * 
+ * @param obj_list list object
+ */
+void lui_list_draw(lui_obj_t* obj_list);
+
+/**
+ * @brief Add an item to a list. This creates a button object and returns it
+ * 
+ * @param obj_list list object
+ * @param text text of the item
+ * @return lui_obj_t* item of the list as a button object
+ */
+lui_obj_t* lui_list_add_item(lui_obj_t* obj_list, const char* text);
+
+/**
+ * @brief Deletes an item from list.
+ * 
+ * @param obj_item_addr the button item to be deleted
+ */
+void lui_list_delete_item(lui_obj_t* obj_item_addr);
+
+/**
+ * @brief Prepares a list for final render. This function must be called by
+ * the user after creating a list/making changes in a list. Else, those 
+ * changes won't be reflected.
+ * 
+ * @param obj_list list object
+ */
+void lui_list_prepare(lui_obj_t* obj_list);
+
+/**
+ * @brief Sets minimum height of each item in a list
+ * 
+ * @param obj_list list object
+ * @param height minimum height of an item
+ */
+void lui_list_set_item_min_height(lui_obj_t* obj_list, uint8_t height);
+
+/**
+ * @brief Set font of list. If none is set, default font is used
+ * 
+ * @param obj_list list object
+ * @param font font of list
+ */
+void lui_list_set_font(lui_obj_t* obj_list, const lui_font_t* font);
+
+/**
+ * @brief Sets label text color of navigation buttons of a list. Navigation buttons
+ * are used to change current page of list
+ * 
+ * @param obj_list list object
+ * @param color 16-bit color
+ */
+void lui_list_set_nav_btn_label_color(lui_obj_t* obj_list, uint16_t color);
+
+/**
+ * @brief Sets label background color of navigation buttons of a list. Navigation buttons
+ * are used to change current page of list
+ * 
+ * @param obj_list list object
+ * @param color 16-bit color
+ */
+void lui_list_set_nav_btn_bg_color(lui_obj_t* obj_list, uint16_t color);
+
+/**
+ * @brief Sets extra colors of list
+ * 
+ * @param obj_list list object
+ * @param pressed_color 16-bit color of list item when pressed
+ * @param selection_color 16-bit color of list item when selected (hovered)
+ */
+void lui_list_set_nav_btn_extra_colors(lui_obj_t* obj_list, uint16_t pressed_color, uint16_t selection_color);
+
+/**
+ * @brief Sets current page index of a list. The current page is rendered. 
+ * Has no effect if index is out of bound.
+ * 
+ * @param obj list object
+ * @param index index of current page
+ */
+void lui_list_set_page_index(lui_obj_t* obj, uint8_t index);
+
+/**
+ * @private
+ * @brief Adds navigation buttons to list. Only called by the library.
+ * 
+ * @param obj_list list object
+ */
+void _lui_list_add_nav_buttons(lui_obj_t* obj_list);
+
+/**
+ * @private
+ * @brief Sets callback function to handle nav button events. Only called by 
+ * the library.
+ * 
+ * @param obj_list list object
+ */
+void _lui_list_nav_btn_cb(lui_obj_t* obj_list);
+
+/**
+ * @private
+ * @brief Adds actual button objects that are created during `lui_list_add_item()` call.
+ * Only called by the library.
+ * 
+ * @param obj_list list object
+ * @param obj_btn button object, which is a list item
+ */
+void _lui_list_add_button_obj(lui_obj_t* obj_list, lui_obj_t* obj_btn);
+/**@}*/
+#endif
+
+#if defined(LUI_USE_BUTTONGRID)
 /**
  * @defgroup lui_btngrid Buttongrid widget API
  * @{
@@ -824,9 +1640,11 @@ int8_t lui_btngrid_get_btn_check_status(lui_obj_t* obj, uint8_t btn_index);
 void lui_btngrid_set_font(lui_obj_t* obj, const lui_font_t* font);
 void lui_btngrid_set_extra_colors(lui_obj_t* obj, uint16_t btn_color, uint16_t label_color, uint16_t btn_pressed_color);
 void lui_btngrid_set_btn_margin(lui_obj_t* obj, uint8_t margin_x, uint16_t margin_y);
-/**@}*/
 void _lui_btngrid_calc_btn_area(lui_obj_t* obj);
+/**@}*/
+#endif
 
+#if defined(LUI_USE_KEYBOARD) && defined(LUI_USE_BUTTONGRID)
 /**
  * @defgroup lui_keyboard Keyboard widget API
  * @{
@@ -838,7 +1656,9 @@ void lui_keyboard_set_font(lui_obj_t* obj, const lui_font_t* font);
 void lui_keyboard_set_target_txtbox(lui_obj_t* obj_kb, lui_obj_t* obj_txtbox);
 void lui_keyboard_sys_cb(lui_obj_t* obj_sender);
 /**@}*/
+#endif
 
+#if defined(LUI_USE_TEXTBOX)
 /**
  * @defgroup lui_textbox Textbox widget API
  * @{
@@ -853,7 +1673,9 @@ void lui_textbox_delete_char(lui_obj_t* obj);
 void lui_textbox_set_text_buffer(lui_obj_t* obj, char* text_buffer, uint16_t buff_size);
 void lui_textbox_set_font(lui_obj_t* obj, const lui_font_t* font);
 /**@}*/
+#endif
 
+#if defined(LUI_USE_PANEL)
 /**
  * @defgroup lui_panel Panel widget API
  * @{
@@ -862,6 +1684,7 @@ lui_obj_t* lui_panel_create();
 void lui_panel_draw(lui_obj_t* obj_panel);
 void lui_panel_set_bg_image(lui_obj_t* obj_panel, const lui_bitmap_t* image);
 /**@}*/
+#endif
 
 /**
  * @defgroup lui_scene Scene widget API
