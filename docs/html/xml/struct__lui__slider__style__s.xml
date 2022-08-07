@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="struct__lui__slider__style__s" kind="struct" language="C++" prot="public">
+    <compoundname>_lui_slider_style_s</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct__lui__slider__style__s_1a6153957952fa58ebaa0e0eb1bfaf4031" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t _lui_slider_style_s::knob_color</definition>
+        <argsstring></argsstring>
+        <name>knob_color</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="451" column="10" bodyfile="lame_ui.h" bodystart="451" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__lui__slider__style__s_1a0e682f6c60e130a8a79361acef958eef" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t _lui_slider_style_s::bg_filled_color</definition>
+        <argsstring></argsstring>
+        <name>bg_filled_color</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="452" column="10" bodyfile="lame_ui.h" bodystart="452" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__lui__slider__style__s_1ad23a2303433c3eec55ce60348083bf01" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t _lui_slider_style_s::selection_color</definition>
+        <argsstring></argsstring>
+        <name>selection_color</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="453" column="10" bodyfile="lame_ui.h" bodystart="453" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__lui__slider__style__s_1a56bbf77211c652321e5f9baaa51dc71d" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t _lui_slider_style_s::knob_width</definition>
+        <argsstring></argsstring>
+        <name>knob_width</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="454" column="9" bodyfile="lame_ui.h" bodystart="454" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="lame_ui.h" line="450" column="1" bodyfile="lame_ui.h" bodystart="449" bodyend="455"/>
+    <listofallmembers>
+      <member refid="struct__lui__slider__style__s_1a0e682f6c60e130a8a79361acef958eef" prot="public" virt="non-virtual"><scope>_lui_slider_style_s</scope><name>bg_filled_color</name></member>
+      <member refid="struct__lui__slider__style__s_1a6153957952fa58ebaa0e0eb1bfaf4031" prot="public" virt="non-virtual"><scope>_lui_slider_style_s</scope><name>knob_color</name></member>
+      <member refid="struct__lui__slider__style__s_1a56bbf77211c652321e5f9baaa51dc71d" prot="public" virt="non-virtual"><scope>_lui_slider_style_s</scope><name>knob_width</name></member>
+      <member refid="struct__lui__slider__style__s_1ad23a2303433c3eec55ce60348083bf01" prot="public" virt="non-virtual"><scope>_lui_slider_style_s</scope><name>selection_color</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

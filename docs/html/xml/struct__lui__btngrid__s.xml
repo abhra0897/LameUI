@@ -1,0 +1,222 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="struct__lui__btngrid__s" kind="struct" language="C++" prot="public">
+    <compoundname>_lui_btngrid_s</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct__lui__btngrid__s_1af5b6a0093bcdb9027835ccd20d776b7e" prot="public" static="no" mutable="no">
+        <type>const char **</type>
+        <definition>const char** _lui_btngrid_s::texts</definition>
+        <argsstring></argsstring>
+        <name>texts</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="625" column="12" bodyfile="lame_ui.h" bodystart="625" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__lui__btngrid__s_1a1d3ad6702f4ec32bf5b71d608c9d926b" prot="public" static="no" mutable="no">
+        <type>uint8_t *</type>
+        <definition>uint8_t* _lui_btngrid_s::btn_properties</definition>
+        <argsstring></argsstring>
+        <name>btn_properties</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="626" column="13" bodyfile="lame_ui.h" bodystart="626" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__lui__btngrid__s_1aaa435ab23d188883a805ca8b63f779f3" prot="public" static="no" mutable="no">
+        <type><ref refid="struct__lui__area__s" kindref="compound">lui_area_t</ref> *</type>
+        <definition>lui_area_t* _lui_btngrid_s::btn_area</definition>
+        <argsstring></argsstring>
+        <name>btn_area</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="627" column="16" bodyfile="lame_ui.h" bodystart="627" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__lui__btngrid__s_1a56c83efbbe2d2e230909c2e3dada68aa" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t _lui_btngrid_s::btn_cnt</definition>
+        <argsstring></argsstring>
+        <name>btn_cnt</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="628" column="13" bodyfile="lame_ui.h" bodystart="628" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__lui__btngrid__s_1a907f43b6f370792071795b12da937cab" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t _lui_btngrid_s::row_cnt</definition>
+        <argsstring></argsstring>
+        <name>row_cnt</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="629" column="9" bodyfile="lame_ui.h" bodystart="629" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__lui__btngrid__s_1a179cf5035af72f6e494f34dac2935120" prot="public" static="no" mutable="no">
+        <type>const <ref refid="structlui__font__t" kindref="compound">lui_font_t</ref> *</type>
+        <definition>const lui_font_t* _lui_btngrid_s::font</definition>
+        <argsstring></argsstring>
+        <name>font</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="630" column="22" bodyfile="lame_ui.h" bodystart="630" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__lui__btngrid__s_1ad5c16de59f334078521fb5b3ad32b544" prot="public" static="no" mutable="no">
+        <type>int16_t</type>
+        <definition>int16_t _lui_btngrid_s::active_btn_index</definition>
+        <argsstring></argsstring>
+        <name>active_btn_index</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="631" column="9" bodyfile="lame_ui.h" bodystart="631" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__lui__btngrid__s_1aa3053eadd581fa436ff74333f6d850a4" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t _lui_btngrid_s::needs_full_render</definition>
+        <argsstring></argsstring>
+        <name>needs_full_render</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="632" column="9" bodyfile="lame_ui.h" bodystart="632" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__lui__btngrid__s_1a179e33485d607530f79dfe2486259433" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="struct__lui__btngrid__style__s" kindref="compound">_lui_btngrid_style_s</ref></type>
+        <definition>struct _lui_btngrid_style_s _lui_btngrid_s::style</definition>
+        <argsstring></argsstring>
+        <name>style</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="632" column="9" bodyfile="lame_ui.h" bodystart="633" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__lui__btngrid__s_1a03ae7a119873086d5d1c416fb81393d0" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="struct__lui__keyboard__s" kindref="compound">_lui_keyboard_s</ref> *</type>
+        <definition>struct _lui_keyboard_s* _lui_btngrid_s::kb_data</definition>
+        <argsstring></argsstring>
+        <name>kb_data</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="635" column="23" bodyfile="lame_ui.h" bodystart="635" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="8">
+        <label>_lui_obj_s</label>
+        <link refid="struct__lui__obj__s"/>
+        <childnode refid="8" relation="usage">
+          <edgelabel>first_child</edgelabel>
+          <edgelabel>next_sibling</edgelabel>
+          <edgelabel>parent</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>common_style</edgelabel>
+        </childnode>
+      </node>
+      <node id="1">
+        <label>_lui_btngrid_s</label>
+        <link refid="struct__lui__btngrid__s"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>style</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>font</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>btn_area</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>kb_data</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>_lui_btngrid_style_s</label>
+        <link refid="struct__lui__btngrid__style__s"/>
+      </node>
+      <node id="6">
+        <label>_lui_area_s</label>
+        <link refid="struct__lui__area__s"/>
+      </node>
+      <node id="4">
+        <label>_lui_glyph_t</label>
+        <link refid="struct__lui__glyph__t"/>
+      </node>
+      <node id="9">
+        <label>_lui_common_style_s</label>
+        <link refid="struct__lui__common__style__s"/>
+      </node>
+      <node id="5">
+        <label>lui_bitmap_t</label>
+        <link refid="structlui__bitmap__t"/>
+      </node>
+      <node id="3">
+        <label>lui_font_t</label>
+        <link refid="structlui__font__t"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>glyphs</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>bitmap</edgelabel>
+        </childnode>
+      </node>
+      <node id="7">
+        <label>_lui_keyboard_s</label>
+        <link refid="struct__lui__keyboard__s"/>
+        <childnode refid="8" relation="usage">
+          <edgelabel>target_txtbox</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="lame_ui.h" line="624" column="1" bodyfile="lame_ui.h" bodystart="623" bodyend="637"/>
+    <listofallmembers>
+      <member refid="struct__lui__btngrid__s_1ad5c16de59f334078521fb5b3ad32b544" prot="public" virt="non-virtual"><scope>_lui_btngrid_s</scope><name>active_btn_index</name></member>
+      <member refid="struct__lui__btngrid__s_1aaa435ab23d188883a805ca8b63f779f3" prot="public" virt="non-virtual"><scope>_lui_btngrid_s</scope><name>btn_area</name></member>
+      <member refid="struct__lui__btngrid__s_1a56c83efbbe2d2e230909c2e3dada68aa" prot="public" virt="non-virtual"><scope>_lui_btngrid_s</scope><name>btn_cnt</name></member>
+      <member refid="struct__lui__btngrid__s_1a1d3ad6702f4ec32bf5b71d608c9d926b" prot="public" virt="non-virtual"><scope>_lui_btngrid_s</scope><name>btn_properties</name></member>
+      <member refid="struct__lui__btngrid__s_1a179cf5035af72f6e494f34dac2935120" prot="public" virt="non-virtual"><scope>_lui_btngrid_s</scope><name>font</name></member>
+      <member refid="struct__lui__btngrid__s_1a03ae7a119873086d5d1c416fb81393d0" prot="public" virt="non-virtual"><scope>_lui_btngrid_s</scope><name>kb_data</name></member>
+      <member refid="struct__lui__btngrid__s_1aa3053eadd581fa436ff74333f6d850a4" prot="public" virt="non-virtual"><scope>_lui_btngrid_s</scope><name>needs_full_render</name></member>
+      <member refid="struct__lui__btngrid__s_1a907f43b6f370792071795b12da937cab" prot="public" virt="non-virtual"><scope>_lui_btngrid_s</scope><name>row_cnt</name></member>
+      <member refid="struct__lui__btngrid__s_1a179e33485d607530f79dfe2486259433" prot="public" virt="non-virtual"><scope>_lui_btngrid_s</scope><name>style</name></member>
+      <member refid="struct__lui__btngrid__s_1af5b6a0093bcdb9027835ccd20d776b7e" prot="public" virt="non-virtual"><scope>_lui_btngrid_s</scope><name>texts</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="md_README" kind="page">
+    <compoundname>md_README</compoundname>
+    <title>LameUI - a lame &amp; lightweight(?) non-buffered UI library for embedded systems</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>This is a useless readme, I&apos;ll make a proper once later.</para>
+<sect1 id="md_README_1autotoc_md6">
+<title>What?</title>
+<para>LameUI is a super simple, platform independent UI library with lots and lots of limitations, designed for embedded systems with low resources. Though its under active development and I&apos;m trying to remove those limitations. Even though I tried my best to keep it light weight, it became heavier than I wanted it to be.</para>
+</sect1>
+<sect1 id="md_README_1autotoc_md7">
+<title>Why?</title>
+<para>Main reason - to challenge my skills and learn new things. I also happened to need a bare-minimum UI library for my own project which I abandoned as I started to make this one instead. It was started as a lockdown project and soon enough I abandoned it in an incomplete state as I lost interest. After 4 months I came back to it with a goal to at least make it work once. Future of this project is uncertain, but as long as it feels challenging, I&apos;ll keep adding/fixing stuffs.</para>
+</sect1>
+<sect1 id="md_README_1autotoc_md8">
+<title>Lame Demo:</title>
+<para>This is a demo of LameUI running on a simulator I made with opengl so I can test it without needing to flash the microcontroller every time.</para>
+<para>simulator: <ulink url="https://github.com/abhra0897/LameUI_simulation">https://github.com/abhra0897/LameUI_simulation</ulink></para>
+<para><image type="html" name="lameUI_demo3.gif" inline="yes"></image>
+</para>
+<para>Keyboard and Textbox demo (Work in progress)</para>
+<para><image type="html" name="lameUI_demo_keyboard.gif" inline="yes"></image>
+</para>
+<para>I currently don&apos;t have an lcd display in my stock, so, this emulator is the only way. :(</para>
+</sect1>
+<sect1 id="md_README_1autotoc_md9">
+<title>UI Elements</title>
+<para>Following UI elements are implemented so far:</para>
+<para><itemizedlist>
+<listitem><para>Button</para>
+</listitem><listitem><para>Switch</para>
+</listitem><listitem><para>Line chart</para>
+</listitem><listitem><para>Label</para>
+</listitem><listitem><para>Panel</para>
+</listitem><listitem><para>List</para>
+</listitem><listitem><para>Slider</para>
+</listitem><listitem><para>Checkbox</para>
+</listitem></itemizedlist>
+</para>
+</sect1>
+<sect1 id="md_README_1autotoc_md10">
+<title>Display Output</title>
+<para>Drawing to display is done by call back functions provided by the user.</para>
+<para><programlisting filename=".C"><codeline><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>lui_dispdrv_set_draw_pixels_area_cb(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>(*draw_pixels_area_cb)(uint16_t<sp/>x,<sp/>uint16_t<sp/>y,<sp/>uint16_t<sp/>w,<sp/>uint16_t<sp/>h,<sp/>uint16_t<sp/>color),<sp/><ref refid="struct__lui__disp__drv__s" kindref="compound">lui_dispdrv_t</ref><sp/>*dispdrv);</highlight></codeline>
+</programlisting></para>
+<para>LameUI has no buffer of its own. Because it&apos;s mainly targetted towards MCUs with low RAM. As a result, user need to manage buffering if they need to. Sometimes buffering, and then flush the entire buffer is faster than writing individual pixels each time</para>
+<para>That&apos;s why LameUI calls <computeroutput>void (*render_complete_cb)();</computeroutput> when rendering is complete, given that user provided the callback function. In that callback function, user should flush the buffer. For setting the callback function, this function is used:</para>
+<para><programlisting filename=".C"><codeline><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>lui_dispdrv_set_render_complete_cb(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>(*render_complete_cb)(),<sp/><ref refid="struct__lui__disp__drv__s" kindref="compound">lui_dispdrv_t</ref><sp/>*dispdrv)</highlight></codeline>
+</programlisting></para>
+<para>Note: Commonly available lcd displays that we use with microcontrollers have built-in GRAM, hence, the <computeroutput>render_complete_cb()</computeroutput> is not mandatory for them.</para>
+</sect1>
+<sect1 id="md_README_1autotoc_md11">
+<title>Read Inputs</title>
+<para>LameUI now only supports touch input. Support for D-Pad / Rotary encoder is in my mind, but that&apos;s not the priority for now.</para>
+<para><programlisting filename=".C"><codeline><highlight class="normal">1.<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>lui_touch_inputdev_set_read_input_cb(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>(*read_touch_input_cb)(tLuiTouchInputData<sp/>*inputdata),<sp/>tLuiTouchInputDev<sp/>*inputdev);</highlight></codeline>
+</programlisting></para>
+</sect1>
+<sect1 id="md_README_1autotoc_md12">
+<title>Structure of LameUI</title>
+<para>TBD</para>
+</sect1>
+<sect1 id="md_README_1autotoc_md13">
+<title>Simple Example</title>
+<para>TBD</para>
+<para>(for now, go to the Simulator repo and see the example there: <ulink url="https://github.com/abhra0897/LameUI_simulation/blob/experimental/src/main.c">https://github.com/abhra0897/LameUI_simulation/blob/experimental/src/main.c</ulink>). That example has all the UI elements. Ignore the parts that are related to OpenGL.</para>
+</sect1>
+<sect1 id="md_README_1autotoc_md14">
+<title>API</title>
+<para>Documentation is not prepared yet cause each day I&apos;m changing the code. Also, probably no one else will use it. For now, read the header file for all the available functions. </para>
+</sect1>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

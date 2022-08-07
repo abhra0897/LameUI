@@ -1,0 +1,126 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="struct__lui__list__s" kind="struct" language="C++" prot="public">
+    <compoundname>_lui_list_s</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct__lui__list__s_1a3f11db1cd76b7fd4f7cdb35362db8ed6" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t _lui_list_s::page_count</definition>
+        <argsstring></argsstring>
+        <name>page_count</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="602" column="9" bodyfile="lame_ui.h" bodystart="602" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__lui__list__s_1abcee3e67b7e0bb077da0a9f4a365c219" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t _lui_list_s::current_page_index</definition>
+        <argsstring></argsstring>
+        <name>current_page_index</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="603" column="9" bodyfile="lame_ui.h" bodystart="603" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__lui__list__s_1ab58a5610e1544285073db3aed2246667" prot="public" static="no" mutable="no">
+        <type>int8_t</type>
+        <definition>int8_t _lui_list_s::selected_button_index</definition>
+        <argsstring></argsstring>
+        <name>selected_button_index</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="604" column="8" bodyfile="lame_ui.h" bodystart="604" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__lui__list__s_1a91fc80bb8c747d8b091b3fd0f6447261" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t _lui_list_s::buttons_per_page</definition>
+        <argsstring></argsstring>
+        <name>buttons_per_page</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="605" column="9" bodyfile="lame_ui.h" bodystart="605" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__lui__list__s_1a0438aaf61a0b0127b80ae77d53d9af1e" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t _lui_list_s::button_item_min_height</definition>
+        <argsstring></argsstring>
+        <name>button_item_min_height</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="606" column="9" bodyfile="lame_ui.h" bodystart="606" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__lui__list__s_1a72287d7249633e3e35b25e5835e4d836" prot="public" static="no" mutable="no">
+        <type>const <ref refid="structlui__font__t" kindref="compound">lui_font_t</ref> *</type>
+        <definition>const lui_font_t* _lui_list_s::font</definition>
+        <argsstring></argsstring>
+        <name>font</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="607" column="18" bodyfile="lame_ui.h" bodystart="607" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="3">
+        <label>_lui_glyph_t</label>
+        <link refid="struct__lui__glyph__t"/>
+      </node>
+      <node id="1">
+        <label>_lui_list_s</label>
+        <link refid="struct__lui__list__s"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>font</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>lui_bitmap_t</label>
+        <link refid="structlui__bitmap__t"/>
+      </node>
+      <node id="2">
+        <label>lui_font_t</label>
+        <link refid="structlui__font__t"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>glyphs</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>bitmap</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="lame_ui.h" line="601" column="1" bodyfile="lame_ui.h" bodystart="600" bodyend="610"/>
+    <listofallmembers>
+      <member refid="struct__lui__list__s_1a0438aaf61a0b0127b80ae77d53d9af1e" prot="public" virt="non-virtual"><scope>_lui_list_s</scope><name>button_item_min_height</name></member>
+      <member refid="struct__lui__list__s_1a91fc80bb8c747d8b091b3fd0f6447261" prot="public" virt="non-virtual"><scope>_lui_list_s</scope><name>buttons_per_page</name></member>
+      <member refid="struct__lui__list__s_1abcee3e67b7e0bb077da0a9f4a365c219" prot="public" virt="non-virtual"><scope>_lui_list_s</scope><name>current_page_index</name></member>
+      <member refid="struct__lui__list__s_1a72287d7249633e3e35b25e5835e4d836" prot="public" virt="non-virtual"><scope>_lui_list_s</scope><name>font</name></member>
+      <member refid="struct__lui__list__s_1a3f11db1cd76b7fd4f7cdb35362db8ed6" prot="public" virt="non-virtual"><scope>_lui_list_s</scope><name>page_count</name></member>
+      <member refid="struct__lui__list__s_1ab58a5610e1544285073db3aed2246667" prot="public" virt="non-virtual"><scope>_lui_list_s</scope><name>selected_button_index</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,258 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="group__lui__button" kind="group">
+    <compoundname>lui_button</compoundname>
+    <title>Button API</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__lui__button_1gae3764b62e449b19e779892553ef6ed67" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="lame__ui_8h_1a5a7ccb45f639e22e43b3ac176a75dd09" kindref="member">lui_obj_t</ref> *</type>
+        <definition>lui_obj_t* lui_button_create</definition>
+        <argsstring>()</argsstring>
+        <name>lui_button_create</name>
+        <briefdescription>
+<para>Create a button with initial values. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>lui_obj_t* created button object </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="1162" column="11" bodyfile="lame_ui.c" bodystart="596" bodyend="630" declfile="lame_ui.h" declline="1162" declcolumn="11"/>
+      </memberdef>
+      <memberdef kind="function" id="group__lui__button_1gad887047af16cb14b720cf1cf8116c1af" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lui_button_draw</definition>
+        <argsstring>(lui_obj_t *obj_btn)</argsstring>
+        <name>lui_button_draw</name>
+        <param>
+          <type><ref refid="lame__ui_8h_1a5a7ccb45f639e22e43b3ac176a75dd09" kindref="member">lui_obj_t</ref> *</type>
+          <declname>obj_btn</declname>
+        </param>
+        <briefdescription>
+<para>Draw a button object. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>obj_btn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>button object </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="1169" column="6" bodyfile="lame_ui.c" bodystart="533" bodyend="591" declfile="lame_ui.h" declline="1169" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="group__lui__button_1gaec9c0f394998052cbc800530f69f3a97" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lui_button_set_label_text</definition>
+        <argsstring>(lui_obj_t *obj_btn, const char *text)</argsstring>
+        <name>lui_button_set_label_text</name>
+        <param>
+          <type><ref refid="lame__ui_8h_1a5a7ccb45f639e22e43b3ac176a75dd09" kindref="member">lui_obj_t</ref> *</type>
+          <declname>obj_btn</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>text</declname>
+        </param>
+        <briefdescription>
+<para>Set the text of the button&apos;s label. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>obj_btn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>button object </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>text</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>char array of text </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="1177" column="6" bodyfile="lame_ui.c" bodystart="632" bodyend="644" declfile="lame_ui.h" declline="1177" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="group__lui__button_1ga7136a562c97ee76a05e8b9bff807ca3f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lui_button_set_label_color</definition>
+        <argsstring>(lui_obj_t *obj_btn, uint16_t color)</argsstring>
+        <name>lui_button_set_label_color</name>
+        <param>
+          <type><ref refid="lame__ui_8h_1a5a7ccb45f639e22e43b3ac176a75dd09" kindref="member">lui_obj_t</ref> *</type>
+          <declname>obj_btn</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>color</declname>
+        </param>
+        <briefdescription>
+<para>Set text color of button&apos;s label. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>obj_btn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>button object </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>color</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>16-bit text color </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="1185" column="6" bodyfile="lame_ui.c" bodystart="646" bodyend="660" declfile="lame_ui.h" declline="1185" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="group__lui__button_1ga6418e81c76d0182534e1decc65f417b8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lui_button_set_label_font</definition>
+        <argsstring>(lui_obj_t *obj_btn, const lui_font_t *font)</argsstring>
+        <name>lui_button_set_label_font</name>
+        <param>
+          <type><ref refid="lame__ui_8h_1a5a7ccb45f639e22e43b3ac176a75dd09" kindref="member">lui_obj_t</ref> *</type>
+          <declname>obj_btn</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structlui__font__t" kindref="compound">lui_font_t</ref> *</type>
+          <declname>font</declname>
+        </param>
+        <briefdescription>
+<para>Set font of button&apos;s label. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>obj_btn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>button object </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>font</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>font object. If NULL is passed, default font will be used </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="1193" column="6" bodyfile="lame_ui.c" bodystart="662" bodyend="675" declfile="lame_ui.h" declline="1193" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="group__lui__button_1gaf719ba472084dcdb38418184b63bd323" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lui_button_set_extra_colors</definition>
+        <argsstring>(lui_obj_t *obj_btn, uint16_t pressed_color, uint16_t selection_color)</argsstring>
+        <name>lui_button_set_extra_colors</name>
+        <param>
+          <type><ref refid="lame__ui_8h_1a5a7ccb45f639e22e43b3ac176a75dd09" kindref="member">lui_obj_t</ref> *</type>
+          <declname>obj_btn</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>pressed_color</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>selection_color</declname>
+        </param>
+        <briefdescription>
+<para>Set other colors of button object. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>obj_btn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>button object </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pressed_color</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>16-bit color of button when it&apos;s pressed </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>selection_color</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>16-bit color of button when it&apos;s selected (hovering) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="1202" column="6" bodyfile="lame_ui.c" bodystart="677" bodyend="692" declfile="lame_ui.h" declline="1202" declcolumn="6"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>API for <bold><computeroutput>button</computeroutput></bold> widget. </para>
+    </briefdescription>
+    <detaileddescription>
+<sect2 id="group__lui__button_1button_example">
+<title>Example</title>
+<para><programlisting><codeline><highlight class="normal">void<sp/>button_callback(lui_obj_t*<sp/>btn_obj)</highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>static<sp/>uint8_t<sp/>light_state<sp/>=<sp/>0;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Only<sp/>turn<sp/>on/off<sp/>light<sp/>when<sp/>button<sp/>is<sp/>pressed.<sp/>For<sp/>any<sp/>other<sp/>event,<sp/>return.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>(lui_object_get_event(btn_obj)<sp/>!=<sp/>LUI_EVENT_PRESSED)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>light_state<sp/>=<sp/>!light_state;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>(light_state)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>lui_button_set_label_text(my_button,<sp/>&quot;Turn<sp/>OFF<sp/>Light&quot;);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>turn_on_light();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>else</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>lui_button_set_label_text(my_button,<sp/>&quot;Turn<sp/>ON<sp/>Light&quot;);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>turn_off_light();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Do<sp/>more<sp/>stuffs...</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline><highlight class="normal">lui_obj_t*<sp/>my_button<sp/>=<sp/>lui_button_create();</highlight></codeline>
+<codeline><highlight class="normal">lui_button_set_label_text(my_button,<sp/>&quot;Turn<sp/>ON<sp/>Light&quot;);</highlight></codeline>
+<codeline><highlight class="normal">lui_object_set_callback(my_button,<sp/>button_callback);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>set<sp/>button<sp/>call<sp/>back<sp/>function</highlight></codeline>
+</programlisting> </para>
+</sect2>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

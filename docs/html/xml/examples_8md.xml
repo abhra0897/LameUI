@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="examples_8md" kind="file" language="Markdown">
+    <compoundname>examples.md</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline><highlight class="normal">##<sp/>Examples<sp/>Index<sp/>{#examples_page}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">This<sp/>page<sp/>links<sp/>to<sp/>the<sp/>various<sp/>example<sp/>code<sp/>fragments<sp/>in<sp/>this<sp/>documentation.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/>-<sp/>[Label<sp/>example](@ref<sp/>label_example)</highlight></codeline>
+<codeline><highlight class="normal"><sp/>-<sp/>[Line<sp/>Chart<sp/>example](@ref<sp/>linechart_example)</highlight></codeline>
+<codeline><highlight class="normal"><sp/>-<sp/>[Button<sp/>example](@ref<sp/>button_example)</highlight></codeline>
+<codeline><highlight class="normal"><sp/>-<sp/>[Switch<sp/>example](@ref<sp/>switch_example)</highlight></codeline>
+<codeline><highlight class="normal"><sp/>-<sp/>[Checkbox<sp/>example](@ref<sp/>checkbox_example)</highlight></codeline>
+<codeline><highlight class="normal"><sp/>-<sp/>[Slider<sp/>example](@ref<sp/>slider_example)</highlight></codeline>
+<codeline><highlight class="normal"><sp/>-<sp/>Buttongrid<sp/>examples</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>-<sp/>[Buttongrid<sp/>example<sp/>1](@ref<sp/>buttongrid_example1)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>-<sp/>[Buttongrid<sp/>example<sp/>2](@ref<sp/>buttongrid_example2)</highlight></codeline>
+<codeline></codeline>
+    </programlisting>
+    <location file="docs/examples.md"/>
+  </compounddef>
+</doxygen>

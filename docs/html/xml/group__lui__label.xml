@@ -1,0 +1,194 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="group__lui__label" kind="group">
+    <compoundname>lui_label</compoundname>
+    <title>Label API</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__lui__label_1ga83cc1ae5b6c0601af8614574e019e8f8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="lame__ui_8h_1a5a7ccb45f639e22e43b3ac176a75dd09" kindref="member">lui_obj_t</ref> *</type>
+        <definition>lui_obj_t* lui_label_create</definition>
+        <argsstring>(void)</argsstring>
+        <name>lui_label_create</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Create a label with initial values. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>lui_obj_t* Created label object </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="982" column="11" bodyfile="lame_ui.c" bodystart="125" bodyend="155" declfile="lame_ui.h" declline="982" declcolumn="11"/>
+      </memberdef>
+      <memberdef kind="function" id="group__lui__label_1ga176b351997c1058f4d6fc9bc86942429" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lui_label_draw</definition>
+        <argsstring>(lui_obj_t *obj_lbl)</argsstring>
+        <name>lui_label_draw</name>
+        <param>
+          <type><ref refid="lame__ui_8h_1a5a7ccb45f639e22e43b3ac176a75dd09" kindref="member">lui_obj_t</ref> *</type>
+          <declname>obj_lbl</declname>
+        </param>
+        <briefdescription>
+<para>Draw a <computeroutput>label</computeroutput> widget. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>obj</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>label object </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="989" column="6" bodyfile="lame_ui.c" bodystart="96" bodyend="123" declfile="lame_ui.h" declline="989" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="group__lui__label_1ga1ae5970ffa3b6be91e483a8618db71c9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lui_label_set_font</definition>
+        <argsstring>(lui_obj_t *obj_lbl, const lui_font_t *font)</argsstring>
+        <name>lui_label_set_font</name>
+        <param>
+          <type><ref refid="lame__ui_8h_1a5a7ccb45f639e22e43b3ac176a75dd09" kindref="member">lui_obj_t</ref> *</type>
+          <declname>obj_lbl</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structlui__font__t" kindref="compound">lui_font_t</ref> *</type>
+          <declname>font</declname>
+        </param>
+        <briefdescription>
+<para>Set font of a label. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>obj_lbl</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>label object </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>font</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>font object. If NULL is passed, default font will be used </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="997" column="6" bodyfile="lame_ui.c" bodystart="157" bodyend="170" declfile="lame_ui.h" declline="997" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="group__lui__label_1ga45528354a67fe65f23435338f970ba33" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lui_label_set_text</definition>
+        <argsstring>(lui_obj_t *obj_lbl, const char *text)</argsstring>
+        <name>lui_label_set_text</name>
+        <param>
+          <type><ref refid="lame__ui_8h_1a5a7ccb45f639e22e43b3ac176a75dd09" kindref="member">lui_obj_t</ref> *</type>
+          <declname>obj_lbl</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>text</declname>
+        </param>
+        <briefdescription>
+<para>Set text of a label. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>obj_lbl</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>label object </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>text</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>char array of text </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="1005" column="6" bodyfile="lame_ui.c" bodystart="172" bodyend="185" declfile="lame_ui.h" declline="1005" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="group__lui__label_1gafba0abb6ce13e87b7efa3e0390269094" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lui_label_set_text_color</definition>
+        <argsstring>(lui_obj_t *obj_lbl, uint16_t text_color)</argsstring>
+        <name>lui_label_set_text_color</name>
+        <param>
+          <type><ref refid="lame__ui_8h_1a5a7ccb45f639e22e43b3ac176a75dd09" kindref="member">lui_obj_t</ref> *</type>
+          <declname>obj_lbl</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>text_color</declname>
+        </param>
+        <briefdescription>
+<para>Set forecolor of a label. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>this only changes text color and NOT background color</para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>obj_lbl</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>label object </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>text_color</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>16-bit color </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="1014" column="6" bodyfile="lame_ui.c" bodystart="187" bodyend="201" declfile="lame_ui.h" declline="1014" declcolumn="6"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>API for <computeroutput><bold>label</bold></computeroutput> widgets. </para>
+    </briefdescription>
+    <detaileddescription>
+<sect2 id="group__lui__label_1label_example">
+<title>Example</title>
+<para><programlisting><codeline><highlight class="normal">const<sp/>char*<sp/>text<sp/>=<sp/>&quot;Hi<sp/>Universe&quot;;</highlight></codeline>
+<codeline><highlight class="normal">lui_obj_t*<sp/>my_label<sp/>=<sp/>lui_label_create();</highlight></codeline>
+<codeline><highlight class="normal">lui_label_set_text(my_label,<sp/>&quot;Hello<sp/>World&quot;);</highlight></codeline>
+<codeline><highlight class="normal">//<sp/>lui_label_set_text(my_label,<sp/>text);</highlight></codeline>
+<codeline><highlight class="normal">lui_label_set_text_color(my_label,<sp/>lui_rgb(255,<sp/>20,<sp/>80));<sp/><sp/><sp/>//<sp/>Setting<sp/>text<sp/>color</highlight></codeline>
+<codeline><highlight class="normal">lui_object_set_bg_color(my_label,<sp/>lui_rgb(10,<sp/>10,<sp/>10));<sp/><sp/><sp/><sp/><sp/>//<sp/>Setting<sp/>background<sp/>color</highlight></codeline>
+</programlisting> </para>
+</sect2>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

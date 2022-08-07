@@ -1,0 +1,203 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="struct__lui__linechart__s" kind="struct" language="C++" prot="public">
+    <compoundname>_lui_linechart_s</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct__lui__linechart__s_1a2ceef756637c16f8aa7ca8776ad5cdf7" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t _lui_linechart_s::hor_count</definition>
+        <argsstring></argsstring>
+        <name>hor_count</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="528" column="9" bodyfile="lame_ui.h" bodystart="528" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__lui__linechart__s_1ad4a4f9371f2a6df9f7821452e54fa1f7" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t _lui_linechart_s::vert_count</definition>
+        <argsstring></argsstring>
+        <name>vert_count</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="529" column="9" bodyfile="lame_ui.h" bodystart="529" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__lui__linechart__s_1a772d26b1089d29625b9920dd0237e961" prot="public" static="no" mutable="no">
+        <type>struct _lui_linechart_s::@0</type>
+        <definition>struct _lui_linechart_s::@0 _lui_linechart_s::grid</definition>
+        <argsstring></argsstring>
+        <name>grid</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="532" column="5"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__lui__linechart__s_1a02b9e7ff7d6cc65795517636d13f9255" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="struct__lui__linechart__style__s" kindref="compound">_lui_linechart_style_s</ref></type>
+        <definition>struct _lui_linechart_style_s _lui_linechart_s::style</definition>
+        <argsstring></argsstring>
+        <name>style</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="520" column="6" bodyfile="lame_ui.h" bodystart="534" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__lui__linechart__s_1ab31a8a396783ea34144a63f80964b79d" prot="public" static="no" mutable="no">
+        <type>double *</type>
+        <definition>double* _lui_linechart_s::source</definition>
+        <argsstring></argsstring>
+        <name>source</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="538" column="8" bodyfile="lame_ui.h" bodystart="538" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__lui__linechart__s_1af438f0d7341e9abb02a55a3d6749ac80" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t _lui_linechart_s::points</definition>
+        <argsstring></argsstring>
+        <name>points</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="539" column="10" bodyfile="lame_ui.h" bodystart="539" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__lui__linechart__s_1a009cacc0b2c2741c3ac5e0a5ac4dde5f" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t _lui_linechart_s::auto_scale</definition>
+        <argsstring></argsstring>
+        <name>auto_scale</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="540" column="9" bodyfile="lame_ui.h" bodystart="540" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__lui__linechart__s_1a36e10ebf363dfbefde715854a76baf0e" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double _lui_linechart_s::y_max_value</definition>
+        <argsstring></argsstring>
+        <name>y_max_value</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="541" column="8" bodyfile="lame_ui.h" bodystart="541" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__lui__linechart__s_1aabc5a3b302584aebaba942bd8ae9f537" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double _lui_linechart_s::y_min_value</definition>
+        <argsstring></argsstring>
+        <name>y_min_value</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="542" column="8" bodyfile="lame_ui.h" bodystart="542" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__lui__linechart__s_1adaaa9c1e801e8cf733d66b5536465eab" prot="public" static="no" mutable="no">
+        <type>struct _lui_linechart_s::@1</type>
+        <definition>struct _lui_linechart_s::@1 _lui_linechart_s::data</definition>
+        <argsstring></argsstring>
+        <name>data</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="543" column="5"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__lui__linechart__s_1a44bf02b9f50bacb794f47b42243062ea" prot="public" static="no" mutable="no">
+        <type>const <ref refid="structlui__font__t" kindref="compound">lui_font_t</ref> *</type>
+        <definition>const lui_font_t* _lui_linechart_s::font</definition>
+        <argsstring></argsstring>
+        <name>font</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="546" column="18" bodyfile="lame_ui.h" bodystart="546" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="3">
+        <label>_lui_glyph_t</label>
+        <link refid="struct__lui__glyph__t"/>
+      </node>
+      <node id="1">
+        <label>_lui_linechart_s</label>
+        <link refid="struct__lui__linechart__s"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>font</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>style</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>lui_bitmap_t</label>
+        <link refid="structlui__bitmap__t"/>
+      </node>
+      <node id="2">
+        <label>lui_font_t</label>
+        <link refid="structlui__font__t"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>glyphs</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>bitmap</edgelabel>
+        </childnode>
+      </node>
+      <node id="5">
+        <label>_lui_linechart_style_s</label>
+        <link refid="struct__lui__linechart__style__s"/>
+      </node>
+    </collaborationgraph>
+    <location file="lame_ui.h" line="525" column="1" bodyfile="lame_ui.h" bodystart="524" bodyend="547"/>
+    <listofallmembers>
+      <member refid="struct__lui__linechart__s_1a009cacc0b2c2741c3ac5e0a5ac4dde5f" prot="public" virt="non-virtual"><scope>_lui_linechart_s</scope><name>auto_scale</name></member>
+      <member refid="struct__lui__linechart__s_1adaaa9c1e801e8cf733d66b5536465eab" prot="public" virt="non-virtual"><scope>_lui_linechart_s</scope><name>data</name></member>
+      <member refid="struct__lui__linechart__s_1a44bf02b9f50bacb794f47b42243062ea" prot="public" virt="non-virtual"><scope>_lui_linechart_s</scope><name>font</name></member>
+      <member refid="struct__lui__linechart__s_1a772d26b1089d29625b9920dd0237e961" prot="public" virt="non-virtual"><scope>_lui_linechart_s</scope><name>grid</name></member>
+      <member refid="struct__lui__linechart__s_1a2ceef756637c16f8aa7ca8776ad5cdf7" prot="public" virt="non-virtual"><scope>_lui_linechart_s</scope><name>hor_count</name></member>
+      <member refid="struct__lui__linechart__s_1af438f0d7341e9abb02a55a3d6749ac80" prot="public" virt="non-virtual"><scope>_lui_linechart_s</scope><name>points</name></member>
+      <member refid="struct__lui__linechart__s_1ab31a8a396783ea34144a63f80964b79d" prot="public" virt="non-virtual"><scope>_lui_linechart_s</scope><name>source</name></member>
+      <member refid="struct__lui__linechart__s_1a02b9e7ff7d6cc65795517636d13f9255" prot="public" virt="non-virtual"><scope>_lui_linechart_s</scope><name>style</name></member>
+      <member refid="struct__lui__linechart__s_1ad4a4f9371f2a6df9f7821452e54fa1f7" prot="public" virt="non-virtual"><scope>_lui_linechart_s</scope><name>vert_count</name></member>
+      <member refid="struct__lui__linechart__s_1a36e10ebf363dfbefde715854a76baf0e" prot="public" virt="non-virtual"><scope>_lui_linechart_s</scope><name>y_max_value</name></member>
+      <member refid="struct__lui__linechart__s_1aabc5a3b302584aebaba942bd8ae9f537" prot="public" virt="non-virtual"><scope>_lui_linechart_s</scope><name>y_min_value</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

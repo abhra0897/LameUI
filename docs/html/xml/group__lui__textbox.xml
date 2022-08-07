@@ -1,0 +1,186 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="group__lui__textbox" kind="group">
+    <compoundname>lui_textbox</compoundname>
+    <title>Textbox API</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__lui__textbox_1gaa71b139242431dd77aa330468c5aaf31" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="lame__ui_8h_1a5a7ccb45f639e22e43b3ac176a75dd09" kindref="member">lui_obj_t</ref> *</type>
+        <definition>lui_obj_t* lui_textbox_create</definition>
+        <argsstring>()</argsstring>
+        <name>lui_textbox_create</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="1936" column="11" bodyfile="lame_ui.c" bodystart="2558" bodyend="2594" declfile="lame_ui.h" declline="1936" declcolumn="11"/>
+      </memberdef>
+      <memberdef kind="function" id="group__lui__textbox_1gaf80e132e37c89453b6115602714c0fce" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lui_textbox_draw</definition>
+        <argsstring>()</argsstring>
+        <name>lui_textbox_draw</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="1937" column="6" declfile="lame_ui.h" declline="1937" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="group__lui__textbox_1gabe544e589562b44cec63dbfa41619c5d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lui_textbox_set_caret_index</definition>
+        <argsstring>(lui_obj_t *obj, uint16_t caret_index)</argsstring>
+        <name>lui_textbox_set_caret_index</name>
+        <param>
+          <type><ref refid="lame__ui_8h_1a5a7ccb45f639e22e43b3ac176a75dd09" kindref="member">lui_obj_t</ref> *</type>
+          <declname>obj</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>caret_index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="1938" column="6" bodyfile="lame_ui.c" bodystart="2596" bodyend="2614" declfile="lame_ui.h" declline="1938" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="group__lui__textbox_1gae2377a9c0132bc6e909a0b23b1814fc7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint16_t</type>
+        <definition>uint16_t lui_textbox_get_caret_index</definition>
+        <argsstring>(lui_obj_t *obj)</argsstring>
+        <name>lui_textbox_get_caret_index</name>
+        <param>
+          <type><ref refid="lame__ui_8h_1a5a7ccb45f639e22e43b3ac176a75dd09" kindref="member">lui_obj_t</ref> *</type>
+          <declname>obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="1939" column="10" bodyfile="lame_ui.c" bodystart="2616" bodyend="2625" declfile="lame_ui.h" declline="1939" declcolumn="10"/>
+      </memberdef>
+      <memberdef kind="function" id="group__lui__textbox_1gaf12d728f7b2202c38b85d34d80669892" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lui_textbox_insert_char</definition>
+        <argsstring>(lui_obj_t *obj, char c)</argsstring>
+        <name>lui_textbox_insert_char</name>
+        <param>
+          <type><ref refid="lame__ui_8h_1a5a7ccb45f639e22e43b3ac176a75dd09" kindref="member">lui_obj_t</ref> *</type>
+          <declname>obj</declname>
+        </param>
+        <param>
+          <type>char</type>
+          <declname>c</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="1940" column="6" bodyfile="lame_ui.c" bodystart="2627" bodyend="2648" declfile="lame_ui.h" declline="1940" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="group__lui__textbox_1ga6540b13528f24d0e29de00ce7e883835" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lui_textbox_insert_string</definition>
+        <argsstring>(lui_obj_t *obj, char *str, uint16_t len)</argsstring>
+        <name>lui_textbox_insert_string</name>
+        <param>
+          <type><ref refid="lame__ui_8h_1a5a7ccb45f639e22e43b3ac176a75dd09" kindref="member">lui_obj_t</ref> *</type>
+          <declname>obj</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>str</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>len</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="1941" column="6" bodyfile="lame_ui.c" bodystart="2672" bodyend="2693" declfile="lame_ui.h" declline="1941" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="group__lui__textbox_1gab96f6d6d3546ada97d759e88a8dede10" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lui_textbox_delete_char</definition>
+        <argsstring>(lui_obj_t *obj)</argsstring>
+        <name>lui_textbox_delete_char</name>
+        <param>
+          <type><ref refid="lame__ui_8h_1a5a7ccb45f639e22e43b3ac176a75dd09" kindref="member">lui_obj_t</ref> *</type>
+          <declname>obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="1942" column="6" bodyfile="lame_ui.c" bodystart="2650" bodyend="2670" declfile="lame_ui.h" declline="1942" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="group__lui__textbox_1gabeb31790dc1b9e074de63bdf7f247776" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lui_textbox_set_text_buffer</definition>
+        <argsstring>(lui_obj_t *obj, char *text_buffer, uint16_t buff_size)</argsstring>
+        <name>lui_textbox_set_text_buffer</name>
+        <param>
+          <type><ref refid="lame__ui_8h_1a5a7ccb45f639e22e43b3ac176a75dd09" kindref="member">lui_obj_t</ref> *</type>
+          <declname>obj</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>text_buffer</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>buff_size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="1943" column="6" bodyfile="lame_ui.c" bodystart="2695" bodyend="2711" declfile="lame_ui.h" declline="1943" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="group__lui__textbox_1ga44c28a66f8a82241660c0c296df2c2dd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lui_textbox_set_font</definition>
+        <argsstring>(lui_obj_t *obj, const lui_font_t *font)</argsstring>
+        <name>lui_textbox_set_font</name>
+        <param>
+          <type><ref refid="lame__ui_8h_1a5a7ccb45f639e22e43b3ac176a75dd09" kindref="member">lui_obj_t</ref> *</type>
+          <declname>obj</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structlui__font__t" kindref="compound">lui_font_t</ref> *</type>
+          <declname>font</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="1944" column="6" bodyfile="lame_ui.c" bodystart="2727" bodyend="2741" declfile="lame_ui.h" declline="1944" declcolumn="6"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

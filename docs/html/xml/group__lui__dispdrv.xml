@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="group__lui__dispdrv" kind="group">
+    <compoundname>lui_dispdrv</compoundname>
+    <title>Display Driver API</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__lui__dispdrv_1ga1d63878ad3c05200478a7f7b958faa19" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct__lui__disp__drv__s" kindref="compound">lui_dispdrv_t</ref> *</type>
+        <definition>lui_dispdrv_t* lui_dispdrv_create</definition>
+        <argsstring>()</argsstring>
+        <name>lui_dispdrv_create</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="1975" column="15" bodyfile="lame_ui.c" bodystart="3960" bodyend="3972" declfile="lame_ui.h" declline="1975" declcolumn="15"/>
+      </memberdef>
+      <memberdef kind="function" id="group__lui__dispdrv_1ga77ef8325d1acf4c014be20de214e80de" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lui_dispdrv_register</definition>
+        <argsstring>(lui_dispdrv_t *dispdrv)</argsstring>
+        <name>lui_dispdrv_register</name>
+        <param>
+          <type><ref refid="struct__lui__disp__drv__s" kindref="compound">lui_dispdrv_t</ref> *</type>
+          <declname>dispdrv</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="1976" column="6" bodyfile="lame_ui.c" bodystart="3974" bodyend="3979" declfile="lame_ui.h" declline="1976" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="group__lui__dispdrv_1ga3516bb99ba95160e9673ba8541ffb13e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lui_dispdrv_set_resolution</definition>
+        <argsstring>(lui_dispdrv_t *dispdrv, uint16_t hor_res, uint16_t vert_res)</argsstring>
+        <name>lui_dispdrv_set_resolution</name>
+        <param>
+          <type><ref refid="struct__lui__disp__drv__s" kindref="compound">lui_dispdrv_t</ref> *</type>
+          <declname>dispdrv</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>hor_res</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>vert_res</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="1977" column="6" bodyfile="lame_ui.c" bodystart="3981" bodyend="3987" declfile="lame_ui.h" declline="1977" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="group__lui__dispdrv_1ga982617c7a5f3d018a3bab0e01eebf8e3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lui_dispdrv_set_draw_pixels_area_cb</definition>
+        <argsstring>(lui_dispdrv_t *dispdrv, void(*draw_pixels_area_cb)(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color))</argsstring>
+        <name>lui_dispdrv_set_draw_pixels_area_cb</name>
+        <param>
+          <type><ref refid="struct__lui__disp__drv__s" kindref="compound">lui_dispdrv_t</ref> *</type>
+          <declname>dispdrv</declname>
+        </param>
+        <param>
+          <type>void(*)(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color)</type>
+          <declname>draw_pixels_area_cb</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="1978" column="6" bodyfile="lame_ui.c" bodystart="3989" bodyend="3994" declfile="lame_ui.h" declline="1978" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="group__lui__dispdrv_1gaa2cf5623fa26babf738af3a2ef0a5fc4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lui_dispdrv_set_render_complete_cb</definition>
+        <argsstring>(lui_dispdrv_t *dispdrv, void(*render_complete_cb)())</argsstring>
+        <name>lui_dispdrv_set_render_complete_cb</name>
+        <param>
+          <type><ref refid="struct__lui__disp__drv__s" kindref="compound">lui_dispdrv_t</ref> *</type>
+          <declname>dispdrv</declname>
+        </param>
+        <param>
+          <type>void(*)()</type>
+          <declname>render_complete_cb</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="1979" column="6" bodyfile="lame_ui.c" bodystart="3996" bodyend="4001" declfile="lame_ui.h" declline="1979" declcolumn="6"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

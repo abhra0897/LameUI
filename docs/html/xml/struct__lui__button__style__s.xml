@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="struct__lui__button__style__s" kind="struct" language="C++" prot="public">
+    <compoundname>_lui_button_style_s</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct__lui__button__style__s_1a755e98f2a64caefed14f41af562ffd45" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t _lui_button_style_s::label_color</definition>
+        <argsstring></argsstring>
+        <name>label_color</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="425" column="10" bodyfile="lame_ui.h" bodystart="425" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__lui__button__style__s_1aa6749113feb337edb6e578c1fc891e89" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t _lui_button_style_s::pressed_color</definition>
+        <argsstring></argsstring>
+        <name>pressed_color</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="426" column="10" bodyfile="lame_ui.h" bodystart="426" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__lui__button__style__s_1a104b70d5cd02a3ec0783a79fc7d5f61e" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t _lui_button_style_s::selection_color</definition>
+        <argsstring></argsstring>
+        <name>selection_color</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="427" column="10" bodyfile="lame_ui.h" bodystart="427" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="lame_ui.h" line="424" column="1" bodyfile="lame_ui.h" bodystart="423" bodyend="428"/>
+    <listofallmembers>
+      <member refid="struct__lui__button__style__s_1a755e98f2a64caefed14f41af562ffd45" prot="public" virt="non-virtual"><scope>_lui_button_style_s</scope><name>label_color</name></member>
+      <member refid="struct__lui__button__style__s_1aa6749113feb337edb6e578c1fc891e89" prot="public" virt="non-virtual"><scope>_lui_button_style_s</scope><name>pressed_color</name></member>
+      <member refid="struct__lui__button__style__s_1a104b70d5cd02a3ec0783a79fc7d5f61e" prot="public" virt="non-virtual"><scope>_lui_button_style_s</scope><name>selection_color</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

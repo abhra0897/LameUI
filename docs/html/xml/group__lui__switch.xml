@@ -1,0 +1,272 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="group__lui__switch" kind="group">
+    <compoundname>lui_switch</compoundname>
+    <title>Switch API</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__lui__switch_1ga331cedddf1136c8e3b2fa0a3d1c8f9b9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="lame__ui_8h_1a5a7ccb45f639e22e43b3ac176a75dd09" kindref="member">lui_obj_t</ref> *</type>
+        <definition>lui_obj_t* lui_switch_create</definition>
+        <argsstring>()</argsstring>
+        <name>lui_switch_create</name>
+        <briefdescription>
+<para>Create a switch with initial values. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>lui_obj_t* created switch object </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="1241" column="11" bodyfile="lame_ui.c" bodystart="1232" bodyend="1264" declfile="lame_ui.h" declline="1241" declcolumn="11"/>
+      </memberdef>
+      <memberdef kind="function" id="group__lui__switch_1gafd67bf0ba01cf6c48b3f6e779a9ff95a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lui_switch_draw</definition>
+        <argsstring>(lui_obj_t *obj_swtch)</argsstring>
+        <name>lui_switch_draw</name>
+        <param>
+          <type><ref refid="lame__ui_8h_1a5a7ccb45f639e22e43b3ac176a75dd09" kindref="member">lui_obj_t</ref> *</type>
+          <declname>obj_swtch</declname>
+        </param>
+        <briefdescription>
+<para>Draw a switch object. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>obj_swtch</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>switch object </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="1248" column="6" bodyfile="lame_ui.c" bodystart="1181" bodyend="1230" declfile="lame_ui.h" declline="1248" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="group__lui__switch_1gad099ebc520d4213febf9e5e8710aaf12" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lui_switch_set_extra_colors</definition>
+        <argsstring>(lui_obj_t *obj_swtch, uint16_t knob_off_color, uint16_t knob_on_color, uint16_t selection_color)</argsstring>
+        <name>lui_switch_set_extra_colors</name>
+        <param>
+          <type><ref refid="lame__ui_8h_1a5a7ccb45f639e22e43b3ac176a75dd09" kindref="member">lui_obj_t</ref> *</type>
+          <declname>obj_swtch</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>knob_off_color</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>knob_on_color</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>selection_color</declname>
+        </param>
+        <briefdescription>
+<para>Set extra colors of switch object. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>obj_swtch</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>switch object </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>knob_off_color</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>16-bit color of knob when switch is off </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>knob_on_color</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>16-bit color of knob when switch is on </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>selection_color</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>16-bit color when switch is selected </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="1258" column="6" bodyfile="lame_ui.c" bodystart="1266" bodyend="1283" declfile="lame_ui.h" declline="1258" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="group__lui__switch_1ga0793cf720943fa01792f6bb86cb5b00c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int8_t</type>
+        <definition>int8_t lui_switch_get_value</definition>
+        <argsstring>(lui_obj_t *obj_swtch)</argsstring>
+        <name>lui_switch_get_value</name>
+        <param>
+          <type><ref refid="lame__ui_8h_1a5a7ccb45f639e22e43b3ac176a75dd09" kindref="member">lui_obj_t</ref> *</type>
+          <declname>obj_swtch</declname>
+        </param>
+        <briefdescription>
+<para>Get value of a switch. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>obj_swtch</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>switch object </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>int8_t value of switch. 0: Off, 1: On, -1: Error. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="1266" column="8" bodyfile="lame_ui.c" bodystart="1285" bodyend="1295" declfile="lame_ui.h" declline="1266" declcolumn="8"/>
+      </memberdef>
+      <memberdef kind="function" id="group__lui__switch_1gacd9eafcf927ab9af5e842f5dc31fd558" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lui_switch_set_value</definition>
+        <argsstring>(lui_obj_t *obj_swtch, uint8_t value)</argsstring>
+        <name>lui_switch_set_value</name>
+        <param>
+          <type><ref refid="lame__ui_8h_1a5a7ccb45f639e22e43b3ac176a75dd09" kindref="member">lui_obj_t</ref> *</type>
+          <declname>obj_swtch</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+<para>Set value of switch. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>obj_swtch</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>switch object </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>1: switch on, 0: switch off </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="1274" column="6" bodyfile="lame_ui.c" bodystart="1297" bodyend="1310" declfile="lame_ui.h" declline="1274" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="group__lui__switch_1ga4453c8ab068c81d45c1029a280c45e8c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lui_switch_set_on</definition>
+        <argsstring>(lui_obj_t *obj_swtch)</argsstring>
+        <name>lui_switch_set_on</name>
+        <param>
+          <type><ref refid="lame__ui_8h_1a5a7ccb45f639e22e43b3ac176a75dd09" kindref="member">lui_obj_t</ref> *</type>
+          <declname>obj_swtch</declname>
+        </param>
+        <briefdescription>
+<para>Set switch to ON (value: 1) </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>obj_swtch</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>switch object </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="1281" column="6" bodyfile="lame_ui.c" bodystart="1312" bodyend="1315" declfile="lame_ui.h" declline="1281" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="group__lui__switch_1gaeef193f35434dde5845a0132ce7f4c05" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lui_switch_set_off</definition>
+        <argsstring>(lui_obj_t *obj_swtch)</argsstring>
+        <name>lui_switch_set_off</name>
+        <param>
+          <type><ref refid="lame__ui_8h_1a5a7ccb45f639e22e43b3ac176a75dd09" kindref="member">lui_obj_t</ref> *</type>
+          <declname>obj_swtch</declname>
+        </param>
+        <briefdescription>
+<para>Set switch to OFF (value: 0) </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>obj_swtch</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>switch object </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="1288" column="6" bodyfile="lame_ui.c" bodystart="1317" bodyend="1320" declfile="lame_ui.h" declline="1288" declcolumn="6"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>API for <bold><computeroutput>switch</computeroutput></bold> widget. </para>
+    </briefdescription>
+    <detaileddescription>
+<sect2 id="group__lui__switch_1switch_example">
+<title>Example</title>
+<para><programlisting><codeline><highlight class="normal">void<sp/>switch_callback(lui_obj_t*<sp/>switch_obj)</highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>(lui_object_get_event(switch_obj)<sp/>!=<sp/>LUI_EVENT_VALUE_CHANGED)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>int8_t<sp/>value<sp/>=<sp/>lui_switch_get_value(switch_obj);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>(value<sp/>==<sp/>0)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>Switch<sp/>is<sp/>turned<sp/>off.<sp/>Do<sp/>something<sp/>now.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>else<sp/>if<sp/>(value<sp/>==<sp/>1)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>Switch<sp/>is<sp/>turned<sp/>on.<sp/>Do<sp/>something<sp/>now.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline><highlight class="normal">lui_obj_t*<sp/>my_switch<sp/>=<sp/>lui_switch_create();</highlight></codeline>
+<codeline><highlight class="normal">//<sp/>Let&apos;s<sp/>keep<sp/>the<sp/>switch<sp/>ON<sp/>by<sp/>default</highlight></codeline>
+<codeline><highlight class="normal">lui_switch_set_on(my_switch);</highlight></codeline>
+<codeline><highlight class="normal">//<sp/>Set<sp/>a<sp/>callback<sp/>function<sp/>to<sp/>do<sp/>stuffs<sp/>when<sp/>switch<sp/>is<sp/>toggled</highlight></codeline>
+<codeline><highlight class="normal">lui_object_set_callback(my_switch,<sp/>switch_callback)</highlight></codeline>
+</programlisting> </para>
+</sect2>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,10 @@
+<map id="_lui_main_s" name="_lui_main_s">
+<area shape="rect" id="node1" title=" " alt="" coords="251,216,350,243"/>
+<area shape="rect" id="node2" href="$struct__lui__disp__drv__s.html" title=" " alt="" coords="5,103,127,130"/>
+<area shape="rect" id="node3" href="$struct__lui__obj__s.html" title="Generic object datatype." alt="" coords="151,103,237,130"/>
+<area shape="rect" id="node4" href="$struct__lui__common__style__s.html" title=" " alt="" coords="113,5,275,32"/>
+<area shape="rect" id="node5" href="$structlui__font__t.html" title=" " alt="" coords="366,103,449,130"/>
+<area shape="rect" id="node6" href="$struct__lui__glyph__t.html" title=" " alt="" coords="328,5,428,32"/>
+<area shape="rect" id="node7" href="$structlui__bitmap__t.html" title=" " alt="" coords="452,5,555,32"/>
+<area shape="rect" id="node8" href="$struct__lui__touch__input__dev__s.html" title=" " alt="" coords="473,103,646,130"/>
+</map>

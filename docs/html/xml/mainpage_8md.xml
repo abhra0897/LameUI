@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="mainpage_8md" kind="file" language="Markdown">
+    <compoundname>mainpage.md</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline><highlight class="normal">#<sp/>LameUI<sp/>Documentaion</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;div<sp/>style=&quot;display:flex;<sp/>justify-content:center;<sp/>align-items:<sp/>center;<sp/>background-color:<sp/>black;<sp/>height:<sp/>180px;<sp/>border-radius:<sp/>20px;&quot;&gt;&lt;img<sp/>src=&quot;../../logo_dark_small.png&quot;<sp/>/&gt;&lt;/div&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>What?</highlight></codeline>
+<codeline><highlight class="normal">LameUI<sp/>is<sp/>a<sp/>super<sp/>simple,<sp/>platform<sp/>independent<sp/>UI<sp/>library<sp/>with<sp/>lots<sp/>and<sp/>lots<sp/>of<sp/>limitations,<sp/>designed<sp/>for<sp/>embedded<sp/>systems<sp/>with<sp/>low<sp/>resources.<sp/>Though<sp/>its<sp/>under<sp/>active<sp/>development<sp/>and<sp/>I&apos;m<sp/>trying<sp/>to<sp/>remove<sp/>those<sp/>limitations.<sp/>Even<sp/>though<sp/>I<sp/>tried<sp/>my<sp/>best<sp/>to<sp/>keep<sp/>it<sp/>light<sp/>weight,<sp/>it<sp/>became<sp/>heavier<sp/>than<sp/>I<sp/>wanted<sp/>it<sp/>to<sp/>be.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Why?</highlight></codeline>
+<codeline><highlight class="normal">Main<sp/>reason<sp/>-<sp/>to<sp/>challenge<sp/>my<sp/>skills<sp/>and<sp/>learn<sp/>new<sp/>things.<sp/>I<sp/>also<sp/>happened<sp/>to<sp/>need<sp/>a<sp/>bare-minimum<sp/>UI<sp/>library<sp/>for<sp/>my<sp/>own<sp/>project<sp/>which<sp/>I<sp/>abandoned<sp/>as<sp/>I<sp/>started<sp/>to<sp/>make<sp/>this<sp/>one<sp/>instead.<sp/>It<sp/>was<sp/>started<sp/>as<sp/>a<sp/>lockdown<sp/>project<sp/>and<sp/>soon<sp/>enough<sp/>I<sp/>abandoned<sp/>it<sp/>in<sp/>an<sp/>incomplete<sp/>state<sp/>as<sp/>I<sp/>lost<sp/>interest.<sp/>After<sp/>4<sp/>months<sp/>I<sp/>came<sp/>back<sp/>to<sp/>it<sp/>with<sp/>a<sp/>goal<sp/>to<sp/>at<sp/>least<sp/>make<sp/>it<sp/>work<sp/>once.<sp/>Future<sp/>of<sp/>this<sp/>project<sp/>is<sp/>uncertain,<sp/>but<sp/>as<sp/>long<sp/>as<sp/>it<sp/>feels<sp/>challenging,<sp/>I&apos;ll<sp/>keep<sp/>adding/fixing<sp/>stuffs.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Display<sp/>Output</highlight></codeline>
+<codeline><highlight class="normal">Drawing<sp/>to<sp/>display<sp/>is<sp/>done<sp/>by<sp/>call<sp/>back<sp/>functions<sp/>provided<sp/>by<sp/>the<sp/>user.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```C</highlight></codeline>
+<codeline><highlight class="normal">void<sp/>lui_dispdrv_set_draw_pixels_area_cb(void<sp/>(*draw_pixels_area_cb)(uint16_t<sp/>x,<sp/>uint16_t<sp/>y,<sp/>uint16_t<sp/>w,<sp/>uint16_t<sp/>h,<sp/>uint16_t<sp/>color),<sp/>lui_dispdrv_t<sp/>*dispdrv);</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">LameUI<sp/>has<sp/>no<sp/>buffer<sp/>of<sp/>its<sp/>own.<sp/>Because<sp/>it&apos;s<sp/>mainly<sp/>targetted<sp/>towards<sp/>MCUs<sp/>with<sp/>low<sp/>RAM.<sp/>As<sp/>a<sp/>result,<sp/>user<sp/>need<sp/>to<sp/>manage<sp/>buffering<sp/>if<sp/>they<sp/>need<sp/>to.<sp/>Sometimes<sp/>buffering,<sp/>and<sp/>then<sp/>flush<sp/>the<sp/>entire<sp/>buffer<sp/>is<sp/>faster<sp/>than<sp/>writing<sp/>individual<sp/>pixels<sp/>each<sp/>time</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">That&apos;s<sp/>why<sp/>LameUI<sp/>calls<sp/>`void<sp/>(*render_complete_cb)();`<sp/>when<sp/>rendering<sp/>is<sp/>complete,<sp/>given<sp/>that<sp/>user<sp/>provided<sp/>the<sp/>callback<sp/>function.<sp/>In<sp/>that<sp/>callback<sp/>function,<sp/>user<sp/>should<sp/>flush<sp/>the<sp/>buffer.<sp/>For<sp/>setting<sp/>the<sp/>callback<sp/>function,<sp/>this<sp/>function<sp/>is<sp/>used:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```C</highlight></codeline>
+<codeline><highlight class="normal">void<sp/>lui_dispdrv_set_render_complete_cb(void<sp/>(*render_complete_cb)(),<sp/>lui_dispdrv_t<sp/>*dispdrv)</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Note:<sp/>Commonly<sp/>available<sp/>lcd<sp/>displays<sp/>that<sp/>we<sp/>use<sp/>with<sp/>microcontrollers<sp/>have<sp/>built-in<sp/>GRAM,<sp/>hence,<sp/>the<sp/>`render_complete_cb()`<sp/>is<sp/>not<sp/>mandatory<sp/>for<sp/>them.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Read<sp/>Inputs</highlight></codeline>
+<codeline><highlight class="normal">LameUI<sp/>now<sp/>only<sp/>supports<sp/>touch<sp/>input.<sp/>Support<sp/>for<sp/>D-Pad<sp/>/<sp/>Rotary<sp/>encoder<sp/>is<sp/>in<sp/>my<sp/>mind,<sp/>but<sp/>that&apos;s<sp/>not<sp/>the<sp/>priority<sp/>for<sp/>now.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```C</highlight></codeline>
+<codeline><highlight class="normal">1.<sp/>void<sp/>lui_touch_inputdev_set_read_input_cb(void<sp/>(*read_touch_input_cb)(tLuiTouchInputData<sp/>*inputdata),<sp/>tLuiTouchInputDev<sp/>*inputdev);</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline></codeline>
+    </programlisting>
+    <location file="docs/mainpage.md"/>
+  </compounddef>
+</doxygen>

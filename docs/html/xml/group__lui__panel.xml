@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="group__lui__panel" kind="group">
+    <compoundname>lui_panel</compoundname>
+    <title>Panel API</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__lui__panel_1ga2235782213592f3f575f076d5afad46a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="lame__ui_8h_1a5a7ccb45f639e22e43b3ac176a75dd09" kindref="member">lui_obj_t</ref> *</type>
+        <definition>lui_obj_t* lui_panel_create</definition>
+        <argsstring>()</argsstring>
+        <name>lui_panel_create</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="1953" column="11" bodyfile="lame_ui.c" bodystart="2760" bodyend="2786" declfile="lame_ui.h" declline="1953" declcolumn="11"/>
+      </memberdef>
+      <memberdef kind="function" id="group__lui__panel_1ga5e74112373754dd1f38965450efb6700" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lui_panel_draw</definition>
+        <argsstring>(lui_obj_t *obj_panel)</argsstring>
+        <name>lui_panel_draw</name>
+        <param>
+          <type><ref refid="lame__ui_8h_1a5a7ccb45f639e22e43b3ac176a75dd09" kindref="member">lui_obj_t</ref> *</type>
+          <declname>obj_panel</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="1954" column="6" bodyfile="lame_ui.c" bodystart="2788" bodyend="2800" declfile="lame_ui.h" declline="1954" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="group__lui__panel_1ga0bb57d1ce663eb42ba5b64f05c2b83be" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lui_panel_set_bg_image</definition>
+        <argsstring>(lui_obj_t *obj_panel, const lui_bitmap_t *image)</argsstring>
+        <name>lui_panel_set_bg_image</name>
+        <param>
+          <type><ref refid="lame__ui_8h_1a5a7ccb45f639e22e43b3ac176a75dd09" kindref="member">lui_obj_t</ref> *</type>
+          <declname>obj_panel</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structlui__bitmap__t" kindref="compound">lui_bitmap_t</ref> *</type>
+          <declname>image</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="1955" column="6" declfile="lame_ui.h" declline="1955" declcolumn="6"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

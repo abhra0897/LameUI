@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="struct__lui__disp__drv__s" kind="struct" language="C++" prot="public">
+    <compoundname>_lui_disp_drv_s</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct__lui__disp__drv__s_1a7dc149b39deec5a5bc36c00c7b1c4ca0" prot="public" static="no" mutable="no">
+        <type>void(*</type>
+        <definition>void(* _lui_disp_drv_s::draw_pixels_area_cb) (uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color)</definition>
+        <argsstring>)(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color)</argsstring>
+        <name>draw_pixels_area_cb</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="680" column="1" bodyfile="lame_ui.h" bodystart="680" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__lui__disp__drv__s_1ab8555acefe2353aa44368a60a86093a8" prot="public" static="no" mutable="no">
+        <type>void(*</type>
+        <definition>void(* _lui_disp_drv_s::render_complete_cb) ()</definition>
+        <argsstring>)()</argsstring>
+        <name>render_complete_cb</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="681" column="1" bodyfile="lame_ui.h" bodystart="681" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__lui__disp__drv__s_1aaf3190a9b58a0a5ca8daf48259feaae2" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t _lui_disp_drv_s::display_hor_res</definition>
+        <argsstring></argsstring>
+        <name>display_hor_res</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="682" column="10" bodyfile="lame_ui.h" bodystart="682" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__lui__disp__drv__s_1a6fc12fa9ad746de7d02af24be6ff6d66" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t _lui_disp_drv_s::display_vert_res</definition>
+        <argsstring></argsstring>
+        <name>display_vert_res</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="683" column="10" bodyfile="lame_ui.h" bodystart="683" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="lame_ui.h" line="679" column="1" bodyfile="lame_ui.h" bodystart="678" bodyend="684"/>
+    <listofallmembers>
+      <member refid="struct__lui__disp__drv__s_1aaf3190a9b58a0a5ca8daf48259feaae2" prot="public" virt="non-virtual"><scope>_lui_disp_drv_s</scope><name>display_hor_res</name></member>
+      <member refid="struct__lui__disp__drv__s_1a6fc12fa9ad746de7d02af24be6ff6d66" prot="public" virt="non-virtual"><scope>_lui_disp_drv_s</scope><name>display_vert_res</name></member>
+      <member refid="struct__lui__disp__drv__s_1a7dc149b39deec5a5bc36c00c7b1c4ca0" prot="public" virt="non-virtual"><scope>_lui_disp_drv_s</scope><name>draw_pixels_area_cb</name></member>
+      <member refid="struct__lui__disp__drv__s_1ab8555acefe2353aa44368a60a86093a8" prot="public" virt="non-virtual"><scope>_lui_disp_drv_s</scope><name>render_complete_cb</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

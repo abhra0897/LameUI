@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="struct__lui__glyph__t" kind="struct" language="C++" prot="public">
+    <compoundname>_lui_glyph_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct__lui__glyph__t_1a8ea8c92f23daaea9ed52d475a05dee43" prot="public" static="no" mutable="no">
+        <type>const char</type>
+        <definition>const char _lui_glyph_t::character</definition>
+        <argsstring></argsstring>
+        <name>character</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="386" column="16" bodyfile="lame_ui.h" bodystart="386" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__lui__glyph__t_1ac723ca484c5ba30ed88c390fa412236e" prot="public" static="no" mutable="no">
+        <type>const uint8_t</type>
+        <definition>const uint8_t _lui_glyph_t::width</definition>
+        <argsstring></argsstring>
+        <name>width</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="387" column="19" bodyfile="lame_ui.h" bodystart="387" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__lui__glyph__t_1ad843c476c34317cc85d60ef6052ecfea" prot="public" static="no" mutable="no">
+        <type>const uint16_t</type>
+        <definition>const uint16_t _lui_glyph_t::payload_index</definition>
+        <argsstring></argsstring>
+        <name>payload_index</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="388" column="20" bodyfile="lame_ui.h" bodystart="388" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="lame_ui.h" line="385" column="1" bodyfile="lame_ui.h" bodystart="384" bodyend="389"/>
+    <listofallmembers>
+      <member refid="struct__lui__glyph__t_1a8ea8c92f23daaea9ed52d475a05dee43" prot="public" virt="non-virtual"><scope>_lui_glyph_t</scope><name>character</name></member>
+      <member refid="struct__lui__glyph__t_1ad843c476c34317cc85d60ef6052ecfea" prot="public" virt="non-virtual"><scope>_lui_glyph_t</scope><name>payload_index</name></member>
+      <member refid="struct__lui__glyph__t_1ac723ca484c5ba30ed88c390fa412236e" prot="public" virt="non-virtual"><scope>_lui_glyph_t</scope><name>width</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

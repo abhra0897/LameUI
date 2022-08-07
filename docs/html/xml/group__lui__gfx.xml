@@ -1,0 +1,297 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="group__lui__gfx" kind="group">
+    <compoundname>lui_gfx</compoundname>
+    <title>Graphics API</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__lui__gfx_1gaf84e3918864703ba0639c43978b6ea97" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lui_gfx_draw_string_advanced</definition>
+        <argsstring>(const char *str, uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t fore_color, uint16_t bg_color, uint8_t is_bg, const lui_font_t *font)</argsstring>
+        <name>lui_gfx_draw_string_advanced</name>
+        <param>
+          <type>const char *</type>
+          <declname>str</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>w</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>h</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>fore_color</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>bg_color</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>is_bg</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structlui__font__t" kindref="compound">lui_font_t</ref> *</type>
+          <declname>font</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="2009" column="6" bodyfile="lame_ui.c" bodystart="4050" bodyend="4108" declfile="lame_ui.h" declline="2009" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="group__lui__gfx_1ga34170dff54b3f4cd9fb0b5c5fd883e79" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lui_gfx_draw_string_simple</definition>
+        <argsstring>(const char *str, uint16_t x, uint16_t y, uint16_t fore_color, const lui_font_t *font)</argsstring>
+        <name>lui_gfx_draw_string_simple</name>
+        <param>
+          <type>const char *</type>
+          <declname>str</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>fore_color</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structlui__font__t" kindref="compound">lui_font_t</ref> *</type>
+          <declname>font</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="2010" column="6" bodyfile="lame_ui.c" bodystart="4110" bodyend="4113" declfile="lame_ui.h" declline="2010" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="group__lui__gfx_1ga4cb1f631c60220fe1388d8bcafab4b5e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lui_gfx_draw_char</definition>
+        <argsstring>(char c, uint16_t x, uint16_t y, uint16_t fore_color, uint16_t bg_color, uint8_t is_bg, const lui_font_t *font)</argsstring>
+        <name>lui_gfx_draw_char</name>
+        <param>
+          <type>char</type>
+          <declname>c</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>fore_color</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>bg_color</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>is_bg</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structlui__font__t" kindref="compound">lui_font_t</ref> *</type>
+          <declname>font</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="2011" column="6" bodyfile="lame_ui.c" bodystart="4115" bodyend="4121" declfile="lame_ui.h" declline="2011" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="group__lui__gfx_1gabf4a47ee478dcf930887d2b1f919133a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lui_gfx_get_string_dimension</definition>
+        <argsstring>(const char *str, const lui_font_t *font_obj, uint16_t max_w, uint16_t *str_dim)</argsstring>
+        <name>lui_gfx_get_string_dimension</name>
+        <param>
+          <type>const char *</type>
+          <declname>str</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structlui__font__t" kindref="compound">lui_font_t</ref> *</type>
+          <declname>font_obj</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>max_w</declname>
+        </param>
+        <param>
+          <type>uint16_t *</type>
+          <declname>str_dim</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="2012" column="6" bodyfile="lame_ui.c" bodystart="4190" bodyend="4234" declfile="lame_ui.h" declline="2012" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="group__lui__gfx_1gad4c604716d2df4943ac32b35fa56ac14" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lui_gfx_draw_line</definition>
+        <argsstring>(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color)</argsstring>
+        <name>lui_gfx_draw_line</name>
+        <param>
+          <type>uint16_t</type>
+          <declname>x0</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>y0</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>x1</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>y1</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>line_width</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>color</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="2013" column="6" bodyfile="lame_ui.c" bodystart="4128" bodyend="4162" declfile="lame_ui.h" declline="2013" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="group__lui__gfx_1gad91328f058c99813e23a79a0e5aed425" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lui_gfx_draw_rect</definition>
+        <argsstring>(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint8_t line_width, uint16_t color)</argsstring>
+        <name>lui_gfx_draw_rect</name>
+        <param>
+          <type>uint16_t</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>w</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>h</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>line_width</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>color</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="2014" column="6" bodyfile="lame_ui.c" bodystart="4167" bodyend="4175" declfile="lame_ui.h" declline="2014" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="group__lui__gfx_1ga85fb0f8d768116008acf2f12ee3af158" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lui_gfx_draw_rect_fill</definition>
+        <argsstring>(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color)</argsstring>
+        <name>lui_gfx_draw_rect_fill</name>
+        <param>
+          <type>uint16_t</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>w</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>h</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>color</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="2015" column="6" bodyfile="lame_ui.c" bodystart="4180" bodyend="4183" declfile="lame_ui.h" declline="2015" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="group__lui__gfx_1ga4340cdddeeb18dbcd7c0a0eb9dbcb9c7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint16_t</type>
+        <definition>uint16_t lui_rgb</definition>
+        <argsstring>(uint16_t red, uint16_t green, uint16_t blue)</argsstring>
+        <name>lui_rgb</name>
+        <param>
+          <type>uint16_t</type>
+          <declname>red</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>green</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>blue</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="2016" column="10" bodyfile="lame_ui.c" bodystart="4237" bodyend="4240" declfile="lame_ui.h" declline="2016" declcolumn="10"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

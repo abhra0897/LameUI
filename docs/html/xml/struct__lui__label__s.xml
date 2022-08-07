@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="struct__lui__label__s" kind="struct" language="C++" prot="public">
+    <compoundname>_lui_label_s</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct__lui__label__s_1aeecd0d32be5a008431b84c97b14b7850" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* _lui_label_s::text</definition>
+        <argsstring></argsstring>
+        <name>text</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="552" column="6" bodyfile="lame_ui.h" bodystart="552" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__lui__label__s_1a98c0e1397326264a78a780334fbe58f0" prot="public" static="no" mutable="no">
+        <type>const <ref refid="structlui__font__t" kindref="compound">lui_font_t</ref> *</type>
+        <definition>const lui_font_t* _lui_label_s::font</definition>
+        <argsstring></argsstring>
+        <name>font</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="553" column="18" bodyfile="lame_ui.h" bodystart="553" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__lui__label__s_1af4016678259364f8607fe0b61f7cd244" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="struct__lui__label__style__s" kindref="compound">_lui_label_style_s</ref></type>
+        <definition>struct _lui_label_style_s _lui_label_s::style</definition>
+        <argsstring></argsstring>
+        <name>style</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="553" column="18" bodyfile="lame_ui.h" bodystart="555" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="3">
+        <label>_lui_glyph_t</label>
+        <link refid="struct__lui__glyph__t"/>
+      </node>
+      <node id="4">
+        <label>lui_bitmap_t</label>
+        <link refid="structlui__bitmap__t"/>
+      </node>
+      <node id="5">
+        <label>_lui_label_style_s</label>
+        <link refid="struct__lui__label__style__s"/>
+      </node>
+      <node id="1">
+        <label>_lui_label_s</label>
+        <link refid="struct__lui__label__s"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>font</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>style</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>lui_font_t</label>
+        <link refid="structlui__font__t"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>glyphs</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>bitmap</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="lame_ui.h" line="551" column="1" bodyfile="lame_ui.h" bodystart="550" bodyend="556"/>
+    <listofallmembers>
+      <member refid="struct__lui__label__s_1a98c0e1397326264a78a780334fbe58f0" prot="public" virt="non-virtual"><scope>_lui_label_s</scope><name>font</name></member>
+      <member refid="struct__lui__label__s_1af4016678259364f8607fe0b61f7cd244" prot="public" virt="non-virtual"><scope>_lui_label_s</scope><name>style</name></member>
+      <member refid="struct__lui__label__s_1aeecd0d32be5a008431b84c97b14b7850" prot="public" virt="non-virtual"><scope>_lui_label_s</scope><name>text</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

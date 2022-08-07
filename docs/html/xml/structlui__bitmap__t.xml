@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="structlui__bitmap__t" kind="struct" language="C++" prot="public">
+    <compoundname>lui_bitmap_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structlui__bitmap__t_1afc67fcea7e580bfa17e0e16c04974174" prot="public" static="no" mutable="no">
+        <type>const uint16_t</type>
+        <definition>const uint16_t lui_bitmap_t::size_x</definition>
+        <argsstring></argsstring>
+        <name>size_x</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="378" column="20" bodyfile="lame_ui.h" bodystart="378" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlui__bitmap__t_1aea41540babc6ec3c0d962b907dd985b4" prot="public" static="no" mutable="no">
+        <type>const uint16_t</type>
+        <definition>const uint16_t lui_bitmap_t::size_y</definition>
+        <argsstring></argsstring>
+        <name>size_y</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="379" column="20" bodyfile="lame_ui.h" bodystart="379" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structlui__bitmap__t_1ae25aa9bb2544527999a79ee83b0a873e" prot="public" static="no" mutable="no">
+        <type>const uint8_t *const</type>
+        <definition>const uint8_t* const lui_bitmap_t::payload</definition>
+        <argsstring></argsstring>
+        <name>payload</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="380" column="26" bodyfile="lame_ui.h" bodystart="380" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="lame_ui.h" line="377" column="1" bodyfile="lame_ui.h" bodystart="376" bodyend="381"/>
+    <listofallmembers>
+      <member refid="structlui__bitmap__t_1ae25aa9bb2544527999a79ee83b0a873e" prot="public" virt="non-virtual"><scope>lui_bitmap_t</scope><name>payload</name></member>
+      <member refid="structlui__bitmap__t_1afc67fcea7e580bfa17e0e16c04974174" prot="public" virt="non-virtual"><scope>lui_bitmap_t</scope><name>size_x</name></member>
+      <member refid="structlui__bitmap__t_1aea41540babc6ec3c0d962b907dd985b4" prot="public" virt="non-virtual"><scope>lui_bitmap_t</scope><name>size_y</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

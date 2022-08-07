@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="group__LUI__KEYBOARD__MODE" kind="group">
+    <compoundname>LUI_KEYBOARD_MODE</compoundname>
+    <title>Keyboard modes</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__LUI__KEYBOARD__MODE_1ga53cf1a061af12c998702ac1dc8c6ffca" prot="public" static="no">
+        <name>LUI_KEYBOARD_MODE_TXT_LOWER</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>lowercase text mode </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="322" column="9" bodyfile="lame_ui.h" bodystart="322" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__LUI__KEYBOARD__MODE_1ga6c7dfef998e05b11ae2bcfdb5af32f27" prot="public" static="no">
+        <name>LUI_KEYBOARD_MODE_TXT_UPPER</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>UPPERCASE TEXT MODE. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="323" column="9" bodyfile="lame_ui.h" bodystart="323" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__LUI__KEYBOARD__MODE_1gaf40e758476c4dacde5c9c79dd265e7eb" prot="public" static="no">
+        <name>LUI_KEYBOARD_MODE_TXT_SPCL</name>
+        <initializer>3</initializer>
+        <briefdescription>
+<para>$pec!a1 charac+er m0d3; </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="324" column="9" bodyfile="lame_ui.h" bodystart="324" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Keyboard modes of LameUI. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

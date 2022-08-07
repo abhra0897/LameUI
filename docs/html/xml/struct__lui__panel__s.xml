@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="struct__lui__panel__s" kind="struct" language="C++" prot="public">
+    <compoundname>_lui_panel_s</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct__lui__panel__s_1a3cff19765b091fe90e375f075b37620f" prot="public" static="no" mutable="no">
+        <type><ref refid="structlui__bitmap__t" kindref="compound">lui_bitmap_t</ref> *</type>
+        <definition>lui_bitmap_t* _lui_panel_s::bg_image</definition>
+        <argsstring></argsstring>
+        <name>bg_image</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="658" column="14" bodyfile="lame_ui.h" bodystart="658" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>lui_bitmap_t</label>
+        <link refid="structlui__bitmap__t"/>
+      </node>
+      <node id="1">
+        <label>_lui_panel_s</label>
+        <link refid="struct__lui__panel__s"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>bg_image</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="lame_ui.h" line="657" column="1" bodyfile="lame_ui.h" bodystart="656" bodyend="659"/>
+    <listofallmembers>
+      <member refid="struct__lui__panel__s_1a3cff19765b091fe90e375f075b37620f" prot="public" virt="non-virtual"><scope>_lui_panel_s</scope><name>bg_image</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

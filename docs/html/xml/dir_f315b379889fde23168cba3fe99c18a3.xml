@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="dir_f315b379889fde23168cba3fe99c18a3" kind="dir">
+    <compoundname>fonts</compoundname>
+    <innerfile refid="akshar__light__32_8c">akshar_light_32.c</innerfile>
+    <innerfile refid="akshar__light__32_8h">akshar_light_32.h</innerfile>
+    <innerfile refid="montserrat__regular__17_8c">montserrat_regular_17.c</innerfile>
+    <innerfile refid="montserrat__regular__17_8h">montserrat_regular_17.h</innerfile>
+    <innerfile refid="montserrat__regular__32_8c">montserrat_regular_32.c</innerfile>
+    <innerfile refid="montserrat__regular__32_8h">montserrat_regular_32.h</innerfile>
+    <innerfile refid="ubuntu__regular__17_8c">ubuntu_regular_17.c</innerfile>
+    <innerfile refid="ubuntu__regular__17_8h">ubuntu_regular_17.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="fonts/"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,328 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="group__lui__slider" kind="group">
+    <compoundname>lui_slider</compoundname>
+    <title>Slider API</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__lui__slider_1ga358faa44037147a07840905d98def2ab" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="lame__ui_8h_1a5a7ccb45f639e22e43b3ac176a75dd09" kindref="member">lui_obj_t</ref> *</type>
+        <definition>lui_obj_t* lui_slider_create</definition>
+        <argsstring>()</argsstring>
+        <name>lui_slider_create</name>
+        <briefdescription>
+<para>Create a slider object with initial values. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>lui_obj_t* created slider object </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="1410" column="11" bodyfile="lame_ui.c" bodystart="1530" bodyend="1566" declfile="lame_ui.h" declline="1410" declcolumn="11"/>
+      </memberdef>
+      <memberdef kind="function" id="group__lui__slider_1ga89456da8b3d00d85366cd97a68ea6ef2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lui_slider_draw</definition>
+        <argsstring>(lui_obj_t *obj_slider)</argsstring>
+        <name>lui_slider_draw</name>
+        <param>
+          <type><ref refid="lame__ui_8h_1a5a7ccb45f639e22e43b3ac176a75dd09" kindref="member">lui_obj_t</ref> *</type>
+          <declname>obj_slider</declname>
+        </param>
+        <briefdescription>
+<para>Draw slider object. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>obj_slider</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>slider object </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="1417" column="6" bodyfile="lame_ui.c" bodystart="1493" bodyend="1528" declfile="lame_ui.h" declline="1417" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="group__lui__slider_1ga695e69ff0ae901a26aeebbfa467e6ffd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lui_slider_set_extra_colors</definition>
+        <argsstring>(lui_obj_t *obj_slider, uint16_t knob_color, uint16_t bg_filled_color, uint16_t selection_color)</argsstring>
+        <name>lui_slider_set_extra_colors</name>
+        <param>
+          <type><ref refid="lame__ui_8h_1a5a7ccb45f639e22e43b3ac176a75dd09" kindref="member">lui_obj_t</ref> *</type>
+          <declname>obj_slider</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>knob_color</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>bg_filled_color</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>selection_color</declname>
+        </param>
+        <briefdescription>
+<para>Set extra colors of slider. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>obj_slider</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>slider object </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>knob_color</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>16-bit color of slider knob </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bg_filled_color</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>16-bit background color of the filled section of slider </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>selection_color</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>16-bit color of slider when it&apos;s selected (hovered) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="1427" column="6" bodyfile="lame_ui.c" bodystart="1568" bodyend="1585" declfile="lame_ui.h" declline="1427" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="group__lui__slider_1ga7b4465c8e22c0b89b2fecfbc67c07cc0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lui_slider_set_value</definition>
+        <argsstring>(lui_obj_t *obj_slider, int16_t value)</argsstring>
+        <name>lui_slider_set_value</name>
+        <param>
+          <type><ref refid="lame__ui_8h_1a5a7ccb45f639e22e43b3ac176a75dd09" kindref="member">lui_obj_t</ref> *</type>
+          <declname>obj_slider</declname>
+        </param>
+        <param>
+          <type>int16_t</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+<para>Set value of slider. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>obj_slider</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>slider object </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>value of slider </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="1435" column="6" bodyfile="lame_ui.c" bodystart="1587" bodyend="1620" declfile="lame_ui.h" declline="1435" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="group__lui__slider_1ga4134aedb43ab207c9db42606a7bb2bd1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lui_slider_set_range</definition>
+        <argsstring>(lui_obj_t *obj_slider, int16_t range_min, int16_t range_max)</argsstring>
+        <name>lui_slider_set_range</name>
+        <param>
+          <type><ref refid="lame__ui_8h_1a5a7ccb45f639e22e43b3ac176a75dd09" kindref="member">lui_obj_t</ref> *</type>
+          <declname>obj_slider</declname>
+        </param>
+        <param>
+          <type>int16_t</type>
+          <declname>range_min</declname>
+        </param>
+        <param>
+          <type>int16_t</type>
+          <declname>range_max</declname>
+        </param>
+        <briefdescription>
+<para>Set minimum and maximum values of slider. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>obj_slider</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>slider object </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>range_min</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>minimum value of slider </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>range_max</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>maximum value of slider </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="1444" column="6" bodyfile="lame_ui.c" bodystart="1622" bodyend="1646" declfile="lame_ui.h" declline="1444" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="group__lui__slider_1gaf2d084b05fbbcce0d315fc70420709ab" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int16_t</type>
+        <definition>int16_t lui_slider_get_value</definition>
+        <argsstring>(lui_obj_t *obj_slider)</argsstring>
+        <name>lui_slider_get_value</name>
+        <param>
+          <type><ref refid="lame__ui_8h_1a5a7ccb45f639e22e43b3ac176a75dd09" kindref="member">lui_obj_t</ref> *</type>
+          <declname>obj_slider</declname>
+        </param>
+        <briefdescription>
+<para>Get value of slider. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>obj_slider</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>slider object </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>int16_t value of slider </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="1452" column="9" bodyfile="lame_ui.c" bodystart="1648" bodyend="1658" declfile="lame_ui.h" declline="1452" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="group__lui__slider_1ga6d2b4a71de9a68d2575d1572f71fbcb3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int16_t</type>
+        <definition>int16_t lui_slider_get_min_value</definition>
+        <argsstring>(lui_obj_t *obj_slider)</argsstring>
+        <name>lui_slider_get_min_value</name>
+        <param>
+          <type><ref refid="lame__ui_8h_1a5a7ccb45f639e22e43b3ac176a75dd09" kindref="member">lui_obj_t</ref> *</type>
+          <declname>obj_slider</declname>
+        </param>
+        <briefdescription>
+<para>Get minimum value of slider&apos;s range. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>obj_slider</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>slider object </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>int16_t minimum value of slider </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="1460" column="9" bodyfile="lame_ui.c" bodystart="1660" bodyend="1671" declfile="lame_ui.h" declline="1460" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="group__lui__slider_1ga9a0709df634fac8694c67c91fe18d64c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int16_t</type>
+        <definition>int16_t lui_slider_get_max_value</definition>
+        <argsstring>(lui_obj_t *obj_slider)</argsstring>
+        <name>lui_slider_get_max_value</name>
+        <param>
+          <type><ref refid="lame__ui_8h_1a5a7ccb45f639e22e43b3ac176a75dd09" kindref="member">lui_obj_t</ref> *</type>
+          <declname>obj_slider</declname>
+        </param>
+        <briefdescription>
+<para>Get maximum value of slider&apos;s range. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>obj_slider</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>slider object </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>int16_t maximum value of slider </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="1468" column="9" bodyfile="lame_ui.c" bodystart="1673" bodyend="1684" declfile="lame_ui.h" declline="1468" declcolumn="9"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>API for <bold><computeroutput>slider</computeroutput></bold> widget. </para>
+    </briefdescription>
+    <detaileddescription>
+<sect2 id="group__lui__slider_1slider_example">
+<title>Example</title>
+<para><programlisting><codeline><highlight class="normal">void<sp/>slider_event_handler_cb(lui_obj_t*<sp/>obj)</highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>(lui_object_get_event(obj)<sp/>==<sp/>LUI_EVENT_VALUE_CHANGED)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int16_t<sp/>val<sp/>=<sp/>lui_slider_get_value(obj);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>Do<sp/>something<sp/>with<sp/>this<sp/>value..</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>Create<sp/>a<sp/>slider<sp/>object</highlight></codeline>
+<codeline><highlight class="normal">slider_led_brightness<sp/>=<sp/>lui_slider_create();</highlight></codeline>
+<codeline><highlight class="normal">//<sp/>Setting<sp/>slider&apos;s<sp/>area<sp/>is<sp/>important</highlight></codeline>
+<codeline><highlight class="normal">lui_object_set_area(slider_led_brightness,<sp/>160,<sp/>20);</highlight></codeline>
+<codeline><highlight class="normal">//<sp/>Set<sp/>range<sp/>of<sp/>slider<sp/>0-255</highlight></codeline>
+<codeline><highlight class="normal">lui_slider_set_range(slider_led_brightness,<sp/>0,<sp/>255);</highlight></codeline>
+<codeline><highlight class="normal">//<sp/>Set<sp/>default<sp/>value<sp/>of<sp/>slider</highlight></codeline>
+<codeline><highlight class="normal">lui_slider_set_value(slider_led_brightness,<sp/>50);</highlight></codeline>
+<codeline><highlight class="normal">//<sp/>Set<sp/>callback<sp/>function<sp/></highlight></codeline>
+<codeline><highlight class="normal">lui_object_set_callback(slider_led_brightness,<sp/>slider_event_handler_cb);</highlight></codeline>
+</programlisting> </para>
+</sect2>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

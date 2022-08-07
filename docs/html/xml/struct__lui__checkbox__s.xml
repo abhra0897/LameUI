@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="struct__lui__checkbox__s" kind="struct" language="C++" prot="public">
+    <compoundname>_lui_checkbox_s</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct__lui__checkbox__s_1a0a3e30a255ff25290294c392ec8be07f" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="struct__lui__checkbox__style__s" kindref="compound">_lui_checkbox_style_s</ref></type>
+        <definition>struct _lui_checkbox_style_s _lui_checkbox_s::style</definition>
+        <argsstring></argsstring>
+        <name>style</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="565" column="18" bodyfile="lame_ui.h" bodystart="583" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>_lui_checkbox_style_s</label>
+        <link refid="struct__lui__checkbox__style__s"/>
+      </node>
+      <node id="1">
+        <label>_lui_checkbox_s</label>
+        <link refid="struct__lui__checkbox__s"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>style</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="lame_ui.h" line="582" column="1" bodyfile="lame_ui.h" bodystart="581" bodyend="584"/>
+    <listofallmembers>
+      <member refid="struct__lui__checkbox__s_1a0a3e30a255ff25290294c392ec8be07f" prot="public" virt="non-virtual"><scope>_lui_checkbox_s</scope><name>style</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

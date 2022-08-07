@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="struct__lui__checkbox__style__s" kind="struct" language="C++" prot="public">
+    <compoundname>_lui_checkbox_style_s</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct__lui__checkbox__style__s_1a33e2ff31ffe81163892439a072c5fd10" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t _lui_checkbox_style_s::tick_color</definition>
+        <argsstring></argsstring>
+        <name>tick_color</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="442" column="10" bodyfile="lame_ui.h" bodystart="442" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__lui__checkbox__style__s_1a879eab6f9aaee0f204beb4457ecbdb98" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t _lui_checkbox_style_s::bg_checked_color</definition>
+        <argsstring></argsstring>
+        <name>bg_checked_color</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="443" column="10" bodyfile="lame_ui.h" bodystart="443" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__lui__checkbox__style__s_1a0af0c9d51144181d6a62abf60d989a3b" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t _lui_checkbox_style_s::selection_color</definition>
+        <argsstring></argsstring>
+        <name>selection_color</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="444" column="10" bodyfile="lame_ui.h" bodystart="444" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="lame_ui.h" line="441" column="1" bodyfile="lame_ui.h" bodystart="440" bodyend="445"/>
+    <listofallmembers>
+      <member refid="struct__lui__checkbox__style__s_1a879eab6f9aaee0f204beb4457ecbdb98" prot="public" virt="non-virtual"><scope>_lui_checkbox_style_s</scope><name>bg_checked_color</name></member>
+      <member refid="struct__lui__checkbox__style__s_1a0af0c9d51144181d6a62abf60d989a3b" prot="public" virt="non-virtual"><scope>_lui_checkbox_style_s</scope><name>selection_color</name></member>
+      <member refid="struct__lui__checkbox__style__s_1a33e2ff31ffe81163892439a072c5fd10" prot="public" virt="non-virtual"><scope>_lui_checkbox_style_s</scope><name>tick_color</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="struct__lui__touch__input__dev__s" kind="struct" language="C++" prot="public">
+    <compoundname>_lui_touch_input_dev_s</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct__lui__touch__input__dev__s_1a99402d637738327ffb3be47f21809524" prot="public" static="no" mutable="no">
+        <type>void(*</type>
+        <definition>void(* _lui_touch_input_dev_s::read_touch_input_cb) (lui_touch_input_data_t *input)</definition>
+        <argsstring>)(lui_touch_input_data_t *input)</argsstring>
+        <name>read_touch_input_cb</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="688" column="1" bodyfile="lame_ui.h" bodystart="688" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="lame_ui.h" line="687" column="1" bodyfile="lame_ui.h" bodystart="686" bodyend="690"/>
+    <listofallmembers>
+      <member refid="struct__lui__touch__input__dev__s_1a99402d637738327ffb3be47f21809524" prot="public" virt="non-virtual"><scope>_lui_touch_input_dev_s</scope><name>read_touch_input_cb</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

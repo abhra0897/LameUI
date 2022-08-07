@@ -1,0 +1,291 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="struct__lui__obj__s" kind="struct" language="C++" prot="public">
+    <compoundname>_lui_obj_s</compoundname>
+    <includes refid="lame__ui_8h" local="no">lame_ui.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct__lui__obj__s_1ad7a868063071869e6cc22a4d101b6027" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t _lui_obj_s::x</definition>
+        <argsstring></argsstring>
+        <name>x</name>
+        <briefdescription>
+<para>Horizontal position (px) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="502" column="10" bodyfile="lame_ui.h" bodystart="502" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__lui__obj__s_1a4689dc7b32cb884320a97586bf196756" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t _lui_obj_s::y</definition>
+        <argsstring></argsstring>
+        <name>y</name>
+        <briefdescription>
+<para>Vertical position (px) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="503" column="10" bodyfile="lame_ui.h" bodystart="503" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__lui__obj__s_1a9dfaeda34c9badfe4eb4d8ab932b6e7d" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t _lui_obj_s::layer</definition>
+        <argsstring></argsstring>
+        <name>layer</name>
+        <briefdescription>
+<para>Rendering layer (0 - 128) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="504" column="9" bodyfile="lame_ui.h" bodystart="504" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__lui__obj__s_1ad3fbc73ce05f3af7629d93e0570a76ee" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="struct__lui__common__style__s" kindref="compound">_lui_common_style_s</ref></type>
+        <definition>struct _lui_common_style_s _lui_obj_s::common_style</definition>
+        <argsstring></argsstring>
+        <name>common_style</name>
+        <briefdescription>
+<para>Common style properties of objects. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="504" column="9" bodyfile="lame_ui.h" bodystart="505" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__lui__obj__s_1a7ad39f75f19d3cb6a7654d8a567da9d5" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t _lui_obj_s::state</definition>
+        <argsstring></argsstring>
+        <name>state</name>
+        <briefdescription>
+<para>Input state. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="506" column="9" bodyfile="lame_ui.h" bodystart="506" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__lui__obj__s_1a6649137425629eda7875c3585ed82e4b" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t _lui_obj_s::event</definition>
+        <argsstring></argsstring>
+        <name>event</name>
+        <briefdescription>
+<para>Input event. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="507" column="9" bodyfile="lame_ui.h" bodystart="507" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__lui__obj__s_1aaac41856f181c09296e9bd8520dcef87" prot="public" static="no" mutable="no">
+        <type>int32_t</type>
+        <definition>int32_t _lui_obj_s::value</definition>
+        <argsstring></argsstring>
+        <name>value</name>
+        <briefdescription>
+<para>User defined value. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="508" column="9" bodyfile="lame_ui.h" bodystart="508" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__lui__obj__s_1ab35767e8fc0a0194b7ef0a0d9b013c5b" prot="public" static="no" mutable="no">
+        <type>void(*</type>
+        <definition>void(* _lui_obj_s::obj_event_cb) (struct _lui_obj_s *obj)</definition>
+        <argsstring>)(struct _lui_obj_s *obj)</argsstring>
+        <name>obj_event_cb</name>
+        <briefdescription>
+<para>Input event callback function. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="509" column="1" bodyfile="lame_ui.h" bodystart="509" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__lui__obj__s_1a275f11482198c4928ff046afc2d12d75" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t _lui_obj_s::needs_refresh</definition>
+        <argsstring></argsstring>
+        <name>needs_refresh</name>
+        <briefdescription>
+<para>Object refresh flag. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="511" column="9" bodyfile="lame_ui.h" bodystart="511" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__lui__obj__s_1ae1f763ddc000c579b9b320d1fdb45ceb" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t _lui_obj_s::visible</definition>
+        <argsstring></argsstring>
+        <name>visible</name>
+        <briefdescription>
+<para>Object visibility flag. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="512" column="9" bodyfile="lame_ui.h" bodystart="512" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__lui__obj__s_1aac174797628f2d476bf12a3dd6891acb" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t _lui_obj_s::enabled</definition>
+        <argsstring></argsstring>
+        <name>enabled</name>
+        <briefdescription>
+<para>Object input enable flag. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="513" column="9" bodyfile="lame_ui.h" bodystart="513" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__lui__obj__s_1a09286cf82c6438f979d6cffe1950d857" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t _lui_obj_s::obj_type</definition>
+        <argsstring></argsstring>
+        <name>obj_type</name>
+        <briefdescription>
+<para>Object type. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="514" column="9" bodyfile="lame_ui.h" bodystart="514" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__lui__obj__s_1aea0b9cd28f1ba903d648623c857d2e95" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="struct__lui__obj__s" kindref="compound">_lui_obj_s</ref> *</type>
+        <definition>struct _lui_obj_s* _lui_obj_s::parent</definition>
+        <argsstring></argsstring>
+        <name>parent</name>
+        <briefdescription>
+<para>Parent of object. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="515" column="18" bodyfile="lame_ui.h" bodystart="515" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__lui__obj__s_1a631dc168ea34ee24e0a7ad5bdcc234b0" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t _lui_obj_s::children_count</definition>
+        <argsstring></argsstring>
+        <name>children_count</name>
+        <briefdescription>
+<para>Object&apos;s children count. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="516" column="9" bodyfile="lame_ui.h" bodystart="516" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__lui__obj__s_1a5c23ab35ec3102b85427725c724e3389" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="struct__lui__obj__s" kindref="compound">_lui_obj_s</ref> *</type>
+        <definition>struct _lui_obj_s* _lui_obj_s::first_child</definition>
+        <argsstring></argsstring>
+        <name>first_child</name>
+        <briefdescription>
+<para>First child of object. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="517" column="18" bodyfile="lame_ui.h" bodystart="517" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__lui__obj__s_1a7296c2b24aebeac0fe07f3aad9f3ba84" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="struct__lui__obj__s" kindref="compound">_lui_obj_s</ref> *</type>
+        <definition>struct _lui_obj_s* _lui_obj_s::next_sibling</definition>
+        <argsstring></argsstring>
+        <name>next_sibling</name>
+        <briefdescription>
+<para>Next sibling of object. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="518" column="18" bodyfile="lame_ui.h" bodystart="518" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__lui__obj__s_1a119055db688819a2caf7b79c62d8a75c" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* _lui_obj_s::obj_main_data</definition>
+        <argsstring></argsstring>
+        <name>obj_main_data</name>
+        <briefdescription>
+<para>Main (extended) data of the object. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="520" column="6" bodyfile="lame_ui.h" bodystart="520" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Generic object datatype. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>lui_obj_t contains all the common data of objects along with address of the extended data as per the type of the object </para>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>_lui_obj_s</label>
+        <link refid="struct__lui__obj__s"/>
+        <childnode refid="1" relation="usage">
+          <edgelabel>first_child</edgelabel>
+          <edgelabel>next_sibling</edgelabel>
+          <edgelabel>parent</edgelabel>
+        </childnode>
+        <childnode refid="2" relation="usage">
+          <edgelabel>common_style</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>_lui_common_style_s</label>
+        <link refid="struct__lui__common__style__s"/>
+      </node>
+    </collaborationgraph>
+    <location file="lame_ui.h" line="501" column="1" bodyfile="lame_ui.h" bodystart="500" bodyend="521"/>
+    <listofallmembers>
+      <member refid="struct__lui__obj__s_1a631dc168ea34ee24e0a7ad5bdcc234b0" prot="public" virt="non-virtual"><scope>_lui_obj_s</scope><name>children_count</name></member>
+      <member refid="struct__lui__obj__s_1ad3fbc73ce05f3af7629d93e0570a76ee" prot="public" virt="non-virtual"><scope>_lui_obj_s</scope><name>common_style</name></member>
+      <member refid="struct__lui__obj__s_1aac174797628f2d476bf12a3dd6891acb" prot="public" virt="non-virtual"><scope>_lui_obj_s</scope><name>enabled</name></member>
+      <member refid="struct__lui__obj__s_1a6649137425629eda7875c3585ed82e4b" prot="public" virt="non-virtual"><scope>_lui_obj_s</scope><name>event</name></member>
+      <member refid="struct__lui__obj__s_1a5c23ab35ec3102b85427725c724e3389" prot="public" virt="non-virtual"><scope>_lui_obj_s</scope><name>first_child</name></member>
+      <member refid="struct__lui__obj__s_1a9dfaeda34c9badfe4eb4d8ab932b6e7d" prot="public" virt="non-virtual"><scope>_lui_obj_s</scope><name>layer</name></member>
+      <member refid="struct__lui__obj__s_1a275f11482198c4928ff046afc2d12d75" prot="public" virt="non-virtual"><scope>_lui_obj_s</scope><name>needs_refresh</name></member>
+      <member refid="struct__lui__obj__s_1a7296c2b24aebeac0fe07f3aad9f3ba84" prot="public" virt="non-virtual"><scope>_lui_obj_s</scope><name>next_sibling</name></member>
+      <member refid="struct__lui__obj__s_1ab35767e8fc0a0194b7ef0a0d9b013c5b" prot="public" virt="non-virtual"><scope>_lui_obj_s</scope><name>obj_event_cb</name></member>
+      <member refid="struct__lui__obj__s_1a119055db688819a2caf7b79c62d8a75c" prot="public" virt="non-virtual"><scope>_lui_obj_s</scope><name>obj_main_data</name></member>
+      <member refid="struct__lui__obj__s_1a09286cf82c6438f979d6cffe1950d857" prot="public" virt="non-virtual"><scope>_lui_obj_s</scope><name>obj_type</name></member>
+      <member refid="struct__lui__obj__s_1aea0b9cd28f1ba903d648623c857d2e95" prot="public" virt="non-virtual"><scope>_lui_obj_s</scope><name>parent</name></member>
+      <member refid="struct__lui__obj__s_1a7ad39f75f19d3cb6a7654d8a567da9d5" prot="public" virt="non-virtual"><scope>_lui_obj_s</scope><name>state</name></member>
+      <member refid="struct__lui__obj__s_1aaac41856f181c09296e9bd8520dcef87" prot="public" virt="non-virtual"><scope>_lui_obj_s</scope><name>value</name></member>
+      <member refid="struct__lui__obj__s_1ae1f763ddc000c579b9b320d1fdb45ceb" prot="public" virt="non-virtual"><scope>_lui_obj_s</scope><name>visible</name></member>
+      <member refid="struct__lui__obj__s_1ad7a868063071869e6cc22a4d101b6027" prot="public" virt="non-virtual"><scope>_lui_obj_s</scope><name>x</name></member>
+      <member refid="struct__lui__obj__s_1a4689dc7b32cb884320a97586bf196756" prot="public" virt="non-virtual"><scope>_lui_obj_s</scope><name>y</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

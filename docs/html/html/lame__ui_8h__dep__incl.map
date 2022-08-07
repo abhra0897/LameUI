@@ -1,0 +1,8 @@
+<map id="lame_ui.h" name="lame_ui.h">
+<area shape="rect" id="node1" title="One and only header file for LameUI library." alt="" coords="513,5,600,32"/>
+<area shape="rect" id="node2" href="$akshar__light__32_8h_source.html" title=" " alt="" coords="5,80,180,107"/>
+<area shape="rect" id="node3" href="$montserrat__regular__17_8h_source.html" title=" " alt="" coords="205,80,423,107"/>
+<area shape="rect" id="node4" href="$montserrat__regular__32_8h_source.html" title=" " alt="" coords="447,80,666,107"/>
+<area shape="rect" id="node5" href="$ubuntu__regular__17_8h_source.html" title=" " alt="" coords="690,80,882,107"/>
+<area shape="rect" id="node6" href="$lame__ui_8c.html" title="Source FIle of LameUI GUI library. Must include lame_ui.h. No other file is mandatory." alt="" coords="906,80,991,107"/>
+</map>
