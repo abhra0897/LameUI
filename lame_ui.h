@@ -34,17 +34,17 @@
 /* Now select which widgets to use. This helps to save Flash 	*/
 /* Below, comment out the object that you don't want to use.	*/
 /* Unused objects won't compile and save some flash				*/
-//#define LUI_USE_LINECHART
-//#define LUI_USE_SWITCH
-//#define LUI_USE_CHECKBOX
-//#define LUI_USE_SLIDER
-//#define LUI_USE_LIST
-//#define LUI_USE_PANEL
+#define LUI_USE_LINECHART
+#define LUI_USE_SWITCH
+#define LUI_USE_CHECKBOX
+#define LUI_USE_SLIDER
+#define LUI_USE_LIST
+#define LUI_USE_PANEL
 #define LUI_USE_TEXTBOX
 #define LUI_USE_BUTTONGRID
-//#if defined(LUI_USE_BUTTONGRID)
+#if defined(LUI_USE_BUTTONGRID)
 	#define LUI_USE_KEYBOARD	/* To use keyboard, buttongrid must be used */
-//#endif
+#endif
 
 
 /*--------------------------------------------
@@ -356,11 +356,11 @@
 
 
 
-#define _LUI_BTNGRID_MASK_BTN_IS_DISABLED	0x40
-#define _LUI_BTNGRID_MASK_BTN_IS_HIDDEN		0x20
-#define _LUI_BTNGRID_MASK_BTN_IS_CHECKABLE	0x10
-#define _LUI_BTNGRID_MASK_BTN_IS_CHECKED	0x80
-#define _LUI_BTNGRID_MASK_BTN_WIDTH_UNIT	0x0F
+#define LUI_BTNGRID_MASK_BTN_DISABLED	0x40
+#define LUI_BTNGRID_MASK_BTN_HIDDEN		0x20
+#define LUI_BTNGRID_MASK_BTN_CHECKABLE	0x10
+#define LUI_BTNGRID_MASK_BTN_CHECKED		0x80
+#define LUI_BTNGRID_MASK_BTN_WIDTH_UNIT		0x0F
 
 
 #pragma pack(push, 1)
@@ -693,7 +693,7 @@ typedef struct _lui_touch_input_dev_s
 typedef struct _lui_main_s
 {
 	//lui_obj_t* scenes[LUI_MAX_SCENES];
-	lui_font_t* default_font;
+	const lui_font_t* default_font;
 	lui_obj_t* active_scene;
 	lui_obj_t* active_obj;
 	lui_dispdrv_t* disp_drv;
@@ -1623,23 +1623,293 @@ void _lui_list_add_button_obj(lui_obj_t* obj_list, lui_obj_t* obj_btn);
 #if defined(LUI_USE_BUTTONGRID)
 /**
  * @defgroup lui_btngrid Buttongrid widget API
+ * 
+ * API for <b><tt>buttongrid</tt></b> widget
+ * 
+ * <tt>buttongrid</tt> is a grid of buttons. It's way more effcient than adding
+ * individual button objects to forma grid/matrix. For example, if we need 20
+ * buttons in a 5x4 grid, creating 20 individual button objects will take lots of
+ * RAM. Rather using a 5x4 buttongrid will only create a single object and saves
+ * RAM significantly.
+ * 
+ * Practical examples of buttongrid are qwerty keyboards, numpads etc..
+ * 
+ * @subsection buttongrid_example1 Example 1
+ * Let's create a simple numpad using buttongrid.
+ * @code
+ * lui_obj_t* numpad = lui_btngrid_create();
+ * // Setting buttongrid area is important. Else items won't be properly rendered
+ * lui_object_set_area(numpad, 200, 200);
+ * 
+ * // Text map of the numpad
+ * const char* numpad_txt_map[] =
+ * {
+ *     "7", "8", "9", "\n",
+ *     "4", "5", "6", "\n",
+ *     "1", "2", "3", "\n",
+ *     "0", "00", ".", "\n",
+ *     "+", "-", "=", "\0"
+ * };
+ * 
+ * // Property map. Notice how the "=" button has twice the width of "+" and "-".
+ * const uint8_t numpad_property_map[] =
+ * {
+ *     1, 1, 1,
+ *     1, 1, 1,
+ *     1, 1, 1,
+ *     1, 1, 1,
+ *     1, 1, 2
+ * };
+ * 
+ * lui_btngrid_set_textmap(numpad, numpad_txt_map);
+ * lui_btngrid_set_propertymap(numpad, numpad_property_map);
+ * 
+ * lui_btngrid_set_btn_margin(numpad, 5, 5);
+ * @endcode
+ * 
+ * @subsection buttongrid_example2 Example 2
+ * Let's create a simple control panel and use most of the features of buttongrid.
+ * Also we'll see how to use callback for buttongrid.
+ * @code
+ * void controlpanel_callback(lui_obj_t* ctrlpanel_btngrid)
+ * {
+ *     // Get index of the pressed button
+ *     int active_btn_index = lui_btngrid_get_acive_btn_index(ctrlpanel_btngrid);
+ *     if (active_btn_index == -1)	return;
+ *     // Get text of the button
+ *     const char* btn_txt = lui_btngrid_get_btn_text(ctrlpanel_btngrid, active_btn_index);
+ *     if (txt == NULL)	return;
+ *     
+ *     // We can check which button is pressed either by its index or by its text.
+ *     // In this example we'll use text of the button.
+ * 
+ *     if (strcmp(txt, "Motor 1") == 0)
+ *     {
+ *         // Do something with motor 1
+ *     }
+ *     else if (strcmp(txt, "Fan 1") == 0)
+ *     {
+ *         // Do something with fan 1
+ *     }
+ *     else if (strcmp(txt, "Clr T1") == 0)
+ *     {
+ *         // This button is checkable. So, get its check status.
+ * 
+ *         int8_t clr_T1_status = lui_btngrid_get_btn_check_status(ctrlpanel_btngrid, active_btn_index);
+ *         if (clr_T1_status == 1)
+ *         {
+ *             // Checked, do something
+ *         }
+ *         else if (clr_T1_status == 0)
+ *         {
+ *             // Unchecked, do something else
+ *         }
+ *         else
+ *         {
+ *             // Error, return
+ *             return;
+ *         }
+ *     }
+ * 
+ *     //... Check other buttons too ....
+ * }
+ * 
+ * lui_obj_t* controlpanel = lui_btngrid_create();
+ * // Setting buttongrid area is important. Else items won't be properly rendered
+ * lui_object_set_area(controlpanel, 300, 200);
+ * 
+ * // Text map of the controlpanel
+ * const char* controlpanel_txt_map[] =
+ * {
+ *     "Motor 1", "Fan 1", "Heater L1", "Heater L2" "\n",
+ *     "Clr T1", "Clr T2","Ring A", "Ring B", "\n",
+ *     "X", "Y", "Z", "Stop", "\n",
+ *     "-", "+", "\0"
+ * };
+ * 
+ * // Property map. 2 buttons are set checkable and 1 button is disabled
+ * const uint8_t controlpanel_property_map[] =
+ * {
+ *     1, 1, 1, 1,
+ *     1|LUI_BTNGRID_MASK_BTN_CHECKABLE, 1|LUI_BTNGRID_MASK_BTN_CHECKABLE, 1, 1,
+ *     1, 1, 1,
+ *     1, 1, 1, 3|LUI_BTNGRID_MASK_BTN_DISABLED,
+ *     1, 1, 2
+ * };
+ * 
+ * lui_btngrid_set_textmap(controlpanel, controlpanel_txt_map);
+ * lui_btngrid_set_propertymap(controlpanel,controlpanel_property_map);
+ * 
+ * lui_btngrid_set_btn_margin(controlpanel, 2, 5);
+ * lui_object_set_callback(controlpanel, controlpanel_callback);
+ * 
+ * @endcode
  * @{
  */
+
+/**
+ * @brief Create a buttongrid with initial values
+ * 
+ * @return lui_obj_t* created buttongrid object
+ */
 lui_obj_t* lui_btngrid_create();
+
+/**
+ * @brief Draw a buttongrid
+ * 
+ * @param obj buttongrid object
+ */
 void lui_btngrid_draw(lui_obj_t* obj);
+
+/**
+ * @brief Set texts of all buttons as a map. The grid is created based on this
+ * text map. Each item in the array makes a column and `\n` (newline) cretaes
+ * a row. The text map's last item must be a `\0`. This marks the end of the grid
+ * 
+ * @param obj buttongrid object
+ * @param texts array of strings to be used as text map.
+ */
 void lui_btngrid_set_textmap(lui_obj_t* obj, const char* texts[]);
+
+/**
+ * @brief Set properties of all buttons as a map.
+ * 
+ * Each item in the array is a 8-bit value denoting various properties of a 
+ * button of the buttongrid. The size of array must be same as the number of 
+ * buttons in the button grid.The structure of a property byte is as follows:
+ * 
+ * | Bit | Meaning              | Value                                            |
+ * |-----|----------------------|--------------------------------------------------|
+ * | 7   | Is button checked?   | 0: Unchecked, <br>1: Checked                     |
+ * | 6   | Is button disabled?  | 0: NOT disabled (i.e., Enabled), <br>1: Disabled |
+ * | 5   | Is button hidden?    | 0: NOT hidden (i.e., visible), <br>1: Hidden     |
+ * | 4   | Is button checkable? | 0: NOT checkable, <br>1: Checkable               |
+ * | 3:0 | Button width unit    | 1-15, <br>Setting it to 0 has no effect          |
+ * 
+ * Example: To make a checkable button with 3 unit width and to set it to `checked` 
+ * status, property byte should be: (1 << 7) | (1 << 4) | 3
+ * 
+ * @param obj buttongrid object
+ * @param properties array of property bytes
+ */
 void lui_btngrid_set_propertymap(lui_obj_t* obj, const uint8_t properties[]);
+
+/**
+ * @brief Set property byte (8 bits) of a particular button in a buttongrid.
+ * 
+ * Also see: @ref lui_btngrid_set_propertymap()
+ * 
+ * @param obj buttongrid object
+ * @param btn_index index of the button whose property is being set
+ * @param property_byte 8-bit property value
+ */
 void lui_btngrid_set_btn_property_bits(lui_obj_t* obj, uint16_t btn_index, uint8_t property_byte);
+
+/**
+ * @brief Set text of a particular button in a buttongrid.
+ * 
+ * @param obj buttongrid object
+ * @param btn_index index of the button whose text is being set
+ * @param text text of the button
+ */
 void lui_btngrid_set_btn_text(lui_obj_t* obj, uint8_t btn_index, char* text);
+
+/**
+ * @brief Get text of a particular button in a buttongrid
+ * 
+ * @param obj buttongrid object
+ * @param btn_index index of the button
+ * @return const char* text of the button
+ */
+const char* lui_btngrid_get_btn_text(lui_obj_t* obj, uint16_t btn_index);
+
+/**
+ * @brief Set the width unit of a particular button in a buttongrid
+ * 
+ * @param obj buttongrid object
+ * @param btn_index index of the button whose width unit is being set
+ * @param width_unit width unit. Range is 1-15
+ */
 void lui_btngrid_set_btn_width_unit(lui_obj_t* obj, uint16_t btn_index, uint8_t width_unit);
+
+/**
+ * @brief Hide/unhide a particular button in the buttongrid
+ * 
+ * @param obj buttongrid object
+ * @param btn_index index of the button
+ * @param hidden 0: Visible, 1: Hidden
+ */
 void lui_btngrid_set_btn_hidden(lui_obj_t* obj, uint16_t btn_index, uint8_t hidden);
+
+/**
+ * @brief Set if a particular button is checkable or not
+ * 
+ * @param obj buttongrid object
+ * @param btn_index index of the button
+ * @param checkable 0: NOT checkable, 1: Checkable
+ */
 void lui_btngrid_set_btn_checkable(lui_obj_t* obj, uint16_t btn_index, uint8_t checkable);
+
+/**
+ * @brief Set the check status of a particular button in button grid
+ * 
+ * @param obj buttongrid object
+ * @param btn_index index of the button
+ * @param checked 0: NOT checked, 1: Checked
+ */
 void lui_btngrid_set_btn_checked(lui_obj_t* obj, uint16_t btn_index, uint8_t checked);
+
+/**
+ * @brief Get the index of currently active button, i.e., the button which has
+ * the input.
+ * 
+ * @param obj buttongrid object
+ * @return int16_t Index of active button. -1 if error.
+ */
 int16_t lui_btngrid_get_acive_btn_index(lui_obj_t* obj);
+
+/**
+ * @brief Get the check status of a particular button in button grid
+ * 
+ * @param obj buttongrid object
+ * @param btn_index index of the button
+ * @return int8_t Check status. 0: NOT checked, 1: Checked, -1: Error
+ */
 int8_t lui_btngrid_get_btn_check_status(lui_obj_t* obj, uint8_t btn_index);
+
+/**
+ * @brief Set font of button grid text
+ * 
+ * @param obj buttongrid object
+ * @param font font object
+ */
 void lui_btngrid_set_font(lui_obj_t* obj, const lui_font_t* font);
+
+/**
+ * @brief Set extra colors of button grid
+ * 
+ * @param obj buttongrid object
+ * @param btn_color 16-bit color of button
+ * @param label_color 16-bit color of button texts
+ * @param btn_pressed_color 16-bit color of pressed buttons
+ */
 void lui_btngrid_set_extra_colors(lui_obj_t* obj, uint16_t btn_color, uint16_t label_color, uint16_t btn_pressed_color);
+
+/**
+ * @brief Set margin of buttons in a button grid
+ * 
+ * @param obj buttongrid object
+ * @param margin_x margin in X axis
+ * @param margin_y margin in Y axis
+ */
 void lui_btngrid_set_btn_margin(lui_obj_t* obj, uint8_t margin_x, uint16_t margin_y);
+
+/**
+ * @private
+ * @brief Calculate buttongrid area
+ * 
+ * @param obj buttongrid object
+ */
 void _lui_btngrid_calc_btn_area(lui_obj_t* obj);
 /**@}*/
 #endif
@@ -1729,7 +1999,7 @@ lui_obj_t* _lui_scan_all_obj_for_input(lui_touch_input_data_t* touch_input_data,
 lui_obj_t* _lui_scan_individual_object_for_input(lui_touch_input_data_t* touch_input_data, lui_obj_t* obj);
 void _lui_set_obj_props_on_touch_input(lui_touch_input_data_t* input_data, lui_obj_t* obj);
 uint8_t _lui_check_if_active_obj_touch_input(lui_touch_input_data_t* input_data, lui_obj_t* obj);
-lui_font_t* _lui_get_font_from_active_scene();
+const lui_font_t* _lui_get_font_from_active_scene();
 uint8_t _lui_get_event_against_state(uint8_t new_state, uint8_t old_state);
 
 /**
@@ -1745,7 +2015,7 @@ void lui_gfx_draw_rect(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint8_t l
 void lui_gfx_draw_rect_fill(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color);
 uint16_t lui_rgb(uint16_t red, uint16_t green, uint16_t blue);
 /**@}*/
-_lui_glyph_t* _lui_gfx_get_glyph_from_char(char c, const lui_font_t* font);
+const _lui_glyph_t* _lui_gfx_get_glyph_from_char(char c, const lui_font_t* font);
 void _lui_gfx_render_char_glyph(uint16_t x, uint16_t y, uint16_t fore_color, uint16_t bg_color, uint8_t is_bg, const _lui_glyph_t* glyph, const lui_font_t* font);
 void _lui_gfx_plot_line_low(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color);
 void _lui_gfx_plot_line_high(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color);
