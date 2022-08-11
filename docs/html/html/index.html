@@ -105,28 +105,285 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 <div class="title">LameUI Documentaion </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><div style="display:flex; justify-content:center; align-items: center; background-color: black; height: 180px; border-radius: 20px;"><img src="../../logo_dark_small.png" alt="" class="inline"/></div><h1><a class="anchor" id="autotoc_md1"></a>
-What?</h1>
-<p>LameUI is a super simple, platform independent UI library with lots and lots of limitations, designed for embedded systems with low resources. Though its under active development and I'm trying to remove those limitations. Even though I tried my best to keep it light weight, it became heavier than I wanted it to be.</p>
-<h1><a class="anchor" id="autotoc_md2"></a>
-Why?</h1>
-<p>Main reason - to challenge my skills and learn new things. I also happened to need a bare-minimum UI library for my own project which I abandoned as I started to make this one instead. It was started as a lockdown project and soon enough I abandoned it in an incomplete state as I lost interest. After 4 months I came back to it with a goal to at least make it work once. Future of this project is uncertain, but as long as it feels challenging, I'll keep adding/fixing stuffs.</p>
-<h1><a class="anchor" id="autotoc_md3"></a>
-Display Output</h1>
-<p>Drawing to display is done by call back functions provided by the user.</p>
-<div class="fragment"><div class="line"><span class="keywordtype">void</span> lui_dispdrv_set_draw_pixels_area_cb(<span class="keywordtype">void</span> (*draw_pixels_area_cb)(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color), <a class="code" href="struct__lui__disp__drv__s.html">lui_dispdrv_t</a> *dispdrv);</div>
-</div><!-- fragment --><p>LameUI has no buffer of its own. Because it's mainly targetted towards MCUs with low RAM. As a result, user need to manage buffering if they need to. Sometimes buffering, and then flush the entire buffer is faster than writing individual pixels each time</p>
-<p>That's why LameUI calls <code>void (*render_complete_cb)();</code> when rendering is complete, given that user provided the callback function. In that callback function, user should flush the buffer. For setting the callback function, this function is used:</p>
-<div class="fragment"><div class="line"><span class="keywordtype">void</span> lui_dispdrv_set_render_complete_cb(<span class="keywordtype">void</span> (*render_complete_cb)(), <a class="code" href="struct__lui__disp__drv__s.html">lui_dispdrv_t</a> *dispdrv)</div>
-</div><!-- fragment --><p>Note: Commonly available lcd displays that we use with microcontrollers have built-in GRAM, hence, the <code>render_complete_cb()</code> is not mandatory for them.</p>
+<div class="textblock"><div style="display:flex; justify-content:center; align-items: center; background-color: black; height: 180px; border-radius: 20px;"><img src="../../logo_dark_small.png" alt="" class="inline"/></div><h2><a class="anchor" id="autotoc_md1"></a>
+What?</h2>
+<p>LameUI is a super simple, platform independent UI library with lots of limitations, designed for embedded systems with low resources. It's under active development and I'm trying to add more features. Two important goals of LameUI are:</p><ul>
+<li>Be lightweight</li>
+<li>Use minimum number of files</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md2"></a>
+Why?</h2>
+<p>Main reason - to challenge my skills and learn new things. It was started as a lockdown project and soon enough I abandoned it in an incomplete state as I lost interest. After 4 months I came back to it with a goal to at least make it work once. Future of this project is uncertain, but as long as it feels challenging, I'll keep adding/fixing stuffs.</p>
+<h2><a class="anchor" id="autotoc_md3"></a>
+Who?</h2>
+<p><b>Who will use it?</b> <br  />
+ Probably no one. Unless you need a very simple and very lightweight UI library.</p>
+<p><b>Who is/are developing it?</b> <br  />
+ I, alone.</p>
 <h1><a class="anchor" id="autotoc_md4"></a>
-Read Inputs</h1>
+UI Elements</h1>
+<p>Following UI elements are implemented so far:</p>
+<ol type="1">
+<li>Label</li>
+<li>Line chart</li>
+<li>Button</li>
+<li>Switch</li>
+<li>Checkbox</li>
+<li>Slider</li>
+<li>List</li>
+<li>Button grid</li>
+<li>Keyboard</li>
+<li>Textbox</li>
+<li>Panel</li>
+</ol>
+<h1><a class="anchor" id="autotoc_md5"></a>
+Usage</h1>
+<p>LameUI needs 3 callback functions from user to draw on display and read inputs. <br  />
+</p>
+<ol type="1">
+<li><code>draw_pixels_area_cb</code> to <em>Display Output</em>. (<b>Mandatory</b>)</li>
+<li><code>render_complete_cb</code> to <em>Display Output</em>. (<b>Optional</b>)</li>
+<li><code>read_touch_input_cb</code> to <em>Read Inputs</em>. (<b>Optional</b>)</li>
+</ol>
+<h2><a class="anchor" id="autotoc_md6"></a>
+Display Output</h2>
+<p><b>1. <code>draw_pixels_area_cb</code></b> <br  />
+ Drawing to display is done by callback functions provided by the user.</p>
+<div class="fragment"><div class="line"><span class="keywordtype">void</span> lui_dispdrv_set_draw_pixels_area_cb(<a class="code" href="struct__lui__disp__drv__s.html">lui_dispdrv_t</a>* dispdrv, <span class="keywordtype">void</span> (*draw_pixels_area_cb)(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color));</div>
+</div><!-- fragment --><p><b>2. <code>render_complete_cb</code></b> <br  />
+ LameUI has no frame buffer of its own. Because it's mainly targetted towards MCUs with low RAM. As a result, user need to manage buffering if they need to. Sometimes buffering, and then flushing the entire buffer is faster than writing individual pixels each time. <br  />
+</p>
+<p>That's why LameUI calls <code>void (*render_complete_cb)();</code> when rendering is complete, given that user provided the callback function. In that callback function, user should flush the buffer. This is useful when user is buffering the draw calls. <br  />
+</p>
+<p>For setting the callback function, this function is used:</p>
+<div class="fragment"><div class="line"><span class="keywordtype">void</span> lui_dispdrv_set_render_complete_cb(<a class="code" href="struct__lui__disp__drv__s.html">lui_dispdrv_t</a>* dispdrv, <span class="keywordtype">void</span> (*render_complete_cb)());</div>
+</div><!-- fragment --><p>Note: Commonly available lcd displays that we use with microcontrollers have built-in GRAM, hence, the <code>render_complete_cb()</code> is not mandatory for them.</p>
+<h2><a class="anchor" id="autotoc_md7"></a>
+Read Inputs</h2>
+<p><b>3. <code>read_touch_input_cb</code></b> <br  />
+</p>
 <p>LameUI now only supports touch input. Support for D-Pad / Rotary encoder is in my mind, but that's not the priority for now.</p>
-<div class="fragment"><div class="line">1. <span class="keywordtype">void</span> lui_touch_inputdev_set_read_input_cb(<span class="keywordtype">void</span> (*read_touch_input_cb)(tLuiTouchInputData *inputdata), tLuiTouchInputDev *inputdev);</div>
+<div class="fragment"><div class="line"><span class="keywordtype">void</span> lui_touch_inputdev_set_read_input_cb(<a class="code" href="struct__lui__touch__input__dev__s.html">lui_touch_input_dev_t</a>* touch_inputdev, <span class="keywordtype">void</span> (*read_touch_input_cb)(<a class="code" href="struct__lui__touch__input__data__s.html">lui_touch_input_data_t</a>* touch_inputdata));</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md8"></a>
+Quick Start</h1>
+<p>This is a samll LameUI code and then all parts are analyzed.</p>
+<div class="fragment"><div class="line"><span class="preprocessor">#include&lt;stdio.h&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &quot;<a class="code" href="lame__ui_8h.html">LameUI/lame_ui.h</a>&quot;</span></div>
+<div class="line"><span class="comment">//... other required includes ....</span></div>
+<div class="line"> </div>
+<div class="line"><span class="preprocessor">#define HOR_RES    320</span></div>
+<div class="line"><span class="preprocessor">#define VERT_RES   240</span></div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// [Mandatory] LameUI memory. Here we are giving it 2KB to work with.</span></div>
+<div class="line">uint8_t lameui_memory[2000];</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// [Optional] LameUI does NOT use display buffer. This is used only if user wants </span></div>
+<div class="line"><span class="comment">// to buffer on their own.</span></div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// Uncomment below line to enable display buffering. Buffering is handled by user and NOT by LameUI.</span></div>
+<div class="line"><span class="comment">//#define USE_BUFFERING</span></div>
+<div class="line"><span class="preprocessor">#ifdef USE_BUFERING</span></div>
+<div class="line"><span class="preprocessor">    #define DISPLAY_BUFF_SIZE    (HOR_RES * VERT_RES)   // Only full screen buffer is possible (no partial buffer)</span></div>
+<div class="line">    uint16_t display_buffer[DISPLAY_BUFF_SIZE];</div>
+<div class="line">    uint32_t display_buff_counter = 0;</div>
+<div class="line"><span class="preprocessor">#endif</span></div>
+<div class="line"> </div>
+<div class="line"> </div>
+<div class="line"><span class="comment">//----------- callback function prototypes ------------</span></div>
+<div class="line"><span class="keywordtype">void</span> my_draw_pixels_cb (uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color);</div>
+<div class="line"><span class="keywordtype">void</span> my_render_cmplt_cb();</div>
+<div class="line"><span class="keywordtype">void</span> my_input_read_cb (<a class="code" href="struct__lui__touch__input__data__s.html">lui_touch_input_data_t</a> *input);</div>
+<div class="line"><span class="keywordtype">void</span> button_1_cb(<a class="code" href="struct__lui__obj__s.html">lui_obj_t</a>* button_obj);</div>
+<div class="line"><span class="comment">//-----------------------------------------------------</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keywordtype">int</span> main ()</div>
+<div class="line">{</div>
+<div class="line">    <span class="comment">// [Mandatory] At the starting, initialize LameUI with some working memory.</span></div>
+<div class="line">    <span class="comment">// This memory is used to create objects</span></div>
+<div class="line">    lui_init(lameui_memory, <span class="keyword">sizeof</span>(lameui_memory));</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">//----------------------------------------------------------</span></div>
+<div class="line">    <span class="comment">//[Mandatory] creating display driver object</span></div>
+<div class="line">    <a class="code" href="struct__lui__disp__drv__s.html">lui_dispdrv_t</a> *my_display_driver = lui_dispdrv_create();</div>
+<div class="line">    lui_dispdrv_register(my_display_driver);</div>
+<div class="line">    lui_dispdrv_set_resolution(my_display_driver, HOR_RES, VERT_RES);</div>
+<div class="line">    lui_dispdrv_set_draw_pixels_area_cb(my_display_driver, my_draw_pixels_cb);</div>
+<div class="line">    <span class="comment">// Setting render complete callback is optional.</span></div>
+<div class="line">    <span class="comment">// Only needed if user is buffering the draw calls.</span></div>
+<div class="line"><span class="preprocessor">    #ifdef USE_BUFERING</span></div>
+<div class="line">        lui_dispdrv_set_render_complete_cb(my_display_driver, my_render_cmplt_cb);</div>
+<div class="line"><span class="preprocessor">    #endif</span></div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">//[Optional] creating input device object</span></div>
+<div class="line">    <a class="code" href="struct__lui__touch__input__dev__s.html">lui_touch_input_dev_t</a> *my_input_device = lui_touch_inputdev_create();</div>
+<div class="line">    lui_touch_inputdev_register(my_input_device);</div>
+<div class="line">    lui_touch_inputdev_set_read_input_cb(my_input_device, my_input_read_cb);    </div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">//----------------------------------------------------------</span></div>
+<div class="line">    <span class="comment">//[Mandatory] create and add a scene</span></div>
+<div class="line">    <span class="comment">// There must be at least one scene. It is at the top of the hierarchy. All </span></div>
+<div class="line">    <span class="comment">// other objects will be under the hierarchy of a scene. There can be multiple </span></div>
+<div class="line">    <span class="comment">// scenes. A particular object can be under only one scene at a time.</span></div>
+<div class="line">    <a class="code" href="struct__lui__obj__s.html">lui_obj_t</a>* scene_1 = lui_scene_create();</div>
+<div class="line">    <span class="comment">// [Mandatory] A scene must be set as active scene. Only the active scene</span></div>
+<div class="line">    <span class="comment">// is rendered.</span></div>
+<div class="line">    lui_scene_set_active(scene_1);</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// Create a label</span></div>
+<div class="line">    <a class="code" href="struct__lui__obj__s.html">lui_obj_t</a>* label_1 = <a class="code" href="group__lui__label.html#ga83cc1ae5b6c0601af8614574e019e8f8">lui_label_create</a>();</div>
+<div class="line">    <span class="comment">// [Mandatory] An object must have a parent which is either a `scene` or a </span></div>
+<div class="line">    <span class="comment">// descendent of `scene`.</span></div>
+<div class="line">    <a class="code" href="group__lui__object.html#ga0d71d83d0757cfbafd9308689e41aaf2">lui_object_add_to_parent</a>(label_1, scene_1);</div>
+<div class="line">    <a class="code" href="group__lui__object.html#gaf7bedc873edb862f9c1f8b063f17f839">lui_object_set_position</a>(label_1, 5, 50);</div>
+<div class="line">    <a class="code" href="group__lui__label.html#ga45528354a67fe65f23435338f970ba33">lui_label_set_text</a>(label_1, <span class="stringliteral">&quot;This is Label 1. Below is Button 1&quot;</span>);</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// Create a button</span></div>
+<div class="line">    <a class="code" href="struct__lui__obj__s.html">lui_obj_t</a>* button_1 = <a class="code" href="group__lui__button.html#gae3764b62e449b19e779892553ef6ed67">lui_button_create</a>();</div>
+<div class="line">    <span class="comment">// [Mandatory] Add a parent</span></div>
+<div class="line">    <a class="code" href="group__lui__object.html#ga0d71d83d0757cfbafd9308689e41aaf2">lui_object_add_to_parent</a>(button_1, scene_1);</div>
+<div class="line">    <a class="code" href="group__lui__object.html#gaed4bb7d9c2764c6786708535fad7cf67">lui_object_set_area</a>(button_1, 110, 40);</div>
+<div class="line">    <a class="code" href="group__lui__object.html#gaf7bedc873edb862f9c1f8b063f17f839">lui_object_set_position</a>(button_1, 65, 100);</div>
+<div class="line">    <a class="code" href="group__lui__button.html#gaec9c0f394998052cbc800530f69f3a97">lui_button_set_label_text</a>(button_1, <span class="stringliteral">&quot;Button 1&quot;</span>);</div>
+<div class="line">    <a class="code" href="group__lui__object.html#gae9d2e2e1998f2603a3a6d24d08b5b64e">lui_object_set_callback</a>(button_1, button_1_cb);</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">while</span> (1)</div>
+<div class="line">    {</div>
+<div class="line">        <span class="comment">// LameUI has no built-in timer. So, update LameUI periodically.</span></div>
+<div class="line">        <span class="comment">// lui_update() function reads inputs, checks if anything needs to be drawn, and fires callbacks if and when needed.</span></div>
+<div class="line">        lui_update();</div>
+<div class="line">        sleep_ms(30);</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">return</span> 0;</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">//----------- callback function definitions ------------</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keywordtype">void</span> my_draw_pixels_cb (uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint16_t color)</div>
+<div class="line">{</div>
+<div class="line">    <span class="comment">// Assuming user has at least one of these functions:</span></div>
+<div class="line">    <span class="comment">// 1. display_put_pixel(x, y, color);    // Draw a single pixel</span></div>
+<div class="line">    <span class="comment">// 2. display_put_pixels(x1, y1, x2, y2, color)    // Fill an area with same color</span></div>
+<div class="line">    <span class="comment">// 3. display_fill(color_buffer, x1, y1, x2, y2);    // Fill an area with diffrent colors from a buffer</span></div>
+<div class="line"> </div>
+<div class="line"> </div>
+<div class="line"><span class="preprocessor">    #ifdef USE_BUFERING</span></div>
+<div class="line">        <span class="comment">// When using buffering, we&#39;ll put pixels inside a full-screen buffer.</span></div>
+<div class="line">        <span class="comment">// Fill the display with buffer when either the buffer is full, or when</span></div>
+<div class="line">        <span class="comment">// the `render_complete` callback is fired by LameUI.</span></div>
+<div class="line"> </div>
+<div class="line">        uint16_t temp_x = 0;</div>
+<div class="line">        uint16_t temp_y = 0;</div>
+<div class="line">        <span class="comment">// Prepare the display buffer</span></div>
+<div class="line">        <span class="comment">// After the loop ends, the prepared buffer is flushed</span></div>
+<div class="line">        <span class="keywordflow">for</span> (temp_y = y; temp_y &lt;= y + height - 1; temp_y++)</div>
+<div class="line">        {</div>
+<div class="line">            <span class="keywordflow">for</span> (temp_x = x; temp_x &lt;= x + width - 1; temp_x++)</div>
+<div class="line">            {</div>
+<div class="line">                display_buffer[HOR_RES * y + x] = color;</div>
+<div class="line">                </div>
+<div class="line">                <span class="comment">// increase the buffer counter</span></div>
+<div class="line">                display_buff_counter++;</div>
+<div class="line"> </div>
+<div class="line">                <span class="comment">// If size reached max buffer size, flush it now</span></div>
+<div class="line">                <span class="keywordflow">if</span> (display_buff_counter &gt;= DISPLAY_BUFF_SIZE)</div>
+<div class="line">                {</div>
+<div class="line">                    display_fill(display_buffer, 0, 0, HOR_RES, VERT_RES)   <span class="comment">// Filling an area with multiple colors from a buffer</span></div>
+<div class="line">                    display_buff_counter = 0; <span class="comment">//reset the counter</span></div>
+<div class="line">                }</div>
+<div class="line">            }</div>
+<div class="line">        }</div>
+<div class="line"> </div>
+<div class="line"><span class="preprocessor">    #else</span></div>
+<div class="line">        <span class="comment">// When not using buffering, directly draw those pixels.</span></div>
+<div class="line">        <span class="comment">// There are 2 ways. Uncomment the method user wants to use.</span></div>
+<div class="line"> </div>
+<div class="line">        <span class="comment">//------------------ [ Method 1] -----------------------------------</span></div>
+<div class="line">        <span class="comment">// Draw pixels one by 1. This is the easiest way to implement, but also slow.</span></div>
+<div class="line">        <span class="comment">//------------------------------------------------------------------</span></div>
+<div class="line">        <span class="comment">// for (uint16_t h = 0; h &lt; hright; h++)</span></div>
+<div class="line">        <span class="comment">// {</span></div>
+<div class="line">        <span class="comment">//  for (uint16_t w = 0; w &lt; width; w++)</span></div>
+<div class="line">        <span class="comment">//  {</span></div>
+<div class="line">        <span class="comment">//      display_put_pixel(x, y, color);    // Filling a single pixel with a color</span></div>
+<div class="line">        <span class="comment">//  }</span></div>
+<div class="line">        <span class="comment">// }</span></div>
+<div class="line">        </div>
+<div class="line">        <span class="comment">//------------------ [ Method 2] -----------------------------------</span></div>
+<div class="line">        <span class="comment">// Another even better way is to draw an area with same color, since most displays </span></div>
+<div class="line">        <span class="comment">// used in embedded systems support setting drawing area and then pass a color </span></div>
+<div class="line">        <span class="comment">// to fill that area. This saves rendering time.</span></div>
+<div class="line">        <span class="comment">//------------------------------------------------------------------</span></div>
+<div class="line">        display_put_pixels(x, y, x + width - 1, y + height - 1, color);    <span class="comment">// Filling an area with same color</span></div>
+<div class="line"> </div>
+<div class="line"><span class="preprocessor">    #endif</span></div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="preprocessor">#ifdef USE_BUFERING</span></div>
+<div class="line"><span class="keywordtype">void</span> my_render_cmplt_cb()</div>
+<div class="line">{</div>
+<div class="line">    display_fill(display_buffer, 0, 0, HOR_RES, VERT_RES)   <span class="comment">// display_fill(buffer, x1, y1, x2, y2)</span></div>
+<div class="line">    display_buff_counter = 0; <span class="comment">//reset the counter</span></div>
+<div class="line">}</div>
+<div class="line"><span class="preprocessor">#endif</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keywordtype">void</span> my_input_read_cb (<a class="code" href="struct__lui__touch__input__data__s.html">lui_touch_input_data_t</a> *input)</div>
+<div class="line">{</div>
+<div class="line">    <span class="comment">// Assuming that user has a function display_get_touch() that returns a `touch_data_t` variable.</span></div>
+<div class="line">    <span class="comment">// Also assuming that members of `touch_data_t` are: pressed(uint8_t), x(uint16_t), y(uint16_t).</span></div>
+<div class="line">    touch_data_t touch = display_get_touch();</div>
+<div class="line"> </div>
+<div class="line">    input-&gt;is_pressed = touch.pressed;  <span class="comment">// `touch.pressed` should be 1 if touched, 0 if not touched</span></div>
+<div class="line">    <span class="keywordflow">if</span> (input-&gt;is_pressed == 1)</div>
+<div class="line">    {</div>
+<div class="line">        input-&gt;y = touch.y;</div>
+<div class="line">        input-&gt;x = touch.x;</div>
+<div class="line">    }</div>
+<div class="line">    <span class="keywordflow">else</span></div>
+<div class="line">    {</div>
+<div class="line">        <span class="comment">// IMPORTANT: User MUST set x and y as -1 when display is NOT touched.</span></div>
+<div class="line">        input-&gt;y = -1;</div>
+<div class="line">        input-&gt;x = -1;</div>
+<div class="line">    }</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="keywordtype">void</span> button_1_cb(<a class="code" href="struct__lui__obj__s.html">lui_obj_t</a>* button_obj)</div>
+<div class="line">{</div>
+<div class="line">    <span class="comment">// Get the event of callback</span></div>
+<div class="line">    int8_t <span class="keyword">event</span> = <a class="code" href="group__lui__object.html#ga580b2bdece45808266791573d874aabb">lui_object_get_event</a>(button_obj);</div>
+<div class="line">    <span class="keywordflow">if</span> (event == -1)</div>
+<div class="line">        <span class="keywordflow">return</span>;</div>
+<div class="line">    </div>
+<div class="line">    <span class="keywordflow">if</span> (event == <a class="code" href="group__LUI__EVENT.html#gac1d4660029fe5efac27e0116e258d65d">LUI_EVENT_PRESSED</a>)</div>
+<div class="line">    {</div>
+<div class="line">        <span class="comment">// Button is pressed. Do something</span></div>
+<div class="line">        fprintf(stderr, <span class="stringliteral">&quot;Button 1 is pressed&quot;</span>);</div>
+<div class="line">    }</div>
+<div class="line">    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (event == <a class="code" href="group__LUI__EVENT.html#ga7bb839ee9510a334e4ebc1af25613d25">LUI_EVENT_RELEASED</a>)</div>
+<div class="line">    {</div>
+<div class="line">        <span class="comment">// Button is released. Do something</span></div>
+<div class="line">        fprintf(stderr, <span class="stringliteral">&quot;Button 1 is released&quot;</span>);</div>
+<div class="line">    }</div>
+<div class="line">}</div>
 </div><!-- fragment --> </div></div><!-- PageDoc -->
 </div><!-- contents -->
 </div><!-- doc-content -->
+<div class="ttc" id="astruct__lui__touch__input__dev__s_html"><div class="ttname"><a href="struct__lui__touch__input__dev__s.html">_lui_touch_input_dev_s</a></div><div class="ttdef"><b>Definition:</b> lame_ui.h:686</div></div>
+<div class="ttc" id="astruct__lui__touch__input__data__s_html"><div class="ttname"><a href="struct__lui__touch__input__data__s.html">_lui_touch_input_data_s</a></div><div class="ttdef"><b>Definition:</b> lame_ui.h:670</div></div>
+<div class="ttc" id="agroup__LUI__EVENT_html_ga7bb839ee9510a334e4ebc1af25613d25"><div class="ttname"><a href="group__LUI__EVENT.html#ga7bb839ee9510a334e4ebc1af25613d25">LUI_EVENT_RELEASED</a></div><div class="ttdeci">#define LUI_EVENT_RELEASED</div><div class="ttdoc">Object is released (object under pointing device but pointing device button is released)</div><div class="ttdef"><b>Definition:</b> lame_ui.h:288</div></div>
+<div class="ttc" id="agroup__lui__object_html_gaed4bb7d9c2764c6786708535fad7cf67"><div class="ttname"><a href="group__lui__object.html#gaed4bb7d9c2764c6786708535fad7cf67">lui_object_set_area</a></div><div class="ttdeci">void lui_object_set_area(lui_obj_t *obj, uint16_t width, uint16_t height)</div><div class="ttdoc">Set drawing area of an object.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3092</div></div>
+<div class="ttc" id="agroup__lui__object_html_gae9d2e2e1998f2603a3a6d24d08b5b64e"><div class="ttname"><a href="group__lui__object.html#gae9d2e2e1998f2603a3a6d24d08b5b64e">lui_object_set_callback</a></div><div class="ttdeci">void lui_object_set_callback(lui_obj_t *obj, void(*obj_event_cb)(lui_obj_t *))</div><div class="ttdoc">Set event call back function for input handling.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3165</div></div>
+<div class="ttc" id="astruct__lui__obj__s_html"><div class="ttname"><a href="struct__lui__obj__s.html">_lui_obj_s</a></div><div class="ttdoc">Generic object datatype.</div><div class="ttdef"><b>Definition:</b> lame_ui.h:500</div></div>
+<div class="ttc" id="agroup__lui__label_html_ga45528354a67fe65f23435338f970ba33"><div class="ttname"><a href="group__lui__label.html#ga45528354a67fe65f23435338f970ba33">lui_label_set_text</a></div><div class="ttdeci">void lui_label_set_text(lui_obj_t *obj, const char *text)</div><div class="ttdoc">Set text of a label.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:172</div></div>
+<div class="ttc" id="agroup__lui__object_html_ga580b2bdece45808266791573d874aabb"><div class="ttname"><a href="group__lui__object.html#ga580b2bdece45808266791573d874aabb">lui_object_get_event</a></div><div class="ttdeci">int8_t lui_object_get_event(lui_obj_t *obj)</div><div class="ttdoc">Get input event of an object.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3179</div></div>
+<div class="ttc" id="alame__ui_8h_html"><div class="ttname"><a href="lame__ui_8h.html">lame_ui.h</a></div><div class="ttdoc">One and only header file for LameUI library.</div></div>
+<div class="ttc" id="agroup__lui__label_html_ga83cc1ae5b6c0601af8614574e019e8f8"><div class="ttname"><a href="group__lui__label.html#ga83cc1ae5b6c0601af8614574e019e8f8">lui_label_create</a></div><div class="ttdeci">lui_obj_t * lui_label_create(void)</div><div class="ttdoc">Create a label with initial values.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:125</div></div>
+<div class="ttc" id="agroup__lui__button_html_gaec9c0f394998052cbc800530f69f3a97"><div class="ttname"><a href="group__lui__button.html#gaec9c0f394998052cbc800530f69f3a97">lui_button_set_label_text</a></div><div class="ttdeci">void lui_button_set_label_text(lui_obj_t *obj, const char *text)</div><div class="ttdoc">Set the text of the button's label.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:632</div></div>
+<div class="ttc" id="agroup__lui__object_html_gaf7bedc873edb862f9c1f8b063f17f839"><div class="ttname"><a href="group__lui__object.html#gaf7bedc873edb862f9c1f8b063f17f839">lui_object_set_position</a></div><div class="ttdeci">void lui_object_set_position(lui_obj_t *obj, uint16_t x, uint16_t y)</div><div class="ttdoc">Set position of an object.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3020</div></div>
+<div class="ttc" id="agroup__LUI__EVENT_html_gac1d4660029fe5efac27e0116e258d65d"><div class="ttname"><a href="group__LUI__EVENT.html#gac1d4660029fe5efac27e0116e258d65d">LUI_EVENT_PRESSED</a></div><div class="ttdeci">#define LUI_EVENT_PRESSED</div><div class="ttdoc">Object is pressed (object under pointing device and pointing device button is low)</div><div class="ttdef"><b>Definition:</b> lame_ui.h:287</div></div>
+<div class="ttc" id="agroup__lui__button_html_gae3764b62e449b19e779892553ef6ed67"><div class="ttname"><a href="group__lui__button.html#gae3764b62e449b19e779892553ef6ed67">lui_button_create</a></div><div class="ttdeci">lui_obj_t * lui_button_create()</div><div class="ttdoc">Create a button with initial values.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:596</div></div>
 <div class="ttc" id="astruct__lui__disp__drv__s_html"><div class="ttname"><a href="struct__lui__disp__drv__s.html">_lui_disp_drv_s</a></div><div class="ttdef"><b>Definition:</b> lame_ui.h:678</div></div>
+<div class="ttc" id="agroup__lui__object_html_ga0d71d83d0757cfbafd9308689e41aaf2"><div class="ttname"><a href="group__lui__object.html#ga0d71d83d0757cfbafd9308689e41aaf2">lui_object_add_to_parent</a></div><div class="ttdeci">void lui_object_add_to_parent(lui_obj_t *obj_child, lui_obj_t *obj_parent)</div><div class="ttdoc">Add a child object to a parent object, thus grouping them together.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:2953</div></div>
 
 	<script src="main.js"></script>
 </body>
