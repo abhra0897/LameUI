@@ -14,7 +14,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="370" column="9" bodyfile="lame_ui.h" bodystart="370" bodyend="-1"/>
+        <location file="lame_ui.h" line="220" column="9" bodyfile="lame_ui.h" bodystart="220" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct__lui__mem__block__t_1a53fdd8b58f90a989a521579300cc9b9c" prot="public" static="no" mutable="no">
         <type>uint16_t</type>
@@ -27,7 +27,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="371" column="10" bodyfile="lame_ui.h" bodystart="371" bodyend="-1"/>
+        <location file="lame_ui.h" line="221" column="10" bodyfile="lame_ui.h" bodystart="221" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct__lui__mem__block__t_1a2e5bef681af8318990150698bcf8ae83" prot="public" static="no" mutable="no">
         <type>uint16_t</type>
@@ -40,14 +40,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="372" column="14" bodyfile="lame_ui.h" bodystart="372" bodyend="-1"/>
+        <location file="lame_ui.h" line="222" column="14" bodyfile="lame_ui.h" bodystart="222" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="lame_ui.h" line="369" column="1" bodyfile="lame_ui.h" bodystart="368" bodyend="373"/>
+    <location file="lame_ui.h" line="219" column="1" bodyfile="lame_ui.h" bodystart="218" bodyend="223"/>
     <listofallmembers>
       <member refid="struct__lui__mem__block__t_1a53fdd8b58f90a989a521579300cc9b9c" prot="public" virt="non-virtual"><scope>_lui_mem_block_t</scope><name>block_max_sz</name></member>
       <member refid="struct__lui__mem__block__t_1a2e5bef681af8318990150698bcf8ae83" prot="public" virt="non-virtual"><scope>_lui_mem_block_t</scope><name>mem_allocated</name></member>

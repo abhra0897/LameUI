@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['value_343',['value',['../struct__lui__obj__s.html#aaac41856f181c09296e9bd8520dcef87',1,'_lui_obj_s']]],
-  ['visible_344',['visible',['../struct__lui__obj__s.html#ae1f763ddc000c579b9b320d1fdb45ceb',1,'_lui_obj_s']]]
+  ['state_432',['state',['../struct__lui__obj__s.html#a7ad39f75f19d3cb6a7654d8a567da9d5',1,'_lui_obj_s']]]
 ];

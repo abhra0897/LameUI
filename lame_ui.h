@@ -5,8 +5,8 @@
  * @file lame_ui.h
  * @author Avra Mitra
  * @brief One and only header file for LameUI library.
- * @version 0.1
- * @date 2022-05-28
+ * @version 1.0
+ * @date 2022-09-02
  * 
  * @copyright Copyright (c) 2022
  * 
@@ -25,241 +25,62 @@
  *--------------------------------------------
  */
 
-/* Set number of maximum objects that can be created */
-#define	LUI_MAX_OBJECTS			130
+/**
+ * @defgroup LUI_USER_CONFIG User Configuration 
+ * @brief User may change configuration using these macros. All these macros
+ * can be found in `lame_ui.h` file.
+ * @{
+ */
 
-/* Comment out OR set value to 0 for using light theme. */
-#define LUI_USE_DARK_THEME		1
 
-/* Now select which widgets to use. This helps to save Flash 	*/
-/* Below, comment out the object that you don't want to use.	*/
-/* Unused objects won't compile and save some flash				*/
-#define LUI_USE_LINECHART
-#define LUI_USE_SWITCH
-#define LUI_USE_CHECKBOX
-#define LUI_USE_SLIDER
-#define LUI_USE_LIST
-#define LUI_USE_PANEL
-#define LUI_USE_TEXTBOX
-#define LUI_USE_BUTTONGRID
+#define	LUI_MAX_OBJECTS			130	///< Set number of maximum objects that can be created
+
+#define LUI_USE_DARK_THEME		1	///<Comment out OR set value to 0 for using light theme
+
+/**
+ * @defgroup LUI_USE_OBJECT Widgets to use
+ * @brief Defines which widgets to use. Only if the relevant macro is defined,
+ * that widget will be compiled. Comment out the object that you don't want to
+ * use. This helps to save Flash.
+ * 
+ * @note Some widgets, that are not in this list, are always compiled and can
+ * not be disabled.
+ * 
+ * Also see: @ref LUI_OBJ
+ * @{
+ */
+#define LUI_USE_LINECHART			///< Compile Linechart widget
+#define LUI_USE_SWITCH				///< Compile Switch widget
+#define LUI_USE_CHECKBOX			///< Compile Checkbox widget
+#define LUI_USE_SLIDER				///< Compile Slider widget
+#define LUI_USE_LIST				///< Compile List widget
+#define LUI_USE_PANEL				///< Compile Panel widget
+#define LUI_USE_TEXTBOX				///< Compile Textbox widget
+#define LUI_USE_BUTTONGRID			///< Compile Buttongrid widget
 #if defined(LUI_USE_BUTTONGRID)
-	#define LUI_USE_KEYBOARD	/* To use keyboard, buttongrid must be used */
+	#define LUI_USE_KEYBOARD		///< Compile Keyboard  widget. (Note: To use keyboard, buttongrid must be used)
 #endif
+/**@} */
 
+/**@} */
 
 /*--------------------------------------------
- *					End
+ *					End Config
  *--------------------------------------------
  */
 
-
-#define	_LUI_R_POS_RGB   					11	// Red last bit position for RGB display
-#define	_LUI_G_POS_RGB   					5 	// Green last bit position for RGB display
-#define	_LUI_B_POS_RGB   					0	// Blue last bit position for RGB display
-
-#define	LUI_RGB(R,G,B) 					(((uint16_t)(R >> 3) << _LUI_R_POS_RGB) | \
-											((uint16_t)(G >> 2) << _LUI_G_POS_RGB) | \
-											((uint16_t)(B >> 3) << _LUI_B_POS_RGB))
+/*----------------------------------------------------
+/* ------- !!! Don't edit anything below !!! -------*/
+/*----------------------------------------------------
 
 
-/*------------------------------------------------------------------------------------
- *				Default Dark Theme. User may modify here
- *------------------------------------------------------------------------------------
+/*--------------------------------------------
+ *				Macro Definitions
+ *--------------------------------------------
  */
-/* Comment out OR set value to 0 for enabling light mode. */
-#define LUI_USE_DARK_THEME		1
-
-
-#if LUI_USE_DARK_THEME == 1
-	#define LUI_STYLE_BUTTON_LABEL_COLOR		LUI_RGB(238, 238, 238)
-	#define LUI_STYLE_BUTTON_PRESSED_COLOR		LUI_RGB(91, 160, 235)
-	#define	LUI_STYLE_BUTTON_SELECTION_COLOR	LUI_RGB(82, 143, 209)
-	#define LUI_STYLE_BUTTON_BG_COLOR			LUI_RGB(74, 129, 188)
-	#define LUI_STYLE_BUTTON_BORDER_COLOR		LUI_RGB(75, 81, 92)
-#else
-	#define LUI_STYLE_BUTTON_LABEL_COLOR		LUI_RGB(238, 238, 238)
-	#define LUI_STYLE_BUTTON_PRESSED_COLOR		LUI_RGB(91, 160, 235)
-	#define	LUI_STYLE_BUTTON_SELECTION_COLOR	LUI_RGB(82, 143, 209)
-	#define LUI_STYLE_BUTTON_BG_COLOR			LUI_RGB(74, 129, 188)
-	#define LUI_STYLE_BUTTON_BORDER_COLOR		LUI_RGB(75, 81, 92)
-#endif
-#define LUI_STYLE_BUTTON_BORDER_VISIBLE		0
-#define LUI_STYLE_BUTTON_WIDTH				40
-#define LUI_STYLE_BUTTON_HEIGHT				30
-
-#if LUI_USE_DARK_THEME == 1
-	#define LUI_STYLE_LABEL_TEXT_COLOR			LUI_RGB(238, 238, 238)
-	#define LUI_STYLE_LABEL_BG_COLOR			LUI_RGB(23, 33, 43)
-	#define LUI_STYLE_LABEL_BORDER_COLOR		LUI_RGB(74, 129, 188)
-	#define LUI_STYLE_LABEL_TEXT_COLOR			LUI_RGB(238, 238, 238)
-#else
-	#define LUI_STYLE_LABEL_TEXT_COLOR			LUI_RGB(0, 0, 0)
-	#define LUI_STYLE_LABEL_BG_COLOR			LUI_RGB(255, 255, 255)
-	#define LUI_STYLE_LABEL_BORDER_COLOR		LUI_RGB(74, 129, 188)
-#endif
-#define LUI_STYLE_LABEL_BORDER_VISIBLE		0
-#define LUI_STYLE_LABEL_WIDTH				0 /*40*/
-#define LUI_STYLE_LABEL_HEIGHT				0 /*30*/
-
-#if LUI_USE_DARK_THEME == 1
-	#define	LUI_STYLE_SWITCH_SELECTION_COLOR	LUI_RGB(0, 170, 179)
-	#define	LUI_STYLE_SWITCH_KNOB_OFF_COLOR		LUI_RGB(57, 62, 70)
-	#define	LUI_STYLE_SWITCH_KNOB_ON_COLOR		LUI_RGB(74, 129, 188)
-	#define LUI_STYLE_SWITCH_BG_COLOR			LUI_RGB(23, 33, 43)
-	#define LUI_STYLE_SWITCH_BORDER_COLOR		LUI_RGB(74, 129, 188)
-#else
-	#define	LUI_STYLE_SWITCH_SELECTION_COLOR	LUI_RGB(0, 170, 179)
-	#define	LUI_STYLE_SWITCH_KNOB_OFF_COLOR		LUI_RGB(150, 150, 150)
-	#define	LUI_STYLE_SWITCH_KNOB_ON_COLOR		LUI_RGB(74, 129, 188)
-	#define LUI_STYLE_SWITCH_BG_COLOR			LUI_RGB(255, 255, 255)
-	#define LUI_STYLE_SWITCH_BORDER_COLOR		LUI_RGB(74, 129, 188)
-#endif
-#define LUI_STYLE_SWITCH_BORDER_VISIBLE		1
-#define LUI_STYLE_SWITCH_WIDTH				40
-#define LUI_STYLE_SWITCH_HEIGHT				20
-
-#if LUI_USE_DARK_THEME == 1
-	#define	LUI_STYLE_CHECKBOX_SELECTION_COLOR	LUI_RGB(82, 143, 209)
-	#define	LUI_STYLE_CHECKBOX_TICK_COLOR		LUI_RGB(238, 238, 238)
-	#define LUI_STYLE_CHECKBOX_BG_COLOR			LUI_RGB(23, 33, 43)
-	#define LUI_STYLE_CHECKBOX_BG_CHECKED_COLOR	LUI_RGB(74, 129, 188)
-	#define LUI_STYLE_CHECKBOX_BORDER_COLOR		LUI_RGB(74, 129, 188)
-#else
-	#define	LUI_STYLE_CHECKBOX_SELECTION_COLOR	LUI_RGB(82, 143, 209)
-	#define	LUI_STYLE_CHECKBOX_TICK_COLOR		LUI_RGB(238, 238, 238)
-	#define LUI_STYLE_CHECKBOX_BG_COLOR			LUI_RGB(255, 255, 255)
-	#define LUI_STYLE_CHECKBOX_BG_CHECKED_COLOR	LUI_RGB(74, 129, 188)
-	#define LUI_STYLE_CHECKBOX_BORDER_COLOR		LUI_RGB(74, 129, 188)
-#endif
-#define LUI_STYLE_CHECKBOX_BORDER_VISIBLE	1
-#define LUI_STYLE_CHECKBOX_WIDTH			20
-#define LUI_STYLE_CHECKBOX_HEIGHT			LUI_STYLE_CHECKBOX_WIDTH
-
-#if LUI_USE_DARK_THEME == 1
-	#define	LUI_STYLE_SLIDER_SELECTION_COLOR	LUI_RGB(0, 170, 179)
-	#define	LUI_STYLE_SLIDER_KNOB_COLOR			LUI_RGB(74, 129, 188)
-	#define LUI_STYLE_SLIDER_BG_COLOR			LUI_RGB(57, 62, 70)
-	#define LUI_STYLE_SLIDER_BG_FILLED_COLOR	LUI_RGB(45, 77, 112) /*54, 94, 138*/
-	#define LUI_STYLE_SLIDER_BORDER_COLOR		LUI_RGB(74, 129, 188)
-#else
-	#define	LUI_STYLE_SLIDER_SELECTION_COLOR	LUI_RGB(0, 170, 179)
-	#define	LUI_STYLE_SLIDER_KNOB_COLOR			LUI_RGB(74, 129, 188)
-	#define LUI_STYLE_SLIDER_BG_COLOR			LUI_RGB(238, 238, 238)
-	#define LUI_STYLE_SLIDER_BG_FILLED_COLOR	LUI_RGB(45, 77, 112) /*54, 94, 138*/
-	#define LUI_STYLE_SLIDER_BORDER_COLOR		LUI_RGB(74, 129, 188)
-#endif
-#define LUI_STYLE_SLIDER_BORDER_VISIBLE		0
-#define LUI_STYLE_SLIDER_KNOB_WIDTH			20
-#define LUI_STYLE_SLIDER_WIDTH				80
-#define LUI_STYLE_SLIDER_HEIGHT				20
-
-#if LUI_USE_DARK_THEME == 1
-	#define LUI_STYLE_LINECHART_LINE_COLOR		LUI_RGB(74, 129, 188)
-	#define LUI_STYLE_LINECHART_GRID_COLOR		LUI_RGB(75, 81, 92)
-	#define LUI_STYLE_LINECHART_BG_COLOR		LUI_RGB(35, 46, 60)
-	#define LUI_STYLE_LINECHART_BORDER_COLOR	LUI_RGB(74, 129, 188)
-#else
-	#define LUI_STYLE_LINECHART_LINE_COLOR		LUI_RGB(74, 129, 188)
-	#define LUI_STYLE_LINECHART_GRID_COLOR		LUI_RGB(150, 150, 150)
-	#define LUI_STYLE_LINECHART_BG_COLOR		LUI_RGB(238, 238, 238)
-	#define LUI_STYLE_LINECHART_BORDER_COLOR	LUI_RGB(74, 129, 188)
-#endif
-#define LUI_STYLE_LINECHART_GRID_VISIBLE	1
-#define LUI_STYLE_LINECHART_BORDER_VISIBLE	1
-#define LUI_STYLE_LINECHART_WIDTH			40
-#define LUI_STYLE_LINECHART_HEIGHT			20
-
-#if LUI_USE_DARK_THEME == 1
-	#define LUI_STYLE_LIST_NAV_BG_COLOR			LUI_RGB(74, 129, 188)
-	#define LUI_STYLE_LIST_NAV_LABEL_COLOR		LUI_RGB(238, 238, 238)
-	#define LUI_STYLE_LIST_NAV_PRESSED_COLOR	LUI_RGB(91, 160, 235)
-	#define LUI_STYLE_LIST_NAV_SELECTION_COLOR	LUI_RGB(82, 143, 209)
-	#define LUI_STYLE_LIST_ITEM_BG_COLOR		LUI_RGB(57, 62, 70)
-	#define LUI_STYLE_LIST_ITEM_SELECTION_COLOR	LUI_RGB(84, 91, 102)
-	#define LUI_STYLE_LIST_ITEM_PRESSED_COLOR	LUI_RGB(109, 118, 133)
-	#define LUI_STYLE_LIST_ITEM_LABEL_COLOR		LUI_RGB(238, 238, 238)
-	#define	LUI_STYLE_LIST_ITEM_BORDER_COLOR	LUI_RGB(75, 81, 92)
-	#define LUI_STYLE_LIST_BORDER_VISIBLE		0
-#else
-	#define LUI_STYLE_LIST_NAV_BG_COLOR			LUI_RGB(74, 129, 188)
-	#define LUI_STYLE_LIST_NAV_LABEL_COLOR		LUI_RGB(238, 238, 238)
-	#define LUI_STYLE_LIST_NAV_PRESSED_COLOR	LUI_RGB(91, 160, 235)
-	#define LUI_STYLE_LIST_NAV_SELECTION_COLOR	LUI_RGB(82, 143, 209)
-	#define LUI_STYLE_LIST_ITEM_BG_COLOR		LUI_RGB(238, 238, 238)
-	#define LUI_STYLE_LIST_ITEM_SELECTION_COLOR	LUI_RGB(84, 91, 102)
-	#define LUI_STYLE_LIST_ITEM_PRESSED_COLOR	LUI_RGB(109, 118, 133)
-	#define LUI_STYLE_LIST_ITEM_LABEL_COLOR		LUI_RGB(0, 0, 0)
-	#define	LUI_STYLE_LIST_ITEM_BORDER_COLOR	LUI_RGB(75, 81, 92)
-	#define LUI_STYLE_LIST_BORDER_VISIBLE		1
-#endif
-#define LUI_STYLE_LIST_ITEM_BORDER_VISIBLE	1
-#define LUI_STYLE_LIST_ITEM_MIN_HEIGHT		30
-#define LUI_STYLE_LIST_BORDER_COLOR			LUI_RGB(74, 129, 188)
-#define LUI_STYLE_LIST_WIDTH				40
-#define LUI_STYLE_LIST_HEIGHT				60
-
-#if LUI_USE_DARK_THEME == 1
-	#define	LUI_STYLE_BTNGRID_BASE_BG_COLOR		LUI_RGB(23, 33, 43)
-	#define LUI_STYLE_BTNGRID_LABEL_COLOR		LUI_RGB(238, 238, 238)
-	#define LUI_STYLE_BTNGRID_PRESSED_COLOR		LUI_RGB(91, 160, 235)
-	#define	LUI_STYLE_BTNGRID_BG_COLOR			LUI_RGB(39, 55, 71)
-	#define	LUI_STYLE_BTNGRID_SELECTION_COLOR	LUI_RGB(82, 143, 209)
-	#define LUI_STYLE_BTNGRID_BORDER_COLOR		LUI_RGB(75, 81, 92)
-	#define LUI_STYLE_BTNGRID_BORDER_VISIBLE	0
-
-#else
-	#define	LUI_STYLE_BTNGRID_BASE_BG_COLOR		LUI_RGB(255, 255, 255)
-	#define LUI_STYLE_BTNGRID_LABEL_COLOR		LUI_RGB(0, 0, 0)
-	#define LUI_STYLE_BTNGRID_PRESSED_COLOR		LUI_RGB(91, 160, 235)
-	#define	LUI_STYLE_BTNGRID_BG_COLOR			LUI_RGB(200, 200, 200)
-	#define	LUI_STYLE_BTNGRID_SELECTION_COLOR	LUI_RGB(82, 143, 209)
-	#define LUI_STYLE_BTNGRID_BORDER_COLOR		LUI_RGB(150, 150, 150)
-	#define LUI_STYLE_BTNGRID_BORDER_VISIBLE	1
-#endif
-#define	LUI_STYLE_BTNGRID_WIDTH				300
-#define LUI_STYLE_BTNGRID_HEIGHT			180
-
-#if LUI_USE_DARK_THEME == 1
-	#define LUI_STYLE_TEXTBOX_TEXT_COLOR		LUI_RGB(238, 238, 238)
-	#define LUI_STYLE_TEXTBOX_BG_COLOR			LUI_RGB(45, 56, 70)
-	#define LUI_STYLE_TEXTBOX_BORDER_COLOR		LUI_RGB(74, 129, 188)
-#else
-	#define LUI_STYLE_TEXTBOX_TEXT_COLOR		LUI_RGB(0, 0, 0)
-	#define LUI_STYLE_TEXTBOX_BG_COLOR			LUI_RGB(255, 255, 255)
-	#define LUI_STYLE_TEXTBOX_BORDER_COLOR		LUI_RGB(74, 129, 188)
-#endif
-#define LUI_STYLE_TEXTBOX_BORDER_VISIBLE	1
-#define LUI_STYLE_TEXTBOX_WIDTH				200
-#define LUI_STYLE_TEXTBOX_HEIGHT			20
-
-#if LUI_USE_DARK_THEME == 1
-	#define LUI_STYLE_PANEL_BG_COLOR			LUI_RGB(23, 33, 43)
-	#define LUI_STYLE_PANEL_BORDER_COLOR		LUI_RGB(74, 129, 188)
-#else
-	#define LUI_STYLE_PANEL_BG_COLOR			LUI_RGB(255, 255, 255)
-	#define LUI_STYLE_PANEL_BORDER_COLOR		LUI_RGB(74, 129, 188)
-	#endif
-#define LUI_STYLE_PANEL_BORDER_VISIBLE		1
-#define LUI_STYLE_PANEL_WIDTH				100
-#define LUI_STYLE_PANEL_HEIGHT				100
-
-#if LUI_USE_DARK_THEME == 1
-	#define LUI_STYLE_SCENE_BG_COLOR			LUI_RGB(23, 33, 43)
-#else
-	#define LUI_STYLE_SCENE_BG_COLOR			LUI_RGB(255, 255, 255)
-#endif
-
-/*------------------------------------------------------------------------------------
- *									End Theme
- *------------------------------------------------------------------------------------
- */
-
-#ifndef NULL
-	#define NULL							((void* )0)
-#endif
-
 
 #define LUI_INPUT_TYPE_TOUCH				1
+// #define LUI_INPUT_TYPE_ENCODER				2
 
 /**
  * @defgroup LUI_STATE LameUI input states
@@ -324,6 +145,20 @@
 #define LUI_KEYBOARD_MODE_TXT_SPCL			3	///< $pec!a1 charac+er m0d3;
 /**@} */
 
+/**
+ * @defgroup LUI_ICONS Default built-in icons
+ * @brief These are default icons used by LameUI. Not to be modified by user.
+ * 
+ * Icons can be used with strings like this: 
+ * `char* str = LUI_ICON_ARROW_FORWARD "My Home" LUI_ICON_HOME`.
+ * Range of default icon index is 0x01 (1) to 0x1D (29). This MUST not be changed by user.
+ * User may add custom icons when creating font. 
+ * Range of user defined icons is 0x80 (128) to 0xFF (255).
+ * 
+ * Note: Range 0x20 (32) to 0x7F (127) must be kept free for ASCII characters.
+ * 
+ * @{
+ */
 #define LUI_ICON_HOME						"\x01"
 #define LUI_ICON_RELAOD						"\x02"
 #define LUI_ICON_BATTERY_HALF				"\x03"
@@ -351,17 +186,33 @@
 #define LUI_ICON_WARNING					"\x19"
 #define LUI_ICON_SETTINGS					"\x1A"
 #define LUI_ICON_ADD						"\x1B"
-#define LUI_ICON_BATTERy_DEAED				"\x1C"
+#define LUI_ICON_BATTERY_DEAED				"\x1C"
 #define LUI_ICON_STOP						"\x1D"
+/**@} */
+
+/**
+ * @defgroup LUI_BTNGRID_MASKS Buttongrid button property masks
+ * @brief Property byte masks of a buttongrid. Masks set different properties of 
+ * a button in a buttongrid.
+ * @{
+ */
+#define LUI_BTNGRID_MASK_BTN_DISABLED		0x40	///< Button disabled mask
+#define LUI_BTNGRID_MASK_BTN_HIDDEN			0x20	///< Button hidden mask
+#define LUI_BTNGRID_MASK_BTN_CHECKABLE		0x10	///< Button checkable mask
+#define LUI_BTNGRID_MASK_BTN_CHECKED		0x80	///< Button checked mask
+#define LUI_BTNGRID_MASK_BTN_WIDTH_UNIT		0x0F	///< Button width mask
+/**@} */
+
+/*--------------------------------------------
+ *				End Macro Definitions
+ *--------------------------------------------
+ */
 
 
-
-#define LUI_BTNGRID_MASK_BTN_DISABLED	0x40
-#define LUI_BTNGRID_MASK_BTN_HIDDEN		0x20
-#define LUI_BTNGRID_MASK_BTN_CHECKABLE	0x10
-#define LUI_BTNGRID_MASK_BTN_CHECKED		0x80
-#define LUI_BTNGRID_MASK_BTN_WIDTH_UNIT		0x0F
-
+/*--------------------------------------------
+ *				Typedefs and Structs
+ *--------------------------------------------
+ */
 
 #pragma pack(push, 1)
 
@@ -561,11 +412,8 @@ typedef struct _lui_button_s
 	struct
 	{
 		char* text;
-		//uint16_t color;
 		const lui_font_t* font;
 	}label;
-	//uint16_t pressed_color;
-	//uint16_t selection_color;
 	struct _lui_button_style_s style;
 }lui_button_t;
 
@@ -666,12 +514,15 @@ typedef struct _lui_scene_s
 
 }lui_scene_t;
 
-
+/**
+ * @brief Touch Input data
+ * 
+ */
 typedef struct _lui_touch_input_data_s
 {
-	uint8_t is_pressed;
-	int16_t x;
-	int16_t y;
+	uint8_t is_pressed;		///< 0: NOT pressed, 1: Pressed
+	int16_t x;				///< X position of press/touch. -1 if not Pressed/touched
+	int16_t y;				///< Y position of press/touch. -1 if not Pressed/touched
 }lui_touch_input_data_t;
 
 
@@ -707,9 +558,50 @@ typedef struct _lui_main_s
 
 #pragma pack(pop)
 
-void lui_init(uint8_t mem_block[], uint16_t size);
-void lui_update();
+/*--------------------------------------------
+ *				End Typedefs/Structs
+ *--------------------------------------------
+ */
 
+
+/*--------------------------------------------
+ *				Function Prototypes
+ *--------------------------------------------
+ */
+
+/*-------------------------------------------------------------------------------
+ * 				Init and Update functions
+ *-------------------------------------------------------------------------------
+ */
+
+/**
+ * @defgroup lui_core Initialization and UI Update API
+ * @brief These functions are used to initialize the core and to update it.
+ * - lui_init() is only called once at the very begining.
+ * - lui_update() is called periodically in an infinite loop.
+ * @{
+ */
+
+/**
+ * @brief Initialize the LameUI core. Here user provides LameUI some RAM to 
+ * create widgets. If and when RAM is not sufficient, widget ceration will fail.
+ * 
+ * @param mem_block an array of uint8_t. this will be used as work area
+ * @param size size of the alloted memory
+ */
+void lui_init(uint8_t mem_block[], uint16_t size);
+
+/**
+ * @brief This function updates the UI by reading input and rendering widgets
+ *  that need rendering.
+ * 
+ * User must call this function periodically (e.g. every 20ms) in a loop so
+ * no input event is missed. Also, LameUI renders only when widgets need
+ * rendering. So, draw calls are not wasted.
+ * 
+ */
+void lui_update();
+/**@}*/
 
 /*-------------------------------------------------------------------------------
  * 				LUI_OBJECT (generic) related functions
@@ -1917,13 +1809,107 @@ void _lui_btngrid_calc_btn_area(lui_obj_t* obj);
 #if defined(LUI_USE_KEYBOARD) && defined(LUI_USE_BUTTONGRID)
 /**
  * @defgroup lui_keyboard Keyboard widget API
+ * 
+ * API for <b><tt>Keyboard</tt></b> widget
+ * 
+ * <tt>keyboard</tt> is a special typw of <tt>buttongrid</tt>. Keyboard has 3 modes.
+ * See : @ref LUI_KEYBOARD_MODE.
+ * 
+ * Usually keyboard is used along with a <tt>textbox</tt>. See: @ref lui_textbox
+ * 
+ * Steps to use a keyboard with a textbox are:  
+ * 1. Create a keyboard object. Note: Keyboards are hidden by default.
+ * 2. Create a textbox object.
+ * 3. Create a callback function for the textbox
+ *    3.1. If event is LUI_EVENT_ENTERED, set the target keyboard for this textbox. 
+ *         This will make the keyboard visible.
+ *    3.2. If event is LUI_EVENT_EXITED, set target keyboard as NULL. This will hide
+ *         the keyboard again.
+ * 
+ * @subsection keyboard_example Example
+ * This example only creates a keyboard and links it with an existing textbox.
+ * To see a more complete example, see <tt>textbox</tt> example section. 
+ * See: @ref lui_textbox
+ * @code
+ * lui_obj_t* my_keyboard = lui_keyboard_create();
+ * // Keyboard is by default hidden. It is supposed to be made visible when a 
+ * // textbox is clicked on. But for this example, we are making it visible
+ * // manually.
+ * lui_object_set_visibility(my_keyboard. 1);
+ * 
+ * // Set the target textbox
+ * lui_keyboard_set_target_txtbox(my_keyboard. my_txtbox);
+ * @endcode
  * @{
  */
+
+/**
+ * @brief Create a keyboard object with initial values
+ * 
+ * @return lui_obj_t* Created keyboard (buttongrid) object
+ */
 lui_obj_t* lui_keyboard_create();
+
+/**
+ * @brief Get the text of a key against its index.
+ * 
+ * @param obj keyboard (buttongrid) object
+ * @param btn_index index of the key/button
+ * @return const char* text of the key
+ */
 const char* lui_keyboard_get_key_text(lui_obj_t* obj, uint8_t btn_index);
+
+/**
+ * @brief Set the operation mode of keyboard.
+ * 
+ * For allowed modes, see: @ref LUI_KEYBOARD_MODE
+ * 
+ * @param obj keyboard (buttongrid) object
+ * @param mode mode
+ */
 void lui_keyboard_set_mode(lui_obj_t* obj, uint8_t mode);
+
+/**
+ * @brief Set font of the keyboard
+ * 
+ * @param obj keyboard (buttongrid) object
+ * @param font font
+ */
 void lui_keyboard_set_font(lui_obj_t* obj, const lui_font_t* font);
+
+/**
+ * @brief Set the target textbox of the keyboard. When target textbox is set, 
+ * the keyboard becomes visible and only the target textbox receives input. 
+ * To hide the keyboard again, tap/click on the "check/ok" button on the keyboard.
+ * 
+ * @param obj_kb keyboard (buttongrid) object
+ * @param obj_txtbox textbox object
+ */
 void lui_keyboard_set_target_txtbox(lui_obj_t* obj_kb, lui_obj_t* obj_txtbox);
+
+/**
+ * @brief Keyboard callback function. This function handles all key presses.
+ * 
+ * If user needs to write their own callback for keyboard, they must call this 
+ * function from their own callback function.
+ * 
+ * <b>Example:</b>
+ * @code
+ * // User defined custom callback function for keyboard
+ * void kb_user_callback(lui_obj_t* sender)
+ * {
+ *     // Keyboard key is pressed. Do something
+ *     // ..........
+ *     // [Mandatory] After all user stuffs are done, must call lui_keyboard_sys_cb()
+ *     lui_keyboard_sys_cb(sender);
+ * }
+ * 
+ * lui_obj_t* keyboard = lui_keyboard_create();
+ * lui_object_set_callback(keyboard, kb_user_callback);
+ * @endcode
+ * 
+ * @param obj_sender sender object
+ */
 void lui_keyboard_sys_cb(lui_obj_t* obj_sender);
 /**@}*/
 #endif
@@ -1931,16 +1917,139 @@ void lui_keyboard_sys_cb(lui_obj_t* obj_sender);
 #if defined(LUI_USE_TEXTBOX)
 /**
  * @defgroup lui_textbox Textbox widget API
+ * 
+ * API for <b><tt>textbox</tt></b> widget
+
+ * Usually textbox is used along with a <tt>keyboard</tt>. See: @ref lui_keyboard
+ * 
+ * Steps to use a keyboard with a textbox are:  
+ * 1. Create a keyboard object. Note: Keyboards are hidden by default.
+ * 2. Create a textbox object.
+ * 3. Create a callback function for the textbox
+ *    3.1. If event is LUI_EVENT_ENTERED, set the target keyboard for this textbox. 
+ *         This will make the keyboard visible.
+ *    3.2. If event is LUI_EVENT_EXITED, set target keyboard as NULL. This will hide
+ *         the keyboard again.
+ * 
+ * @subsection textbox_example Example
+ * @code
+ * char txtbox_buff[50];
+ * lui_obj_t* my_keyboard;
+ * lui_obj_t* my_textbox;
+ * 
+ * // This callback is fired when user enters/exists the textbox. 
+ * // Here, we set the target textbox of the keyboard when user enters the textbox.
+ * // This unhides the keyboard and textbox will receive inputs from the textbox.
+ * // When user exits the textbox by closing the keyboard, keyboard gets hidden.
+ * void textbox_callback(lui_obj_t* obj_txtbox)
+ * {
+ *     int8_t event = lui_object_get_event(obj_txtbox);
+ *     if (event == LUI_EVENT_ENTERED)
+ *     {
+ *         lui_keyboard_set_target_txtbox(my_keyboard, my_textbox);
+ *     }
+ *     else if (event == LUI_EVENT_EXITED)
+ *     {
+ *         lui_keyboard_set_target_txtbox(my_keyboard, NULL);
+ *     }
+ * }
+ * 
+ * // Create a textbox object
+ * my_textbox = lui_textbox_create();
+ * // Important to set area of textbox.
+ * lui_object_set_area(my_textbox, 200, 40);
+ * //[Mandatory] Must set a buffer where the text will be stored
+ * lui_textbox_set_text_buffer(my_textbox, txtbox_buff, 40);
+ * // Let's set an initial string for the testbox. 
+ * // Note: the size of string does NOT include the null (\0) terminating char.
+ * lui_textbox_insert_string(my_textbox, (char*)"Hello!!", 7);
+ * //[Important] Set the callback for textbox. In this callback, we will
+ * // link/unlink this textbox with a keyboard object. That will hide/unhide
+ * // the keyboard.
+ * lui_object_set_callback(my_textbox, textbox_callback);
+ * 
+ * // Create a keyboard
+ * my_keyboard = lui_keyboard_create();
+ * // Keyboard is by default hidden. It is made visible when a 
+ * // textbox is clicked on. 
+ * @endcode
  * @{
  */
+
+/**
+ * @brief Create a textbox object with initial values
+ * 
+ * @return lui_obj_t* created textbox object
+ */
 lui_obj_t* lui_textbox_create();
+
+/**
+ * @brief Draw a textbox
+ * 
+ */
 void lui_textbox_draw();
+
+/**
+ * @brief Set the index (position) of caret (cursor) in the textbox
+ * 
+ * Text inputs are inserted at the position of caret.
+ * 
+ * @param obj textbox object
+ * @param caret_index caret index
+ */
 void lui_textbox_set_caret_index(lui_obj_t* obj, uint16_t caret_index);
+
+/**
+ * @brief Get the caret index
+ * 
+ * @param obj textbox object
+ * @return uint16_t caret index
+ */
 uint16_t lui_textbox_get_caret_index(lui_obj_t* obj);
+
+/**
+ * @brief Insert a character at the position of caret. 
+ * 
+ * This does NOT change the caret index after the insert operation.
+ * 
+ * @param obj textbox object
+ * @param c character
+ */
 void lui_textbox_insert_char(lui_obj_t* obj, char c);
+
+/**
+ * @brief Insert a string at the position of caret
+ * 
+ * This does NOT change the caret index after the insert operation.
+ * 
+ * @param obj textbox object
+ * @param str string (character array)
+ * @param len length of the string NOT including the null character
+ */
 void lui_textbox_insert_string(lui_obj_t* obj, char* str, uint16_t len);
+
+/**
+ * @brief Delete a character at the caret index. Does not work when caret is at 0
+ * 
+ * @param obj textbox object
+ */
 void lui_textbox_delete_char(lui_obj_t* obj);
+
+/**
+ * @brief Set the text buffer of a textbox. This is where the text is stored.
+ * 
+ * @param obj textbox object
+ * @param text_buffer buffer (character array)
+ * @param buff_size buffer size
+ */
 void lui_textbox_set_text_buffer(lui_obj_t* obj, char* text_buffer, uint16_t buff_size);
+
+/**
+ * @brief Set font of the textbox
+ * 
+ * @param obj textbox object
+ * @param font font object
+ */
 void lui_textbox_set_font(lui_obj_t* obj, const lui_font_t* font);
 /**@}*/
 #endif
@@ -1948,49 +2057,327 @@ void lui_textbox_set_font(lui_obj_t* obj, const lui_font_t* font);
 #if defined(LUI_USE_PANEL)
 /**
  * @defgroup lui_panel Panel widget API
+ * 
+ * API for <b><tt>panel</tt></b> widget
+ * 
+ * A panel is just a container for multiple widgets (objects). This is used for 
+ * grouping widgets together. Panels can act as parent widget and must have a 
+ * scene as its parent.
+ * 
+ * When widgets are added as children to a panel, their posions are relative to
+ * the panel. For example, assume a panel is at (X=10, Y=20) position relative to its
+ * parent scene. Now create a button and set the panel as its parent. Now, the position 
+ * of the button will be realtive to the panel. Setting the button's position to 
+ * (X=5, Y=3) means it global position actually is (X=15, Y=23).
+ * 
+ * Moving a panel to a new position also moves all its children with it. Making a panel 
+ * hidden also hides all its children with it. Scaling a panel does NOT scales its
+ * children. But if the new scale is too small to contain all its children, render
+ * result will be unpredictable.
+ * 
+ * @subsection panel_example Example
+ * @code
+ * 
+ * // Create a panel object
+ * lui_obj_t* my_panel = lui_panel_create();
+ * // Important to set area of panel.
+ * lui_object_set_area(my_panel, 320, 300);
+ * // Set position of the panel
+ * lui_object_set_position(my_panel, 10, 20);
+ * 
+ * // Create a button
+ * lui_obj_t* my_button_1 = lui_button_create();
+ * // .... [ set buttons area, text, callback etc.] ...
+ * // Now add it to the panel
+ * lui_object_add_to_parent(my_button_1, my_panel);
+ * // This position is relative to the panel
+ * lui_object_set_position(my_button_1, 5, 5);
+ * 
+ * // Create a label
+ * lui_obj_t* my_label_1 = lui_label_create();
+ * // .... [ set label text, color, area etc.] ...
+ * // Now add it to the panel
+ * lui_object_add_to_parent(my_label_1, my_panel);
+ * // This position is relative to the panel
+ * lui_object_set_position(my_label_1, 5, 35);
+ * 
+ * // ... [Keep adding more widgets under the panel] ...
+ * @endcode
+ * 
  * @{
  */
+
+/**
+ * @brief Create a panel object with initial values
+ * 
+ * @return lui_obj_t* Created panel object
+ */
 lui_obj_t* lui_panel_create();
+
+/**
+ * @brief Draw apanel
+ * 
+ * @param obj_panel panel object
+ */
 void lui_panel_draw(lui_obj_t* obj_panel);
-void lui_panel_set_bg_image(lui_obj_t* obj_panel, const lui_bitmap_t* image);
+
+// /**
+//  * @brief Set background image of the panel
+//  * 
+//  * @param obj_panel panel object
+//  * @param image image
+//  */
+// void lui_panel_set_bg_image(lui_obj_t* obj_panel, const lui_bitmap_t* image);
 /**@}*/
 #endif
 
 /**
  * @defgroup lui_scene Scene widget API
+ * 
+ * API for <b><tt>scene</tt></b> widget
+ * 
+ * Scene is the main container of all widgets. It is at the top of hierarchy.
+ * Scene has no parent and must have at least one child. All widgets must be 
+ * decendents of a scene.
+ * 
+ * An application may have multiple scenes. Only the active scene is rendered 
+ * and it is set by `lui_scene_set_active(lui_obj_t* obj_scene)` function.
+ * 
  * @{
  */
+
+/**
+ * @brief Create a scene
+ * 
+ * @return lui_obj_t* cretaed scene
+ */
 lui_obj_t* lui_scene_create();
+
+/**
+ * @brief Draw scene
+ * 
+ * @param obj_scene scene widget
+ */
 void lui_scene_draw(lui_obj_t* obj_scene);
+
+/**
+ * @brief Set the active scene. Only active scene is rendered.
+ * 
+ * @param obj_scene scene widget
+ */
 void lui_scene_set_active(lui_obj_t* obj_scene);
+
+/**
+ * @brief Get the currently active scene
+ * 
+ * @return lui_obj_t* active scene widget
+ */
 lui_obj_t* lui_scene_get_active();
-void lui_scene_set_bg_image(lui_obj_t* obj_scene, const lui_bitmap_t* image);
+
+// /**
+//  * @brief Set background bitmap image of a ascene
+//  * 
+//  * @param obj_scene scene widget
+//  * @param image image
+//  */
+// void lui_scene_set_bg_image(lui_obj_t* obj_scene, const lui_bitmap_t* image);
+
+/**
+ * @brief Set font of a scene
+ * 
+ * @param obj_scene scene widget
+ * @param font font
+ */
 void lui_scene_set_font(lui_obj_t* obj_scene, const lui_font_t* font);
 /**@}*/
 
 /**
  * @defgroup lui_dispdrv Display Driver API
+ * 
+ * API for <b><tt>display driver</tt></b> object
+ * 
+ * LameUI does NOT have its own display driver. User must supply their own functions
+ * to draw pixels on a display. The displaydriver object is a virtual driver that
+ * actually calls user supplied callback functions.
+ * 
+ * The example below is using TFT_eSPI library on Arduino framework
+ * Hardware: [MCU = ESP32, Display: ILI9341, Touch IC = XPT2046]
+ * 
+ * @subsection displaydriver_touchinput_example Example
+ * @code
+ * // This example uses TFT_eSPI library on Arduino framework
+ * // Hardware: [MCU = ESP32, Display: ILI9341, Touch IC = XPT2046]
+ * 
+ * #include <TFT_eSPI.h> // Graphics and font library for ILI9341 driver chip
+ * #include <SPI.h>
+ * // ... [ Include LameUI library and other required headers too] ...
+ * 
+ * TFT_eSPI tft = TFT_eSPI();  // Invoke library
+ * uint8_t lui_memory[4000];
+ * 
+ * void draw_pixels_area_cb(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color)
+ * {
+ *     tft.fillRect(x, y, w, h, color);
+ * }
+ * void read_touch_input_cb(lui_touch_input_data_t* inputdata)
+ * {
+ *     uint16_t x = 0, y = 0; // To store the touch coordinates
+ *     
+ *     // Pressed will be set true is there is a valid touch on the screen
+ *     bool pressed = tft.getTouch(&x, &y);
+ *     inputdata->is_pressed = pressed;
+ *     if (pressed)
+ *     {
+ *         inputdata->x = x;
+ *         inputdata->y = y;
+ *     }
+ *     else
+ *     {
+ *         inputdata->x = -1;
+ *         inputdata->y = -1;
+ *     }
+ * }
+ * 
+ * void setup(void) 
+ * {	
+ *     // Initilaize tft
+ *     tft.init();
+ *     tft.setTouch(touch_cal_data);
+ *     
+ *     // Initialize LameUI with some memory
+ *     lui_init(lui_memory, sizeof(lui_memory));
+ *     
+ *     // Create a display driver object
+ *     lui_dispdrv_t* display_driver = lui_dispdrv_create();
+ *     lui_dispdrv_register(display_driver);
+ *     lui_dispdrv_set_resolution(display_driver, 240, 320);
+ *     lui_dispdrv_set_draw_pixels_area_cb(display_driver, draw_pixels_area_cb);
+ *     lui_dispdrv_set_render_complete_cb(display_driver, NULL);
+ *     
+ *     // Create touch input device
+ *     lui_touch_input_dev_t* input_device = lui_touch_inputdev_create();
+ *     lui_touch_inputdev_register(input_device);
+ *     lui_touch_inputdev_set_read_input_cb(input_device, read_touch_input_cb);
+ *     
+ * 
+ *     // ... [Add scene (mandatory) and other widgets] ...
+ * }
+ * 
+ * void loop()
+ * {
+ *     // Must update the UI periodically
+ *     lui_update();
+ * 
+ *     // ... [Do other stuffs] ...
+ * }
+ * @endcode
+ * 
  * @{
  */
-lui_dispdrv_t* lui_dispdrv_create();
-void lui_dispdrv_register(lui_dispdrv_t* dispdrv);
-void lui_dispdrv_set_resolution(lui_dispdrv_t* dispdrv, uint16_t hor_res, uint16_t vert_res);
-void lui_dispdrv_set_draw_pixels_area_cb(lui_dispdrv_t* dispdrv, void (*draw_pixels_area_cb)(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color));
-void lui_dispdrv_set_render_complete_cb(lui_dispdrv_t* dispdrv, void (*render_complete_cb)());
-/**@}*/
-uint8_t _lui_disp_drv_check();
 
 /**
- * @defgroup lui_input Input Device API
+ * @brief Create display driver object
+ * 
+ * @return lui_dispdrv_t* created display driver
+ */
+lui_dispdrv_t* lui_dispdrv_create();
+
+/**
+ * @brief Register display driver.
+ * 
+ * @param dispdrv display driver object
+ */
+void lui_dispdrv_register(lui_dispdrv_t* dispdrv);
+
+/**
+ * @brief Set horizontal and vertical resolution of display
+ * 
+ * @param dispdrv display driver object
+ * @param hor_res horizontal resolution
+ * @param vert_res vertical resolution
+ */
+void lui_dispdrv_set_resolution(lui_dispdrv_t* dispdrv, uint16_t hor_res, uint16_t vert_res);
+
+/**
+ * @brief Set callback function for drawing an area of pixels with a color
+ * 
+ * @param dispdrv display driver object
+ * @param draw_pixels_area_cb callback function pointer
+ */
+void lui_dispdrv_set_draw_pixels_area_cb(lui_dispdrv_t* dispdrv, void (*draw_pixels_area_cb)(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color));
+
+/**
+ * @brief Set callback function for handling render complete signal. This is optional.
+ * 
+ * When rendering is completed, LameUI calls this function. It is useful if user
+ * was buffering the draw calls rather than directly drawing the pixels on display.
+ * Inside the callback functio, user must flush the buffer to display.
+ * If user was NOT buffering, then no need to use this callback.
+ * 
+ * @param dispdrv display driver object
+ * @param render_complete_cb callback function pointer
+ */
+void lui_dispdrv_set_render_complete_cb(lui_dispdrv_t* dispdrv, void (*render_complete_cb)());
+
+/**
+ * @private
+ * @brief Check if display driver and pixel drawing callback function are properly registered
+ * 
+ * @return uint8_t 0: Not registered, 1: Registered
+ */
+uint8_t _lui_disp_drv_check();
+/**@}*/
+
+/**
+ * @defgroup lui_input Touch Input Device API
+ * 
+ * API for <b><tt>touch input device</tt></b> object
+ * 
+ * LameUI does NOT have its own Touch Input driver. User must supply their own functions
+ * to read touch input. Touch input data is stored in `lui_touch_input_data_t`:
+ * ```C
+ * typedef struct _lui_touch_input_data_s
+ * {
+ * 	uint8_t is_pressed;
+ * 	int16_t x;
+ * 	int16_t y;
+ * }lui_touch_input_data_t;
+ * ```
+ * @note When touch input is NOT pressed, x and y value must be -1.
+ * 
+ * @subsection touchinput_example Example
+ * Example code for touch input can be found inside the display driver example code.
+ * 
+ * See: @ref displaydriver_touchinput_example
+ * 
  * @{
  */
+
+/**
+ * @brief Create touch input device object
+ * 
+ * @return lui_touch_input_dev_t* Created touch input device object
+ */
 lui_touch_input_dev_t* lui_touch_inputdev_create();
+
+/**
+ * @brief Register a touch input device
+ * 
+ * @param touch_inputdev touch input device object
+ */
 void lui_touch_inputdev_register (lui_touch_input_dev_t* touch_inputdev);
+
+/**
+ * @brief 
+ * 
+ * @param touch_inputdev 
+ * @param read_touch_input_cb 
+ */
 void lui_touch_inputdev_set_read_input_cb(lui_touch_input_dev_t* touch_inputdev, void (*read_touch_input_cb)(lui_touch_input_data_t* touch_inputdata));
 /**@}*/
 
 //-------------------------------------------------------------------------------
-//-------------------------------- HELPER FUNCTIONS------------------------------
+//-------------------------------- HELPER FUNCTIONS -----------------------------
 //-------------------------------------------------------------------------------
 void _lui_mem_init(uint8_t mem_block[], uint16_t size);
 void* _lui_mem_alloc(uint16_t element_size);
@@ -1999,11 +2386,16 @@ lui_obj_t* _lui_scan_all_obj_for_input(lui_touch_input_data_t* touch_input_data,
 lui_obj_t* _lui_scan_individual_object_for_input(lui_touch_input_data_t* touch_input_data, lui_obj_t* obj);
 void _lui_set_obj_props_on_touch_input(lui_touch_input_data_t* input_data, lui_obj_t* obj);
 uint8_t _lui_check_if_active_obj_touch_input(lui_touch_input_data_t* input_data, lui_obj_t* obj);
-const lui_font_t* _lui_get_font_from_active_scene();
+// const lui_font_t* _lui_get_font_from_active_scene();
 uint8_t _lui_get_event_against_state(uint8_t new_state, uint8_t old_state);
 
 /**
  * @defgroup lui_gfx Graphics related API (for drawing shapes and text)
+ * 
+ * API for various graphics related functions like drawing line, rectangle, text etc.
+ * User does NOT require to use them. But if needed for some special reason, user may 
+ * call these functions.
+ * 
  * @{
  */
 void lui_gfx_draw_string_advanced(const char* str, uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t fore_color, uint16_t bg_color, uint8_t is_bg, const lui_font_t* font);
@@ -2020,4 +2412,222 @@ void _lui_gfx_render_char_glyph(uint16_t x, uint16_t y, uint16_t fore_color, uin
 void _lui_gfx_plot_line_low(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color);
 void _lui_gfx_plot_line_high(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color);
 double _lui_map_range(double old_val, double old_max, double old_min, double new_max, double new_min);
+
+/*--------------------------------------------
+ *				End Function Prototypes
+ *--------------------------------------------
+ */
+
+
+/*--------------------------------------------
+ *				Themes (Dark/Light)
+ *--------------------------------------------
+ */
+
+#define	_LUI_R_POS_RGB   					11	// Red last bit position for RGB display
+#define	_LUI_G_POS_RGB   					5 	// Green last bit position for RGB display
+#define	_LUI_B_POS_RGB   					0	// Blue last bit position for RGB display
+
+#define	LUI_RGB(R,G,B) 					(((uint16_t)(R >> 3) << _LUI_R_POS_RGB) | \
+											((uint16_t)(G >> 2) << _LUI_G_POS_RGB) | \
+											((uint16_t)(B >> 3) << _LUI_B_POS_RGB))
+
+
+/*------------------------------------------------------------------------------------
+ *				Dark and Light Theme. User may modify here if needed
+ *------------------------------------------------------------------------------------
+ */
+/* Comment out OR set value to 0 for enabling light mode. */
+#define LUI_USE_DARK_THEME		1
+
+
+#if LUI_USE_DARK_THEME == 1
+	#define LUI_STYLE_BUTTON_LABEL_COLOR		LUI_RGB(238, 238, 238)
+	#define LUI_STYLE_BUTTON_PRESSED_COLOR		LUI_RGB(91, 160, 235)
+	#define	LUI_STYLE_BUTTON_SELECTION_COLOR	LUI_RGB(82, 143, 209)
+	#define LUI_STYLE_BUTTON_BG_COLOR			LUI_RGB(74, 129, 188)
+	#define LUI_STYLE_BUTTON_BORDER_COLOR		LUI_RGB(75, 81, 92)
+#else
+	#define LUI_STYLE_BUTTON_LABEL_COLOR		LUI_RGB(238, 238, 238)
+	#define LUI_STYLE_BUTTON_PRESSED_COLOR		LUI_RGB(91, 160, 235)
+	#define	LUI_STYLE_BUTTON_SELECTION_COLOR	LUI_RGB(82, 143, 209)
+	#define LUI_STYLE_BUTTON_BG_COLOR			LUI_RGB(74, 129, 188)
+	#define LUI_STYLE_BUTTON_BORDER_COLOR		LUI_RGB(75, 81, 92)
+#endif
+#define LUI_STYLE_BUTTON_BORDER_VISIBLE		0
+#define LUI_STYLE_BUTTON_WIDTH				40
+#define LUI_STYLE_BUTTON_HEIGHT				30
+
+#if LUI_USE_DARK_THEME == 1
+	#define LUI_STYLE_LABEL_TEXT_COLOR			LUI_RGB(238, 238, 238)
+	#define LUI_STYLE_LABEL_BG_COLOR			LUI_RGB(23, 33, 43)
+	#define LUI_STYLE_LABEL_BORDER_COLOR		LUI_RGB(74, 129, 188)
+	#define LUI_STYLE_LABEL_TEXT_COLOR			LUI_RGB(238, 238, 238)
+#else
+	#define LUI_STYLE_LABEL_TEXT_COLOR			LUI_RGB(0, 0, 0)
+	#define LUI_STYLE_LABEL_BG_COLOR			LUI_RGB(255, 255, 255)
+	#define LUI_STYLE_LABEL_BORDER_COLOR		LUI_RGB(74, 129, 188)
+#endif
+#define LUI_STYLE_LABEL_BORDER_VISIBLE		0
+#define LUI_STYLE_LABEL_WIDTH				0 /*40*/
+#define LUI_STYLE_LABEL_HEIGHT				0 /*30*/
+
+#if LUI_USE_DARK_THEME == 1
+	#define	LUI_STYLE_SWITCH_SELECTION_COLOR	LUI_RGB(0, 170, 179)
+	#define	LUI_STYLE_SWITCH_KNOB_OFF_COLOR		LUI_RGB(57, 62, 70)
+	#define	LUI_STYLE_SWITCH_KNOB_ON_COLOR		LUI_RGB(74, 129, 188)
+	#define LUI_STYLE_SWITCH_BG_COLOR			LUI_RGB(23, 33, 43)
+	#define LUI_STYLE_SWITCH_BORDER_COLOR		LUI_RGB(74, 129, 188)
+#else
+	#define	LUI_STYLE_SWITCH_SELECTION_COLOR	LUI_RGB(0, 170, 179)
+	#define	LUI_STYLE_SWITCH_KNOB_OFF_COLOR		LUI_RGB(150, 150, 150)
+	#define	LUI_STYLE_SWITCH_KNOB_ON_COLOR		LUI_RGB(74, 129, 188)
+	#define LUI_STYLE_SWITCH_BG_COLOR			LUI_RGB(255, 255, 255)
+	#define LUI_STYLE_SWITCH_BORDER_COLOR		LUI_RGB(74, 129, 188)
+#endif
+#define LUI_STYLE_SWITCH_BORDER_VISIBLE		1
+#define LUI_STYLE_SWITCH_WIDTH				40
+#define LUI_STYLE_SWITCH_HEIGHT				20
+
+#if LUI_USE_DARK_THEME == 1
+	#define	LUI_STYLE_CHECKBOX_SELECTION_COLOR	LUI_RGB(82, 143, 209)
+	#define	LUI_STYLE_CHECKBOX_TICK_COLOR		LUI_RGB(238, 238, 238)
+	#define LUI_STYLE_CHECKBOX_BG_COLOR			LUI_RGB(23, 33, 43)
+	#define LUI_STYLE_CHECKBOX_BG_CHECKED_COLOR	LUI_RGB(74, 129, 188)
+	#define LUI_STYLE_CHECKBOX_BORDER_COLOR		LUI_RGB(74, 129, 188)
+#else
+	#define	LUI_STYLE_CHECKBOX_SELECTION_COLOR	LUI_RGB(82, 143, 209)
+	#define	LUI_STYLE_CHECKBOX_TICK_COLOR		LUI_RGB(238, 238, 238)
+	#define LUI_STYLE_CHECKBOX_BG_COLOR			LUI_RGB(255, 255, 255)
+	#define LUI_STYLE_CHECKBOX_BG_CHECKED_COLOR	LUI_RGB(74, 129, 188)
+	#define LUI_STYLE_CHECKBOX_BORDER_COLOR		LUI_RGB(74, 129, 188)
+#endif
+#define LUI_STYLE_CHECKBOX_BORDER_VISIBLE	1
+#define LUI_STYLE_CHECKBOX_WIDTH			20
+#define LUI_STYLE_CHECKBOX_HEIGHT			LUI_STYLE_CHECKBOX_WIDTH
+
+#if LUI_USE_DARK_THEME == 1
+	#define	LUI_STYLE_SLIDER_SELECTION_COLOR	LUI_RGB(0, 170, 179)
+	#define	LUI_STYLE_SLIDER_KNOB_COLOR			LUI_RGB(74, 129, 188)
+	#define LUI_STYLE_SLIDER_BG_COLOR			LUI_RGB(57, 62, 70)
+	#define LUI_STYLE_SLIDER_BG_FILLED_COLOR	LUI_RGB(45, 77, 112) /*54, 94, 138*/
+	#define LUI_STYLE_SLIDER_BORDER_COLOR		LUI_RGB(74, 129, 188)
+#else
+	#define	LUI_STYLE_SLIDER_SELECTION_COLOR	LUI_RGB(0, 170, 179)
+	#define	LUI_STYLE_SLIDER_KNOB_COLOR			LUI_RGB(74, 129, 188)
+	#define LUI_STYLE_SLIDER_BG_COLOR			LUI_RGB(238, 238, 238)
+	#define LUI_STYLE_SLIDER_BG_FILLED_COLOR	LUI_RGB(45, 77, 112) /*54, 94, 138*/
+	#define LUI_STYLE_SLIDER_BORDER_COLOR		LUI_RGB(74, 129, 188)
+#endif
+#define LUI_STYLE_SLIDER_BORDER_VISIBLE		0
+#define LUI_STYLE_SLIDER_KNOB_WIDTH			20
+#define LUI_STYLE_SLIDER_WIDTH				80
+#define LUI_STYLE_SLIDER_HEIGHT				20
+
+#if LUI_USE_DARK_THEME == 1
+	#define LUI_STYLE_LINECHART_LINE_COLOR		LUI_RGB(74, 129, 188)
+	#define LUI_STYLE_LINECHART_GRID_COLOR		LUI_RGB(75, 81, 92)
+	#define LUI_STYLE_LINECHART_BG_COLOR		LUI_RGB(35, 46, 60)
+	#define LUI_STYLE_LINECHART_BORDER_COLOR	LUI_RGB(74, 129, 188)
+#else
+	#define LUI_STYLE_LINECHART_LINE_COLOR		LUI_RGB(74, 129, 188)
+	#define LUI_STYLE_LINECHART_GRID_COLOR		LUI_RGB(150, 150, 150)
+	#define LUI_STYLE_LINECHART_BG_COLOR		LUI_RGB(238, 238, 238)
+	#define LUI_STYLE_LINECHART_BORDER_COLOR	LUI_RGB(74, 129, 188)
+#endif
+#define LUI_STYLE_LINECHART_GRID_VISIBLE	1
+#define LUI_STYLE_LINECHART_BORDER_VISIBLE	1
+#define LUI_STYLE_LINECHART_WIDTH			40
+#define LUI_STYLE_LINECHART_HEIGHT			20
+
+#if LUI_USE_DARK_THEME == 1
+	#define LUI_STYLE_LIST_NAV_BG_COLOR			LUI_RGB(74, 129, 188)
+	#define LUI_STYLE_LIST_NAV_LABEL_COLOR		LUI_RGB(238, 238, 238)
+	#define LUI_STYLE_LIST_NAV_PRESSED_COLOR	LUI_RGB(91, 160, 235)
+	#define LUI_STYLE_LIST_NAV_SELECTION_COLOR	LUI_RGB(82, 143, 209)
+	#define LUI_STYLE_LIST_ITEM_BG_COLOR		LUI_RGB(57, 62, 70)
+	#define LUI_STYLE_LIST_ITEM_SELECTION_COLOR	LUI_RGB(84, 91, 102)
+	#define LUI_STYLE_LIST_ITEM_PRESSED_COLOR	LUI_RGB(109, 118, 133)
+	#define LUI_STYLE_LIST_ITEM_LABEL_COLOR		LUI_RGB(238, 238, 238)
+	#define	LUI_STYLE_LIST_ITEM_BORDER_COLOR	LUI_RGB(75, 81, 92)
+	#define LUI_STYLE_LIST_BORDER_VISIBLE		0
+#else
+	#define LUI_STYLE_LIST_NAV_BG_COLOR			LUI_RGB(74, 129, 188)
+	#define LUI_STYLE_LIST_NAV_LABEL_COLOR		LUI_RGB(238, 238, 238)
+	#define LUI_STYLE_LIST_NAV_PRESSED_COLOR	LUI_RGB(91, 160, 235)
+	#define LUI_STYLE_LIST_NAV_SELECTION_COLOR	LUI_RGB(82, 143, 209)
+	#define LUI_STYLE_LIST_ITEM_BG_COLOR		LUI_RGB(238, 238, 238)
+	#define LUI_STYLE_LIST_ITEM_SELECTION_COLOR	LUI_RGB(84, 91, 102)
+	#define LUI_STYLE_LIST_ITEM_PRESSED_COLOR	LUI_RGB(109, 118, 133)
+	#define LUI_STYLE_LIST_ITEM_LABEL_COLOR		LUI_RGB(0, 0, 0)
+	#define	LUI_STYLE_LIST_ITEM_BORDER_COLOR	LUI_RGB(75, 81, 92)
+	#define LUI_STYLE_LIST_BORDER_VISIBLE		1
+#endif
+#define LUI_STYLE_LIST_ITEM_BORDER_VISIBLE	1
+#define LUI_STYLE_LIST_ITEM_MIN_HEIGHT		30
+#define LUI_STYLE_LIST_BORDER_COLOR			LUI_RGB(74, 129, 188)
+#define LUI_STYLE_LIST_WIDTH				40
+#define LUI_STYLE_LIST_HEIGHT				60
+
+#if LUI_USE_DARK_THEME == 1
+	#define	LUI_STYLE_BTNGRID_BASE_BG_COLOR		LUI_RGB(23, 33, 43)
+	#define LUI_STYLE_BTNGRID_LABEL_COLOR		LUI_RGB(238, 238, 238)
+	#define LUI_STYLE_BTNGRID_PRESSED_COLOR		LUI_RGB(91, 160, 235)
+	#define	LUI_STYLE_BTNGRID_BG_COLOR			LUI_RGB(39, 55, 71)
+	#define	LUI_STYLE_BTNGRID_SELECTION_COLOR	LUI_RGB(82, 143, 209)
+	#define LUI_STYLE_BTNGRID_BORDER_COLOR		LUI_RGB(75, 81, 92)
+	#define LUI_STYLE_BTNGRID_BORDER_VISIBLE	0
+
+#else
+	#define	LUI_STYLE_BTNGRID_BASE_BG_COLOR		LUI_RGB(255, 255, 255)
+	#define LUI_STYLE_BTNGRID_LABEL_COLOR		LUI_RGB(0, 0, 0)
+	#define LUI_STYLE_BTNGRID_PRESSED_COLOR		LUI_RGB(91, 160, 235)
+	#define	LUI_STYLE_BTNGRID_BG_COLOR			LUI_RGB(200, 200, 200)
+	#define	LUI_STYLE_BTNGRID_SELECTION_COLOR	LUI_RGB(82, 143, 209)
+	#define LUI_STYLE_BTNGRID_BORDER_COLOR		LUI_RGB(150, 150, 150)
+	#define LUI_STYLE_BTNGRID_BORDER_VISIBLE	1
+#endif
+#define	LUI_STYLE_BTNGRID_WIDTH				300
+#define LUI_STYLE_BTNGRID_HEIGHT			180
+
+#if LUI_USE_DARK_THEME == 1
+	#define LUI_STYLE_TEXTBOX_TEXT_COLOR		LUI_RGB(238, 238, 238)
+	#define LUI_STYLE_TEXTBOX_BG_COLOR			LUI_RGB(45, 56, 70)
+	#define LUI_STYLE_TEXTBOX_BORDER_COLOR		LUI_RGB(74, 129, 188)
+#else
+	#define LUI_STYLE_TEXTBOX_TEXT_COLOR		LUI_RGB(0, 0, 0)
+	#define LUI_STYLE_TEXTBOX_BG_COLOR			LUI_RGB(255, 255, 255)
+	#define LUI_STYLE_TEXTBOX_BORDER_COLOR		LUI_RGB(74, 129, 188)
+#endif
+#define LUI_STYLE_TEXTBOX_BORDER_VISIBLE	1
+#define LUI_STYLE_TEXTBOX_WIDTH				200
+#define LUI_STYLE_TEXTBOX_HEIGHT			20
+
+#if LUI_USE_DARK_THEME == 1
+	#define LUI_STYLE_PANEL_BG_COLOR			LUI_RGB(23, 33, 43)
+	#define LUI_STYLE_PANEL_BORDER_COLOR		LUI_RGB(74, 129, 188)
+#else
+	#define LUI_STYLE_PANEL_BG_COLOR			LUI_RGB(255, 255, 255)
+	#define LUI_STYLE_PANEL_BORDER_COLOR		LUI_RGB(74, 129, 188)
+	#endif
+#define LUI_STYLE_PANEL_BORDER_VISIBLE		1
+#define LUI_STYLE_PANEL_WIDTH				100
+#define LUI_STYLE_PANEL_HEIGHT				100
+
+#if LUI_USE_DARK_THEME == 1
+	#define LUI_STYLE_SCENE_BG_COLOR			LUI_RGB(23, 33, 43)
+#else
+	#define LUI_STYLE_SCENE_BG_COLOR			LUI_RGB(255, 255, 255)
+#endif
+
+/*--------------------------------------------
+ *				End Themes (Dark/Light)
+ *--------------------------------------------
+ */
+
+#ifndef NULL
+	#define NULL							((void* )0)
+#endif
+
+
 #endif /* INC_LAME_UI_H_ */

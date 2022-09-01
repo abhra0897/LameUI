@@ -14,7 +14,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="378" column="20" bodyfile="lame_ui.h" bodystart="378" bodyend="-1"/>
+        <location file="lame_ui.h" line="228" column="20" bodyfile="lame_ui.h" bodystart="228" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structlui__bitmap__t_1aea41540babc6ec3c0d962b907dd985b4" prot="public" static="no" mutable="no">
         <type>const uint16_t</type>
@@ -27,7 +27,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="379" column="20" bodyfile="lame_ui.h" bodystart="379" bodyend="-1"/>
+        <location file="lame_ui.h" line="229" column="20" bodyfile="lame_ui.h" bodystart="229" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structlui__bitmap__t_1ae25aa9bb2544527999a79ee83b0a873e" prot="public" static="no" mutable="no">
         <type>const uint8_t *const</type>
@@ -40,14 +40,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="380" column="26" bodyfile="lame_ui.h" bodystart="380" bodyend="-1"/>
+        <location file="lame_ui.h" line="230" column="26" bodyfile="lame_ui.h" bodystart="230" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="lame_ui.h" line="377" column="1" bodyfile="lame_ui.h" bodystart="376" bodyend="381"/>
+    <location file="lame_ui.h" line="227" column="1" bodyfile="lame_ui.h" bodystart="226" bodyend="231"/>
     <listofallmembers>
       <member refid="structlui__bitmap__t_1ae25aa9bb2544527999a79ee83b0a873e" prot="public" virt="non-virtual"><scope>lui_bitmap_t</scope><name>payload</name></member>
       <member refid="structlui__bitmap__t_1afc67fcea7e580bfa17e0e16c04974174" prot="public" virt="non-virtual"><scope>lui_bitmap_t</scope><name>size_x</name></member>

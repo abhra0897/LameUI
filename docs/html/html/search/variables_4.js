@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['needs_5frefresh_336',['needs_refresh',['../struct__lui__obj__s.html#a275f11482198c4928ff046afc2d12d75',1,'_lui_obj_s']]],
-  ['next_5fsibling_337',['next_sibling',['../struct__lui__obj__s.html#a7296c2b24aebeac0fe07f3aad9f3ba84',1,'_lui_obj_s']]]
+  ['layer_425',['layer',['../struct__lui__obj__s.html#a9dfaeda34c9badfe4eb4d8ab932b6e7d',1,'_lui_obj_s']]]
 ];

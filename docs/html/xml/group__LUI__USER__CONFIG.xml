@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="group__LUI__USER__CONFIG" kind="group">
+    <compoundname>LUI_USER_CONFIG</compoundname>
+    <title>User Config</title>
+    <innergroup refid="group__LUI__USE__OBJECT">Widgets to use</innergroup>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__LUI__USER__CONFIG_1gac614eedf6ba02a547abc55527a7f2982" prot="public" static="no">
+        <name>LUI_MAX_OBJECTS</name>
+        <initializer>130</initializer>
+        <briefdescription>
+<para>Set number of maximum objects that can be created. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="35" column="9" bodyfile="lame_ui.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__LUI__USER__CONFIG_1gab6571f6979947007287617835dafc85c" prot="public" static="no">
+        <name>LUI_USE_DARK_THEME</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Comment out OR set value to 0 for using light theme. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="37" column="9" bodyfile="lame_ui.h" bodystart="2434" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__LUI__USER__CONFIG_1gab6571f6979947007287617835dafc85c" prot="public" static="no">
+        <name>LUI_USE_DARK_THEME</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Comment out OR set value to 0 for using light theme. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="2434" column="9" bodyfile="lame_ui.h" bodystart="2434" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>User may change configuration using these macros. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

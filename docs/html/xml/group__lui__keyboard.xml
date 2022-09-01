@@ -10,12 +10,16 @@
         <argsstring>()</argsstring>
         <name>lui_keyboard_create</name>
         <briefdescription>
+<para>Create a keyboard object with initial values. </para>
         </briefdescription>
         <detaileddescription>
+<para><simplesect kind="return"><para>lui_obj_t* Created keyboard (buttongrid) object </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1922" column="11" bodyfile="lame_ui.c" bodystart="2245" bodyend="2274" declfile="lame_ui.h" declline="1922" declcolumn="11"/>
+        <location file="lame_ui.h" line="1850" column="11" bodyfile="lame_ui.c" bodystart="2245" bodyend="2274" declfile="lame_ui.h" declline="1850" declcolumn="11"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__keyboard_1gad92ac2dadb7ce0442f31bafc5c046eb2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>const char *</type>
@@ -31,12 +35,33 @@
           <declname>btn_index</declname>
         </param>
         <briefdescription>
+<para>Get the text of a key against its index. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>obj</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>keyboard (buttongrid) object </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>btn_index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>index of the key/button </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>const char* text of the key </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1923" column="12" bodyfile="lame_ui.c" bodystart="2400" bodyend="2403" declfile="lame_ui.h" declline="1923" declcolumn="12"/>
+        <location file="lame_ui.h" line="1859" column="12" bodyfile="lame_ui.c" bodystart="2400" bodyend="2403" declfile="lame_ui.h" declline="1859" declcolumn="12"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__keyboard_1gafc32e9c221115c14e93d5cdaedce4c65" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -52,12 +77,32 @@
           <declname>mode</declname>
         </param>
         <briefdescription>
+<para>Set the operation mode of keyboard. </para>
         </briefdescription>
         <detaileddescription>
+<para>For allowed modes, see: <ref refid="group__LUI__KEYBOARD__MODE" kindref="compound">Keyboard modes</ref></para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>obj</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>keyboard (buttongrid) object </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>mode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>mode </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1924" column="6" bodyfile="lame_ui.c" bodystart="2359" bodyend="2393" declfile="lame_ui.h" declline="1924" declcolumn="6"/>
+        <location file="lame_ui.h" line="1869" column="6" bodyfile="lame_ui.c" bodystart="2359" bodyend="2393" declfile="lame_ui.h" declline="1869" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__keyboard_1ga05ffd2d8153473cb7114b0ce6e032a6b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -73,12 +118,31 @@
           <declname>font</declname>
         </param>
         <briefdescription>
+<para>Set font of the keyboard. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>obj</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>keyboard (buttongrid) object </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>font</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>font </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1925" column="6" bodyfile="lame_ui.c" bodystart="2395" bodyend="2398" declfile="lame_ui.h" declline="1925" declcolumn="6"/>
+        <location file="lame_ui.h" line="1877" column="6" bodyfile="lame_ui.c" bodystart="2395" bodyend="2398" declfile="lame_ui.h" declline="1877" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__keyboard_1ga8c3c17480bba2b6d06d8cc5bc25c02e3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -94,12 +158,31 @@
           <declname>obj_txtbox</declname>
         </param>
         <briefdescription>
+<para>Set the target textbox of the keyboard. When target textbox is set, the keyboard becomes visible and only the target textbox receives input. To hide the keyboard again, tap/click on the &quot;check/ok&quot; button on the keyboard. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>obj_kb</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>keyboard (buttongrid) object </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>obj_txtbox</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>textbox object </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1926" column="6" bodyfile="lame_ui.c" bodystart="2405" bodyend="2447" declfile="lame_ui.h" declline="1926" declcolumn="6"/>
+        <location file="lame_ui.h" line="1887" column="6" bodyfile="lame_ui.c" bodystart="2405" bodyend="2447" declfile="lame_ui.h" declline="1887" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__keyboard_1ga4c2a164a62d97b0866c405ba36723971" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -111,17 +194,63 @@
           <declname>obj_sender</declname>
         </param>
         <briefdescription>
+<para>Keyboard callback function. This function handles all key presses. </para>
         </briefdescription>
         <detaileddescription>
+<para>If user needs to write their own callback for keyboard, they must call this function from their own callback function.</para>
+<para><bold>Example:</bold> <programlisting><codeline><highlight class="normal">//<sp/>User<sp/>defined<sp/>custom<sp/>callback<sp/>function<sp/>for<sp/>keyboard</highlight></codeline>
+<codeline><highlight class="normal">void<sp/>kb_user_callback(lui_obj_t*<sp/>sender)</highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Keyboard<sp/>key<sp/>is<sp/>pressed.<sp/>Do<sp/>something</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>..........</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>[Mandatory]<sp/>After<sp/>all<sp/>user<sp/>stuffs<sp/>are<sp/>done,<sp/>must<sp/>call<sp/>lui_keyboard_sys_cb()</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>lui_keyboard_sys_cb(sender);</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">lui_obj_t*<sp/>keyboard<sp/>=<sp/>lui_keyboard_create();</highlight></codeline>
+<codeline><highlight class="normal">lui_object_set_callback(keyboard,<sp/>kb_user_callback);</highlight></codeline>
+</programlisting></para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>obj_sender</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>sender object </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1927" column="6" bodyfile="lame_ui.c" bodystart="2276" bodyend="2357" declfile="lame_ui.h" declline="1927" declcolumn="6"/>
+        <location file="lame_ui.h" line="1912" column="6" bodyfile="lame_ui.c" bodystart="2276" bodyend="2357" declfile="lame_ui.h" declline="1912" declcolumn="6"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
+<para>API for <bold><computeroutput>Keyboard</computeroutput></bold> widget. </para>
     </briefdescription>
     <detaileddescription>
+<para><computeroutput>keyboard</computeroutput> is a special typw of <computeroutput>buttongrid</computeroutput>. Keyboard has 3 modes. See : <ref refid="group__LUI__KEYBOARD__MODE" kindref="compound">Keyboard modes</ref>.</para>
+<para>Usually keyboard is used along with a <computeroutput>textbox</computeroutput>. See: <ref refid="group__lui__textbox" kindref="compound">Textbox API</ref></para>
+<para>Steps to use a keyboard with a textbox are: <linebreak/>
+<orderedlist>
+<listitem><para>Create a keyboard object. Note: Keyboards are hidden by default.</para>
+</listitem><listitem><para>Create a textbox object.</para>
+</listitem><listitem><para>Create a callback function for the textbox 3.1. If event is LUI_EVENT_ENTERED, set the target keyboard for this textbox. This will make the keyboard visible. 3.2. If event is LUI_EVENT_EXITED, set target keyboard as NULL. This will hide the keyboard again.</para>
+</listitem></orderedlist>
+</para>
+<sect2 id="group__lui__keyboard_1keyboard_example">
+<title>Example</title>
+<para>This example only creates a keyboard and links it with an existing textbox. To see a more complete example, see <computeroutput>textbox</computeroutput> example section. See: <ref refid="group__lui__textbox" kindref="compound">Textbox API</ref> <programlisting><codeline><highlight class="normal">lui_obj_t*<sp/>my_keyboard<sp/>=<sp/>lui_keyboard_create();</highlight></codeline>
+<codeline><highlight class="normal">//<sp/>Keyboard<sp/>is<sp/>by<sp/>default<sp/>hidden.<sp/>It<sp/>is<sp/>supposed<sp/>to<sp/>be<sp/>made<sp/>visible<sp/>when<sp/>a<sp/></highlight></codeline>
+<codeline><highlight class="normal">//<sp/>textbox<sp/>is<sp/>clicked<sp/>on.<sp/>But<sp/>for<sp/>this<sp/>example,<sp/>we<sp/>are<sp/>making<sp/>it<sp/>visible</highlight></codeline>
+<codeline><highlight class="normal">//<sp/>manually.</highlight></codeline>
+<codeline><highlight class="normal">lui_object_set_visibility(my_keyboard.<sp/>1);</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>Set<sp/>the<sp/>target<sp/>textbox</highlight></codeline>
+<codeline><highlight class="normal">lui_keyboard_set_target_txtbox(my_keyboard.<sp/>my_txtbox);</highlight></codeline>
+</programlisting> </para>
+</sect2>
     </detaileddescription>
   </compounddef>
 </doxygen>

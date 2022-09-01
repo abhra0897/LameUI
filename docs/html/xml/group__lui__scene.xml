@@ -10,12 +10,16 @@
         <argsstring>()</argsstring>
         <name>lui_scene_create</name>
         <briefdescription>
+<para>Create a scene. </para>
         </briefdescription>
         <detaileddescription>
+<para><simplesect kind="return"><para>lui_obj_t* cretaed scene </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1963" column="11" bodyfile="lame_ui.c" bodystart="2817" bodyend="2850" declfile="lame_ui.h" declline="1963" declcolumn="11"/>
+        <location file="lame_ui.h" line="2153" column="11" bodyfile="lame_ui.c" bodystart="2823" bodyend="2856" declfile="lame_ui.h" declline="2153" declcolumn="11"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__scene_1gab6b1e6f1f2b17745b02d6c3d3d6003d1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -27,12 +31,23 @@
           <declname>obj_scene</declname>
         </param>
         <briefdescription>
+<para>Draw scene. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>obj_scene</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>scene widget </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1964" column="6" bodyfile="lame_ui.c" bodystart="2852" bodyend="2866" declfile="lame_ui.h" declline="1964" declcolumn="6"/>
+        <location file="lame_ui.h" line="2160" column="6" bodyfile="lame_ui.c" bodystart="2858" bodyend="2872" declfile="lame_ui.h" declline="2160" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__scene_1ga5a2c32f660fbbe39fae9d5f11055aff7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -44,12 +59,23 @@
           <declname>obj_scene</declname>
         </param>
         <briefdescription>
+<para>Set the active scene. Only active scene is rendered. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>obj_scene</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>scene widget </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1965" column="6" bodyfile="lame_ui.c" bodystart="2900" bodyend="2911" declfile="lame_ui.h" declline="1965" declcolumn="6"/>
+        <location file="lame_ui.h" line="2167" column="6" bodyfile="lame_ui.c" bodystart="2906" bodyend="2917" declfile="lame_ui.h" declline="2167" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__scene_1ga84a7baf7297d1ed254e4feb3b8d125ea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="lame__ui_8h_1a5a7ccb45f639e22e43b3ac176a75dd09" kindref="member">lui_obj_t</ref> *</type>
@@ -57,33 +83,16 @@
         <argsstring>()</argsstring>
         <name>lui_scene_get_active</name>
         <briefdescription>
+<para>Get the currently active scene. </para>
         </briefdescription>
         <detaileddescription>
+<para><simplesect kind="return"><para>lui_obj_t* active scene widget </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1966" column="11" bodyfile="lame_ui.c" bodystart="2913" bodyend="2916" declfile="lame_ui.h" declline="1966" declcolumn="11"/>
-      </memberdef>
-      <memberdef kind="function" id="group__lui__scene_1gab4ed6216c46a9c3d496d409a0211c6dd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void lui_scene_set_bg_image</definition>
-        <argsstring>(lui_obj_t *obj_scene, const lui_bitmap_t *image)</argsstring>
-        <name>lui_scene_set_bg_image</name>
-        <param>
-          <type><ref refid="lame__ui_8h_1a5a7ccb45f639e22e43b3ac176a75dd09" kindref="member">lui_obj_t</ref> *</type>
-          <declname>obj_scene</declname>
-        </param>
-        <param>
-          <type>const <ref refid="structlui__bitmap__t" kindref="compound">lui_bitmap_t</ref> *</type>
-          <declname>image</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="lame_ui.h" line="1967" column="6" bodyfile="lame_ui.c" bodystart="2868" bodyend="2882" declfile="lame_ui.h" declline="1967" declcolumn="6"/>
+        <location file="lame_ui.h" line="2174" column="11" bodyfile="lame_ui.c" bodystart="2919" bodyend="2922" declfile="lame_ui.h" declline="2174" declcolumn="11"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__scene_1ga9171479a041b608913d5601cc1f74c43" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -99,17 +108,75 @@
           <declname>font</declname>
         </param>
         <briefdescription>
+<para>Set background bitmap image of a ascene. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>obj_scene</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>scene widget </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>image</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>image</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+Set font of a scene</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>obj_scene</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>scene widget </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>font</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>font </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1968" column="6" bodyfile="lame_ui.c" bodystart="2884" bodyend="2898" declfile="lame_ui.h" declline="1968" declcolumn="6"/>
+        <location file="lame_ui.h" line="2190" column="6" declfile="lame_ui.h" declline="2190" declcolumn="6"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
+<para>Set background image of the panel. </para>
     </briefdescription>
     <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>obj_panel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>panel object </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>image</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>image</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+API for <bold><computeroutput>scene</computeroutput></bold> widget</para>
+<para>Scene is the main container of all widgets. It is at the top of hierarchy. Scene has no parent and must have at least one child. All widgets must be decendents of a scene.</para>
+<para>An application may have multiple scenes. Only the active scene is rendered and it is set by <computeroutput><ref refid="group__lui__scene_1ga5a2c32f660fbbe39fae9d5f11055aff7" kindref="member">lui_scene_set_active(lui_obj_t* obj_scene)</ref></computeroutput> function. </para>
     </detaileddescription>
   </compounddef>
 </doxygen>

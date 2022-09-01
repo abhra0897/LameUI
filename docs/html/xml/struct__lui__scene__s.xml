@@ -14,7 +14,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="664" column="14" bodyfile="lame_ui.h" bodystart="664" bodyend="-1"/>
+        <location file="lame_ui.h" line="511" column="14" bodyfile="lame_ui.h" bodystart="511" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct__lui__scene__s_1a7eaead6570976f7dea5fb95de61d60ae" prot="public" static="no" mutable="no">
         <type>const <ref refid="structlui__font__t" kindref="compound">lui_font_t</ref> *</type>
@@ -27,7 +27,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="665" column="18" bodyfile="lame_ui.h" bodystart="665" bodyend="-1"/>
+        <location file="lame_ui.h" line="512" column="18" bodyfile="lame_ui.h" bodystart="512" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -64,7 +64,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="lame_ui.h" line="663" column="1" bodyfile="lame_ui.h" bodystart="662" bodyend="667"/>
+    <location file="lame_ui.h" line="510" column="1" bodyfile="lame_ui.h" bodystart="509" bodyend="514"/>
     <listofallmembers>
       <member refid="struct__lui__scene__s_1ab3f90906bab3d09213b5badf4290b7be" prot="public" virt="non-virtual"><scope>_lui_scene_s</scope><name>bg_image</name></member>
       <member refid="struct__lui__scene__s_1a7eaead6570976f7dea5fb95de61d60ae" prot="public" virt="non-virtual"><scope>_lui_scene_s</scope><name>font</name></member>

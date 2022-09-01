@@ -14,7 +14,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="616" column="11" bodyfile="lame_ui.h" bodystart="616" bodyend="-1"/>
+        <location file="lame_ui.h" line="463" column="11" bodyfile="lame_ui.h" bodystart="463" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct__lui__keyboard__s_1aceabc390034bcb9da33ec8b68dbc3741" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -27,7 +27,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="617" column="9" bodyfile="lame_ui.h" bodystart="617" bodyend="-1"/>
+        <location file="lame_ui.h" line="464" column="9" bodyfile="lame_ui.h" bodystart="464" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -59,7 +59,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="lame_ui.h" line="615" column="1" bodyfile="lame_ui.h" bodystart="614" bodyend="619"/>
+    <location file="lame_ui.h" line="462" column="1" bodyfile="lame_ui.h" bodystart="461" bodyend="466"/>
     <listofallmembers>
       <member refid="struct__lui__keyboard__s_1aceabc390034bcb9da33ec8b68dbc3741" prot="public" virt="non-virtual"><scope>_lui_keyboard_s</scope><name>keyboard_mode</name></member>
       <member refid="struct__lui__keyboard__s_1afee86d4319d16642a7184484b407b4b4" prot="public" virt="non-virtual"><scope>_lui_keyboard_s</scope><name>target_txtbox</name></member>

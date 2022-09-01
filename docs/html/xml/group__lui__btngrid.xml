@@ -19,7 +19,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1755" column="11" bodyfile="lame_ui.c" bodystart="1804" bodyend="1848" declfile="lame_ui.h" declline="1755" declcolumn="11"/>
+        <location file="lame_ui.h" line="1646" column="11" bodyfile="lame_ui.c" bodystart="1804" bodyend="1848" declfile="lame_ui.h" declline="1646" declcolumn="11"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__btngrid_1gaa9a9febb315d359420be30fea2d9657d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -49,7 +49,7 @@
 <para>Draw a button only if the btngrid needs full render, or when a buttons index matches an active button&apos;s index</para>
 <para>This is to handle when a checkable button lost its focus but check state is changed to &quot;Checked&quot;. Or, when manually the check state is set</para>
         </inbodydescription>
-        <location file="lame_ui.h" line="1762" column="6" bodyfile="lame_ui.c" bodystart="1700" bodyend="1802" declfile="lame_ui.h" declline="1762" declcolumn="6"/>
+        <location file="lame_ui.h" line="1653" column="6" bodyfile="lame_ui.c" bodystart="1700" bodyend="1802" declfile="lame_ui.h" declline="1653" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__btngrid_1ga03a8859464594c353885a559c5026328" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -90,7 +90,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1772" column="6" bodyfile="lame_ui.c" bodystart="1850" bodyend="1915" declfile="lame_ui.h" declline="1772" declcolumn="6"/>
+        <location file="lame_ui.h" line="1663" column="6" bodyfile="lame_ui.c" bodystart="1850" bodyend="1915" declfile="lame_ui.h" declline="1663" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__btngrid_1gaf32f56d6e1fd0e6a59dc558a841d62ab" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -170,7 +170,7 @@ Setting it to 0 has no effect  </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1795" column="6" bodyfile="lame_ui.c" bodystart="1917" bodyend="1935" declfile="lame_ui.h" declline="1795" declcolumn="6"/>
+        <location file="lame_ui.h" line="1686" column="6" bodyfile="lame_ui.c" bodystart="1917" bodyend="1935" declfile="lame_ui.h" declline="1686" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__btngrid_1ga0fba296e6cbf020c2a0cf02f8110c267" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -223,7 +223,7 @@ Setting it to 0 has no effect  </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1806" column="6" bodyfile="lame_ui.c" bodystart="1937" bodyend="1959" declfile="lame_ui.h" declline="1806" declcolumn="6"/>
+        <location file="lame_ui.h" line="1697" column="6" bodyfile="lame_ui.c" bodystart="1937" bodyend="1959" declfile="lame_ui.h" declline="1697" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__btngrid_1ga3e4a375a7f7b62b5fdcb4b290210536a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -275,7 +275,7 @@ Setting it to 0 has no effect  </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1815" column="6" bodyfile="lame_ui.c" bodystart="1961" bodyend="1984" declfile="lame_ui.h" declline="1815" declcolumn="6"/>
+        <location file="lame_ui.h" line="1706" column="6" bodyfile="lame_ui.c" bodystart="1961" bodyend="1984" declfile="lame_ui.h" declline="1706" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__btngrid_1ga1f41ec66946669fa36ed66a97ce7a5f3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>const char *</type>
@@ -317,7 +317,7 @@ Setting it to 0 has no effect  </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1824" column="12" bodyfile="lame_ui.c" bodystart="2048" bodyend="2074" declfile="lame_ui.h" declline="1824" declcolumn="12"/>
+        <location file="lame_ui.h" line="1715" column="12" bodyfile="lame_ui.c" bodystart="2048" bodyend="2074" declfile="lame_ui.h" declline="1715" declcolumn="12"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__btngrid_1gace7e8cc9fdbcc01271c7e50351d1e081" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -369,7 +369,7 @@ Setting it to 0 has no effect  </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1833" column="6" bodyfile="lame_ui.c" bodystart="1986" bodyend="1995" declfile="lame_ui.h" declline="1833" declcolumn="6"/>
+        <location file="lame_ui.h" line="1724" column="6" bodyfile="lame_ui.c" bodystart="1986" bodyend="1995" declfile="lame_ui.h" declline="1724" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__btngrid_1gac59ba58a24ab4be01e1dbef21bbbab05" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -421,7 +421,7 @@ Setting it to 0 has no effect  </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1842" column="6" bodyfile="lame_ui.c" bodystart="1997" bodyend="2007" declfile="lame_ui.h" declline="1842" declcolumn="6"/>
+        <location file="lame_ui.h" line="1733" column="6" bodyfile="lame_ui.c" bodystart="1997" bodyend="2007" declfile="lame_ui.h" declline="1733" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__btngrid_1gad433de542a9d897225abd72d22d7e2a4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -473,7 +473,7 @@ Setting it to 0 has no effect  </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1851" column="6" bodyfile="lame_ui.c" bodystart="2009" bodyend="2023" declfile="lame_ui.h" declline="1851" declcolumn="6"/>
+        <location file="lame_ui.h" line="1742" column="6" bodyfile="lame_ui.c" bodystart="2009" bodyend="2023" declfile="lame_ui.h" declline="1742" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__btngrid_1ga55e7742bb16fb8dedfdb0bd724164bfb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -525,7 +525,7 @@ Setting it to 0 has no effect  </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1860" column="6" bodyfile="lame_ui.c" bodystart="2025" bodyend="2035" declfile="lame_ui.h" declline="1860" declcolumn="6"/>
+        <location file="lame_ui.h" line="1751" column="6" bodyfile="lame_ui.c" bodystart="2025" bodyend="2035" declfile="lame_ui.h" declline="1751" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__btngrid_1ga04c8b09e20441143fc39405e2e42cc37" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int16_t</type>
@@ -555,7 +555,7 @@ Setting it to 0 has no effect  </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1869" column="9" bodyfile="lame_ui.c" bodystart="2037" bodyend="2046" declfile="lame_ui.h" declline="1869" declcolumn="9"/>
+        <location file="lame_ui.h" line="1760" column="9" bodyfile="lame_ui.c" bodystart="2037" bodyend="2046" declfile="lame_ui.h" declline="1760" declcolumn="9"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__btngrid_1gae1f8d50cc22f4c1523a82dd6f16e51b1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int8_t</type>
@@ -597,7 +597,7 @@ Setting it to 0 has no effect  </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1878" column="8" bodyfile="lame_ui.c" bodystart="2076" bodyend="2086" declfile="lame_ui.h" declline="1878" declcolumn="8"/>
+        <location file="lame_ui.h" line="1769" column="8" bodyfile="lame_ui.c" bodystart="2076" bodyend="2086" declfile="lame_ui.h" declline="1769" declcolumn="8"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__btngrid_1ga883d946697aaa0b49c7e30d223445af1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -637,7 +637,7 @@ Setting it to 0 has no effect  </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1886" column="6" bodyfile="lame_ui.c" bodystart="2088" bodyend="2102" declfile="lame_ui.h" declline="1886" declcolumn="6"/>
+        <location file="lame_ui.h" line="1777" column="6" bodyfile="lame_ui.c" bodystart="2088" bodyend="2102" declfile="lame_ui.h" declline="1777" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__btngrid_1gaf362196a280469cb9a95bdae11650495" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -701,7 +701,7 @@ Setting it to 0 has no effect  </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1896" column="6" bodyfile="lame_ui.c" bodystart="2104" bodyend="2123" declfile="lame_ui.h" declline="1896" declcolumn="6"/>
+        <location file="lame_ui.h" line="1787" column="6" bodyfile="lame_ui.c" bodystart="2104" bodyend="2123" declfile="lame_ui.h" declline="1787" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__btngrid_1ga6b21900d39d7da89840cf43dae7d8d39" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -753,7 +753,7 @@ Setting it to 0 has no effect  </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1905" column="6" bodyfile="lame_ui.c" bodystart="2125" bodyend="2145" declfile="lame_ui.h" declline="1905" declcolumn="6"/>
+        <location file="lame_ui.h" line="1796" column="6" bodyfile="lame_ui.c" bodystart="2125" bodyend="2145" declfile="lame_ui.h" declline="1796" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__btngrid_1ga6bc7ed4b99549aca88111b9d11531058" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -781,7 +781,7 @@ Setting it to 0 has no effect  </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1913" column="6" bodyfile="lame_ui.c" bodystart="2147" bodyend="2200" declfile="lame_ui.h" declline="1913" declcolumn="6"/>
+        <location file="lame_ui.h" line="1804" column="6" bodyfile="lame_ui.c" bodystart="2147" bodyend="2200" declfile="lame_ui.h" declline="1804" declcolumn="6"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

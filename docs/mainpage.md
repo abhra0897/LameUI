@@ -70,7 +70,82 @@ void lui_touch_inputdev_set_read_input_cb(lui_touch_input_dev_t* touch_inputdev,
 ```
 
 ## Quick Start
-This is a samll LameUI code and then all parts are analyzed.
+
+**[ Part 1 ]**
+
+This is a very simple example using TFT_eSPI library on Arduino framework. In this example we will only see how to register a display driver and a touch input device. No UI widgets are added here. For a detailed example, see next part.
+
+```C
+// This example uses TFT_eSPI library on Arduino framework
+// Hardware: [MCU = ESP32, Display: ILI9341, Touch IC = XPT2046]
+
+#include <TFT_eSPI.h> // Graphics and font library for ILI9341 driver chip
+#include <SPI.h>
+// ... [ Include LameUI library and other required headers too] ...
+
+TFT_eSPI tft = TFT_eSPI();  // Invoke library
+uint8_t lui_memory[4000];
+
+void draw_pixels_area_cb(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color)
+{
+    tft.fillRect(x, y, w, h, color);
+}
+void read_touch_input_cb(lui_touch_input_data_t* inputdata)
+{
+    uint16_t x = 0, y = 0; // To store the touch coordinates
+    
+    // Pressed will be set true is there is a valid touch on the screen
+    bool pressed = tft.getTouch(&x, &y);
+    inputdata->is_pressed = pressed;
+    if (pressed)
+    {
+        inputdata->x = x;
+        inputdata->y = y;
+    }
+    else
+    {
+        inputdata->x = -1;
+        inputdata->y = -1;
+    }
+}
+
+void setup(void) 
+{	
+    // Initilaize tft
+    tft.init();
+    tft.setTouch(touch_cal_data);
+    
+    // Initialize LameUI with some memory
+    lui_init(lui_memory, sizeof(lui_memory));
+    
+    // Create a display driver object
+    lui_dispdrv_t* display_driver = lui_dispdrv_create();
+    lui_dispdrv_register(display_driver);
+    lui_dispdrv_set_resolution(display_driver, 240, 320);
+    lui_dispdrv_set_draw_pixels_area_cb(display_driver, draw_pixels_area_cb);
+    lui_dispdrv_set_render_complete_cb(display_driver, NULL);
+    
+    // Create touch input device
+    lui_touch_input_dev_t* input_device = lui_touch_inputdev_create();
+    lui_touch_inputdev_register(input_device);
+    lui_touch_inputdev_set_read_input_cb(input_device, read_touch_input_cb);
+    
+
+    // ... [Add scene (mandatory) and other widgets] ...
+}
+
+void loop()
+{
+    // Must update the UI periodically
+    lui_update();
+
+    // ... [Do other stuffs] ...
+}
+```
+
+**[ Part 2 ]**
+
+This is a more detailed LameUI example code. It looks big, but that's only because multiple ways of handling draw calls are shown here. Implementation of `my_draw_pixels_cb()` function can be simplified as per user's need. Also, `my_render_cmplt_cb()` is optional and can be omitted if not needed. The example code itself is pretty simple and well commented.
 
 ```C
 #include<stdio.h>

@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="group__LUI__BTNGRID__MASKS" kind="group">
+    <compoundname>LUI_BTNGRID_MASKS</compoundname>
+    <title>Buttongrid button property-byte masks</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__LUI__BTNGRID__MASKS_1ga265e4dc05e3da27de273897cd2e982ea" prot="public" static="no">
+        <name>LUI_BTNGRID_MASK_BTN_DISABLED</name>
+        <initializer>0x40</initializer>
+        <briefdescription>
+<para>Button disabled mask. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="198" column="9" bodyfile="lame_ui.h" bodystart="198" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__LUI__BTNGRID__MASKS_1gaa89b220d3a160df88c7a9c9b5a45d673" prot="public" static="no">
+        <name>LUI_BTNGRID_MASK_BTN_HIDDEN</name>
+        <initializer>0x20</initializer>
+        <briefdescription>
+<para>Button hidden mask. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="199" column="9" bodyfile="lame_ui.h" bodystart="199" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__LUI__BTNGRID__MASKS_1ga4602d581d707dea1c8b3da39a573e3ee" prot="public" static="no">
+        <name>LUI_BTNGRID_MASK_BTN_CHECKABLE</name>
+        <initializer>0x10</initializer>
+        <briefdescription>
+<para>Button checkable mask. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="200" column="9" bodyfile="lame_ui.h" bodystart="200" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__LUI__BTNGRID__MASKS_1ga2112955982994d548d7789d152d2552d" prot="public" static="no">
+        <name>LUI_BTNGRID_MASK_BTN_CHECKED</name>
+        <initializer>0x80</initializer>
+        <briefdescription>
+<para>Button checked mask. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="201" column="9" bodyfile="lame_ui.h" bodystart="201" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__LUI__BTNGRID__MASKS_1gac8eb53fd6ef2b0911ca5b25c6b65bd30" prot="public" static="no">
+        <name>LUI_BTNGRID_MASK_BTN_WIDTH_UNIT</name>
+        <initializer>0x0F</initializer>
+        <briefdescription>
+<para>Button width mask. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="202" column="9" bodyfile="lame_ui.h" bodystart="202" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Property byte masks of a buttongrid. Masks set different properties of a button in a buttongrid. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

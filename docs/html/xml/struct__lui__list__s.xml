@@ -14,7 +14,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="602" column="9" bodyfile="lame_ui.h" bodystart="602" bodyend="-1"/>
+        <location file="lame_ui.h" line="449" column="9" bodyfile="lame_ui.h" bodystart="449" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct__lui__list__s_1abcee3e67b7e0bb077da0a9f4a365c219" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -27,7 +27,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="603" column="9" bodyfile="lame_ui.h" bodystart="603" bodyend="-1"/>
+        <location file="lame_ui.h" line="450" column="9" bodyfile="lame_ui.h" bodystart="450" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct__lui__list__s_1ab58a5610e1544285073db3aed2246667" prot="public" static="no" mutable="no">
         <type>int8_t</type>
@@ -40,7 +40,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="604" column="8" bodyfile="lame_ui.h" bodystart="604" bodyend="-1"/>
+        <location file="lame_ui.h" line="451" column="8" bodyfile="lame_ui.h" bodystart="451" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct__lui__list__s_1a91fc80bb8c747d8b091b3fd0f6447261" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -53,7 +53,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="605" column="9" bodyfile="lame_ui.h" bodystart="605" bodyend="-1"/>
+        <location file="lame_ui.h" line="452" column="9" bodyfile="lame_ui.h" bodystart="452" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct__lui__list__s_1a0438aaf61a0b0127b80ae77d53d9af1e" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -66,7 +66,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="606" column="9" bodyfile="lame_ui.h" bodystart="606" bodyend="-1"/>
+        <location file="lame_ui.h" line="453" column="9" bodyfile="lame_ui.h" bodystart="453" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct__lui__list__s_1a72287d7249633e3e35b25e5835e4d836" prot="public" static="no" mutable="no">
         <type>const <ref refid="structlui__font__t" kindref="compound">lui_font_t</ref> *</type>
@@ -79,7 +79,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="607" column="18" bodyfile="lame_ui.h" bodystart="607" bodyend="-1"/>
+        <location file="lame_ui.h" line="454" column="18" bodyfile="lame_ui.h" bodystart="454" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -113,7 +113,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="lame_ui.h" line="601" column="1" bodyfile="lame_ui.h" bodystart="600" bodyend="610"/>
+    <location file="lame_ui.h" line="448" column="1" bodyfile="lame_ui.h" bodystart="447" bodyend="457"/>
     <listofallmembers>
       <member refid="struct__lui__list__s_1a0438aaf61a0b0127b80ae77d53d9af1e" prot="public" virt="non-virtual"><scope>_lui_list_s</scope><name>button_item_min_height</name></member>
       <member refid="struct__lui__list__s_1a91fc80bb8c747d8b091b3fd0f6447261" prot="public" virt="non-virtual"><scope>_lui_list_s</scope><name>buttons_per_page</name></member>

@@ -10,12 +10,16 @@
         <argsstring>()</argsstring>
         <name>lui_textbox_create</name>
         <briefdescription>
+<para>Create a textbox object with initial values. </para>
         </briefdescription>
         <detaileddescription>
+<para><simplesect kind="return"><para>lui_obj_t* created textbox object </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1936" column="11" bodyfile="lame_ui.c" bodystart="2558" bodyend="2594" declfile="lame_ui.h" declline="1936" declcolumn="11"/>
+        <location file="lame_ui.h" line="1983" column="11" bodyfile="lame_ui.c" bodystart="2564" bodyend="2600" declfile="lame_ui.h" declline="1983" declcolumn="11"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__textbox_1gaf80e132e37c89453b6115602714c0fce" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -23,12 +27,13 @@
         <argsstring>()</argsstring>
         <name>lui_textbox_draw</name>
         <briefdescription>
+<para>Draw a textbox. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1937" column="6" declfile="lame_ui.h" declline="1937" declcolumn="6"/>
+        <location file="lame_ui.h" line="1989" column="6" declfile="lame_ui.h" declline="1989" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__textbox_1gabe544e589562b44cec63dbfa41619c5d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -44,12 +49,32 @@
           <declname>caret_index</declname>
         </param>
         <briefdescription>
+<para>Set the index (position) of caret (cursor) in the textbox. </para>
         </briefdescription>
         <detaileddescription>
+<para>Text inputs are inserted at the position of caret.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>obj</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>textbox object </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>caret_index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>caret index </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1938" column="6" bodyfile="lame_ui.c" bodystart="2596" bodyend="2614" declfile="lame_ui.h" declline="1938" declcolumn="6"/>
+        <location file="lame_ui.h" line="1999" column="6" bodyfile="lame_ui.c" bodystart="2602" bodyend="2620" declfile="lame_ui.h" declline="1999" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__textbox_1gae2377a9c0132bc6e909a0b23b1814fc7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint16_t</type>
@@ -61,12 +86,25 @@
           <declname>obj</declname>
         </param>
         <briefdescription>
+<para>Get the caret index. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>obj</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>textbox object </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>uint16_t caret index </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1939" column="10" bodyfile="lame_ui.c" bodystart="2616" bodyend="2625" declfile="lame_ui.h" declline="1939" declcolumn="10"/>
+        <location file="lame_ui.h" line="2007" column="10" bodyfile="lame_ui.c" bodystart="2622" bodyend="2631" declfile="lame_ui.h" declline="2007" declcolumn="10"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__textbox_1gaf12d728f7b2202c38b85d34d80669892" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -82,12 +120,32 @@
           <declname>c</declname>
         </param>
         <briefdescription>
+<para>Insert a character at the position of caret. </para>
         </briefdescription>
         <detaileddescription>
+<para>This does NOT change the caret index after the insert operation.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>obj</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>textbox object </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>c</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>character </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1940" column="6" bodyfile="lame_ui.c" bodystart="2627" bodyend="2648" declfile="lame_ui.h" declline="1940" declcolumn="6"/>
+        <location file="lame_ui.h" line="2017" column="6" bodyfile="lame_ui.c" bodystart="2633" bodyend="2654" declfile="lame_ui.h" declline="2017" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__textbox_1ga6540b13528f24d0e29de00ce7e883835" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -107,12 +165,40 @@
           <declname>len</declname>
         </param>
         <briefdescription>
+<para>Insert a string at the position of caret. </para>
         </briefdescription>
         <detaileddescription>
+<para>This does NOT change the caret index after the insert operation.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>obj</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>textbox object </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>str</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>string (character array) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>length of the string NOT including the null character </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1941" column="6" bodyfile="lame_ui.c" bodystart="2672" bodyend="2693" declfile="lame_ui.h" declline="1941" declcolumn="6"/>
+        <location file="lame_ui.h" line="2028" column="6" bodyfile="lame_ui.c" bodystart="2678" bodyend="2699" declfile="lame_ui.h" declline="2028" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__textbox_1gab96f6d6d3546ada97d759e88a8dede10" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -124,12 +210,23 @@
           <declname>obj</declname>
         </param>
         <briefdescription>
+<para>Delete a character at the caret index. Does not work when caret is at 0. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>obj</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>textbox object </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1942" column="6" bodyfile="lame_ui.c" bodystart="2650" bodyend="2670" declfile="lame_ui.h" declline="1942" declcolumn="6"/>
+        <location file="lame_ui.h" line="2035" column="6" bodyfile="lame_ui.c" bodystart="2656" bodyend="2676" declfile="lame_ui.h" declline="2035" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__textbox_1gabeb31790dc1b9e074de63bdf7f247776" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -149,12 +246,39 @@
           <declname>buff_size</declname>
         </param>
         <briefdescription>
+<para>Set the text buffer of a textbox. This is where the text is stored. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>obj</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>textbox object </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>text_buffer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>buffer (character array) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>buff_size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>buffer size </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1943" column="6" bodyfile="lame_ui.c" bodystart="2695" bodyend="2711" declfile="lame_ui.h" declline="1943" declcolumn="6"/>
+        <location file="lame_ui.h" line="2044" column="6" bodyfile="lame_ui.c" bodystart="2701" bodyend="2717" declfile="lame_ui.h" declline="2044" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__textbox_1ga44c28a66f8a82241660c0c296df2c2dd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -170,17 +294,88 @@
           <declname>font</declname>
         </param>
         <briefdescription>
+<para>Set font of the textbox. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>obj</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>textbox object </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>font</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>font object </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1944" column="6" bodyfile="lame_ui.c" bodystart="2727" bodyend="2741" declfile="lame_ui.h" declline="1944" declcolumn="6"/>
+        <location file="lame_ui.h" line="2052" column="6" bodyfile="lame_ui.c" bodystart="2733" bodyend="2747" declfile="lame_ui.h" declline="2052" declcolumn="6"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
+<para>API for <bold><computeroutput>textbox</computeroutput></bold> widget. </para>
     </briefdescription>
     <detaileddescription>
+<para>Usually textbox is used along with a <computeroutput>keyboard</computeroutput>. See: <ref refid="group__lui__keyboard" kindref="compound">Keyboard API</ref></para>
+<para>Steps to use a keyboard with a textbox are: <linebreak/>
+<orderedlist>
+<listitem><para>Create a keyboard object. Note: Keyboards are hidden by default.</para>
+</listitem><listitem><para>Create a textbox object.</para>
+</listitem><listitem><para>Create a callback function for the textbox 3.1. If event is LUI_EVENT_ENTERED, set the target keyboard for this textbox. This will make the keyboard visible. 3.2. If event is LUI_EVENT_EXITED, set target keyboard as NULL. This will hide the keyboard again.</para>
+</listitem></orderedlist>
+</para>
+<sect2 id="group__lui__textbox_1textbox_example">
+<title>Example</title>
+<para><programlisting><codeline><highlight class="normal">char<sp/>txtbox_buff[50];</highlight></codeline>
+<codeline><highlight class="normal">lui_obj_t*<sp/>my_keyboard;</highlight></codeline>
+<codeline><highlight class="normal">lui_obj_t*<sp/>my_textbox;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>This<sp/>callback<sp/>is<sp/>fired<sp/>when<sp/>user<sp/>enters/exists<sp/>the<sp/>textbox.<sp/></highlight></codeline>
+<codeline><highlight class="normal">//<sp/>Here,<sp/>we<sp/>set<sp/>the<sp/>target<sp/>textbox<sp/>of<sp/>the<sp/>keyboard<sp/>when<sp/>user<sp/>enters<sp/>the<sp/>textbox.</highlight></codeline>
+<codeline><highlight class="normal">//<sp/>This<sp/>unhides<sp/>the<sp/>keyboard<sp/>and<sp/>textbox<sp/>will<sp/>receive<sp/>inputs<sp/>from<sp/>the<sp/>textbox.</highlight></codeline>
+<codeline><highlight class="normal">//<sp/>When<sp/>user<sp/>exits<sp/>the<sp/>textbox<sp/>by<sp/>closing<sp/>the<sp/>keyboard,<sp/>keyboard<sp/>gets<sp/>hidden.</highlight></codeline>
+<codeline><highlight class="normal">void<sp/>textbox_callback(lui_obj_t*<sp/>obj_txtbox)</highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>int8_t<sp/>event<sp/>=<sp/>lui_object_get_event(obj_txtbox);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>(event<sp/>==<sp/>LUI_EVENT_ENTERED)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>lui_keyboard_set_target_txtbox(my_keyboard,<sp/>my_textbox);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>else<sp/>if<sp/>(event<sp/>==<sp/>LUI_EVENT_EXITED)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>lui_keyboard_set_target_txtbox(my_keyboard,<sp/>NULL);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>Create<sp/>a<sp/>textbox<sp/>object</highlight></codeline>
+<codeline><highlight class="normal">my_textbox<sp/>=<sp/>lui_textbox_create();</highlight></codeline>
+<codeline><highlight class="normal">//<sp/>Important<sp/>to<sp/>set<sp/>area<sp/>of<sp/>textbox.</highlight></codeline>
+<codeline><highlight class="normal">lui_object_set_area(my_textbox,<sp/>200,<sp/>40);</highlight></codeline>
+<codeline><highlight class="normal">//[Mandatory]<sp/>Must<sp/>set<sp/>a<sp/>buffer<sp/>where<sp/>the<sp/>text<sp/>will<sp/>be<sp/>stored</highlight></codeline>
+<codeline><highlight class="normal">lui_textbox_set_text_buffer(my_textbox,<sp/>txtbox_buff,<sp/>40);</highlight></codeline>
+<codeline><highlight class="normal">//<sp/>Let&apos;s<sp/>set<sp/>an<sp/>initial<sp/>string<sp/>for<sp/>the<sp/>testbox.<sp/></highlight></codeline>
+<codeline><highlight class="normal">//<sp/>Note:<sp/>the<sp/>size<sp/>of<sp/>string<sp/>does<sp/>NOT<sp/>include<sp/>the<sp/>null<sp/>(\0)<sp/>terminating<sp/>char.</highlight></codeline>
+<codeline><highlight class="normal">lui_textbox_insert_string(my_textbox,<sp/>(char*)&quot;Hello!!&quot;,<sp/>7);</highlight></codeline>
+<codeline><highlight class="normal">//[Important]<sp/>Set<sp/>the<sp/>callback<sp/>for<sp/>textbox.<sp/>In<sp/>this<sp/>callback,<sp/>we<sp/>will</highlight></codeline>
+<codeline><highlight class="normal">//<sp/>link/unlink<sp/>this<sp/>textbox<sp/>with<sp/>a<sp/>keyboard<sp/>object.<sp/>That<sp/>will<sp/>hide/unhide</highlight></codeline>
+<codeline><highlight class="normal">//<sp/>the<sp/>keyboard.</highlight></codeline>
+<codeline><highlight class="normal">lui_object_set_callback(my_textbox,<sp/>textbox_callback);</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>Create<sp/>a<sp/>keyboard</highlight></codeline>
+<codeline><highlight class="normal">my_keyboard<sp/>=<sp/>lui_keyboard_create();</highlight></codeline>
+<codeline><highlight class="normal">//<sp/>Keyboard<sp/>is<sp/>by<sp/>default<sp/>hidden.<sp/>It<sp/>is<sp/>made<sp/>visible<sp/>when<sp/>a<sp/></highlight></codeline>
+<codeline><highlight class="normal">//<sp/>textbox<sp/>is<sp/>clicked<sp/>on.<sp/></highlight></codeline>
+</programlisting> </para>
+</sect2>
     </detaileddescription>
   </compounddef>
 </doxygen>

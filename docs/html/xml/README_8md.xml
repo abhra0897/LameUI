@@ -88,7 +88,82 @@
 <codeline><highlight class="normal">```</highlight></codeline>
 <codeline></codeline>
 <codeline><highlight class="normal">##<sp/>Quick<sp/>Start</highlight></codeline>
-<codeline><highlight class="normal">This<sp/>is<sp/>a<sp/>samll<sp/>LameUI<sp/>code<sp/>and<sp/>then<sp/>all<sp/>parts<sp/>are<sp/>analyzed.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**[<sp/>Part<sp/>1<sp/>]**</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">This<sp/>is<sp/>a<sp/>very<sp/>simple<sp/>example<sp/>using<sp/>TFT_eSPI<sp/>library<sp/>on<sp/>Arduino<sp/>framework.<sp/>In<sp/>this<sp/>example<sp/>we<sp/>will<sp/>only<sp/>see<sp/>how<sp/>to<sp/>register<sp/>a<sp/>display<sp/>driver<sp/>and<sp/>a<sp/>touch<sp/>input<sp/>device.<sp/>No<sp/>UI<sp/>widgets<sp/>are<sp/>added<sp/>here.<sp/>For<sp/>a<sp/>detailed<sp/>example,<sp/>see<sp/>next<sp/>part.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```C</highlight></codeline>
+<codeline><highlight class="normal">//<sp/>This<sp/>example<sp/>uses<sp/>TFT_eSPI<sp/>library<sp/>on<sp/>Arduino<sp/>framework</highlight></codeline>
+<codeline><highlight class="normal">//<sp/>Hardware:<sp/>[MCU<sp/>=<sp/>ESP32,<sp/>Display:<sp/>ILI9341,<sp/>Touch<sp/>IC<sp/>=<sp/>XPT2046]</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">#include<sp/>&lt;TFT_eSPI.h&gt;<sp/>//<sp/>Graphics<sp/>and<sp/>font<sp/>library<sp/>for<sp/>ILI9341<sp/>driver<sp/>chip</highlight></codeline>
+<codeline><highlight class="normal">#include<sp/>&lt;SPI.h&gt;</highlight></codeline>
+<codeline><highlight class="normal">//<sp/>...<sp/>[<sp/>Include<sp/>LameUI<sp/>library<sp/>and<sp/>other<sp/>required<sp/>headers<sp/>too]<sp/>...</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">TFT_eSPI<sp/>tft<sp/>=<sp/>TFT_eSPI();<sp/><sp/>//<sp/>Invoke<sp/>library</highlight></codeline>
+<codeline><highlight class="normal">uint8_t<sp/>lui_memory[4000];</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">void<sp/>draw_pixels_area_cb(uint16_t<sp/>x,<sp/>uint16_t<sp/>y,<sp/>uint16_t<sp/>w,<sp/>uint16_t<sp/>h,<sp/>uint16_t<sp/>color)</highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>tft.fillRect(x,<sp/>y,<sp/>w,<sp/>h,<sp/>color);</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline><highlight class="normal">void<sp/>read_touch_input_cb(lui_touch_input_data_t*<sp/>inputdata)</highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/>x<sp/>=<sp/>0,<sp/>y<sp/>=<sp/>0;<sp/>//<sp/>To<sp/>store<sp/>the<sp/>touch<sp/>coordinates</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Pressed<sp/>will<sp/>be<sp/>set<sp/>true<sp/>is<sp/>there<sp/>is<sp/>a<sp/>valid<sp/>touch<sp/>on<sp/>the<sp/>screen</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>bool<sp/>pressed<sp/>=<sp/>tft.getTouch(&amp;x,<sp/>&amp;y);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>inputdata-&gt;is_pressed<sp/>=<sp/>pressed;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>(pressed)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>inputdata-&gt;x<sp/>=<sp/>x;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>inputdata-&gt;y<sp/>=<sp/>y;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>else</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>inputdata-&gt;x<sp/>=<sp/>-1;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>inputdata-&gt;y<sp/>=<sp/>-1;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">void<sp/>setup(void)<sp/></highlight></codeline>
+<codeline><highlight class="normal">{<sp/><sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Initilaize<sp/>tft</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>tft.init();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>tft.setTouch(touch_cal_data);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Initialize<sp/>LameUI<sp/>with<sp/>some<sp/>memory</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>lui_init(lui_memory,<sp/>sizeof(lui_memory));</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Create<sp/>a<sp/>display<sp/>driver<sp/>object</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>lui_dispdrv_t*<sp/>display_driver<sp/>=<sp/>lui_dispdrv_create();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>lui_dispdrv_register(display_driver);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>lui_dispdrv_set_resolution(display_driver,<sp/>240,<sp/>320);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>lui_dispdrv_set_draw_pixels_area_cb(display_driver,<sp/>draw_pixels_area_cb);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>lui_dispdrv_set_render_complete_cb(display_driver,<sp/>NULL);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Create<sp/>touch<sp/>input<sp/>device</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>lui_touch_input_dev_t*<sp/>input_device<sp/>=<sp/>lui_touch_inputdev_create();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>lui_touch_inputdev_register(input_device);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>lui_touch_inputdev_set_read_input_cb(input_device,<sp/>read_touch_input_cb);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>...<sp/>[Add<sp/>scene<sp/>(mandatory)<sp/>and<sp/>other<sp/>widgets]<sp/>...</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">void<sp/>loop()</highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Must<sp/>update<sp/>the<sp/>UI<sp/>periodically</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>lui_update();</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>...<sp/>[Do<sp/>other<sp/>stuffs]<sp/>...</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**[<sp/>Part<sp/>2<sp/>]**</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">This<sp/>is<sp/>a<sp/>more<sp/>detailed<sp/>LameUI<sp/>example<sp/>code.<sp/>It<sp/>looks<sp/>big,<sp/>but<sp/>that&apos;s<sp/>only<sp/>because<sp/>multiple<sp/>ways<sp/>of<sp/>handling<sp/>draw<sp/>calls<sp/>are<sp/>shown<sp/>here.<sp/>Implementation<sp/>of<sp/>`my_draw_pixels_cb()`<sp/>function<sp/>can<sp/>be<sp/>simplified<sp/>as<sp/>per<sp/>user&apos;s<sp/>need.<sp/>Also,<sp/>`my_render_cmplt_cb()`<sp/>is<sp/>optional<sp/>and<sp/>can<sp/>be<sp/>omitted<sp/>if<sp/>not<sp/>needed.<sp/>The<sp/>example<sp/>code<sp/>itself<sp/>is<sp/>pretty<sp/>simple<sp/>and<sp/>well<sp/>commented.</highlight></codeline>
 <codeline></codeline>
 <codeline><highlight class="normal">```C</highlight></codeline>
 <codeline><highlight class="normal">#include&lt;stdio.h&gt;</highlight></codeline>
@@ -103,6 +178,7 @@
 <codeline></codeline>
 <codeline><highlight class="normal">//<sp/>[Optional]<sp/>LameUI<sp/>does<sp/>NOT<sp/>use<sp/>display<sp/>buffer.<sp/>This<sp/>is<sp/>used<sp/>only<sp/>if<sp/>user<sp/>wants<sp/></highlight></codeline>
 <codeline><highlight class="normal">//<sp/>to<sp/>buffer<sp/>on<sp/>their<sp/>own.</highlight></codeline>
+<codeline></codeline>
 <codeline><highlight class="normal">//<sp/>Uncomment<sp/>below<sp/>line<sp/>to<sp/>enable<sp/>display<sp/>buffering.<sp/>Buffering<sp/>is<sp/>handled<sp/>by<sp/>user<sp/>and<sp/>NOT<sp/>by<sp/>LameUI.</highlight></codeline>
 <codeline><highlight class="normal">//#define<sp/>USE_BUFFERING</highlight></codeline>
 <codeline><highlight class="normal">#ifdef<sp/>USE_BUFERING</highlight></codeline>
@@ -171,7 +247,7 @@
 <codeline></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>while<sp/>(1)</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>[Mandatory]<sp/>LameUI<sp/>has<sp/>no<sp/>built-in<sp/>timer.<sp/>So,<sp/>update<sp/>LameUI<sp/>periodically.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>LameUI<sp/>has<sp/>no<sp/>built-in<sp/>timer.<sp/>So,<sp/>update<sp/>LameUI<sp/>periodically.</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>lui_update()<sp/>function<sp/>reads<sp/>inputs,<sp/>checks<sp/>if<sp/>anything<sp/>needs<sp/>to<sp/>be<sp/>drawn,<sp/>and<sp/>fires<sp/>callbacks<sp/>if<sp/>and<sp/>when<sp/>needed.</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>lui_update();</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sleep_ms(30);</highlight></codeline>
@@ -297,9 +373,9 @@
 <codeline><highlight class="normal">*Note:<sp/>Documentation<sp/>is<sp/>work<sp/>in<sp/>progress.<sp/>It&apos;s<sp/>incomplete<sp/>as<sp/>of<sp/>now.*</highlight></codeline>
 <codeline></codeline>
 <codeline><highlight class="normal">##<sp/>Simple<sp/>Examples</highlight></codeline>
-<codeline><highlight class="normal">Check<sp/>example<sp/>code<sp/>fragments<sp/>inside<sp/>[lame_ui.h](lame_ui.h).<sp/>Or<sp/>visit<sp/>[documentatin<sp/>page](https://abhra0897.github.io/LameUI/html/html/examples_page.html).<sp/><sp/></highlight></codeline>
-<codeline></codeline>
-<codeline><highlight class="normal">(for<sp/>now,<sp/>go<sp/>to<sp/>the<sp/>Simulator<sp/>repo<sp/>and<sp/>see<sp/>the<sp/>example<sp/>there:<sp/>https://github.com/abhra0897/LameUI_simulation/blob/experimental/src/main.c).<sp/>That<sp/>example<sp/>has<sp/>all<sp/>the<sp/>UI<sp/>elements.<sp/>Ignore<sp/>the<sp/>parts<sp/>that<sp/>are<sp/>related<sp/>to<sp/>OpenGL.</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>Check<sp/>example<sp/>code<sp/>fragments<sp/>inside<sp/>[lame_ui.h](lame_ui.h).<sp/>Or<sp/>visit<sp/>[documentatin<sp/>page](https://abhra0897.github.io/LameUI/html/html/examples_page.html).</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>See<sp/>the<sp/>Quick<sp/>Start<sp/>section</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>go<sp/>to<sp/>the<sp/>Simulator<sp/>repo<sp/>and<sp/>see<sp/>the<sp/>example<sp/>there:<sp/>https://github.com/abhra0897/LameUI_simulation/blob/experimental/src/main.c.<sp/>That<sp/>example<sp/>has<sp/>all<sp/>the<sp/>UI<sp/>elements.<sp/>Ignore<sp/>the<sp/>parts<sp/>that<sp/>are<sp/>related<sp/>to<sp/>OpenGL.</highlight></codeline>
     </programlisting>
     <location file="README.md"/>
   </compounddef>

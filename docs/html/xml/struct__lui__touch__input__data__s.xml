@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="struct__lui__touch__input__data__s" kind="struct" language="C++" prot="public">
     <compoundname>_lui_touch_input_data_s</compoundname>
+    <includes refid="lame__ui_8h" local="no">lame_ui.h</includes>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="struct__lui__touch__input__data__s_1afb1054eabf8033209df3b6bc2ca5a2af" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -9,12 +10,13 @@
         <argsstring></argsstring>
         <name>is_pressed</name>
         <briefdescription>
+<para>0: NOT pressed, 1: Pressed </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="672" column="9" bodyfile="lame_ui.h" bodystart="672" bodyend="-1"/>
+        <location file="lame_ui.h" line="522" column="9" bodyfile="lame_ui.h" bodystart="522" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct__lui__touch__input__data__s_1a7f21ada3a9a2b790c51c2f767ea3e30e" prot="public" static="no" mutable="no">
         <type>int16_t</type>
@@ -22,12 +24,13 @@
         <argsstring></argsstring>
         <name>x</name>
         <briefdescription>
+<para>X position of press/touch. -1 if not Pressed/touched. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="673" column="9" bodyfile="lame_ui.h" bodystart="673" bodyend="-1"/>
+        <location file="lame_ui.h" line="523" column="9" bodyfile="lame_ui.h" bodystart="523" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct__lui__touch__input__data__s_1a0dda12587fe70222aa328760a1ab2055" prot="public" static="no" mutable="no">
         <type>int16_t</type>
@@ -35,19 +38,21 @@
         <argsstring></argsstring>
         <name>y</name>
         <briefdescription>
+<para>Y position of press/touch. -1 if not Pressed/touched. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="674" column="9" bodyfile="lame_ui.h" bodystart="674" bodyend="-1"/>
+        <location file="lame_ui.h" line="524" column="9" bodyfile="lame_ui.h" bodystart="524" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
+<para>Touch Input data. </para>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="lame_ui.h" line="671" column="1" bodyfile="lame_ui.h" bodystart="670" bodyend="675"/>
+    <location file="lame_ui.h" line="521" column="1" bodyfile="lame_ui.h" bodystart="520" bodyend="525"/>
     <listofallmembers>
       <member refid="struct__lui__touch__input__data__s_1afb1054eabf8033209df3b6bc2ca5a2af" prot="public" virt="non-virtual"><scope>_lui_touch_input_data_s</scope><name>is_pressed</name></member>
       <member refid="struct__lui__touch__input__data__s_1a7f21ada3a9a2b790c51c2f767ea3e30e" prot="public" virt="non-virtual"><scope>_lui_touch_input_data_s</scope><name>x</name></member>

@@ -3,6 +3,7 @@
   <compounddef id="group__function" kind="group">
     <compoundname>function</compoundname>
     <title>API Functions</title>
+    <innergroup refid="group__lui__core">Core initialize &amp; update API</innergroup>
     <innergroup refid="group__lui__object">All objects (widgets) API</innergroup>
     <innergroup refid="group__lui__label">Label API</innergroup>
     <innergroup refid="group__lui__linechart">Linechart API</innergroup>

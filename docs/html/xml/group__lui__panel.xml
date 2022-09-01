@@ -10,12 +10,16 @@
         <argsstring>()</argsstring>
         <name>lui_panel_create</name>
         <briefdescription>
+<para>Create a panel object with initial values. </para>
         </briefdescription>
         <detaileddescription>
+<para><simplesect kind="return"><para>lui_obj_t* Created panel object </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1953" column="11" bodyfile="lame_ui.c" bodystart="2760" bodyend="2786" declfile="lame_ui.h" declline="1953" declcolumn="11"/>
+        <location file="lame_ui.h" line="2114" column="11" bodyfile="lame_ui.c" bodystart="2766" bodyend="2792" declfile="lame_ui.h" declline="2114" declcolumn="11"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__panel_1ga5e74112373754dd1f38965450efb6700" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -27,38 +31,60 @@
           <declname>obj_panel</declname>
         </param>
         <briefdescription>
+<para>Draw apanel. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>obj_panel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>panel object </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1954" column="6" bodyfile="lame_ui.c" bodystart="2788" bodyend="2800" declfile="lame_ui.h" declline="1954" declcolumn="6"/>
-      </memberdef>
-      <memberdef kind="function" id="group__lui__panel_1ga0bb57d1ce663eb42ba5b64f05c2b83be" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void lui_panel_set_bg_image</definition>
-        <argsstring>(lui_obj_t *obj_panel, const lui_bitmap_t *image)</argsstring>
-        <name>lui_panel_set_bg_image</name>
-        <param>
-          <type><ref refid="lame__ui_8h_1a5a7ccb45f639e22e43b3ac176a75dd09" kindref="member">lui_obj_t</ref> *</type>
-          <declname>obj_panel</declname>
-        </param>
-        <param>
-          <type>const <ref refid="structlui__bitmap__t" kindref="compound">lui_bitmap_t</ref> *</type>
-          <declname>image</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="lame_ui.h" line="1955" column="6" declfile="lame_ui.h" declline="1955" declcolumn="6"/>
+        <location file="lame_ui.h" line="2121" column="6" bodyfile="lame_ui.c" bodystart="2794" bodyend="2806" declfile="lame_ui.h" declline="2121" declcolumn="6"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
+<para>API for <bold><computeroutput>panel</computeroutput></bold> widget. </para>
     </briefdescription>
     <detaileddescription>
+<para>A panel is just a container for multiple widgets (objects). This is used for grouping widgets together. Panels can act as parent widget and must have a scene as its parent.</para>
+<para>When widgets are added as children to a panel, their posions are relative to the panel. For example, assume a panel is at (X=10, Y=20) position relative to its parent scene. Now create a button and set the panel as its parent. Now, the position of the button will be realtive to the panel. Setting the button&apos;s position to (X=5, Y=3) means it global position actually is (X=15, Y=23).</para>
+<para>Moving a panel to a new position also moves all its children with it. Making a panel hidden also hides all its children with it. Scaling a panel does NOT scales its children. But if the new scale is too small to contain all its children, render result will be unpredictable.</para>
+<sect2 id="group__lui__panel_1panel_example">
+<title>Example</title>
+<para><programlisting><codeline><highlight class="normal">//<sp/>Create<sp/>a<sp/>panel<sp/>object</highlight></codeline>
+<codeline><highlight class="normal">lui_obj_t*<sp/>my_panel<sp/>=<sp/>lui_panel_create();</highlight></codeline>
+<codeline><highlight class="normal">//<sp/>Important<sp/>to<sp/>set<sp/>area<sp/>of<sp/>panel.</highlight></codeline>
+<codeline><highlight class="normal">lui_object_set_area(my_panel,<sp/>320,<sp/>300);</highlight></codeline>
+<codeline><highlight class="normal">//<sp/>Set<sp/>position<sp/>of<sp/>the<sp/>panel</highlight></codeline>
+<codeline><highlight class="normal">lui_object_set_position(my_panel,<sp/>10,<sp/>20);</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>Create<sp/>a<sp/>button</highlight></codeline>
+<codeline><highlight class="normal">lui_obj_t*<sp/>my_button_1<sp/>=<sp/>lui_button_create();</highlight></codeline>
+<codeline><highlight class="normal">//<sp/>....<sp/>[<sp/>set<sp/>buttons<sp/>area,<sp/>text,<sp/>callback<sp/>etc.]<sp/>...</highlight></codeline>
+<codeline><highlight class="normal">//<sp/>Now<sp/>add<sp/>it<sp/>to<sp/>the<sp/>panel</highlight></codeline>
+<codeline><highlight class="normal">lui_object_add_to_parent(my_button_1,<sp/>my_panel);</highlight></codeline>
+<codeline><highlight class="normal">//<sp/>This<sp/>position<sp/>is<sp/>relative<sp/>to<sp/>the<sp/>panel</highlight></codeline>
+<codeline><highlight class="normal">lui_object_set_position(my_button_1,<sp/>5,<sp/>5);</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>Create<sp/>a<sp/>label</highlight></codeline>
+<codeline><highlight class="normal">lui_obj_t*<sp/>my_label_1<sp/>=<sp/>lui_label_create();</highlight></codeline>
+<codeline><highlight class="normal">//<sp/>....<sp/>[<sp/>set<sp/>label<sp/>text,<sp/>color,<sp/>area<sp/>etc.]<sp/>...</highlight></codeline>
+<codeline><highlight class="normal">//<sp/>Now<sp/>add<sp/>it<sp/>to<sp/>the<sp/>panel</highlight></codeline>
+<codeline><highlight class="normal">lui_object_add_to_parent(my_label_1,<sp/>my_panel);</highlight></codeline>
+<codeline><highlight class="normal">//<sp/>This<sp/>position<sp/>is<sp/>relative<sp/>to<sp/>the<sp/>panel</highlight></codeline>
+<codeline><highlight class="normal">lui_object_set_position(my_label_1,<sp/>5,<sp/>35);</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>...<sp/>[Keep<sp/>adding<sp/>more<sp/>widgets<sp/>under<sp/>the<sp/>panel]<sp/>...</highlight></codeline>
+</programlisting> </para>
+</sect2>
     </detaileddescription>
   </compounddef>
 </doxygen>

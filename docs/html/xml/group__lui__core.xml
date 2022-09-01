@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="group__lui__core" kind="group">
+    <compoundname>lui_core</compoundname>
+    <title>Core initialize &amp; update API</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__lui__core_1ga96ff45bfbaf38c57a613f1b4a4830893" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lui_init</definition>
+        <argsstring>(uint8_t mem_block[], uint16_t size)</argsstring>
+        <name>lui_init</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>mem_block</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>size</declname>
+        </param>
+        <briefdescription>
+<para>Initialize the LameUI core. Here user provides LameUI some RAM to create widgets. If and when RAM is not sufficient, widget ceration will fail. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>mem_block</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>an array of uint8_t. this will be used as work area </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>size of the alloted memory </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="591" column="6" bodyfile="lame_ui.c" bodystart="28" bodyend="48" declfile="lame_ui.h" declline="591" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="group__lui__core_1gaa4a3c7694929ad0b6c5cd565dd6e7304" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lui_update</definition>
+        <argsstring>()</argsstring>
+        <name>lui_update</name>
+        <briefdescription>
+<para>This function updates the UI by reading input and rendering widgets that need rendering. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>User must call this function periodically (e.g. every 20ms) in a loop so no input event is missed. Also, LameUI renders only when widgets need rendering. So, draw calls are not wasted. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="602" column="6" bodyfile="lame_ui.c" bodystart="53" bodyend="84" declfile="lame_ui.h" declline="602" declcolumn="6"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>These functions are used to initialize the core and to update it. </para>
+    </briefdescription>
+    <detaileddescription>
+<para><itemizedlist>
+<listitem><para><ref refid="group__lui__core_1ga96ff45bfbaf38c57a613f1b4a4830893" kindref="member">lui_init()</ref> is only called once at the very begining.</para>
+</listitem><listitem><para><ref refid="group__lui__core_1gaa4a3c7694929ad0b6c5cd565dd6e7304" kindref="member">lui_update()</ref> is called periodically in an infinite loop. </para>
+</listitem></itemizedlist>
+</para>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

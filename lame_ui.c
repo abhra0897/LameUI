@@ -5,8 +5,8 @@
  * @file lame_ui.c
  * @author Avra Mitra
  * @brief Source FIle of LameUI GUI library. Must include lame_ui.h. No other file is mandatory.
- * @version 0.1
- * @date 2022-05-28
+ * @version 1.0
+ * @date 2022-09-02
  * 
  * @copyright Copyright (c) 2022
  * 
@@ -2501,9 +2501,15 @@ void lui_textbox_draw(lui_obj_t* obj)
 	uint8_t glyph_w = 0;
 	uint8_t glyph_h = 0;
 
-	lui_gfx_draw_string_advanced(txtbox->text_buffer, obj->x + pad, obj->y + pad, obj->common_style.width - 2*pad, 
-									obj->common_style.height - 2*pad, txtbox->style.text_color, 
-									obj->common_style.bg_color, 1, txtbox->font);
+	lui_gfx_draw_string_advanced(txtbox->text_buffer, 
+								 obj->x + pad, 
+								 obj->y + pad, 
+								 obj->common_style.width - 2*pad, 
+								 obj->common_style.height - 2*pad, 
+								 txtbox->style.text_color, 
+								 obj->common_style.bg_color, 
+								 1, 
+								 txtbox->font);
 	
 
 	/* No need to draw caret when textbox is in Idle state */
@@ -2865,37 +2871,37 @@ void lui_scene_draw(lui_obj_t* obj)
 	// TBD: draw background image
 }
 
-void lui_scene_set_bg_image(lui_obj_t* obj_scene, const lui_bitmap_t* image)
-{
-	// NOTE: image rendering is not implemented yet
-	if (obj_scene == NULL)
-		return;
+// void lui_scene_set_bg_image(lui_obj_t* obj_scene, const lui_bitmap_t* image)
+// {
+// 	// NOTE: image rendering is not implemented yet
+// 	if (obj_scene == NULL)
+// 		return;
 	
-	// type check
-	if (obj_scene->obj_type != LUI_OBJ_SCENE)
-		return;
+// 	// type check
+// 	if (obj_scene->obj_type != LUI_OBJ_SCENE)
+// 		return;
 	
-	lui_scene_t* scene = (lui_scene_t* )(obj_scene->obj_main_data);
-	scene->bg_image = (lui_bitmap_t* )image;
+// 	lui_scene_t* scene = (lui_scene_t* )(obj_scene->obj_main_data);
+// 	scene->bg_image = (lui_bitmap_t* )image;
 
-	_lui_object_set_need_refresh(obj_scene); 
-}
+// 	_lui_object_set_need_refresh(obj_scene); 
+// }
 
-void lui_scene_set_font(lui_obj_t* obj_scene, const lui_font_t* font)
-{
-	if (obj_scene == NULL)
-		return;
-	if (font == NULL)
-		return;
-	// type check
-	if (obj_scene->obj_type != LUI_OBJ_SCENE)
-		return;
+// void lui_scene_set_font(lui_obj_t* obj_scene, const lui_font_t* font)
+// {
+// 	if (obj_scene == NULL)
+// 		return;
+// 	if (font == NULL)
+// 		return;
+// 	// type check
+// 	if (obj_scene->obj_type != LUI_OBJ_SCENE)
+// 		return;
 	
-	lui_scene_t* scene = (lui_scene_t* )(obj_scene->obj_main_data);
-	scene->font = font;
+// 	lui_scene_t* scene = (lui_scene_t* )(obj_scene->obj_main_data);
+// 	scene->font = font;
 	
-	_lui_object_set_need_refresh(obj_scene); 
-}
+// 	_lui_object_set_need_refresh(obj_scene); 
+// }
 
 void lui_scene_set_active(lui_obj_t* obj_scene)
 {
@@ -4391,13 +4397,13 @@ void _lui_gfx_plot_line_high(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1,
  *------------------------------------------------------------------------------
  */
 
-const lui_font_t* _lui_get_font_from_active_scene()
-{
-	if ( g_lui_main->active_scene == NULL)
-		return NULL;
-	lui_scene_t* act_scene = (lui_scene_t* )( g_lui_main->active_scene->obj_main_data);
-	return (act_scene->font);
-}
+// const lui_font_t* _lui_get_font_from_active_scene()
+// {
+// 	if ( g_lui_main->active_scene == NULL)
+// 		return NULL;
+// 	lui_scene_t* act_scene = (lui_scene_t* )( g_lui_main->active_scene->obj_main_data);
+// 	return (act_scene->font);
+// }
 
 uint8_t _lui_get_event_against_state(uint8_t new_state, uint8_t old_state)
 {
@@ -4506,17 +4512,14 @@ double _lui_map_range(double old_val, double old_max, double old_min, double new
  */
 uint8_t _lui_disp_drv_check()
 {
-	uint8_t status = 0;
 	// if no display driver is registered, return
 	if ( g_lui_main->disp_drv == NULL)
-		status = 0;
+		return 0;
 	// If no callback function (for drawing) is provided by user, return
 	else if ( g_lui_main->disp_drv->draw_pixels_area_cb == NULL)
-		status = 0;
+		return 0;
 	else
-		status = 1;
-
-	return status;
+		return 1;
 }
 
 void _lui_mem_init(uint8_t mem_block[], uint16_t size)

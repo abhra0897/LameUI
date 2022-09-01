@@ -10,12 +10,16 @@
         <argsstring>()</argsstring>
         <name>lui_touch_inputdev_create</name>
         <briefdescription>
+<para>Create touch input device object. </para>
         </briefdescription>
         <detaileddescription>
+<para><simplesect kind="return"><para>lui_touch_input_dev_t* Created touch input device object </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1987" column="23" bodyfile="lame_ui.c" bodystart="4013" bodyend="4025" declfile="lame_ui.h" declline="1987" declcolumn="23"/>
+        <location file="lame_ui.h" line="2360" column="23" bodyfile="lame_ui.c" bodystart="4019" bodyend="4031" declfile="lame_ui.h" declline="2360" declcolumn="23"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__input_1ga3861ea1c2fa9e1776f1aff61dc52daa9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -27,12 +31,23 @@
           <declname>touch_inputdev</declname>
         </param>
         <briefdescription>
+<para>Register a touch input device. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>touch_inputdev</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>touch input device object </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1988" column="6" bodyfile="lame_ui.c" bodystart="4027" bodyend="4032" declfile="lame_ui.h" declline="1988" declcolumn="6"/>
+        <location file="lame_ui.h" line="2367" column="6" bodyfile="lame_ui.c" bodystart="4033" bodyend="4038" declfile="lame_ui.h" declline="2367" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__input_1ga72d86e81f1d818b174b5a97b1297d840" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -44,21 +59,55 @@
           <declname>touch_inputdev</declname>
         </param>
         <param>
-          <type>void(*)(<ref refid="struct__lui__touch__input__data__s" kindref="compound">lui_touch_input_data_t</ref> *touch_inputdata)</type>
+          <type>void(*)(<ref refid="lame__ui_8h_1aa6d259bd0bdabcea1b151e6ae903b135" kindref="member">lui_touch_input_data_t</ref> *touch_inputdata)</type>
           <declname>read_touch_input_cb</declname>
         </param>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>touch_inputdev</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>read_touch_input_cb</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1989" column="6" declfile="lame_ui.h" declline="1989" declcolumn="6"/>
+        <location file="lame_ui.h" line="2375" column="6" declfile="lame_ui.h" declline="2375" declcolumn="6"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
+<para>API for <bold><computeroutput>touch input device</computeroutput></bold> object. </para>
     </briefdescription>
     <detaileddescription>
+<para>LameUI does NOT have its own Touch Input driver. User must supply their own functions to read touch input. Touch input data is stored in <computeroutput>lui_touch_input_data_t</computeroutput>: <programlisting filename=".C"><codeline><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct__lui__touch__input__data__s" kindref="compound">_lui_touch_input_data_s</ref></highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="struct__lui__touch__input__data__s_1afb1054eabf8033209df3b6bc2ca5a2af" kindref="member">is_pressed</ref>;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>int16_t<sp/><ref refid="struct__lui__touch__input__data__s_1a7f21ada3a9a2b790c51c2f767ea3e30e" kindref="member">x</ref>;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>int16_t<sp/><ref refid="struct__lui__touch__input__data__s_1a0dda12587fe70222aa328760a1ab2055" kindref="member">y</ref>;</highlight></codeline>
+<codeline><highlight class="normal">}<ref refid="lame__ui_8h_1aa6d259bd0bdabcea1b151e6ae903b135" kindref="member">lui_touch_input_data_t</ref>;</highlight></codeline>
+</programlisting></para>
+<para><simplesect kind="note"><para>When touch input is NOT pressed, x and y value must be -1.</para>
+</simplesect>
+</para>
+<sect2 id="group__lui__input_1touchinput_example">
+<title>Example</title>
+<para>Example code for touch input can be found inside the display driver example code.</para>
+<para>See: <ref refid="group__lui__dispdrv_1displaydriver_touchinput_example" kindref="member">Example</ref> </para>
+</sect2>
     </detaileddescription>
   </compounddef>
 </doxygen>

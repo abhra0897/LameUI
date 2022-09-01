@@ -35,7 +35,7 @@ var NAVTREE =
     [ "File List", "files.html", "files" ],
     [ "Globals", "globals.html", [
       [ "All", "globals.html", "globals_dup" ],
-      [ "Functions", "globals_func.html", null ],
+      [ "Functions", "globals_func.html", "globals_func" ],
       [ "Typedefs", "globals_type.html", null ],
       [ "Macros", "globals_defs.html", null ]
     ] ]
@@ -45,9 +45,9 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "akshar__light__32_8h_source.html",
-"group__lui__linechart.html#ga79ea0c8ddadc0fe5c2fc0ff5ebe4b88f",
-"lame__ui_8h.html#a16405e936869e4c459420522aeb8fa8b",
-"struct__lui__list__s.html#abcee3e67b7e0bb077da0a9f4a365c219"
+"group__lui__dispdrv.html#ga3516bb99ba95160e9673ba8541ffb13e",
+"group__lui__slider.html#ga9a0709df634fac8694c67c91fe18d64c",
+"struct__lui__checkbox__style__s.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

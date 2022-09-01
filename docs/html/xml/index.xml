@@ -254,8 +254,8 @@
     <member refid="lame__ui_8c_1a7f0b8d79659dc81e3c6fa04f2d1f7fea" kind="variable"><name>BITMAP_lui_default</name></member>
     <member refid="lame__ui_8c_1abc7180700baeff2bb9ca2c27cd0deace" kind="variable"><name>FONT_GLYPHS_lui_default</name></member>
     <member refid="lame__ui_8c_1ac60e2bda8772731a278995b748eff33f" kind="variable"><name>FONT_lui_default</name></member>
-    <member refid="lame__ui_8c_1a96ff45bfbaf38c57a613f1b4a4830893" kind="function"><name>lui_init</name></member>
-    <member refid="lame__ui_8c_1aa4a3c7694929ad0b6c5cd565dd6e7304" kind="function"><name>lui_update</name></member>
+    <member refid="group__lui__core_1ga96ff45bfbaf38c57a613f1b4a4830893" kind="function"><name>lui_init</name></member>
+    <member refid="group__lui__core_1gaa4a3c7694929ad0b6c5cd565dd6e7304" kind="function"><name>lui_update</name></member>
     <member refid="group__lui__label_1ga176b351997c1058f4d6fc9bc86942429" kind="function"><name>lui_label_draw</name></member>
     <member refid="group__lui__label_1ga83cc1ae5b6c0601af8614574e019e8f8" kind="function"><name>lui_label_create</name></member>
     <member refid="group__lui__label_1ga1ae5970ffa3b6be91e483a8618db71c9" kind="function"><name>lui_label_set_font</name></member>
@@ -351,8 +351,6 @@
     <member refid="group__lui__panel_1ga5e74112373754dd1f38965450efb6700" kind="function"><name>lui_panel_draw</name></member>
     <member refid="group__lui__scene_1ga4f6f694807ee038a13942060efb715f0" kind="function"><name>lui_scene_create</name></member>
     <member refid="group__lui__scene_1gab6b1e6f1f2b17745b02d6c3d3d6003d1" kind="function"><name>lui_scene_draw</name></member>
-    <member refid="group__lui__scene_1gab4ed6216c46a9c3d496d409a0211c6dd" kind="function"><name>lui_scene_set_bg_image</name></member>
-    <member refid="group__lui__scene_1ga9171479a041b608913d5601cc1f74c43" kind="function"><name>lui_scene_set_font</name></member>
     <member refid="group__lui__scene_1ga5a2c32f660fbbe39fae9d5f11055aff7" kind="function"><name>lui_scene_set_active</name></member>
     <member refid="group__lui__scene_1ga84a7baf7297d1ed254e4feb3b8d125ea" kind="function"><name>lui_scene_get_active</name></member>
     <member refid="group__lui__object_1ga035918521a6c575108b64d7e960bb645" kind="function"><name>_lui_object_create</name></member>
@@ -403,30 +401,94 @@
     <member refid="lame__ui_8c_1a7f55400d276a2100f8ce722ce5dffb7f" kind="function"><name>_lui_gfx_render_char_glyph</name></member>
     <member refid="lame__ui_8c_1a3bb54afdae476b08538714744a806db8" kind="function"><name>_lui_gfx_plot_line_low</name></member>
     <member refid="lame__ui_8c_1a1ad3e2d43fd774f4f857e8f7d4f23be3" kind="function"><name>_lui_gfx_plot_line_high</name></member>
-    <member refid="lame__ui_8c_1aea187a0c2718e876758e366936afe54d" kind="function"><name>_lui_get_font_from_active_scene</name></member>
     <member refid="lame__ui_8c_1a32881af029062a76504f7d80766feb1a" kind="function"><name>_lui_get_event_against_state</name></member>
     <member refid="lame__ui_8c_1a65143b83ab55cdcc5ac9b853677b881e" kind="function"><name>_lui_map_range</name></member>
-    <member refid="lame__ui_8c_1a7d451e8c6afd8351943302f22a22ab5e" kind="function"><name>_lui_disp_drv_check</name></member>
+    <member refid="group__lui__dispdrv_1ga7d451e8c6afd8351943302f22a22ab5e" kind="function"><name>_lui_disp_drv_check</name></member>
     <member refid="lame__ui_8c_1a878422617cd56a02b309f6f9deab11c9" kind="function"><name>_lui_mem_init</name></member>
     <member refid="lame__ui_8c_1ae03fc2afa6b8e441d7b0285c521c30b0" kind="function"><name>_lui_mem_alloc</name></member>
   </compound>
   <compound refid="lame__ui_8h" kind="file"><name>lame_ui.h</name>
-    <member refid="lame__ui_8h_1ac614eedf6ba02a547abc55527a7f2982" kind="define"><name>LUI_MAX_OBJECTS</name></member>
-    <member refid="lame__ui_8h_1ab6571f6979947007287617835dafc85c" kind="define"><name>LUI_USE_DARK_THEME</name></member>
-    <member refid="lame__ui_8h_1a82c1ecd24694c1c50e9f804b510a5f68" kind="define"><name>LUI_USE_LINECHART</name></member>
-    <member refid="lame__ui_8h_1a090cd6d9140af68e21d5d1d466011b51" kind="define"><name>LUI_USE_SWITCH</name></member>
-    <member refid="lame__ui_8h_1a06d5e9b628c01b45bc47c6af3f735ba5" kind="define"><name>LUI_USE_CHECKBOX</name></member>
-    <member refid="lame__ui_8h_1a037a75e722772914ddedf12f38f1c431" kind="define"><name>LUI_USE_SLIDER</name></member>
-    <member refid="lame__ui_8h_1ab31bbf353b4a1abe8a3a8374e47098c7" kind="define"><name>LUI_USE_LIST</name></member>
-    <member refid="lame__ui_8h_1ae65a21daf3dd06d5a8cb7e1d89d01e3f" kind="define"><name>LUI_USE_PANEL</name></member>
-    <member refid="lame__ui_8h_1a4b024b1b29ba110778de47b1d0e3f480" kind="define"><name>LUI_USE_TEXTBOX</name></member>
-    <member refid="lame__ui_8h_1a4cbf5b51287f460c68b268c5bd598871" kind="define"><name>LUI_USE_BUTTONGRID</name></member>
-    <member refid="lame__ui_8h_1ab8fdedff83ca539ac192a8943d38177e" kind="define"><name>LUI_USE_KEYBOARD</name></member>
+    <member refid="group__LUI__USER__CONFIG_1gac614eedf6ba02a547abc55527a7f2982" kind="define"><name>LUI_MAX_OBJECTS</name></member>
+    <member refid="group__LUI__USER__CONFIG_1gab6571f6979947007287617835dafc85c" kind="define"><name>LUI_USE_DARK_THEME</name></member>
+    <member refid="group__LUI__USE__OBJECT_1ga82c1ecd24694c1c50e9f804b510a5f68" kind="define"><name>LUI_USE_LINECHART</name></member>
+    <member refid="group__LUI__USE__OBJECT_1ga090cd6d9140af68e21d5d1d466011b51" kind="define"><name>LUI_USE_SWITCH</name></member>
+    <member refid="group__LUI__USE__OBJECT_1ga06d5e9b628c01b45bc47c6af3f735ba5" kind="define"><name>LUI_USE_CHECKBOX</name></member>
+    <member refid="group__LUI__USE__OBJECT_1ga037a75e722772914ddedf12f38f1c431" kind="define"><name>LUI_USE_SLIDER</name></member>
+    <member refid="group__LUI__USE__OBJECT_1gab31bbf353b4a1abe8a3a8374e47098c7" kind="define"><name>LUI_USE_LIST</name></member>
+    <member refid="group__LUI__USE__OBJECT_1gae65a21daf3dd06d5a8cb7e1d89d01e3f" kind="define"><name>LUI_USE_PANEL</name></member>
+    <member refid="group__LUI__USE__OBJECT_1ga4b024b1b29ba110778de47b1d0e3f480" kind="define"><name>LUI_USE_TEXTBOX</name></member>
+    <member refid="group__LUI__USE__OBJECT_1ga4cbf5b51287f460c68b268c5bd598871" kind="define"><name>LUI_USE_BUTTONGRID</name></member>
+    <member refid="group__LUI__USE__OBJECT_1gab8fdedff83ca539ac192a8943d38177e" kind="define"><name>LUI_USE_KEYBOARD</name></member>
+    <member refid="lame__ui_8h_1a2c62749ac689d5d9ab791bbcef590495" kind="define"><name>LUI_INPUT_TYPE_TOUCH</name></member>
+    <member refid="group__LUI__STATE_1gafa8144d7cc23391d25d08cfd6c24563f" kind="define"><name>LUI_STATE_IDLE</name></member>
+    <member refid="group__LUI__STATE_1ga30afefa8e1c9dcbc7bff36f77448dd00" kind="define"><name>LUI_STATE_SELECTED</name></member>
+    <member refid="group__LUI__STATE_1ga4e9f31b3efcee1dd2b30b6c5e1c6bf2b" kind="define"><name>LUI_STATE_PRESSED</name></member>
+    <member refid="group__LUI__STATE_1gae7fad37f0ae5cb98ac8b76fd848ca985" kind="define"><name>LUI_STATE_ENTERED</name></member>
+    <member refid="group__LUI__EVENT_1ga1848d9f83eeb058010e309e253410dce" kind="define"><name>LUI_EVENT_NONE</name></member>
+    <member refid="group__LUI__EVENT_1gac7d6c6bf48a50747e102d7de5729931d" kind="define"><name>LUI_EVENT_SELECTED</name></member>
+    <member refid="group__LUI__EVENT_1gae233d0007818b1c119d1c8cd44e04f63" kind="define"><name>LUI_EVENT_SELECTION_LOST</name></member>
+    <member refid="group__LUI__EVENT_1gac1d4660029fe5efac27e0116e258d65d" kind="define"><name>LUI_EVENT_PRESSED</name></member>
+    <member refid="group__LUI__EVENT_1ga7bb839ee9510a334e4ebc1af25613d25" kind="define"><name>LUI_EVENT_RELEASED</name></member>
+    <member refid="group__LUI__EVENT_1gac3c329747d83a31d3e2bdaa4f59c7106" kind="define"><name>LUI_EVENT_ENTERED</name></member>
+    <member refid="group__LUI__EVENT_1gadc65dc42494a76b2ec7da54ee0571c3f" kind="define"><name>LUI_EVENT_EXITED</name></member>
+    <member refid="group__LUI__EVENT_1gaac0f29869773a73ada40aa4b8bba419e" kind="define"><name>LUI_EVENT_VALUE_CHANGED</name></member>
+    <member refid="group__LUI__EVENT_1ga992d862ff4bb6f046eaba1f9b026bb61" kind="define"><name>LUI_EVENT_CHECK_CHANGED</name></member>
+    <member refid="group__LUI__OBJ_1ga0f0485902b6bef68f14ff1be14981601" kind="define"><name>LUI_OBJ_NONE</name></member>
+    <member refid="group__LUI__OBJ_1gabf090b42db96c0047ecc237c29b40b2a" kind="define"><name>LUI_OBJ_LABEL</name></member>
+    <member refid="group__LUI__OBJ_1ga71ca4e187e8cdb3523ecaa04cc8e839a" kind="define"><name>LUI_OBJ_BUTTON</name></member>
+    <member refid="group__LUI__OBJ_1ga8e7d5766387add17777da01798587b00" kind="define"><name>LUI_OBJ_SWITCH</name></member>
+    <member refid="group__LUI__OBJ_1ga9c3c2877dc4affdd235ad8fe08bc2dda" kind="define"><name>LUI_OBJ_LINECHART</name></member>
+    <member refid="group__LUI__OBJ_1ga98cfeaf48cb8a5e56abb21711ce897f1" kind="define"><name>LUI_OBJ_PANEL</name></member>
+    <member refid="group__LUI__OBJ_1ga913f973f4218c30495747ec49ffc62b8" kind="define"><name>LUI_OBJ_SCENE</name></member>
+    <member refid="group__LUI__OBJ_1ga8639b63999e5213c9577763000ff46a6" kind="define"><name>LUI_OBJ_GENERIC</name></member>
+    <member refid="group__LUI__OBJ_1ga1d04fb7b87c8368cf88bb79fdec83385" kind="define"><name>LUI_OBJ_LIST</name></member>
+    <member refid="group__LUI__OBJ_1ga33316a24dae697bdf359501cf0a8adeb" kind="define"><name>LUI_OBJ_CHECKBOX</name></member>
+    <member refid="group__LUI__OBJ_1gaba6bbd7622f9a952033593c2ca45a379" kind="define"><name>LUI_OBJ_SLIDER</name></member>
+    <member refid="group__LUI__OBJ_1ga4d227ff4ed4479e309b6b9ad3fad7334" kind="define"><name>LUI_OBJ_BTNGRID</name></member>
+    <member refid="group__LUI__OBJ_1gada57323fd9df5ab45a4a66db12d55766" kind="define"><name>LUI_OBJ_TEXTBOX</name></member>
+    <member refid="lame__ui_8h_1ac9926a9d6eb8e7924363769c7e3a0d11" kind="define"><name>LUI_LAYER_POPUP</name></member>
+    <member refid="group__LUI__KEYBOARD__MODE_1ga53cf1a061af12c998702ac1dc8c6ffca" kind="define"><name>LUI_KEYBOARD_MODE_TXT_LOWER</name></member>
+    <member refid="group__LUI__KEYBOARD__MODE_1ga6c7dfef998e05b11ae2bcfdb5af32f27" kind="define"><name>LUI_KEYBOARD_MODE_TXT_UPPER</name></member>
+    <member refid="group__LUI__KEYBOARD__MODE_1gaf40e758476c4dacde5c9c79dd265e7eb" kind="define"><name>LUI_KEYBOARD_MODE_TXT_SPCL</name></member>
+    <member refid="group__LUI__ICONS_1gad1154c55619e443178bd812aadbb710d" kind="define"><name>LUI_ICON_HOME</name></member>
+    <member refid="group__LUI__ICONS_1gaf3af51845f962c906d6e9198dccb8316" kind="define"><name>LUI_ICON_RELAOD</name></member>
+    <member refid="group__LUI__ICONS_1gae5cc5454ed2c8a203a4acb0acdf1afbe" kind="define"><name>LUI_ICON_BATTERY_HALF</name></member>
+    <member refid="group__LUI__ICONS_1ga7fbfb716d376dd490ec613ac8f458265" kind="define"><name>LUI_ICON_LOCATION</name></member>
+    <member refid="group__LUI__ICONS_1ga366c73f2453cd2811bf107b3c90b9c3c" kind="define"><name>LUI_ICON_BATTERY_FULL</name></member>
+    <member refid="group__LUI__ICONS_1ga3d49ba105be02944754a9e6a37e07754" kind="define"><name>LUI_ICON_CHECKMARK</name></member>
+    <member refid="group__LUI__ICONS_1gad84b20873d1414322c122a4bad607c42" kind="define"><name>LUI_ICON_RETURN_DOWN_BACK</name></member>
+    <member refid="group__LUI__ICONS_1ga787292ab7050b9bfe7b421891d5f6b1d" kind="define"><name>LUI_ICON_ARROW_DOWN</name></member>
+    <member refid="group__LUI__ICONS_1gaffa6e324abe93168acc1467601f8fc64" kind="define"><name>LUI_ICON_BACKSPACE</name></member>
+    <member refid="group__LUI__ICONS_1ga2a417336966b775dbf440df829cf76e1" kind="define"><name>LUI_ICON_PAUSE</name></member>
+    <member refid="group__LUI__ICONS_1ga9c3bb90a40f93aa9c614ac40452210b6" kind="define"><name>LUI_ICON_REMOVE</name></member>
+    <member refid="group__LUI__ICONS_1ga284f7329f4ad53e3c31fff239ce3d7a4" kind="define"><name>LUI_ICON_POWER</name></member>
+    <member refid="group__LUI__ICONS_1ga344943ad5300f12781e96c0b8b57a74a" kind="define"><name>LUI_ICON_HOURGLASS</name></member>
+    <member refid="group__LUI__ICONS_1gaf9b200823fc0985c9597309b2afdccfc" kind="define"><name>LUI_ICON_VOLUME_MEDIUM</name></member>
+    <member refid="group__LUI__ICONS_1ga1f6049d672de02084a8a12b0fe70603c" kind="define"><name>LUI_ICON_ARROW_BACK</name></member>
+    <member refid="group__LUI__ICONS_1ga8fdfe4c0efcdec918f4ca1324c375f3e" kind="define"><name>LUI_ICON_CLOSE</name></member>
+    <member refid="group__LUI__ICONS_1ga27f0d7d4f8c4aad23fda627922223d92" kind="define"><name>LUI_ICON_BLUETOOTH</name></member>
+    <member refid="group__LUI__ICONS_1ga691d6e13b473af16e8541dea6d851b87" kind="define"><name>LUI_ICON_PLAY</name></member>
+    <member refid="group__LUI__ICONS_1ga82b14467d3547a28e77d29ade0603f38" kind="define"><name>LUI_ICON_VOLUME_OFF</name></member>
+    <member refid="group__LUI__ICONS_1ga8292e4c32772949773d014e3792baf2a" kind="define"><name>LUI_ICON_ARROW_FORWARD</name></member>
+    <member refid="group__LUI__ICONS_1gae279007a1236ca9beeff95d856fa121f" kind="define"><name>LUI_ICON_BATTERY_CHARGING</name></member>
+    <member refid="group__LUI__ICONS_1gafbec9aa67a1b277da3eee583ff22573c" kind="define"><name>LUI_ICON_ARROW_UP</name></member>
+    <member refid="group__LUI__ICONS_1ga16405e936869e4c459420522aeb8fa8b" kind="define"><name>LUI_ICON_WIFI</name></member>
+    <member refid="group__LUI__ICONS_1gabe0ba98e28016e2ba8c3056c1322fbb7" kind="define"><name>LUI_ICON_SEARCH</name></member>
+    <member refid="group__LUI__ICONS_1ga6c340335c00ad196d330a289194c24ed" kind="define"><name>LUI_ICON_WARNING</name></member>
+    <member refid="group__LUI__ICONS_1ga6ca91e779dcc12ec8c31048715d1be2e" kind="define"><name>LUI_ICON_SETTINGS</name></member>
+    <member refid="group__LUI__ICONS_1gafdfcb3eccaa9716823a094a69e4fb176" kind="define"><name>LUI_ICON_ADD</name></member>
+    <member refid="group__LUI__ICONS_1ga1b88b461268679d9f7def0f62f63a6c0" kind="define"><name>LUI_ICON_BATTERY_DEAED</name></member>
+    <member refid="group__LUI__ICONS_1gab0451ba9edcdb3c1686a5879690e25b6" kind="define"><name>LUI_ICON_STOP</name></member>
+    <member refid="group__LUI__BTNGRID__MASKS_1ga265e4dc05e3da27de273897cd2e982ea" kind="define"><name>LUI_BTNGRID_MASK_BTN_DISABLED</name></member>
+    <member refid="group__LUI__BTNGRID__MASKS_1gaa89b220d3a160df88c7a9c9b5a45d673" kind="define"><name>LUI_BTNGRID_MASK_BTN_HIDDEN</name></member>
+    <member refid="group__LUI__BTNGRID__MASKS_1ga4602d581d707dea1c8b3da39a573e3ee" kind="define"><name>LUI_BTNGRID_MASK_BTN_CHECKABLE</name></member>
+    <member refid="group__LUI__BTNGRID__MASKS_1ga2112955982994d548d7789d152d2552d" kind="define"><name>LUI_BTNGRID_MASK_BTN_CHECKED</name></member>
+    <member refid="group__LUI__BTNGRID__MASKS_1gac8eb53fd6ef2b0911ca5b25c6b65bd30" kind="define"><name>LUI_BTNGRID_MASK_BTN_WIDTH_UNIT</name></member>
     <member refid="lame__ui_8h_1a85afc47355fb034b0db91b6aeffe4765" kind="define"><name>_LUI_R_POS_RGB</name></member>
     <member refid="lame__ui_8h_1afd84631255c5adff703db28b0d8ae408" kind="define"><name>_LUI_G_POS_RGB</name></member>
     <member refid="lame__ui_8h_1a9448a03bb7a57cf6c45d820b6b9b947f" kind="define"><name>_LUI_B_POS_RGB</name></member>
     <member refid="lame__ui_8h_1a99936dc55505afbd906e60699d700ff5" kind="define"><name>LUI_RGB</name></member>
-    <member refid="lame__ui_8h_1ab6571f6979947007287617835dafc85c" kind="define"><name>LUI_USE_DARK_THEME</name></member>
+    <member refid="group__LUI__USER__CONFIG_1gab6571f6979947007287617835dafc85c" kind="define"><name>LUI_USE_DARK_THEME</name></member>
     <member refid="lame__ui_8h_1a7115562735030915c81eef2e05a1d16d" kind="define"><name>LUI_STYLE_BUTTON_LABEL_COLOR</name></member>
     <member refid="lame__ui_8h_1ac7696d9c1626facd14d17396ace67f94" kind="define"><name>LUI_STYLE_BUTTON_PRESSED_COLOR</name></member>
     <member refid="lame__ui_8h_1acf758f5ea8e00876ed8026ad58dfb0b0" kind="define"><name>LUI_STYLE_BUTTON_SELECTION_COLOR</name></member>
@@ -512,71 +574,6 @@
     <member refid="lame__ui_8h_1adb6d0787879b5f8f0d8de181cd99ea20" kind="define"><name>LUI_STYLE_PANEL_HEIGHT</name></member>
     <member refid="lame__ui_8h_1a6c4d18a9300b474bc09f340516169916" kind="define"><name>LUI_STYLE_SCENE_BG_COLOR</name></member>
     <member refid="lame__ui_8h_1a070d2ce7b6bb7e5c05602aa8c308d0c4" kind="define"><name>NULL</name></member>
-    <member refid="lame__ui_8h_1a2c62749ac689d5d9ab791bbcef590495" kind="define"><name>LUI_INPUT_TYPE_TOUCH</name></member>
-    <member refid="group__LUI__STATE_1gafa8144d7cc23391d25d08cfd6c24563f" kind="define"><name>LUI_STATE_IDLE</name></member>
-    <member refid="group__LUI__STATE_1ga30afefa8e1c9dcbc7bff36f77448dd00" kind="define"><name>LUI_STATE_SELECTED</name></member>
-    <member refid="group__LUI__STATE_1ga4e9f31b3efcee1dd2b30b6c5e1c6bf2b" kind="define"><name>LUI_STATE_PRESSED</name></member>
-    <member refid="group__LUI__STATE_1gae7fad37f0ae5cb98ac8b76fd848ca985" kind="define"><name>LUI_STATE_ENTERED</name></member>
-    <member refid="group__LUI__EVENT_1ga1848d9f83eeb058010e309e253410dce" kind="define"><name>LUI_EVENT_NONE</name></member>
-    <member refid="group__LUI__EVENT_1gac7d6c6bf48a50747e102d7de5729931d" kind="define"><name>LUI_EVENT_SELECTED</name></member>
-    <member refid="group__LUI__EVENT_1gae233d0007818b1c119d1c8cd44e04f63" kind="define"><name>LUI_EVENT_SELECTION_LOST</name></member>
-    <member refid="group__LUI__EVENT_1gac1d4660029fe5efac27e0116e258d65d" kind="define"><name>LUI_EVENT_PRESSED</name></member>
-    <member refid="group__LUI__EVENT_1ga7bb839ee9510a334e4ebc1af25613d25" kind="define"><name>LUI_EVENT_RELEASED</name></member>
-    <member refid="group__LUI__EVENT_1gac3c329747d83a31d3e2bdaa4f59c7106" kind="define"><name>LUI_EVENT_ENTERED</name></member>
-    <member refid="group__LUI__EVENT_1gadc65dc42494a76b2ec7da54ee0571c3f" kind="define"><name>LUI_EVENT_EXITED</name></member>
-    <member refid="group__LUI__EVENT_1gaac0f29869773a73ada40aa4b8bba419e" kind="define"><name>LUI_EVENT_VALUE_CHANGED</name></member>
-    <member refid="group__LUI__EVENT_1ga992d862ff4bb6f046eaba1f9b026bb61" kind="define"><name>LUI_EVENT_CHECK_CHANGED</name></member>
-    <member refid="group__LUI__OBJ_1ga0f0485902b6bef68f14ff1be14981601" kind="define"><name>LUI_OBJ_NONE</name></member>
-    <member refid="group__LUI__OBJ_1gabf090b42db96c0047ecc237c29b40b2a" kind="define"><name>LUI_OBJ_LABEL</name></member>
-    <member refid="group__LUI__OBJ_1ga71ca4e187e8cdb3523ecaa04cc8e839a" kind="define"><name>LUI_OBJ_BUTTON</name></member>
-    <member refid="group__LUI__OBJ_1ga8e7d5766387add17777da01798587b00" kind="define"><name>LUI_OBJ_SWITCH</name></member>
-    <member refid="group__LUI__OBJ_1ga9c3c2877dc4affdd235ad8fe08bc2dda" kind="define"><name>LUI_OBJ_LINECHART</name></member>
-    <member refid="group__LUI__OBJ_1ga98cfeaf48cb8a5e56abb21711ce897f1" kind="define"><name>LUI_OBJ_PANEL</name></member>
-    <member refid="group__LUI__OBJ_1ga913f973f4218c30495747ec49ffc62b8" kind="define"><name>LUI_OBJ_SCENE</name></member>
-    <member refid="group__LUI__OBJ_1ga8639b63999e5213c9577763000ff46a6" kind="define"><name>LUI_OBJ_GENERIC</name></member>
-    <member refid="group__LUI__OBJ_1ga1d04fb7b87c8368cf88bb79fdec83385" kind="define"><name>LUI_OBJ_LIST</name></member>
-    <member refid="group__LUI__OBJ_1ga33316a24dae697bdf359501cf0a8adeb" kind="define"><name>LUI_OBJ_CHECKBOX</name></member>
-    <member refid="group__LUI__OBJ_1gaba6bbd7622f9a952033593c2ca45a379" kind="define"><name>LUI_OBJ_SLIDER</name></member>
-    <member refid="group__LUI__OBJ_1ga4d227ff4ed4479e309b6b9ad3fad7334" kind="define"><name>LUI_OBJ_BTNGRID</name></member>
-    <member refid="group__LUI__OBJ_1gada57323fd9df5ab45a4a66db12d55766" kind="define"><name>LUI_OBJ_TEXTBOX</name></member>
-    <member refid="lame__ui_8h_1ac9926a9d6eb8e7924363769c7e3a0d11" kind="define"><name>LUI_LAYER_POPUP</name></member>
-    <member refid="group__LUI__KEYBOARD__MODE_1ga53cf1a061af12c998702ac1dc8c6ffca" kind="define"><name>LUI_KEYBOARD_MODE_TXT_LOWER</name></member>
-    <member refid="group__LUI__KEYBOARD__MODE_1ga6c7dfef998e05b11ae2bcfdb5af32f27" kind="define"><name>LUI_KEYBOARD_MODE_TXT_UPPER</name></member>
-    <member refid="group__LUI__KEYBOARD__MODE_1gaf40e758476c4dacde5c9c79dd265e7eb" kind="define"><name>LUI_KEYBOARD_MODE_TXT_SPCL</name></member>
-    <member refid="lame__ui_8h_1ad1154c55619e443178bd812aadbb710d" kind="define"><name>LUI_ICON_HOME</name></member>
-    <member refid="lame__ui_8h_1af3af51845f962c906d6e9198dccb8316" kind="define"><name>LUI_ICON_RELAOD</name></member>
-    <member refid="lame__ui_8h_1ae5cc5454ed2c8a203a4acb0acdf1afbe" kind="define"><name>LUI_ICON_BATTERY_HALF</name></member>
-    <member refid="lame__ui_8h_1a7fbfb716d376dd490ec613ac8f458265" kind="define"><name>LUI_ICON_LOCATION</name></member>
-    <member refid="lame__ui_8h_1a366c73f2453cd2811bf107b3c90b9c3c" kind="define"><name>LUI_ICON_BATTERY_FULL</name></member>
-    <member refid="lame__ui_8h_1a3d49ba105be02944754a9e6a37e07754" kind="define"><name>LUI_ICON_CHECKMARK</name></member>
-    <member refid="lame__ui_8h_1ad84b20873d1414322c122a4bad607c42" kind="define"><name>LUI_ICON_RETURN_DOWN_BACK</name></member>
-    <member refid="lame__ui_8h_1a787292ab7050b9bfe7b421891d5f6b1d" kind="define"><name>LUI_ICON_ARROW_DOWN</name></member>
-    <member refid="lame__ui_8h_1affa6e324abe93168acc1467601f8fc64" kind="define"><name>LUI_ICON_BACKSPACE</name></member>
-    <member refid="lame__ui_8h_1a2a417336966b775dbf440df829cf76e1" kind="define"><name>LUI_ICON_PAUSE</name></member>
-    <member refid="lame__ui_8h_1a9c3bb90a40f93aa9c614ac40452210b6" kind="define"><name>LUI_ICON_REMOVE</name></member>
-    <member refid="lame__ui_8h_1a284f7329f4ad53e3c31fff239ce3d7a4" kind="define"><name>LUI_ICON_POWER</name></member>
-    <member refid="lame__ui_8h_1a344943ad5300f12781e96c0b8b57a74a" kind="define"><name>LUI_ICON_HOURGLASS</name></member>
-    <member refid="lame__ui_8h_1af9b200823fc0985c9597309b2afdccfc" kind="define"><name>LUI_ICON_VOLUME_MEDIUM</name></member>
-    <member refid="lame__ui_8h_1a1f6049d672de02084a8a12b0fe70603c" kind="define"><name>LUI_ICON_ARROW_BACK</name></member>
-    <member refid="lame__ui_8h_1a8fdfe4c0efcdec918f4ca1324c375f3e" kind="define"><name>LUI_ICON_CLOSE</name></member>
-    <member refid="lame__ui_8h_1a27f0d7d4f8c4aad23fda627922223d92" kind="define"><name>LUI_ICON_BLUETOOTH</name></member>
-    <member refid="lame__ui_8h_1a691d6e13b473af16e8541dea6d851b87" kind="define"><name>LUI_ICON_PLAY</name></member>
-    <member refid="lame__ui_8h_1a82b14467d3547a28e77d29ade0603f38" kind="define"><name>LUI_ICON_VOLUME_OFF</name></member>
-    <member refid="lame__ui_8h_1a8292e4c32772949773d014e3792baf2a" kind="define"><name>LUI_ICON_ARROW_FORWARD</name></member>
-    <member refid="lame__ui_8h_1ae279007a1236ca9beeff95d856fa121f" kind="define"><name>LUI_ICON_BATTERY_CHARGING</name></member>
-    <member refid="lame__ui_8h_1afbec9aa67a1b277da3eee583ff22573c" kind="define"><name>LUI_ICON_ARROW_UP</name></member>
-    <member refid="lame__ui_8h_1a16405e936869e4c459420522aeb8fa8b" kind="define"><name>LUI_ICON_WIFI</name></member>
-    <member refid="lame__ui_8h_1abe0ba98e28016e2ba8c3056c1322fbb7" kind="define"><name>LUI_ICON_SEARCH</name></member>
-    <member refid="lame__ui_8h_1a6c340335c00ad196d330a289194c24ed" kind="define"><name>LUI_ICON_WARNING</name></member>
-    <member refid="lame__ui_8h_1a6ca91e779dcc12ec8c31048715d1be2e" kind="define"><name>LUI_ICON_SETTINGS</name></member>
-    <member refid="lame__ui_8h_1afdfcb3eccaa9716823a094a69e4fb176" kind="define"><name>LUI_ICON_ADD</name></member>
-    <member refid="lame__ui_8h_1a43d0e63f3260aef381065b8c8a07a093" kind="define"><name>LUI_ICON_BATTERy_DEAED</name></member>
-    <member refid="lame__ui_8h_1ab0451ba9edcdb3c1686a5879690e25b6" kind="define"><name>LUI_ICON_STOP</name></member>
-    <member refid="lame__ui_8h_1a265e4dc05e3da27de273897cd2e982ea" kind="define"><name>LUI_BTNGRID_MASK_BTN_DISABLED</name></member>
-    <member refid="lame__ui_8h_1aa89b220d3a160df88c7a9c9b5a45d673" kind="define"><name>LUI_BTNGRID_MASK_BTN_HIDDEN</name></member>
-    <member refid="lame__ui_8h_1a4602d581d707dea1c8b3da39a573e3ee" kind="define"><name>LUI_BTNGRID_MASK_BTN_CHECKABLE</name></member>
-    <member refid="lame__ui_8h_1a2112955982994d548d7789d152d2552d" kind="define"><name>LUI_BTNGRID_MASK_BTN_CHECKED</name></member>
-    <member refid="lame__ui_8h_1ac8eb53fd6ef2b0911ca5b25c6b65bd30" kind="define"><name>LUI_BTNGRID_MASK_BTN_WIDTH_UNIT</name></member>
     <member refid="lame__ui_8h_1a89d2b851574a969160813b40a922de91" kind="typedef"><name>lui_area_t</name></member>
     <member refid="lame__ui_8h_1a5a7ccb45f639e22e43b3ac176a75dd09" kind="typedef"><name>lui_obj_t</name></member>
     <member refid="lame__ui_8h_1a7a3dae224909a5d4019c184cf02abac8" kind="typedef"><name>lui_chart_t</name></member>
@@ -596,8 +593,8 @@
     <member refid="lame__ui_8h_1a98e4dc333c2121cf051dd684a9ee6923" kind="typedef"><name>lui_touch_input_dev_t</name></member>
     <member refid="lame__ui_8h_1a3a01b05c6e7d66b39f3e00daaefd3143" kind="typedef"><name>_lui_main_t</name></member>
     <member refid="lame__ui_8h_1ac60e2bda8772731a278995b748eff33f" kind="variable"><name>FONT_lui_default</name></member>
-    <member refid="lame__ui_8h_1a96ff45bfbaf38c57a613f1b4a4830893" kind="function"><name>lui_init</name></member>
-    <member refid="lame__ui_8h_1aa4a3c7694929ad0b6c5cd565dd6e7304" kind="function"><name>lui_update</name></member>
+    <member refid="group__lui__core_1ga96ff45bfbaf38c57a613f1b4a4830893" kind="function"><name>lui_init</name></member>
+    <member refid="group__lui__core_1gaa4a3c7694929ad0b6c5cd565dd6e7304" kind="function"><name>lui_update</name></member>
     <member refid="group__lui__object_1ga0d71d83d0757cfbafd9308689e41aaf2" kind="function"><name>lui_object_add_to_parent</name></member>
     <member refid="group__lui__object_1ga0410a5dd9b906d11881611fc0dfdeea6" kind="function"><name>lui_object_remove_from_parent</name></member>
     <member refid="group__lui__object_1gaed4bb7d9c2764c6786708535fad7cf67" kind="function"><name>lui_object_set_area</name></member>
@@ -711,19 +708,17 @@
     <member refid="group__lui__textbox_1ga44c28a66f8a82241660c0c296df2c2dd" kind="function"><name>lui_textbox_set_font</name></member>
     <member refid="group__lui__panel_1ga2235782213592f3f575f076d5afad46a" kind="function"><name>lui_panel_create</name></member>
     <member refid="group__lui__panel_1ga5e74112373754dd1f38965450efb6700" kind="function"><name>lui_panel_draw</name></member>
-    <member refid="group__lui__panel_1ga0bb57d1ce663eb42ba5b64f05c2b83be" kind="function"><name>lui_panel_set_bg_image</name></member>
     <member refid="group__lui__scene_1ga4f6f694807ee038a13942060efb715f0" kind="function"><name>lui_scene_create</name></member>
     <member refid="group__lui__scene_1gab6b1e6f1f2b17745b02d6c3d3d6003d1" kind="function"><name>lui_scene_draw</name></member>
     <member refid="group__lui__scene_1ga5a2c32f660fbbe39fae9d5f11055aff7" kind="function"><name>lui_scene_set_active</name></member>
     <member refid="group__lui__scene_1ga84a7baf7297d1ed254e4feb3b8d125ea" kind="function"><name>lui_scene_get_active</name></member>
-    <member refid="group__lui__scene_1gab4ed6216c46a9c3d496d409a0211c6dd" kind="function"><name>lui_scene_set_bg_image</name></member>
     <member refid="group__lui__scene_1ga9171479a041b608913d5601cc1f74c43" kind="function"><name>lui_scene_set_font</name></member>
     <member refid="group__lui__dispdrv_1ga1d63878ad3c05200478a7f7b958faa19" kind="function"><name>lui_dispdrv_create</name></member>
     <member refid="group__lui__dispdrv_1ga77ef8325d1acf4c014be20de214e80de" kind="function"><name>lui_dispdrv_register</name></member>
     <member refid="group__lui__dispdrv_1ga3516bb99ba95160e9673ba8541ffb13e" kind="function"><name>lui_dispdrv_set_resolution</name></member>
     <member refid="group__lui__dispdrv_1ga982617c7a5f3d018a3bab0e01eebf8e3" kind="function"><name>lui_dispdrv_set_draw_pixels_area_cb</name></member>
     <member refid="group__lui__dispdrv_1gaa2cf5623fa26babf738af3a2ef0a5fc4" kind="function"><name>lui_dispdrv_set_render_complete_cb</name></member>
-    <member refid="lame__ui_8h_1a7d451e8c6afd8351943302f22a22ab5e" kind="function"><name>_lui_disp_drv_check</name></member>
+    <member refid="group__lui__dispdrv_1ga7d451e8c6afd8351943302f22a22ab5e" kind="function"><name>_lui_disp_drv_check</name></member>
     <member refid="group__lui__input_1ga8a1f1c1a9f6d45e11ac7176cdf4873fd" kind="function"><name>lui_touch_inputdev_create</name></member>
     <member refid="group__lui__input_1ga3861ea1c2fa9e1776f1aff61dc52daa9" kind="function"><name>lui_touch_inputdev_register</name></member>
     <member refid="group__lui__input_1ga72d86e81f1d818b174b5a97b1297d840" kind="function"><name>lui_touch_inputdev_set_read_input_cb</name></member>
@@ -734,7 +729,6 @@
     <member refid="lame__ui_8h_1a53317dc46611fbae427ace1e0eb1dacd" kind="function"><name>_lui_scan_individual_object_for_input</name></member>
     <member refid="lame__ui_8h_1ae2e0d632702a66de5f5d068dada9f411" kind="function"><name>_lui_set_obj_props_on_touch_input</name></member>
     <member refid="lame__ui_8h_1a36b54368346c49cc551083dce59bbaff" kind="function"><name>_lui_check_if_active_obj_touch_input</name></member>
-    <member refid="lame__ui_8h_1aea187a0c2718e876758e366936afe54d" kind="function"><name>_lui_get_font_from_active_scene</name></member>
     <member refid="lame__ui_8h_1a32881af029062a76504f7d80766feb1a" kind="function"><name>_lui_get_event_against_state</name></member>
     <member refid="group__lui__gfx_1gaf84e3918864703ba0639c43978b6ea97" kind="function"><name>lui_gfx_draw_string_advanced</name></member>
     <member refid="group__lui__gfx_1ga34170dff54b3f4cd9fb0b5c5fd883e79" kind="function"><name>lui_gfx_draw_string_simple</name></member>
@@ -753,6 +747,10 @@
   <compound refid="README_8md" kind="file"><name>README.md</name>
   </compound>
   <compound refid="group__function" kind="group"><name>function</name>
+  </compound>
+  <compound refid="group__lui__core" kind="group"><name>lui_core</name>
+    <member refid="group__lui__core_1ga96ff45bfbaf38c57a613f1b4a4830893" kind="function"><name>lui_init</name></member>
+    <member refid="group__lui__core_1gaa4a3c7694929ad0b6c5cd565dd6e7304" kind="function"><name>lui_update</name></member>
   </compound>
   <compound refid="group__lui__object" kind="group"><name>lui_object</name>
     <member refid="group__lui__object_1ga0d71d83d0757cfbafd9308689e41aaf2" kind="function"><name>lui_object_add_to_parent</name></member>
@@ -890,14 +888,12 @@
   <compound refid="group__lui__panel" kind="group"><name>lui_panel</name>
     <member refid="group__lui__panel_1ga2235782213592f3f575f076d5afad46a" kind="function"><name>lui_panel_create</name></member>
     <member refid="group__lui__panel_1ga5e74112373754dd1f38965450efb6700" kind="function"><name>lui_panel_draw</name></member>
-    <member refid="group__lui__panel_1ga0bb57d1ce663eb42ba5b64f05c2b83be" kind="function"><name>lui_panel_set_bg_image</name></member>
   </compound>
   <compound refid="group__lui__scene" kind="group"><name>lui_scene</name>
     <member refid="group__lui__scene_1ga4f6f694807ee038a13942060efb715f0" kind="function"><name>lui_scene_create</name></member>
     <member refid="group__lui__scene_1gab6b1e6f1f2b17745b02d6c3d3d6003d1" kind="function"><name>lui_scene_draw</name></member>
     <member refid="group__lui__scene_1ga5a2c32f660fbbe39fae9d5f11055aff7" kind="function"><name>lui_scene_set_active</name></member>
     <member refid="group__lui__scene_1ga84a7baf7297d1ed254e4feb3b8d125ea" kind="function"><name>lui_scene_get_active</name></member>
-    <member refid="group__lui__scene_1gab4ed6216c46a9c3d496d409a0211c6dd" kind="function"><name>lui_scene_set_bg_image</name></member>
     <member refid="group__lui__scene_1ga9171479a041b608913d5601cc1f74c43" kind="function"><name>lui_scene_set_font</name></member>
   </compound>
   <compound refid="group__lui__dispdrv" kind="group"><name>lui_dispdrv</name>
@@ -906,6 +902,7 @@
     <member refid="group__lui__dispdrv_1ga3516bb99ba95160e9673ba8541ffb13e" kind="function"><name>lui_dispdrv_set_resolution</name></member>
     <member refid="group__lui__dispdrv_1ga982617c7a5f3d018a3bab0e01eebf8e3" kind="function"><name>lui_dispdrv_set_draw_pixels_area_cb</name></member>
     <member refid="group__lui__dispdrv_1gaa2cf5623fa26babf738af3a2ef0a5fc4" kind="function"><name>lui_dispdrv_set_render_complete_cb</name></member>
+    <member refid="group__lui__dispdrv_1ga7d451e8c6afd8351943302f22a22ab5e" kind="function"><name>_lui_disp_drv_check</name></member>
   </compound>
   <compound refid="group__lui__input" kind="group"><name>lui_input</name>
     <member refid="group__lui__input_1ga8a1f1c1a9f6d45e11ac7176cdf4873fd" kind="function"><name>lui_touch_inputdev_create</name></member>
@@ -923,6 +920,11 @@
     <member refid="group__lui__gfx_1ga4340cdddeeb18dbcd7c0a0eb9dbcb9c7" kind="function"><name>lui_rgb</name></member>
   </compound>
   <compound refid="group__macrodefs" kind="group"><name>macrodefs</name>
+  </compound>
+  <compound refid="group__LUI__USER__CONFIG" kind="group"><name>LUI_USER_CONFIG</name>
+    <member refid="group__LUI__USER__CONFIG_1gac614eedf6ba02a547abc55527a7f2982" kind="define"><name>LUI_MAX_OBJECTS</name></member>
+    <member refid="group__LUI__USER__CONFIG_1gab6571f6979947007287617835dafc85c" kind="define"><name>LUI_USE_DARK_THEME</name></member>
+    <member refid="group__LUI__USER__CONFIG_1gab6571f6979947007287617835dafc85c" kind="define"><name>LUI_USE_DARK_THEME</name></member>
   </compound>
   <compound refid="group__LUI__STATE" kind="group"><name>LUI_STATE</name>
     <member refid="group__LUI__STATE_1gafa8144d7cc23391d25d08cfd6c24563f" kind="define"><name>LUI_STATE_IDLE</name></member>
@@ -960,6 +962,55 @@
     <member refid="group__LUI__KEYBOARD__MODE_1ga53cf1a061af12c998702ac1dc8c6ffca" kind="define"><name>LUI_KEYBOARD_MODE_TXT_LOWER</name></member>
     <member refid="group__LUI__KEYBOARD__MODE_1ga6c7dfef998e05b11ae2bcfdb5af32f27" kind="define"><name>LUI_KEYBOARD_MODE_TXT_UPPER</name></member>
     <member refid="group__LUI__KEYBOARD__MODE_1gaf40e758476c4dacde5c9c79dd265e7eb" kind="define"><name>LUI_KEYBOARD_MODE_TXT_SPCL</name></member>
+  </compound>
+  <compound refid="group__LUI__ICONS" kind="group"><name>LUI_ICONS</name>
+    <member refid="group__LUI__ICONS_1gad1154c55619e443178bd812aadbb710d" kind="define"><name>LUI_ICON_HOME</name></member>
+    <member refid="group__LUI__ICONS_1gaf3af51845f962c906d6e9198dccb8316" kind="define"><name>LUI_ICON_RELAOD</name></member>
+    <member refid="group__LUI__ICONS_1gae5cc5454ed2c8a203a4acb0acdf1afbe" kind="define"><name>LUI_ICON_BATTERY_HALF</name></member>
+    <member refid="group__LUI__ICONS_1ga7fbfb716d376dd490ec613ac8f458265" kind="define"><name>LUI_ICON_LOCATION</name></member>
+    <member refid="group__LUI__ICONS_1ga366c73f2453cd2811bf107b3c90b9c3c" kind="define"><name>LUI_ICON_BATTERY_FULL</name></member>
+    <member refid="group__LUI__ICONS_1ga3d49ba105be02944754a9e6a37e07754" kind="define"><name>LUI_ICON_CHECKMARK</name></member>
+    <member refid="group__LUI__ICONS_1gad84b20873d1414322c122a4bad607c42" kind="define"><name>LUI_ICON_RETURN_DOWN_BACK</name></member>
+    <member refid="group__LUI__ICONS_1ga787292ab7050b9bfe7b421891d5f6b1d" kind="define"><name>LUI_ICON_ARROW_DOWN</name></member>
+    <member refid="group__LUI__ICONS_1gaffa6e324abe93168acc1467601f8fc64" kind="define"><name>LUI_ICON_BACKSPACE</name></member>
+    <member refid="group__LUI__ICONS_1ga2a417336966b775dbf440df829cf76e1" kind="define"><name>LUI_ICON_PAUSE</name></member>
+    <member refid="group__LUI__ICONS_1ga9c3bb90a40f93aa9c614ac40452210b6" kind="define"><name>LUI_ICON_REMOVE</name></member>
+    <member refid="group__LUI__ICONS_1ga284f7329f4ad53e3c31fff239ce3d7a4" kind="define"><name>LUI_ICON_POWER</name></member>
+    <member refid="group__LUI__ICONS_1ga344943ad5300f12781e96c0b8b57a74a" kind="define"><name>LUI_ICON_HOURGLASS</name></member>
+    <member refid="group__LUI__ICONS_1gaf9b200823fc0985c9597309b2afdccfc" kind="define"><name>LUI_ICON_VOLUME_MEDIUM</name></member>
+    <member refid="group__LUI__ICONS_1ga1f6049d672de02084a8a12b0fe70603c" kind="define"><name>LUI_ICON_ARROW_BACK</name></member>
+    <member refid="group__LUI__ICONS_1ga8fdfe4c0efcdec918f4ca1324c375f3e" kind="define"><name>LUI_ICON_CLOSE</name></member>
+    <member refid="group__LUI__ICONS_1ga27f0d7d4f8c4aad23fda627922223d92" kind="define"><name>LUI_ICON_BLUETOOTH</name></member>
+    <member refid="group__LUI__ICONS_1ga691d6e13b473af16e8541dea6d851b87" kind="define"><name>LUI_ICON_PLAY</name></member>
+    <member refid="group__LUI__ICONS_1ga82b14467d3547a28e77d29ade0603f38" kind="define"><name>LUI_ICON_VOLUME_OFF</name></member>
+    <member refid="group__LUI__ICONS_1ga8292e4c32772949773d014e3792baf2a" kind="define"><name>LUI_ICON_ARROW_FORWARD</name></member>
+    <member refid="group__LUI__ICONS_1gae279007a1236ca9beeff95d856fa121f" kind="define"><name>LUI_ICON_BATTERY_CHARGING</name></member>
+    <member refid="group__LUI__ICONS_1gafbec9aa67a1b277da3eee583ff22573c" kind="define"><name>LUI_ICON_ARROW_UP</name></member>
+    <member refid="group__LUI__ICONS_1ga16405e936869e4c459420522aeb8fa8b" kind="define"><name>LUI_ICON_WIFI</name></member>
+    <member refid="group__LUI__ICONS_1gabe0ba98e28016e2ba8c3056c1322fbb7" kind="define"><name>LUI_ICON_SEARCH</name></member>
+    <member refid="group__LUI__ICONS_1ga6c340335c00ad196d330a289194c24ed" kind="define"><name>LUI_ICON_WARNING</name></member>
+    <member refid="group__LUI__ICONS_1ga6ca91e779dcc12ec8c31048715d1be2e" kind="define"><name>LUI_ICON_SETTINGS</name></member>
+    <member refid="group__LUI__ICONS_1gafdfcb3eccaa9716823a094a69e4fb176" kind="define"><name>LUI_ICON_ADD</name></member>
+    <member refid="group__LUI__ICONS_1ga1b88b461268679d9f7def0f62f63a6c0" kind="define"><name>LUI_ICON_BATTERY_DEAED</name></member>
+    <member refid="group__LUI__ICONS_1gab0451ba9edcdb3c1686a5879690e25b6" kind="define"><name>LUI_ICON_STOP</name></member>
+  </compound>
+  <compound refid="group__LUI__BTNGRID__MASKS" kind="group"><name>LUI_BTNGRID_MASKS</name>
+    <member refid="group__LUI__BTNGRID__MASKS_1ga265e4dc05e3da27de273897cd2e982ea" kind="define"><name>LUI_BTNGRID_MASK_BTN_DISABLED</name></member>
+    <member refid="group__LUI__BTNGRID__MASKS_1gaa89b220d3a160df88c7a9c9b5a45d673" kind="define"><name>LUI_BTNGRID_MASK_BTN_HIDDEN</name></member>
+    <member refid="group__LUI__BTNGRID__MASKS_1ga4602d581d707dea1c8b3da39a573e3ee" kind="define"><name>LUI_BTNGRID_MASK_BTN_CHECKABLE</name></member>
+    <member refid="group__LUI__BTNGRID__MASKS_1ga2112955982994d548d7789d152d2552d" kind="define"><name>LUI_BTNGRID_MASK_BTN_CHECKED</name></member>
+    <member refid="group__LUI__BTNGRID__MASKS_1gac8eb53fd6ef2b0911ca5b25c6b65bd30" kind="define"><name>LUI_BTNGRID_MASK_BTN_WIDTH_UNIT</name></member>
+  </compound>
+  <compound refid="group__LUI__USE__OBJECT" kind="group"><name>LUI_USE_OBJECT</name>
+    <member refid="group__LUI__USE__OBJECT_1ga82c1ecd24694c1c50e9f804b510a5f68" kind="define"><name>LUI_USE_LINECHART</name></member>
+    <member refid="group__LUI__USE__OBJECT_1ga090cd6d9140af68e21d5d1d466011b51" kind="define"><name>LUI_USE_SWITCH</name></member>
+    <member refid="group__LUI__USE__OBJECT_1ga06d5e9b628c01b45bc47c6af3f735ba5" kind="define"><name>LUI_USE_CHECKBOX</name></member>
+    <member refid="group__LUI__USE__OBJECT_1ga037a75e722772914ddedf12f38f1c431" kind="define"><name>LUI_USE_SLIDER</name></member>
+    <member refid="group__LUI__USE__OBJECT_1gab31bbf353b4a1abe8a3a8374e47098c7" kind="define"><name>LUI_USE_LIST</name></member>
+    <member refid="group__LUI__USE__OBJECT_1gae65a21daf3dd06d5a8cb7e1d89d01e3f" kind="define"><name>LUI_USE_PANEL</name></member>
+    <member refid="group__LUI__USE__OBJECT_1ga4b024b1b29ba110778de47b1d0e3f480" kind="define"><name>LUI_USE_TEXTBOX</name></member>
+    <member refid="group__LUI__USE__OBJECT_1ga4cbf5b51287f460c68b268c5bd598871" kind="define"><name>LUI_USE_BUTTONGRID</name></member>
+    <member refid="group__LUI__USE__OBJECT_1gab8fdedff83ca539ac192a8943d38177e" kind="define"><name>LUI_USE_KEYBOARD</name></member>
   </compound>
   <compound refid="examples_page" kind="page"><name>examples_page</name>
   </compound>
