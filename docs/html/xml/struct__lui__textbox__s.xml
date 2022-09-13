@@ -14,7 +14,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="491" column="6" bodyfile="lame_ui.h" bodystart="491" bodyend="-1"/>
+        <location file="lame_ui.h" line="492" column="6" bodyfile="lame_ui.h" bodystart="492" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct__lui__textbox__s_1ab708911bcbcde0d01b768d704c87dfc3" prot="public" static="no" mutable="no">
         <type>const <ref refid="structlui__font__t" kindref="compound">lui_font_t</ref> *</type>
@@ -27,7 +27,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="492" column="18" bodyfile="lame_ui.h" bodystart="492" bodyend="-1"/>
+        <location file="lame_ui.h" line="493" column="18" bodyfile="lame_ui.h" bodystart="493" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct__lui__textbox__s_1aa239fbbff998f7e142fc1b9a99668590" prot="public" static="no" mutable="no">
         <type>uint16_t</type>
@@ -40,7 +40,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="493" column="10" bodyfile="lame_ui.h" bodystart="493" bodyend="-1"/>
+        <location file="lame_ui.h" line="494" column="10" bodyfile="lame_ui.h" bodystart="494" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct__lui__textbox__s_1a9c7912b185780bcdd4873fe93f7892d2" prot="public" static="no" mutable="no">
         <type>uint16_t</type>
@@ -53,7 +53,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="494" column="10" bodyfile="lame_ui.h" bodystart="494" bodyend="-1"/>
+        <location file="lame_ui.h" line="495" column="10" bodyfile="lame_ui.h" bodystart="495" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct__lui__textbox__s_1ad3c61e740a31e1f36b87de35d749e79c" prot="public" static="no" mutable="no">
         <type>uint16_t</type>
@@ -66,7 +66,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="495" column="10" bodyfile="lame_ui.h" bodystart="495" bodyend="-1"/>
+        <location file="lame_ui.h" line="496" column="10" bodyfile="lame_ui.h" bodystart="496" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct__lui__textbox__s_1a413066b5a8ce6278e335f11a55f50bd8" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -79,7 +79,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="496" column="9" bodyfile="lame_ui.h" bodystart="496" bodyend="-1"/>
+        <location file="lame_ui.h" line="497" column="9" bodyfile="lame_ui.h" bodystart="497" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct__lui__textbox__s_1a43ef674537ba91c838aaa1b1328c9b6f" prot="public" static="no" mutable="no">
         <type>struct <ref refid="struct__lui__textbox__style__s" kindref="compound">_lui_textbox_style_s</ref></type>
@@ -92,7 +92,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="496" column="9" bodyfile="lame_ui.h" bodystart="497" bodyend="-1"/>
+        <location file="lame_ui.h" line="497" column="9" bodyfile="lame_ui.h" bodystart="498" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -133,7 +133,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="lame_ui.h" line="490" column="1" bodyfile="lame_ui.h" bodystart="489" bodyend="498"/>
+    <location file="lame_ui.h" line="491" column="1" bodyfile="lame_ui.h" bodystart="490" bodyend="499"/>
     <listofallmembers>
       <member refid="struct__lui__textbox__s_1a9c7912b185780bcdd4873fe93f7892d2" prot="public" virt="non-virtual"><scope>_lui_textbox_s</scope><name>caret_index</name></member>
       <member refid="struct__lui__textbox__s_1ab708911bcbcde0d01b768d704c87dfc3" prot="public" virt="non-virtual"><scope>_lui_textbox_s</scope><name>font</name></member>

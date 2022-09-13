@@ -19,7 +19,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1214" column="11" bodyfile="lame_ui.c" bodystart="1388" bodyend="1420" declfile="lame_ui.h" declline="1214" declcolumn="11"/>
+        <location file="lame_ui.h" line="1215" column="11" bodyfile="lame_ui.c" bodystart="1388" bodyend="1420" declfile="lame_ui.h" declline="1215" declcolumn="11"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__checkbox_1ga36738f45907e976f8bf92595352ea968" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -47,7 +47,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1221" column="6" bodyfile="lame_ui.c" bodystart="1337" bodyend="1386" declfile="lame_ui.h" declline="1221" declcolumn="6"/>
+        <location file="lame_ui.h" line="1222" column="6" bodyfile="lame_ui.c" bodystart="1337" bodyend="1386" declfile="lame_ui.h" declline="1222" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__checkbox_1gae501d0976d301bc3c03e11b28eee654a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -111,7 +111,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1231" column="6" bodyfile="lame_ui.c" bodystart="1422" bodyend="1439" declfile="lame_ui.h" declline="1231" declcolumn="6"/>
+        <location file="lame_ui.h" line="1232" column="6" bodyfile="lame_ui.c" bodystart="1422" bodyend="1439" declfile="lame_ui.h" declline="1232" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__checkbox_1ga8a995bd50bfb68ec15ad27af875b7048" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int8_t</type>
@@ -141,7 +141,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1239" column="8" bodyfile="lame_ui.c" bodystart="1441" bodyend="1451" declfile="lame_ui.h" declline="1239" declcolumn="8"/>
+        <location file="lame_ui.h" line="1240" column="8" bodyfile="lame_ui.c" bodystart="1441" bodyend="1451" declfile="lame_ui.h" declline="1240" declcolumn="8"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__checkbox_1ga44562059aeab006ce233adbe64f3ddca" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -181,7 +181,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1247" column="6" bodyfile="lame_ui.c" bodystart="1453" bodyend="1466" declfile="lame_ui.h" declline="1247" declcolumn="6"/>
+        <location file="lame_ui.h" line="1248" column="6" bodyfile="lame_ui.c" bodystart="1453" bodyend="1466" declfile="lame_ui.h" declline="1248" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__checkbox_1gaa7343339b91349d29de783a1a5f10338" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -209,7 +209,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1254" column="6" bodyfile="lame_ui.c" bodystart="1468" bodyend="1471" declfile="lame_ui.h" declline="1254" declcolumn="6"/>
+        <location file="lame_ui.h" line="1255" column="6" bodyfile="lame_ui.c" bodystart="1468" bodyend="1471" declfile="lame_ui.h" declline="1255" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__checkbox_1gad54464b47322e3c6b4918a0c43bb5a66" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -237,7 +237,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1261" column="6" bodyfile="lame_ui.c" bodystart="1473" bodyend="1476" declfile="lame_ui.h" declline="1261" declcolumn="6"/>
+        <location file="lame_ui.h" line="1262" column="6" bodyfile="lame_ui.c" bodystart="1473" bodyend="1476" declfile="lame_ui.h" declline="1262" declcolumn="6"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

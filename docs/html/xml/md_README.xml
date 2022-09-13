@@ -6,7 +6,7 @@
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<sect2 id="md_README_1autotoc_md10">
+<sect2 id="md_README_1autotoc_md14">
 <title>What?</title>
 <para>LameUI is a super simple, platform independent UI library with lots of limitations, designed for embedded systems with low resources. It&apos;s under active development and I&apos;m trying to add more features. Two important goals of LameUI are:<itemizedlist>
 <listitem><para>Be lightweight</para>
@@ -14,18 +14,18 @@
 </listitem></itemizedlist>
 </para>
 </sect2>
-<sect2 id="md_README_1autotoc_md11">
+<sect2 id="md_README_1autotoc_md15">
 <title>Why?</title>
 <para>Main reason - to challenge my skills and learn new things. It was started as a lockdown project and soon enough I abandoned it in an incomplete state as I lost interest. After 4 months I came back to it with a goal to at least make it work once. Future of this project is uncertain, but as long as it feels challenging, I&apos;ll keep adding/fixing stuffs.</para>
 </sect2>
-<sect2 id="md_README_1autotoc_md12">
+<sect2 id="md_README_1autotoc_md16">
 <title>Who?</title>
 <para><bold>Who will use it?</bold> <linebreak/>
  Probably no one. Unless you need a very simple and very lightweight UI library.</para>
 <para><bold>Who is/are developing it?</bold> <linebreak/>
  I, alone.</para>
 </sect2>
-<sect1 id="md_README_1autotoc_md13">
+<sect1 id="md_README_1autotoc_md17">
 <title>Demo:</title>
 <para>This is a demo of LameUI running on a simulator I made with opengl so I can test it without needing to flash the microcontroller every time.</para>
 <para>simulator: <ulink url="https://github.com/abhra0897/LameUI_simulation">https://github.com/abhra0897/LameUI_simulation</ulink></para>
@@ -35,7 +35,7 @@
 <para><image type="html" name="lameUI_demo_keyboard.gif" inline="yes"></image>
 </para>
 </sect1>
-<sect1 id="md_README_1autotoc_md14">
+<sect1 id="md_README_1autotoc_md18">
 <title>UI Elements</title>
 <para>Following UI elements are implemented so far:</para>
 <para><orderedlist>
@@ -53,7 +53,7 @@
 </listitem></orderedlist>
 </para>
 </sect1>
-<sect1 id="md_README_1autotoc_md15">
+<sect1 id="md_README_1autotoc_md19">
 <title>Usage</title>
 <para>LameUI needs 3 callback functions from user to draw on display and read inputs. <linebreak/>
 </para>
@@ -63,7 +63,7 @@
 </listitem><listitem><para><computeroutput>read_touch_input_cb</computeroutput> to <emphasis>Read Inputs</emphasis>. (<bold>Optional</bold>)</para>
 </listitem></orderedlist>
 </para>
-<sect2 id="md_README_1autotoc_md16">
+<sect2 id="md_README_1autotoc_md20">
 <title>Display Output</title>
 <para><bold>1. <computeroutput>draw_pixels_area_cb</computeroutput></bold> <linebreak/>
  Drawing to display is done by callback functions provided by the user.</para>
@@ -79,7 +79,7 @@
 </programlisting></para>
 <para>Note: Commonly available lcd displays that we use with microcontrollers have built-in GRAM, hence, the <computeroutput>render_complete_cb()</computeroutput> is not mandatory for them.</para>
 </sect2>
-<sect2 id="md_README_1autotoc_md17">
+<sect2 id="md_README_1autotoc_md21">
 <title>Read Inputs</title>
 <para><bold>3. <computeroutput>read_touch_input_cb</computeroutput></bold> <linebreak/>
 </para>
@@ -88,7 +88,7 @@
 </programlisting></para>
 </sect2>
 </sect1>
-<sect1 id="md_README_1autotoc_md18">
+<sect1 id="md_README_1autotoc_md22">
 <title>Quick Start</title>
 <para><bold>[ Part 1 ]</bold></para>
 <para>This is a very simple example using TFT_eSPI library on Arduino framework. In this example we will only see how to register a display driver and a touch input device. No UI widgets are added here. For a detailed example, see next part.</para>
@@ -360,12 +360,12 @@
 <codeline><highlight class="normal">}</highlight></codeline>
 </programlisting></para>
 </sect1>
-<sect1 id="md_README_1autotoc_md19">
+<sect1 id="md_README_1autotoc_md23">
 <title>API</title>
 <para>API Documentation: <ulink url="https://abhra0897.github.io/LameUI/">https://abhra0897.github.io/LameUI/</ulink> <linebreak/>
  <emphasis>Note: Documentation is work in progress. It&apos;s incomplete as of now.</emphasis></para>
 </sect1>
-<sect1 id="md_README_1autotoc_md20">
+<sect1 id="md_README_1autotoc_md24">
 <title>Simple Examples</title>
 <para><itemizedlist>
 <listitem><para>Check example code fragments inside <ulink url="lame_ui.h">lame_ui.h</ulink>. Or visit <ulink url="https://abhra0897.github.io/LameUI/html/html/examples_page.html">documentatin page</ulink>.</para>

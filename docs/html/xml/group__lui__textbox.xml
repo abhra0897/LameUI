@@ -19,7 +19,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1983" column="11" bodyfile="lame_ui.c" bodystart="2564" bodyend="2600" declfile="lame_ui.h" declline="1983" declcolumn="11"/>
+        <location file="lame_ui.h" line="1984" column="11" bodyfile="lame_ui.c" bodystart="2564" bodyend="2600" declfile="lame_ui.h" declline="1984" declcolumn="11"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__textbox_1gaf80e132e37c89453b6115602714c0fce" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -33,7 +33,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1989" column="6" declfile="lame_ui.h" declline="1989" declcolumn="6"/>
+        <location file="lame_ui.h" line="1990" column="6" declfile="lame_ui.h" declline="1990" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__textbox_1gabe544e589562b44cec63dbfa41619c5d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -74,7 +74,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1999" column="6" bodyfile="lame_ui.c" bodystart="2602" bodyend="2620" declfile="lame_ui.h" declline="1999" declcolumn="6"/>
+        <location file="lame_ui.h" line="2000" column="6" bodyfile="lame_ui.c" bodystart="2602" bodyend="2620" declfile="lame_ui.h" declline="2000" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__textbox_1gae2377a9c0132bc6e909a0b23b1814fc7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint16_t</type>
@@ -104,7 +104,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="2007" column="10" bodyfile="lame_ui.c" bodystart="2622" bodyend="2631" declfile="lame_ui.h" declline="2007" declcolumn="10"/>
+        <location file="lame_ui.h" line="2008" column="10" bodyfile="lame_ui.c" bodystart="2622" bodyend="2631" declfile="lame_ui.h" declline="2008" declcolumn="10"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__textbox_1gaf12d728f7b2202c38b85d34d80669892" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -145,7 +145,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="2017" column="6" bodyfile="lame_ui.c" bodystart="2633" bodyend="2654" declfile="lame_ui.h" declline="2017" declcolumn="6"/>
+        <location file="lame_ui.h" line="2018" column="6" bodyfile="lame_ui.c" bodystart="2633" bodyend="2654" declfile="lame_ui.h" declline="2018" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__textbox_1ga6540b13528f24d0e29de00ce7e883835" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -198,7 +198,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="2028" column="6" bodyfile="lame_ui.c" bodystart="2678" bodyend="2699" declfile="lame_ui.h" declline="2028" declcolumn="6"/>
+        <location file="lame_ui.h" line="2029" column="6" bodyfile="lame_ui.c" bodystart="2678" bodyend="2699" declfile="lame_ui.h" declline="2029" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__textbox_1gab96f6d6d3546ada97d759e88a8dede10" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -226,7 +226,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="2035" column="6" bodyfile="lame_ui.c" bodystart="2656" bodyend="2676" declfile="lame_ui.h" declline="2035" declcolumn="6"/>
+        <location file="lame_ui.h" line="2036" column="6" bodyfile="lame_ui.c" bodystart="2656" bodyend="2676" declfile="lame_ui.h" declline="2036" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__textbox_1gabeb31790dc1b9e074de63bdf7f247776" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -278,7 +278,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="2044" column="6" bodyfile="lame_ui.c" bodystart="2701" bodyend="2717" declfile="lame_ui.h" declline="2044" declcolumn="6"/>
+        <location file="lame_ui.h" line="2045" column="6" bodyfile="lame_ui.c" bodystart="2701" bodyend="2717" declfile="lame_ui.h" declline="2045" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__textbox_1ga44c28a66f8a82241660c0c296df2c2dd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -318,7 +318,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="2052" column="6" bodyfile="lame_ui.c" bodystart="2733" bodyend="2747" declfile="lame_ui.h" declline="2052" declcolumn="6"/>
+        <location file="lame_ui.h" line="2053" column="6" bodyfile="lame_ui.c" bodystart="2733" bodyend="2747" declfile="lame_ui.h" declline="2053" declcolumn="6"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

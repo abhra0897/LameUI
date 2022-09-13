@@ -14,7 +14,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="198" column="9" bodyfile="lame_ui.h" bodystart="198" bodyend="-1"/>
+        <location file="lame_ui.h" line="199" column="9" bodyfile="lame_ui.h" bodystart="199" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__LUI__BTNGRID__MASKS_1gaa89b220d3a160df88c7a9c9b5a45d673" prot="public" static="no">
         <name>LUI_BTNGRID_MASK_BTN_HIDDEN</name>
@@ -26,7 +26,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="199" column="9" bodyfile="lame_ui.h" bodystart="199" bodyend="-1"/>
+        <location file="lame_ui.h" line="200" column="9" bodyfile="lame_ui.h" bodystart="200" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__LUI__BTNGRID__MASKS_1ga4602d581d707dea1c8b3da39a573e3ee" prot="public" static="no">
         <name>LUI_BTNGRID_MASK_BTN_CHECKABLE</name>
@@ -38,7 +38,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="200" column="9" bodyfile="lame_ui.h" bodystart="200" bodyend="-1"/>
+        <location file="lame_ui.h" line="201" column="9" bodyfile="lame_ui.h" bodystart="201" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__LUI__BTNGRID__MASKS_1ga2112955982994d548d7789d152d2552d" prot="public" static="no">
         <name>LUI_BTNGRID_MASK_BTN_CHECKED</name>
@@ -50,7 +50,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="201" column="9" bodyfile="lame_ui.h" bodystart="201" bodyend="-1"/>
+        <location file="lame_ui.h" line="202" column="9" bodyfile="lame_ui.h" bodystart="202" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__LUI__BTNGRID__MASKS_1gac8eb53fd6ef2b0911ca5b25c6b65bd30" prot="public" static="no">
         <name>LUI_BTNGRID_MASK_BTN_WIDTH_UNIT</name>
@@ -62,7 +62,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="202" column="9" bodyfile="lame_ui.h" bodystart="202" bodyend="-1"/>
+        <location file="lame_ui.h" line="203" column="9" bodyfile="lame_ui.h" bodystart="203" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

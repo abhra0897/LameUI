@@ -14,7 +14,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="283" column="10" bodyfile="lame_ui.h" bodystart="283" bodyend="-1"/>
+        <location file="lame_ui.h" line="284" column="10" bodyfile="lame_ui.h" bodystart="284" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct__lui__switch__style__s_1a046fe4e344d2911caea0f292fe810a6e" prot="public" static="no" mutable="no">
         <type>uint16_t</type>
@@ -27,7 +27,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="284" column="10" bodyfile="lame_ui.h" bodystart="284" bodyend="-1"/>
+        <location file="lame_ui.h" line="285" column="10" bodyfile="lame_ui.h" bodystart="285" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct__lui__switch__style__s_1ae40f4445fbada9aaf8afd6d082831ac6" prot="public" static="no" mutable="no">
         <type>uint16_t</type>
@@ -40,14 +40,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="285" column="10" bodyfile="lame_ui.h" bodystart="285" bodyend="-1"/>
+        <location file="lame_ui.h" line="286" column="10" bodyfile="lame_ui.h" bodystart="286" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="lame_ui.h" line="282" column="1" bodyfile="lame_ui.h" bodystart="281" bodyend="286"/>
+    <location file="lame_ui.h" line="283" column="1" bodyfile="lame_ui.h" bodystart="282" bodyend="287"/>
     <listofallmembers>
       <member refid="struct__lui__switch__style__s_1a046fe4e344d2911caea0f292fe810a6e" prot="public" virt="non-virtual"><scope>_lui_switch_style_s</scope><name>knob_off_color</name></member>
       <member refid="struct__lui__switch__style__s_1a704342e823f355d1d858192bd45bdd61" prot="public" virt="non-virtual"><scope>_lui_switch_style_s</scope><name>knob_on_color</name></member>

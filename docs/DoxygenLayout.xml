@@ -4,7 +4,8 @@
   <navindex>
     <tab type="mainpage" visible="yes" title="Introduction"></tab>
     <tab type="modules" visible="yes" title="API Documentation" intro="These are the API of LameUI"/>
-    <tab type="user" url="@ref examples_page" visible="yes" title="Examples" intro="Links to SDK examples"/>
+    <tab type="user" url="@ref examples_page" visible="yes" title="Examples" intro="Simple examples"/>
+    <tab type="user" url="@ref font_maker_instr_page" visible="yes" title="Font Making" intro="Font Making Instructions"/>
     <tab type="pages" visible="no" title="" intro=""/>
     <tab type="namespaces" visible="yes" title="">
       <tab type="namespacelist" visible="yes" title="" intro=""/>

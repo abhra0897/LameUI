@@ -11,4 +11,9 @@ This page links to the various example code fragments in this documentation.
  - Buttongrid examples
     - [Buttongrid example 1](@ref buttongrid_example1)
     - [Buttongrid example 2](@ref buttongrid_example2)
+ - [Keyboard example](@ref keyboard_example)
+ - [Textbox example](@ref textbox_example)
+ - [Panel example](@ref panel_example)
+ - [Display Driver example](@ref displaydriver_touchinput_example)
+ - [Touch Input example](@ref displaydriver_touchinput_example)
 

@@ -20,6 +20,11 @@
 <codeline><highlight class="normal"><sp/>-<sp/>Buttongrid<sp/>examples</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>-<sp/>[Buttongrid<sp/>example<sp/>1](@ref<sp/>buttongrid_example1)</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>-<sp/>[Buttongrid<sp/>example<sp/>2](@ref<sp/>buttongrid_example2)</highlight></codeline>
+<codeline><highlight class="normal"><sp/>-<sp/>[Keyboard<sp/>example](@ref<sp/>keyboard_example)</highlight></codeline>
+<codeline><highlight class="normal"><sp/>-<sp/>[Textbox<sp/>example](@ref<sp/>textbox_example)</highlight></codeline>
+<codeline><highlight class="normal"><sp/>-<sp/>[Panel<sp/>example](@ref<sp/>panel_example)</highlight></codeline>
+<codeline><highlight class="normal"><sp/>-<sp/>[Display<sp/>Driver<sp/>example](@ref<sp/>displaydriver_touchinput_example)</highlight></codeline>
+<codeline><highlight class="normal"><sp/>-<sp/>[Touch<sp/>Input<sp/>example](@ref<sp/>displaydriver_touchinput_example)</highlight></codeline>
 <codeline></codeline>
     </programlisting>
     <location file="docs/examples.md"/>

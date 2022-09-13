@@ -198,6 +198,8 @@
   </compound>
   <compound refid="examples_8md" kind="file"><name>examples.md</name>
   </compound>
+  <compound refid="font__making__instructions_8md" kind="file"><name>font_making_instructions.md</name>
+  </compound>
   <compound refid="index_8h" kind="file"><name>index.h</name>
   </compound>
   <compound refid="mainpage_8md" kind="file"><name>mainpage.md</name>
@@ -1013,6 +1015,8 @@
     <member refid="group__LUI__USE__OBJECT_1gab8fdedff83ca539ac192a8943d38177e" kind="define"><name>LUI_USE_KEYBOARD</name></member>
   </compound>
   <compound refid="examples_page" kind="page"><name>examples_page</name>
+  </compound>
+  <compound refid="font_maker_instr_page" kind="page"><name>font_maker_instr_page</name>
   </compound>
   <compound refid="md_README" kind="page"><name>md_README</name>
   </compound>

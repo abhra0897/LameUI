@@ -26,6 +26,7 @@ var NAVTREE =
     [ "LameUI Documentaion", "index.html", null ],
     [ "API Documentation", "modules.html", "modules" ],
     [ "Examples", "examples_page.html", null ],
+    [ "Font Making", "font_maker_instr_page.html", null ],
     [ "Data Structures", "annotated.html", "annotated" ],
     [ "Data Structure Index", "classes.html", null ],
     [ "Data Fields", "functions.html", [
@@ -45,9 +46,9 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "akshar__light__32_8h_source.html",
-"group__lui__dispdrv.html#ga3516bb99ba95160e9673ba8541ffb13e",
+"group__lui__dispdrv.html#ga1d63878ad3c05200478a7f7b958faa19",
 "group__lui__slider.html#ga9a0709df634fac8694c67c91fe18d64c",
-"struct__lui__checkbox__style__s.html"
+"struct__lui__checkbox__s.html#a0a3e30a255ff25290294c392ec8be07f"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

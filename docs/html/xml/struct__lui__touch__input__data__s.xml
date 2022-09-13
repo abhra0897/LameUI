@@ -16,7 +16,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="522" column="9" bodyfile="lame_ui.h" bodystart="522" bodyend="-1"/>
+        <location file="lame_ui.h" line="523" column="9" bodyfile="lame_ui.h" bodystart="523" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct__lui__touch__input__data__s_1a7f21ada3a9a2b790c51c2f767ea3e30e" prot="public" static="no" mutable="no">
         <type>int16_t</type>
@@ -30,7 +30,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="523" column="9" bodyfile="lame_ui.h" bodystart="523" bodyend="-1"/>
+        <location file="lame_ui.h" line="524" column="9" bodyfile="lame_ui.h" bodystart="524" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct__lui__touch__input__data__s_1a0dda12587fe70222aa328760a1ab2055" prot="public" static="no" mutable="no">
         <type>int16_t</type>
@@ -44,7 +44,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="524" column="9" bodyfile="lame_ui.h" bodystart="524" bodyend="-1"/>
+        <location file="lame_ui.h" line="525" column="9" bodyfile="lame_ui.h" bodystart="525" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -52,7 +52,7 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="lame_ui.h" line="521" column="1" bodyfile="lame_ui.h" bodystart="520" bodyend="525"/>
+    <location file="lame_ui.h" line="522" column="1" bodyfile="lame_ui.h" bodystart="521" bodyend="526"/>
     <listofallmembers>
       <member refid="struct__lui__touch__input__data__s_1afb1054eabf8033209df3b6bc2ca5a2af" prot="public" virt="non-virtual"><scope>_lui_touch_input_data_s</scope><name>is_pressed</name></member>
       <member refid="struct__lui__touch__input__data__s_1a7f21ada3a9a2b790c51c2f767ea3e30e" prot="public" virt="non-virtual"><scope>_lui_touch_input_data_s</scope><name>x</name></member>

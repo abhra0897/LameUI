@@ -14,7 +14,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="253" column="14" bodyfile="lame_ui.h" bodystart="253" bodyend="-1"/>
+        <location file="lame_ui.h" line="254" column="14" bodyfile="lame_ui.h" bodystart="254" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct__lui__area__s_1a756d6657fa594934ba9393ad18ed77eb" prot="public" static="no" mutable="no">
         <type>uint16_t</type>
@@ -27,7 +27,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="254" column="14" bodyfile="lame_ui.h" bodystart="254" bodyend="-1"/>
+        <location file="lame_ui.h" line="255" column="14" bodyfile="lame_ui.h" bodystart="255" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct__lui__area__s_1a7e1da089a8781d4a3f06821906de50fd" prot="public" static="no" mutable="no">
         <type>uint16_t</type>
@@ -40,7 +40,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="255" column="10" bodyfile="lame_ui.h" bodystart="255" bodyend="-1"/>
+        <location file="lame_ui.h" line="256" column="10" bodyfile="lame_ui.h" bodystart="256" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct__lui__area__s_1ad0d511837efffb53a02b2239a0af0c64" prot="public" static="no" mutable="no">
         <type>uint16_t</type>
@@ -53,14 +53,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="256" column="14" bodyfile="lame_ui.h" bodystart="256" bodyend="-1"/>
+        <location file="lame_ui.h" line="257" column="14" bodyfile="lame_ui.h" bodystart="257" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="lame_ui.h" line="252" column="1" bodyfile="lame_ui.h" bodystart="251" bodyend="257"/>
+    <location file="lame_ui.h" line="253" column="1" bodyfile="lame_ui.h" bodystart="252" bodyend="258"/>
     <listofallmembers>
       <member refid="struct__lui__area__s_1acfee754d8a80d3a64633f45798e9877f" prot="public" virt="non-virtual"><scope>_lui_area_s</scope><name>x1</name></member>
       <member refid="struct__lui__area__s_1a7e1da089a8781d4a3f06821906de50fd" prot="public" virt="non-virtual"><scope>_lui_area_s</scope><name>x2</name></member>

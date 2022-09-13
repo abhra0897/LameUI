@@ -14,7 +14,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="378" column="9" bodyfile="lame_ui.h" bodystart="378" bodyend="-1"/>
+        <location file="lame_ui.h" line="379" column="9" bodyfile="lame_ui.h" bodystart="379" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct__lui__linechart__s_1ad4a4f9371f2a6df9f7821452e54fa1f7" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -27,7 +27,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="379" column="9" bodyfile="lame_ui.h" bodystart="379" bodyend="-1"/>
+        <location file="lame_ui.h" line="380" column="9" bodyfile="lame_ui.h" bodystart="380" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct__lui__linechart__s_1a772d26b1089d29625b9920dd0237e961" prot="public" static="no" mutable="no">
         <type>struct _lui_linechart_s::@0</type>
@@ -40,7 +40,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="382" column="5"/>
+        <location file="lame_ui.h" line="383" column="5"/>
       </memberdef>
       <memberdef kind="variable" id="struct__lui__linechart__s_1a02b9e7ff7d6cc65795517636d13f9255" prot="public" static="no" mutable="no">
         <type>struct <ref refid="struct__lui__linechart__style__s" kindref="compound">_lui_linechart_style_s</ref></type>
@@ -53,7 +53,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="370" column="6" bodyfile="lame_ui.h" bodystart="384" bodyend="-1"/>
+        <location file="lame_ui.h" line="371" column="6" bodyfile="lame_ui.h" bodystart="385" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct__lui__linechart__s_1ab31a8a396783ea34144a63f80964b79d" prot="public" static="no" mutable="no">
         <type>double *</type>
@@ -66,7 +66,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="388" column="8" bodyfile="lame_ui.h" bodystart="388" bodyend="-1"/>
+        <location file="lame_ui.h" line="389" column="8" bodyfile="lame_ui.h" bodystart="389" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct__lui__linechart__s_1af438f0d7341e9abb02a55a3d6749ac80" prot="public" static="no" mutable="no">
         <type>uint16_t</type>
@@ -79,7 +79,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="389" column="10" bodyfile="lame_ui.h" bodystart="389" bodyend="-1"/>
+        <location file="lame_ui.h" line="390" column="10" bodyfile="lame_ui.h" bodystart="390" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct__lui__linechart__s_1a009cacc0b2c2741c3ac5e0a5ac4dde5f" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -92,7 +92,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="390" column="9" bodyfile="lame_ui.h" bodystart="390" bodyend="-1"/>
+        <location file="lame_ui.h" line="391" column="9" bodyfile="lame_ui.h" bodystart="391" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct__lui__linechart__s_1a36e10ebf363dfbefde715854a76baf0e" prot="public" static="no" mutable="no">
         <type>double</type>
@@ -105,7 +105,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="391" column="8" bodyfile="lame_ui.h" bodystart="391" bodyend="-1"/>
+        <location file="lame_ui.h" line="392" column="8" bodyfile="lame_ui.h" bodystart="392" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct__lui__linechart__s_1aabc5a3b302584aebaba942bd8ae9f537" prot="public" static="no" mutable="no">
         <type>double</type>
@@ -118,7 +118,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="392" column="8" bodyfile="lame_ui.h" bodystart="392" bodyend="-1"/>
+        <location file="lame_ui.h" line="393" column="8" bodyfile="lame_ui.h" bodystart="393" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct__lui__linechart__s_1adaaa9c1e801e8cf733d66b5536465eab" prot="public" static="no" mutable="no">
         <type>struct _lui_linechart_s::@1</type>
@@ -131,7 +131,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="393" column="5"/>
+        <location file="lame_ui.h" line="394" column="5"/>
       </memberdef>
       <memberdef kind="variable" id="struct__lui__linechart__s_1a44bf02b9f50bacb794f47b42243062ea" prot="public" static="no" mutable="no">
         <type>const <ref refid="structlui__font__t" kindref="compound">lui_font_t</ref> *</type>
@@ -144,7 +144,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="396" column="18" bodyfile="lame_ui.h" bodystart="396" bodyend="-1"/>
+        <location file="lame_ui.h" line="397" column="18" bodyfile="lame_ui.h" bodystart="397" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -185,7 +185,7 @@
         <link refid="struct__lui__linechart__style__s"/>
       </node>
     </collaborationgraph>
-    <location file="lame_ui.h" line="375" column="1" bodyfile="lame_ui.h" bodystart="374" bodyend="397"/>
+    <location file="lame_ui.h" line="376" column="1" bodyfile="lame_ui.h" bodystart="375" bodyend="398"/>
     <listofallmembers>
       <member refid="struct__lui__linechart__s_1a009cacc0b2c2741c3ac5e0a5ac4dde5f" prot="public" virt="non-virtual"><scope>_lui_linechart_s</scope><name>auto_scale</name></member>
       <member refid="struct__lui__linechart__s_1adaaa9c1e801e8cf733d66b5536465eab" prot="public" virt="non-virtual"><scope>_lui_linechart_s</scope><name>data</name></member>

@@ -14,7 +14,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="437" column="9" bodyfile="lame_ui.h" bodystart="437" bodyend="-1"/>
+        <location file="lame_ui.h" line="438" column="9" bodyfile="lame_ui.h" bodystart="438" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct__lui__slider__s_1ab02f3200bf6b8d5a581834e2666cafc1" prot="public" static="no" mutable="no">
         <type>int16_t</type>
@@ -27,7 +27,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="438" column="9" bodyfile="lame_ui.h" bodystart="438" bodyend="-1"/>
+        <location file="lame_ui.h" line="439" column="9" bodyfile="lame_ui.h" bodystart="439" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct__lui__slider__s_1ae143b76098dfb3e027c7d305fc21aea1" prot="public" static="no" mutable="no">
         <type>uint16_t</type>
@@ -40,7 +40,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="440" column="10" bodyfile="lame_ui.h" bodystart="440" bodyend="-1"/>
+        <location file="lame_ui.h" line="441" column="10" bodyfile="lame_ui.h" bodystart="441" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct__lui__slider__s_1a4cc0d3af9f077b224f5d0bc30173c06c" prot="public" static="no" mutable="no">
         <type>struct <ref refid="struct__lui__slider__style__s" kindref="compound">_lui_slider_style_s</ref></type>
@@ -53,7 +53,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="440" column="10" bodyfile="lame_ui.h" bodystart="442" bodyend="-1"/>
+        <location file="lame_ui.h" line="441" column="10" bodyfile="lame_ui.h" bodystart="443" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -73,7 +73,7 @@
         <link refid="struct__lui__slider__style__s"/>
       </node>
     </collaborationgraph>
-    <location file="lame_ui.h" line="436" column="1" bodyfile="lame_ui.h" bodystart="435" bodyend="443"/>
+    <location file="lame_ui.h" line="437" column="1" bodyfile="lame_ui.h" bodystart="436" bodyend="444"/>
     <listofallmembers>
       <member refid="struct__lui__slider__s_1ae143b76098dfb3e027c7d305fc21aea1" prot="public" virt="non-virtual"><scope>_lui_slider_s</scope><name>knob_center_rel_x</name></member>
       <member refid="struct__lui__slider__s_1ab02f3200bf6b8d5a581834e2666cafc1" prot="public" virt="non-virtual"><scope>_lui_slider_s</scope><name>range_max</name></member>
