@@ -132,7 +132,7 @@
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>tft.setTouch(touch_cal_data);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Initialize<sp/>LameUI<sp/>with<sp/>some<sp/>memory</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group__lui__core_1ga96ff45bfbaf38c57a613f1b4a4830893" kindref="member">lui_init</ref>(lui_memory,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(lui_memory));</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group__lui__core_1ga29f33381e162ee05b8036461724c99ec" kindref="member">lui_init</ref>(lui_memory,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(lui_memory));</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Create<sp/>a<sp/>display<sp/>driver<sp/>object</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct__lui__disp__drv__s" kindref="compound">lui_dispdrv_t</ref>*<sp/>display_driver<sp/>=<sp/><ref refid="group__lui__dispdrv_1ga1d63878ad3c05200478a7f7b958faa19" kindref="member">lui_dispdrv_create</ref>();</highlight></codeline>
@@ -193,7 +193,7 @@
 <codeline><highlight class="normal">{</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>[Mandatory]<sp/>At<sp/>the<sp/>starting,<sp/>initialize<sp/>LameUI<sp/>with<sp/>some<sp/>working<sp/>memory.</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>This<sp/>memory<sp/>is<sp/>used<sp/>to<sp/>create<sp/>objects</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group__lui__core_1ga96ff45bfbaf38c57a613f1b4a4830893" kindref="member">lui_init</ref>(lameui_memory,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(lameui_memory));</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group__lui__core_1ga29f33381e162ee05b8036461724c99ec" kindref="member">lui_init</ref>(lameui_memory,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(lameui_memory));</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//----------------------------------------------------------</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//[Mandatory]<sp/>creating<sp/>display<sp/>driver<sp/>object</highlight><highlight class="normal"></highlight></codeline>

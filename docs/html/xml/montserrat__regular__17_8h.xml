@@ -48,7 +48,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="fonts/montserrat_regular_17.h" line="3" column="27" bodyfile="fonts/montserrat_regular_17.c" bodystart="168" bodyend="-1" declfile="fonts/montserrat_regular_17.h" declline="3" declcolumn="27"/>
+        <location file="fonts/montserrat_regular_17.h" line="3" column="27" bodyfile="fonts/montserrat_regular_17.c" bodystart="152" bodyend="-1" declfile="fonts/montserrat_regular_17.h" declline="3" declcolumn="27"/>
       </memberdef>
       <memberdef kind="variable" id="montserrat__regular__17_8h_1afb6b8f85b1805bfcd80cce1131b40b7e" prot="public" static="no" mutable="no">
         <type>const <ref refid="structlui__font__t" kindref="compound">lui_font_t</ref></type>
@@ -61,7 +61,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="fonts/montserrat_regular_17.h" line="5" column="25" bodyfile="fonts/montserrat_regular_17.c" bodystart="235" bodyend="-1" declfile="fonts/montserrat_regular_17.h" declline="5" declcolumn="25"/>
+        <location file="fonts/montserrat_regular_17.h" line="5" column="25" bodyfile="fonts/montserrat_regular_17.c" bodystart="219" bodyend="-1" declfile="fonts/montserrat_regular_17.h" declline="5" declcolumn="25"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

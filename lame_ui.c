@@ -6,7 +6,7 @@
  * @author Avra Mitra
  * @brief Source FIle of LameUI GUI library. Must include lame_ui.h. No other file is mandatory.
  * @version 1.0
- * @date 2022-09-02
+ * @date 2022-09-27
  * 
  * @copyright Copyright (c) 2022
  * 
@@ -25,15 +25,15 @@ _lui_main_t* g_lui_main;
  *-------------------------------------------------------------------------------
  */
 
-void lui_init(uint8_t mem_block[], uint16_t size)
+int8_t lui_init(uint8_t mem_block[], uint16_t size)
 {
 	_lui_mem_init(mem_block, size);
 	g_lui_main = (_lui_main_t* )_lui_mem_alloc(sizeof(_lui_main_t));
 	if (g_lui_main == NULL)
-		return;
+		return -1;
 
 	// 	g_lui_main->scenes = {NULL};
-	g_lui_main->default_font = &FONT_lui_default;
+	g_lui_main->default_font = &LUI_DEFAULT_FONT;
 	g_lui_main->disp_drv = NULL;
 	g_lui_main->touch_input_dev = NULL;
 	g_lui_main->last_touch_data.x = -1;
@@ -45,11 +45,19 @@ void lui_init(uint8_t mem_block[], uint16_t size)
 	g_lui_main->active_scene = NULL;
 	g_lui_main->active_obj = NULL;
 	g_lui_main->total_created_objects = 0;
+
+	return 0;
 }
 
-/*
- * Update the entire scene that contains some UI elements
- */
+int8_t lui_set_default_font(const lui_font_t* font)
+{
+	if (font == NULL)
+		return -1;
+
+	g_lui_main->default_font = font;
+	return 0;
+}
+
 void lui_update()
 {
 	if ( g_lui_main->active_scene == NULL)
@@ -180,7 +188,7 @@ void lui_label_set_text(lui_obj_t* obj, const char* text)
 		return;
 	
 	lui_label_t* lbl = (lui_label_t* )(obj->obj_main_data);
-	lbl->text = (char* )text;
+	lbl->text = (char*)text;
 
 	_lui_object_set_need_refresh(obj);
 }
@@ -1630,14 +1638,14 @@ void lui_checkbox_draw(lui_obj_t* obj)
 	{
 		bg_color = chkbox->style.selection_color;
 	}
-
-	lui_gfx_draw_rect_fill(obj->x, obj->y, obj->common_style.width, obj->common_style.width, bg_color);
+	uint16_t side = obj->common_style.height;
+	lui_gfx_draw_rect_fill(obj->x, obj->y, side, side, bg_color);
 	// draw the tick mark if needed
 	if (obj->value == 1)
 	{
-		uint16_t point_1_x = obj->x + (obj->common_style.width * .2), point_1_y = obj->y + (obj->common_style.width * .55);
-		uint16_t point_2_x = obj->x + (obj->common_style.width * .4), point_2_y = obj->y + (obj->common_style.width * .75);
-		uint16_t point_3_x = obj->x + (obj->common_style.width * .75), point_3_y = obj->y + (obj->common_style.width * .3);
+		uint16_t point_1_x = obj->x + (side * .2), point_1_y = obj->y + (side * .55);
+		uint16_t point_2_x = obj->x + (side* .4), point_2_y = obj->y + (side * .75);
+		uint16_t point_3_x = obj->x + (side * .75), point_3_y = obj->y + (side * .3);
 		
 		lui_gfx_draw_line(point_1_x, point_1_y, point_2_x, point_2_y, 2, chkbox->style.tick_color);
 		lui_gfx_draw_line(point_2_x, point_2_y, point_3_x, point_3_y, 2, chkbox->style.tick_color);
@@ -1646,7 +1654,22 @@ void lui_checkbox_draw(lui_obj_t* obj)
 	// draw the border if needed
 	if (obj->common_style.border_visible == 1)
 	{
-		lui_gfx_draw_rect(obj->x, obj->y,  obj->common_style.width,  obj->common_style.width, 1, obj->common_style.border_color);
+		lui_gfx_draw_rect(obj->x, obj->y, side, side, 1, obj->common_style.border_color);
+	}
+
+	/* Draw label if any */
+	if (chkbox->label.text)
+	{
+		lui_gfx_draw_string_advanced(
+			chkbox->label.text,
+			obj->x + side + 2, 
+			obj->y + 1, 
+			0, 
+			0, 
+			chkbox->label.style.text_color, 
+			obj->parent->common_style.bg_color,
+			1, 
+			chkbox->label.font);
 	}
 	
 }
@@ -1666,6 +1689,9 @@ lui_obj_t* lui_checkbox_create()
 	initial_chkbox->style.bg_checked_color = LUI_STYLE_CHECKBOX_BG_CHECKED_COLOR;
 	initial_chkbox->style.selection_color = LUI_STYLE_CHECKBOX_SELECTION_COLOR;
 	initial_chkbox->style.tick_color = LUI_STYLE_CHECKBOX_TICK_COLOR;
+	initial_chkbox->label.font = g_lui_main->default_font;
+	initial_chkbox->label.text = NULL;
+	initial_chkbox->label.style.text_color = LUI_STYLE_CHECKBOX_LABEL_COLOR;
 
 	lui_obj_t* obj = _lui_object_create();
 	if (obj == NULL)
@@ -1677,8 +1703,8 @@ lui_obj_t* lui_checkbox_create()
 	obj->common_style.bg_color = LUI_STYLE_CHECKBOX_BG_COLOR;
 	obj->common_style.border_color = LUI_STYLE_CHECKBOX_BORDER_COLOR;
 	obj->common_style.border_visible = LUI_STYLE_CHECKBOX_BORDER_VISIBLE;
-	obj->common_style.width = LUI_STYLE_CHECKBOX_WIDTH;
-	obj->common_style.height = LUI_STYLE_CHECKBOX_HEIGHT;
+	obj->common_style.width = LUI_STYLE_CHECKBOX_WIDTH;	 // Not needed for now. Still present.
+	obj->common_style.height = g_lui_main->default_font->bitmap->size_y > LUI_STYLE_CHECKBOX_HEIGHT ? g_lui_main->default_font->bitmap->size_y : LUI_STYLE_CHECKBOX_HEIGHT;
 	
 	obj->obj_main_data = (void* )initial_chkbox;
 
@@ -1739,6 +1765,45 @@ void lui_checkbox_set_checked(lui_obj_t* obj)
 void lui_checkbox_set_unchecked(lui_obj_t* obj)
 {
 	lui_checkbox_set_value(obj, 0);
+}
+
+void lui_checkbox_set_label_text(lui_obj_t* obj, const char* text)
+{
+	if (obj == NULL)
+		return;
+	// type check
+	if (obj->obj_type != LUI_OBJ_CHECKBOX)
+		return;
+
+	((lui_checkbox_t* )obj->obj_main_data)->label.text = (char*)text;
+	_lui_object_set_need_refresh(obj);
+}
+
+void lui_checkbox_set_label_font(lui_obj_t* obj, const lui_font_t* font)
+{
+	if (obj == NULL)
+		return;
+	// type check
+	if (obj->obj_type != LUI_OBJ_CHECKBOX)
+		return;
+
+	((lui_checkbox_t* )obj->obj_main_data)->label.font = font;
+	obj->common_style.height = font->bitmap->size_y > LUI_STYLE_CHECKBOX_HEIGHT ? font->bitmap->size_y : LUI_STYLE_CHECKBOX_HEIGHT;
+	_lui_object_set_need_refresh(obj->parent);
+}
+
+void lui_checkbox_set_label_color(lui_obj_t* obj, uint16_t color)
+{
+	if (obj == NULL)
+		return;
+	// type check
+	if (obj->obj_type != LUI_OBJ_CHECKBOX)
+		return;
+	if (((lui_checkbox_t* )obj->obj_main_data)->label.style.text_color == color)
+		return;
+
+	((lui_checkbox_t* )obj->obj_main_data)->label.style.text_color = color;
+	_lui_object_set_need_refresh(obj);
 }
 
 #endif
@@ -4529,6 +4594,14 @@ void lui_gfx_draw_rect_fill(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint
 	 g_lui_main->disp_drv->draw_pixels_area_cb(x, y, w, h, color);
 }
 
+uint16_t lui_gfx_get_font_height(const lui_font_t* font)
+{
+	if (font == NULL)
+		return;
+
+	return font->bitmap->size_y;
+}
+
 /*
  * Get the width and height of a string (in pixels).
  * Width: by adding up the width of each glyph (representing a character)
@@ -5097,7 +5170,7 @@ static const _lui_glyph_t FONT_GLYPHS_default_ubuntu_regular_17[] = {
 { .character=26/*[1A]settings.png*/, .width=19, .payload_index=4032 }, 			{ .character=27/*[1B]add.png*/, .width=19, .payload_index=4089 }, 
 { .character=28/*[1C]battery-dead.png*/, .width=19, .payload_index=4146 }, 			{ .character=29/*[1D]caret-down.png*/, .width=19, .payload_index=4203 },};
 
-const lui_font_t FONT_lui_default = { .bitmap = &BITMAP_default_ubuntu_regular_17, .glyph_count = 124, .glyphs = FONT_GLYPHS_default_ubuntu_regular_17 };
+const lui_font_t LUI_DEFAULT_FONT = { .bitmap = &BITMAP_default_ubuntu_regular_17, .glyph_count = 124, .glyphs = FONT_GLYPHS_default_ubuntu_regular_17 };
 
 
 /*-------------------------------------------------------------------------------

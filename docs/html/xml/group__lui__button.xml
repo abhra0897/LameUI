@@ -19,7 +19,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1076" column="11" bodyfile="lame_ui.c" bodystart="606" bodyend="641" declfile="lame_ui.h" declline="1076" declcolumn="11"/>
+        <location file="lame_ui.h" line="1092" column="11" bodyfile="lame_ui.c" bodystart="614" bodyend="649" declfile="lame_ui.h" declline="1092" declcolumn="11"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__button_1gad887047af16cb14b720cf1cf8116c1af" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -47,7 +47,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1083" column="6" bodyfile="lame_ui.c" bodystart="534" bodyend="601" declfile="lame_ui.h" declline="1083" declcolumn="6"/>
+        <location file="lame_ui.h" line="1099" column="6" bodyfile="lame_ui.c" bodystart="542" bodyend="609" declfile="lame_ui.h" declline="1099" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__button_1gaec9c0f394998052cbc800530f69f3a97" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -87,7 +87,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1091" column="6" bodyfile="lame_ui.c" bodystart="643" bodyend="655" declfile="lame_ui.h" declline="1091" declcolumn="6"/>
+        <location file="lame_ui.h" line="1107" column="6" bodyfile="lame_ui.c" bodystart="651" bodyend="663" declfile="lame_ui.h" declline="1107" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__button_1ga944120a3784558b91fcea6ca36c42906" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -127,7 +127,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1099" column="6" bodyfile="lame_ui.c" bodystart="657" bodyend="672" declfile="lame_ui.h" declline="1099" declcolumn="6"/>
+        <location file="lame_ui.h" line="1115" column="6" bodyfile="lame_ui.c" bodystart="665" bodyend="680" declfile="lame_ui.h" declline="1115" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__button_1ga7136a562c97ee76a05e8b9bff807ca3f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -167,7 +167,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1107" column="6" bodyfile="lame_ui.c" bodystart="675" bodyend="689" declfile="lame_ui.h" declline="1107" declcolumn="6"/>
+        <location file="lame_ui.h" line="1123" column="6" bodyfile="lame_ui.c" bodystart="683" bodyend="697" declfile="lame_ui.h" declline="1123" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__button_1ga6418e81c76d0182534e1decc65f417b8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -207,7 +207,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1115" column="6" bodyfile="lame_ui.c" bodystart="691" bodyend="704" declfile="lame_ui.h" declline="1115" declcolumn="6"/>
+        <location file="lame_ui.h" line="1131" column="6" bodyfile="lame_ui.c" bodystart="699" bodyend="712" declfile="lame_ui.h" declline="1131" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__button_1gaf719ba472084dcdb38418184b63bd323" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -259,14 +259,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1124" column="6" bodyfile="lame_ui.c" bodystart="706" bodyend="721" declfile="lame_ui.h" declline="1124" declcolumn="6"/>
+        <location file="lame_ui.h" line="1140" column="6" bodyfile="lame_ui.c" bodystart="714" bodyend="729" declfile="lame_ui.h" declline="1140" declcolumn="6"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>API for <bold><computeroutput>button</computeroutput></bold> widget. </para>
     </briefdescription>
     <detaileddescription>
-<sect2 id="group__lui__button_1button_example">
+<sect1 id="group__lui__button_1button_example">
 <title>Example</title>
 <para><programlisting><codeline><highlight class="normal">void<sp/>button_callback(lui_obj_t*<sp/>btn_obj)</highlight></codeline>
 <codeline><highlight class="normal">{</highlight></codeline>
@@ -292,7 +292,7 @@
 <codeline><highlight class="normal">lui_button_set_label_text(my_button,<sp/>&quot;Turn<sp/>ON<sp/>Light&quot;);</highlight></codeline>
 <codeline><highlight class="normal">lui_object_set_callback(my_button,<sp/>button_callback);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>set<sp/>button<sp/>call<sp/>back<sp/>function</highlight></codeline>
 </programlisting> </para>
-</sect2>
+</sect1>
     </detaileddescription>
   </compounddef>
 </doxygen>

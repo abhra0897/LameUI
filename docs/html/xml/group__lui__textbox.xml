@@ -19,7 +19,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="2148" column="11" bodyfile="lame_ui.c" bodystart="2830" bodyend="2866" declfile="lame_ui.h" declline="2148" declcolumn="11"/>
+        <location file="lame_ui.h" line="2186" column="11" bodyfile="lame_ui.c" bodystart="2895" bodyend="2931" declfile="lame_ui.h" declline="2186" declcolumn="11"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__textbox_1gaf80e132e37c89453b6115602714c0fce" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -33,7 +33,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="2154" column="6" declfile="lame_ui.h" declline="2154" declcolumn="6"/>
+        <location file="lame_ui.h" line="2192" column="6" declfile="lame_ui.h" declline="2192" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__textbox_1gabe544e589562b44cec63dbfa41619c5d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -74,7 +74,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="2164" column="6" bodyfile="lame_ui.c" bodystart="2868" bodyend="2886" declfile="lame_ui.h" declline="2164" declcolumn="6"/>
+        <location file="lame_ui.h" line="2202" column="6" bodyfile="lame_ui.c" bodystart="2933" bodyend="2951" declfile="lame_ui.h" declline="2202" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__textbox_1gae2377a9c0132bc6e909a0b23b1814fc7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint16_t</type>
@@ -104,7 +104,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="2172" column="10" bodyfile="lame_ui.c" bodystart="2888" bodyend="2897" declfile="lame_ui.h" declline="2172" declcolumn="10"/>
+        <location file="lame_ui.h" line="2210" column="10" bodyfile="lame_ui.c" bodystart="2953" bodyend="2962" declfile="lame_ui.h" declline="2210" declcolumn="10"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__textbox_1gaf12d728f7b2202c38b85d34d80669892" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -145,7 +145,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="2182" column="6" bodyfile="lame_ui.c" bodystart="2899" bodyend="2920" declfile="lame_ui.h" declline="2182" declcolumn="6"/>
+        <location file="lame_ui.h" line="2220" column="6" bodyfile="lame_ui.c" bodystart="2964" bodyend="2985" declfile="lame_ui.h" declline="2220" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__textbox_1ga6540b13528f24d0e29de00ce7e883835" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -198,7 +198,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="2193" column="6" bodyfile="lame_ui.c" bodystart="2944" bodyend="2965" declfile="lame_ui.h" declline="2193" declcolumn="6"/>
+        <location file="lame_ui.h" line="2231" column="6" bodyfile="lame_ui.c" bodystart="3009" bodyend="3030" declfile="lame_ui.h" declline="2231" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__textbox_1gab96f6d6d3546ada97d759e88a8dede10" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -226,7 +226,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="2200" column="6" bodyfile="lame_ui.c" bodystart="2922" bodyend="2942" declfile="lame_ui.h" declline="2200" declcolumn="6"/>
+        <location file="lame_ui.h" line="2238" column="6" bodyfile="lame_ui.c" bodystart="2987" bodyend="3007" declfile="lame_ui.h" declline="2238" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__textbox_1gabeb31790dc1b9e074de63bdf7f247776" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -278,7 +278,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="2209" column="6" bodyfile="lame_ui.c" bodystart="2967" bodyend="2983" declfile="lame_ui.h" declline="2209" declcolumn="6"/>
+        <location file="lame_ui.h" line="2247" column="6" bodyfile="lame_ui.c" bodystart="3032" bodyend="3048" declfile="lame_ui.h" declline="2247" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__textbox_1ga44c28a66f8a82241660c0c296df2c2dd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -318,7 +318,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="2217" column="6" bodyfile="lame_ui.c" bodystart="2999" bodyend="3013" declfile="lame_ui.h" declline="2217" declcolumn="6"/>
+        <location file="lame_ui.h" line="2255" column="6" bodyfile="lame_ui.c" bodystart="3064" bodyend="3078" declfile="lame_ui.h" declline="2255" declcolumn="6"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -332,7 +332,7 @@
 </listitem><listitem><para>Create a callback function for the textbox 3.1. If event is LUI_EVENT_ENTERED, set the target keyboard for this textbox. This will make the keyboard visible. 3.2. If event is LUI_EVENT_EXITED, set target keyboard as NULL. This will hide the keyboard again.</para>
 </listitem></orderedlist>
 </para>
-<sect2 id="group__lui__textbox_1textbox_example">
+<sect1 id="group__lui__textbox_1textbox_example">
 <title>Example</title>
 <para><programlisting><codeline><highlight class="normal">char<sp/>txtbox_buff[50];</highlight></codeline>
 <codeline><highlight class="normal">lui_obj_t*<sp/>my_keyboard;</highlight></codeline>
@@ -374,7 +374,7 @@
 <codeline><highlight class="normal">//<sp/>Keyboard<sp/>is<sp/>by<sp/>default<sp/>hidden.<sp/>It<sp/>is<sp/>made<sp/>visible<sp/>when<sp/>a</highlight></codeline>
 <codeline><highlight class="normal">//<sp/>textbox<sp/>is<sp/>clicked<sp/>on.</highlight></codeline>
 </programlisting> </para>
-</sect2>
+</sect1>
     </detaileddescription>
   </compounddef>
 </doxygen>

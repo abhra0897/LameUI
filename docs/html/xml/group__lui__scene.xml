@@ -19,7 +19,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="2318" column="11" bodyfile="lame_ui.c" bodystart="3089" bodyend="3122" declfile="lame_ui.h" declline="2318" declcolumn="11"/>
+        <location file="lame_ui.h" line="2356" column="11" bodyfile="lame_ui.c" bodystart="3154" bodyend="3187" declfile="lame_ui.h" declline="2356" declcolumn="11"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__scene_1gab6b1e6f1f2b17745b02d6c3d3d6003d1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -47,7 +47,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="2325" column="6" bodyfile="lame_ui.c" bodystart="3124" bodyend="3138" declfile="lame_ui.h" declline="2325" declcolumn="6"/>
+        <location file="lame_ui.h" line="2363" column="6" bodyfile="lame_ui.c" bodystart="3189" bodyend="3203" declfile="lame_ui.h" declline="2363" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__scene_1ga5a2c32f660fbbe39fae9d5f11055aff7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -75,7 +75,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="2332" column="6" bodyfile="lame_ui.c" bodystart="3172" bodyend="3183" declfile="lame_ui.h" declline="2332" declcolumn="6"/>
+        <location file="lame_ui.h" line="2370" column="6" bodyfile="lame_ui.c" bodystart="3237" bodyend="3248" declfile="lame_ui.h" declline="2370" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__scene_1ga84a7baf7297d1ed254e4feb3b8d125ea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="lame__ui_8h_1a5a7ccb45f639e22e43b3ac176a75dd09" kindref="member">lui_obj_t</ref> *</type>
@@ -92,65 +92,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="2339" column="11" bodyfile="lame_ui.c" bodystart="3185" bodyend="3188" declfile="lame_ui.h" declline="2339" declcolumn="11"/>
-      </memberdef>
-      <memberdef kind="function" id="group__lui__scene_1ga9171479a041b608913d5601cc1f74c43" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void lui_scene_set_font</definition>
-        <argsstring>(lui_obj_t *obj_scene, const lui_font_t *font)</argsstring>
-        <name>lui_scene_set_font</name>
-        <param>
-          <type><ref refid="lame__ui_8h_1a5a7ccb45f639e22e43b3ac176a75dd09" kindref="member">lui_obj_t</ref> *</type>
-          <declname>obj_scene</declname>
-        </param>
-        <param>
-          <type>const <ref refid="structlui__font__t" kindref="compound">lui_font_t</ref> *</type>
-          <declname>font</declname>
-        </param>
-        <briefdescription>
-<para>Set background bitmap image of a ascene. </para>
-        </briefdescription>
-        <detaileddescription>
-<para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername>obj_scene</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>scene widget </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>image</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>image</para>
-</parameterdescription>
-</parameteritem>
-</parameterlist>
-Set font of a scene</para>
-<para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername>obj_scene</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>scene widget </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>font</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>font </para>
-</parameterdescription>
-</parameteritem>
-</parameterlist>
-</para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="lame_ui.h" line="2355" column="6" declfile="lame_ui.h" declline="2355" declcolumn="6"/>
+        <location file="lame_ui.h" line="2377" column="11" bodyfile="lame_ui.c" bodystart="3250" bodyend="3253" declfile="lame_ui.h" declline="2377" declcolumn="11"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

@@ -4,9 +4,9 @@
     <compoundname>lui_core</compoundname>
     <title>Core initialize &amp; update API</title>
       <sectiondef kind="func">
-      <memberdef kind="function" id="group__lui__core_1ga96ff45bfbaf38c57a613f1b4a4830893" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void lui_init</definition>
+      <memberdef kind="function" id="group__lui__core_1ga29f33381e162ee05b8036461724c99ec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int8_t</type>
+        <definition>int8_t lui_init</definition>
         <argsstring>(uint8_t mem_block[], uint16_t size)</argsstring>
         <name>lui_init</name>
         <param>
@@ -19,9 +19,10 @@
           <declname>size</declname>
         </param>
         <briefdescription>
-<para>Initialize the LameUI core. Here user provides LameUI some RAM to create widgets. If and when RAM is not sufficient, widget ceration will fail. </para>
+<para>Initialize the LameUI core. Here user provides LameUI some RAM to create widgets. If and when RAM is not sufficient, widget creation will fail. </para>
         </briefdescription>
         <detaileddescription>
+<para>If init fails due to memory allocation problem, returns -1, else returns 0.</para>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
 <parametername>mem_block</parametername>
@@ -39,11 +40,13 @@
 </parameterdescription>
 </parameteritem>
 </parameterlist>
+<simplesect kind="return"><para>0: Success, -1: Fail </para>
+</simplesect>
 </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="605" column="6" bodyfile="lame_ui.c" bodystart="28" bodyend="48" declfile="lame_ui.h" declline="605" declcolumn="6"/>
+        <location file="lame_ui.h" line="610" column="8" bodyfile="lame_ui.c" bodystart="28" bodyend="50" declfile="lame_ui.h" declline="610" declcolumn="8"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__core_1gaa4a3c7694929ad0b6c5cd565dd6e7304" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -58,7 +61,38 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="616" column="6" bodyfile="lame_ui.c" bodystart="53" bodyend="85" declfile="lame_ui.h" declline="616" declcolumn="6"/>
+        <location file="lame_ui.h" line="621" column="6" bodyfile="lame_ui.c" bodystart="61" bodyend="93" declfile="lame_ui.h" declline="621" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="group__lui__core_1gafe31e6582630b84037ad089c5ff3591f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int8_t</type>
+        <definition>int8_t lui_set_default_font</definition>
+        <argsstring>(const lui_font_t *font)</argsstring>
+        <name>lui_set_default_font</name>
+        <param>
+          <type>const <ref refid="structlui__font__t" kindref="compound">lui_font_t</ref> *</type>
+          <declname>font</declname>
+        </param>
+        <briefdescription>
+<para>Sets default font of LameUI. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Objects that are created after calling this, will inherit the new default font. But objects created earlier won&apos;t update their font automatically.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>font</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>font </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>int8_t 0: Success, -1: Fail </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="632" column="8" bodyfile="lame_ui.c" bodystart="52" bodyend="59" declfile="lame_ui.h" declline="632" declcolumn="8"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -66,7 +100,7 @@
     </briefdescription>
     <detaileddescription>
 <para><itemizedlist>
-<listitem><para><ref refid="group__lui__core_1ga96ff45bfbaf38c57a613f1b4a4830893" kindref="member">lui_init()</ref> is only called once at the very begining.</para>
+<listitem><para><ref refid="group__lui__core_1ga29f33381e162ee05b8036461724c99ec" kindref="member">lui_init()</ref> is only called once at the very beginning.</para>
 </listitem><listitem><para><ref refid="group__lui__core_1gaa4a3c7694929ad0b6c5cd565dd6e7304" kindref="member">lui_update()</ref> is called periodically in an infinite loop. </para>
 </listitem></itemizedlist>
 </para>

@@ -117,8 +117,17 @@ Functions</h2></td></tr>
 <tr class="memdesc:ga9742a1e9706106024911e0004d5bf2ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a checkbox object with initial values.  <a href="group__lui__checkbox.html#ga9742a1e9706106024911e0004d5bf2ac">More...</a><br /></td></tr>
 <tr class="separator:ga9742a1e9706106024911e0004d5bf2ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga36738f45907e976f8bf92595352ea968"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__checkbox.html#ga36738f45907e976f8bf92595352ea968">lui_checkbox_draw</a> (<a class="el" href="lame__ui_8h.html#a5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_checkbox)</td></tr>
-<tr class="memdesc:ga36738f45907e976f8bf92595352ea968"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a checbox object.  <a href="group__lui__checkbox.html#ga36738f45907e976f8bf92595352ea968">More...</a><br /></td></tr>
+<tr class="memdesc:ga36738f45907e976f8bf92595352ea968"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a checkbox object.  <a href="group__lui__checkbox.html#ga36738f45907e976f8bf92595352ea968">More...</a><br /></td></tr>
 <tr class="separator:ga36738f45907e976f8bf92595352ea968"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa5b0fd8f35e08bad0f541d4825a122bd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__checkbox.html#gaa5b0fd8f35e08bad0f541d4825a122bd">lui_checkbox_set_label_text</a> (<a class="el" href="lame__ui_8h.html#a5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_checkbox, const char *text)</td></tr>
+<tr class="memdesc:gaa5b0fd8f35e08bad0f541d4825a122bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set label text of a checkbox.  <a href="group__lui__checkbox.html#gaa5b0fd8f35e08bad0f541d4825a122bd">More...</a><br /></td></tr>
+<tr class="separator:gaa5b0fd8f35e08bad0f541d4825a122bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5cb7deb03ffca1ef632a3eea226d1550"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__checkbox.html#ga5cb7deb03ffca1ef632a3eea226d1550">lui_checkbox_set_label_font</a> (<a class="el" href="lame__ui_8h.html#a5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_checkbox, const <a class="el" href="structlui__font__t.html">lui_font_t</a> *font)</td></tr>
+<tr class="memdesc:ga5cb7deb03ffca1ef632a3eea226d1550"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set label font of a checkbox.  <a href="group__lui__checkbox.html#ga5cb7deb03ffca1ef632a3eea226d1550">More...</a><br /></td></tr>
+<tr class="separator:ga5cb7deb03ffca1ef632a3eea226d1550"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga18f376d64f83b97e3402ee5c46781052"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__checkbox.html#ga18f376d64f83b97e3402ee5c46781052">lui_checkbox_set_label_color</a> (<a class="el" href="lame__ui_8h.html#a5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_checkbox, uint16_t color)</td></tr>
+<tr class="memdesc:ga18f376d64f83b97e3402ee5c46781052"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set label text color of a checkbox.  <a href="group__lui__checkbox.html#ga18f376d64f83b97e3402ee5c46781052">More...</a><br /></td></tr>
+<tr class="separator:ga18f376d64f83b97e3402ee5c46781052"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gae501d0976d301bc3c03e11b28eee654a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__checkbox.html#gae501d0976d301bc3c03e11b28eee654a">lui_checkbox_set_extra_colors</a> (<a class="el" href="lame__ui_8h.html#a5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_checkbox, uint16_t bg_checked_color, uint16_t tick_color, uint16_t selection_color)</td></tr>
 <tr class="memdesc:gae501d0976d301bc3c03e11b28eee654a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set extra colors of checkbox.  <a href="group__lui__checkbox.html#gae501d0976d301bc3c03e11b28eee654a">More...</a><br /></td></tr>
 <tr class="separator:gae501d0976d301bc3c03e11b28eee654a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -137,22 +146,20 @@ Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>API for <b><code>checkbox</code></b> widget. </p>
-<h2><a class="anchor" id="checkbox_example"></a>
-Example</h2>
-<div class="fragment"><div class="line">chkbox_cricket = <a class="code" href="group__lui__checkbox.html#ga9742a1e9706106024911e0004d5bf2ac">lui_checkbox_create</a>();</div>
+<h1><a class="anchor" id="checkbox_example"></a>
+Example</h1>
+<div class="fragment"><div class="line"><a class="code" href="struct__lui__obj__s.html">lui_obj_t</a>* chkbox_cricket = <a class="code" href="group__lui__checkbox.html#ga9742a1e9706106024911e0004d5bf2ac">lui_checkbox_create</a>();</div>
+<div class="line"><a class="code" href="group__lui__checkbox.html#gaa5b0fd8f35e08bad0f541d4825a122bd">lui_checkbox_set_label_text</a>(chkbox_cricket, <span class="stringliteral">&quot;Cricket&quot;</span>);</div>
 <div class="line"><a class="code" href="group__lui__object.html#gaf7bedc873edb862f9c1f8b063f17f839">lui_object_set_position</a>(chkbox_cricket, 0, 0);</div>
 <div class="line"><a class="code" href="group__lui__checkbox.html#ga44562059aeab006ce233adbe64f3ddca">lui_checkbox_set_value</a>(chkbox_cricket, 1); <span class="comment">// This checkbox is selected</span></div>
 <div class="line"> </div>
-<div class="line"><a class="code" href="struct__lui__obj__s.html">lui_obj_t</a>* lbl_cricket = <a class="code" href="group__lui__label.html#ga83cc1ae5b6c0601af8614574e019e8f8">lui_label_create</a>();</div>
-<div class="line"><a class="code" href="group__lui__label.html#ga45528354a67fe65f23435338f970ba33">lui_label_set_text</a>(lbl_cricket, <span class="stringliteral">&quot;Cricket&quot;</span>);</div>
-<div class="line"><a class="code" href="group__lui__object.html#gaf7bedc873edb862f9c1f8b063f17f839">lui_object_set_position</a>(lbl_cricket, 25, 0);</div>
-<div class="line"> </div>
-<div class="line">chkbox_hockey = <a class="code" href="group__lui__checkbox.html#ga9742a1e9706106024911e0004d5bf2ac">lui_checkbox_create</a>();</div>
+<div class="line"><a class="code" href="struct__lui__obj__s.html">lui_obj_t</a>* chkbox_hockey = <a class="code" href="group__lui__checkbox.html#ga9742a1e9706106024911e0004d5bf2ac">lui_checkbox_create</a>();</div>
+<div class="line"><a class="code" href="group__lui__checkbox.html#gaa5b0fd8f35e08bad0f541d4825a122bd">lui_checkbox_set_label_text</a>(chkbox_hockey, <span class="stringliteral">&quot;Hockey&quot;</span>);</div>
 <div class="line"><a class="code" href="group__lui__object.html#gaf7bedc873edb862f9c1f8b063f17f839">lui_object_set_position</a>(chkbox_hockey, 0, 25);</div>
 <div class="line"> </div>
-<div class="line"><a class="code" href="struct__lui__obj__s.html">lui_obj_t</a>* lbl_hockey = <a class="code" href="group__lui__label.html#ga83cc1ae5b6c0601af8614574e019e8f8">lui_label_create</a>();</div>
-<div class="line"><a class="code" href="group__lui__label.html#ga45528354a67fe65f23435338f970ba33">lui_label_set_text</a>(lbl_hockey, <span class="stringliteral">&quot;Hockey&quot;</span>);</div>
-<div class="line"><a class="code" href="group__lui__object.html#gaf7bedc873edb862f9c1f8b063f17f839">lui_object_set_position</a>(lbl_hockey, 25, 25);</div>
+<div class="line"><a class="code" href="struct__lui__obj__s.html">lui_obj_t</a>* chkbox_football = <a class="code" href="group__lui__checkbox.html#ga9742a1e9706106024911e0004d5bf2ac">lui_checkbox_create</a>();</div>
+<div class="line"><a class="code" href="group__lui__checkbox.html#gaa5b0fd8f35e08bad0f541d4825a122bd">lui_checkbox_set_label_text</a>(chkbox_football, <span class="stringliteral">&quot;Football&quot;</span>);</div>
+<div class="line"><a class="code" href="group__lui__object.html#gaf7bedc873edb862f9c1f8b063f17f839">lui_object_set_position</a>(chkbox_football, 0, 50);</div>
 </div><!-- fragment --> <h2 class="groupheader">Function Documentation</h2>
 <a id="ga9742a1e9706106024911e0004d5bf2ac"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga9742a1e9706106024911e0004d5bf2ac">&#9670;&nbsp;</a></span>lui_checkbox_create()</h2>
@@ -190,7 +197,7 @@ Example</h2>
       </table>
 </div><div class="memdoc">
 
-<p>Draw a checbox object. </p>
+<p>Draw a checkbox object. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">obj_checkbox</td><td>checkbox object </td></tr>
@@ -304,6 +311,117 @@ Example</h2>
 
 </div>
 </div>
+<a id="ga18f376d64f83b97e3402ee5c46781052"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga18f376d64f83b97e3402ee5c46781052">&#9670;&nbsp;</a></span>lui_checkbox_set_label_color()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lui_checkbox_set_label_color </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="lame__ui_8h.html#a5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td>
+          <td class="paramname"><em>obj_checkbox</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>color</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set label text color of a checkbox. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">obj_checkbox</td><td>checkbox object </td></tr>
+    <tr><td class="paramname">color</td><td>16-bit color </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ga5cb7deb03ffca1ef632a3eea226d1550"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5cb7deb03ffca1ef632a3eea226d1550">&#9670;&nbsp;</a></span>lui_checkbox_set_label_font()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lui_checkbox_set_label_font </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="lame__ui_8h.html#a5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td>
+          <td class="paramname"><em>obj_checkbox</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structlui__font__t.html">lui_font_t</a> *&#160;</td>
+          <td class="paramname"><em>font</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set label font of a checkbox. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">obj_checkbox</td><td>checkbox object </td></tr>
+    <tr><td class="paramname">font</td><td>font </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="gaa5b0fd8f35e08bad0f541d4825a122bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa5b0fd8f35e08bad0f541d4825a122bd">&#9670;&nbsp;</a></span>lui_checkbox_set_label_text()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lui_checkbox_set_label_text </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="lame__ui_8h.html#a5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td>
+          <td class="paramname"><em>obj_checkbox</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>text</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set label text of a checkbox. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">obj_checkbox</td><td>checkbox object </td></tr>
+    <tr><td class="paramname">text</td><td>text </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="gad54464b47322e3c6b4918a0c43bb5a66"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gad54464b47322e3c6b4918a0c43bb5a66">&#9670;&nbsp;</a></span>lui_checkbox_set_unchecked()</h2>
 
@@ -369,12 +487,11 @@ Example</h2>
 </div>
 </div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="agroup__lui__checkbox_html_ga9742a1e9706106024911e0004d5bf2ac"><div class="ttname"><a href="group__lui__checkbox.html#ga9742a1e9706106024911e0004d5bf2ac">lui_checkbox_create</a></div><div class="ttdeci">lui_obj_t * lui_checkbox_create()</div><div class="ttdoc">Create a checkbox object with initial values.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:1654</div></div>
-<div class="ttc" id="astruct__lui__obj__s_html"><div class="ttname"><a href="struct__lui__obj__s.html">_lui_obj_s</a></div><div class="ttdoc">Generic object datatype.</div><div class="ttdef"><b>Definition:</b> lame_ui.h:357</div></div>
-<div class="ttc" id="agroup__lui__label_html_ga45528354a67fe65f23435338f970ba33"><div class="ttname"><a href="group__lui__label.html#ga45528354a67fe65f23435338f970ba33">lui_label_set_text</a></div><div class="ttdeci">void lui_label_set_text(lui_obj_t *obj, const char *text)</div><div class="ttdoc">Set text of a label.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:173</div></div>
-<div class="ttc" id="agroup__lui__label_html_ga83cc1ae5b6c0601af8614574e019e8f8"><div class="ttname"><a href="group__lui__label.html#ga83cc1ae5b6c0601af8614574e019e8f8">lui_label_create</a></div><div class="ttdeci">lui_obj_t * lui_label_create(void)</div><div class="ttdoc">Create a label with initial values.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:126</div></div>
-<div class="ttc" id="agroup__lui__checkbox_html_ga44562059aeab006ce233adbe64f3ddca"><div class="ttname"><a href="group__lui__checkbox.html#ga44562059aeab006ce233adbe64f3ddca">lui_checkbox_set_value</a></div><div class="ttdeci">void lui_checkbox_set_value(lui_obj_t *obj, uint8_t value)</div><div class="ttdoc">Set checkbox value.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:1719</div></div>
-<div class="ttc" id="agroup__lui__object_html_gaf7bedc873edb862f9c1f8b063f17f839"><div class="ttname"><a href="group__lui__object.html#gaf7bedc873edb862f9c1f8b063f17f839">lui_object_set_position</a></div><div class="ttdeci">void lui_object_set_position(lui_obj_t *obj, uint16_t x, uint16_t y)</div><div class="ttdoc">Set position of an object.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3309</div></div>
+<div class="ttc" id="agroup__lui__checkbox_html_ga9742a1e9706106024911e0004d5bf2ac"><div class="ttname"><a href="group__lui__checkbox.html#ga9742a1e9706106024911e0004d5bf2ac">lui_checkbox_create</a></div><div class="ttdeci">lui_obj_t * lui_checkbox_create()</div><div class="ttdoc">Create a checkbox object with initial values.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:1677</div></div>
+<div class="ttc" id="agroup__lui__checkbox_html_gaa5b0fd8f35e08bad0f541d4825a122bd"><div class="ttname"><a href="group__lui__checkbox.html#gaa5b0fd8f35e08bad0f541d4825a122bd">lui_checkbox_set_label_text</a></div><div class="ttdeci">void lui_checkbox_set_label_text(lui_obj_t *obj, const char *text)</div><div class="ttdoc">Set label text of a checkbox.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:1770</div></div>
+<div class="ttc" id="astruct__lui__obj__s_html"><div class="ttname"><a href="struct__lui__obj__s.html">_lui_obj_s</a></div><div class="ttdoc">Generic object datatype.</div><div class="ttdef"><b>Definition:</b> lame_ui.h:359</div></div>
+<div class="ttc" id="agroup__lui__checkbox_html_ga44562059aeab006ce233adbe64f3ddca"><div class="ttname"><a href="group__lui__checkbox.html#ga44562059aeab006ce233adbe64f3ddca">lui_checkbox_set_value</a></div><div class="ttdeci">void lui_checkbox_set_value(lui_obj_t *obj, uint8_t value)</div><div class="ttdoc">Set checkbox value.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:1745</div></div>
+<div class="ttc" id="agroup__lui__object_html_gaf7bedc873edb862f9c1f8b063f17f839"><div class="ttname"><a href="group__lui__object.html#gaf7bedc873edb862f9c1f8b063f17f839">lui_object_set_position</a></div><div class="ttdeci">void lui_object_set_position(lui_obj_t *obj, uint16_t x, uint16_t y)</div><div class="ttdoc">Set position of an object.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3374</div></div>
 
 	<script src="main.js"></script>
 </body>

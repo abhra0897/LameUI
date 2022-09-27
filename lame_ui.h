@@ -6,7 +6,7 @@
  * @author Avra Mitra
  * @brief One and only header file for LameUI library.
  * @version 1.0
- * @date 2022-09-02
+ * @date 2022-09-27
  *
  * @copyright Copyright (c) 2022
  *
@@ -32,7 +32,7 @@
  * @{
  */
 
-#define LUI_MAX_OBJECTS 130 ///< Set number of maximum objects that can be created
+#define LUI_MAX_OBJECTS 200 ///< Set number of maximum objects that can be created
 
 #define LUI_USE_DARK_THEME 1 ///< Comment out OR set value to 0 for using light theme
 
@@ -212,6 +212,8 @@
 #define LUI_ALIGN_RIGHT 2		///< Align content to right
 /**@} */
 
+#define LUI_DEFAULT_FONT		FONT_lui_default
+
 /*--------------------------------------------
  *				End Macro Definitions
  *--------------------------------------------
@@ -254,7 +256,7 @@ typedef struct
 	const _lui_glyph_t *glyphs; // pointer to array of glyph_t elements
 } lui_font_t;
 
-extern const lui_font_t FONT_lui_default;
+extern const lui_font_t LUI_DEFAULT_FONT;
 
 typedef struct _lui_area_s
 {
@@ -408,7 +410,6 @@ typedef struct _lui_label_s
 {
 	char *text;
 	const lui_font_t *font;
-	// uint16_t color;
 	struct _lui_label_style_s style;
 } lui_label_t;
 
@@ -434,6 +435,7 @@ typedef struct _lui_switch_s
 #if defined(LUI_USE_CHECKBOX)
 typedef struct _lui_checkbox_s
 {
+	struct _lui_label_s label;
 	struct _lui_checkbox_style_s style;
 } lui_checkbox_t;
 #endif
@@ -590,19 +592,22 @@ typedef struct _lui_main_s
 /**
  * @defgroup lui_core Initialization and UI Update API
  * @brief These functions are used to initialize the core and to update it.
- * - lui_init() is only called once at the very begining.
+ * - lui_init() is only called once at the very beginning.
  * - lui_update() is called periodically in an infinite loop.
  * @{
  */
 
 /**
  * @brief Initialize the LameUI core. Here user provides LameUI some RAM to
- * create widgets. If and when RAM is not sufficient, widget ceration will fail.
+ * create widgets. If and when RAM is not sufficient, widget creation will fail.
+ * 
+ * If init fails due to memory allocation problem, returns -1, else returns 0.
  *
  * @param mem_block an array of uint8_t. this will be used as work area
  * @param size size of the alloted memory
+ * @return 0: Success, -1: Fail
  */
-void lui_init(uint8_t mem_block[], uint16_t size);
+int8_t lui_init(uint8_t mem_block[], uint16_t size);
 
 /**
  * @brief This function updates the UI by reading input and rendering widgets
@@ -614,6 +619,17 @@ void lui_init(uint8_t mem_block[], uint16_t size);
  *
  */
 void lui_update();
+
+/**
+ * @brief Sets default font of LameUI. 
+ * 
+ * Objects that are created after calling this, will inherit the new default font. 
+ * But objects created earlier won't update their font automatically.
+ * 
+ * @param font font
+ * @return int8_t 0: Success, -1: Fail
+ */
+int8_t lui_set_default_font(const lui_font_t* font);
 /**@}*/
 
 /*-------------------------------------------------------------------------------
@@ -735,7 +751,7 @@ void lui_object_set_border_visibility(lui_obj_t *obj, uint8_t is_visible);
  * @param obj target object
  * @param bg_color background color
  */
-void lui_object_set_bg_color(lui_obj_t *obj, uint16_t color);
+void lui_object_set_bg_color(lui_obj_t *obj, uint16_t bg_color);
 
 /**
  * @brief Set event call back function for input handling
@@ -780,7 +796,7 @@ int8_t lui_object_get_event(lui_obj_t *obj);
  * @param obj target object
  * @param is_visible 1: visible; 0: hidden
  */
-void lui_object_set_visibility(lui_obj_t *obj, uint8_t visible);
+void lui_object_set_visibility(lui_obj_t *obj, uint8_t is_visible);
 
 /**
  * @brief Set rendering layer index of an object
@@ -837,7 +853,7 @@ void _lui_object_set_need_refresh(lui_obj_t *obj);
  * @private
  * @brief Render an object along with all its children (if any)
  *
- * @param obj_parent target object
+ * @param obj target object
  */
 void _lui_object_render_parent_with_children(lui_obj_t *obj);
 
@@ -876,7 +892,7 @@ static int _lui_obj_layer_cmprtr(const void *p1, const void *p2);
  * @defgroup lui_label Label widget API
  * API for <tt><b>label</b></tt> widgets
  *
- * @subsection label_example Example
+ * @section label_example Example
  * @code
  * const char* text = "Hi Universe";
  * lui_obj_t* my_label = lui_label_create();
@@ -898,7 +914,7 @@ lui_obj_t *lui_label_create(void);
 /**
  * @brief Draw a <tt>label</tt> widget
  *
- * @param obj label object
+ * @param obj_lbl label object
  */
 void lui_label_draw(lui_obj_t *obj_lbl);
 
@@ -942,7 +958,7 @@ void lui_label_set_text_color(lui_obj_t *obj_lbl, uint16_t text_color);
  * @defgroup lui_linechart Line Chart widget API
  * API for <b><tt>linechart</tt></b> widget
  *
- * @subsection linechart_example Example
+ * @section linechart_example Example
  * @code
  * double fib_data[10] = {0, 1, 1, 2, 3, 5, 8, 13, 21, 34};
  * lui_obj_t* my_chart = lui_linechart_create();
@@ -1039,7 +1055,7 @@ void lui_linechart_set_data_source(lui_obj_t *obj_linechart, double *source, uin
  *
  * API for <b><tt>button</tt></b> widget
  *
- * @subsection button_example Example
+ * @section button_example Example
  * @code
  * void button_callback(lui_obj_t* btn_obj)
  * {
@@ -1130,7 +1146,7 @@ void lui_button_set_extra_colors(lui_obj_t *obj_btn, uint16_t pressed_color, uin
  *
  * API for <b><tt>switch</tt></b> widget
  *
- * @subsection switch_example Example
+ * @section switch_example Example
  * @code
  * void switch_callback(lui_obj_t* switch_obj)
  * {
@@ -1217,22 +1233,20 @@ void lui_switch_set_off(lui_obj_t *obj_swtch);
  *
  * API for <b><tt>checkbox</tt></b> widget
  *
- * @subsection checkbox_example Example
+ * @section checkbox_example Example
  * @code
- * chkbox_cricket = lui_checkbox_create();
+ * lui_obj_t* chkbox_cricket = lui_checkbox_create();
+ * lui_checkbox_set_label_text(chkbox_cricket, "Cricket");
  * lui_object_set_position(chkbox_cricket, 0, 0);
  * lui_checkbox_set_value(chkbox_cricket, 1); // This checkbox is selected
  *
- * lui_obj_t* lbl_cricket = lui_label_create();
- * lui_label_set_text(lbl_cricket, "Cricket");
- * lui_object_set_position(lbl_cricket, 25, 0);
- *
- * chkbox_hockey = lui_checkbox_create();
+ * lui_obj_t* chkbox_hockey = lui_checkbox_create();
+ * lui_checkbox_set_label_text(chkbox_hockey, "Hockey");
  * lui_object_set_position(chkbox_hockey, 0, 25);
- *
- * lui_obj_t* lbl_hockey = lui_label_create();
- * lui_label_set_text(lbl_hockey, "Hockey");
- * lui_object_set_position(lbl_hockey, 25, 25);
+ * 
+ * lui_obj_t* chkbox_football = lui_checkbox_create();
+ * lui_checkbox_set_label_text(chkbox_football, "Football");
+ * lui_object_set_position(chkbox_football, 0, 50);
  * @endcode
  * @{
  */
@@ -1245,11 +1259,35 @@ void lui_switch_set_off(lui_obj_t *obj_swtch);
 lui_obj_t *lui_checkbox_create();
 
 /**
- * @brief Draw a checbox object
+ * @brief Draw a checkbox object
  *
  * @param obj_checkbox checkbox object
  */
 void lui_checkbox_draw(lui_obj_t *obj_checkbox);
+
+/**
+ * @brief Set label text of a checkbox
+ * 
+ * @param obj_checkbox checkbox object
+ * @param text text
+ */
+void lui_checkbox_set_label_text(lui_obj_t* obj_checkbox, const char* text);
+
+/**
+ * @brief Set label font of a checkbox
+ * 
+ * @param obj_checkbox checkbox object
+ * @param font font
+ */
+void lui_checkbox_set_label_font(lui_obj_t* obj_checkbox, const lui_font_t* font);
+
+/**
+ * @brief Set label text color of a checkbox
+ * 
+ * @param obj_checkbox checkbox object
+ * @param color 16-bit color
+ */
+void lui_checkbox_set_label_color(lui_obj_t* obj_checkbox, uint16_t color);
 
 /**
  * @brief Set extra colors of checkbox
@@ -1299,7 +1337,7 @@ void lui_checkbox_set_unchecked(lui_obj_t *obj_checkbox);
  *
  * API for <b><tt>slider</tt></b> widget
  *
- * @subsection slider_example Example
+ * @section slider_example Example
  * @code
  * void slider_event_handler_cb(lui_obj_t* obj)
  * {
@@ -1408,7 +1446,7 @@ int16_t lui_slider_get_max_value(lui_obj_t *obj_slider);
  * 3. After changes are made to a list like changing area/position, addition/removal 
  *    of items etc., `lui_list_prepare()` must be called to prepare the list.
  *
- * @subsection list_example Example
+ * @section list_example Example
  * @code
  * void my_list_callback(lui_obj_t* list_obj)
  * {
@@ -1690,7 +1728,7 @@ void _lui_list_add_button_obj(lui_obj_t *obj_list, lui_obj_t *obj_btn);
  *
  * Practical examples of buttongrid are qwerty keyboards, numpads etc..
  *
- * @subsection buttongrid_example1 Example 1
+ * @section buttongrid_example1 Example 1
  * Let's create a simple numpad using buttongrid.
  * @code
  * lui_obj_t* numpad = lui_btngrid_create();
@@ -1723,7 +1761,7 @@ void _lui_list_add_button_obj(lui_obj_t *obj_list, lui_obj_t *obj_btn);
  * lui_btngrid_set_btn_margin(numpad, 5, 5);
  * @endcode
  *
- * @subsection buttongrid_example2 Example 2
+ * @section buttongrid_example2 Example 2
  * Let's create a simple control panel and use most of the features of buttongrid.
  * Also we'll see how to use callback for buttongrid.
  * @code
@@ -1990,7 +2028,7 @@ void _lui_btngrid_calc_btn_area(lui_obj_t *obj);
  *    3.2. If event is LUI_EVENT_EXITED, set target keyboard as NULL. This will hide
  *         the keyboard again.
  *
- * @subsection keyboard_example Example
+ * @section keyboard_example Example
  * This example only creates a keyboard and links it with an existing textbox.
  * To see a more complete example, see <tt>textbox</tt> example section.
  * See: @ref lui_textbox
@@ -2095,7 +2133,7 @@ void lui_keyboard_sys_cb(lui_obj_t *obj_sender);
  *    3.2. If event is LUI_EVENT_EXITED, set target keyboard as NULL. This will hide
  *         the keyboard again.
  *
- * @subsection textbox_example Example
+ * @section textbox_example Example
  * @code
  * char txtbox_buff[50];
  * lui_obj_t* my_keyboard;
@@ -2239,7 +2277,7 @@ void lui_textbox_set_font(lui_obj_t *obj, const lui_font_t *font);
  * children. But if the new scale is too small to contain all its children, render
  * result will be unpredictable.
  *
- * @subsection panel_example Example
+ * @section panel_example Example
  * @code
  *
  * // Create a panel object
@@ -2346,13 +2384,13 @@ lui_obj_t *lui_scene_get_active();
 //  */
 // void lui_scene_set_bg_image(lui_obj_t* obj_scene, const lui_bitmap_t* image);
 
-/**
- * @brief Set font of a scene
- *
- * @param obj_scene scene widget
- * @param font font
- */
-void lui_scene_set_font(lui_obj_t *obj_scene, const lui_font_t *font);
+// /**
+//  * @brief Set font of a scene
+//  *
+//  * @param obj_scene scene widget
+//  * @param font font
+//  */
+// void lui_scene_set_font(lui_obj_t *obj_scene, const lui_font_t *font);
 /**@}*/
 
 /**
@@ -2367,7 +2405,7 @@ void lui_scene_set_font(lui_obj_t *obj_scene, const lui_font_t *font);
  * The example below is using TFT_eSPI library on Arduino framework
  * Hardware: [MCU = ESP32, Display: ILI9341, Touch IC = XPT2046]
  *
- * @subsection displaydriver_touchinput_example Example
+ * @section displaydriver_touchinput_example Example
  * @code
  * // This example uses TFT_eSPI library on Arduino framework
  * // Hardware: [MCU = ESP32, Display: ILI9341, Touch IC = XPT2046]
@@ -2509,7 +2547,7 @@ uint8_t _lui_disp_drv_check();
  * ```
  * @note When touch input is NOT pressed, x and y value must be -1.
  *
- * @subsection touchinput_example Example
+ * @section touchinput_example Example
  * Example code for touch input can be found inside the display driver example code.
  *
  * See: @ref displaydriver_touchinput_example
@@ -2565,6 +2603,7 @@ uint8_t _lui_get_event_against_state(uint8_t new_state, uint8_t old_state);
 void lui_gfx_draw_string_advanced(const char *str, uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t fore_color, uint16_t bg_color, uint8_t is_bg, const lui_font_t *font);
 void lui_gfx_draw_string_simple(const char *str, uint16_t x, uint16_t y, uint16_t fore_color, const lui_font_t *font);
 void lui_gfx_draw_char(char c, uint16_t x, uint16_t y, uint16_t fore_color, uint16_t bg_color, uint8_t is_bg, const lui_font_t *font);
+uint16_t lui_gfx_get_font_height(const lui_font_t* font);
 void lui_gfx_get_string_dimension(const char *str, const lui_font_t *font_obj, uint16_t max_w, uint16_t str_dim[2]);
 void lui_gfx_draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color);
 void lui_gfx_draw_rect(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint8_t line_width, uint16_t color);
@@ -2623,7 +2662,6 @@ double _lui_map_range(double old_val, double old_max, double old_min, double new
 #define LUI_STYLE_LABEL_TEXT_COLOR LUI_RGB(238, 238, 238)
 #define LUI_STYLE_LABEL_BG_COLOR LUI_RGB(23, 33, 43)
 #define LUI_STYLE_LABEL_BORDER_COLOR LUI_RGB(74, 129, 188)
-#define LUI_STYLE_LABEL_TEXT_COLOR LUI_RGB(238, 238, 238)
 #else
 #define LUI_STYLE_LABEL_TEXT_COLOR LUI_RGB(0, 0, 0)
 #define LUI_STYLE_LABEL_BG_COLOR LUI_RGB(255, 255, 255)
@@ -2653,12 +2691,14 @@ double _lui_map_range(double old_val, double old_max, double old_min, double new
 #if LUI_USE_DARK_THEME == 1
 #define LUI_STYLE_CHECKBOX_SELECTION_COLOR LUI_RGB(82, 143, 209)
 #define LUI_STYLE_CHECKBOX_TICK_COLOR LUI_RGB(238, 238, 238)
+#define LUI_STYLE_CHECKBOX_LABEL_COLOR LUI_RGB(238, 238, 238)
 #define LUI_STYLE_CHECKBOX_BG_COLOR LUI_RGB(23, 33, 43)
 #define LUI_STYLE_CHECKBOX_BG_CHECKED_COLOR LUI_RGB(74, 129, 188)
 #define LUI_STYLE_CHECKBOX_BORDER_COLOR LUI_RGB(74, 129, 188)
 #else
 #define LUI_STYLE_CHECKBOX_SELECTION_COLOR LUI_RGB(82, 143, 209)
 #define LUI_STYLE_CHECKBOX_TICK_COLOR LUI_RGB(238, 238, 238)
+#define LUI_STYLE_CHECKBOX_LABEL_COLOR LUI_RGB(0, 0, 0)
 #define LUI_STYLE_CHECKBOX_BG_COLOR LUI_RGB(255, 255, 255)
 #define LUI_STYLE_CHECKBOX_BG_CHECKED_COLOR LUI_RGB(74, 129, 188)
 #define LUI_STYLE_CHECKBOX_BORDER_COLOR LUI_RGB(74, 129, 188)

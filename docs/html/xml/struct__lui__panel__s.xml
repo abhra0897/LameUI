@@ -14,7 +14,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="522" column="14" bodyfile="lame_ui.h" bodystart="522" bodyend="-1"/>
+        <location file="lame_ui.h" line="524" column="14" bodyfile="lame_ui.h" bodystart="524" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -34,7 +34,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="lame_ui.h" line="521" column="1" bodyfile="lame_ui.h" bodystart="520" bodyend="523"/>
+    <location file="lame_ui.h" line="523" column="1" bodyfile="lame_ui.h" bodystart="522" bodyend="525"/>
     <listofallmembers>
       <member refid="struct__lui__panel__s_1a3cff19765b091fe90e375f075b37620f" prot="public" virt="non-virtual"><scope>_lui_panel_s</scope><name>bg_image</name></member>
     </listofallmembers>

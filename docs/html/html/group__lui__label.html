@@ -131,14 +131,14 @@ Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>API for <code><b>label</b></code> widgets. </p>
-<h2><a class="anchor" id="label_example"></a>
-Example</h2>
+<h1><a class="anchor" id="label_example"></a>
+Example</h1>
 <div class="fragment"><div class="line"><span class="keyword">const</span> <span class="keywordtype">char</span>* text = <span class="stringliteral">&quot;Hi Universe&quot;</span>;</div>
 <div class="line"><a class="code" href="struct__lui__obj__s.html">lui_obj_t</a>* my_label = <a class="code" href="group__lui__label.html#ga83cc1ae5b6c0601af8614574e019e8f8">lui_label_create</a>();</div>
 <div class="line"><a class="code" href="group__lui__label.html#ga45528354a67fe65f23435338f970ba33">lui_label_set_text</a>(my_label, <span class="stringliteral">&quot;Hello World&quot;</span>);</div>
 <div class="line"><span class="comment">// lui_label_set_text(my_label, text);</span></div>
 <div class="line"><a class="code" href="group__lui__label.html#gafba0abb6ce13e87b7efa3e0390269094">lui_label_set_text_color</a>(my_label, lui_rgb(255, 20, 80));   <span class="comment">// Setting text color</span></div>
-<div class="line"><a class="code" href="group__lui__object.html#ga3c99e7b2155290f9b73b78ba87c3d34d">lui_object_set_bg_color</a>(my_label, lui_rgb(10, 10, 10));     <span class="comment">// Setting background color</span></div>
+<div class="line"><a class="code" href="group__lui__object.html#ga737c964740f81d6c10d84ebac06d326b">lui_object_set_bg_color</a>(my_label, lui_rgb(10, 10, 10));     <span class="comment">// Setting background color</span></div>
 </div><!-- fragment --> <h2 class="groupheader">Function Documentation</h2>
 <a id="ga83cc1ae5b6c0601af8614574e019e8f8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga83cc1ae5b6c0601af8614574e019e8f8">&#9670;&nbsp;</a></span>lui_label_create()</h2>
@@ -180,7 +180,7 @@ Example</h2>
 <p>Draw a <code>label</code> widget. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">obj</td><td>label object </td></tr>
+    <tr><td class="paramname">obj_lbl</td><td>label object </td></tr>
   </table>
   </dd>
 </dl>
@@ -301,11 +301,11 @@ Example</h2>
 </div>
 </div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="astruct__lui__obj__s_html"><div class="ttname"><a href="struct__lui__obj__s.html">_lui_obj_s</a></div><div class="ttdoc">Generic object datatype.</div><div class="ttdef"><b>Definition:</b> lame_ui.h:357</div></div>
-<div class="ttc" id="agroup__lui__label_html_ga45528354a67fe65f23435338f970ba33"><div class="ttname"><a href="group__lui__label.html#ga45528354a67fe65f23435338f970ba33">lui_label_set_text</a></div><div class="ttdeci">void lui_label_set_text(lui_obj_t *obj, const char *text)</div><div class="ttdoc">Set text of a label.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:173</div></div>
-<div class="ttc" id="agroup__lui__object_html_ga3c99e7b2155290f9b73b78ba87c3d34d"><div class="ttname"><a href="group__lui__object.html#ga3c99e7b2155290f9b73b78ba87c3d34d">lui_object_set_bg_color</a></div><div class="ttdeci">void lui_object_set_bg_color(lui_obj_t *obj, uint16_t bg_color)</div><div class="ttdoc">Set background color of an object.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3444</div></div>
-<div class="ttc" id="agroup__lui__label_html_ga83cc1ae5b6c0601af8614574e019e8f8"><div class="ttname"><a href="group__lui__label.html#ga83cc1ae5b6c0601af8614574e019e8f8">lui_label_create</a></div><div class="ttdeci">lui_obj_t * lui_label_create(void)</div><div class="ttdoc">Create a label with initial values.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:126</div></div>
-<div class="ttc" id="agroup__lui__label_html_gafba0abb6ce13e87b7efa3e0390269094"><div class="ttname"><a href="group__lui__label.html#gafba0abb6ce13e87b7efa3e0390269094">lui_label_set_text_color</a></div><div class="ttdeci">void lui_label_set_text_color(lui_obj_t *obj, uint16_t text_color)</div><div class="ttdoc">Set forecolor of a label.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:188</div></div>
+<div class="ttc" id="astruct__lui__obj__s_html"><div class="ttname"><a href="struct__lui__obj__s.html">_lui_obj_s</a></div><div class="ttdoc">Generic object datatype.</div><div class="ttdef"><b>Definition:</b> lame_ui.h:359</div></div>
+<div class="ttc" id="agroup__lui__label_html_ga45528354a67fe65f23435338f970ba33"><div class="ttname"><a href="group__lui__label.html#ga45528354a67fe65f23435338f970ba33">lui_label_set_text</a></div><div class="ttdeci">void lui_label_set_text(lui_obj_t *obj, const char *text)</div><div class="ttdoc">Set text of a label.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:181</div></div>
+<div class="ttc" id="agroup__lui__label_html_ga83cc1ae5b6c0601af8614574e019e8f8"><div class="ttname"><a href="group__lui__label.html#ga83cc1ae5b6c0601af8614574e019e8f8">lui_label_create</a></div><div class="ttdeci">lui_obj_t * lui_label_create(void)</div><div class="ttdoc">Create a label with initial values.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:134</div></div>
+<div class="ttc" id="agroup__lui__label_html_gafba0abb6ce13e87b7efa3e0390269094"><div class="ttname"><a href="group__lui__label.html#gafba0abb6ce13e87b7efa3e0390269094">lui_label_set_text_color</a></div><div class="ttdeci">void lui_label_set_text_color(lui_obj_t *obj, uint16_t text_color)</div><div class="ttdoc">Set forecolor of a label.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:196</div></div>
+<div class="ttc" id="agroup__lui__object_html_ga737c964740f81d6c10d84ebac06d326b"><div class="ttname"><a href="group__lui__object.html#ga737c964740f81d6c10d84ebac06d326b">lui_object_set_bg_color</a></div><div class="ttdeci">void lui_object_set_bg_color(lui_obj_t *obj, uint16_t bg_color)</div><div class="ttdoc">Set background color of an object.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3509</div></div>
 
 	<script src="main.js"></script>
 </body>

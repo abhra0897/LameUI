@@ -19,7 +19,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="2279" column="11" bodyfile="lame_ui.c" bodystart="3032" bodyend="3058" declfile="lame_ui.h" declline="2279" declcolumn="11"/>
+        <location file="lame_ui.h" line="2317" column="11" bodyfile="lame_ui.c" bodystart="3097" bodyend="3123" declfile="lame_ui.h" declline="2317" declcolumn="11"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__panel_1ga5e74112373754dd1f38965450efb6700" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -47,7 +47,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="2286" column="6" bodyfile="lame_ui.c" bodystart="3060" bodyend="3072" declfile="lame_ui.h" declline="2286" declcolumn="6"/>
+        <location file="lame_ui.h" line="2324" column="6" bodyfile="lame_ui.c" bodystart="3125" bodyend="3137" declfile="lame_ui.h" declline="2324" declcolumn="6"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -57,7 +57,7 @@
 <para>A panel is just a container for multiple widgets (objects). This is used for grouping widgets together. Panels can act as parent widget and must have a scene as its parent.</para>
 <para>When widgets are added as children to a panel, their posions are relative to the panel. For example, assume a panel is at (X=10, Y=20) position relative to its parent scene. Now create a button and set the panel as its parent. Now, the position of the button will be realtive to the panel. Setting the button&apos;s position to (X=5, Y=3) means it global position actually is (X=15, Y=23).</para>
 <para>Moving a panel to a new position also moves all its children with it. Making a panel hidden also hides all its children with it. Scaling a panel does NOT scales its children. But if the new scale is too small to contain all its children, render result will be unpredictable.</para>
-<sect2 id="group__lui__panel_1panel_example">
+<sect1 id="group__lui__panel_1panel_example">
 <title>Example</title>
 <para><programlisting><codeline><highlight class="normal">//<sp/>Create<sp/>a<sp/>panel<sp/>object</highlight></codeline>
 <codeline><highlight class="normal">lui_obj_t*<sp/>my_panel<sp/>=<sp/>lui_panel_create();</highlight></codeline>
@@ -84,7 +84,7 @@
 <codeline></codeline>
 <codeline><highlight class="normal">//<sp/>...<sp/>[Keep<sp/>adding<sp/>more<sp/>widgets<sp/>under<sp/>the<sp/>panel]<sp/>...</highlight></codeline>
 </programlisting> </para>
-</sect2>
+</sect1>
     </detaileddescription>
   </compounddef>
 </doxygen>

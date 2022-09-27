@@ -19,7 +19,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1245" column="11" bodyfile="lame_ui.c" bodystart="1654" bodyend="1686" declfile="lame_ui.h" declline="1245" declcolumn="11"/>
+        <location file="lame_ui.h" line="1259" column="11" bodyfile="lame_ui.c" bodystart="1677" bodyend="1712" declfile="lame_ui.h" declline="1259" declcolumn="11"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__checkbox_1ga36738f45907e976f8bf92595352ea968" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -31,7 +31,7 @@
           <declname>obj_checkbox</declname>
         </param>
         <briefdescription>
-<para>Draw a checbox object. </para>
+<para>Draw a checkbox object. </para>
         </briefdescription>
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
@@ -47,7 +47,127 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1252" column="6" bodyfile="lame_ui.c" bodystart="1603" bodyend="1652" declfile="lame_ui.h" declline="1252" declcolumn="6"/>
+        <location file="lame_ui.h" line="1266" column="6" bodyfile="lame_ui.c" bodystart="1611" bodyend="1675" declfile="lame_ui.h" declline="1266" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="group__lui__checkbox_1gaa5b0fd8f35e08bad0f541d4825a122bd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lui_checkbox_set_label_text</definition>
+        <argsstring>(lui_obj_t *obj_checkbox, const char *text)</argsstring>
+        <name>lui_checkbox_set_label_text</name>
+        <param>
+          <type><ref refid="lame__ui_8h_1a5a7ccb45f639e22e43b3ac176a75dd09" kindref="member">lui_obj_t</ref> *</type>
+          <declname>obj_checkbox</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>text</declname>
+        </param>
+        <briefdescription>
+<para>Set label text of a checkbox. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>obj_checkbox</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>checkbox object </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>text</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>text </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="1274" column="6" bodyfile="lame_ui.c" bodystart="1770" bodyend="1780" declfile="lame_ui.h" declline="1274" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="group__lui__checkbox_1ga5cb7deb03ffca1ef632a3eea226d1550" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lui_checkbox_set_label_font</definition>
+        <argsstring>(lui_obj_t *obj_checkbox, const lui_font_t *font)</argsstring>
+        <name>lui_checkbox_set_label_font</name>
+        <param>
+          <type><ref refid="lame__ui_8h_1a5a7ccb45f639e22e43b3ac176a75dd09" kindref="member">lui_obj_t</ref> *</type>
+          <declname>obj_checkbox</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structlui__font__t" kindref="compound">lui_font_t</ref> *</type>
+          <declname>font</declname>
+        </param>
+        <briefdescription>
+<para>Set label font of a checkbox. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>obj_checkbox</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>checkbox object </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>font</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>font </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="1282" column="6" bodyfile="lame_ui.c" bodystart="1782" bodyend="1793" declfile="lame_ui.h" declline="1282" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="group__lui__checkbox_1ga18f376d64f83b97e3402ee5c46781052" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lui_checkbox_set_label_color</definition>
+        <argsstring>(lui_obj_t *obj_checkbox, uint16_t color)</argsstring>
+        <name>lui_checkbox_set_label_color</name>
+        <param>
+          <type><ref refid="lame__ui_8h_1a5a7ccb45f639e22e43b3ac176a75dd09" kindref="member">lui_obj_t</ref> *</type>
+          <declname>obj_checkbox</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>color</declname>
+        </param>
+        <briefdescription>
+<para>Set label text color of a checkbox. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>obj_checkbox</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>checkbox object </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>color</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>16-bit color </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="1290" column="6" bodyfile="lame_ui.c" bodystart="1795" bodyend="1807" declfile="lame_ui.h" declline="1290" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__checkbox_1gae501d0976d301bc3c03e11b28eee654a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -111,7 +231,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1262" column="6" bodyfile="lame_ui.c" bodystart="1688" bodyend="1705" declfile="lame_ui.h" declline="1262" declcolumn="6"/>
+        <location file="lame_ui.h" line="1300" column="6" bodyfile="lame_ui.c" bodystart="1714" bodyend="1731" declfile="lame_ui.h" declline="1300" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__checkbox_1ga8a995bd50bfb68ec15ad27af875b7048" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int8_t</type>
@@ -141,7 +261,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1270" column="8" bodyfile="lame_ui.c" bodystart="1707" bodyend="1717" declfile="lame_ui.h" declline="1270" declcolumn="8"/>
+        <location file="lame_ui.h" line="1308" column="8" bodyfile="lame_ui.c" bodystart="1733" bodyend="1743" declfile="lame_ui.h" declline="1308" declcolumn="8"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__checkbox_1ga44562059aeab006ce233adbe64f3ddca" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -181,7 +301,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1278" column="6" bodyfile="lame_ui.c" bodystart="1719" bodyend="1732" declfile="lame_ui.h" declline="1278" declcolumn="6"/>
+        <location file="lame_ui.h" line="1316" column="6" bodyfile="lame_ui.c" bodystart="1745" bodyend="1758" declfile="lame_ui.h" declline="1316" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__checkbox_1gaa7343339b91349d29de783a1a5f10338" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -209,7 +329,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1285" column="6" bodyfile="lame_ui.c" bodystart="1734" bodyend="1737" declfile="lame_ui.h" declline="1285" declcolumn="6"/>
+        <location file="lame_ui.h" line="1323" column="6" bodyfile="lame_ui.c" bodystart="1760" bodyend="1763" declfile="lame_ui.h" declline="1323" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__checkbox_1gad54464b47322e3c6b4918a0c43bb5a66" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -237,31 +357,29 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1292" column="6" bodyfile="lame_ui.c" bodystart="1739" bodyend="1742" declfile="lame_ui.h" declline="1292" declcolumn="6"/>
+        <location file="lame_ui.h" line="1330" column="6" bodyfile="lame_ui.c" bodystart="1765" bodyend="1768" declfile="lame_ui.h" declline="1330" declcolumn="6"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>API for <bold><computeroutput>checkbox</computeroutput></bold> widget. </para>
     </briefdescription>
     <detaileddescription>
-<sect2 id="group__lui__checkbox_1checkbox_example">
+<sect1 id="group__lui__checkbox_1checkbox_example">
 <title>Example</title>
-<para><programlisting><codeline><highlight class="normal">chkbox_cricket<sp/>=<sp/>lui_checkbox_create();</highlight></codeline>
+<para><programlisting><codeline><highlight class="normal">lui_obj_t*<sp/>chkbox_cricket<sp/>=<sp/>lui_checkbox_create();</highlight></codeline>
+<codeline><highlight class="normal">lui_checkbox_set_label_text(chkbox_cricket,<sp/>&quot;Cricket&quot;);</highlight></codeline>
 <codeline><highlight class="normal">lui_object_set_position(chkbox_cricket,<sp/>0,<sp/>0);</highlight></codeline>
 <codeline><highlight class="normal">lui_checkbox_set_value(chkbox_cricket,<sp/>1);<sp/>//<sp/>This<sp/>checkbox<sp/>is<sp/>selected</highlight></codeline>
 <codeline></codeline>
-<codeline><highlight class="normal">lui_obj_t*<sp/>lbl_cricket<sp/>=<sp/>lui_label_create();</highlight></codeline>
-<codeline><highlight class="normal">lui_label_set_text(lbl_cricket,<sp/>&quot;Cricket&quot;);</highlight></codeline>
-<codeline><highlight class="normal">lui_object_set_position(lbl_cricket,<sp/>25,<sp/>0);</highlight></codeline>
-<codeline></codeline>
-<codeline><highlight class="normal">chkbox_hockey<sp/>=<sp/>lui_checkbox_create();</highlight></codeline>
+<codeline><highlight class="normal">lui_obj_t*<sp/>chkbox_hockey<sp/>=<sp/>lui_checkbox_create();</highlight></codeline>
+<codeline><highlight class="normal">lui_checkbox_set_label_text(chkbox_hockey,<sp/>&quot;Hockey&quot;);</highlight></codeline>
 <codeline><highlight class="normal">lui_object_set_position(chkbox_hockey,<sp/>0,<sp/>25);</highlight></codeline>
 <codeline></codeline>
-<codeline><highlight class="normal">lui_obj_t*<sp/>lbl_hockey<sp/>=<sp/>lui_label_create();</highlight></codeline>
-<codeline><highlight class="normal">lui_label_set_text(lbl_hockey,<sp/>&quot;Hockey&quot;);</highlight></codeline>
-<codeline><highlight class="normal">lui_object_set_position(lbl_hockey,<sp/>25,<sp/>25);</highlight></codeline>
+<codeline><highlight class="normal">lui_obj_t*<sp/>chkbox_football<sp/>=<sp/>lui_checkbox_create();</highlight></codeline>
+<codeline><highlight class="normal">lui_checkbox_set_label_text(chkbox_football,<sp/>&quot;Football&quot;);</highlight></codeline>
+<codeline><highlight class="normal">lui_object_set_position(chkbox_football,<sp/>0,<sp/>50);</highlight></codeline>
 </programlisting> </para>
-</sect2>
+</sect1>
     </detaileddescription>
   </compounddef>
 </doxygen>

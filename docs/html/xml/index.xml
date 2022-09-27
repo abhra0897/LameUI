@@ -38,6 +38,7 @@
     <member refid="struct__lui__button__style__s_1a104b70d5cd02a3ec0783a79fc7d5f61e" kind="variable"><name>selection_color</name></member>
   </compound>
   <compound refid="struct__lui__checkbox__s" kind="struct"><name>_lui_checkbox_s</name>
+    <member refid="struct__lui__checkbox__s_1a58f3ea96efccdc80717c2055e9a99167" kind="variable"><name>label</name></member>
     <member refid="struct__lui__checkbox__s_1a0a3e30a255ff25290294c392ec8be07f" kind="variable"><name>style</name></member>
   </compound>
   <compound refid="struct__lui__checkbox__style__s" kind="struct"><name>_lui_checkbox_style_s</name>
@@ -217,18 +218,78 @@
   </compound>
   <compound refid="mainpage_8md" kind="file"><name>mainpage.md</name>
   </compound>
-  <compound refid="akshar__light__32_8c" kind="file"><name>akshar_light_32.c</name>
-    <member refid="akshar__light__32_8c_1a848f4b674ba42a0eb16cf4c87f970ade" kind="variable"><name>akshar_light_32_payload</name></member>
-    <member refid="akshar__light__32_8c_1a0b4523c98d4cbcc22930fc053904c050" kind="variable"><name>BITMAP_akshar_light_32</name></member>
-    <member refid="akshar__light__32_8c_1aa8aab4897e7b6120d43f8fc64ade0990" kind="variable"><name>FONT_GLYPHS_akshar_light_32</name></member>
-    <member refid="akshar__light__32_8c_1af6718c4034735797489554ace624fafd" kind="variable"><name>FONT_akshar_light_32</name></member>
+  <compound refid="default__ubuntu__regular__17_8c" kind="file"><name>default_ubuntu_regular_17.c</name>
+    <member refid="default__ubuntu__regular__17_8c_1ac2542b83bc884e4eec0af80e7b7cec53" kind="variable"><name>default_ubuntu_regular_17_payload</name></member>
+    <member refid="default__ubuntu__regular__17_8c_1a08fd4882e4b159265aae04d2636fea02" kind="variable"><name>BITMAP_default_ubuntu_regular_17</name></member>
+    <member refid="default__ubuntu__regular__17_8c_1a13168af10d6c571254eb8e1d0a9354d3" kind="variable"><name>FONT_GLYPHS_default_ubuntu_regular_17</name></member>
+    <member refid="default__ubuntu__regular__17_8c_1ab5224db8ba5d65fdd4c704c5627eecff" kind="variable"><name>FONT_default_ubuntu_regular_17</name></member>
   </compound>
-  <compound refid="akshar__light__32_8h" kind="file"><name>akshar_light_32.h</name>
-    <member refid="akshar__light__32_8h_1a0b4523c98d4cbcc22930fc053904c050" kind="variable"><name>BITMAP_akshar_light_32</name></member>
-    <member refid="akshar__light__32_8h_1af6718c4034735797489554ace624fafd" kind="variable"><name>FONT_akshar_light_32</name></member>
+  <compound refid="default__ubuntu__regular__17_8h" kind="file"><name>default_ubuntu_regular_17.h</name>
+    <member refid="default__ubuntu__regular__17_8h_1a08fd4882e4b159265aae04d2636fea02" kind="variable"><name>BITMAP_default_ubuntu_regular_17</name></member>
+    <member refid="default__ubuntu__regular__17_8h_1ab5224db8ba5d65fdd4c704c5627eecff" kind="variable"><name>FONT_default_ubuntu_regular_17</name></member>
+  </compound>
+  <compound refid="montserrat__bold__17_8c" kind="file"><name>montserrat_bold_17.c</name>
+    <member refid="montserrat__bold__17_8c_1a2315b470d09ae820a5208a2a58296502" kind="variable"><name>montserrat_bold_17_payload</name></member>
+    <member refid="montserrat__bold__17_8c_1aa54519e2ae2363147a5dd6f511009c4c" kind="variable"><name>BITMAP_montserrat_bold_17</name></member>
+    <member refid="montserrat__bold__17_8c_1aa8ac0178c299b98e67a97471b4779720" kind="variable"><name>FONT_GLYPHS_montserrat_bold_17</name></member>
+    <member refid="montserrat__bold__17_8c_1a14377f48d24f6a57fc187d3775f48276" kind="variable"><name>FONT_montserrat_bold_17</name></member>
+  </compound>
+  <compound refid="montserrat__bold__17_8h" kind="file"><name>montserrat_bold_17.h</name>
+    <member refid="montserrat__bold__17_8h_1aa54519e2ae2363147a5dd6f511009c4c" kind="variable"><name>BITMAP_montserrat_bold_17</name></member>
+    <member refid="montserrat__bold__17_8h_1a14377f48d24f6a57fc187d3775f48276" kind="variable"><name>FONT_montserrat_bold_17</name></member>
+  </compound>
+  <compound refid="montserrat__bold__20_8c" kind="file"><name>montserrat_bold_20.c</name>
+    <member refid="montserrat__bold__20_8c_1a70d3e936b09b1800494d653060f33ded" kind="variable"><name>montserrat_bold_20_payload</name></member>
+    <member refid="montserrat__bold__20_8c_1a84a7b93a61b774043b3420e8b009694d" kind="variable"><name>BITMAP_montserrat_bold_20</name></member>
+    <member refid="montserrat__bold__20_8c_1a961158f775970d2ae316c631b3172e44" kind="variable"><name>FONT_GLYPHS_montserrat_bold_20</name></member>
+    <member refid="montserrat__bold__20_8c_1a54bedb3e4ab9683e734471e5a0806fae" kind="variable"><name>FONT_montserrat_bold_20</name></member>
+  </compound>
+  <compound refid="montserrat__bold__20_8h" kind="file"><name>montserrat_bold_20.h</name>
+    <member refid="montserrat__bold__20_8h_1a84a7b93a61b774043b3420e8b009694d" kind="variable"><name>BITMAP_montserrat_bold_20</name></member>
+    <member refid="montserrat__bold__20_8h_1a54bedb3e4ab9683e734471e5a0806fae" kind="variable"><name>FONT_montserrat_bold_20</name></member>
+  </compound>
+  <compound refid="montserrat__bold__32_8c" kind="file"><name>montserrat_bold_32.c</name>
+    <member refid="montserrat__bold__32_8c_1a8c9ad8f56825570855b7edddd486b3bb" kind="variable"><name>montserrat_bold_32_payload</name></member>
+    <member refid="montserrat__bold__32_8c_1a4cea884f2d0ae498722c5967e130487e" kind="variable"><name>BITMAP_montserrat_bold_32</name></member>
+    <member refid="montserrat__bold__32_8c_1ae923bfbc9d4c9f1e6a0da924da626557" kind="variable"><name>FONT_GLYPHS_montserrat_bold_32</name></member>
+    <member refid="montserrat__bold__32_8c_1a4844008f6c0917b06b453eb20904993e" kind="variable"><name>FONT_montserrat_bold_32</name></member>
+  </compound>
+  <compound refid="montserrat__bold__32_8h" kind="file"><name>montserrat_bold_32.h</name>
+    <member refid="montserrat__bold__32_8h_1a4cea884f2d0ae498722c5967e130487e" kind="variable"><name>BITMAP_montserrat_bold_32</name></member>
+    <member refid="montserrat__bold__32_8h_1a4844008f6c0917b06b453eb20904993e" kind="variable"><name>FONT_montserrat_bold_32</name></member>
+  </compound>
+  <compound refid="montserrat__bold__48_8c" kind="file"><name>montserrat_bold_48.c</name>
+    <member refid="montserrat__bold__48_8c_1a9a28dbffe7ab785ad54d0e8a7e405114" kind="variable"><name>montserrat_bold_48_payload</name></member>
+    <member refid="montserrat__bold__48_8c_1a6954509039c05a783c6ea9849e4376a0" kind="variable"><name>BITMAP_montserrat_bold_48</name></member>
+    <member refid="montserrat__bold__48_8c_1ad5ee725468724c15862330d0bc0d559b" kind="variable"><name>FONT_GLYPHS_montserrat_bold_48</name></member>
+    <member refid="montserrat__bold__48_8c_1a38477a27ebcc69bad22168fb300e6b5f" kind="variable"><name>FONT_montserrat_bold_48</name></member>
+  </compound>
+  <compound refid="montserrat__bold__48_8h" kind="file"><name>montserrat_bold_48.h</name>
+    <member refid="montserrat__bold__48_8h_1a6954509039c05a783c6ea9849e4376a0" kind="variable"><name>BITMAP_montserrat_bold_48</name></member>
+    <member refid="montserrat__bold__48_8h_1a38477a27ebcc69bad22168fb300e6b5f" kind="variable"><name>FONT_montserrat_bold_48</name></member>
+  </compound>
+  <compound refid="montserrat__regular__12_8c" kind="file"><name>montserrat_regular_12.c</name>
+    <member refid="montserrat__regular__12_8c_1a55f33f769401d9f22fb1d09ce3b8285d" kind="variable"><name>montserrat_regular_12_payload</name></member>
+    <member refid="montserrat__regular__12_8c_1afb7642a0507fd2a25cc53cffddec2d1e" kind="variable"><name>BITMAP_montserrat_regular_12</name></member>
+    <member refid="montserrat__regular__12_8c_1a5957330677603afc2a038e5095847117" kind="variable"><name>FONT_GLYPHS_montserrat_regular_12</name></member>
+    <member refid="montserrat__regular__12_8c_1a084b638222c25e892183c03109d0c738" kind="variable"><name>FONT_montserrat_regular_12</name></member>
+  </compound>
+  <compound refid="montserrat__regular__12_8h" kind="file"><name>montserrat_regular_12.h</name>
+    <member refid="montserrat__regular__12_8h_1afb7642a0507fd2a25cc53cffddec2d1e" kind="variable"><name>BITMAP_montserrat_regular_12</name></member>
+    <member refid="montserrat__regular__12_8h_1a084b638222c25e892183c03109d0c738" kind="variable"><name>FONT_montserrat_regular_12</name></member>
+  </compound>
+  <compound refid="montserrat__regular__14_8c" kind="file"><name>montserrat_regular_14.c</name>
+    <member refid="montserrat__regular__14_8c_1ac2d9fa4a96db63b1eddd3873223a3c5c" kind="variable"><name>montserrat_regular_14_payload</name></member>
+    <member refid="montserrat__regular__14_8c_1a95e09b618c5efe11dcc291dd4de5e559" kind="variable"><name>BITMAP_montserrat_regular_14</name></member>
+    <member refid="montserrat__regular__14_8c_1a935746fb8c19b9e02924d036327c425c" kind="variable"><name>FONT_GLYPHS_montserrat_regular_14</name></member>
+    <member refid="montserrat__regular__14_8c_1aea0df4a5e8e5de68587b8a4cb4d7fb7f" kind="variable"><name>FONT_montserrat_regular_14</name></member>
+  </compound>
+  <compound refid="montserrat__regular__14_8h" kind="file"><name>montserrat_regular_14.h</name>
+    <member refid="montserrat__regular__14_8h_1a95e09b618c5efe11dcc291dd4de5e559" kind="variable"><name>BITMAP_montserrat_regular_14</name></member>
+    <member refid="montserrat__regular__14_8h_1aea0df4a5e8e5de68587b8a4cb4d7fb7f" kind="variable"><name>FONT_montserrat_regular_14</name></member>
   </compound>
   <compound refid="montserrat__regular__17_8c" kind="file"><name>montserrat_regular_17.c</name>
-    <member refid="montserrat__regular__17_8c_1afc7eacaf161214d09700cd2c28e8b688" kind="variable"><name>montserrat_regular_17_payload</name></member>
+    <member refid="montserrat__regular__17_8c_1a482a2b074f3126b15bc0686aafe73b5d" kind="variable"><name>montserrat_regular_17_payload</name></member>
     <member refid="montserrat__regular__17_8c_1ac88c0b96cd6594151572f4a9f386b4b3" kind="variable"><name>BITMAP_montserrat_regular_17</name></member>
     <member refid="montserrat__regular__17_8c_1ae60542c476cfa457cd59bf8c583922d6" kind="variable"><name>FONT_GLYPHS_montserrat_regular_17</name></member>
     <member refid="montserrat__regular__17_8c_1afb6b8f85b1805bfcd80cce1131b40b7e" kind="variable"><name>FONT_montserrat_regular_17</name></member>
@@ -237,8 +298,18 @@
     <member refid="montserrat__regular__17_8h_1ac88c0b96cd6594151572f4a9f386b4b3" kind="variable"><name>BITMAP_montserrat_regular_17</name></member>
     <member refid="montserrat__regular__17_8h_1afb6b8f85b1805bfcd80cce1131b40b7e" kind="variable"><name>FONT_montserrat_regular_17</name></member>
   </compound>
+  <compound refid="montserrat__regular__20_8c" kind="file"><name>montserrat_regular_20.c</name>
+    <member refid="montserrat__regular__20_8c_1ad9d17029d1082ce7d8f418ac892d0a33" kind="variable"><name>montserrat_regular_20_payload</name></member>
+    <member refid="montserrat__regular__20_8c_1addce88c11969e83be10d294d6c1af67f" kind="variable"><name>BITMAP_montserrat_regular_20</name></member>
+    <member refid="montserrat__regular__20_8c_1a1a717714851cf5dd07e89705731fd125" kind="variable"><name>FONT_GLYPHS_montserrat_regular_20</name></member>
+    <member refid="montserrat__regular__20_8c_1a697eff748e2e1cef777afd0bb9a5c208" kind="variable"><name>FONT_montserrat_regular_20</name></member>
+  </compound>
+  <compound refid="montserrat__regular__20_8h" kind="file"><name>montserrat_regular_20.h</name>
+    <member refid="montserrat__regular__20_8h_1addce88c11969e83be10d294d6c1af67f" kind="variable"><name>BITMAP_montserrat_regular_20</name></member>
+    <member refid="montserrat__regular__20_8h_1a697eff748e2e1cef777afd0bb9a5c208" kind="variable"><name>FONT_montserrat_regular_20</name></member>
+  </compound>
   <compound refid="montserrat__regular__32_8c" kind="file"><name>montserrat_regular_32.c</name>
-    <member refid="montserrat__regular__32_8c_1a3985ac49a1c67f41f77699c0e1f23d20" kind="variable"><name>montserrat_regular_32_payload</name></member>
+    <member refid="montserrat__regular__32_8c_1a768cb885526d00a83504cb314691ad91" kind="variable"><name>montserrat_regular_32_payload</name></member>
     <member refid="montserrat__regular__32_8c_1a5f883a7e5ea20f884226a45ad02b6de1" kind="variable"><name>BITMAP_montserrat_regular_32</name></member>
     <member refid="montserrat__regular__32_8c_1aeb826b023c340b7d523f537186b445cb" kind="variable"><name>FONT_GLYPHS_montserrat_regular_32</name></member>
     <member refid="montserrat__regular__32_8c_1a30b507faf802f8db4d301055d116e78c" kind="variable"><name>FONT_montserrat_regular_32</name></member>
@@ -247,15 +318,173 @@
     <member refid="montserrat__regular__32_8h_1a5f883a7e5ea20f884226a45ad02b6de1" kind="variable"><name>BITMAP_montserrat_regular_32</name></member>
     <member refid="montserrat__regular__32_8h_1a30b507faf802f8db4d301055d116e78c" kind="variable"><name>FONT_montserrat_regular_32</name></member>
   </compound>
-  <compound refid="ubuntu__regular__17_8c" kind="file"><name>ubuntu_regular_17.c</name>
-    <member refid="ubuntu__regular__17_8c_1a3f0d67659650390b5d7cd632fe26f630" kind="variable"><name>ubuntu_regular_17_payload</name></member>
-    <member refid="ubuntu__regular__17_8c_1a02a85645bfeeb5e1ba14234d5848bd41" kind="variable"><name>BITMAP_ubuntu_regular_17</name></member>
-    <member refid="ubuntu__regular__17_8c_1a62a787eeca037cf800fede4749d9abcc" kind="variable"><name>FONT_GLYPHS_ubuntu_regular_17</name></member>
-    <member refid="ubuntu__regular__17_8c_1a8c20b1f68577b05b577a21a262652b6f" kind="variable"><name>FONT_ubuntu_regular_17</name></member>
+  <compound refid="montserrat__regular__48_8c" kind="file"><name>montserrat_regular_48.c</name>
+    <member refid="montserrat__regular__48_8c_1a5a24ff5ef3f1e6a8bdae36fc5bc381da" kind="variable"><name>montserrat_regular_48_payload</name></member>
+    <member refid="montserrat__regular__48_8c_1ae580e49bcb9658bc2ed8a0acafab17ed" kind="variable"><name>BITMAP_montserrat_regular_48</name></member>
+    <member refid="montserrat__regular__48_8c_1a63dcc7b1656f3ee49ece3936fe4b6c8c" kind="variable"><name>FONT_GLYPHS_montserrat_regular_48</name></member>
+    <member refid="montserrat__regular__48_8c_1af56019607e6082ec8cb36ef5bbebfe30" kind="variable"><name>FONT_montserrat_regular_48</name></member>
   </compound>
-  <compound refid="ubuntu__regular__17_8h" kind="file"><name>ubuntu_regular_17.h</name>
-    <member refid="ubuntu__regular__17_8h_1a02a85645bfeeb5e1ba14234d5848bd41" kind="variable"><name>BITMAP_ubuntu_regular_17</name></member>
-    <member refid="ubuntu__regular__17_8h_1a8c20b1f68577b05b577a21a262652b6f" kind="variable"><name>FONT_ubuntu_regular_17</name></member>
+  <compound refid="montserrat__regular__48_8h" kind="file"><name>montserrat_regular_48.h</name>
+    <member refid="montserrat__regular__48_8h_1ae580e49bcb9658bc2ed8a0acafab17ed" kind="variable"><name>BITMAP_montserrat_regular_48</name></member>
+    <member refid="montserrat__regular__48_8h_1af56019607e6082ec8cb36ef5bbebfe30" kind="variable"><name>FONT_montserrat_regular_48</name></member>
+  </compound>
+  <compound refid="ubuntu__bold__17_8c" kind="file"><name>ubuntu_bold_17.c</name>
+    <member refid="ubuntu__bold__17_8c_1a6ee4ce841a188cc9f3553a8b554f42ac" kind="variable"><name>ubuntu_bold_17_payload</name></member>
+    <member refid="ubuntu__bold__17_8c_1a006d88f92b1d4f166617332a4a3aa163" kind="variable"><name>BITMAP_ubuntu_bold_17</name></member>
+    <member refid="ubuntu__bold__17_8c_1a3b0ebb3598660a7210c7e2f39e1e338c" kind="variable"><name>FONT_GLYPHS_ubuntu_bold_17</name></member>
+    <member refid="ubuntu__bold__17_8c_1a093ad8d0fe874e9ec21137a91b104897" kind="variable"><name>FONT_ubuntu_bold_17</name></member>
+  </compound>
+  <compound refid="ubuntu__bold__17_8h" kind="file"><name>ubuntu_bold_17.h</name>
+    <member refid="ubuntu__bold__17_8h_1a006d88f92b1d4f166617332a4a3aa163" kind="variable"><name>BITMAP_ubuntu_bold_17</name></member>
+    <member refid="ubuntu__bold__17_8h_1a093ad8d0fe874e9ec21137a91b104897" kind="variable"><name>FONT_ubuntu_bold_17</name></member>
+  </compound>
+  <compound refid="ubuntu__bold__20_8c" kind="file"><name>ubuntu_bold_20.c</name>
+    <member refid="ubuntu__bold__20_8c_1af30956612d1d4b8187c8b9c62335fa98" kind="variable"><name>ubuntu_bold_20_payload</name></member>
+    <member refid="ubuntu__bold__20_8c_1add0466c6e317edac973038a2ebba1e5e" kind="variable"><name>BITMAP_ubuntu_bold_20</name></member>
+    <member refid="ubuntu__bold__20_8c_1ab278c070a3da111b5888c2412ddb5228" kind="variable"><name>FONT_GLYPHS_ubuntu_bold_20</name></member>
+    <member refid="ubuntu__bold__20_8c_1af8ec41c725dca43ea95a8ec0c92679a3" kind="variable"><name>FONT_ubuntu_bold_20</name></member>
+  </compound>
+  <compound refid="ubuntu__bold__20_8h" kind="file"><name>ubuntu_bold_20.h</name>
+    <member refid="ubuntu__bold__20_8h_1add0466c6e317edac973038a2ebba1e5e" kind="variable"><name>BITMAP_ubuntu_bold_20</name></member>
+    <member refid="ubuntu__bold__20_8h_1af8ec41c725dca43ea95a8ec0c92679a3" kind="variable"><name>FONT_ubuntu_bold_20</name></member>
+  </compound>
+  <compound refid="ubuntu__bold__32_8_8c" kind="file"><name>ubuntu_bold_32..c</name>
+  </compound>
+  <compound refid="ubuntu__bold__32_8_8h" kind="file"><name>ubuntu_bold_32..h</name>
+  </compound>
+  <compound refid="ubuntu__bold__32_8c" kind="file"><name>ubuntu_bold_32.c</name>
+    <member refid="ubuntu__bold__32_8c_1a391842b50cd7418bd8eb50d4b9892252" kind="variable"><name>ubuntu_bold_32_payload</name></member>
+    <member refid="ubuntu__bold__32_8c_1a5a9d4ae55c1539b57c57ee7cba4f150b" kind="variable"><name>BITMAP_ubuntu_bold_32</name></member>
+    <member refid="ubuntu__bold__32_8c_1a4e3045fa92800630b526e5611ee75882" kind="variable"><name>FONT_GLYPHS_ubuntu_bold_32</name></member>
+    <member refid="ubuntu__bold__32_8c_1a045e481988ba9f9f98d889f763a847d9" kind="variable"><name>FONT_ubuntu_bold_32</name></member>
+  </compound>
+  <compound refid="ubuntu__bold__32_8h" kind="file"><name>ubuntu_bold_32.h</name>
+    <member refid="ubuntu__bold__32_8h_1a5a9d4ae55c1539b57c57ee7cba4f150b" kind="variable"><name>BITMAP_ubuntu_bold_32</name></member>
+    <member refid="ubuntu__bold__32_8h_1a045e481988ba9f9f98d889f763a847d9" kind="variable"><name>FONT_ubuntu_bold_32</name></member>
+  </compound>
+  <compound refid="ubuntu__bold__48_8c" kind="file"><name>ubuntu_bold_48.c</name>
+    <member refid="ubuntu__bold__48_8c_1a50212ca2b78745b696fdc244ef5a4819" kind="variable"><name>ubuntu_bold_48_payload</name></member>
+    <member refid="ubuntu__bold__48_8c_1aec799302138bcd85f7969cdb1db18d6e" kind="variable"><name>BITMAP_ubuntu_bold_48</name></member>
+    <member refid="ubuntu__bold__48_8c_1a03ac787ddadaa51f0bc6effd2e2144b9" kind="variable"><name>FONT_GLYPHS_ubuntu_bold_48</name></member>
+    <member refid="ubuntu__bold__48_8c_1a536885997e82f3ed98617a4e09b96a00" kind="variable"><name>FONT_ubuntu_bold_48</name></member>
+  </compound>
+  <compound refid="ubuntu__bold__48_8h" kind="file"><name>ubuntu_bold_48.h</name>
+    <member refid="ubuntu__bold__48_8h_1aec799302138bcd85f7969cdb1db18d6e" kind="variable"><name>BITMAP_ubuntu_bold_48</name></member>
+    <member refid="ubuntu__bold__48_8h_1a536885997e82f3ed98617a4e09b96a00" kind="variable"><name>FONT_ubuntu_bold_48</name></member>
+  </compound>
+  <compound refid="ubuntu__mono__regular__12_8c" kind="file"><name>ubuntu_mono_regular_12.c</name>
+    <member refid="ubuntu__mono__regular__12_8c_1a0c1a8277785c6244fc7ccefc03d3deb6" kind="variable"><name>ubuntu_mono_regular_12_payload</name></member>
+    <member refid="ubuntu__mono__regular__12_8c_1a0d984120f8380eed117356c3adcf6c3f" kind="variable"><name>BITMAP_ubuntu_mono_regular_12</name></member>
+    <member refid="ubuntu__mono__regular__12_8c_1a48990ebb9af59d0016cb28f04cd80e32" kind="variable"><name>FONT_GLYPHS_ubuntu_mono_regular_12</name></member>
+    <member refid="ubuntu__mono__regular__12_8c_1a2b7bdfa3035186c4a0933353cd27ac44" kind="variable"><name>FONT_ubuntu_mono_regular_12</name></member>
+  </compound>
+  <compound refid="ubuntu__mono__regular__12_8h" kind="file"><name>ubuntu_mono_regular_12.h</name>
+    <member refid="ubuntu__mono__regular__12_8h_1a0d984120f8380eed117356c3adcf6c3f" kind="variable"><name>BITMAP_ubuntu_mono_regular_12</name></member>
+    <member refid="ubuntu__mono__regular__12_8h_1a2b7bdfa3035186c4a0933353cd27ac44" kind="variable"><name>FONT_ubuntu_mono_regular_12</name></member>
+  </compound>
+  <compound refid="ubuntu__mono__regular__14_8c" kind="file"><name>ubuntu_mono_regular_14.c</name>
+    <member refid="ubuntu__mono__regular__14_8c_1ad5454e0a619bca6c10e10eff74f8ecbc" kind="variable"><name>ubuntu_mono_regular_14_payload</name></member>
+    <member refid="ubuntu__mono__regular__14_8c_1a6aeaf64281c95f7c1c73c1ffe16bec21" kind="variable"><name>BITMAP_ubuntu_mono_regular_14</name></member>
+    <member refid="ubuntu__mono__regular__14_8c_1a47c8995957d90347c791badd077e4db9" kind="variable"><name>FONT_GLYPHS_ubuntu_mono_regular_14</name></member>
+    <member refid="ubuntu__mono__regular__14_8c_1a4089af0c6bdb15f4d039ecc9cb8c830f" kind="variable"><name>FONT_ubuntu_mono_regular_14</name></member>
+  </compound>
+  <compound refid="ubuntu__mono__regular__14_8h" kind="file"><name>ubuntu_mono_regular_14.h</name>
+    <member refid="ubuntu__mono__regular__14_8h_1a6aeaf64281c95f7c1c73c1ffe16bec21" kind="variable"><name>BITMAP_ubuntu_mono_regular_14</name></member>
+    <member refid="ubuntu__mono__regular__14_8h_1a4089af0c6bdb15f4d039ecc9cb8c830f" kind="variable"><name>FONT_ubuntu_mono_regular_14</name></member>
+  </compound>
+  <compound refid="ubuntu__mono__regular__17_8c" kind="file"><name>ubuntu_mono_regular_17.c</name>
+    <member refid="ubuntu__mono__regular__17_8c_1a4642577668485e10aaca506c9303e3b5" kind="variable"><name>ubuntu_mono_regular_17_payload</name></member>
+    <member refid="ubuntu__mono__regular__17_8c_1a27083e393e9f4b1c95c1ab489c6b5f78" kind="variable"><name>BITMAP_ubuntu_mono_regular_17</name></member>
+    <member refid="ubuntu__mono__regular__17_8c_1a6620c68f35e1854f89d968ed8f134ac8" kind="variable"><name>FONT_GLYPHS_ubuntu_mono_regular_17</name></member>
+    <member refid="ubuntu__mono__regular__17_8c_1a5f1c28190a7e333cc240e5e172950fb5" kind="variable"><name>FONT_ubuntu_mono_regular_17</name></member>
+  </compound>
+  <compound refid="ubuntu__mono__regular__17_8h" kind="file"><name>ubuntu_mono_regular_17.h</name>
+    <member refid="ubuntu__mono__regular__17_8h_1a27083e393e9f4b1c95c1ab489c6b5f78" kind="variable"><name>BITMAP_ubuntu_mono_regular_17</name></member>
+    <member refid="ubuntu__mono__regular__17_8h_1a5f1c28190a7e333cc240e5e172950fb5" kind="variable"><name>FONT_ubuntu_mono_regular_17</name></member>
+  </compound>
+  <compound refid="ubuntu__mono__regular__20_8c" kind="file"><name>ubuntu_mono_regular_20.c</name>
+    <member refid="ubuntu__mono__regular__20_8c_1a2cd5b06407505b3c9da1abb80d53dd6a" kind="variable"><name>ubuntu_mono_regular_20_payload</name></member>
+    <member refid="ubuntu__mono__regular__20_8c_1a1d1ff4ed5379bb1d314eb5be915174da" kind="variable"><name>BITMAP_ubuntu_mono_regular_20</name></member>
+    <member refid="ubuntu__mono__regular__20_8c_1a93e57d084905fb6a9f7323f37c1933bc" kind="variable"><name>FONT_GLYPHS_ubuntu_mono_regular_20</name></member>
+    <member refid="ubuntu__mono__regular__20_8c_1ad948a88967f68a73fcc686aeeaca5d3f" kind="variable"><name>FONT_ubuntu_mono_regular_20</name></member>
+  </compound>
+  <compound refid="ubuntu__mono__regular__20_8h" kind="file"><name>ubuntu_mono_regular_20.h</name>
+    <member refid="ubuntu__mono__regular__20_8h_1a1d1ff4ed5379bb1d314eb5be915174da" kind="variable"><name>BITMAP_ubuntu_mono_regular_20</name></member>
+    <member refid="ubuntu__mono__regular__20_8h_1ad948a88967f68a73fcc686aeeaca5d3f" kind="variable"><name>FONT_ubuntu_mono_regular_20</name></member>
+  </compound>
+  <compound refid="ubuntu__mono__regular__32_8c" kind="file"><name>ubuntu_mono_regular_32.c</name>
+    <member refid="ubuntu__mono__regular__32_8c_1ad346bea043f00656d8779c7d0ddf8241" kind="variable"><name>ubuntu_mono_regular_32_payload</name></member>
+    <member refid="ubuntu__mono__regular__32_8c_1a251e29cc05abc99f50239d505d55600e" kind="variable"><name>BITMAP_ubuntu_mono_regular_32</name></member>
+    <member refid="ubuntu__mono__regular__32_8c_1a057388f2fd63cc95c51c048a16bb2aa9" kind="variable"><name>FONT_GLYPHS_ubuntu_mono_regular_32</name></member>
+    <member refid="ubuntu__mono__regular__32_8c_1ae2416af06fa5ec530150938cf4ea91a6" kind="variable"><name>FONT_ubuntu_mono_regular_32</name></member>
+  </compound>
+  <compound refid="ubuntu__mono__regular__32_8h" kind="file"><name>ubuntu_mono_regular_32.h</name>
+    <member refid="ubuntu__mono__regular__32_8h_1a251e29cc05abc99f50239d505d55600e" kind="variable"><name>BITMAP_ubuntu_mono_regular_32</name></member>
+    <member refid="ubuntu__mono__regular__32_8h_1ae2416af06fa5ec530150938cf4ea91a6" kind="variable"><name>FONT_ubuntu_mono_regular_32</name></member>
+  </compound>
+  <compound refid="ubuntu__mono__regular__48_8c" kind="file"><name>ubuntu_mono_regular_48.c</name>
+    <member refid="ubuntu__mono__regular__48_8c_1a6c8faf76260813be37765a1987ec49ba" kind="variable"><name>ubuntu_mono_regular_48_payload</name></member>
+    <member refid="ubuntu__mono__regular__48_8c_1a0057830e15c21000e2ae1fc0a7fafc7e" kind="variable"><name>BITMAP_ubuntu_mono_regular_48</name></member>
+    <member refid="ubuntu__mono__regular__48_8c_1a9949e17305056a887f12893ea50bdf5d" kind="variable"><name>FONT_GLYPHS_ubuntu_mono_regular_48</name></member>
+    <member refid="ubuntu__mono__regular__48_8c_1aa272609f8a119f10e52c67894cba8a77" kind="variable"><name>FONT_ubuntu_mono_regular_48</name></member>
+  </compound>
+  <compound refid="ubuntu__mono__regular__48_8h" kind="file"><name>ubuntu_mono_regular_48.h</name>
+    <member refid="ubuntu__mono__regular__48_8h_1a0057830e15c21000e2ae1fc0a7fafc7e" kind="variable"><name>BITMAP_ubuntu_mono_regular_48</name></member>
+    <member refid="ubuntu__mono__regular__48_8h_1aa272609f8a119f10e52c67894cba8a77" kind="variable"><name>FONT_ubuntu_mono_regular_48</name></member>
+  </compound>
+  <compound refid="ubuntu__regular__12_8c" kind="file"><name>ubuntu_regular_12.c</name>
+    <member refid="ubuntu__regular__12_8c_1a07ffe70378004995a8335d08fd0e7f92" kind="variable"><name>ubuntu_regular_12_payload</name></member>
+    <member refid="ubuntu__regular__12_8c_1a105d91f43bf12c050219657c40058923" kind="variable"><name>BITMAP_ubuntu_regular_12</name></member>
+    <member refid="ubuntu__regular__12_8c_1a1268c802bc200c4fbc8a1a9d4202de92" kind="variable"><name>FONT_GLYPHS_ubuntu_regular_12</name></member>
+    <member refid="ubuntu__regular__12_8c_1ade0911c8c8f17a2c47be228bf5fa3481" kind="variable"><name>FONT_ubuntu_regular_12</name></member>
+  </compound>
+  <compound refid="ubuntu__regular__12_8h" kind="file"><name>ubuntu_regular_12.h</name>
+    <member refid="ubuntu__regular__12_8h_1a105d91f43bf12c050219657c40058923" kind="variable"><name>BITMAP_ubuntu_regular_12</name></member>
+    <member refid="ubuntu__regular__12_8h_1ade0911c8c8f17a2c47be228bf5fa3481" kind="variable"><name>FONT_ubuntu_regular_12</name></member>
+  </compound>
+  <compound refid="ubuntu__regular__14_8c" kind="file"><name>ubuntu_regular_14.c</name>
+    <member refid="ubuntu__regular__14_8c_1ab49156924a601b6cd636a131b82f615a" kind="variable"><name>ubuntu_regular_14_payload</name></member>
+    <member refid="ubuntu__regular__14_8c_1a148e30e0dca0e45b44daa1d623c22d81" kind="variable"><name>BITMAP_ubuntu_regular_14</name></member>
+    <member refid="ubuntu__regular__14_8c_1ab7abc29a3196080da9423d2517171e26" kind="variable"><name>FONT_GLYPHS_ubuntu_regular_14</name></member>
+    <member refid="ubuntu__regular__14_8c_1af26f00402dc1ee57a39f3b6cc079f052" kind="variable"><name>FONT_ubuntu_regular_14</name></member>
+  </compound>
+  <compound refid="ubuntu__regular__14_8h" kind="file"><name>ubuntu_regular_14.h</name>
+    <member refid="ubuntu__regular__14_8h_1a148e30e0dca0e45b44daa1d623c22d81" kind="variable"><name>BITMAP_ubuntu_regular_14</name></member>
+    <member refid="ubuntu__regular__14_8h_1af26f00402dc1ee57a39f3b6cc079f052" kind="variable"><name>FONT_ubuntu_regular_14</name></member>
+  </compound>
+  <compound refid="ubuntu__regular__20_8c" kind="file"><name>ubuntu_regular_20.c</name>
+    <member refid="ubuntu__regular__20_8c_1af1ba9d566eb678f317065cb28435f545" kind="variable"><name>ubuntu_regular_20_payload</name></member>
+    <member refid="ubuntu__regular__20_8c_1a75f4dde45b83e4726066144757d809de" kind="variable"><name>BITMAP_ubuntu_regular_20</name></member>
+    <member refid="ubuntu__regular__20_8c_1adc08854e69ab37adca51927017fd57d0" kind="variable"><name>FONT_GLYPHS_ubuntu_regular_20</name></member>
+    <member refid="ubuntu__regular__20_8c_1afd7da1bbbcdc3242d5e3fa73bf9a28ef" kind="variable"><name>FONT_ubuntu_regular_20</name></member>
+  </compound>
+  <compound refid="ubuntu__regular__20_8h" kind="file"><name>ubuntu_regular_20.h</name>
+    <member refid="ubuntu__regular__20_8h_1a75f4dde45b83e4726066144757d809de" kind="variable"><name>BITMAP_ubuntu_regular_20</name></member>
+    <member refid="ubuntu__regular__20_8h_1afd7da1bbbcdc3242d5e3fa73bf9a28ef" kind="variable"><name>FONT_ubuntu_regular_20</name></member>
+  </compound>
+  <compound refid="ubuntu__regular__32_8_8c" kind="file"><name>ubuntu_regular_32..c</name>
+  </compound>
+  <compound refid="ubuntu__regular__32_8_8h" kind="file"><name>ubuntu_regular_32..h</name>
+  </compound>
+  <compound refid="ubuntu__regular__32_8c" kind="file"><name>ubuntu_regular_32.c</name>
+    <member refid="ubuntu__regular__32_8c_1a7319b288a7583ecb9d89837549d78ea5" kind="variable"><name>ubuntu_regular_32_payload</name></member>
+    <member refid="ubuntu__regular__32_8c_1a1c1910e74c94bd08736442195d4540b2" kind="variable"><name>BITMAP_ubuntu_regular_32</name></member>
+    <member refid="ubuntu__regular__32_8c_1aafd495dfef373fe95a6819fd21e48dff" kind="variable"><name>FONT_GLYPHS_ubuntu_regular_32</name></member>
+    <member refid="ubuntu__regular__32_8c_1a2117d2d9569c97e9482a0c5e2bf66c7b" kind="variable"><name>FONT_ubuntu_regular_32</name></member>
+  </compound>
+  <compound refid="ubuntu__regular__32_8h" kind="file"><name>ubuntu_regular_32.h</name>
+    <member refid="ubuntu__regular__32_8h_1a1c1910e74c94bd08736442195d4540b2" kind="variable"><name>BITMAP_ubuntu_regular_32</name></member>
+    <member refid="ubuntu__regular__32_8h_1a2117d2d9569c97e9482a0c5e2bf66c7b" kind="variable"><name>FONT_ubuntu_regular_32</name></member>
+  </compound>
+  <compound refid="ubuntu__regular__48_8c" kind="file"><name>ubuntu_regular_48.c</name>
+    <member refid="ubuntu__regular__48_8c_1a621b87357736abca55442092b819a942" kind="variable"><name>ubuntu_regular_48_payload</name></member>
+    <member refid="ubuntu__regular__48_8c_1addcd41a7f25256e32b8ecf11cabf662c" kind="variable"><name>BITMAP_ubuntu_regular_48</name></member>
+    <member refid="ubuntu__regular__48_8c_1ae3cd1e41712c0f2deef1a4d701aa5df0" kind="variable"><name>FONT_GLYPHS_ubuntu_regular_48</name></member>
+    <member refid="ubuntu__regular__48_8c_1af1d2adcb1c7ffc23cecea26cbd12e1cc" kind="variable"><name>FONT_ubuntu_regular_48</name></member>
+  </compound>
+  <compound refid="ubuntu__regular__48_8h" kind="file"><name>ubuntu_regular_48.h</name>
+    <member refid="ubuntu__regular__48_8h_1addcd41a7f25256e32b8ecf11cabf662c" kind="variable"><name>BITMAP_ubuntu_regular_48</name></member>
+    <member refid="ubuntu__regular__48_8h_1af1d2adcb1c7ffc23cecea26cbd12e1cc" kind="variable"><name>FONT_ubuntu_regular_48</name></member>
   </compound>
   <compound refid="lame__ui_8c" kind="file"><name>lame_ui.c</name>
     <member refid="lame__ui_8c_1a6d563b2505eddd07a2c34b72b64814d3" kind="variable"><name>g_needs_render</name></member>
@@ -269,7 +498,8 @@
     <member refid="lame__ui_8c_1a08fd4882e4b159265aae04d2636fea02" kind="variable"><name>BITMAP_default_ubuntu_regular_17</name></member>
     <member refid="lame__ui_8c_1a13168af10d6c571254eb8e1d0a9354d3" kind="variable"><name>FONT_GLYPHS_default_ubuntu_regular_17</name></member>
     <member refid="lame__ui_8c_1ac60e2bda8772731a278995b748eff33f" kind="variable"><name>FONT_lui_default</name></member>
-    <member refid="group__lui__core_1ga96ff45bfbaf38c57a613f1b4a4830893" kind="function"><name>lui_init</name></member>
+    <member refid="group__lui__core_1ga29f33381e162ee05b8036461724c99ec" kind="function"><name>lui_init</name></member>
+    <member refid="group__lui__core_1gafe31e6582630b84037ad089c5ff3591f" kind="function"><name>lui_set_default_font</name></member>
     <member refid="group__lui__core_1gaa4a3c7694929ad0b6c5cd565dd6e7304" kind="function"><name>lui_update</name></member>
     <member refid="group__lui__label_1ga176b351997c1058f4d6fc9bc86942429" kind="function"><name>lui_label_draw</name></member>
     <member refid="group__lui__label_1ga83cc1ae5b6c0601af8614574e019e8f8" kind="function"><name>lui_label_create</name></member>
@@ -331,6 +561,9 @@
     <member refid="group__lui__checkbox_1ga44562059aeab006ce233adbe64f3ddca" kind="function"><name>lui_checkbox_set_value</name></member>
     <member refid="group__lui__checkbox_1gaa7343339b91349d29de783a1a5f10338" kind="function"><name>lui_checkbox_set_checked</name></member>
     <member refid="group__lui__checkbox_1gad54464b47322e3c6b4918a0c43bb5a66" kind="function"><name>lui_checkbox_set_unchecked</name></member>
+    <member refid="group__lui__checkbox_1gaa5b0fd8f35e08bad0f541d4825a122bd" kind="function"><name>lui_checkbox_set_label_text</name></member>
+    <member refid="group__lui__checkbox_1ga5cb7deb03ffca1ef632a3eea226d1550" kind="function"><name>lui_checkbox_set_label_font</name></member>
+    <member refid="group__lui__checkbox_1ga18f376d64f83b97e3402ee5c46781052" kind="function"><name>lui_checkbox_set_label_color</name></member>
     <member refid="group__lui__slider_1ga89456da8b3d00d85366cd97a68ea6ef2" kind="function"><name>lui_slider_draw</name></member>
     <member refid="group__lui__slider_1ga358faa44037147a07840905d98def2ab" kind="function"><name>lui_slider_create</name></member>
     <member refid="group__lui__slider_1ga695e69ff0ae901a26aeebbfa467e6ffd" kind="function"><name>lui_slider_set_extra_colors</name></member>
@@ -390,11 +623,11 @@
     <member refid="group__lui__object_1ga0e9b5ea44b5698a9fac1d1a8440e378b" kind="function"><name>lui_object_set_height</name></member>
     <member refid="group__lui__object_1ga40a7f5963092cc887757eb4c72342caa" kind="function"><name>lui_object_set_border_color</name></member>
     <member refid="group__lui__object_1gaa3e5b7c777ceee12a215eaa6bc45554b" kind="function"><name>lui_object_set_border_visibility</name></member>
-    <member refid="group__lui__object_1ga3c99e7b2155290f9b73b78ba87c3d34d" kind="function"><name>lui_object_set_bg_color</name></member>
+    <member refid="group__lui__object_1ga737c964740f81d6c10d84ebac06d326b" kind="function"><name>lui_object_set_bg_color</name></member>
     <member refid="group__lui__object_1gae9d2e2e1998f2603a3a6d24d08b5b64e" kind="function"><name>lui_object_set_callback</name></member>
     <member refid="group__lui__object_1gac20b18b75c1e5764e5cb00dc3bed6808" kind="function"><name>lui_object_get_state</name></member>
     <member refid="group__lui__object_1ga580b2bdece45808266791573d874aabb" kind="function"><name>lui_object_get_event</name></member>
-    <member refid="group__lui__object_1ga15a349bf7d1abcbc475f009f7dd14dff" kind="function"><name>lui_object_set_visibility</name></member>
+    <member refid="group__lui__object_1gac577745bc906ea07a2ce6beefe5b81e3" kind="function"><name>lui_object_set_visibility</name></member>
     <member refid="group__lui__object_1ga36344388e628fde997ebafaf75a43ee4" kind="function"><name>lui_object_set_enable_input</name></member>
     <member refid="group__lui__object_1gae97c5a363860c5fa7de4d40f167592a4" kind="function"><name>lui_object_set_layer</name></member>
     <member refid="group__lui__object_1ga14ac387f2a2e89bdda2773f21e79d087" kind="function"><name>lui_object_get_layer</name></member>
@@ -421,6 +654,7 @@
     <member refid="group__lui__gfx_1gad4c604716d2df4943ac32b35fa56ac14" kind="function"><name>lui_gfx_draw_line</name></member>
     <member refid="group__lui__gfx_1gad91328f058c99813e23a79a0e5aed425" kind="function"><name>lui_gfx_draw_rect</name></member>
     <member refid="group__lui__gfx_1ga85fb0f8d768116008acf2f12ee3af158" kind="function"><name>lui_gfx_draw_rect_fill</name></member>
+    <member refid="group__lui__gfx_1ga142c96f0d66e6439d7b86e0a1b72ecb5" kind="function"><name>lui_gfx_get_font_height</name></member>
     <member refid="group__lui__gfx_1ga9f09f042a3ce689f320d82dfd847d650" kind="function"><name>lui_gfx_get_string_dimension</name></member>
     <member refid="group__lui__gfx_1ga4340cdddeeb18dbcd7c0a0eb9dbcb9c7" kind="function"><name>lui_rgb</name></member>
     <member refid="lame__ui_8c_1aa2e958469e118904a54004c834779a8c" kind="function"><name>_lui_gfx_get_glyph_from_char</name></member>
@@ -513,6 +747,7 @@
     <member refid="group__LUI__ALIGNMENT_1ga05a191a059215fde2bf76f64d594b5dc" kind="define"><name>LUI_ALIGN_LEFT</name></member>
     <member refid="group__LUI__ALIGNMENT_1ga5cf4aa39591271a70348eb2c5983619a" kind="define"><name>LUI_ALIGN_CENTER</name></member>
     <member refid="group__LUI__ALIGNMENT_1gaa236d8be24fd5839b961908e14174eb8" kind="define"><name>LUI_ALIGN_RIGHT</name></member>
+    <member refid="lame__ui_8h_1aa9e15b64447a07a51fe6d5b1da171324" kind="define"><name>LUI_DEFAULT_FONT</name></member>
     <member refid="lame__ui_8h_1a85afc47355fb034b0db91b6aeffe4765" kind="define"><name>_LUI_R_POS_RGB</name></member>
     <member refid="lame__ui_8h_1afd84631255c5adff703db28b0d8ae408" kind="define"><name>_LUI_G_POS_RGB</name></member>
     <member refid="lame__ui_8h_1a9448a03bb7a57cf6c45d820b6b9b947f" kind="define"><name>_LUI_B_POS_RGB</name></member>
@@ -529,7 +764,6 @@
     <member refid="lame__ui_8h_1aa769503475be521dbee6c06a3796690c" kind="define"><name>LUI_STYLE_LABEL_TEXT_COLOR</name></member>
     <member refid="lame__ui_8h_1a6402584277cf062e62f304ea5afccc23" kind="define"><name>LUI_STYLE_LABEL_BG_COLOR</name></member>
     <member refid="lame__ui_8h_1af4cf237eb6a1b03065f586e4e2429ea1" kind="define"><name>LUI_STYLE_LABEL_BORDER_COLOR</name></member>
-    <member refid="lame__ui_8h_1aa769503475be521dbee6c06a3796690c" kind="define"><name>LUI_STYLE_LABEL_TEXT_COLOR</name></member>
     <member refid="lame__ui_8h_1a630fc26e9011c85e3c7675302af02eb6" kind="define"><name>LUI_STYLE_LABEL_BORDER_VISIBLE</name></member>
     <member refid="lame__ui_8h_1a62a396e2f64b0980d91de8aa6393cc0d" kind="define"><name>LUI_STYLE_LABEL_WIDTH</name></member>
     <member refid="lame__ui_8h_1a0a58a540e5664eedd4c29ab49a4ce31f" kind="define"><name>LUI_STYLE_LABEL_HEIGHT</name></member>
@@ -543,6 +777,7 @@
     <member refid="lame__ui_8h_1a58495f0f2b8f61338cc36e5c910d947c" kind="define"><name>LUI_STYLE_SWITCH_HEIGHT</name></member>
     <member refid="lame__ui_8h_1a7ae31a92f0422554dda0f47eae5909e5" kind="define"><name>LUI_STYLE_CHECKBOX_SELECTION_COLOR</name></member>
     <member refid="lame__ui_8h_1a1f7e3f7255f8d21e0eaab46b54a59240" kind="define"><name>LUI_STYLE_CHECKBOX_TICK_COLOR</name></member>
+    <member refid="lame__ui_8h_1a70ea8967857f25e046c7cd7772929757" kind="define"><name>LUI_STYLE_CHECKBOX_LABEL_COLOR</name></member>
     <member refid="lame__ui_8h_1a82f1343accb8222e5f35b605072d0dc1" kind="define"><name>LUI_STYLE_CHECKBOX_BG_COLOR</name></member>
     <member refid="lame__ui_8h_1a7e1258c06e4c58d0329d12e170cdc390" kind="define"><name>LUI_STYLE_CHECKBOX_BG_CHECKED_COLOR</name></member>
     <member refid="lame__ui_8h_1a97b11131a91d3a2864d4993ae5ea5bb8" kind="define"><name>LUI_STYLE_CHECKBOX_BORDER_COLOR</name></member>
@@ -622,8 +857,9 @@
     <member refid="lame__ui_8h_1a98e4dc333c2121cf051dd684a9ee6923" kind="typedef"><name>lui_touch_input_dev_t</name></member>
     <member refid="lame__ui_8h_1a3a01b05c6e7d66b39f3e00daaefd3143" kind="typedef"><name>_lui_main_t</name></member>
     <member refid="lame__ui_8h_1ac60e2bda8772731a278995b748eff33f" kind="variable"><name>FONT_lui_default</name></member>
-    <member refid="group__lui__core_1ga96ff45bfbaf38c57a613f1b4a4830893" kind="function"><name>lui_init</name></member>
+    <member refid="group__lui__core_1ga29f33381e162ee05b8036461724c99ec" kind="function"><name>lui_init</name></member>
     <member refid="group__lui__core_1gaa4a3c7694929ad0b6c5cd565dd6e7304" kind="function"><name>lui_update</name></member>
+    <member refid="group__lui__core_1gafe31e6582630b84037ad089c5ff3591f" kind="function"><name>lui_set_default_font</name></member>
     <member refid="group__lui__object_1ga0d71d83d0757cfbafd9308689e41aaf2" kind="function"><name>lui_object_add_to_parent</name></member>
     <member refid="group__lui__object_1ga0410a5dd9b906d11881611fc0dfdeea6" kind="function"><name>lui_object_remove_from_parent</name></member>
     <member refid="group__lui__object_1ga56a2ce896db5064e1963a185af87c607" kind="function"><name>lui_object_get_child</name></member>
@@ -635,11 +871,11 @@
     <member refid="group__lui__object_1ga7cf13aeef87bd34c6e25e1bf410fe0bb" kind="function"><name>lui_object_set_y_pos</name></member>
     <member refid="group__lui__object_1ga40a7f5963092cc887757eb4c72342caa" kind="function"><name>lui_object_set_border_color</name></member>
     <member refid="group__lui__object_1gaa3e5b7c777ceee12a215eaa6bc45554b" kind="function"><name>lui_object_set_border_visibility</name></member>
-    <member refid="group__lui__object_1ga3c99e7b2155290f9b73b78ba87c3d34d" kind="function"><name>lui_object_set_bg_color</name></member>
+    <member refid="group__lui__object_1ga737c964740f81d6c10d84ebac06d326b" kind="function"><name>lui_object_set_bg_color</name></member>
     <member refid="group__lui__object_1gae9d2e2e1998f2603a3a6d24d08b5b64e" kind="function"><name>lui_object_set_callback</name></member>
     <member refid="group__lui__object_1gac20b18b75c1e5764e5cb00dc3bed6808" kind="function"><name>lui_object_get_state</name></member>
     <member refid="group__lui__object_1ga580b2bdece45808266791573d874aabb" kind="function"><name>lui_object_get_event</name></member>
-    <member refid="group__lui__object_1ga15a349bf7d1abcbc475f009f7dd14dff" kind="function"><name>lui_object_set_visibility</name></member>
+    <member refid="group__lui__object_1gac577745bc906ea07a2ce6beefe5b81e3" kind="function"><name>lui_object_set_visibility</name></member>
     <member refid="group__lui__object_1gae97c5a363860c5fa7de4d40f167592a4" kind="function"><name>lui_object_set_layer</name></member>
     <member refid="group__lui__object_1ga14ac387f2a2e89bdda2773f21e79d087" kind="function"><name>lui_object_get_layer</name></member>
     <member refid="group__lui__object_1ga36344388e628fde997ebafaf75a43ee4" kind="function"><name>lui_object_set_enable_input</name></member>
@@ -678,6 +914,9 @@
     <member refid="group__lui__switch_1gaeef193f35434dde5845a0132ce7f4c05" kind="function"><name>lui_switch_set_off</name></member>
     <member refid="group__lui__checkbox_1ga9742a1e9706106024911e0004d5bf2ac" kind="function"><name>lui_checkbox_create</name></member>
     <member refid="group__lui__checkbox_1ga36738f45907e976f8bf92595352ea968" kind="function"><name>lui_checkbox_draw</name></member>
+    <member refid="group__lui__checkbox_1gaa5b0fd8f35e08bad0f541d4825a122bd" kind="function"><name>lui_checkbox_set_label_text</name></member>
+    <member refid="group__lui__checkbox_1ga5cb7deb03ffca1ef632a3eea226d1550" kind="function"><name>lui_checkbox_set_label_font</name></member>
+    <member refid="group__lui__checkbox_1ga18f376d64f83b97e3402ee5c46781052" kind="function"><name>lui_checkbox_set_label_color</name></member>
     <member refid="group__lui__checkbox_1gae501d0976d301bc3c03e11b28eee654a" kind="function"><name>lui_checkbox_set_extra_colors</name></member>
     <member refid="group__lui__checkbox_1ga8a995bd50bfb68ec15ad27af875b7048" kind="function"><name>lui_checkbox_get_value</name></member>
     <member refid="group__lui__checkbox_1ga44562059aeab006ce233adbe64f3ddca" kind="function"><name>lui_checkbox_set_value</name></member>
@@ -752,7 +991,6 @@
     <member refid="group__lui__scene_1gab6b1e6f1f2b17745b02d6c3d3d6003d1" kind="function"><name>lui_scene_draw</name></member>
     <member refid="group__lui__scene_1ga5a2c32f660fbbe39fae9d5f11055aff7" kind="function"><name>lui_scene_set_active</name></member>
     <member refid="group__lui__scene_1ga84a7baf7297d1ed254e4feb3b8d125ea" kind="function"><name>lui_scene_get_active</name></member>
-    <member refid="group__lui__scene_1ga9171479a041b608913d5601cc1f74c43" kind="function"><name>lui_scene_set_font</name></member>
     <member refid="group__lui__dispdrv_1ga1d63878ad3c05200478a7f7b958faa19" kind="function"><name>lui_dispdrv_create</name></member>
     <member refid="group__lui__dispdrv_1ga77ef8325d1acf4c014be20de214e80de" kind="function"><name>lui_dispdrv_register</name></member>
     <member refid="group__lui__dispdrv_1ga3516bb99ba95160e9673ba8541ffb13e" kind="function"><name>lui_dispdrv_set_resolution</name></member>
@@ -773,6 +1011,7 @@
     <member refid="group__lui__gfx_1gaf84e3918864703ba0639c43978b6ea97" kind="function"><name>lui_gfx_draw_string_advanced</name></member>
     <member refid="group__lui__gfx_1ga34170dff54b3f4cd9fb0b5c5fd883e79" kind="function"><name>lui_gfx_draw_string_simple</name></member>
     <member refid="group__lui__gfx_1ga4cb1f631c60220fe1388d8bcafab4b5e" kind="function"><name>lui_gfx_draw_char</name></member>
+    <member refid="group__lui__gfx_1ga142c96f0d66e6439d7b86e0a1b72ecb5" kind="function"><name>lui_gfx_get_font_height</name></member>
     <member refid="group__lui__gfx_1ga9f09f042a3ce689f320d82dfd847d650" kind="function"><name>lui_gfx_get_string_dimension</name></member>
     <member refid="group__lui__gfx_1gad4c604716d2df4943ac32b35fa56ac14" kind="function"><name>lui_gfx_draw_line</name></member>
     <member refid="group__lui__gfx_1gad91328f058c99813e23a79a0e5aed425" kind="function"><name>lui_gfx_draw_rect</name></member>
@@ -789,8 +1028,9 @@
   <compound refid="group__function" kind="group"><name>function</name>
   </compound>
   <compound refid="group__lui__core" kind="group"><name>lui_core</name>
-    <member refid="group__lui__core_1ga96ff45bfbaf38c57a613f1b4a4830893" kind="function"><name>lui_init</name></member>
+    <member refid="group__lui__core_1ga29f33381e162ee05b8036461724c99ec" kind="function"><name>lui_init</name></member>
     <member refid="group__lui__core_1gaa4a3c7694929ad0b6c5cd565dd6e7304" kind="function"><name>lui_update</name></member>
+    <member refid="group__lui__core_1gafe31e6582630b84037ad089c5ff3591f" kind="function"><name>lui_set_default_font</name></member>
   </compound>
   <compound refid="group__lui__object" kind="group"><name>lui_object</name>
     <member refid="group__lui__object_1ga0d71d83d0757cfbafd9308689e41aaf2" kind="function"><name>lui_object_add_to_parent</name></member>
@@ -804,11 +1044,11 @@
     <member refid="group__lui__object_1ga7cf13aeef87bd34c6e25e1bf410fe0bb" kind="function"><name>lui_object_set_y_pos</name></member>
     <member refid="group__lui__object_1ga40a7f5963092cc887757eb4c72342caa" kind="function"><name>lui_object_set_border_color</name></member>
     <member refid="group__lui__object_1gaa3e5b7c777ceee12a215eaa6bc45554b" kind="function"><name>lui_object_set_border_visibility</name></member>
-    <member refid="group__lui__object_1ga3c99e7b2155290f9b73b78ba87c3d34d" kind="function"><name>lui_object_set_bg_color</name></member>
+    <member refid="group__lui__object_1ga737c964740f81d6c10d84ebac06d326b" kind="function"><name>lui_object_set_bg_color</name></member>
     <member refid="group__lui__object_1gae9d2e2e1998f2603a3a6d24d08b5b64e" kind="function"><name>lui_object_set_callback</name></member>
     <member refid="group__lui__object_1gac20b18b75c1e5764e5cb00dc3bed6808" kind="function"><name>lui_object_get_state</name></member>
     <member refid="group__lui__object_1ga580b2bdece45808266791573d874aabb" kind="function"><name>lui_object_get_event</name></member>
-    <member refid="group__lui__object_1ga15a349bf7d1abcbc475f009f7dd14dff" kind="function"><name>lui_object_set_visibility</name></member>
+    <member refid="group__lui__object_1gac577745bc906ea07a2ce6beefe5b81e3" kind="function"><name>lui_object_set_visibility</name></member>
     <member refid="group__lui__object_1gae97c5a363860c5fa7de4d40f167592a4" kind="function"><name>lui_object_set_layer</name></member>
     <member refid="group__lui__object_1ga14ac387f2a2e89bdda2773f21e79d087" kind="function"><name>lui_object_get_layer</name></member>
     <member refid="group__lui__object_1ga36344388e628fde997ebafaf75a43ee4" kind="function"><name>lui_object_set_enable_input</name></member>
@@ -857,6 +1097,9 @@
   <compound refid="group__lui__checkbox" kind="group"><name>lui_checkbox</name>
     <member refid="group__lui__checkbox_1ga9742a1e9706106024911e0004d5bf2ac" kind="function"><name>lui_checkbox_create</name></member>
     <member refid="group__lui__checkbox_1ga36738f45907e976f8bf92595352ea968" kind="function"><name>lui_checkbox_draw</name></member>
+    <member refid="group__lui__checkbox_1gaa5b0fd8f35e08bad0f541d4825a122bd" kind="function"><name>lui_checkbox_set_label_text</name></member>
+    <member refid="group__lui__checkbox_1ga5cb7deb03ffca1ef632a3eea226d1550" kind="function"><name>lui_checkbox_set_label_font</name></member>
+    <member refid="group__lui__checkbox_1ga18f376d64f83b97e3402ee5c46781052" kind="function"><name>lui_checkbox_set_label_color</name></member>
     <member refid="group__lui__checkbox_1gae501d0976d301bc3c03e11b28eee654a" kind="function"><name>lui_checkbox_set_extra_colors</name></member>
     <member refid="group__lui__checkbox_1ga8a995bd50bfb68ec15ad27af875b7048" kind="function"><name>lui_checkbox_get_value</name></member>
     <member refid="group__lui__checkbox_1ga44562059aeab006ce233adbe64f3ddca" kind="function"><name>lui_checkbox_set_value</name></member>
@@ -945,7 +1188,6 @@
     <member refid="group__lui__scene_1gab6b1e6f1f2b17745b02d6c3d3d6003d1" kind="function"><name>lui_scene_draw</name></member>
     <member refid="group__lui__scene_1ga5a2c32f660fbbe39fae9d5f11055aff7" kind="function"><name>lui_scene_set_active</name></member>
     <member refid="group__lui__scene_1ga84a7baf7297d1ed254e4feb3b8d125ea" kind="function"><name>lui_scene_get_active</name></member>
-    <member refid="group__lui__scene_1ga9171479a041b608913d5601cc1f74c43" kind="function"><name>lui_scene_set_font</name></member>
   </compound>
   <compound refid="group__lui__dispdrv" kind="group"><name>lui_dispdrv</name>
     <member refid="group__lui__dispdrv_1ga1d63878ad3c05200478a7f7b958faa19" kind="function"><name>lui_dispdrv_create</name></member>
@@ -964,6 +1206,7 @@
     <member refid="group__lui__gfx_1gaf84e3918864703ba0639c43978b6ea97" kind="function"><name>lui_gfx_draw_string_advanced</name></member>
     <member refid="group__lui__gfx_1ga34170dff54b3f4cd9fb0b5c5fd883e79" kind="function"><name>lui_gfx_draw_string_simple</name></member>
     <member refid="group__lui__gfx_1ga4cb1f631c60220fe1388d8bcafab4b5e" kind="function"><name>lui_gfx_draw_char</name></member>
+    <member refid="group__lui__gfx_1ga142c96f0d66e6439d7b86e0a1b72ecb5" kind="function"><name>lui_gfx_get_font_height</name></member>
     <member refid="group__lui__gfx_1ga9f09f042a3ce689f320d82dfd847d650" kind="function"><name>lui_gfx_get_string_dimension</name></member>
     <member refid="group__lui__gfx_1gad4c604716d2df4943ac32b35fa56ac14" kind="function"><name>lui_gfx_draw_line</name></member>
     <member refid="group__lui__gfx_1gad91328f058c99813e23a79a0e5aed425" kind="function"><name>lui_gfx_draw_rect</name></member>

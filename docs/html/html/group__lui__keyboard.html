@@ -141,13 +141,13 @@ Functions</h2></td></tr>
 <li>Create a textbox object.</li>
 <li>Create a callback function for the textbox 3.1. If event is LUI_EVENT_ENTERED, set the target keyboard for this textbox. This will make the keyboard visible. 3.2. If event is LUI_EVENT_EXITED, set target keyboard as NULL. This will hide the keyboard again.</li>
 </ol>
-<h2><a class="anchor" id="keyboard_example"></a>
-Example</h2>
+<h1><a class="anchor" id="keyboard_example"></a>
+Example</h1>
 <p>This example only creates a keyboard and links it with an existing textbox. To see a more complete example, see <code>textbox</code> example section. See: <a class="el" href="group__lui__textbox.html">Textbox API</a> </p><div class="fragment"><div class="line"><a class="code" href="struct__lui__obj__s.html">lui_obj_t</a>* my_keyboard = <a class="code" href="group__lui__keyboard.html#gac8d85d9c6032bad7ec26ea9b6c7f8a23">lui_keyboard_create</a>();</div>
 <div class="line"><span class="comment">// Keyboard is by default hidden. It is supposed to be made visible when a</span></div>
 <div class="line"><span class="comment">// textbox is clicked on. But for this example, we are making it visible</span></div>
 <div class="line"><span class="comment">// manually.</span></div>
-<div class="line"><a class="code" href="group__lui__object.html#ga15a349bf7d1abcbc475f009f7dd14dff">lui_object_set_visibility</a>(my_keyboard. 1);</div>
+<div class="line"><a class="code" href="group__lui__object.html#gac577745bc906ea07a2ce6beefe5b81e3">lui_object_set_visibility</a>(my_keyboard. 1);</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// Set the target textbox</span></div>
 <div class="line"><a class="code" href="group__lui__keyboard.html#ga8c3c17480bba2b6d06d8cc5bc25c02e3">lui_keyboard_set_target_txtbox</a>(my_keyboard. my_txtbox);</div>
@@ -362,12 +362,12 @@ Example</h2>
 </div>
 </div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="agroup__lui__keyboard_html_ga8c3c17480bba2b6d06d8cc5bc25c02e3"><div class="ttname"><a href="group__lui__keyboard.html#ga8c3c17480bba2b6d06d8cc5bc25c02e3">lui_keyboard_set_target_txtbox</a></div><div class="ttdeci">void lui_keyboard_set_target_txtbox(lui_obj_t *obj_kb, lui_obj_t *obj_txtbox)</div><div class="ttdoc">Set the target textbox of the keyboard. When target textbox is set, the keyboard becomes visible and ...</div><div class="ttdef"><b>Definition:</b> lame_ui.c:2671</div></div>
-<div class="ttc" id="agroup__lui__object_html_gae9d2e2e1998f2603a3a6d24d08b5b64e"><div class="ttname"><a href="group__lui__object.html#gae9d2e2e1998f2603a3a6d24d08b5b64e">lui_object_set_callback</a></div><div class="ttdeci">void lui_object_set_callback(lui_obj_t *obj, void(*obj_event_cb)(lui_obj_t *))</div><div class="ttdoc">Set event call back function for input handling.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3454</div></div>
-<div class="ttc" id="astruct__lui__obj__s_html"><div class="ttname"><a href="struct__lui__obj__s.html">_lui_obj_s</a></div><div class="ttdoc">Generic object datatype.</div><div class="ttdef"><b>Definition:</b> lame_ui.h:357</div></div>
-<div class="ttc" id="agroup__lui__keyboard_html_gac8d85d9c6032bad7ec26ea9b6c7f8a23"><div class="ttname"><a href="group__lui__keyboard.html#gac8d85d9c6032bad7ec26ea9b6c7f8a23">lui_keyboard_create</a></div><div class="ttdeci">lui_obj_t * lui_keyboard_create()</div><div class="ttdoc">Create a keyboard object with initial values.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:2511</div></div>
-<div class="ttc" id="agroup__lui__keyboard_html_ga4c2a164a62d97b0866c405ba36723971"><div class="ttname"><a href="group__lui__keyboard.html#ga4c2a164a62d97b0866c405ba36723971">lui_keyboard_sys_cb</a></div><div class="ttdeci">void lui_keyboard_sys_cb(lui_obj_t *obj_sender)</div><div class="ttdoc">Keyboard callback function. This function handles all key presses.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:2542</div></div>
-<div class="ttc" id="agroup__lui__object_html_ga15a349bf7d1abcbc475f009f7dd14dff"><div class="ttname"><a href="group__lui__object.html#ga15a349bf7d1abcbc475f009f7dd14dff">lui_object_set_visibility</a></div><div class="ttdeci">void lui_object_set_visibility(lui_obj_t *obj, uint8_t is_visible)</div><div class="ttdoc">Set visibility of an object.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3475</div></div>
+<div class="ttc" id="agroup__lui__keyboard_html_ga8c3c17480bba2b6d06d8cc5bc25c02e3"><div class="ttname"><a href="group__lui__keyboard.html#ga8c3c17480bba2b6d06d8cc5bc25c02e3">lui_keyboard_set_target_txtbox</a></div><div class="ttdeci">void lui_keyboard_set_target_txtbox(lui_obj_t *obj_kb, lui_obj_t *obj_txtbox)</div><div class="ttdoc">Set the target textbox of the keyboard. When target textbox is set, the keyboard becomes visible and ...</div><div class="ttdef"><b>Definition:</b> lame_ui.c:2736</div></div>
+<div class="ttc" id="agroup__lui__object_html_gae9d2e2e1998f2603a3a6d24d08b5b64e"><div class="ttname"><a href="group__lui__object.html#gae9d2e2e1998f2603a3a6d24d08b5b64e">lui_object_set_callback</a></div><div class="ttdeci">void lui_object_set_callback(lui_obj_t *obj, void(*obj_event_cb)(lui_obj_t *))</div><div class="ttdoc">Set event call back function for input handling.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3519</div></div>
+<div class="ttc" id="astruct__lui__obj__s_html"><div class="ttname"><a href="struct__lui__obj__s.html">_lui_obj_s</a></div><div class="ttdoc">Generic object datatype.</div><div class="ttdef"><b>Definition:</b> lame_ui.h:359</div></div>
+<div class="ttc" id="agroup__lui__keyboard_html_gac8d85d9c6032bad7ec26ea9b6c7f8a23"><div class="ttname"><a href="group__lui__keyboard.html#gac8d85d9c6032bad7ec26ea9b6c7f8a23">lui_keyboard_create</a></div><div class="ttdeci">lui_obj_t * lui_keyboard_create()</div><div class="ttdoc">Create a keyboard object with initial values.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:2576</div></div>
+<div class="ttc" id="agroup__lui__keyboard_html_ga4c2a164a62d97b0866c405ba36723971"><div class="ttname"><a href="group__lui__keyboard.html#ga4c2a164a62d97b0866c405ba36723971">lui_keyboard_sys_cb</a></div><div class="ttdeci">void lui_keyboard_sys_cb(lui_obj_t *obj_sender)</div><div class="ttdoc">Keyboard callback function. This function handles all key presses.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:2607</div></div>
+<div class="ttc" id="agroup__lui__object_html_gac577745bc906ea07a2ce6beefe5b81e3"><div class="ttname"><a href="group__lui__object.html#gac577745bc906ea07a2ce6beefe5b81e3">lui_object_set_visibility</a></div><div class="ttdeci">void lui_object_set_visibility(lui_obj_t *obj, uint8_t is_visible)</div><div class="ttdoc">Set visibility of an object.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3540</div></div>
 
 	<script src="main.js"></script>
 </body>

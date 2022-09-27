@@ -2,14 +2,62 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
   <compounddef id="dir_f315b379889fde23168cba3fe99c18a3" kind="dir">
     <compoundname>fonts</compoundname>
-    <innerfile refid="akshar__light__32_8c">akshar_light_32.c</innerfile>
-    <innerfile refid="akshar__light__32_8h">akshar_light_32.h</innerfile>
+    <innerfile refid="default__ubuntu__regular__17_8c">default_ubuntu_regular_17.c</innerfile>
+    <innerfile refid="default__ubuntu__regular__17_8h">default_ubuntu_regular_17.h</innerfile>
+    <innerfile refid="montserrat__bold__17_8c">montserrat_bold_17.c</innerfile>
+    <innerfile refid="montserrat__bold__17_8h">montserrat_bold_17.h</innerfile>
+    <innerfile refid="montserrat__bold__20_8c">montserrat_bold_20.c</innerfile>
+    <innerfile refid="montserrat__bold__20_8h">montserrat_bold_20.h</innerfile>
+    <innerfile refid="montserrat__bold__32_8c">montserrat_bold_32.c</innerfile>
+    <innerfile refid="montserrat__bold__32_8h">montserrat_bold_32.h</innerfile>
+    <innerfile refid="montserrat__bold__48_8c">montserrat_bold_48.c</innerfile>
+    <innerfile refid="montserrat__bold__48_8h">montserrat_bold_48.h</innerfile>
+    <innerfile refid="montserrat__regular__12_8c">montserrat_regular_12.c</innerfile>
+    <innerfile refid="montserrat__regular__12_8h">montserrat_regular_12.h</innerfile>
+    <innerfile refid="montserrat__regular__14_8c">montserrat_regular_14.c</innerfile>
+    <innerfile refid="montserrat__regular__14_8h">montserrat_regular_14.h</innerfile>
     <innerfile refid="montserrat__regular__17_8c">montserrat_regular_17.c</innerfile>
     <innerfile refid="montserrat__regular__17_8h">montserrat_regular_17.h</innerfile>
+    <innerfile refid="montserrat__regular__20_8c">montserrat_regular_20.c</innerfile>
+    <innerfile refid="montserrat__regular__20_8h">montserrat_regular_20.h</innerfile>
     <innerfile refid="montserrat__regular__32_8c">montserrat_regular_32.c</innerfile>
     <innerfile refid="montserrat__regular__32_8h">montserrat_regular_32.h</innerfile>
-    <innerfile refid="ubuntu__regular__17_8c">ubuntu_regular_17.c</innerfile>
-    <innerfile refid="ubuntu__regular__17_8h">ubuntu_regular_17.h</innerfile>
+    <innerfile refid="montserrat__regular__48_8c">montserrat_regular_48.c</innerfile>
+    <innerfile refid="montserrat__regular__48_8h">montserrat_regular_48.h</innerfile>
+    <innerfile refid="ubuntu__bold__17_8c">ubuntu_bold_17.c</innerfile>
+    <innerfile refid="ubuntu__bold__17_8h">ubuntu_bold_17.h</innerfile>
+    <innerfile refid="ubuntu__bold__20_8c">ubuntu_bold_20.c</innerfile>
+    <innerfile refid="ubuntu__bold__20_8h">ubuntu_bold_20.h</innerfile>
+    <innerfile refid="ubuntu__bold__32_8_8c">ubuntu_bold_32..c</innerfile>
+    <innerfile refid="ubuntu__bold__32_8_8h">ubuntu_bold_32..h</innerfile>
+    <innerfile refid="ubuntu__bold__32_8c">ubuntu_bold_32.c</innerfile>
+    <innerfile refid="ubuntu__bold__32_8h">ubuntu_bold_32.h</innerfile>
+    <innerfile refid="ubuntu__bold__48_8c">ubuntu_bold_48.c</innerfile>
+    <innerfile refid="ubuntu__bold__48_8h">ubuntu_bold_48.h</innerfile>
+    <innerfile refid="ubuntu__mono__regular__12_8c">ubuntu_mono_regular_12.c</innerfile>
+    <innerfile refid="ubuntu__mono__regular__12_8h">ubuntu_mono_regular_12.h</innerfile>
+    <innerfile refid="ubuntu__mono__regular__14_8c">ubuntu_mono_regular_14.c</innerfile>
+    <innerfile refid="ubuntu__mono__regular__14_8h">ubuntu_mono_regular_14.h</innerfile>
+    <innerfile refid="ubuntu__mono__regular__17_8c">ubuntu_mono_regular_17.c</innerfile>
+    <innerfile refid="ubuntu__mono__regular__17_8h">ubuntu_mono_regular_17.h</innerfile>
+    <innerfile refid="ubuntu__mono__regular__20_8c">ubuntu_mono_regular_20.c</innerfile>
+    <innerfile refid="ubuntu__mono__regular__20_8h">ubuntu_mono_regular_20.h</innerfile>
+    <innerfile refid="ubuntu__mono__regular__32_8c">ubuntu_mono_regular_32.c</innerfile>
+    <innerfile refid="ubuntu__mono__regular__32_8h">ubuntu_mono_regular_32.h</innerfile>
+    <innerfile refid="ubuntu__mono__regular__48_8c">ubuntu_mono_regular_48.c</innerfile>
+    <innerfile refid="ubuntu__mono__regular__48_8h">ubuntu_mono_regular_48.h</innerfile>
+    <innerfile refid="ubuntu__regular__12_8c">ubuntu_regular_12.c</innerfile>
+    <innerfile refid="ubuntu__regular__12_8h">ubuntu_regular_12.h</innerfile>
+    <innerfile refid="ubuntu__regular__14_8c">ubuntu_regular_14.c</innerfile>
+    <innerfile refid="ubuntu__regular__14_8h">ubuntu_regular_14.h</innerfile>
+    <innerfile refid="ubuntu__regular__20_8c">ubuntu_regular_20.c</innerfile>
+    <innerfile refid="ubuntu__regular__20_8h">ubuntu_regular_20.h</innerfile>
+    <innerfile refid="ubuntu__regular__32_8_8c">ubuntu_regular_32..c</innerfile>
+    <innerfile refid="ubuntu__regular__32_8_8h">ubuntu_regular_32..h</innerfile>
+    <innerfile refid="ubuntu__regular__32_8c">ubuntu_regular_32.c</innerfile>
+    <innerfile refid="ubuntu__regular__32_8h">ubuntu_regular_32.h</innerfile>
+    <innerfile refid="ubuntu__regular__48_8c">ubuntu_regular_48.c</innerfile>
+    <innerfile refid="ubuntu__regular__48_8h">ubuntu_regular_48.h</innerfile>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
