@@ -24,7 +24,7 @@ This is a demo of LameUI running on a simulator I made with OpenGL so I can test
 
 simulator: https://github.com/abhra0897/LameUI_simulation
 
-![Screen shots](./LameUI_demo1_combined.png)
+![Screen shots](./docs/LameUI_demo1_combined.png)
 
 ## UI Widgets
 Following UI widgets are implemented so far:
