@@ -6,7 +6,7 @@
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<sect2 id="md_README_1autotoc_md13">
+<sect2 id="md_README_1autotoc_md14">
 <title>What?</title>
 <para>LameUI is a super simple, platform independent UI library with lots of limitations, designed for embedded systems with low resources. It&apos;s under active development and I&apos;m trying to add more features. Two important goals of LameUI are:<itemizedlist>
 <listitem><para>Be lightweight</para>
@@ -14,30 +14,32 @@
 </listitem></itemizedlist>
 </para>
 </sect2>
-<sect2 id="md_README_1autotoc_md14">
-<title>Why?</title>
-<para>Main reason - to challenge my skills and learn new things. It was started as a lockdown project and soon enough I abandoned it in an incomplete state as I lost interest. After 4 months I came back to it with a goal to at least make it work once. Future of this project is uncertain, but as long as it feels challenging, I&apos;ll keep adding/fixing stuffs.</para>
-</sect2>
 <sect2 id="md_README_1autotoc_md15">
+<title>Why?</title>
+<para>Main reason - to challenge my skills and learn new things. It was started as a pastime project during the first covid-19 lock-down and soon enough I abandoned it in an incomplete state as I lost interest. After 4 months I came back to it with a goal to at least make it work once. Future of this project is uncertain, but as long as it feels challenging, I&apos;ll keep adding/fixing stuffs.</para>
+</sect2>
+<sect2 id="md_README_1autotoc_md16">
 <title>Who?</title>
 <para><bold>Who will use it?</bold> <linebreak/>
  Probably no one. Unless you need a very simple and very lightweight UI library.</para>
 <para><bold>Who is/are developing it?</bold> <linebreak/>
  I, alone.</para>
 </sect2>
-<sect1 id="md_README_1autotoc_md16">
+<sect1 id="md_README_1autotoc_md17">
+<title>API</title>
+<para>API Documentation: <ulink url="https://abhra0897.github.io/LameUI/">https://abhra0897.github.io/LameUI/</ulink> <linebreak/>
+ <emphasis>Note: Documentation is work in progress.</emphasis></para>
+</sect1>
+<sect1 id="md_README_1autotoc_md18">
 <title>Demo:</title>
-<para>This is a demo of LameUI running on a simulator I made with opengl so I can test it without needing to flash the microcontroller every time.</para>
+<para>This is a demo of LameUI running on a simulator I made with OpenGL so I can test it without needing to flash the microcontroller every time.</para>
 <para>simulator: <ulink url="https://github.com/abhra0897/LameUI_simulation">https://github.com/abhra0897/LameUI_simulation</ulink></para>
-<para><image type="html" name="lameUI_demo3.gif" inline="yes"></image>
-</para>
-<para>Keyboard and Textbox demo (Work in progress)</para>
-<para><image type="html" name="lameUI_demo_keyboard.gif" inline="yes"></image>
+<para><image type="html" name="LameUI_demo1_combined.png" inline="yes"></image>
 </para>
 </sect1>
-<sect1 id="md_README_1autotoc_md17">
-<title>UI Elements</title>
-<para>Following UI elements are implemented so far:</para>
+<sect1 id="md_README_1autotoc_md19">
+<title>UI Widgets</title>
+<para>Following UI widgets are implemented so far:</para>
 <para><orderedlist>
 <listitem><para>Label</para>
 </listitem><listitem><para>Line chart</para>
@@ -50,10 +52,11 @@
 </listitem><listitem><para>Keyboard</para>
 </listitem><listitem><para>Textbox</para>
 </listitem><listitem><para>Panel</para>
+</listitem><listitem><para>Scene</para>
 </listitem></orderedlist>
 </para>
 </sect1>
-<sect1 id="md_README_1autotoc_md18">
+<sect1 id="md_README_1autotoc_md20">
 <title>Usage</title>
 <para>LameUI needs 3 callback functions from user to draw on display and read inputs. <linebreak/>
 </para>
@@ -63,23 +66,23 @@
 </listitem><listitem><para><computeroutput>read_touch_input_cb</computeroutput> to <emphasis>Read Inputs</emphasis>. (<bold>Optional</bold>)</para>
 </listitem></orderedlist>
 </para>
-<sect2 id="md_README_1autotoc_md19">
+<sect2 id="md_README_1autotoc_md21">
 <title>Display Output</title>
 <para><bold>1. <computeroutput>draw_pixels_area_cb</computeroutput></bold> <linebreak/>
  Drawing to display is done by callback functions provided by the user.</para>
 <para><programlisting filename=".C"><codeline><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__lui__dispdrv_1ga982617c7a5f3d018a3bab0e01eebf8e3" kindref="member">lui_dispdrv_set_draw_pixels_area_cb</ref>(<ref refid="struct__lui__disp__drv__s" kindref="compound">lui_dispdrv_t</ref>*<sp/>dispdrv,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>(*draw_pixels_area_cb)(uint16_t<sp/>x,<sp/>uint16_t<sp/>y,<sp/>uint16_t<sp/>w,<sp/>uint16_t<sp/>h,<sp/>uint16_t<sp/>color));</highlight></codeline>
 </programlisting></para>
 <para><bold>2. <computeroutput>render_complete_cb</computeroutput></bold> <linebreak/>
- LameUI has no frame buffer of its own. Because it&apos;s mainly targetted towards MCUs with low RAM. As a result, user need to manage buffering if they need to. Sometimes buffering, and then flushing the entire buffer is faster than writing individual pixels each time. <linebreak/>
+ LameUI has no frame buffer of its own. Because it&apos;s mainly targeted towards MCUs with low RAM. As a result, user need to manage buffering if they need to. Sometimes buffering, and then flushing the entire buffer is faster than writing individual pixels each time. <linebreak/>
 </para>
 <para>That&apos;s why LameUI calls <computeroutput>void (*render_complete_cb)();</computeroutput> when rendering is complete, given that user provided the callback function. In that callback function, user should flush the buffer. This is useful when user is buffering the draw calls. <linebreak/>
 </para>
 <para>For setting the callback function, this function is used:</para>
 <para><programlisting filename=".C"><codeline><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__lui__dispdrv_1gaa2cf5623fa26babf738af3a2ef0a5fc4" kindref="member">lui_dispdrv_set_render_complete_cb</ref>(<ref refid="struct__lui__disp__drv__s" kindref="compound">lui_dispdrv_t</ref>*<sp/>dispdrv,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>(*render_complete_cb)());</highlight></codeline>
 </programlisting></para>
-<para>Note: Commonly available lcd displays that we use with microcontrollers have built-in GRAM, hence, the <computeroutput>render_complete_cb()</computeroutput> is not mandatory for them.</para>
+<para>Note: Commonly available lcd displays that we use with microcontroller have built-in GRAM, hence, the <computeroutput>render_complete_cb()</computeroutput> is not mandatory for them.</para>
 </sect2>
-<sect2 id="md_README_1autotoc_md20">
+<sect2 id="md_README_1autotoc_md22">
 <title>Read Inputs</title>
 <para><bold>3. <computeroutput>read_touch_input_cb</computeroutput></bold> <linebreak/>
 </para>
@@ -88,7 +91,7 @@
 </programlisting></para>
 </sect2>
 </sect1>
-<sect1 id="md_README_1autotoc_md21">
+<sect1 id="md_README_1autotoc_md23">
 <title>Quick Start</title>
 <para><bold>[ Part 1 ]</bold></para>
 <para>This is a very simple example using TFT_eSPI library on Arduino framework. In this example we will only see how to register a display driver and a touch input device. No UI widgets are added here. For a detailed example, see next part.</para>
@@ -257,7 +260,7 @@
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Assuming<sp/>user<sp/>has<sp/>at<sp/>least<sp/>one<sp/>of<sp/>these<sp/>functions:</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>1.<sp/>display_put_pixel(x,<sp/>y,<sp/>color);<sp/><sp/><sp/><sp/>//<sp/>Draw<sp/>a<sp/>single<sp/>pixel</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>2.<sp/>display_put_pixels(x1,<sp/>y1,<sp/>x2,<sp/>y2,<sp/>color)<sp/><sp/><sp/><sp/>//<sp/>Fill<sp/>an<sp/>area<sp/>with<sp/>same<sp/>color</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>3.<sp/>display_fill(color_buffer,<sp/>x1,<sp/>y1,<sp/>x2,<sp/>y2);<sp/><sp/><sp/><sp/>//<sp/>Fill<sp/>an<sp/>area<sp/>with<sp/>diffrent<sp/>colors<sp/>from<sp/>a<sp/>buffer</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>3.<sp/>display_fill(color_buffer,<sp/>x1,<sp/>y1,<sp/>x2,<sp/>y2);<sp/><sp/><sp/><sp/>//<sp/>Fill<sp/>an<sp/>area<sp/>with<sp/>different<sp/>colors<sp/>from<sp/>a<sp/>buffer</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/>#ifdef<sp/>USE_BUFERING</highlight><highlight class="normal"></highlight></codeline>
@@ -294,7 +297,7 @@
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//------------------<sp/>[<sp/>Method<sp/>1]<sp/>-----------------------------------</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Draw<sp/>pixels<sp/>one<sp/>by<sp/>1.<sp/>This<sp/>is<sp/>the<sp/>easiest<sp/>way<sp/>to<sp/>implement,<sp/>but<sp/>also<sp/>slow.</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//------------------------------------------------------------------</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>for<sp/>(uint16_t<sp/>h<sp/>=<sp/>0;<sp/>h<sp/>&lt;<sp/>hright;<sp/>h++)</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>for<sp/>(uint16_t<sp/>h<sp/>=<sp/>0;<sp/>h<sp/>&lt;<sp/>height;<sp/>h++)</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>{</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/>for<sp/>(uint16_t<sp/>w<sp/>=<sp/>0;<sp/>w<sp/>&lt;<sp/>width;<sp/>w++)</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/>{</highlight><highlight class="normal"></highlight></codeline>
@@ -360,12 +363,7 @@
 <codeline><highlight class="normal">}</highlight></codeline>
 </programlisting></para>
 </sect1>
-<sect1 id="md_README_1autotoc_md22">
-<title>API</title>
-<para>API Documentation: <ulink url="https://abhra0897.github.io/LameUI/">https://abhra0897.github.io/LameUI/</ulink> <linebreak/>
- <emphasis>Note: Documentation is work in progress. It&apos;s incomplete as of now.</emphasis></para>
-</sect1>
-<sect1 id="md_README_1autotoc_md23">
+<sect1 id="md_README_1autotoc_md24">
 <title>Simple Examples</title>
 <para><itemizedlist>
 <listitem><para>Check example code fragments inside <ulink url="lame_ui.h">lame_ui.h</ulink>. Or visit <ulink url="https://abhra0897.github.io/LameUI/html/html/examples_page.html">documentatin page</ulink>.</para>

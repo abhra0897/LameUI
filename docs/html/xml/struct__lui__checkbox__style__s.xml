@@ -14,7 +14,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="301" column="10" bodyfile="lame_ui.h" bodystart="301" bodyend="-1"/>
+        <location file="lame_ui.h" line="302" column="10" bodyfile="lame_ui.h" bodystart="302" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct__lui__checkbox__style__s_1a879eab6f9aaee0f204beb4457ecbdb98" prot="public" static="no" mutable="no">
         <type>uint16_t</type>
@@ -27,7 +27,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="302" column="10" bodyfile="lame_ui.h" bodystart="302" bodyend="-1"/>
+        <location file="lame_ui.h" line="303" column="10" bodyfile="lame_ui.h" bodystart="303" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct__lui__checkbox__style__s_1a0af0c9d51144181d6a62abf60d989a3b" prot="public" static="no" mutable="no">
         <type>uint16_t</type>
@@ -40,14 +40,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="303" column="10" bodyfile="lame_ui.h" bodystart="303" bodyend="-1"/>
+        <location file="lame_ui.h" line="304" column="10" bodyfile="lame_ui.h" bodystart="304" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="lame_ui.h" line="300" column="1" bodyfile="lame_ui.h" bodystart="299" bodyend="304"/>
+    <location file="lame_ui.h" line="301" column="1" bodyfile="lame_ui.h" bodystart="300" bodyend="305"/>
     <listofallmembers>
       <member refid="struct__lui__checkbox__style__s_1a879eab6f9aaee0f204beb4457ecbdb98" prot="public" virt="non-virtual"><scope>_lui_checkbox_style_s</scope><name>bg_checked_color</name></member>
       <member refid="struct__lui__checkbox__style__s_1a0af0c9d51144181d6a62abf60d989a3b" prot="public" virt="non-virtual"><scope>_lui_checkbox_style_s</scope><name>selection_color</name></member>

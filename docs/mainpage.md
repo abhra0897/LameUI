@@ -17,6 +17,9 @@ Probably no one. Unless you need a very simple and very lightweight UI library.
 **Who is/are developing it?**  
 I, alone.
 
+## Screenshots
+<div style="display:flex; justify-content:center; align-items: center;"><img width="80%" height="80%" src="../../LameUI_demo1_combined.png" /></div>
+
 ## UI Widgets
 Following UI widgets have been implemented so far:
 

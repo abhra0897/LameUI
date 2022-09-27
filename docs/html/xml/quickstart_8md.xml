@@ -23,7 +23,7 @@
 <codeline><highlight class="normal">```</highlight></codeline>
 <codeline></codeline>
 <codeline><highlight class="normal">**2.<sp/>`render_complete_cb`**<sp/><sp/></highlight></codeline>
-<codeline><highlight class="normal">LameUI<sp/>has<sp/>no<sp/>frame<sp/>buffer<sp/>of<sp/>its<sp/>own.<sp/>Because<sp/>it&apos;s<sp/>mainly<sp/>targetted<sp/>towards<sp/>MCUs<sp/>with<sp/>low<sp/>RAM.<sp/>As<sp/>a<sp/>result,<sp/>user<sp/>need<sp/>to<sp/>manage<sp/>buffering<sp/>if<sp/>they<sp/>need<sp/>to.<sp/>Sometimes<sp/>buffering,<sp/>and<sp/>then<sp/>flushing<sp/>the<sp/>entire<sp/>buffer<sp/>is<sp/>faster<sp/>than<sp/>writing<sp/>individual<sp/>pixels<sp/>each<sp/>time.<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">LameUI<sp/>has<sp/>no<sp/>frame<sp/>buffer<sp/>of<sp/>its<sp/>own.<sp/>Because<sp/>it&apos;s<sp/>mainly<sp/>targeted<sp/>towards<sp/>MCUs<sp/>with<sp/>low<sp/>RAM.<sp/>As<sp/>a<sp/>result,<sp/>user<sp/>need<sp/>to<sp/>manage<sp/>buffering<sp/>if<sp/>they<sp/>need<sp/>to.<sp/>Sometimes<sp/>buffering,<sp/>and<sp/>then<sp/>flushing<sp/>the<sp/>entire<sp/>buffer<sp/>is<sp/>faster<sp/>than<sp/>writing<sp/>individual<sp/>pixels<sp/>each<sp/>time.<sp/><sp/></highlight></codeline>
 <codeline></codeline>
 <codeline><highlight class="normal">That&apos;s<sp/>why<sp/>LameUI<sp/>calls<sp/>`void<sp/>(*render_complete_cb)();`<sp/>when<sp/>rendering<sp/>is<sp/>complete,<sp/>given<sp/>that<sp/>user<sp/>provided<sp/>the<sp/>callback<sp/>function.<sp/>In<sp/>that<sp/>callback<sp/>function,<sp/>user<sp/>should<sp/>flush<sp/>the<sp/>buffer.<sp/>This<sp/>is<sp/>useful<sp/>when<sp/>user<sp/>is<sp/>buffering<sp/>the<sp/>draw<sp/>calls.<sp/><sp/></highlight></codeline>
 <codeline></codeline>

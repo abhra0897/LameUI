@@ -15,7 +15,7 @@
 <codeline><highlight class="normal"><sp/>-<sp/>Use<sp/>minimum<sp/>number<sp/>of<sp/>files</highlight></codeline>
 <codeline></codeline>
 <codeline><highlight class="normal">###<sp/>Why?</highlight></codeline>
-<codeline><highlight class="normal">Main<sp/>reason<sp/>-<sp/>to<sp/>challenge<sp/>my<sp/>skills<sp/>and<sp/>learn<sp/>new<sp/>things.<sp/>It<sp/>was<sp/>started<sp/>as<sp/>a<sp/>lockdown<sp/>project<sp/>and<sp/>soon<sp/>enough<sp/>I<sp/>abandoned<sp/>it<sp/>in<sp/>an<sp/>incomplete<sp/>state<sp/>as<sp/>I<sp/>lost<sp/>interest.<sp/>After<sp/>4<sp/>months<sp/>I<sp/>came<sp/>back<sp/>to<sp/>it<sp/>with<sp/>a<sp/>goal<sp/>to<sp/>at<sp/>least<sp/>make<sp/>it<sp/>work<sp/>once.<sp/>Future<sp/>of<sp/>this<sp/>project<sp/>is<sp/>uncertain,<sp/>but<sp/>as<sp/>long<sp/>as<sp/>it<sp/>feels<sp/>challenging,<sp/>I&apos;ll<sp/>keep<sp/>adding/fixing<sp/>stuffs.</highlight></codeline>
+<codeline><highlight class="normal">Main<sp/>reason<sp/>-<sp/>to<sp/>challenge<sp/>my<sp/>skills<sp/>and<sp/>learn<sp/>new<sp/>things.<sp/>It<sp/>was<sp/>started<sp/>as<sp/>a<sp/>pastime<sp/>project<sp/>during<sp/>the<sp/>first<sp/>covid-19<sp/>lock-down<sp/>and<sp/>soon<sp/>enough<sp/>I<sp/>abandoned<sp/>it<sp/>in<sp/>an<sp/>incomplete<sp/>state<sp/>as<sp/>I<sp/>lost<sp/>interest.<sp/>After<sp/>4<sp/>months<sp/>I<sp/>came<sp/>back<sp/>to<sp/>it<sp/>with<sp/>a<sp/>goal<sp/>to<sp/>at<sp/>least<sp/>make<sp/>it<sp/>work<sp/>once.<sp/>Future<sp/>of<sp/>this<sp/>project<sp/>is<sp/>uncertain,<sp/>but<sp/>as<sp/>long<sp/>as<sp/>it<sp/>feels<sp/>challenging,<sp/>I&apos;ll<sp/>keep<sp/>adding/fixing<sp/>stuffs.</highlight></codeline>
 <codeline></codeline>
 <codeline><highlight class="normal">###<sp/>Who?</highlight></codeline>
 <codeline><highlight class="normal">**Who<sp/>will<sp/>use<sp/>it?**<sp/><sp/></highlight></codeline>
@@ -24,19 +24,19 @@
 <codeline><highlight class="normal">**Who<sp/>is/are<sp/>developing<sp/>it?**<sp/><sp/></highlight></codeline>
 <codeline><highlight class="normal">I,<sp/>alone.</highlight></codeline>
 <codeline></codeline>
+<codeline><highlight class="normal">##<sp/>API<sp/></highlight></codeline>
+<codeline><highlight class="normal">API<sp/>Documentation:<sp/>https://abhra0897.github.io/LameUI/<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">*Note:<sp/>Documentation<sp/>is<sp/>work<sp/>in<sp/>progress.*</highlight></codeline>
+<codeline></codeline>
 <codeline><highlight class="normal">##<sp/>Demo:</highlight></codeline>
-<codeline><highlight class="normal">This<sp/>is<sp/>a<sp/>demo<sp/>of<sp/>LameUI<sp/>running<sp/>on<sp/>a<sp/>simulator<sp/>I<sp/>made<sp/>with<sp/>opengl<sp/>so<sp/>I<sp/>can<sp/>test<sp/>it<sp/>without<sp/>needing<sp/>to<sp/>flash<sp/>the<sp/>microcontroller<sp/>every<sp/>time.</highlight></codeline>
+<codeline><highlight class="normal">This<sp/>is<sp/>a<sp/>demo<sp/>of<sp/>LameUI<sp/>running<sp/>on<sp/>a<sp/>simulator<sp/>I<sp/>made<sp/>with<sp/>OpenGL<sp/>so<sp/>I<sp/>can<sp/>test<sp/>it<sp/>without<sp/>needing<sp/>to<sp/>flash<sp/>the<sp/>microcontroller<sp/>every<sp/>time.</highlight></codeline>
 <codeline></codeline>
 <codeline><highlight class="normal">simulator:<sp/>https://github.com/abhra0897/LameUI_simulation</highlight></codeline>
 <codeline></codeline>
-<codeline><highlight class="normal">![Example<sp/>gif](lameUI_demo3.gif)</highlight></codeline>
+<codeline><highlight class="normal">![Screen<sp/>shots](./LameUI_demo1_combined.png)</highlight></codeline>
 <codeline></codeline>
-<codeline><highlight class="normal">Keyboard<sp/>and<sp/>Textbox<sp/>demo<sp/>(Work<sp/>in<sp/>progress)</highlight></codeline>
-<codeline></codeline>
-<codeline><highlight class="normal">![demo<sp/>gif](lameUI_demo_keyboard.gif)</highlight></codeline>
-<codeline></codeline>
-<codeline><highlight class="normal">##<sp/>UI<sp/>Elements</highlight></codeline>
-<codeline><highlight class="normal">Following<sp/>UI<sp/>elements<sp/>are<sp/>implemented<sp/>so<sp/>far:</highlight></codeline>
+<codeline><highlight class="normal">##<sp/>UI<sp/>Widgets</highlight></codeline>
+<codeline><highlight class="normal">Following<sp/>UI<sp/>widgets<sp/>are<sp/>implemented<sp/>so<sp/>far:</highlight></codeline>
 <codeline></codeline>
 <codeline><highlight class="normal">1.<sp/>Label</highlight></codeline>
 <codeline><highlight class="normal">2.<sp/>Line<sp/>chart</highlight></codeline>
@@ -49,6 +49,7 @@
 <codeline><highlight class="normal">9.<sp/>Keyboard</highlight></codeline>
 <codeline><highlight class="normal">10.<sp/>Textbox</highlight></codeline>
 <codeline><highlight class="normal">11.<sp/>Panel</highlight></codeline>
+<codeline><highlight class="normal">12.<sp/>Scene</highlight></codeline>
 <codeline></codeline>
 <codeline><highlight class="normal">##<sp/>Usage</highlight></codeline>
 <codeline><highlight class="normal">LameUI<sp/>needs<sp/>3<sp/>callback<sp/>functions<sp/>from<sp/>user<sp/>to<sp/>draw<sp/>on<sp/>display<sp/>and<sp/>read<sp/>inputs.<sp/><sp/></highlight></codeline>
@@ -66,7 +67,7 @@
 <codeline><highlight class="normal">```</highlight></codeline>
 <codeline></codeline>
 <codeline><highlight class="normal">**2.<sp/>`render_complete_cb`**<sp/><sp/></highlight></codeline>
-<codeline><highlight class="normal">LameUI<sp/>has<sp/>no<sp/>frame<sp/>buffer<sp/>of<sp/>its<sp/>own.<sp/>Because<sp/>it&apos;s<sp/>mainly<sp/>targetted<sp/>towards<sp/>MCUs<sp/>with<sp/>low<sp/>RAM.<sp/>As<sp/>a<sp/>result,<sp/>user<sp/>need<sp/>to<sp/>manage<sp/>buffering<sp/>if<sp/>they<sp/>need<sp/>to.<sp/>Sometimes<sp/>buffering,<sp/>and<sp/>then<sp/>flushing<sp/>the<sp/>entire<sp/>buffer<sp/>is<sp/>faster<sp/>than<sp/>writing<sp/>individual<sp/>pixels<sp/>each<sp/>time.<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">LameUI<sp/>has<sp/>no<sp/>frame<sp/>buffer<sp/>of<sp/>its<sp/>own.<sp/>Because<sp/>it&apos;s<sp/>mainly<sp/>targeted<sp/>towards<sp/>MCUs<sp/>with<sp/>low<sp/>RAM.<sp/>As<sp/>a<sp/>result,<sp/>user<sp/>need<sp/>to<sp/>manage<sp/>buffering<sp/>if<sp/>they<sp/>need<sp/>to.<sp/>Sometimes<sp/>buffering,<sp/>and<sp/>then<sp/>flushing<sp/>the<sp/>entire<sp/>buffer<sp/>is<sp/>faster<sp/>than<sp/>writing<sp/>individual<sp/>pixels<sp/>each<sp/>time.<sp/><sp/></highlight></codeline>
 <codeline></codeline>
 <codeline><highlight class="normal">That&apos;s<sp/>why<sp/>LameUI<sp/>calls<sp/>`void<sp/>(*render_complete_cb)();`<sp/>when<sp/>rendering<sp/>is<sp/>complete,<sp/>given<sp/>that<sp/>user<sp/>provided<sp/>the<sp/>callback<sp/>function.<sp/>In<sp/>that<sp/>callback<sp/>function,<sp/>user<sp/>should<sp/>flush<sp/>the<sp/>buffer.<sp/>This<sp/>is<sp/>useful<sp/>when<sp/>user<sp/>is<sp/>buffering<sp/>the<sp/>draw<sp/>calls.<sp/><sp/></highlight></codeline>
 <codeline></codeline>
@@ -76,7 +77,7 @@
 <codeline><highlight class="normal">void<sp/>lui_dispdrv_set_render_complete_cb(lui_dispdrv_t*<sp/>dispdrv,<sp/>void<sp/>(*render_complete_cb)());</highlight></codeline>
 <codeline><highlight class="normal">```</highlight></codeline>
 <codeline></codeline>
-<codeline><highlight class="normal">Note:<sp/>Commonly<sp/>available<sp/>lcd<sp/>displays<sp/>that<sp/>we<sp/>use<sp/>with<sp/>microcontrollers<sp/>have<sp/>built-in<sp/>GRAM,<sp/>hence,<sp/>the<sp/>`render_complete_cb()`<sp/>is<sp/>not<sp/>mandatory<sp/>for<sp/>them.</highlight></codeline>
+<codeline><highlight class="normal">Note:<sp/>Commonly<sp/>available<sp/>lcd<sp/>displays<sp/>that<sp/>we<sp/>use<sp/>with<sp/>microcontroller<sp/>have<sp/>built-in<sp/>GRAM,<sp/>hence,<sp/>the<sp/>`render_complete_cb()`<sp/>is<sp/>not<sp/>mandatory<sp/>for<sp/>them.</highlight></codeline>
 <codeline></codeline>
 <codeline><highlight class="normal">###<sp/>Read<sp/>Inputs</highlight></codeline>
 <codeline><highlight class="normal">**3.<sp/>`read_touch_input_cb`**<sp/><sp/></highlight></codeline>
@@ -263,7 +264,7 @@
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Assuming<sp/>user<sp/>has<sp/>at<sp/>least<sp/>one<sp/>of<sp/>these<sp/>functions:</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>1.<sp/>display_put_pixel(x,<sp/>y,<sp/>color);<sp/><sp/><sp/><sp/>//<sp/>Draw<sp/>a<sp/>single<sp/>pixel</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>2.<sp/>display_put_pixels(x1,<sp/>y1,<sp/>x2,<sp/>y2,<sp/>color)<sp/><sp/><sp/><sp/>//<sp/>Fill<sp/>an<sp/>area<sp/>with<sp/>same<sp/>color</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>3.<sp/>display_fill(color_buffer,<sp/>x1,<sp/>y1,<sp/>x2,<sp/>y2);<sp/><sp/><sp/><sp/>//<sp/>Fill<sp/>an<sp/>area<sp/>with<sp/>diffrent<sp/>colors<sp/>from<sp/>a<sp/>buffer</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>3.<sp/>display_fill(color_buffer,<sp/>x1,<sp/>y1,<sp/>x2,<sp/>y2);<sp/><sp/><sp/><sp/>//<sp/>Fill<sp/>an<sp/>area<sp/>with<sp/>different<sp/>colors<sp/>from<sp/>a<sp/>buffer</highlight></codeline>
 <codeline></codeline>
 <codeline></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>#ifdef<sp/>USE_BUFERING</highlight></codeline>
@@ -300,7 +301,7 @@
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>//------------------<sp/>[<sp/>Method<sp/>1]<sp/>-----------------------------------</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>Draw<sp/>pixels<sp/>one<sp/>by<sp/>1.<sp/>This<sp/>is<sp/>the<sp/>easiest<sp/>way<sp/>to<sp/>implement,<sp/>but<sp/>also<sp/>slow.</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>//------------------------------------------------------------------</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>for<sp/>(uint16_t<sp/>h<sp/>=<sp/>0;<sp/>h<sp/>&lt;<sp/>hright;<sp/>h++)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>for<sp/>(uint16_t<sp/>h<sp/>=<sp/>0;<sp/>h<sp/>&lt;<sp/>height;<sp/>h++)</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>{</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/><sp/>for<sp/>(uint16_t<sp/>w<sp/>=<sp/>0;<sp/>w<sp/>&lt;<sp/>width;<sp/>w++)</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/><sp/>{</highlight></codeline>
@@ -367,10 +368,6 @@
 <codeline></codeline>
 <codeline></codeline>
 <codeline><highlight class="normal">```</highlight></codeline>
-<codeline></codeline>
-<codeline><highlight class="normal">##<sp/>API<sp/></highlight></codeline>
-<codeline><highlight class="normal">API<sp/>Documentation:<sp/>https://abhra0897.github.io/LameUI/<sp/><sp/></highlight></codeline>
-<codeline><highlight class="normal">*Note:<sp/>Documentation<sp/>is<sp/>work<sp/>in<sp/>progress.<sp/>It&apos;s<sp/>incomplete<sp/>as<sp/>of<sp/>now.*</highlight></codeline>
 <codeline></codeline>
 <codeline><highlight class="normal">##<sp/>Simple<sp/>Examples</highlight></codeline>
 <codeline><highlight class="normal">-<sp/>Check<sp/>example<sp/>code<sp/>fragments<sp/>inside<sp/>[lame_ui.h](lame_ui.h).<sp/>Or<sp/>visit<sp/>[documentatin<sp/>page](https://abhra0897.github.io/LameUI/html/html/examples_page.html).</highlight></codeline>

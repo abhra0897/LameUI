@@ -13,13 +13,13 @@
 <para>Create a scene. </para>
         </briefdescription>
         <detaileddescription>
-<para><simplesect kind="return"><para>lui_obj_t* cretaed scene </para>
+<para><simplesect kind="return"><para>lui_obj_t* created scene </para>
 </simplesect>
 </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="2356" column="11" bodyfile="lame_ui.c" bodystart="3154" bodyend="3187" declfile="lame_ui.h" declline="2356" declcolumn="11"/>
+        <location file="lame_ui.h" line="2357" column="11" bodyfile="lame_ui.c" bodystart="3172" bodyend="3205" declfile="lame_ui.h" declline="2357" declcolumn="11"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__scene_1gab6b1e6f1f2b17745b02d6c3d3d6003d1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -47,7 +47,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="2363" column="6" bodyfile="lame_ui.c" bodystart="3189" bodyend="3203" declfile="lame_ui.h" declline="2363" declcolumn="6"/>
+        <location file="lame_ui.h" line="2364" column="6" bodyfile="lame_ui.c" bodystart="3207" bodyend="3221" declfile="lame_ui.h" declline="2364" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__scene_1ga5a2c32f660fbbe39fae9d5f11055aff7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -75,7 +75,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="2370" column="6" bodyfile="lame_ui.c" bodystart="3237" bodyend="3248" declfile="lame_ui.h" declline="2370" declcolumn="6"/>
+        <location file="lame_ui.h" line="2371" column="6" bodyfile="lame_ui.c" bodystart="3255" bodyend="3266" declfile="lame_ui.h" declline="2371" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__scene_1ga84a7baf7297d1ed254e4feb3b8d125ea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="lame__ui_8h_1a5a7ccb45f639e22e43b3ac176a75dd09" kindref="member">lui_obj_t</ref> *</type>
@@ -92,7 +92,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="2377" column="11" bodyfile="lame_ui.c" bodystart="3250" bodyend="3253" declfile="lame_ui.h" declline="2377" declcolumn="11"/>
+        <location file="lame_ui.h" line="2378" column="11" bodyfile="lame_ui.c" bodystart="3268" bodyend="3271" declfile="lame_ui.h" declline="2378" declcolumn="11"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -117,7 +117,7 @@
 </parameteritem>
 </parameterlist>
 API for <bold><computeroutput>scene</computeroutput></bold> widget</para>
-<para>Scene is the main container of all widgets. It is at the top of hierarchy. Scene has no parent and must have at least one child. All widgets must be decendents of a scene.</para>
+<para>Scene is the main container of all widgets. It is at the top of hierarchy. Scene has no parent and must have at least one child. All widgets must be decedents of a scene.</para>
 <para>An application may have multiple scenes. Only the active scene is rendered and it is set by <computeroutput><ref refid="group__lui__scene_1ga5a2c32f660fbbe39fae9d5f11055aff7" kindref="member">lui_scene_set_active(lui_obj_t* obj_scene)</ref></computeroutput> function. </para>
     </detaileddescription>
   </compounddef>

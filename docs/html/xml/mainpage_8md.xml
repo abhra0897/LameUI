@@ -26,6 +26,9 @@
 <codeline><highlight class="normal">**Who<sp/>is/are<sp/>developing<sp/>it?**<sp/><sp/></highlight></codeline>
 <codeline><highlight class="normal">I,<sp/>alone.</highlight></codeline>
 <codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Screenshots</highlight></codeline>
+<codeline><highlight class="normal">&lt;div<sp/>style=&quot;display:flex;<sp/>justify-content:center;<sp/>align-items:<sp/>center;&quot;&gt;&lt;img<sp/>width=&quot;80%&quot;<sp/>height=&quot;80%&quot;<sp/>src=&quot;../../LameUI_demo1_combined.png&quot;<sp/>/&gt;&lt;/div&gt;</highlight></codeline>
+<codeline></codeline>
 <codeline><highlight class="normal">##<sp/>UI<sp/>Widgets</highlight></codeline>
 <codeline><highlight class="normal">Following<sp/>UI<sp/>widgets<sp/>have<sp/>been<sp/>implemented<sp/>so<sp/>far:</highlight></codeline>
 <codeline></codeline>

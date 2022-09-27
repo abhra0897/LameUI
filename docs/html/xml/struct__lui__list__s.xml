@@ -14,11 +14,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="463" column="18" bodyfile="lame_ui.h" bodystart="463" bodyend="-1"/>
+        <location file="lame_ui.h" line="464" column="18" bodyfile="lame_ui.h" bodystart="464" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="struct__lui__list__s_1a7da715640c664f4958125b6b07ff146b" prot="public" static="no" mutable="no">
-        <type>uint8_t</type>
-        <definition>uint8_t _lui_list_s::selected_item_index</definition>
+      <memberdef kind="variable" id="struct__lui__list__s_1a7beefcf146260fc5ccc4490d2483a9a3" prot="public" static="no" mutable="no">
+        <type>int16_t</type>
+        <definition>int16_t _lui_list_s::selected_item_index</definition>
         <argsstring></argsstring>
         <name>selected_item_index</name>
         <briefdescription>
@@ -27,7 +27,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="464" column="9" bodyfile="lame_ui.h" bodystart="464" bodyend="-1"/>
+        <location file="lame_ui.h" line="465" column="9" bodyfile="lame_ui.h" bodystart="465" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct__lui__list__s_1a3f11db1cd76b7fd4f7cdb35362db8ed6" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -40,7 +40,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="465" column="9" bodyfile="lame_ui.h" bodystart="465" bodyend="-1"/>
+        <location file="lame_ui.h" line="466" column="9" bodyfile="lame_ui.h" bodystart="466" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct__lui__list__s_1abcee3e67b7e0bb077da0a9f4a365c219" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -53,7 +53,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="466" column="9" bodyfile="lame_ui.h" bodystart="466" bodyend="-1"/>
+        <location file="lame_ui.h" line="467" column="9" bodyfile="lame_ui.h" bodystart="467" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct__lui__list__s_1a7f5e25671afc346a69522c2b0837365b" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -66,7 +66,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="467" column="9" bodyfile="lame_ui.h" bodystart="467" bodyend="-1"/>
+        <location file="lame_ui.h" line="468" column="9" bodyfile="lame_ui.h" bodystart="468" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct__lui__list__s_1abfc1e2dd48b4446bd1e3c2b2946f5229" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -79,7 +79,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="468" column="9" bodyfile="lame_ui.h" bodystart="468" bodyend="-1"/>
+        <location file="lame_ui.h" line="469" column="9" bodyfile="lame_ui.h" bodystart="469" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct__lui__list__s_1ab30f37bfbdda566df6a63e6558894132" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -92,7 +92,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="469" column="9" bodyfile="lame_ui.h" bodystart="469" bodyend="-1"/>
+        <location file="lame_ui.h" line="470" column="9" bodyfile="lame_ui.h" bodystart="470" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct__lui__list__s_1a8dfa50e6118182e2a10d20c38fba4ee5" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -105,7 +105,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="470" column="9" bodyfile="lame_ui.h" bodystart="470" bodyend="-1"/>
+        <location file="lame_ui.h" line="471" column="9" bodyfile="lame_ui.h" bodystart="471" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct__lui__list__s_1a8b031d88fc47d1189eaf8a08f44f2be9" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -118,7 +118,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="471" column="9" bodyfile="lame_ui.h" bodystart="471" bodyend="-1"/>
+        <location file="lame_ui.h" line="472" column="9" bodyfile="lame_ui.h" bodystart="472" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct__lui__list__s_1a6181fd3940748dc01db98e2032fbe5e2" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -131,7 +131,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="472" column="9" bodyfile="lame_ui.h" bodystart="472" bodyend="-1"/>
+        <location file="lame_ui.h" line="473" column="9" bodyfile="lame_ui.h" bodystart="473" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct__lui__list__s_1a55b8714846703ca49ea4203f39cd94fe" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -144,7 +144,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="473" column="9" bodyfile="lame_ui.h" bodystart="473" bodyend="-1"/>
+        <location file="lame_ui.h" line="474" column="9" bodyfile="lame_ui.h" bodystart="474" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct__lui__list__s_1adb0c67b0d740d5bfa61d30106928a42a" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -157,7 +157,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="474" column="9" bodyfile="lame_ui.h" bodystart="474" bodyend="-1"/>
+        <location file="lame_ui.h" line="475" column="9" bodyfile="lame_ui.h" bodystart="475" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct__lui__list__s_1ac774f0b9839a5dc36941a4c4c1c20ac1" prot="public" static="no" mutable="no">
         <type>struct <ref refid="struct__lui__list__item" kindref="compound">_lui_list_item</ref> **</type>
@@ -170,7 +170,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="475" column="22" bodyfile="lame_ui.h" bodystart="475" bodyend="-1"/>
+        <location file="lame_ui.h" line="476" column="22" bodyfile="lame_ui.h" bodystart="476" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -218,7 +218,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="lame_ui.h" line="462" column="1" bodyfile="lame_ui.h" bodystart="461" bodyend="478"/>
+    <location file="lame_ui.h" line="463" column="1" bodyfile="lame_ui.h" bodystart="462" bodyend="479"/>
     <listofallmembers>
       <member refid="struct__lui__list__s_1abcee3e67b7e0bb077da0a9f4a365c219" prot="public" virt="non-virtual"><scope>_lui_list_s</scope><name>current_page_index</name></member>
       <member refid="struct__lui__list__s_1a72287d7249633e3e35b25e5835e4d836" prot="public" virt="non-virtual"><scope>_lui_list_s</scope><name>font</name></member>
@@ -231,7 +231,7 @@
       <member refid="struct__lui__list__s_1a8b031d88fc47d1189eaf8a08f44f2be9" prot="public" virt="non-virtual"><scope>_lui_list_s</scope><name>max_items</name></member>
       <member refid="struct__lui__list__s_1a3f11db1cd76b7fd4f7cdb35362db8ed6" prot="public" virt="non-virtual"><scope>_lui_list_s</scope><name>page_count</name></member>
       <member refid="struct__lui__list__s_1abfc1e2dd48b4446bd1e3c2b2946f5229" prot="public" virt="non-virtual"><scope>_lui_list_s</scope><name>page_first_item_index</name></member>
-      <member refid="struct__lui__list__s_1a7da715640c664f4958125b6b07ff146b" prot="public" virt="non-virtual"><scope>_lui_list_s</scope><name>selected_item_index</name></member>
+      <member refid="struct__lui__list__s_1a7beefcf146260fc5ccc4490d2483a9a3" prot="public" virt="non-virtual"><scope>_lui_list_s</scope><name>selected_item_index</name></member>
       <member refid="struct__lui__list__s_1a8dfa50e6118182e2a10d20c38fba4ee5" prot="public" virt="non-virtual"><scope>_lui_list_s</scope><name>text_align</name></member>
     </listofallmembers>
   </compounddef>

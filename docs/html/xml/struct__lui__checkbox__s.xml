@@ -14,7 +14,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="422" column="9" bodyfile="lame_ui.h" bodystart="438" bodyend="-1"/>
+        <location file="lame_ui.h" line="423" column="9" bodyfile="lame_ui.h" bodystart="439" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct__lui__checkbox__s_1a0a3e30a255ff25290294c392ec8be07f" prot="public" static="no" mutable="no">
         <type>struct <ref refid="struct__lui__checkbox__style__s" kindref="compound">_lui_checkbox_style_s</ref></type>
@@ -27,7 +27,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="422" column="9" bodyfile="lame_ui.h" bodystart="439" bodyend="-1"/>
+        <location file="lame_ui.h" line="423" column="9" bodyfile="lame_ui.h" bodystart="440" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -82,7 +82,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="lame_ui.h" line="437" column="1" bodyfile="lame_ui.h" bodystart="436" bodyend="440"/>
+    <location file="lame_ui.h" line="438" column="1" bodyfile="lame_ui.h" bodystart="437" bodyend="441"/>
     <listofallmembers>
       <member refid="struct__lui__checkbox__s_1a58f3ea96efccdc80717c2055e9a99167" prot="public" virt="non-virtual"><scope>_lui_checkbox_s</scope><name>label</name></member>
       <member refid="struct__lui__checkbox__s_1a0a3e30a255ff25290294c392ec8be07f" prot="public" virt="non-virtual"><scope>_lui_checkbox_s</scope><name>style</name></member>

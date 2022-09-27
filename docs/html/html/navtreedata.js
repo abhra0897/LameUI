@@ -49,7 +49,7 @@ var NAVTREEINDEX =
 "annotated.html",
 "group__lui__checkbox.html#gaa7343339b91349d29de783a1a5f10338",
 "group__lui__object.html#gae97c5a363860c5fa7de4d40f167592a4",
-"lame__ui_8h.html#ae13fea715ddd1bda242832f12d175f21"
+"lame__ui_8h.html#ae1b410c3301e49378ac64f8c01b1a8b1"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

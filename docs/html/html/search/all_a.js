@@ -185,7 +185,7 @@ var searchData=
   ['lui_5fupdate_244',['lui_update',['../group__lui__core.html#gaa4a3c7694929ad0b6c5cd565dd6e7304',1,'lui_update():&#160;lame_ui.c'],['../group__lui__core.html#gaa4a3c7694929ad0b6c5cd565dd6e7304',1,'lui_update():&#160;lame_ui.c']]],
   ['lui_5fuse_5fbuttongrid_245',['LUI_USE_BUTTONGRID',['../group__LUI__USE__OBJECT.html#ga4cbf5b51287f460c68b268c5bd598871',1,'lame_ui.h']]],
   ['lui_5fuse_5fcheckbox_246',['LUI_USE_CHECKBOX',['../group__LUI__USE__OBJECT.html#ga06d5e9b628c01b45bc47c6af3f735ba5',1,'lame_ui.h']]],
-  ['lui_5fuse_5fdark_5ftheme_247',['LUI_USE_DARK_THEME',['../group__LUI__USER__CONFIG.html#gab6571f6979947007287617835dafc85c',1,'LUI_USE_DARK_THEME():&#160;lame_ui.h'],['../group__LUI__USER__CONFIG.html#gab6571f6979947007287617835dafc85c',1,'LUI_USE_DARK_THEME():&#160;lame_ui.h']]],
+  ['lui_5fuse_5fdark_5ftheme_247',['LUI_USE_DARK_THEME',['../group__LUI__USER__CONFIG.html#gab6571f6979947007287617835dafc85c',1,'lame_ui.h']]],
   ['lui_5fuse_5fkeyboard_248',['LUI_USE_KEYBOARD',['../group__LUI__USE__OBJECT.html#gab8fdedff83ca539ac192a8943d38177e',1,'lame_ui.h']]],
   ['lui_5fuse_5flinechart_249',['LUI_USE_LINECHART',['../group__LUI__USE__OBJECT.html#ga82c1ecd24694c1c50e9f804b510a5f68',1,'lame_ui.h']]],
   ['lui_5fuse_5flist_250',['LUI_USE_LIST',['../group__LUI__USE__OBJECT.html#gab31bbf353b4a1abe8a3a8374e47098c7',1,'lame_ui.h']]],

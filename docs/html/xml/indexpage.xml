@@ -28,6 +28,11 @@
  I, alone.</para>
 </sect2>
 <sect1 id="index_1autotoc_md8">
+<title>Screenshots</title>
+<para><image type="html" name="LameUI_demo1_combined.png" inline="yes"></image>
+</para>
+</sect1>
+<sect1 id="index_1autotoc_md9">
 <title>UI Widgets</title>
 <para>Following UI widgets have been implemented so far:</para>
 <para><orderedlist>

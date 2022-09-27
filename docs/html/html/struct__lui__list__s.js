@@ -11,6 +11,6 @@ var struct__lui__list__s =
     [ "max_items", "struct__lui__list__s.html#a8b031d88fc47d1189eaf8a08f44f2be9", null ],
     [ "page_count", "struct__lui__list__s.html#a3f11db1cd76b7fd4f7cdb35362db8ed6", null ],
     [ "page_first_item_index", "struct__lui__list__s.html#abfc1e2dd48b4446bd1e3c2b2946f5229", null ],
-    [ "selected_item_index", "struct__lui__list__s.html#a7da715640c664f4958125b6b07ff146b", null ],
+    [ "selected_item_index", "struct__lui__list__s.html#a7beefcf146260fc5ccc4490d2483a9a3", null ],
     [ "text_align", "struct__lui__list__s.html#a8dfa50e6118182e2a10d20c38fba4ee5", null ]
 ];

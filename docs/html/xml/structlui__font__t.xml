@@ -14,7 +14,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="254" column="26" bodyfile="lame_ui.h" bodystart="254" bodyend="-1"/>
+        <location file="lame_ui.h" line="255" column="26" bodyfile="lame_ui.h" bodystart="255" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structlui__font__t_1a09a800d8a126e3dcee277f2cc3d1343c" prot="public" static="no" mutable="no">
         <type>const uint8_t</type>
@@ -27,7 +27,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="255" column="15" bodyfile="lame_ui.h" bodystart="255" bodyend="-1"/>
+        <location file="lame_ui.h" line="256" column="15" bodyfile="lame_ui.h" bodystart="256" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structlui__font__t_1a297611d226b874085c6bcd064c031a24" prot="public" static="no" mutable="no">
         <type>const <ref refid="struct__lui__glyph__t" kindref="compound">_lui_glyph_t</ref> *</type>
@@ -40,7 +40,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="256" column="20" bodyfile="lame_ui.h" bodystart="256" bodyend="-1"/>
+        <location file="lame_ui.h" line="257" column="20" bodyfile="lame_ui.h" bodystart="257" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -67,7 +67,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="lame_ui.h" line="253" column="1" bodyfile="lame_ui.h" bodystart="252" bodyend="257"/>
+    <location file="lame_ui.h" line="254" column="1" bodyfile="lame_ui.h" bodystart="253" bodyend="258"/>
     <listofallmembers>
       <member refid="structlui__font__t_1a047cd82e3ccea9908cd6fc8df72c6619" prot="public" virt="non-virtual"><scope>lui_font_t</scope><name>bitmap</name></member>
       <member refid="structlui__font__t_1a09a800d8a126e3dcee277f2cc3d1343c" prot="public" virt="non-virtual"><scope>lui_font_t</scope><name>glyph_count</name></member>
