@@ -14,7 +14,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="143" column="9" bodyfile="lame_ui.h" bodystart="143" bodyend="-1"/>
+        <location file="lame_ui.h" line="142" column="9" bodyfile="lame_ui.h" bodystart="142" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__LUI__KEYBOARD__MODE_1ga6c7dfef998e05b11ae2bcfdb5af32f27" prot="public" static="no">
         <name>LUI_KEYBOARD_MODE_TXT_UPPER</name>
@@ -26,7 +26,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="144" column="9" bodyfile="lame_ui.h" bodystart="144" bodyend="-1"/>
+        <location file="lame_ui.h" line="143" column="9" bodyfile="lame_ui.h" bodystart="143" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__LUI__KEYBOARD__MODE_1gaf40e758476c4dacde5c9c79dd265e7eb" prot="public" static="no">
         <name>LUI_KEYBOARD_MODE_TXT_SPCL</name>
@@ -38,7 +38,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="145" column="9" bodyfile="lame_ui.h" bodystart="145" bodyend="-1"/>
+        <location file="lame_ui.h" line="144" column="9" bodyfile="lame_ui.h" bodystart="144" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

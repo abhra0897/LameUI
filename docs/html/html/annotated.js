@@ -15,6 +15,7 @@ var annotated =
     [ "_lui_label_style_s", "struct__lui__label__style__s.html", "struct__lui__label__style__s" ],
     [ "_lui_linechart_s", "struct__lui__linechart__s.html", "struct__lui__linechart__s" ],
     [ "_lui_linechart_style_s", "struct__lui__linechart__style__s.html", "struct__lui__linechart__style__s" ],
+    [ "_lui_list_item", "struct__lui__list__item.html", "struct__lui__list__item" ],
     [ "_lui_list_s", "struct__lui__list__s.html", "struct__lui__list__s" ],
     [ "_lui_list_style_s", "struct__lui__list__style__s.html", "struct__lui__list__style__s" ],
     [ "_lui_main_s", "struct__lui__main__s.html", "struct__lui__main__s" ],

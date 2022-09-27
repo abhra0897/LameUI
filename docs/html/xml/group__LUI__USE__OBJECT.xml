@@ -13,7 +13,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="52" column="9" bodyfile="lame_ui.h" bodystart="52" bodyend="-1"/>
+        <location file="lame_ui.h" line="51" column="9" bodyfile="lame_ui.h" bodystart="51" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__LUI__USE__OBJECT_1ga090cd6d9140af68e21d5d1d466011b51" prot="public" static="no">
         <name>LUI_USE_SWITCH</name>
@@ -24,7 +24,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="53" column="9" bodyfile="lame_ui.h" bodystart="53" bodyend="-1"/>
+        <location file="lame_ui.h" line="52" column="9" bodyfile="lame_ui.h" bodystart="52" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__LUI__USE__OBJECT_1ga06d5e9b628c01b45bc47c6af3f735ba5" prot="public" static="no">
         <name>LUI_USE_CHECKBOX</name>
@@ -35,7 +35,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="54" column="9" bodyfile="lame_ui.h" bodystart="54" bodyend="-1"/>
+        <location file="lame_ui.h" line="53" column="9" bodyfile="lame_ui.h" bodystart="53" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__LUI__USE__OBJECT_1ga037a75e722772914ddedf12f38f1c431" prot="public" static="no">
         <name>LUI_USE_SLIDER</name>
@@ -46,7 +46,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="55" column="9" bodyfile="lame_ui.h" bodystart="55" bodyend="-1"/>
+        <location file="lame_ui.h" line="54" column="9" bodyfile="lame_ui.h" bodystart="54" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__LUI__USE__OBJECT_1gab31bbf353b4a1abe8a3a8374e47098c7" prot="public" static="no">
         <name>LUI_USE_LIST</name>
@@ -57,7 +57,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="56" column="9" bodyfile="lame_ui.h" bodystart="56" bodyend="-1"/>
+        <location file="lame_ui.h" line="55" column="9" bodyfile="lame_ui.h" bodystart="55" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__LUI__USE__OBJECT_1gae65a21daf3dd06d5a8cb7e1d89d01e3f" prot="public" static="no">
         <name>LUI_USE_PANEL</name>
@@ -68,7 +68,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="57" column="9" bodyfile="lame_ui.h" bodystart="57" bodyend="-1"/>
+        <location file="lame_ui.h" line="56" column="9" bodyfile="lame_ui.h" bodystart="56" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__LUI__USE__OBJECT_1ga4b024b1b29ba110778de47b1d0e3f480" prot="public" static="no">
         <name>LUI_USE_TEXTBOX</name>
@@ -79,7 +79,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="58" column="9" bodyfile="lame_ui.h" bodystart="58" bodyend="-1"/>
+        <location file="lame_ui.h" line="57" column="9" bodyfile="lame_ui.h" bodystart="57" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__LUI__USE__OBJECT_1ga4cbf5b51287f460c68b268c5bd598871" prot="public" static="no">
         <name>LUI_USE_BUTTONGRID</name>
@@ -90,7 +90,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="59" column="9" bodyfile="lame_ui.h" bodystart="59" bodyend="-1"/>
+        <location file="lame_ui.h" line="58" column="9" bodyfile="lame_ui.h" bodystart="58" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__LUI__USE__OBJECT_1gab8fdedff83ca539ac192a8943d38177e" prot="public" static="no">
         <name>LUI_USE_KEYBOARD</name>
@@ -101,7 +101,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="61" column="10" bodyfile="lame_ui.h" bodystart="61" bodyend="-1"/>
+        <location file="lame_ui.h" line="60" column="9" bodyfile="lame_ui.h" bodystart="60" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

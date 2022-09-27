@@ -7,6 +7,7 @@ This page links to the various example code fragments in this documentation.
  - [Button example](@ref button_example)
  - [Switch example](@ref switch_example)
  - [Checkbox example](@ref checkbox_example)
+ - [List example](@ref list_example)
  - [Slider example](@ref slider_example)
  - Buttongrid examples
     - [Buttongrid example 1](@ref buttongrid_example1)

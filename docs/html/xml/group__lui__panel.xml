@@ -19,7 +19,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="2115" column="11" bodyfile="lame_ui.c" bodystart="2766" bodyend="2792" declfile="lame_ui.h" declline="2115" declcolumn="11"/>
+        <location file="lame_ui.h" line="2279" column="11" bodyfile="lame_ui.c" bodystart="3032" bodyend="3058" declfile="lame_ui.h" declline="2279" declcolumn="11"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__panel_1ga5e74112373754dd1f38965450efb6700" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -47,7 +47,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="2122" column="6" bodyfile="lame_ui.c" bodystart="2794" bodyend="2806" declfile="lame_ui.h" declline="2122" declcolumn="6"/>
+        <location file="lame_ui.h" line="2286" column="6" bodyfile="lame_ui.c" bodystart="3060" bodyend="3072" declfile="lame_ui.h" declline="2286" declcolumn="6"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

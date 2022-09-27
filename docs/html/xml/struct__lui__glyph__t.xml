@@ -14,7 +14,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="237" column="16" bodyfile="lame_ui.h" bodystart="237" bodyend="-1"/>
+        <location file="lame_ui.h" line="245" column="12" bodyfile="lame_ui.h" bodystart="245" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct__lui__glyph__t_1ac723ca484c5ba30ed88c390fa412236e" prot="public" static="no" mutable="no">
         <type>const uint8_t</type>
@@ -27,7 +27,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="238" column="19" bodyfile="lame_ui.h" bodystart="238" bodyend="-1"/>
+        <location file="lame_ui.h" line="246" column="15" bodyfile="lame_ui.h" bodystart="246" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct__lui__glyph__t_1ad843c476c34317cc85d60ef6052ecfea" prot="public" static="no" mutable="no">
         <type>const uint16_t</type>
@@ -40,14 +40,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="239" column="20" bodyfile="lame_ui.h" bodystart="239" bodyend="-1"/>
+        <location file="lame_ui.h" line="247" column="16" bodyfile="lame_ui.h" bodystart="247" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="lame_ui.h" line="236" column="1" bodyfile="lame_ui.h" bodystart="235" bodyend="240"/>
+    <location file="lame_ui.h" line="244" column="1" bodyfile="lame_ui.h" bodystart="243" bodyend="248"/>
     <listofallmembers>
       <member refid="struct__lui__glyph__t_1a8ea8c92f23daaea9ed52d475a05dee43" prot="public" virt="non-virtual"><scope>_lui_glyph_t</scope><name>character</name></member>
       <member refid="struct__lui__glyph__t_1ad843c476c34317cc85d60ef6052ecfea" prot="public" virt="non-virtual"><scope>_lui_glyph_t</scope><name>payload_index</name></member>

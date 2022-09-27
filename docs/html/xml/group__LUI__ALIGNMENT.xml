@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="group__LUI__ALIGNMENT" kind="group">
+    <compoundname>LUI_ALIGNMENT</compoundname>
+    <title>Content alignment flags</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__LUI__ALIGNMENT_1ga05a191a059215fde2bf76f64d594b5dc" prot="public" static="no">
+        <name>LUI_ALIGN_LEFT</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>ALign content to left. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="210" column="9" bodyfile="lame_ui.h" bodystart="210" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__LUI__ALIGNMENT_1ga5cf4aa39591271a70348eb2c5983619a" prot="public" static="no">
+        <name>LUI_ALIGN_CENTER</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Align content to center. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="211" column="9" bodyfile="lame_ui.h" bodystart="211" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__LUI__ALIGNMENT_1gaa236d8be24fd5839b961908e14174eb8" prot="public" static="no">
+        <name>LUI_ALIGN_RIGHT</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>Align content to right. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="212" column="9" bodyfile="lame_ui.h" bodystart="212" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Content alignment flags. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -36,9 +36,9 @@ void lui_init(uint8_t mem_block[], uint16_t size)
 	g_lui_main->default_font = &FONT_lui_default;
 	g_lui_main->disp_drv = NULL;
 	g_lui_main->touch_input_dev = NULL;
-	//  g_lui_main->last_touch_data.x = -1;
-	//  g_lui_main->last_touch_data.y = -1;
-	//  g_lui_main->last_touch_data.is_pressed = -1;
+	g_lui_main->last_touch_data.x = -1;
+	g_lui_main->last_touch_data.y = -1;
+	g_lui_main->last_touch_data.is_pressed = 0;
 	g_lui_main->input_event_clicked = 0;
 	g_lui_main->input_state_pressed = 0;
 	g_lui_main->total_scenes = 0;
@@ -64,12 +64,13 @@ void lui_update()
 	// Reading input
 	obj_caused_cb = _lui_process_input_of_act_scene();
 	if (g_needs_render)
+	{
 		_lui_object_render_parent_with_children( g_lui_main->active_scene);
-
-	// If user is buffering the draw_pixels_area calls instead of instantly flushing to display, 
-	// this callback signals that render is finished and buffer should be flushed to display now
-	if ( g_lui_main->disp_drv->render_complete_cb != NULL)
-		 g_lui_main->disp_drv->render_complete_cb();
+		// If user is buffering the draw_pixels_area calls instead of instantly flushing to display, 
+		// this callback signals that render is finished and buffer should be flushed to display now
+		if ( g_lui_main->disp_drv->render_complete_cb != NULL)
+			g_lui_main->disp_drv->render_complete_cb();
+	}
 
 	//All rendering done, now we'll handle the callback
 	// if the object that caused callback is not NULL and if the object has a callback func,
@@ -576,11 +577,11 @@ void lui_button_draw(lui_obj_t* obj)
 	str_width_height[1] = str_width_height[1] > btn_height ? btn_height : str_width_height[1];
 
 	temp_y = temp_y + (btn_height - str_width_height[1]) / 2;
-	if (btn->label.text_align == ALIGN_CENTER)
+	if (btn->label.text_align == LUI_ALIGN_CENTER)
 	{
 		temp_x = temp_x + (btn_width - str_width_height[0]) / 2;
 	}
-	else if (btn->label.text_align == ALIGN_RIGHT)
+	else if (btn->label.text_align == LUI_ALIGN_RIGHT)
 	{
 		temp_x = temp_x + (btn_width - str_width_height[0]) - padding;
 	}
@@ -619,7 +620,7 @@ lui_obj_t* lui_button_create()
 	initial_button->label.text = "";
 	initial_button->style.label_color = LUI_STYLE_BUTTON_LABEL_COLOR;
 	initial_button->label.font = g_lui_main->default_font;
-	initial_button->label.text_align = ALIGN_CENTER;
+	initial_button->label.text_align = LUI_ALIGN_CENTER;
 
 	lui_obj_t* obj = _lui_object_create();
 	if (obj == NULL)
@@ -773,7 +774,9 @@ void lui_list_draw(lui_obj_t* obj)
 		uint16_t y = obj->y + list->items[i]->area.y1;
 		uint16_t w = list->items[i]->area.x2 - list->items[i]->area.x1 + 1;
 		uint16_t h = list->items[i]->area.y2 - list->items[i]->area.y1 + 1;
-		lui_gfx_draw_rect_fill(x, y, w, h, item_bg_color);
+
+		if (i == list->selected_item_index)
+			lui_gfx_draw_rect_fill(x, y, w, h, LUI_STYLE_LIST_ITEM_PRESSED_COLOR);
 
 		lui_gfx_draw_rect(x, y, w, h+1, 1, LUI_STYLE_LIST_ITEM_BORDER_COLOR);
 		
@@ -786,9 +789,9 @@ void lui_list_draw(lui_obj_t* obj)
 
 		y = y + ((h - dim[1]) / 2);
 		uint8_t padding = 2;
-		if (list->text_align == ALIGN_CENTER)
+		if (list->text_align == LUI_ALIGN_CENTER)
 			x = x + (w - dim[0]) / 2;
-		else if (list->text_align == ALIGN_RIGHT)
+		else if (list->text_align == LUI_ALIGN_RIGHT)
 			x = x + (w - dim[0]) - padding;
 		else
 			x = x + padding;
@@ -831,9 +834,9 @@ lui_obj_t* lui_list_create()
 	initial_list->items_per_page = 0;
 	initial_list->item_min_height = 0;
 	initial_list->font = g_lui_main->default_font;
-	initial_list->text_align = ALIGN_LEFT;
+	initial_list->text_align = LUI_ALIGN_LEFT;
 	initial_list->is_dropdown = 0;
-	initial_list->is_expanded = 0;
+	initial_list->is_expanded = 1;
 	initial_list->max_items = 0;
 	initial_list->items_cnt = 0;
 	initial_list->items = NULL;
@@ -925,21 +928,21 @@ void lui_list_prepare(lui_obj_t* obj)
 	lui_obj_t* nav_expand = nav_nxt->next_sibling;
 	lui_obj_t* nav_text = nav_expand->next_sibling;
 
-	nav_nxt->x = obj->x + (obj->common_style.width / 2) + 10; // index 1 = nav button nxt
-	nav_prev->x = obj->x + 10;	// index 0 = nav button prev
+	nav_nxt->x = obj->x + (obj->common_style.width / 2) + 0; // index 1 = nav button nxt
+	nav_prev->x = obj->x + 0;	// index 0 = nav button prev
 	nav_nxt->y = nav_prev->y = obj->y + item_start_y + list_usable_height;
-	nav_nxt->common_style.width = nav_prev->common_style.width = (obj->common_style.width / 2) - 20; // 4 is just margin
+	nav_nxt->common_style.width = nav_prev->common_style.width = (obj->common_style.width / 2) - 0; // 4 is just margin
 	nav_nxt->common_style.height = nav_prev->common_style.height = item_height;
 	((lui_button_t* )nav_nxt->obj_main_data)->label.font = list->font;
 	((lui_button_t* )nav_prev->obj_main_data)->label.font = list->font;
 
 	nav_text->x = obj->x;
 	nav_text->y = obj->y;
-	nav_text->common_style.width = obj->common_style.width * 0.7;
+	nav_text->common_style.width = obj->common_style.width - (list->font->bitmap->size_y + 4);
 	nav_text->common_style.height = item_height;
 	nav_expand->x = obj->x + nav_text->common_style.width;
 	nav_expand->y = obj->y;
-	nav_expand->common_style.width = obj->common_style.width - nav_text->common_style.width;
+	nav_expand->common_style.width = list->font->bitmap->size_y + 4; //obj->common_style.width - nav_text->common_style.width;
 	nav_expand->common_style.height = item_height;
 	((lui_button_t* )nav_expand->obj_main_data)->label.font = list->font;
 	((lui_button_t* )nav_text->obj_main_data)->label.font = list->font;
@@ -1044,6 +1047,115 @@ int8_t lui_list_remove_all(lui_obj_t* obj)
 	list->items_cnt = 0;
 	_lui_object_set_need_refresh(obj);
 	return 0;
+}
+
+int16_t lui_list_get_selected_item_index(lui_obj_t* obj)
+{
+	if (obj == NULL)
+		return -1;
+	// type check
+	if (obj->obj_type != LUI_OBJ_LIST)
+		return -1;
+
+	return ((lui_list_t* )(obj->obj_main_data))->selected_item_index;
+}
+
+int16_t lui_list_set_selected_item_index(lui_obj_t* obj, uint8_t item_index)
+{
+	if (obj == NULL)
+		return -1;
+	// type check
+	if (obj->obj_type != LUI_OBJ_LIST)
+		return -1;
+	lui_list_t* list = (lui_list_t* )obj->obj_main_data;
+	if (item_index >= list->items_cnt)
+		return -1;
+
+	list->selected_item_index = item_index;
+	return 0;
+	/* Must call list_prepare() after calling this */
+}
+
+char* lui_list_get_item_text(lui_obj_t* obj, uint8_t item_index)
+{
+	if (obj == NULL)
+		return NULL;
+	// type check
+	if (obj->obj_type != LUI_OBJ_LIST)
+		return NULL;
+
+	lui_list_t* list = (lui_list_t* )obj->obj_main_data;
+	if (item_index >= list->items_cnt)
+		return NULL;
+	return list->items[item_index]->text;
+}
+
+int8_t lui_list_set_item_text(lui_obj_t* obj, const char* text, uint8_t item_index)
+{
+	if (obj == NULL)
+		return -1;
+	// type check
+	if (obj->obj_type != LUI_OBJ_LIST)
+		return -1;
+
+	lui_list_t* list = (lui_list_t* )obj->obj_main_data;
+	if (item_index >= list->items_cnt)
+		return -1;
+
+	list->items[item_index]->text = text;
+	return 0;
+
+	/* Must call list_prepare() after calling this */
+}
+
+int8_t lui_list_set_dropdown_mode(lui_obj_t* obj, uint8_t is_dropdown)
+{
+	if (obj == NULL)
+		return -1;
+	// type check
+	if (obj->obj_type != LUI_OBJ_LIST)
+		return -1;
+
+	lui_list_t* list = (lui_list_t* )obj->obj_main_data;
+	if (list->is_dropdown == is_dropdown)
+		return -1;
+	list->is_dropdown = is_dropdown;
+	if (is_dropdown)
+	{
+		list->is_expanded = 0;
+		_lui_object_set_need_refresh(obj->parent);
+	}
+	else
+	{
+		list->is_expanded = 1;
+		_lui_object_set_need_refresh(obj);
+	}
+	return 0;
+
+	/* Must call list_prepare() after calling this */
+}
+
+int8_t lui_list_set_dropdown_expand(lui_obj_t* obj, uint8_t is_expanded)
+{
+	if (obj == NULL)
+		return -1;
+	// type check
+	if (obj->obj_type != LUI_OBJ_LIST)
+		return -1;
+
+	lui_list_t* list = (lui_list_t* )obj->obj_main_data;
+	if (!list->is_dropdown)
+		return -1;
+	if (list->is_expanded == is_expanded)
+		return -1;
+	list->is_expanded = is_expanded;
+	if (is_expanded)
+		_lui_object_set_need_refresh(obj);
+	else
+		_lui_object_set_need_refresh(obj->parent);
+	return 0;
+
+	/* Must call list_prepare() after calling this */
 }
 
 void lui_list_set_item_min_height(lui_obj_t* obj, uint8_t height)
@@ -1243,6 +1355,10 @@ void _lui_list_add_nav_buttons(lui_obj_t* obj)
 	_lui_list_add_button_obj(obj, obj_nav_btn_nxt);
 
 	/* For handling `dropdown` functionalities */
+	/* `nav_btn_expand` button is the dropdown arrow,
+		`nav_btn_text` button is the selected item text button
+		Clicking on either of them will expand/contract the list
+	 */
 	lui_obj_t* obj_nav_btn_expand = lui_button_create();
 	lui_obj_t* obj_nav_btn_text = lui_button_create();
 	lui_button_set_label_text(obj_nav_btn_expand, LUI_ICON_CARET_DOWN);
@@ -1250,6 +1366,7 @@ void _lui_list_add_nav_buttons(lui_obj_t* obj)
 	lui_button_set_label_color(obj_nav_btn_text, LUI_STYLE_LIST_NAV_LABEL_COLOR);
 	lui_button_set_extra_colors(obj_nav_btn_expand, LUI_STYLE_LIST_NAV_PRESSED_COLOR, LUI_STYLE_LIST_NAV_SELECTION_COLOR);
 	lui_button_set_extra_colors(obj_nav_btn_text, LUI_STYLE_LIST_NAV_PRESSED_COLOR, LUI_STYLE_LIST_NAV_SELECTION_COLOR);
+	lui_button_set_label_align(obj_nav_btn_text, LUI_ALIGN_LEFT);
 	obj_nav_btn_expand->common_style.border_visible = 0;
 	obj_nav_btn_text->common_style.border_visible = 1;
 	obj_nav_btn_text->common_style.border_color = LUI_STYLE_LIST_BORDER_COLOR;
@@ -3715,6 +3832,7 @@ lui_obj_t* _lui_process_input_of_act_scene()
 
 	if ( g_lui_main->touch_input_dev != NULL)
 	{
+		/* Why??!! */
 		input_dev_type = LUI_INPUT_TYPE_TOUCH;
 	}
 	else
@@ -3734,6 +3852,16 @@ lui_obj_t* _lui_process_input_of_act_scene()
 	{
 		g_lui_main->touch_input_dev->read_touch_input_cb(&input_touch_data);
 		input_is_pressed = input_touch_data.is_pressed;
+
+		if (g_lui_main->last_touch_data.x == input_touch_data.x &&
+			g_lui_main->last_touch_data.y == input_touch_data.y &&
+			g_lui_main->last_touch_data.is_pressed == input_touch_data.is_pressed)
+		{
+			return NULL;
+		}
+		g_lui_main->last_touch_data.x = input_touch_data.x;
+		g_lui_main->last_touch_data.y = input_touch_data.y;
+		g_lui_main->last_touch_data.is_pressed = input_touch_data.is_pressed;
 	}
 	
 
@@ -3953,7 +4081,6 @@ uint8_t _lui_check_if_active_obj_touch_input(lui_touch_input_data_t* input, lui_
 						list->selected_item_index = i;
 						g_lui_main->active_obj = obj;
 						is_active = 1;
-						fprintf(stderr, "Index: %d\t", i);
 						break;
 					}
 				}
@@ -4028,10 +4155,23 @@ void _lui_set_obj_props_on_touch_input(lui_touch_input_data_t* input, lui_obj_t*
 		}
 		#endif
 
+		#if defined(LUI_USE_LIST)
+		if (obj->obj_type == LUI_OBJ_LIST)
+		{
+			lui_list_t* list = (lui_list_t* )(obj->obj_main_data);
+			if (list->is_dropdown)
+			{
+				lui_obj_t* nav_btn_text = lui_object_get_child(obj, 3);
+				lui_button_set_label_text(nav_btn_text, list->items[list->selected_item_index]->text);
+			}
+		}
+		#endif
+
 		#if defined(LUI_USE_PANEL)
 		if (obj->obj_type != LUI_OBJ_PANEL)
 			_lui_object_set_need_refresh(obj);
 		#endif
+
 	}
 	
 

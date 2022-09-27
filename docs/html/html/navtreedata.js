@@ -46,9 +46,9 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "akshar__light__32_8h_source.html",
-"group__lui__dispdrv.html#ga1d63878ad3c05200478a7f7b958faa19",
-"group__lui__slider.html#ga9a0709df634fac8694c67c91fe18d64c",
-"struct__lui__checkbox__s.html#a0a3e30a255ff25290294c392ec8be07f"
+"group__lui__core.html",
+"group__lui__panel.html#ga2235782213592f3f575f076d5afad46a",
+"lame__ui_8h.html#af8ceddb5898328c6a03520e45b8ca5f4"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

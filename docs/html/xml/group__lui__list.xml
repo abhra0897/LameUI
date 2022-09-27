@@ -19,7 +19,50 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1400" column="11" bodyfile="lame_ui.c" bodystart="727" bodyend="764" declfile="lame_ui.h" declline="1400" declcolumn="11"/>
+        <location file="lame_ui.h" line="1467" column="11" bodyfile="lame_ui.c" bodystart="813" bodyend="855" declfile="lame_ui.h" declline="1467" declcolumn="11"/>
+      </memberdef>
+      <memberdef kind="function" id="group__lui__list_1ga8d36d05056be1235f0314acbdac0371e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int8_t</type>
+        <definition>int8_t lui_list_set_max_items_count</definition>
+        <argsstring>(lui_obj_t *obj, uint8_t max_items_cnt)</argsstring>
+        <name>lui_list_set_max_items_count</name>
+        <param>
+          <type><ref refid="lame__ui_8h_1a5a7ccb45f639e22e43b3ac176a75dd09" kindref="member">lui_obj_t</ref> *</type>
+          <declname>obj</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>max_items_cnt</declname>
+        </param>
+        <briefdescription>
+<para>Set maximum item count for a list. The list cannot store items more than this number. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function must be called once before adding items to the list. Trying to add items before setting max items count will fail. Once max items count is set, it can not be changed anymore. Calling this function again will fail and return -1.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>obj</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>list object </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>max_items_cnt</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>maximum items count </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>int8_t error code. 0: Success, -1: Fail </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="1482" column="8" bodyfile="lame_ui.c" bodystart="973" bodyend="990" declfile="lame_ui.h" declline="1482" declcolumn="8"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__list_1ga04c3b17479a68f18ad15e9209e79b225" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -47,11 +90,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1407" column="6" bodyfile="lame_ui.c" bodystart="706" bodyend="725" declfile="lame_ui.h" declline="1407" declcolumn="6"/>
+        <location file="lame_ui.h" line="1489" column="6" bodyfile="lame_ui.c" bodystart="735" bodyend="811" declfile="lame_ui.h" declline="1489" declcolumn="6"/>
       </memberdef>
-      <memberdef kind="function" id="group__lui__list_1ga44ee84ed9cee3f474917ce51766582c6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="lame__ui_8h_1a5a7ccb45f639e22e43b3ac176a75dd09" kindref="member">lui_obj_t</ref> *</type>
-        <definition>lui_obj_t* lui_list_add_item</definition>
+      <memberdef kind="function" id="group__lui__list_1ga1641e5189b244dab791439e1cdf74a5f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int8_t</type>
+        <definition>int8_t lui_list_add_item</definition>
         <argsstring>(lui_obj_t *obj_list, const char *text)</argsstring>
         <name>lui_list_add_item</name>
         <param>
@@ -63,9 +106,10 @@
           <declname>text</declname>
         </param>
         <briefdescription>
-<para>Add an item to a list. This creates a button object and returns it. </para>
+<para>Add an item to the end of the list. </para>
         </briefdescription>
         <detaileddescription>
+<para>Fails if added items exceeds <computeroutput>max items count</computeroutput> set by <computeroutput><ref refid="group__lui__list_1ga8d36d05056be1235f0314acbdac0371e" kindref="member">lui_list_set_max_items_count()</ref></computeroutput> function</para>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
 <parametername>obj_list</parametername>
@@ -79,45 +123,342 @@
 <parametername>text</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>text of the item </para>
+<para>item text </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>lui_obj_t* item of the list as a button object </para>
+<simplesect kind="return"><para>int8_t error code. 0: Success, -1: Fail </para>
 </simplesect>
 </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1416" column="11" bodyfile="lame_ui.c" bodystart="880" bodyend="922" declfile="lame_ui.h" declline="1416" declcolumn="11"/>
+        <location file="lame_ui.h" line="1501" column="8" bodyfile="lame_ui.c" bodystart="992" bodyend="1015" declfile="lame_ui.h" declline="1501" declcolumn="8"/>
       </memberdef>
-      <memberdef kind="function" id="group__lui__list_1gabfcf03c5664bd32033468f249cee095f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void lui_list_delete_item</definition>
-        <argsstring>(lui_obj_t *obj_item_addr)</argsstring>
-        <name>lui_list_delete_item</name>
+      <memberdef kind="function" id="group__lui__list_1ga9cf6c2e13b0440ab82838abe1507f299" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int8_t</type>
+        <definition>int8_t lui_list_remove_item</definition>
+        <argsstring>(lui_obj_t *obj, uint8_t item_index)</argsstring>
+        <name>lui_list_remove_item</name>
         <param>
           <type><ref refid="lame__ui_8h_1a5a7ccb45f639e22e43b3ac176a75dd09" kindref="member">lui_obj_t</ref> *</type>
-          <declname>obj_item_addr</declname>
+          <declname>obj</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>item_index</declname>
         </param>
         <briefdescription>
-<para>Deletes an item from list. </para>
+<para>Remove an item from list at a specific index. </para>
         </briefdescription>
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>obj_item_addr</parametername>
+<parametername>obj</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>the button item to be deleted </para>
+<para>list object </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>item_index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>item index </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
+<simplesect kind="return"><para>int8_t error code. 0: Success, -1: Fail </para>
+</simplesect>
 </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1423" column="6" bodyfile="lame_ui.c" bodystart="924" bodyend="937" declfile="lame_ui.h" declline="1423" declcolumn="6"/>
+        <location file="lame_ui.h" line="1510" column="8" bodyfile="lame_ui.c" bodystart="1017" bodyend="1036" declfile="lame_ui.h" declline="1510" declcolumn="8"/>
+      </memberdef>
+      <memberdef kind="function" id="group__lui__list_1ga81efc1c22a6e1d841c1357eccfae4699" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int8_t</type>
+        <definition>int8_t lui_list_remove_all</definition>
+        <argsstring>(lui_obj_t *obj)</argsstring>
+        <name>lui_list_remove_all</name>
+        <param>
+          <type><ref refid="lame__ui_8h_1a5a7ccb45f639e22e43b3ac176a75dd09" kindref="member">lui_obj_t</ref> *</type>
+          <declname>obj</declname>
+        </param>
+        <briefdescription>
+<para>Remove all items from a list. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>obj</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>list object </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>int8_t error code. 0: Success, -1: Fail </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="1518" column="8" bodyfile="lame_ui.c" bodystart="1038" bodyend="1050" declfile="lame_ui.h" declline="1518" declcolumn="8"/>
+      </memberdef>
+      <memberdef kind="function" id="group__lui__list_1ga02c8af9365b2c846e71209f9be648930" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int16_t</type>
+        <definition>int16_t lui_list_get_selected_item_index</definition>
+        <argsstring>(lui_obj_t *obj)</argsstring>
+        <name>lui_list_get_selected_item_index</name>
+        <param>
+          <type><ref refid="lame__ui_8h_1a5a7ccb45f639e22e43b3ac176a75dd09" kindref="member">lui_obj_t</ref> *</type>
+          <declname>obj</declname>
+        </param>
+        <briefdescription>
+<para>Get index of selected item of a list. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>obj</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>list object </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>int16_t item index. -1 if failed. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="1526" column="9" bodyfile="lame_ui.c" bodystart="1052" bodyend="1061" declfile="lame_ui.h" declline="1526" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="group__lui__list_1ga002fad5fa77d895a533beb808c45fab5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int16_t</type>
+        <definition>int16_t lui_list_set_selected_item_index</definition>
+        <argsstring>(lui_obj_t *obj, uint8_t item_index)</argsstring>
+        <name>lui_list_set_selected_item_index</name>
+        <param>
+          <type><ref refid="lame__ui_8h_1a5a7ccb45f639e22e43b3ac176a75dd09" kindref="member">lui_obj_t</ref> *</type>
+          <declname>obj</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>item_index</declname>
+        </param>
+        <briefdescription>
+<para>Set selected item&apos;s index in a list. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>obj</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>list object </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>item_index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>item index </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>int16_t 0: Success, -1: Fail </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="1535" column="9" bodyfile="lame_ui.c" bodystart="1063" bodyend="1077" declfile="lame_ui.h" declline="1535" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="group__lui__list_1gaab776b7da921069dcfd27950fc5f2a49" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char* lui_list_get_item_text</definition>
+        <argsstring>(lui_obj_t *obj, uint8_t item_index)</argsstring>
+        <name>lui_list_get_item_text</name>
+        <param>
+          <type><ref refid="lame__ui_8h_1a5a7ccb45f639e22e43b3ac176a75dd09" kindref="member">lui_obj_t</ref> *</type>
+          <declname>obj</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>item_index</declname>
+        </param>
+        <briefdescription>
+<para>Get text of a list item by its index. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>obj</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>list object </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>item_index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>item index </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>char* text </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="1544" column="6" bodyfile="lame_ui.c" bodystart="1079" bodyend="1091" declfile="lame_ui.h" declline="1544" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="group__lui__list_1ga697bbb676af7e00bd978fb16037d7377" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int8_t</type>
+        <definition>int8_t lui_list_set_item_text</definition>
+        <argsstring>(lui_obj_t *obj, const char *text, uint8_t item_index)</argsstring>
+        <name>lui_list_set_item_text</name>
+        <param>
+          <type><ref refid="lame__ui_8h_1a5a7ccb45f639e22e43b3ac176a75dd09" kindref="member">lui_obj_t</ref> *</type>
+          <declname>obj</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>text</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>item_index</declname>
+        </param>
+        <briefdescription>
+<para>Set text of a list item by its index. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>obj</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>list object </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>text</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>item text </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>item_index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>item index </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>int8_t 0: Success, -1:Fail </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="1554" column="8" bodyfile="lame_ui.c" bodystart="1093" bodyend="1109" declfile="lame_ui.h" declline="1554" declcolumn="8"/>
+      </memberdef>
+      <memberdef kind="function" id="group__lui__list_1ga9e90dcc7b886d2ccb958637601acad00" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int8_t</type>
+        <definition>int8_t lui_list_set_dropdown_mode</definition>
+        <argsstring>(lui_obj_t *obj, uint8_t is_dropdown)</argsstring>
+        <name>lui_list_set_dropdown_mode</name>
+        <param>
+          <type><ref refid="lame__ui_8h_1a5a7ccb45f639e22e43b3ac176a75dd09" kindref="member">lui_obj_t</ref> *</type>
+          <declname>obj</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>is_dropdown</declname>
+        </param>
+        <briefdescription>
+<para>Set if list is a dropdown or not. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>When list is dropdown, it can be expanded/contracted by a button. When a list is not a dropdown, it is always expanded.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>obj</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>list object </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>is_dropdown</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>0: NOT dropdown, 1: Dropdown </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>int8_t 0:Success, -1: Fail </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="1566" column="8" bodyfile="lame_ui.c" bodystart="1111" bodyend="1136" declfile="lame_ui.h" declline="1566" declcolumn="8"/>
+      </memberdef>
+      <memberdef kind="function" id="group__lui__list_1ga2d86fc05aaec78aecd7577c9d0b57d2a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int8_t</type>
+        <definition>int8_t lui_list_set_dropdown_expand</definition>
+        <argsstring>(lui_obj_t *obj, uint8_t is_expanded)</argsstring>
+        <name>lui_list_set_dropdown_expand</name>
+        <param>
+          <type><ref refid="lame__ui_8h_1a5a7ccb45f639e22e43b3ac176a75dd09" kindref="member">lui_obj_t</ref> *</type>
+          <declname>obj</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>is_expanded</declname>
+        </param>
+        <briefdescription>
+<para>Expand a dropdown list manually. Works only if list mode is set as dropdown. Otherwise, has no effect. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>obj</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>list object </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>is_expanded</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>0: NOT expanded, 1: Expanded </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>int8_t 0: Success, -1: Fail </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="1576" column="8" bodyfile="lame_ui.c" bodystart="1138" bodyend="1159" declfile="lame_ui.h" declline="1576" declcolumn="8"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__list_1ga50b081682a8bc9ab50e229d432605b2e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -145,7 +486,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1432" column="6" bodyfile="lame_ui.c" bodystart="766" bodyend="878" declfile="lame_ui.h" declline="1432" declcolumn="6"/>
+        <location file="lame_ui.h" line="1585" column="6" bodyfile="lame_ui.c" bodystart="857" bodyend="971" declfile="lame_ui.h" declline="1585" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__list_1ga7b3ca3fb28dbf45735f386c47fe442eb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -185,7 +526,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1440" column="6" bodyfile="lame_ui.c" bodystart="939" bodyend="962" declfile="lame_ui.h" declline="1440" declcolumn="6"/>
+        <location file="lame_ui.h" line="1593" column="6" bodyfile="lame_ui.c" bodystart="1161" bodyend="1173" declfile="lame_ui.h" declline="1593" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__list_1ga78b10f123fed4442a355aded019192ef" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -225,7 +566,48 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1448" column="6" bodyfile="lame_ui.c" bodystart="964" bodyend="981" declfile="lame_ui.h" declline="1448" declcolumn="6"/>
+        <location file="lame_ui.h" line="1601" column="6" bodyfile="lame_ui.c" bodystart="1175" bodyend="1192" declfile="lame_ui.h" declline="1601" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="group__lui__list_1gaff2dc6e1abc86daef74c1adf4e9aceab" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lui_list_set_text_align</definition>
+        <argsstring>(lui_obj_t *obj_list, uint8_t alignment)</argsstring>
+        <name>lui_list_set_text_align</name>
+        <param>
+          <type><ref refid="lame__ui_8h_1a5a7ccb45f639e22e43b3ac176a75dd09" kindref="member">lui_obj_t</ref> *</type>
+          <declname>obj_list</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>alignment</declname>
+        </param>
+        <briefdescription>
+<para>Set alignment of texts in a list. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>If alignment is changed after the list is already prepared, call `list_prepare() function again so new alignment is applied to all the items.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>obj_list</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>list object </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>alignment</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Alignment flag. Allowed values are: LUI_ALIGN_LEFT, LUI_ALIGN_CENTER, LUI_ALIGN_RIGHT </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="1612" column="6" bodyfile="lame_ui.c" bodystart="1194" bodyend="1211" declfile="lame_ui.h" declline="1612" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__list_1ga7f3880daf82482a5607cab5e0cb29312" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -265,7 +647,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1457" column="6" bodyfile="lame_ui.c" bodystart="983" bodyend="994" declfile="lame_ui.h" declline="1457" declcolumn="6"/>
+        <location file="lame_ui.h" line="1621" column="6" bodyfile="lame_ui.c" bodystart="1213" bodyend="1224" declfile="lame_ui.h" declline="1621" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__list_1ga333597198d7084bb6043f2d1138edc70" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -305,7 +687,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1466" column="6" bodyfile="lame_ui.c" bodystart="996" bodyend="1007" declfile="lame_ui.h" declline="1466" declcolumn="6"/>
+        <location file="lame_ui.h" line="1630" column="6" bodyfile="lame_ui.c" bodystart="1226" bodyend="1237" declfile="lame_ui.h" declline="1630" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__list_1ga68f52172597db059c42dc40341e8837d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -357,7 +739,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1475" column="6" bodyfile="lame_ui.c" bodystart="1009" bodyend="1020" declfile="lame_ui.h" declline="1475" declcolumn="6"/>
+        <location file="lame_ui.h" line="1639" column="6" bodyfile="lame_ui.c" bodystart="1239" bodyend="1250" declfile="lame_ui.h" declline="1639" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__list_1ga0d18fe32b64aeaace3f49809cf375a9b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -397,7 +779,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1484" column="6" bodyfile="lame_ui.c" bodystart="1093" bodyend="1142" declfile="lame_ui.h" declline="1484" declcolumn="6"/>
+        <location file="lame_ui.h" line="1648" column="6" bodyfile="lame_ui.c" bodystart="1278" bodyend="1310" declfile="lame_ui.h" declline="1648" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__list_1ga28e33de3b1ab46c24e75089b6730fa93" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -425,7 +807,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1492" column="6" bodyfile="lame_ui.c" bodystart="1072" bodyend="1091" declfile="lame_ui.h" declline="1492" declcolumn="6"/>
+        <location file="lame_ui.h" line="1656" column="6" bodyfile="lame_ui.c" bodystart="1336" bodyend="1379" declfile="lame_ui.h" declline="1656" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__list_1ga998a8db32df4974f8a0114cfbaa5f9e1" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -453,7 +835,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1501" column="6" bodyfile="lame_ui.c" bodystart="1144" bodyend="1165" declfile="lame_ui.h" declline="1501" declcolumn="6"/>
+        <location file="lame_ui.h" line="1665" column="6" bodyfile="lame_ui.c" bodystart="1381" bodyend="1431" declfile="lame_ui.h" declline="1665" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__list_1ga113b2b881f1deeebf321838a26af1eda" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -469,7 +851,7 @@
           <declname>obj_btn</declname>
         </param>
         <briefdescription>
-<para>Adds actual button objects that are created during <computeroutput><ref refid="group__lui__list_1ga44ee84ed9cee3f474917ce51766582c6" kindref="member">lui_list_add_item()</ref></computeroutput> call. Only called by the library. </para>
+<para>Adds actual button objects that are created during <computeroutput><ref refid="group__lui__list_1ga1641e5189b244dab791439e1cdf74a5f" kindref="member">lui_list_add_item()</ref></computeroutput> call. Only called by the library. </para>
         </briefdescription>
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
@@ -493,30 +875,65 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="1511" column="6" bodyfile="lame_ui.c" bodystart="1048" bodyend="1070" declfile="lame_ui.h" declline="1511" declcolumn="6"/>
+        <location file="lame_ui.h" line="1675" column="6" bodyfile="lame_ui.c" bodystart="1312" bodyend="1334" declfile="lame_ui.h" declline="1675" declcolumn="6"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>API for <bold><computeroutput>list</computeroutput></bold> widget. </para>
     </briefdescription>
     <detaileddescription>
-<para><computeroutput>list</computeroutput> is a collection of <computeroutput>button</computeroutput> objects. Each item added to a list is returned as <computeroutput>button</computeroutput> object.</para>
+<para><computeroutput>list</computeroutput> is a collection of items. List can be dropdown or static. A dropdown list can be expanded/contracted while a static list cannot be.</para>
+<para>Some important points about list:<orderedlist>
+<listitem><para>Number of maximum items must be set by calling <computeroutput><ref refid="group__lui__list_1ga8d36d05056be1235f0314acbdac0371e" kindref="member">lui_list_set_max_items_count()</ref></computeroutput> function before items can be added.</para>
+</listitem><listitem><para>Maximum items count cannot be changed anymore once set. LameUI does NOT support memory reallocation.</para>
+</listitem><listitem><para>After changes are made to a list like changing area/position, addition/removal of items etc., <computeroutput><ref refid="group__lui__list_1ga50b081682a8bc9ab50e229d432605b2e" kindref="member">lui_list_prepare()</ref></computeroutput> must be called to prepare the list.</para>
+</listitem></orderedlist>
+</para>
 <sect2 id="group__lui__list_1list_example">
 <title>Example</title>
-<para><programlisting><codeline><highlight class="normal">lui_obj_t*<sp/>my_list<sp/>=<sp/>lui_list_create();</highlight></codeline>
+<para><programlisting><codeline><highlight class="normal">void<sp/>my_list_callback(lui_obj_t*<sp/>list_obj)</highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/>event<sp/>=<sp/>lui_object_get_event(list_obj);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>(event<sp/>==<sp/>LUI_EVENT_PRESSED)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int<sp/>index<sp/>=<sp/>lui_list_get_selected_item_index(list_obj);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>char*<sp/>txt<sp/>=<sp/>lui_list_get_item_text(list_obj,<sp/>index);</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>We<sp/>got<sp/>both<sp/>index<sp/>and<sp/>text<sp/>of<sp/>selected<sp/>item.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>Now<sp/>do<sp/>something<sp/>with<sp/>that<sp/>information.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">lui_obj_t*<sp/>my_list<sp/>=<sp/>lui_list_create();</highlight></codeline>
+<codeline></codeline>
 <codeline><highlight class="normal">//<sp/>Setting<sp/>list<sp/>area<sp/>is<sp/>important.<sp/>Else<sp/>items<sp/>won&apos;t<sp/>be<sp/>properly<sp/>rendered</highlight></codeline>
 <codeline><highlight class="normal">lui_object_set_area(my_list,<sp/>110,<sp/>160);</highlight></codeline>
 <codeline></codeline>
-<codeline><highlight class="normal">//<sp/>Now,<sp/>let&apos;s<sp/>add<sp/>some<sp/>items.<sp/>Each<sp/>item<sp/>is<sp/>a<sp/>button<sp/>object.</highlight></codeline>
-<codeline><highlight class="normal">lui_obj_t*<sp/>item1<sp/>=<sp/>lui_list_add_item(my_list,<sp/>LUI_ICON_POWER<sp/>&quot;Shut<sp/>Down&quot;);</highlight></codeline>
-<codeline><highlight class="normal">lui_obj_t*<sp/>item2<sp/>=<sp/>lui_list_add_item(my_list,<sp/>LUI_ICON_RELAOD<sp/>&quot;<sp/>Restart<sp/>&quot;);</highlight></codeline>
-<codeline><highlight class="normal">lui_obj_t*<sp/>item3<sp/>=<sp/>lui_list_add_item(my_list,<sp/>&quot;Suspend&quot;);</highlight></codeline>
-<codeline><highlight class="normal">lui_obj_t*<sp/>item4<sp/>=<sp/>lui_list_add_item(my_list,<sp/>&quot;Log<sp/>Out&quot;);</highlight></codeline>
-<codeline><highlight class="normal">lui_obj_t*<sp/>item5<sp/>=<sp/>lui_list_add_item(my_list,<sp/>&quot;Switch<sp/>User&quot;);</highlight></codeline>
-<codeline><highlight class="normal">lui_obj_t*<sp/>item6<sp/>=<sp/>lui_list_add_item(my_list,<sp/>&quot;Hibernate&quot;);</highlight></codeline>
-<codeline><highlight class="normal">lui_obj_t*<sp/>item7<sp/>=<sp/>lui_list_add_item(my_list,<sp/>&quot;Lock<sp/>screen&quot;);</highlight></codeline>
+<codeline><highlight class="normal">//<sp/>Setting<sp/>max<sp/>items<sp/>count<sp/>is<sp/>must.<sp/>Otherwise<sp/>we<sp/>can&apos;t<sp/>add<sp/>items.</highlight></codeline>
+<codeline><highlight class="normal">//<sp/>Note:<sp/>This<sp/>is<sp/>a<sp/>one-time<sp/>process.<sp/>Max<sp/>items<sp/>count<sp/>cannot<sp/>be<sp/>changed<sp/>later</highlight></codeline>
+<codeline><highlight class="normal">lui_list_set_max_items_count(my_list,<sp/>20);</highlight></codeline>
 <codeline></codeline>
-<codeline><highlight class="normal">//<sp/>IMPORTANT!<sp/>After<sp/>everything<sp/>is<sp/>done,<sp/>we<sp/>must<sp/>prepare<sp/>the<sp/>list.<sp/></highlight></codeline>
+<codeline><highlight class="normal">//<sp/>Now,<sp/>let&apos;s<sp/>add<sp/>some<sp/>items.<sp/>We<sp/>can<sp/>not<sp/>add<sp/>more<sp/>than<sp/>20<sp/>items</highlight></codeline>
+<codeline><highlight class="normal">lui_list_add_item(my_list,<sp/>&quot;--Select--&quot;);</highlight></codeline>
+<codeline><highlight class="normal">lui_list_add_item(my_list,<sp/>&quot;Algerian&quot;);</highlight></codeline>
+<codeline><highlight class="normal">lui_list_add_item(my_list,<sp/>&quot;Amharic<sp/>&quot;);</highlight></codeline>
+<codeline><highlight class="normal">lui_list_add_item(my_list,<sp/>&quot;Assamese&quot;);</highlight></codeline>
+<codeline><highlight class="normal">lui_list_add_item(my_list,<sp/>&quot;Bavarian&quot;);</highlight></codeline>
+<codeline><highlight class="normal">lui_list_add_item(my_list,<sp/>&quot;Bengali&quot;);</highlight></codeline>
+<codeline><highlight class="normal">lui_list_add_item(my_list,<sp/>&quot;Czech&quot;);</highlight></codeline>
+<codeline><highlight class="normal">lui_list_add_item(my_list,<sp/>&quot;Deccan&quot;);</highlight></codeline>
+<codeline><highlight class="normal">lui_list_add_item(my_list,<sp/>&quot;Dutch&quot;);</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>Now<sp/>make<sp/>this<sp/>list<sp/>a<sp/>dropdown<sp/>list</highlight></codeline>
+<codeline><highlight class="normal">lui_list_set_dropdown_mode(my_list,<sp/>1);</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>Change<sp/>the<sp/>selected<sp/>item<sp/>to<sp/>6th<sp/>(index<sp/>=<sp/>5)</highlight></codeline>
+<codeline><highlight class="normal">lui_list_set_selected_item_index(my_list,<sp/>5);</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>Set<sp/>a<sp/>callback<sp/>function</highlight></codeline>
+<codeline><highlight class="normal">lui_object_set_callback(my_list,<sp/>my_list_callback);</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>IMPORTANT!<sp/>After<sp/>everything<sp/>is<sp/>done,<sp/>we<sp/>must<sp/>prepare<sp/>the<sp/>list.</highlight></codeline>
 <codeline><highlight class="normal">//<sp/>Else<sp/>nothing<sp/>will<sp/>work</highlight></codeline>
 <codeline><highlight class="normal">lui_list_prepare(my_list);</highlight></codeline>
 </programlisting> </para>

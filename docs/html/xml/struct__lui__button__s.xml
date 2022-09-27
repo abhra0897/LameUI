@@ -3,19 +3,6 @@
   <compounddef id="struct__lui__button__s" kind="struct" language="C++" prot="public">
     <compoundname>_lui_button_s</compoundname>
       <sectiondef kind="public-attrib">
-      <memberdef kind="variable" id="struct__lui__button__s_1a8dda64e7c029baa57fa8238d78166a40" prot="public" static="no" mutable="no">
-        <type>char *</type>
-        <definition>char* _lui_button_s::text</definition>
-        <argsstring></argsstring>
-        <name>text</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="lame_ui.h" line="414" column="6" bodyfile="lame_ui.h" bodystart="414" bodyend="-1"/>
-      </memberdef>
       <memberdef kind="variable" id="struct__lui__button__s_1afc272212dfc465fe9d9bb1e926c34b2d" prot="public" static="no" mutable="no">
         <type>const <ref refid="structlui__font__t" kindref="compound">lui_font_t</ref> *</type>
         <definition>const lui_font_t* _lui_button_s::font</definition>
@@ -27,7 +14,33 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="415" column="18" bodyfile="lame_ui.h" bodystart="415" bodyend="-1"/>
+        <location file="lame_ui.h" line="419" column="18" bodyfile="lame_ui.h" bodystart="419" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__lui__button__s_1a8dda64e7c029baa57fa8238d78166a40" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* _lui_button_s::text</definition>
+        <argsstring></argsstring>
+        <name>text</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="420" column="6" bodyfile="lame_ui.h" bodystart="420" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__lui__button__s_1a407c6ce5869d91a530fe66ff90d0ec8f" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t _lui_button_s::text_align</definition>
+        <argsstring></argsstring>
+        <name>text_align</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lame_ui.h" line="421" column="9" bodyfile="lame_ui.h" bodystart="421" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct__lui__button__s_1ae2215798607441f44985be66e6867295" prot="public" static="no" mutable="no">
         <type>struct _lui_button_s::@2</type>
@@ -40,7 +53,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="416" column="6"/>
+        <location file="lame_ui.h" line="422" column="7"/>
       </memberdef>
       <memberdef kind="variable" id="struct__lui__button__s_1a0516aa560e37cf51f524ea9557270f12" prot="public" static="no" mutable="no">
         <type>struct <ref refid="struct__lui__button__style__s" kindref="compound">_lui_button_style_s</ref></type>
@@ -53,7 +66,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="404" column="18" bodyfile="lame_ui.h" bodystart="417" bodyend="-1"/>
+        <location file="lame_ui.h" line="410" column="18" bodyfile="lame_ui.h" bodystart="423" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -94,12 +107,13 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="lame_ui.h" line="411" column="1" bodyfile="lame_ui.h" bodystart="410" bodyend="418"/>
+    <location file="lame_ui.h" line="416" column="1" bodyfile="lame_ui.h" bodystart="415" bodyend="424"/>
     <listofallmembers>
       <member refid="struct__lui__button__s_1afc272212dfc465fe9d9bb1e926c34b2d" prot="public" virt="non-virtual"><scope>_lui_button_s</scope><name>font</name></member>
       <member refid="struct__lui__button__s_1ae2215798607441f44985be66e6867295" prot="public" virt="non-virtual"><scope>_lui_button_s</scope><name>label</name></member>
       <member refid="struct__lui__button__s_1a0516aa560e37cf51f524ea9557270f12" prot="public" virt="non-virtual"><scope>_lui_button_s</scope><name>style</name></member>
       <member refid="struct__lui__button__s_1a8dda64e7c029baa57fa8238d78166a40" prot="public" virt="non-virtual"><scope>_lui_button_s</scope><name>text</name></member>
+      <member refid="struct__lui__button__s_1a407c6ce5869d91a530fe66ff90d0ec8f" prot="public" virt="non-virtual"><scope>_lui_button_s</scope><name>text_align</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

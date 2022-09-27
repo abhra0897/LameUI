@@ -6,5 +6,6 @@ var group__macrodefs =
     [ "Object (widget) Types", "group__LUI__OBJ.html", "group__LUI__OBJ" ],
     [ "Keyboard modes", "group__LUI__KEYBOARD__MODE.html", "group__LUI__KEYBOARD__MODE" ],
     [ "Default built-in icons", "group__LUI__ICONS.html", null ],
-    [ "Buttongrid button property-byte masks", "group__LUI__BTNGRID__MASKS.html", "group__LUI__BTNGRID__MASKS" ]
+    [ "Buttongrid button property-byte masks", "group__LUI__BTNGRID__MASKS.html", "group__LUI__BTNGRID__MASKS" ],
+    [ "Content alignment flags", "group__LUI__ALIGNMENT.html", "group__LUI__ALIGNMENT" ]
 ];

@@ -32,5 +32,6 @@
  * \defgroup LUI_KEYBOARD_MODE Keyboard modes
  * \defgroup LUI_ICONS Default built-in icons
  * \defgroup LUI_BTNGRID_MASKS Buttongrid button property-byte masks
+ * \defgroup LUI_ALIGNMENT Content alignment flags
  * @}
 */

@@ -122,6 +122,9 @@ Functions</h2></td></tr>
 <tr class="memitem:gaec9c0f394998052cbc800530f69f3a97"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__button.html#gaec9c0f394998052cbc800530f69f3a97">lui_button_set_label_text</a> (<a class="el" href="lame__ui_8h.html#a5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_btn, const char *text)</td></tr>
 <tr class="memdesc:gaec9c0f394998052cbc800530f69f3a97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the text of the button's label.  <a href="group__lui__button.html#gaec9c0f394998052cbc800530f69f3a97">More...</a><br /></td></tr>
 <tr class="separator:gaec9c0f394998052cbc800530f69f3a97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga944120a3784558b91fcea6ca36c42906"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__button.html#ga944120a3784558b91fcea6ca36c42906">lui_button_set_label_align</a> (<a class="el" href="lame__ui_8h.html#a5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_btn, uint8_t alignment)</td></tr>
+<tr class="memdesc:ga944120a3784558b91fcea6ca36c42906"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set alignment of the label text. See: <a class="el" href="group__LUI__ALIGNMENT.html">Content alignment flags</a>.  <a href="group__lui__button.html#ga944120a3784558b91fcea6ca36c42906">More...</a><br /></td></tr>
+<tr class="separator:ga944120a3784558b91fcea6ca36c42906"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga7136a562c97ee76a05e8b9bff807ca3f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__button.html#ga7136a562c97ee76a05e8b9bff807ca3f">lui_button_set_label_color</a> (<a class="el" href="lame__ui_8h.html#a5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_btn, uint16_t color)</td></tr>
 <tr class="memdesc:ga7136a562c97ee76a05e8b9bff807ca3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set text color of button's label.  <a href="group__lui__button.html#ga7136a562c97ee76a05e8b9bff807ca3f">More...</a><br /></td></tr>
 <tr class="separator:ga7136a562c97ee76a05e8b9bff807ca3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -153,7 +156,7 @@ Example</h2>
 <div class="line">        <a class="code" href="group__lui__button.html#gaec9c0f394998052cbc800530f69f3a97">lui_button_set_label_text</a>(my_button, <span class="stringliteral">&quot;Turn ON Light&quot;</span>);</div>
 <div class="line">        <span class="comment">// turn_off_light();</span></div>
 <div class="line">    }</div>
-<div class="line">    </div>
+<div class="line"> </div>
 <div class="line">    <span class="comment">// Do more stuffs...</span></div>
 <div class="line">}</div>
 <div class="line"><a class="code" href="struct__lui__obj__s.html">lui_obj_t</a>* my_button = <a class="code" href="group__lui__button.html#gae3764b62e449b19e779892553ef6ed67">lui_button_create</a>();</div>
@@ -244,6 +247,43 @@ Example</h2>
     <tr><td class="paramname">obj_btn</td><td>button object </td></tr>
     <tr><td class="paramname">pressed_color</td><td>16-bit color of button when it's pressed </td></tr>
     <tr><td class="paramname">selection_color</td><td>16-bit color of button when it's selected (hovering) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ga944120a3784558b91fcea6ca36c42906"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga944120a3784558b91fcea6ca36c42906">&#9670;&nbsp;</a></span>lui_button_set_label_align()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lui_button_set_label_align </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="lame__ui_8h.html#a5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td>
+          <td class="paramname"><em>obj_btn</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>alignment</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set alignment of the label text. See: <a class="el" href="group__LUI__ALIGNMENT.html">Content alignment flags</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">obj_btn</td><td>button object </td></tr>
+    <tr><td class="paramname">alignment</td><td>Alignment flags. Allowed values: <code>LUI_ALIGN_LEFT</code>, <code>LUI_ALIGN_CENTER</code>, <code>LUI_ALIGN_RIGHT</code> </td></tr>
   </table>
   </dd>
 </dl>
@@ -363,12 +403,12 @@ Example</h2>
 </div>
 </div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="agroup__lui__object_html_gae9d2e2e1998f2603a3a6d24d08b5b64e"><div class="ttname"><a href="group__lui__object.html#gae9d2e2e1998f2603a3a6d24d08b5b64e">lui_object_set_callback</a></div><div class="ttdeci">void lui_object_set_callback(lui_obj_t *obj, void(*obj_event_cb)(lui_obj_t *))</div><div class="ttdoc">Set event call back function for input handling.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3171</div></div>
-<div class="ttc" id="astruct__lui__obj__s_html"><div class="ttname"><a href="struct__lui__obj__s.html">_lui_obj_s</a></div><div class="ttdoc">Generic object datatype.</div><div class="ttdef"><b>Definition:</b> lame_ui.h:351</div></div>
-<div class="ttc" id="agroup__lui__object_html_ga580b2bdece45808266791573d874aabb"><div class="ttname"><a href="group__lui__object.html#ga580b2bdece45808266791573d874aabb">lui_object_get_event</a></div><div class="ttdeci">int8_t lui_object_get_event(lui_obj_t *obj)</div><div class="ttdoc">Get input event of an object.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3185</div></div>
-<div class="ttc" id="agroup__lui__button_html_gaec9c0f394998052cbc800530f69f3a97"><div class="ttname"><a href="group__lui__button.html#gaec9c0f394998052cbc800530f69f3a97">lui_button_set_label_text</a></div><div class="ttdeci">void lui_button_set_label_text(lui_obj_t *obj, const char *text)</div><div class="ttdoc">Set the text of the button's label.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:632</div></div>
-<div class="ttc" id="agroup__LUI__EVENT_html_gac1d4660029fe5efac27e0116e258d65d"><div class="ttname"><a href="group__LUI__EVENT.html#gac1d4660029fe5efac27e0116e258d65d">LUI_EVENT_PRESSED</a></div><div class="ttdeci">#define LUI_EVENT_PRESSED</div><div class="ttdoc">Object is pressed (object under pointing device and pointing device button is low)</div><div class="ttdef"><b>Definition:</b> lame_ui.h:108</div></div>
-<div class="ttc" id="agroup__lui__button_html_gae3764b62e449b19e779892553ef6ed67"><div class="ttname"><a href="group__lui__button.html#gae3764b62e449b19e779892553ef6ed67">lui_button_create</a></div><div class="ttdeci">lui_obj_t * lui_button_create()</div><div class="ttdoc">Create a button with initial values.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:596</div></div>
+<div class="ttc" id="agroup__lui__object_html_gae9d2e2e1998f2603a3a6d24d08b5b64e"><div class="ttname"><a href="group__lui__object.html#gae9d2e2e1998f2603a3a6d24d08b5b64e">lui_object_set_callback</a></div><div class="ttdeci">void lui_object_set_callback(lui_obj_t *obj, void(*obj_event_cb)(lui_obj_t *))</div><div class="ttdoc">Set event call back function for input handling.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3454</div></div>
+<div class="ttc" id="astruct__lui__obj__s_html"><div class="ttname"><a href="struct__lui__obj__s.html">_lui_obj_s</a></div><div class="ttdoc">Generic object datatype.</div><div class="ttdef"><b>Definition:</b> lame_ui.h:357</div></div>
+<div class="ttc" id="agroup__lui__object_html_ga580b2bdece45808266791573d874aabb"><div class="ttname"><a href="group__lui__object.html#ga580b2bdece45808266791573d874aabb">lui_object_get_event</a></div><div class="ttdeci">int8_t lui_object_get_event(lui_obj_t *obj)</div><div class="ttdoc">Get input event of an object.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3468</div></div>
+<div class="ttc" id="agroup__lui__button_html_gaec9c0f394998052cbc800530f69f3a97"><div class="ttname"><a href="group__lui__button.html#gaec9c0f394998052cbc800530f69f3a97">lui_button_set_label_text</a></div><div class="ttdeci">void lui_button_set_label_text(lui_obj_t *obj, const char *text)</div><div class="ttdoc">Set the text of the button's label.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:643</div></div>
+<div class="ttc" id="agroup__LUI__EVENT_html_gac1d4660029fe5efac27e0116e258d65d"><div class="ttname"><a href="group__LUI__EVENT.html#gac1d4660029fe5efac27e0116e258d65d">LUI_EVENT_PRESSED</a></div><div class="ttdeci">#define LUI_EVENT_PRESSED</div><div class="ttdoc">Object is pressed (object under pointing device and pointing device button is low)</div><div class="ttdef"><b>Definition:</b> lame_ui.h:107</div></div>
+<div class="ttc" id="agroup__lui__button_html_gae3764b62e449b19e779892553ef6ed67"><div class="ttname"><a href="group__lui__button.html#gae3764b62e449b19e779892553ef6ed67">lui_button_create</a></div><div class="ttdeci">lui_obj_t * lui_button_create()</div><div class="ttdoc">Create a button with initial values.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:606</div></div>
 
 	<script src="main.js"></script>
 </body>

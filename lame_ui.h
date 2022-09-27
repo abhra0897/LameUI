@@ -90,18 +90,18 @@
  */
 #define LUI_STATE_IDLE 0	 ///< Idle state. Object is not under the pointing device
 #define LUI_STATE_SELECTED 1 ///< Object is under the pointing device
-#define LUI_STATE_PRESSED 2	 ///< Object is under the pointig device and the pointing device button is pressed
+#define LUI_STATE_PRESSED 2	 ///< Object is under the pointing device and the pointing device button is pressed
 #define LUI_STATE_ENTERED 3	 ///< Object is in entered state. Example: Text box is clicked
 /**@} */
 
 /**
- * @defgroup LUI_EVENT LaemUI input events
+ * @defgroup LUI_EVENT LameUI input events
  * @brief All input events of LameUI. Events depend on previous and current state
  *
  * Also see: @ref LUI_STATE
  * @{
  */
-#define LUI_EVENT_NONE 0		   ///< No event occured
+#define LUI_EVENT_NONE 0		   ///< No event occurred
 #define LUI_EVENT_SELECTED 1	   ///< Object is selected (under the pointing device)
 #define LUI_EVENT_SELECTION_LOST 2 ///< Selection of object is lost (no more under the pointing device)
 #define LUI_EVENT_PRESSED 3		   ///< Object is pressed (object under pointing device and pointing device button is low)
@@ -202,9 +202,15 @@
 #define LUI_BTNGRID_MASK_BTN_WIDTH_UNIT 0x0F ///< Button width mask
 /**@} */
 
-#define ALIGN_LEFT 0
-#define ALIGN_CENTER 1
-#define ALIGN_RIGHT 2
+/**
+ * @defgroup LUI_ALIGNMENT Content alignment flags
+ * @brief Content alignment flags
+ * @{
+ */
+#define LUI_ALIGN_LEFT 0		///< ALign content to left
+#define LUI_ALIGN_CENTER 1		///< Align content to center
+#define LUI_ALIGN_RIGHT 2		///< Align content to right
+/**@} */
 
 /*--------------------------------------------
  *				End Macro Definitions
@@ -453,7 +459,7 @@ struct _lui_list_item
 typedef struct _lui_list_s
 {
 	const lui_font_t *font;
-	int8_t selected_item_index;
+	uint8_t selected_item_index;
 	uint8_t page_count;
 	uint8_t current_page_index;
 	uint8_t items_per_page;
@@ -557,7 +563,7 @@ typedef struct _lui_main_s
 	lui_obj_t *active_obj;
 	lui_dispdrv_t *disp_drv;
 	lui_touch_input_dev_t *touch_input_dev;
-	// lui_touch_input_data_t last_touch_data;
+	lui_touch_input_data_t last_touch_data;
 	uint8_t input_state_pressed;
 	uint8_t input_event_clicked;
 	uint8_t total_scenes;
@@ -1085,10 +1091,10 @@ void lui_button_draw(lui_obj_t *obj_btn);
 void lui_button_set_label_text(lui_obj_t *obj_btn, const char *text);
 
 /**
- * @brief Set alignment of the label text
+ * @brief Set alignment of the label text. See: @ref LUI_ALIGNMENT
  * 
  * @param obj_btn button object
- * @param alignment Alignment flags. Allowed values: ALIGN_LEFT, ALIGN_CENTER, ALIGN_RIGHT
+ * @param alignment Alignment flags. Allowed values: `LUI_ALIGN_LEFT`, `LUI_ALIGN_CENTER`, `LUI_ALIGN_RIGHT`
  */
 void lui_button_set_label_align(lui_obj_t *obj_btn, uint8_t alignment);
 
@@ -1391,23 +1397,60 @@ int16_t lui_slider_get_max_value(lui_obj_t *obj_slider);
  *
  * API for <b><tt>list</tt></b> widget
  *
- * <tt>list</tt> is a collection of <tt>button</tt> objects. Each item added to
- * a list is returned as <tt>button</tt> object.
+ * <tt>list</tt> is a collection of items. List can be dropdown or static. A 
+ * dropdown list can be expanded/contracted while a static list cannot be.
+ * 
+ * Some important points about list:
+ * 1. Number of maximum items must be set by calling `lui_list_set_max_items_count()` 
+ *    function before items can be added.
+ * 2. Maximum items count cannot be changed anymore once set. LameUI does NOT 
+ *    support memory reallocation.
+ * 3. After changes are made to a list like changing area/position, addition/removal 
+ *    of items etc., `lui_list_prepare()` must be called to prepare the list.
  *
  * @subsection list_example Example
  * @code
+ * void my_list_callback(lui_obj_t* list_obj)
+ * {
+ *     uint8_t event = lui_object_get_event(list_obj);
+ *     if (event == LUI_EVENT_PRESSED)
+ *     {
+ *         int index = lui_list_get_selected_item_index(list_obj);
+ *         char* txt = lui_list_get_item_text(list_obj, index);
+ * 
+ *         // We got both index and text of selected item.
+ *         // Now do something with that information.
+ *     }
+ * }
+ * 
  * lui_obj_t* my_list = lui_list_create();
+ * 
  * // Setting list area is important. Else items won't be properly rendered
  * lui_object_set_area(my_list, 110, 160);
- *
- * // Now, let's add some items. Each item is a button object.
- * lui_obj_t* item1 = lui_list_add_item(my_list, LUI_ICON_POWER "Shut Down");
- * lui_obj_t* item2 = lui_list_add_item(my_list, LUI_ICON_RELOAD " Restart ");
- * lui_obj_t* item3 = lui_list_add_item(my_list, "Suspend");
- * lui_obj_t* item4 = lui_list_add_item(my_list, "Log Out");
- * lui_obj_t* item5 = lui_list_add_item(my_list, "Switch User");
- * lui_obj_t* item6 = lui_list_add_item(my_list, "Hibernate");
- * lui_obj_t* item7 = lui_list_add_item(my_list, "Lock screen");
+ * 
+ * // Setting max items count is must. Otherwise we can't add items.
+ * // Note: This is a one-time process. Max items count cannot be changed later
+ * lui_list_set_max_items_count(my_list, 20);
+ * 
+ * // Now, let's add some items. We can not add more than 20 items
+ * lui_list_add_item(my_list, "--Select--");
+ * lui_list_add_item(my_list, "Algerian");
+ * lui_list_add_item(my_list, "Amharic ");
+ * lui_list_add_item(my_list, "Assamese");
+ * lui_list_add_item(my_list, "Bavarian");
+ * lui_list_add_item(my_list, "Bengali");
+ * lui_list_add_item(my_list, "Czech");
+ * lui_list_add_item(my_list, "Deccan");
+ * lui_list_add_item(my_list, "Dutch");
+ * 
+ * // Now make this list a dropdown list
+ * lui_list_set_dropdown_mode(my_list, 1);
+ * 
+ * // Change the selected item to 6th (index = 5)
+ * lui_list_set_selected_item_index(my_list, 5);
+ * 
+ * // Set a callback function
+ * lui_object_set_callback(my_list, my_list_callback);
  *
  * // IMPORTANT! After everything is done, we must prepare the list.
  * // Else nothing will work
@@ -1423,7 +1466,19 @@ int16_t lui_slider_get_max_value(lui_obj_t *obj_slider);
  */
 lui_obj_t *lui_list_create();
 
-// TODO: Write doc
+/**
+ * @brief Set maximum item count for a list. The list cannot store items more 
+ * than this number.
+ * 
+ * This function must be called once before adding items to the list. 
+ * Trying to add items before setting max items count will fail.
+ * Once max items count is set, it can not be changed anymore. Calling
+ * this function again will fail and return -1.
+ * 
+ * @param obj list object
+ * @param max_items_cnt maximum items count
+ * @return int8_t error code. 0: Success, -1: Fail
+ */
 int8_t lui_list_set_max_items_count(lui_obj_t* obj, uint8_t max_items_cnt);
 
 /**
@@ -1433,14 +1488,92 @@ int8_t lui_list_set_max_items_count(lui_obj_t* obj, uint8_t max_items_cnt);
  */
 void lui_list_draw(lui_obj_t *obj_list);
 
-// TODO: Write doc
+/**
+ * @brief Add an item to the end of the list. 
+ * 
+ * Fails if added items exceeds `max items count` set by `lui_list_set_max_items_count()`
+ * function
+ * 
+ * @param obj_list list object
+ * @param text item text
+ * @return int8_t error code. 0: Success, -1: Fail
+ */
 int8_t lui_list_add_item(lui_obj_t *obj_list, const char *text);
 
-// TODO: Write doc
+/**
+ * @brief Remove an item from list at a specific index
+ * 
+ * @param obj list object
+ * @param item_index item index
+ * @return int8_t error code. 0: Success, -1: Fail
+ */
 int8_t lui_list_remove_item(lui_obj_t* obj, uint8_t item_index);
 
-// TODO: Write doc
+/**
+ * @brief Remove all items from a list
+ * 
+ * @param obj list object
+ * @return int8_t error code. 0: Success, -1: Fail
+ */
 int8_t lui_list_remove_all(lui_obj_t* obj);
+
+/**
+ * @brief Get index of selected item of a list
+ * 
+ * @param obj list object
+ * @return int16_t item index. -1 if failed.
+ */
+int16_t lui_list_get_selected_item_index(lui_obj_t* obj);
+
+/**
+ * @brief Set selected item's index in a list
+ * 
+ * @param obj list object
+ * @param item_index item index
+ * @return int16_t 0: Success, -1: Fail
+ */
+int16_t lui_list_set_selected_item_index(lui_obj_t* obj, uint8_t item_index);
+
+/**
+ * @brief Get text of a list item by its index
+ * 
+ * @param obj list object
+ * @param item_index item index
+ * @return char* text
+ */
+char* lui_list_get_item_text(lui_obj_t* obj, uint8_t item_index);
+
+/**
+ * @brief Set text of a list item by its index
+ * 
+ * @param obj list object
+ * @param text item text
+ * @param item_index item index
+ * @return int8_t 0: Success, -1:Fail
+ */
+int8_t lui_list_set_item_text(lui_obj_t* obj, const char* text, uint8_t item_index);
+
+/**
+ * @brief Set if list is a dropdown or not.
+ * 
+ * When list is dropdown, it can be expanded/contracted by a button. When a list
+ * is not a dropdown, it is always expanded.
+ * 
+ * @param obj list object
+ * @param is_dropdown 0: NOT dropdown, 1: Dropdown
+ * @return int8_t 0:Success, -1: Fail
+ */
+int8_t lui_list_set_dropdown_mode(lui_obj_t* obj, uint8_t is_dropdown);
+
+/**
+ * @brief Expand a dropdown list manually. Works only if list mode is set as
+ * dropdown. Otherwise, has no effect.
+ * 
+ * @param obj list object
+ * @param is_expanded 0: NOT expanded, 1: Expanded
+ * @return int8_t 0: Success, -1: Fail
+ */
+int8_t lui_list_set_dropdown_expand(lui_obj_t* obj, uint8_t is_expanded);
 
 /**
  * @brief Prepares a list for final render. This function must be called by
@@ -1474,7 +1607,7 @@ void lui_list_set_font(lui_obj_t *obj_list, const lui_font_t *font);
  * function again so new alignment is applied to all the items.
  *
  * @param obj_list list object
- * @param alignment Alignment flag. Allowed values are: ALIGN_LEFT, ALIGN_CENTER, ALIGN_RIGHT
+ * @param alignment Alignment flag. Allowed values are: LUI_ALIGN_LEFT, LUI_ALIGN_CENTER, LUI_ALIGN_RIGHT
  */
 void lui_list_set_text_align(lui_obj_t *obj_list, uint8_t alignment);
 

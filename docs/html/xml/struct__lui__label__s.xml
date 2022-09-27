@@ -14,7 +14,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="403" column="6" bodyfile="lame_ui.h" bodystart="403" bodyend="-1"/>
+        <location file="lame_ui.h" line="409" column="6" bodyfile="lame_ui.h" bodystart="409" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct__lui__label__s_1a98c0e1397326264a78a780334fbe58f0" prot="public" static="no" mutable="no">
         <type>const <ref refid="structlui__font__t" kindref="compound">lui_font_t</ref> *</type>
@@ -27,7 +27,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="404" column="18" bodyfile="lame_ui.h" bodystart="404" bodyend="-1"/>
+        <location file="lame_ui.h" line="410" column="18" bodyfile="lame_ui.h" bodystart="410" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct__lui__label__s_1af4016678259364f8607fe0b61f7cd244" prot="public" static="no" mutable="no">
         <type>struct <ref refid="struct__lui__label__style__s" kindref="compound">_lui_label_style_s</ref></type>
@@ -40,7 +40,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="404" column="18" bodyfile="lame_ui.h" bodystart="406" bodyend="-1"/>
+        <location file="lame_ui.h" line="410" column="18" bodyfile="lame_ui.h" bodystart="412" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -81,7 +81,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="lame_ui.h" line="402" column="1" bodyfile="lame_ui.h" bodystart="401" bodyend="407"/>
+    <location file="lame_ui.h" line="408" column="1" bodyfile="lame_ui.h" bodystart="407" bodyend="413"/>
     <listofallmembers>
       <member refid="struct__lui__label__s_1a98c0e1397326264a78a780334fbe58f0" prot="public" virt="non-virtual"><scope>_lui_label_s</scope><name>font</name></member>
       <member refid="struct__lui__label__s_1af4016678259364f8607fe0b61f7cd244" prot="public" virt="non-virtual"><scope>_lui_label_s</scope><name>style</name></member>

@@ -16,6 +16,7 @@
 <codeline><highlight class="normal"><sp/>-<sp/>[Button<sp/>example](@ref<sp/>button_example)</highlight></codeline>
 <codeline><highlight class="normal"><sp/>-<sp/>[Switch<sp/>example](@ref<sp/>switch_example)</highlight></codeline>
 <codeline><highlight class="normal"><sp/>-<sp/>[Checkbox<sp/>example](@ref<sp/>checkbox_example)</highlight></codeline>
+<codeline><highlight class="normal"><sp/>-<sp/>[List<sp/>example](@ref<sp/>list_example)</highlight></codeline>
 <codeline><highlight class="normal"><sp/>-<sp/>[Slider<sp/>example](@ref<sp/>slider_example)</highlight></codeline>
 <codeline><highlight class="normal"><sp/>-<sp/>Buttongrid<sp/>examples</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>-<sp/>[Buttongrid<sp/>example<sp/>1](@ref<sp/>buttongrid_example1)</highlight></codeline>

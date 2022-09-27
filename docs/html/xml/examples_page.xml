@@ -13,6 +13,7 @@
 </listitem><listitem><para><ref refid="group__lui__button_1button_example" kindref="member">Button example</ref></para>
 </listitem><listitem><para><ref refid="group__lui__switch_1switch_example" kindref="member">Switch example</ref></para>
 </listitem><listitem><para><ref refid="group__lui__checkbox_1checkbox_example" kindref="member">Checkbox example</ref></para>
+</listitem><listitem><para><ref refid="group__lui__list_1list_example" kindref="member">List example</ref></para>
 </listitem><listitem><para><ref refid="group__lui__slider_1slider_example" kindref="member">Slider example</ref></para>
 </listitem><listitem><para>Buttongrid examples<itemizedlist>
 <listitem><para><ref refid="group__lui__btngrid_1buttongrid_example1" kindref="member">Buttongrid example 1</ref></para>

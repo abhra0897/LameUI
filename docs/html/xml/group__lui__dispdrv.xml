@@ -19,7 +19,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="2283" column="15" bodyfile="lame_ui.c" bodystart="3966" bodyend="3978" declfile="lame_ui.h" declline="2283" declcolumn="15"/>
+        <location file="lame_ui.h" line="2447" column="15" bodyfile="lame_ui.c" bodystart="4307" bodyend="4319" declfile="lame_ui.h" declline="2447" declcolumn="15"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__dispdrv_1ga77ef8325d1acf4c014be20de214e80de" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -47,7 +47,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="2290" column="6" bodyfile="lame_ui.c" bodystart="3980" bodyend="3985" declfile="lame_ui.h" declline="2290" declcolumn="6"/>
+        <location file="lame_ui.h" line="2454" column="6" bodyfile="lame_ui.c" bodystart="4321" bodyend="4326" declfile="lame_ui.h" declline="2454" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__dispdrv_1ga3516bb99ba95160e9673ba8541ffb13e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -99,7 +99,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="2299" column="6" bodyfile="lame_ui.c" bodystart="3987" bodyend="3993" declfile="lame_ui.h" declline="2299" declcolumn="6"/>
+        <location file="lame_ui.h" line="2463" column="6" bodyfile="lame_ui.c" bodystart="4328" bodyend="4334" declfile="lame_ui.h" declline="2463" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__dispdrv_1ga982617c7a5f3d018a3bab0e01eebf8e3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -139,7 +139,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="2307" column="6" bodyfile="lame_ui.c" bodystart="3995" bodyend="4000" declfile="lame_ui.h" declline="2307" declcolumn="6"/>
+        <location file="lame_ui.h" line="2471" column="6" bodyfile="lame_ui.c" bodystart="4336" bodyend="4341" declfile="lame_ui.h" declline="2471" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__dispdrv_1gaa2cf5623fa26babf738af3a2ef0a5fc4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -180,7 +180,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="2320" column="6" bodyfile="lame_ui.c" bodystart="4002" bodyend="4007" declfile="lame_ui.h" declline="2320" declcolumn="6"/>
+        <location file="lame_ui.h" line="2484" column="6" bodyfile="lame_ui.c" bodystart="4343" bodyend="4348" declfile="lame_ui.h" declline="2484" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="group__lui__dispdrv_1ga7d451e8c6afd8351943302f22a22ab5e" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint8_t</type>
@@ -197,7 +197,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="2328" column="9" bodyfile="lame_ui.c" bodystart="4513" bodyend="4523" declfile="lame_ui.h" declline="2328" declcolumn="9"/>
+        <location file="lame_ui.h" line="2492" column="9" bodyfile="lame_ui.c" bodystart="4854" bodyend="4864" declfile="lame_ui.h" declline="2492" declcolumn="9"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -225,7 +225,7 @@
 <codeline><highlight class="normal">void<sp/>read_touch_input_cb(lui_touch_input_data_t*<sp/>inputdata)</highlight></codeline>
 <codeline><highlight class="normal">{</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/>x<sp/>=<sp/>0,<sp/>y<sp/>=<sp/>0;<sp/>//<sp/>To<sp/>store<sp/>the<sp/>touch<sp/>coordinates</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Pressed<sp/>will<sp/>be<sp/>set<sp/>true<sp/>is<sp/>there<sp/>is<sp/>a<sp/>valid<sp/>touch<sp/>on<sp/>the<sp/>screen</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>bool<sp/>pressed<sp/>=<sp/>tft.getTouch(&amp;x,<sp/>&amp;y);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>inputdata-&gt;is_pressed<sp/>=<sp/>pressed;</highlight></codeline>
@@ -241,27 +241,27 @@
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline><highlight class="normal">}</highlight></codeline>
 <codeline></codeline>
-<codeline><highlight class="normal">void<sp/>setup(void)<sp/></highlight></codeline>
-<codeline><highlight class="normal">{<sp/><sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">void<sp/>setup(void)</highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Initilaize<sp/>tft</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>tft.init();</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>tft.setTouch(touch_cal_data);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Initialize<sp/>LameUI<sp/>with<sp/>some<sp/>memory</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>lui_init(lui_memory,<sp/>sizeof(lui_memory));</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Create<sp/>a<sp/>display<sp/>driver<sp/>object</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>lui_dispdrv_t*<sp/>display_driver<sp/>=<sp/>lui_dispdrv_create();</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>lui_dispdrv_register(display_driver);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>lui_dispdrv_set_resolution(display_driver,<sp/>240,<sp/>320);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>lui_dispdrv_set_draw_pixels_area_cb(display_driver,<sp/>draw_pixels_area_cb);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>lui_dispdrv_set_render_complete_cb(display_driver,<sp/>NULL);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Create<sp/>touch<sp/>input<sp/>device</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>lui_touch_input_dev_t*<sp/>input_device<sp/>=<sp/>lui_touch_inputdev_create();</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>lui_touch_inputdev_register(input_device);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>lui_touch_inputdev_set_read_input_cb(input_device,<sp/>read_touch_input_cb);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline></codeline>
 <codeline></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>...<sp/>[Add<sp/>scene<sp/>(mandatory)<sp/>and<sp/>other<sp/>widgets]<sp/>...</highlight></codeline>
 <codeline><highlight class="normal">}</highlight></codeline>

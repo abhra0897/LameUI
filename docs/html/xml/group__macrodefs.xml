@@ -10,6 +10,7 @@
     <innergroup refid="group__LUI__KEYBOARD__MODE">Keyboard modes</innergroup>
     <innergroup refid="group__LUI__ICONS">Default built-in icons</innergroup>
     <innergroup refid="group__LUI__BTNGRID__MASKS">Buttongrid button property-byte masks</innergroup>
+    <innergroup refid="group__LUI__ALIGNMENT">Content alignment flags</innergroup>
     <briefdescription>
 <para>This is the group of all public macro definitions. Public macros always start with <bold>LUI_</bold> prefix. </para>
     </briefdescription>

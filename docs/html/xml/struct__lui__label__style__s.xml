@@ -14,14 +14,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="272" column="10" bodyfile="lame_ui.h" bodystart="272" bodyend="-1"/>
+        <location file="lame_ui.h" line="278" column="10" bodyfile="lame_ui.h" bodystart="278" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="lame_ui.h" line="271" column="1" bodyfile="lame_ui.h" bodystart="270" bodyend="273"/>
+    <location file="lame_ui.h" line="277" column="1" bodyfile="lame_ui.h" bodystart="276" bodyend="279"/>
     <listofallmembers>
       <member refid="struct__lui__label__style__s_1a74819352e9cd8ece2ab0e1eefc70c793" prot="public" virt="non-virtual"><scope>_lui_label_style_s</scope><name>text_color</name></member>
     </listofallmembers>

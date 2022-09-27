@@ -14,7 +14,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="312" column="10" bodyfile="lame_ui.h" bodystart="312" bodyend="-1"/>
+        <location file="lame_ui.h" line="318" column="10" bodyfile="lame_ui.h" bodystart="318" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct__lui__linechart__style__s_1af9e98e9039efd56bda2e2baf2963b55d" prot="public" static="no" mutable="no">
         <type>uint16_t</type>
@@ -27,7 +27,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="313" column="10" bodyfile="lame_ui.h" bodystart="313" bodyend="-1"/>
+        <location file="lame_ui.h" line="319" column="10" bodyfile="lame_ui.h" bodystart="319" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct__lui__linechart__style__s_1a24893968b08da8b9bd4221e8de1c7c44" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -40,14 +40,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="lame_ui.h" line="314" column="9" bodyfile="lame_ui.h" bodystart="314" bodyend="-1"/>
+        <location file="lame_ui.h" line="320" column="9" bodyfile="lame_ui.h" bodystart="320" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="lame_ui.h" line="311" column="1" bodyfile="lame_ui.h" bodystart="310" bodyend="315"/>
+    <location file="lame_ui.h" line="317" column="1" bodyfile="lame_ui.h" bodystart="316" bodyend="321"/>
     <listofallmembers>
       <member refid="struct__lui__linechart__style__s_1af9e98e9039efd56bda2e2baf2963b55d" prot="public" virt="non-virtual"><scope>_lui_linechart_style_s</scope><name>grid_color</name></member>
       <member refid="struct__lui__linechart__style__s_1a24893968b08da8b9bd4221e8de1c7c44" prot="public" virt="non-virtual"><scope>_lui_linechart_style_s</scope><name>grid_visible</name></member>

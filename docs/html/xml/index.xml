@@ -26,8 +26,9 @@
     <member refid="struct__lui__btngrid__style__s_1a873d4502326ef18450078ec9a424b91f" kind="variable"><name>btn_bg_color</name></member>
   </compound>
   <compound refid="struct__lui__button__s" kind="struct"><name>_lui_button_s</name>
-    <member refid="struct__lui__button__s_1a8dda64e7c029baa57fa8238d78166a40" kind="variable"><name>text</name></member>
     <member refid="struct__lui__button__s_1afc272212dfc465fe9d9bb1e926c34b2d" kind="variable"><name>font</name></member>
+    <member refid="struct__lui__button__s_1a8dda64e7c029baa57fa8238d78166a40" kind="variable"><name>text</name></member>
+    <member refid="struct__lui__button__s_1a407c6ce5869d91a530fe66ff90d0ec8f" kind="variable"><name>text_align</name></member>
     <member refid="struct__lui__button__s_1ae2215798607441f44985be66e6867295" kind="variable"><name>label</name></member>
     <member refid="struct__lui__button__s_1a0516aa560e37cf51f524ea9557270f12" kind="variable"><name>style</name></member>
   </compound>
@@ -92,13 +93,24 @@
     <member refid="struct__lui__linechart__style__s_1af9e98e9039efd56bda2e2baf2963b55d" kind="variable"><name>grid_color</name></member>
     <member refid="struct__lui__linechart__style__s_1a24893968b08da8b9bd4221e8de1c7c44" kind="variable"><name>grid_visible</name></member>
   </compound>
+  <compound refid="struct__lui__list__item" kind="struct"><name>_lui_list_item</name>
+    <member refid="struct__lui__list__item_1a5ee8d09a53f5b6adc1b6f9a205db8575" kind="variable"><name>text</name></member>
+    <member refid="struct__lui__list__item_1abcd4c91ea111521336ba3ce44f60ed1c" kind="variable"><name>area</name></member>
+  </compound>
   <compound refid="struct__lui__list__s" kind="struct"><name>_lui_list_s</name>
+    <member refid="struct__lui__list__s_1a72287d7249633e3e35b25e5835e4d836" kind="variable"><name>font</name></member>
+    <member refid="struct__lui__list__s_1a7da715640c664f4958125b6b07ff146b" kind="variable"><name>selected_item_index</name></member>
     <member refid="struct__lui__list__s_1a3f11db1cd76b7fd4f7cdb35362db8ed6" kind="variable"><name>page_count</name></member>
     <member refid="struct__lui__list__s_1abcee3e67b7e0bb077da0a9f4a365c219" kind="variable"><name>current_page_index</name></member>
-    <member refid="struct__lui__list__s_1ab58a5610e1544285073db3aed2246667" kind="variable"><name>selected_button_index</name></member>
-    <member refid="struct__lui__list__s_1a91fc80bb8c747d8b091b3fd0f6447261" kind="variable"><name>buttons_per_page</name></member>
-    <member refid="struct__lui__list__s_1a0438aaf61a0b0127b80ae77d53d9af1e" kind="variable"><name>button_item_min_height</name></member>
-    <member refid="struct__lui__list__s_1a72287d7249633e3e35b25e5835e4d836" kind="variable"><name>font</name></member>
+    <member refid="struct__lui__list__s_1a7f5e25671afc346a69522c2b0837365b" kind="variable"><name>items_per_page</name></member>
+    <member refid="struct__lui__list__s_1abfc1e2dd48b4446bd1e3c2b2946f5229" kind="variable"><name>page_first_item_index</name></member>
+    <member refid="struct__lui__list__s_1ab30f37bfbdda566df6a63e6558894132" kind="variable"><name>item_min_height</name></member>
+    <member refid="struct__lui__list__s_1a8dfa50e6118182e2a10d20c38fba4ee5" kind="variable"><name>text_align</name></member>
+    <member refid="struct__lui__list__s_1a8b031d88fc47d1189eaf8a08f44f2be9" kind="variable"><name>max_items</name></member>
+    <member refid="struct__lui__list__s_1a6181fd3940748dc01db98e2032fbe5e2" kind="variable"><name>items_cnt</name></member>
+    <member refid="struct__lui__list__s_1a55b8714846703ca49ea4203f39cd94fe" kind="variable"><name>is_dropdown</name></member>
+    <member refid="struct__lui__list__s_1adb0c67b0d740d5bfa61d30106928a42a" kind="variable"><name>is_expanded</name></member>
+    <member refid="struct__lui__list__s_1ac774f0b9839a5dc36941a4c4c1c20ac1" kind="variable"><name>items</name></member>
   </compound>
   <compound refid="struct__lui__list__style__s" kind="struct"><name>_lui_list_style_s</name>
     <member refid="struct__lui__list__style__s_1a217cb769f0e9519ced2c3a759b589c46" kind="variable"><name>item_btn</name></member>
@@ -110,6 +122,7 @@
     <member refid="struct__lui__main__s_1ad7a0c83de79d109860243ed8c8fd268e" kind="variable"><name>active_obj</name></member>
     <member refid="struct__lui__main__s_1ad65a1dee9316b74d99124e0d70b3fb94" kind="variable"><name>disp_drv</name></member>
     <member refid="struct__lui__main__s_1ad67679c71906be18a069215562565b4c" kind="variable"><name>touch_input_dev</name></member>
+    <member refid="struct__lui__main__s_1aed93250e68a526b2d741fca0d06f0358" kind="variable"><name>last_touch_data</name></member>
     <member refid="struct__lui__main__s_1a0e4d19251b3750c8b1ea7d08f296c61b" kind="variable"><name>input_state_pressed</name></member>
     <member refid="struct__lui__main__s_1a84bd19f39152b5c0e5097f7697fea845" kind="variable"><name>input_event_clicked</name></member>
     <member refid="struct__lui__main__s_1a5b42a05b8549d12774c79779245d3a5e" kind="variable"><name>total_scenes</name></member>
@@ -252,9 +265,9 @@
     <member refid="lame__ui_8c_1a51962ef152db652679b9bbf5d2230754" kind="variable"><name>kb_txt_upper_textmap</name></member>
     <member refid="lame__ui_8c_1ad91df74877a95f8f7d3f3b01384f04de" kind="variable"><name>kb_spcl_textmap</name></member>
     <member refid="lame__ui_8c_1affd7f4fed72fe7eddafe68602c608c2a" kind="variable"><name>kb_txt_propertymap</name></member>
-    <member refid="lame__ui_8c_1acc64dff1ba46b4bf273301342d88e529" kind="variable"><name>lui_default_payload</name></member>
-    <member refid="lame__ui_8c_1a7f0b8d79659dc81e3c6fa04f2d1f7fea" kind="variable"><name>BITMAP_lui_default</name></member>
-    <member refid="lame__ui_8c_1abc7180700baeff2bb9ca2c27cd0deace" kind="variable"><name>FONT_GLYPHS_lui_default</name></member>
+    <member refid="lame__ui_8c_1ac2542b83bc884e4eec0af80e7b7cec53" kind="variable"><name>default_ubuntu_regular_17_payload</name></member>
+    <member refid="lame__ui_8c_1a08fd4882e4b159265aae04d2636fea02" kind="variable"><name>BITMAP_default_ubuntu_regular_17</name></member>
+    <member refid="lame__ui_8c_1a13168af10d6c571254eb8e1d0a9354d3" kind="variable"><name>FONT_GLYPHS_default_ubuntu_regular_17</name></member>
     <member refid="lame__ui_8c_1ac60e2bda8772731a278995b748eff33f" kind="variable"><name>FONT_lui_default</name></member>
     <member refid="group__lui__core_1ga96ff45bfbaf38c57a613f1b4a4830893" kind="function"><name>lui_init</name></member>
     <member refid="group__lui__core_1gaa4a3c7694929ad0b6c5cd565dd6e7304" kind="function"><name>lui_update</name></member>
@@ -275,24 +288,34 @@
     <member refid="group__lui__button_1gad887047af16cb14b720cf1cf8116c1af" kind="function"><name>lui_button_draw</name></member>
     <member refid="group__lui__button_1gae3764b62e449b19e779892553ef6ed67" kind="function"><name>lui_button_create</name></member>
     <member refid="group__lui__button_1gaec9c0f394998052cbc800530f69f3a97" kind="function"><name>lui_button_set_label_text</name></member>
+    <member refid="group__lui__button_1ga944120a3784558b91fcea6ca36c42906" kind="function"><name>lui_button_set_label_align</name></member>
     <member refid="group__lui__button_1ga7136a562c97ee76a05e8b9bff807ca3f" kind="function"><name>lui_button_set_label_color</name></member>
     <member refid="group__lui__button_1ga6418e81c76d0182534e1decc65f417b8" kind="function"><name>lui_button_set_label_font</name></member>
     <member refid="group__lui__button_1gaf719ba472084dcdb38418184b63bd323" kind="function"><name>lui_button_set_extra_colors</name></member>
     <member refid="group__lui__list_1ga04c3b17479a68f18ad15e9209e79b225" kind="function"><name>lui_list_draw</name></member>
     <member refid="group__lui__list_1gad7eda3882ef90983dd2fac598e6699a3" kind="function"><name>lui_list_create</name></member>
     <member refid="group__lui__list_1ga50b081682a8bc9ab50e229d432605b2e" kind="function"><name>lui_list_prepare</name></member>
-    <member refid="group__lui__list_1ga44ee84ed9cee3f474917ce51766582c6" kind="function"><name>lui_list_add_item</name></member>
-    <member refid="group__lui__list_1gabfcf03c5664bd32033468f249cee095f" kind="function"><name>lui_list_delete_item</name></member>
+    <member refid="group__lui__list_1ga8d36d05056be1235f0314acbdac0371e" kind="function"><name>lui_list_set_max_items_count</name></member>
+    <member refid="group__lui__list_1ga1641e5189b244dab791439e1cdf74a5f" kind="function"><name>lui_list_add_item</name></member>
+    <member refid="group__lui__list_1ga9cf6c2e13b0440ab82838abe1507f299" kind="function"><name>lui_list_remove_item</name></member>
+    <member refid="group__lui__list_1ga81efc1c22a6e1d841c1357eccfae4699" kind="function"><name>lui_list_remove_all</name></member>
+    <member refid="group__lui__list_1ga02c8af9365b2c846e71209f9be648930" kind="function"><name>lui_list_get_selected_item_index</name></member>
+    <member refid="group__lui__list_1ga002fad5fa77d895a533beb808c45fab5" kind="function"><name>lui_list_set_selected_item_index</name></member>
+    <member refid="group__lui__list_1gaab776b7da921069dcfd27950fc5f2a49" kind="function"><name>lui_list_get_item_text</name></member>
+    <member refid="group__lui__list_1ga697bbb676af7e00bd978fb16037d7377" kind="function"><name>lui_list_set_item_text</name></member>
+    <member refid="group__lui__list_1ga9e90dcc7b886d2ccb958637601acad00" kind="function"><name>lui_list_set_dropdown_mode</name></member>
+    <member refid="group__lui__list_1ga2d86fc05aaec78aecd7577c9d0b57d2a" kind="function"><name>lui_list_set_dropdown_expand</name></member>
     <member refid="group__lui__list_1ga7b3ca3fb28dbf45735f386c47fe442eb" kind="function"><name>lui_list_set_item_min_height</name></member>
     <member refid="group__lui__list_1ga78b10f123fed4442a355aded019192ef" kind="function"><name>lui_list_set_font</name></member>
+    <member refid="group__lui__list_1gaff2dc6e1abc86daef74c1adf4e9aceab" kind="function"><name>lui_list_set_text_align</name></member>
     <member refid="group__lui__list_1ga7f3880daf82482a5607cab5e0cb29312" kind="function"><name>lui_list_set_nav_btn_label_color</name></member>
     <member refid="group__lui__list_1ga333597198d7084bb6043f2d1138edc70" kind="function"><name>lui_list_set_nav_btn_bg_color</name></member>
     <member refid="group__lui__list_1ga68f52172597db059c42dc40341e8837d" kind="function"><name>lui_list_set_nav_btn_extra_colors</name></member>
     <member refid="lame__ui_8c_1ae3c2d3f8601f1c3a8668642bf462e927" kind="function"><name>lui_list_set_nav_btn_label_text</name></member>
     <member refid="lame__ui_8c_1a144477a1213614267ef3bcdeef4b1705" kind="function"><name>lui_list_set_nav_btn_border_color</name></member>
+    <member refid="group__lui__list_1ga0d18fe32b64aeaace3f49809cf375a9b" kind="function"><name>lui_list_set_page_index</name></member>
     <member refid="group__lui__list_1ga113b2b881f1deeebf321838a26af1eda" kind="function"><name>_lui_list_add_button_obj</name></member>
     <member refid="group__lui__list_1ga28e33de3b1ab46c24e75089b6730fa93" kind="function"><name>_lui_list_add_nav_buttons</name></member>
-    <member refid="group__lui__list_1ga0d18fe32b64aeaace3f49809cf375a9b" kind="function"><name>lui_list_set_page_index</name></member>
     <member refid="group__lui__list_1ga998a8db32df4974f8a0114cfbaa5f9e1" kind="function"><name>_lui_list_nav_btn_cb</name></member>
     <member refid="group__lui__switch_1gafd67bf0ba01cf6c48b3f6e779a9ff95a" kind="function"><name>lui_switch_draw</name></member>
     <member refid="group__lui__switch_1ga331cedddf1136c8e3b2fa0a3d1c8f9b9" kind="function"><name>lui_switch_create</name></member>
@@ -358,6 +381,7 @@
     <member refid="group__lui__object_1ga035918521a6c575108b64d7e960bb645" kind="function"><name>_lui_object_create</name></member>
     <member refid="group__lui__object_1ga0d71d83d0757cfbafd9308689e41aaf2" kind="function"><name>lui_object_add_to_parent</name></member>
     <member refid="group__lui__object_1ga0410a5dd9b906d11881611fc0dfdeea6" kind="function"><name>lui_object_remove_from_parent</name></member>
+    <member refid="group__lui__object_1ga56a2ce896db5064e1963a185af87c607" kind="function"><name>lui_object_get_child</name></member>
     <member refid="group__lui__object_1gaf7bedc873edb862f9c1f8b063f17f839" kind="function"><name>lui_object_set_position</name></member>
     <member refid="group__lui__object_1gac6ab60ef6a5e52ec9dd37dcb9cf117c0" kind="function"><name>lui_object_set_x_pos</name></member>
     <member refid="group__lui__object_1ga7cf13aeef87bd34c6e25e1bf410fe0bb" kind="function"><name>lui_object_set_y_pos</name></member>
@@ -397,7 +421,7 @@
     <member refid="group__lui__gfx_1gad4c604716d2df4943ac32b35fa56ac14" kind="function"><name>lui_gfx_draw_line</name></member>
     <member refid="group__lui__gfx_1gad91328f058c99813e23a79a0e5aed425" kind="function"><name>lui_gfx_draw_rect</name></member>
     <member refid="group__lui__gfx_1ga85fb0f8d768116008acf2f12ee3af158" kind="function"><name>lui_gfx_draw_rect_fill</name></member>
-    <member refid="group__lui__gfx_1gabf4a47ee478dcf930887d2b1f919133a" kind="function"><name>lui_gfx_get_string_dimension</name></member>
+    <member refid="group__lui__gfx_1ga9f09f042a3ce689f320d82dfd847d650" kind="function"><name>lui_gfx_get_string_dimension</name></member>
     <member refid="group__lui__gfx_1ga4340cdddeeb18dbcd7c0a0eb9dbcb9c7" kind="function"><name>lui_rgb</name></member>
     <member refid="lame__ui_8c_1aa2e958469e118904a54004c834779a8c" kind="function"><name>_lui_gfx_get_glyph_from_char</name></member>
     <member refid="lame__ui_8c_1a7f55400d276a2100f8ce722ce5dffb7f" kind="function"><name>_lui_gfx_render_char_glyph</name></member>
@@ -453,8 +477,8 @@
     <member refid="group__LUI__KEYBOARD__MODE_1ga6c7dfef998e05b11ae2bcfdb5af32f27" kind="define"><name>LUI_KEYBOARD_MODE_TXT_UPPER</name></member>
     <member refid="group__LUI__KEYBOARD__MODE_1gaf40e758476c4dacde5c9c79dd265e7eb" kind="define"><name>LUI_KEYBOARD_MODE_TXT_SPCL</name></member>
     <member refid="group__LUI__ICONS_1gad1154c55619e443178bd812aadbb710d" kind="define"><name>LUI_ICON_HOME</name></member>
-    <member refid="group__LUI__ICONS_1gaf3af51845f962c906d6e9198dccb8316" kind="define"><name>LUI_ICON_RELAOD</name></member>
-    <member refid="group__LUI__ICONS_1gae5cc5454ed2c8a203a4acb0acdf1afbe" kind="define"><name>LUI_ICON_BATTERY_HALF</name></member>
+    <member refid="group__LUI__ICONS_1ga85fb4219699bebfedc9740c4157495ba" kind="define"><name>LUI_ICON_RELOAD</name></member>
+    <member refid="group__LUI__ICONS_1gab24950928f1faf2ba5751d42e7b6fb6a" kind="define"><name>LUI_ICON_CARET_BACK</name></member>
     <member refid="group__LUI__ICONS_1ga7fbfb716d376dd490ec613ac8f458265" kind="define"><name>LUI_ICON_LOCATION</name></member>
     <member refid="group__LUI__ICONS_1ga366c73f2453cd2811bf107b3c90b9c3c" kind="define"><name>LUI_ICON_BATTERY_FULL</name></member>
     <member refid="group__LUI__ICONS_1ga3d49ba105be02944754a9e6a37e07754" kind="define"><name>LUI_ICON_CHECKMARK</name></member>
@@ -464,12 +488,12 @@
     <member refid="group__LUI__ICONS_1ga2a417336966b775dbf440df829cf76e1" kind="define"><name>LUI_ICON_PAUSE</name></member>
     <member refid="group__LUI__ICONS_1ga9c3bb90a40f93aa9c614ac40452210b6" kind="define"><name>LUI_ICON_REMOVE</name></member>
     <member refid="group__LUI__ICONS_1ga284f7329f4ad53e3c31fff239ce3d7a4" kind="define"><name>LUI_ICON_POWER</name></member>
-    <member refid="group__LUI__ICONS_1ga344943ad5300f12781e96c0b8b57a74a" kind="define"><name>LUI_ICON_HOURGLASS</name></member>
+    <member refid="group__LUI__ICONS_1gaf9e859683de4f9c1e5917b39c4baa84e" kind="define"><name>LUI_ICON_CARET_UP</name></member>
     <member refid="group__LUI__ICONS_1gaf9b200823fc0985c9597309b2afdccfc" kind="define"><name>LUI_ICON_VOLUME_MEDIUM</name></member>
     <member refid="group__LUI__ICONS_1ga1f6049d672de02084a8a12b0fe70603c" kind="define"><name>LUI_ICON_ARROW_BACK</name></member>
     <member refid="group__LUI__ICONS_1ga8fdfe4c0efcdec918f4ca1324c375f3e" kind="define"><name>LUI_ICON_CLOSE</name></member>
     <member refid="group__LUI__ICONS_1ga27f0d7d4f8c4aad23fda627922223d92" kind="define"><name>LUI_ICON_BLUETOOTH</name></member>
-    <member refid="group__LUI__ICONS_1ga691d6e13b473af16e8541dea6d851b87" kind="define"><name>LUI_ICON_PLAY</name></member>
+    <member refid="group__LUI__ICONS_1ga3e433e93634ef37159f7d641a80749e4" kind="define"><name>LUI_ICON_CARET_FORWARD</name></member>
     <member refid="group__LUI__ICONS_1ga82b14467d3547a28e77d29ade0603f38" kind="define"><name>LUI_ICON_VOLUME_OFF</name></member>
     <member refid="group__LUI__ICONS_1ga8292e4c32772949773d014e3792baf2a" kind="define"><name>LUI_ICON_ARROW_FORWARD</name></member>
     <member refid="group__LUI__ICONS_1gae279007a1236ca9beeff95d856fa121f" kind="define"><name>LUI_ICON_BATTERY_CHARGING</name></member>
@@ -480,12 +504,15 @@
     <member refid="group__LUI__ICONS_1ga6ca91e779dcc12ec8c31048715d1be2e" kind="define"><name>LUI_ICON_SETTINGS</name></member>
     <member refid="group__LUI__ICONS_1gafdfcb3eccaa9716823a094a69e4fb176" kind="define"><name>LUI_ICON_ADD</name></member>
     <member refid="group__LUI__ICONS_1ga1b88b461268679d9f7def0f62f63a6c0" kind="define"><name>LUI_ICON_BATTERY_DEAED</name></member>
-    <member refid="group__LUI__ICONS_1gab0451ba9edcdb3c1686a5879690e25b6" kind="define"><name>LUI_ICON_STOP</name></member>
+    <member refid="group__LUI__ICONS_1ga7265eb3d9f0e756214220a5f1285e893" kind="define"><name>LUI_ICON_CARET_DOWN</name></member>
     <member refid="group__LUI__BTNGRID__MASKS_1ga265e4dc05e3da27de273897cd2e982ea" kind="define"><name>LUI_BTNGRID_MASK_BTN_DISABLED</name></member>
     <member refid="group__LUI__BTNGRID__MASKS_1gaa89b220d3a160df88c7a9c9b5a45d673" kind="define"><name>LUI_BTNGRID_MASK_BTN_HIDDEN</name></member>
     <member refid="group__LUI__BTNGRID__MASKS_1ga4602d581d707dea1c8b3da39a573e3ee" kind="define"><name>LUI_BTNGRID_MASK_BTN_CHECKABLE</name></member>
     <member refid="group__LUI__BTNGRID__MASKS_1ga2112955982994d548d7789d152d2552d" kind="define"><name>LUI_BTNGRID_MASK_BTN_CHECKED</name></member>
     <member refid="group__LUI__BTNGRID__MASKS_1gac8eb53fd6ef2b0911ca5b25c6b65bd30" kind="define"><name>LUI_BTNGRID_MASK_BTN_WIDTH_UNIT</name></member>
+    <member refid="group__LUI__ALIGNMENT_1ga05a191a059215fde2bf76f64d594b5dc" kind="define"><name>LUI_ALIGN_LEFT</name></member>
+    <member refid="group__LUI__ALIGNMENT_1ga5cf4aa39591271a70348eb2c5983619a" kind="define"><name>LUI_ALIGN_CENTER</name></member>
+    <member refid="group__LUI__ALIGNMENT_1gaa236d8be24fd5839b961908e14174eb8" kind="define"><name>LUI_ALIGN_RIGHT</name></member>
     <member refid="lame__ui_8h_1a85afc47355fb034b0db91b6aeffe4765" kind="define"><name>_LUI_R_POS_RGB</name></member>
     <member refid="lame__ui_8h_1afd84631255c5adff703db28b0d8ae408" kind="define"><name>_LUI_G_POS_RGB</name></member>
     <member refid="lame__ui_8h_1a9448a03bb7a57cf6c45d820b6b9b947f" kind="define"><name>_LUI_B_POS_RGB</name></member>
@@ -599,6 +626,7 @@
     <member refid="group__lui__core_1gaa4a3c7694929ad0b6c5cd565dd6e7304" kind="function"><name>lui_update</name></member>
     <member refid="group__lui__object_1ga0d71d83d0757cfbafd9308689e41aaf2" kind="function"><name>lui_object_add_to_parent</name></member>
     <member refid="group__lui__object_1ga0410a5dd9b906d11881611fc0dfdeea6" kind="function"><name>lui_object_remove_from_parent</name></member>
+    <member refid="group__lui__object_1ga56a2ce896db5064e1963a185af87c607" kind="function"><name>lui_object_get_child</name></member>
     <member refid="group__lui__object_1gaed4bb7d9c2764c6786708535fad7cf67" kind="function"><name>lui_object_set_area</name></member>
     <member refid="group__lui__object_1ga7a2a43446875ea180d2a5f1103f0a547" kind="function"><name>lui_object_set_width</name></member>
     <member refid="group__lui__object_1ga0e9b5ea44b5698a9fac1d1a8440e378b" kind="function"><name>lui_object_set_height</name></member>
@@ -637,6 +665,7 @@
     <member refid="group__lui__button_1gae3764b62e449b19e779892553ef6ed67" kind="function"><name>lui_button_create</name></member>
     <member refid="group__lui__button_1gad887047af16cb14b720cf1cf8116c1af" kind="function"><name>lui_button_draw</name></member>
     <member refid="group__lui__button_1gaec9c0f394998052cbc800530f69f3a97" kind="function"><name>lui_button_set_label_text</name></member>
+    <member refid="group__lui__button_1ga944120a3784558b91fcea6ca36c42906" kind="function"><name>lui_button_set_label_align</name></member>
     <member refid="group__lui__button_1ga7136a562c97ee76a05e8b9bff807ca3f" kind="function"><name>lui_button_set_label_color</name></member>
     <member refid="group__lui__button_1ga6418e81c76d0182534e1decc65f417b8" kind="function"><name>lui_button_set_label_font</name></member>
     <member refid="group__lui__button_1gaf719ba472084dcdb38418184b63bd323" kind="function"><name>lui_button_set_extra_colors</name></member>
@@ -663,12 +692,21 @@
     <member refid="group__lui__slider_1ga6d2b4a71de9a68d2575d1572f71fbcb3" kind="function"><name>lui_slider_get_min_value</name></member>
     <member refid="group__lui__slider_1ga9a0709df634fac8694c67c91fe18d64c" kind="function"><name>lui_slider_get_max_value</name></member>
     <member refid="group__lui__list_1gad7eda3882ef90983dd2fac598e6699a3" kind="function"><name>lui_list_create</name></member>
+    <member refid="group__lui__list_1ga8d36d05056be1235f0314acbdac0371e" kind="function"><name>lui_list_set_max_items_count</name></member>
     <member refid="group__lui__list_1ga04c3b17479a68f18ad15e9209e79b225" kind="function"><name>lui_list_draw</name></member>
-    <member refid="group__lui__list_1ga44ee84ed9cee3f474917ce51766582c6" kind="function"><name>lui_list_add_item</name></member>
-    <member refid="group__lui__list_1gabfcf03c5664bd32033468f249cee095f" kind="function"><name>lui_list_delete_item</name></member>
+    <member refid="group__lui__list_1ga1641e5189b244dab791439e1cdf74a5f" kind="function"><name>lui_list_add_item</name></member>
+    <member refid="group__lui__list_1ga9cf6c2e13b0440ab82838abe1507f299" kind="function"><name>lui_list_remove_item</name></member>
+    <member refid="group__lui__list_1ga81efc1c22a6e1d841c1357eccfae4699" kind="function"><name>lui_list_remove_all</name></member>
+    <member refid="group__lui__list_1ga02c8af9365b2c846e71209f9be648930" kind="function"><name>lui_list_get_selected_item_index</name></member>
+    <member refid="group__lui__list_1ga002fad5fa77d895a533beb808c45fab5" kind="function"><name>lui_list_set_selected_item_index</name></member>
+    <member refid="group__lui__list_1gaab776b7da921069dcfd27950fc5f2a49" kind="function"><name>lui_list_get_item_text</name></member>
+    <member refid="group__lui__list_1ga697bbb676af7e00bd978fb16037d7377" kind="function"><name>lui_list_set_item_text</name></member>
+    <member refid="group__lui__list_1ga9e90dcc7b886d2ccb958637601acad00" kind="function"><name>lui_list_set_dropdown_mode</name></member>
+    <member refid="group__lui__list_1ga2d86fc05aaec78aecd7577c9d0b57d2a" kind="function"><name>lui_list_set_dropdown_expand</name></member>
     <member refid="group__lui__list_1ga50b081682a8bc9ab50e229d432605b2e" kind="function"><name>lui_list_prepare</name></member>
     <member refid="group__lui__list_1ga7b3ca3fb28dbf45735f386c47fe442eb" kind="function"><name>lui_list_set_item_min_height</name></member>
     <member refid="group__lui__list_1ga78b10f123fed4442a355aded019192ef" kind="function"><name>lui_list_set_font</name></member>
+    <member refid="group__lui__list_1gaff2dc6e1abc86daef74c1adf4e9aceab" kind="function"><name>lui_list_set_text_align</name></member>
     <member refid="group__lui__list_1ga7f3880daf82482a5607cab5e0cb29312" kind="function"><name>lui_list_set_nav_btn_label_color</name></member>
     <member refid="group__lui__list_1ga333597198d7084bb6043f2d1138edc70" kind="function"><name>lui_list_set_nav_btn_bg_color</name></member>
     <member refid="group__lui__list_1ga68f52172597db059c42dc40341e8837d" kind="function"><name>lui_list_set_nav_btn_extra_colors</name></member>
@@ -735,7 +773,7 @@
     <member refid="group__lui__gfx_1gaf84e3918864703ba0639c43978b6ea97" kind="function"><name>lui_gfx_draw_string_advanced</name></member>
     <member refid="group__lui__gfx_1ga34170dff54b3f4cd9fb0b5c5fd883e79" kind="function"><name>lui_gfx_draw_string_simple</name></member>
     <member refid="group__lui__gfx_1ga4cb1f631c60220fe1388d8bcafab4b5e" kind="function"><name>lui_gfx_draw_char</name></member>
-    <member refid="group__lui__gfx_1gabf4a47ee478dcf930887d2b1f919133a" kind="function"><name>lui_gfx_get_string_dimension</name></member>
+    <member refid="group__lui__gfx_1ga9f09f042a3ce689f320d82dfd847d650" kind="function"><name>lui_gfx_get_string_dimension</name></member>
     <member refid="group__lui__gfx_1gad4c604716d2df4943ac32b35fa56ac14" kind="function"><name>lui_gfx_draw_line</name></member>
     <member refid="group__lui__gfx_1gad91328f058c99813e23a79a0e5aed425" kind="function"><name>lui_gfx_draw_rect</name></member>
     <member refid="group__lui__gfx_1ga85fb0f8d768116008acf2f12ee3af158" kind="function"><name>lui_gfx_draw_rect_fill</name></member>
@@ -757,6 +795,7 @@
   <compound refid="group__lui__object" kind="group"><name>lui_object</name>
     <member refid="group__lui__object_1ga0d71d83d0757cfbafd9308689e41aaf2" kind="function"><name>lui_object_add_to_parent</name></member>
     <member refid="group__lui__object_1ga0410a5dd9b906d11881611fc0dfdeea6" kind="function"><name>lui_object_remove_from_parent</name></member>
+    <member refid="group__lui__object_1ga56a2ce896db5064e1963a185af87c607" kind="function"><name>lui_object_get_child</name></member>
     <member refid="group__lui__object_1gaed4bb7d9c2764c6786708535fad7cf67" kind="function"><name>lui_object_set_area</name></member>
     <member refid="group__lui__object_1ga7a2a43446875ea180d2a5f1103f0a547" kind="function"><name>lui_object_set_width</name></member>
     <member refid="group__lui__object_1ga0e9b5ea44b5698a9fac1d1a8440e378b" kind="function"><name>lui_object_set_height</name></member>
@@ -801,6 +840,7 @@
     <member refid="group__lui__button_1gae3764b62e449b19e779892553ef6ed67" kind="function"><name>lui_button_create</name></member>
     <member refid="group__lui__button_1gad887047af16cb14b720cf1cf8116c1af" kind="function"><name>lui_button_draw</name></member>
     <member refid="group__lui__button_1gaec9c0f394998052cbc800530f69f3a97" kind="function"><name>lui_button_set_label_text</name></member>
+    <member refid="group__lui__button_1ga944120a3784558b91fcea6ca36c42906" kind="function"><name>lui_button_set_label_align</name></member>
     <member refid="group__lui__button_1ga7136a562c97ee76a05e8b9bff807ca3f" kind="function"><name>lui_button_set_label_color</name></member>
     <member refid="group__lui__button_1ga6418e81c76d0182534e1decc65f417b8" kind="function"><name>lui_button_set_label_font</name></member>
     <member refid="group__lui__button_1gaf719ba472084dcdb38418184b63bd323" kind="function"><name>lui_button_set_extra_colors</name></member>
@@ -835,12 +875,21 @@
   </compound>
   <compound refid="group__lui__list" kind="group"><name>lui_list</name>
     <member refid="group__lui__list_1gad7eda3882ef90983dd2fac598e6699a3" kind="function"><name>lui_list_create</name></member>
+    <member refid="group__lui__list_1ga8d36d05056be1235f0314acbdac0371e" kind="function"><name>lui_list_set_max_items_count</name></member>
     <member refid="group__lui__list_1ga04c3b17479a68f18ad15e9209e79b225" kind="function"><name>lui_list_draw</name></member>
-    <member refid="group__lui__list_1ga44ee84ed9cee3f474917ce51766582c6" kind="function"><name>lui_list_add_item</name></member>
-    <member refid="group__lui__list_1gabfcf03c5664bd32033468f249cee095f" kind="function"><name>lui_list_delete_item</name></member>
+    <member refid="group__lui__list_1ga1641e5189b244dab791439e1cdf74a5f" kind="function"><name>lui_list_add_item</name></member>
+    <member refid="group__lui__list_1ga9cf6c2e13b0440ab82838abe1507f299" kind="function"><name>lui_list_remove_item</name></member>
+    <member refid="group__lui__list_1ga81efc1c22a6e1d841c1357eccfae4699" kind="function"><name>lui_list_remove_all</name></member>
+    <member refid="group__lui__list_1ga02c8af9365b2c846e71209f9be648930" kind="function"><name>lui_list_get_selected_item_index</name></member>
+    <member refid="group__lui__list_1ga002fad5fa77d895a533beb808c45fab5" kind="function"><name>lui_list_set_selected_item_index</name></member>
+    <member refid="group__lui__list_1gaab776b7da921069dcfd27950fc5f2a49" kind="function"><name>lui_list_get_item_text</name></member>
+    <member refid="group__lui__list_1ga697bbb676af7e00bd978fb16037d7377" kind="function"><name>lui_list_set_item_text</name></member>
+    <member refid="group__lui__list_1ga9e90dcc7b886d2ccb958637601acad00" kind="function"><name>lui_list_set_dropdown_mode</name></member>
+    <member refid="group__lui__list_1ga2d86fc05aaec78aecd7577c9d0b57d2a" kind="function"><name>lui_list_set_dropdown_expand</name></member>
     <member refid="group__lui__list_1ga50b081682a8bc9ab50e229d432605b2e" kind="function"><name>lui_list_prepare</name></member>
     <member refid="group__lui__list_1ga7b3ca3fb28dbf45735f386c47fe442eb" kind="function"><name>lui_list_set_item_min_height</name></member>
     <member refid="group__lui__list_1ga78b10f123fed4442a355aded019192ef" kind="function"><name>lui_list_set_font</name></member>
+    <member refid="group__lui__list_1gaff2dc6e1abc86daef74c1adf4e9aceab" kind="function"><name>lui_list_set_text_align</name></member>
     <member refid="group__lui__list_1ga7f3880daf82482a5607cab5e0cb29312" kind="function"><name>lui_list_set_nav_btn_label_color</name></member>
     <member refid="group__lui__list_1ga333597198d7084bb6043f2d1138edc70" kind="function"><name>lui_list_set_nav_btn_bg_color</name></member>
     <member refid="group__lui__list_1ga68f52172597db059c42dc40341e8837d" kind="function"><name>lui_list_set_nav_btn_extra_colors</name></member>
@@ -915,7 +964,7 @@
     <member refid="group__lui__gfx_1gaf84e3918864703ba0639c43978b6ea97" kind="function"><name>lui_gfx_draw_string_advanced</name></member>
     <member refid="group__lui__gfx_1ga34170dff54b3f4cd9fb0b5c5fd883e79" kind="function"><name>lui_gfx_draw_string_simple</name></member>
     <member refid="group__lui__gfx_1ga4cb1f631c60220fe1388d8bcafab4b5e" kind="function"><name>lui_gfx_draw_char</name></member>
-    <member refid="group__lui__gfx_1gabf4a47ee478dcf930887d2b1f919133a" kind="function"><name>lui_gfx_get_string_dimension</name></member>
+    <member refid="group__lui__gfx_1ga9f09f042a3ce689f320d82dfd847d650" kind="function"><name>lui_gfx_get_string_dimension</name></member>
     <member refid="group__lui__gfx_1gad4c604716d2df4943ac32b35fa56ac14" kind="function"><name>lui_gfx_draw_line</name></member>
     <member refid="group__lui__gfx_1gad91328f058c99813e23a79a0e5aed425" kind="function"><name>lui_gfx_draw_rect</name></member>
     <member refid="group__lui__gfx_1ga85fb0f8d768116008acf2f12ee3af158" kind="function"><name>lui_gfx_draw_rect_fill</name></member>
@@ -967,8 +1016,8 @@
   </compound>
   <compound refid="group__LUI__ICONS" kind="group"><name>LUI_ICONS</name>
     <member refid="group__LUI__ICONS_1gad1154c55619e443178bd812aadbb710d" kind="define"><name>LUI_ICON_HOME</name></member>
-    <member refid="group__LUI__ICONS_1gaf3af51845f962c906d6e9198dccb8316" kind="define"><name>LUI_ICON_RELAOD</name></member>
-    <member refid="group__LUI__ICONS_1gae5cc5454ed2c8a203a4acb0acdf1afbe" kind="define"><name>LUI_ICON_BATTERY_HALF</name></member>
+    <member refid="group__LUI__ICONS_1ga85fb4219699bebfedc9740c4157495ba" kind="define"><name>LUI_ICON_RELOAD</name></member>
+    <member refid="group__LUI__ICONS_1gab24950928f1faf2ba5751d42e7b6fb6a" kind="define"><name>LUI_ICON_CARET_BACK</name></member>
     <member refid="group__LUI__ICONS_1ga7fbfb716d376dd490ec613ac8f458265" kind="define"><name>LUI_ICON_LOCATION</name></member>
     <member refid="group__LUI__ICONS_1ga366c73f2453cd2811bf107b3c90b9c3c" kind="define"><name>LUI_ICON_BATTERY_FULL</name></member>
     <member refid="group__LUI__ICONS_1ga3d49ba105be02944754a9e6a37e07754" kind="define"><name>LUI_ICON_CHECKMARK</name></member>
@@ -978,12 +1027,12 @@
     <member refid="group__LUI__ICONS_1ga2a417336966b775dbf440df829cf76e1" kind="define"><name>LUI_ICON_PAUSE</name></member>
     <member refid="group__LUI__ICONS_1ga9c3bb90a40f93aa9c614ac40452210b6" kind="define"><name>LUI_ICON_REMOVE</name></member>
     <member refid="group__LUI__ICONS_1ga284f7329f4ad53e3c31fff239ce3d7a4" kind="define"><name>LUI_ICON_POWER</name></member>
-    <member refid="group__LUI__ICONS_1ga344943ad5300f12781e96c0b8b57a74a" kind="define"><name>LUI_ICON_HOURGLASS</name></member>
+    <member refid="group__LUI__ICONS_1gaf9e859683de4f9c1e5917b39c4baa84e" kind="define"><name>LUI_ICON_CARET_UP</name></member>
     <member refid="group__LUI__ICONS_1gaf9b200823fc0985c9597309b2afdccfc" kind="define"><name>LUI_ICON_VOLUME_MEDIUM</name></member>
     <member refid="group__LUI__ICONS_1ga1f6049d672de02084a8a12b0fe70603c" kind="define"><name>LUI_ICON_ARROW_BACK</name></member>
     <member refid="group__LUI__ICONS_1ga8fdfe4c0efcdec918f4ca1324c375f3e" kind="define"><name>LUI_ICON_CLOSE</name></member>
     <member refid="group__LUI__ICONS_1ga27f0d7d4f8c4aad23fda627922223d92" kind="define"><name>LUI_ICON_BLUETOOTH</name></member>
-    <member refid="group__LUI__ICONS_1ga691d6e13b473af16e8541dea6d851b87" kind="define"><name>LUI_ICON_PLAY</name></member>
+    <member refid="group__LUI__ICONS_1ga3e433e93634ef37159f7d641a80749e4" kind="define"><name>LUI_ICON_CARET_FORWARD</name></member>
     <member refid="group__LUI__ICONS_1ga82b14467d3547a28e77d29ade0603f38" kind="define"><name>LUI_ICON_VOLUME_OFF</name></member>
     <member refid="group__LUI__ICONS_1ga8292e4c32772949773d014e3792baf2a" kind="define"><name>LUI_ICON_ARROW_FORWARD</name></member>
     <member refid="group__LUI__ICONS_1gae279007a1236ca9beeff95d856fa121f" kind="define"><name>LUI_ICON_BATTERY_CHARGING</name></member>
@@ -994,7 +1043,7 @@
     <member refid="group__LUI__ICONS_1ga6ca91e779dcc12ec8c31048715d1be2e" kind="define"><name>LUI_ICON_SETTINGS</name></member>
     <member refid="group__LUI__ICONS_1gafdfcb3eccaa9716823a094a69e4fb176" kind="define"><name>LUI_ICON_ADD</name></member>
     <member refid="group__LUI__ICONS_1ga1b88b461268679d9f7def0f62f63a6c0" kind="define"><name>LUI_ICON_BATTERY_DEAED</name></member>
-    <member refid="group__LUI__ICONS_1gab0451ba9edcdb3c1686a5879690e25b6" kind="define"><name>LUI_ICON_STOP</name></member>
+    <member refid="group__LUI__ICONS_1ga7265eb3d9f0e756214220a5f1285e893" kind="define"><name>LUI_ICON_CARET_DOWN</name></member>
   </compound>
   <compound refid="group__LUI__BTNGRID__MASKS" kind="group"><name>LUI_BTNGRID_MASKS</name>
     <member refid="group__LUI__BTNGRID__MASKS_1ga265e4dc05e3da27de273897cd2e982ea" kind="define"><name>LUI_BTNGRID_MASK_BTN_DISABLED</name></member>
@@ -1002,6 +1051,11 @@
     <member refid="group__LUI__BTNGRID__MASKS_1ga4602d581d707dea1c8b3da39a573e3ee" kind="define"><name>LUI_BTNGRID_MASK_BTN_CHECKABLE</name></member>
     <member refid="group__LUI__BTNGRID__MASKS_1ga2112955982994d548d7789d152d2552d" kind="define"><name>LUI_BTNGRID_MASK_BTN_CHECKED</name></member>
     <member refid="group__LUI__BTNGRID__MASKS_1gac8eb53fd6ef2b0911ca5b25c6b65bd30" kind="define"><name>LUI_BTNGRID_MASK_BTN_WIDTH_UNIT</name></member>
+  </compound>
+  <compound refid="group__LUI__ALIGNMENT" kind="group"><name>LUI_ALIGNMENT</name>
+    <member refid="group__LUI__ALIGNMENT_1ga05a191a059215fde2bf76f64d594b5dc" kind="define"><name>LUI_ALIGN_LEFT</name></member>
+    <member refid="group__LUI__ALIGNMENT_1ga5cf4aa39591271a70348eb2c5983619a" kind="define"><name>LUI_ALIGN_CENTER</name></member>
+    <member refid="group__LUI__ALIGNMENT_1gaa236d8be24fd5839b961908e14174eb8" kind="define"><name>LUI_ALIGN_RIGHT</name></member>
   </compound>
   <compound refid="group__LUI__USE__OBJECT" kind="group"><name>LUI_USE_OBJECT</name>
     <member refid="group__LUI__USE__OBJECT_1ga82c1ecd24694c1c50e9f804b510a5f68" kind="define"><name>LUI_USE_LINECHART</name></member>
