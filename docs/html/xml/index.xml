@@ -218,6 +218,8 @@
   </compound>
   <compound refid="mainpage_8md" kind="file"><name>mainpage.md</name>
   </compound>
+  <compound refid="quickstart_8md" kind="file"><name>quickstart.md</name>
+  </compound>
   <compound refid="default__ubuntu__regular__17_8c" kind="file"><name>default_ubuntu_regular_17.c</name>
     <member refid="default__ubuntu__regular__17_8c_1ac2542b83bc884e4eec0af80e7b7cec53" kind="variable"><name>default_ubuntu_regular_17_payload</name></member>
     <member refid="default__ubuntu__regular__17_8c_1a08fd4882e4b159265aae04d2636fea02" kind="variable"><name>BITMAP_default_ubuntu_regular_17</name></member>
@@ -1314,6 +1316,8 @@
   <compound refid="examples_page" kind="page"><name>examples_page</name>
   </compound>
   <compound refid="font_maker_instr_page" kind="page"><name>font_maker_instr_page</name>
+  </compound>
+  <compound refid="quickstart_page" kind="page"><name>quickstart_page</name>
   </compound>
   <compound refid="md_README" kind="page"><name>md_README</name>
   </compound>

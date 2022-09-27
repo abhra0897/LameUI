@@ -1,7 +1,7 @@
 var searchData=
 [
   ['lameui_20font_20maker_62',['LameUI Font Maker',['../font_maker_instr_page.html',1,'']]],
-  ['lameui_20documentaion_63',['LameUI Documentaion',['../index.html',1,'']]],
+  ['lameui_20documentation_63',['LameUI Documentation',['../index.html',1,'']]],
   ['lame_5fui_2ec_64',['lame_ui.c',['../lame__ui_8c.html',1,'']]],
   ['lame_5fui_2eh_65',['lame_ui.h',['../lame__ui_8h.html',1,'']]],
   ['layer_66',['layer',['../struct__lui__obj__s.html#a9dfaeda34c9badfe4eb4d8ab932b6e7d',1,'_lui_obj_s']]],

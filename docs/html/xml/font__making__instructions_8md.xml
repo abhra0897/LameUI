@@ -33,7 +33,7 @@
 <codeline></codeline>
 <codeline><highlight class="normal">```</highlight></codeline>
 <codeline><highlight class="normal">qmake<sp/>-o<sp/>Makefile<sp/>font2image.pro</highlight></codeline>
-<codeline><highlight class="normal">make<sp/>-j8</highlight></codeline>
+<codeline><highlight class="normal">make<sp/>-j</highlight></codeline>
 <codeline><highlight class="normal">cd<sp/>font_tools</highlight></codeline>
 <codeline><highlight class="normal">./font2image</highlight></codeline>
 <codeline><highlight class="normal">```</highlight></codeline>

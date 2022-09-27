@@ -24,7 +24,7 @@ If font2image is not already compiled, compile and run using below commands. The
 
 ```
 qmake -o Makefile font2image.pro
-make -j8
+make -j
 cd font_tools
 ./font2image
 ```

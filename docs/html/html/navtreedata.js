@@ -23,7 +23,8 @@ for the JavaScript code in this file
 var NAVTREE =
 [
   [ "LameUI", "index.html", [
-    [ "LameUI Documentaion", "index.html", null ],
+    [ "LameUI Documentation", "index.html", null ],
+    [ "Quick start", "quickstart_page.html", null ],
     [ "API Documentation", "modules.html", "modules" ],
     [ "Examples", "examples_page.html", null ],
     [ "Font Making", "font_maker_instr_page.html", null ],

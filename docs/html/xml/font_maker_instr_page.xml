@@ -31,7 +31,7 @@
 <para>Use font2image to create <computeroutput>.png</computeroutput> and <computeroutput>.json</computeroutput> files from a <computeroutput>.ttf/.otf</computeroutput> font file. font2image has multiple tabs. Follow below instructions sequentially.</para>
 <para>If font2image is not already compiled, compile and run using below commands. The output binary is created inside <bold>font_tools</bold>(./font_tools/) folder.</para>
 <para><programlisting><codeline><highlight class="normal">qmake<sp/>-o<sp/>Makefile<sp/>font2image.pro</highlight></codeline>
-<codeline><highlight class="normal">make<sp/>-j8</highlight></codeline>
+<codeline><highlight class="normal">make<sp/>-j</highlight></codeline>
 <codeline><highlight class="normal">cd<sp/>font_tools</highlight></codeline>
 <codeline><highlight class="normal">./font2image</highlight></codeline>
 </programlisting></para>

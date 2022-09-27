@@ -3,6 +3,7 @@
   <!-- Navigation index tabs for HTML output -->
   <navindex>
     <tab type="mainpage" visible="yes" title="Introduction"></tab>
+    <tab type="user" url="@ref quickstart_page" visible="yes" title="Quick start" intro="Quick start guide"/>
     <tab type="modules" visible="yes" title="API Documentation" intro="These are the API of LameUI"/>
     <tab type="user" url="@ref examples_page" visible="yes" title="Examples" intro="Simple examples"/>
     <tab type="user" url="@ref font_maker_instr_page" visible="yes" title="Font Making" intro="Font Making Instructions"/>

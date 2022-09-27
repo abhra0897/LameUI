@@ -1,48 +1,4 @@
-## LameUI - a lightweight GUI library for embedded systems
-
-### What?
-LameUI is a super simple, platform independent UI library with lots of limitations, designed for embedded systems with low resources. It's under active development and I'm trying to add more features. Two important goals of LameUI are:
- - Be lightweight
- - Use minimum number of files
-
-### Why?
-Main reason - to challenge my skills and learn new things. It was started as a pastime project during the first covid-19 lock-down and soon enough I abandoned it in an incomplete state as I lost interest. After 4 months I came back to it with a goal to at least make it work once. Future of this project is uncertain, but as long as it feels challenging, I'll keep adding/fixing stuffs.
-
-### Who?
-**Who will use it?**  
-Probably no one. Unless you need a very simple and very lightweight UI library.
-
-**Who is/are developing it?**  
-I, alone.
-
-## API 
-API Documentation: https://abhra0897.github.io/LameUI/  
-*Note: Documentation is work in progress.*
-
-## Demo:
-This is a demo of LameUI running on a simulator I made with OpenGL so I can test it without needing to flash the microcontroller every time.
-
-simulator: https://github.com/abhra0897/LameUI_simulation
-
-![Screen shots](./LameUI_demo1_combined.png)
-
-## UI Widgets
-Following UI widgets are implemented so far:
-
-1. Label
-2. Line chart
-3. Button
-4. Switch
-5. Checkbox
-6. Slider
-7. List
-8. Button grid
-9. Keyboard
-10. Textbox
-11. Panel
-12. Scene
-
-## Usage
+## Usage {#quickstart_page}
 LameUI needs 3 callback functions from user to draw on display and read inputs.  
 
 1. `draw_pixels_area_cb` to *Display Output*.  (**Mandatory**)
@@ -68,7 +24,7 @@ For setting the callback function, this function is used:
 void lui_dispdrv_set_render_complete_cb(lui_dispdrv_t* dispdrv, void (*render_complete_cb)());
 ```
 
-Note: Commonly available lcd displays that we use with microcontroller have built-in GRAM, hence, the `render_complete_cb()` is not mandatory for them.
+Note: Commonly available lcd displays that we use with microcontrollers have built-in GRAM, hence, the `render_complete_cb()` is not mandatory for them.
 
 ### Read Inputs
 **3. `read_touch_input_cb`**  
@@ -121,7 +77,7 @@ void read_touch_input_cb(lui_touch_input_data_t* inputdata)
 
 void setup(void) 
 {	
-    // Initilaize tft
+    // Initialize tft
     tft.init();
     tft.setTouch(touch_cal_data);
     
@@ -173,7 +129,7 @@ uint8_t lameui_memory[2000];
 
 // Uncomment below line to enable display buffering. Buffering is handled by user and NOT by LameUI.
 //#define USE_BUFFERING
-#ifdef USE_BUFERING
+#ifdef USE_BUFFERING
 	#define DISPLAY_BUFF_SIZE    (HOR_RES * VERT_RES)	// Only full screen buffer is possible (no partial buffer)
 	uint16_t display_buffer[DISPLAY_BUFF_SIZE];
 	uint32_t display_buff_counter = 0;
@@ -201,7 +157,7 @@ int main ()
 	lui_dispdrv_set_draw_pixels_area_cb(my_display_driver, my_draw_pixels_cb);
     // Setting render complete callback is optional.
     // Only needed if user is buffering the draw calls.
-	#ifdef USE_BUFERING
+	#ifdef USE_BUFFERING
 		lui_dispdrv_set_render_complete_cb(my_display_driver, my_render_cmplt_cb);
 	#endif
 
@@ -258,7 +214,7 @@ void my_draw_pixels_cb (uint16_t x, uint16_t y, uint16_t width, uint16_t height,
 	// 3. display_fill(color_buffer, x1, y1, x2, y2);    // Fill an area with different colors from a buffer
 
 
-	#ifdef USE_BUFERING
+	#ifdef USE_BUFFERING
 		// When using buffering, we'll put pixels inside a full-screen buffer.
 		// Fill the display with buffer when either the buffer is full, or when
 		// the `render_complete` callback is fired by LameUI.
@@ -310,7 +266,7 @@ void my_draw_pixels_cb (uint16_t x, uint16_t y, uint16_t width, uint16_t height,
 	#endif
 }
 
-#ifdef USE_BUFERING
+#ifdef USE_BUFFERING
 void my_render_cmplt_cb()
 {
 	display_fill(display_buffer, 0, 0, HOR_RES, VERT_RES)	// display_fill(buffer, x1, y1, x2, y2)
@@ -359,8 +315,3 @@ void button_1_cb(lui_obj_t* button_obj)
 
 
 ```
-
-## Simple Examples
-- Check example code fragments inside [lame_ui.h](lame_ui.h). Or visit [documentatin page](https://abhra0897.github.io/LameUI/html/html/examples_page.html).
-- See the Quick Start section
-- go to the Simulator repo and see the example there: https://github.com/abhra0897/LameUI_simulation/blob/experimental/src/main.c. That example has all the UI elements. Ignore the parts that are related to OpenGL.

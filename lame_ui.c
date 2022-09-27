@@ -786,7 +786,8 @@ void lui_list_draw(lui_obj_t* obj)
 		if (i == list->selected_item_index)
 			lui_gfx_draw_rect_fill(x, y, w, h, LUI_STYLE_LIST_ITEM_PRESSED_COLOR);
 
-		lui_gfx_draw_rect(x, y, w, h+1, 1, LUI_STYLE_LIST_ITEM_BORDER_COLOR);
+		if (obj->common_style.border_visible == 1)
+			lui_gfx_draw_rect(x, y, w, h+1, 1, LUI_STYLE_LIST_ITEM_BORDER_COLOR);
 		
 		// Draw the text
 		uint16_t dim[2];
@@ -811,11 +812,8 @@ void lui_list_draw(lui_obj_t* obj)
 
 	}
 
-	/* Finally Draw the border if needed */
-	if (obj->common_style.border_visible == 1)
-	{
-		lui_gfx_draw_rect(obj->x, obj->y,  obj->common_style.width, obj->common_style.height, 1, obj->common_style.border_color);
-	}
+	lui_gfx_draw_rect(obj->x, obj->y,  obj->common_style.width, obj->common_style.height, 1, obj->common_style.border_color);
+
 }
 
 lui_obj_t* lui_list_create()
@@ -1158,9 +1156,14 @@ int8_t lui_list_set_dropdown_expand(lui_obj_t* obj, uint8_t is_expanded)
 		return -1;
 	list->is_expanded = is_expanded;
 	if (is_expanded)
-		_lui_object_set_need_refresh(obj);
+	{
+		obj->value = obj->layer;	// Hack: Storing layer data temporarily in value property
+		lui_object_set_layer(obj, LUI_LAYER_SYSTEM);
+	}
 	else
-		_lui_object_set_need_refresh(obj->parent);
+	{
+		lui_object_set_layer(obj, obj->value);
+	}
 	return 0;
 
 	/* Must call list_prepare() after calling this */
@@ -1371,7 +1374,7 @@ void _lui_list_add_nav_buttons(lui_obj_t* obj)
 	lui_obj_t* obj_nav_btn_text = lui_button_create();
 	lui_button_set_label_text(obj_nav_btn_expand, LUI_ICON_CARET_DOWN);
 	lui_button_set_label_color(obj_nav_btn_expand, LUI_STYLE_LIST_NAV_LABEL_COLOR);
-	lui_button_set_label_color(obj_nav_btn_text, LUI_STYLE_LIST_NAV_LABEL_COLOR);
+	lui_button_set_label_color(obj_nav_btn_text, LUI_STYLE_LIST_ITEM_LABEL_COLOR);
 	lui_button_set_extra_colors(obj_nav_btn_expand, LUI_STYLE_LIST_NAV_PRESSED_COLOR, LUI_STYLE_LIST_NAV_SELECTION_COLOR);
 	lui_button_set_extra_colors(obj_nav_btn_text, LUI_STYLE_LIST_NAV_PRESSED_COLOR, LUI_STYLE_LIST_NAV_SELECTION_COLOR);
 	lui_button_set_label_align(obj_nav_btn_text, LUI_ALIGN_LEFT);
@@ -1386,11 +1389,11 @@ void _lui_list_add_nav_buttons(lui_obj_t* obj)
 	
 }
 
-void _lui_list_nav_btn_cb(lui_obj_t* obj)
+void _lui_list_nav_btn_cb(lui_obj_t* obj_nav_btn)
 {
-	uint8_t event = lui_object_get_event(obj);
-	lui_list_t* list = (lui_list_t* )obj->parent->obj_main_data;
-	lui_obj_t* prev_btn = obj->parent->first_child;
+	uint8_t event = lui_object_get_event(obj_nav_btn);
+	lui_list_t* list = (lui_list_t* )obj_nav_btn->parent->obj_main_data;
+	lui_obj_t* prev_btn = obj_nav_btn->parent->first_child;
 	lui_obj_t* next_btn = prev_btn->next_sibling;
 	lui_obj_t* expand_btn = next_btn->next_sibling;
 	lui_obj_t* expand_btn2 = expand_btn->next_sibling;
@@ -1399,18 +1402,18 @@ void _lui_list_nav_btn_cb(lui_obj_t* obj)
 	if (event == LUI_EVENT_PRESSED)
 	{
 		/* first child is nav_prev btn */
-		if (obj == prev_btn && list->current_page_index > 0)
+		if (obj_nav_btn == prev_btn && list->current_page_index > 0)
 		{
 			index--;
-			lui_list_set_page_index(obj->parent, index);
+			lui_list_set_page_index(obj_nav_btn->parent, index);
 		}
 		/* 2nd child is nav_nxt button */
-		else if (obj == next_btn && list->current_page_index < list->page_count - 1)
+		else if (obj_nav_btn == next_btn && list->current_page_index < list->page_count - 1)
 		{
 			index++;
-			lui_list_set_page_index(obj->parent, index);
+			lui_list_set_page_index(obj_nav_btn->parent, index);
 		}
-		else if (obj == expand_btn || obj == expand_btn2)
+		else if (obj_nav_btn == expand_btn || obj_nav_btn == expand_btn2)
 		{
 			list->is_expanded = !list->is_expanded;
 			lui_object_set_visibility(next_btn , 0);
@@ -1425,13 +1428,14 @@ void _lui_list_nav_btn_cb(lui_obj_t* obj)
 			}
 			if (list->is_expanded)
 			{
-				_lui_object_set_need_refresh(obj->parent);	// parent of nav btn is list object
 				lui_button_set_label_text(expand_btn, LUI_ICON_CARET_UP);
+				obj_nav_btn->parent->value = obj_nav_btn->parent->layer;	// Hack: Using value property to store the layer data temporarily
+				lui_object_set_layer(obj_nav_btn->parent, LUI_LAYER_SYSTEM);
 			}
 			else
 			{
-				_lui_object_set_need_refresh(obj->parent->parent);	// parent of list object
 				lui_button_set_label_text(expand_btn, LUI_ICON_CARET_DOWN);
+				lui_object_set_layer(obj_nav_btn->parent, obj_nav_btn->value);
 			}
 		}
 		
@@ -1776,6 +1780,13 @@ void lui_checkbox_set_label_text(lui_obj_t* obj, const char* text)
 		return;
 
 	((lui_checkbox_t* )obj->obj_main_data)->label.text = (char*)text;
+	uint16_t dim[2];
+	lui_gfx_get_string_dimension(
+		text, 
+		((lui_checkbox_t* )obj->obj_main_data)->label.font,
+		g_lui_main->disp_drv->display_hor_res - obj->x,
+		dim);
+	obj->common_style.width = dim[0] + obj->common_style.height;
 	_lui_object_set_need_refresh(obj);
 }
 
@@ -1788,7 +1799,14 @@ void lui_checkbox_set_label_font(lui_obj_t* obj, const lui_font_t* font)
 		return;
 
 	((lui_checkbox_t* )obj->obj_main_data)->label.font = font;
+	uint16_t dim[2];
+	lui_gfx_get_string_dimension(
+		((lui_checkbox_t* )obj->obj_main_data)->label.text,
+		font,
+		g_lui_main->disp_drv->display_hor_res - obj->x,
+		dim);
 	obj->common_style.height = font->bitmap->size_y > LUI_STYLE_CHECKBOX_HEIGHT ? font->bitmap->size_y : LUI_STYLE_CHECKBOX_HEIGHT;
+	obj->common_style.width = dim[0] + obj->common_style.height;
 	_lui_object_set_need_refresh(obj->parent);
 }
 
@@ -3600,6 +3618,7 @@ void lui_object_set_layer(lui_obj_t* obj, uint8_t layer_index)
 	if (obj->obj_type == LUI_OBJ_SCENE)
 		return;
 
+	int16_t layer_diff = layer_index - obj->layer;
 	if (obj->parent != NULL)
 	{
 		obj->layer = obj->parent->layer + layer_index;
@@ -3625,7 +3644,7 @@ void lui_object_set_layer(lui_obj_t* obj, uint8_t layer_index)
 			// pop from stack
 			lui_obj_t* child = obj_stack[--stack_counter]; 
 
-			child->layer = child->layer + obj->layer;
+			child->layer = child->layer + layer_diff;
 
 			// get the child of current object
 			child = child->first_child;
@@ -4126,27 +4145,32 @@ uint8_t _lui_check_if_active_obj_touch_input(lui_touch_input_data_t* input, lui_
 			if (obj->obj_type == LUI_OBJ_LIST)
 			{
 				lui_list_t* list = (lui_list_t* )(obj->obj_main_data);
-				uint8_t lim = list->page_first_item_index + list->items_per_page;
-				for (uint8_t i = list->page_first_item_index; i < lim; i++)
+				if (list->is_expanded)
 				{
-					if (i == list->items_cnt)
-						break;
-					/* Convert items' local coordinates to global */
-					uint16_t x1, y1, x2, y2;
-					x1 = list->items[i]->area.x1 + obj->x;
-					x2 = list->items[i]->area.x2 + obj->x;
-					y1 = list->items[i]->area.y1 + obj->y;
-					y2 = list->items[i]->area.y2 + obj->y;
-
-					if (input->x >= x1 && 
-						input->x <  x2 &&
-						input->y >= y1 &&
-						input->y <  y2)
+					is_active = 1;
+					uint8_t lim = list->page_first_item_index + list->items_per_page;
+					
+					for (uint8_t i = list->page_first_item_index; i < lim; i++)
 					{
-						list->selected_item_index = i;
-						g_lui_main->active_obj = obj;
-						is_active = 1;
-						break;
+						if (i == list->items_cnt)
+							break;
+						/* Convert items' local coordinates to global */
+						uint16_t x1, y1, x2, y2;
+						x1 = list->items[i]->area.x1 + obj->x;
+						x2 = list->items[i]->area.x2 + obj->x;
+						y1 = list->items[i]->area.y1 + obj->y;
+						y2 = list->items[i]->area.y2 + obj->y;
+
+						if (input->x >= x1 && 
+							input->x <  x2 &&
+							input->y >= y1 &&
+							input->y <  y2)
+						{
+							list->selected_item_index = i;
+							g_lui_main->active_obj = obj;
+							is_active = 1;
+							break;
+						}
 					}
 				}
 			}
@@ -4611,6 +4635,9 @@ void lui_gfx_get_string_dimension(const char* str, const lui_font_t* font, uint1
 {
 	str_dim[0] = 0;	// -> width
 	str_dim[1] = 0;	// -> height
+
+	if (str == NULL)
+		return;
 
 	uint8_t needs_wrap = 0;
 	uint16_t temp_w = 0;

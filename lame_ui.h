@@ -34,7 +34,7 @@
 
 #define LUI_MAX_OBJECTS 200 ///< Set number of maximum objects that can be created
 
-#define LUI_USE_DARK_THEME 1 ///< Comment out OR set value to 0 for using light theme
+#define LUI_USE_DARK_THEME 0 ///< Comment out OR set value to 0 for using light theme
 
 /**
  * @defgroup LUI_USE_OBJECT Widgets to use
@@ -133,6 +133,7 @@
 /**@} */
 
 #define LUI_LAYER_POPUP 255
+#define LUI_LAYER_SYSTEM 254
 
 /**
  * @defgroup LUI_KEYBOARD_MODE Keyboard modes
@@ -461,7 +462,7 @@ struct _lui_list_item
 typedef struct _lui_list_s
 {
 	const lui_font_t *font;
-	uint8_t selected_item_index;
+	int16_t selected_item_index;
 	uint8_t page_count;
 	uint8_t current_page_index;
 	uint8_t items_per_page;
@@ -2340,7 +2341,7 @@ void lui_panel_draw(lui_obj_t *obj_panel);
  *
  * Scene is the main container of all widgets. It is at the top of hierarchy.
  * Scene has no parent and must have at least one child. All widgets must be
- * decendents of a scene.
+ * decedents of a scene.
  *
  * An application may have multiple scenes. Only the active scene is rendered
  * and it is set by `lui_scene_set_active(lui_obj_t* obj_scene)` function.
@@ -2351,7 +2352,7 @@ void lui_panel_draw(lui_obj_t *obj_panel);
 /**
  * @brief Create a scene
  *
- * @return lui_obj_t* cretaed scene
+ * @return lui_obj_t* created scene
  */
 lui_obj_t *lui_scene_create();
 
@@ -2377,7 +2378,7 @@ void lui_scene_set_active(lui_obj_t *obj_scene);
 lui_obj_t *lui_scene_get_active();
 
 // /**
-//  * @brief Set background bitmap image of a ascene
+//  * @brief Set background bitmap image of a scene
 //  *
 //  * @param obj_scene scene widget
 //  * @param image image
@@ -2638,9 +2639,6 @@ double _lui_map_range(double old_val, double old_max, double old_min, double new
  *				Dark and Light Theme. User may modify here if needed
  *------------------------------------------------------------------------------------
  */
-/* Comment out OR set value to 0 for enabling light mode. */
-#define LUI_USE_DARK_THEME 1
-
 #if LUI_USE_DARK_THEME == 1
 #define LUI_STYLE_BUTTON_LABEL_COLOR LUI_RGB(238, 238, 238)
 #define LUI_STYLE_BUTTON_PRESSED_COLOR LUI_RGB(91, 160, 235)
@@ -2758,8 +2756,8 @@ double _lui_map_range(double old_val, double old_max, double old_min, double new
 #define LUI_STYLE_LIST_NAV_PRESSED_COLOR LUI_RGB(91, 160, 235)
 #define LUI_STYLE_LIST_NAV_SELECTION_COLOR LUI_RGB(82, 143, 209)
 #define LUI_STYLE_LIST_ITEM_BG_COLOR LUI_RGB(238, 238, 238)
-#define LUI_STYLE_LIST_ITEM_SELECTION_COLOR LUI_RGB(84, 91, 102)
-#define LUI_STYLE_LIST_ITEM_PRESSED_COLOR LUI_RGB(109, 118, 133)
+#define LUI_STYLE_LIST_ITEM_SELECTION_COLOR LUI_RGB(109, 118, 133)
+#define LUI_STYLE_LIST_ITEM_PRESSED_COLOR LUI_RGB(137, 173, 232)
 #define LUI_STYLE_LIST_ITEM_LABEL_COLOR LUI_RGB(0, 0, 0)
 #define LUI_STYLE_LIST_ITEM_BORDER_COLOR LUI_RGB(75, 81, 92)
 #define LUI_STYLE_LIST_BORDER_VISIBLE 1

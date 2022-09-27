@@ -22,6 +22,7 @@ for the JavaScript code in this file
 */
 var menudata={children:[
 {text:"Introduction",url:"index.html"},
+{text:"Quick start",url:"quickstart_page.html"},
 {text:"API Documentation",url:"modules.html"},
 {text:"Examples",url:"examples_page.html"},
 {text:"Font Making",url:"font_maker_instr_page.html"}]}
