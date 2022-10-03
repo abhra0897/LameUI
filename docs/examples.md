@@ -8,7 +8,9 @@ This page links to the various example code fragments in this documentation.
  - [Switch example](@ref switch_example)
  - [Checkbox example](@ref checkbox_example)
  - [List example](@ref list_example)
- - [Slider example](@ref slider_example)
+ - [Slider / Progress Bar example](@ref slider_example)
+   - [Slider example](@ref slider_example1)
+   - [Progress Bar example](@ref slider_example2)
  - Buttongrid examples
     - [Buttongrid example 1](@ref buttongrid_example1)
     - [Buttongrid example 2](@ref buttongrid_example2)

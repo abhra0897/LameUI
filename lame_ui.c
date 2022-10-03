@@ -15,10 +15,17 @@
 #include "lame_ui.h"
 
 
-uint8_t g_needs_render = 0;
-_lui_mem_block_t g_mem_block;
-_lui_main_t* g_lui_main;
-
+/*-------------------------------------
+ * 			Global variables
+ *-------------------------------------
+ */
+static uint8_t g_needs_render = 0;
+static _lui_mem_block_t g_mem_block;
+static _lui_main_t* g_lui_main;
+/*-------------------------------------
+ * 				End
+ *-------------------------------------
+ */
 
 /*-------------------------------------------------------------------------------
  * 				Main functions
@@ -249,7 +256,7 @@ void lui_linechart_draw(lui_obj_t* obj)
 	uint16_t line_color = chart->style.line_color;
 	uint16_t data_points = chart->data.points;
 
-	double mapped_data[ g_lui_main->disp_drv->display_hor_res * 2];
+	double mapped_data[g_lui_main->disp_drv->display_hor_res * 2];
 
 	double x_data_min_new = temp_x;
 	double x_data_max_new = temp_x + width - 1;
@@ -507,7 +514,7 @@ void lui_linechart_set_data_range(lui_obj_t* obj, double y_min, double y_max)
 	chart->data.auto_scale = 0;
 }
 
-void lui_linechart_set_data_source(lui_obj_t* obj, double* source, uint16_t points)
+void lui_linechart_set_data_source(lui_obj_t* obj, double *source, uint16_t points)
 {
 	if (obj == NULL)
 		return;
@@ -769,7 +776,7 @@ void lui_list_draw(lui_obj_t* obj)
 	{
 		if (i == list->items_cnt)
 			break;
-		uint16_t item_bg_color = obj->common_style.bg_color;
+		// uint16_t item_bg_color = obj->common_style.bg_color;
 		// if (obj->state == LUI_STATE_SELECTED)
 		// 	btn_color = btn->style.selection_color;
 		// else if (obj->state == LUI_STATE_PRESSED)
@@ -783,11 +790,12 @@ void lui_list_draw(lui_obj_t* obj)
 		uint16_t w = list->items[i]->area.x2 - list->items[i]->area.x1 + 1;
 		uint16_t h = list->items[i]->area.y2 - list->items[i]->area.y1 + 1;
 
+		// TODO: Make pressed color changeable
 		if (i == list->selected_item_index)
 			lui_gfx_draw_rect_fill(x, y, w, h, LUI_STYLE_LIST_ITEM_PRESSED_COLOR);
 
-		if (obj->common_style.border_visible == 1)
-			lui_gfx_draw_rect(x, y, w, h+1, 1, LUI_STYLE_LIST_ITEM_BORDER_COLOR);
+		if (list->style.item_has_border == 1)
+			lui_gfx_draw_rect(x, y, w, h+1, 1, list->style.item_border_color);
 		
 		// Draw the text
 		uint16_t dim[2];
@@ -805,14 +813,19 @@ void lui_list_draw(lui_obj_t* obj)
 		else
 			x = x + padding;
 
-		lui_gfx_draw_string_advanced(list->items[i]->text, x, y, dim[0], dim[1], LUI_STYLE_LIST_ITEM_LABEL_COLOR, 0, 0, list->font);
+		lui_gfx_draw_string_advanced(
+			list->items[i]->text,
+			x,
+			y,
+			dim[0],
+			dim[1],
+			list->style.item_label_color,
+			0,
+			0,
+			list->font);
 	}
-	if (list->is_dropdown)
-	{
-
-	}
-
-	lui_gfx_draw_rect(obj->x, obj->y,  obj->common_style.width, obj->common_style.height, 1, obj->common_style.border_color);
+	if (obj->common_style.border_visible == 1)
+		lui_gfx_draw_rect(obj->x, obj->y,  obj->common_style.width, obj->common_style.height, 1, obj->common_style.border_color);
 
 }
 
@@ -847,6 +860,10 @@ lui_obj_t* lui_list_create()
 	initial_list->items_cnt = 0;
 	initial_list->items = NULL;
 
+	initial_list->style.item_has_border = LUI_STYLE_LIST_ITEM_BORDER_VISIBLE;
+	initial_list->style.item_label_color = LUI_STYLE_LIST_ITEM_LABEL_COLOR;
+	initial_list->style.item_border_color = LUI_STYLE_LIST_ITEM_BORDER_COLOR;
+
 	// set common styles for list object
 	obj->common_style.bg_color = LUI_STYLE_LIST_ITEM_BG_COLOR;
 	obj->common_style.border_color = LUI_STYLE_LIST_BORDER_COLOR;
@@ -875,7 +892,6 @@ void lui_list_prepare(lui_obj_t* obj)
 	lui_list_t* list = (lui_list_t* )(obj->obj_main_data);
 	
 	uint16_t item_h_padding = 10;
-	uint8_t nav_btn_cnt = 3;
 	/* usable height depends on navigation buttons' existence
 	if no nav button (for single page list), total height is usable */
 	if (list->item_min_height < list->font->bitmap->size_y)
@@ -1082,7 +1098,7 @@ int16_t lui_list_set_selected_item_index(lui_obj_t* obj, uint8_t item_index)
 	/* Must call list_prepare() after calling this */
 }
 
-char* lui_list_get_item_text(lui_obj_t* obj, uint8_t item_index)
+const char* lui_list_get_item_text(lui_obj_t* obj, uint8_t item_index)
 {
 	if (obj == NULL)
 		return NULL;
@@ -1221,6 +1237,42 @@ void lui_list_set_text_align(lui_obj_t *obj, uint8_t alignment)
 	// this alignment is set to all items in `prepare` func
 }
 
+void lui_list_set_text_color(lui_obj_t* obj, uint16_t color)
+{
+	if (obj == NULL)
+		return;
+	
+	// type check
+	if (obj->obj_type != LUI_OBJ_LIST)
+		return;
+	
+	lui_list_t* list = (lui_list_t* )(obj->obj_main_data);
+	if (list->style.item_label_color != color)
+	{
+		list->style.item_label_color = color;
+		_lui_object_set_need_refresh(obj);
+	}
+}
+
+void lui_list_set_item_border(lui_obj_t* obj, uint8_t has_border, uint16_t border_color)
+{
+	if (obj == NULL)
+		return;
+	
+	// type check
+	if (obj->obj_type != LUI_OBJ_LIST)
+		return;
+
+	lui_list_t* list = (lui_list_t* )(obj->obj_main_data);
+	if (list->style.item_has_border != has_border ||
+		list->style.item_border_color != border_color)
+	{
+		list->style.item_has_border = has_border;
+		list->style.item_border_color = border_color;
+		_lui_object_set_need_refresh(obj);
+	}
+}
+
 void lui_list_set_nav_btn_label_color(lui_obj_t* obj, uint16_t color)
 {
 	if (obj == NULL)
@@ -1346,7 +1398,6 @@ void _lui_list_add_button_obj(lui_obj_t* obj_list, lui_obj_t* obj_btn)
 
 void _lui_list_add_nav_buttons(lui_obj_t* obj)
 {
-	lui_list_t* list = (lui_list_t* )(obj->obj_main_data);
 	// create navigation buttons
 	lui_obj_t* obj_nav_btn_prev = lui_button_create();
 	lui_obj_t* obj_nav_btn_nxt = lui_button_create();
@@ -1866,8 +1917,39 @@ void lui_slider_draw(lui_obj_t* obj)
 	lui_gfx_draw_rect_fill(obj->x, obj->y, slider->knob_center_rel_x, obj->common_style.height, slider->style.bg_filled_color);
 	// draw the remaining region (right) 
 	lui_gfx_draw_rect_fill(obj->x + slider->knob_center_rel_x, obj->y, obj->common_style.width - slider->knob_center_rel_x, obj->common_style.height, obj->common_style.bg_color);
+	
 	// draw the knob
-	lui_gfx_draw_rect_fill(obj->x + slider->knob_center_rel_x - (slider->style.knob_width / 2), obj->y, slider->style.knob_width, obj->common_style.height, knob_color);
+	if (slider->knob_type == LUI_SLIDER_KNOB_TYPE_DEFAULT)
+		lui_gfx_draw_rect_fill(obj->x + slider->knob_center_rel_x - (slider->style.knob_width / 2), obj->y, slider->style.knob_width, obj->common_style.height, knob_color);
+	else if (slider->knob_type == LUI_SLIDER_KNOB_TYPE_TEXT)
+	{
+		if (slider->show_value || slider->custom_text)
+		{
+			char s[64];
+			if (slider->custom_text && slider->show_value)
+				snprintf(s, 64, "%d %s", obj->value, slider->custom_text);
+			else if (slider->show_value)
+				snprintf(s, 64, "%d", obj->value);
+			else
+				snprintf(s, 64, "%s", slider->custom_text);
+			uint16_t dim[2];
+			lui_gfx_get_string_dimension(s, slider->font, obj->common_style.width, dim);
+			uint16_t txt_x = 0;
+			if (slider->is_progress_bar)
+			{
+				txt_x = obj->x + (obj->common_style.width - dim[0])/2;
+			}
+			else
+			{
+				txt_x = obj->x + slider->knob_center_rel_x;
+				if (dim[0] < slider->knob_center_rel_x)
+					txt_x = txt_x - dim[0];
+			}
+			uint16_t txt_y = obj->y + (obj->common_style.height - dim[1])/2;
+			lui_gfx_draw_string_advanced(s, txt_x, txt_y, dim[0], dim[1], slider->style.knob_color, 0, 0, slider->font);
+		}
+	}
+
 
 	// draw the border if needed
 	if (obj->common_style.border_visible == 1)
@@ -1894,7 +1976,12 @@ lui_obj_t* lui_slider_create()
 	initial_slider->style.knob_width = LUI_STYLE_SLIDER_KNOB_WIDTH;
 	initial_slider->range_min = 0;
 	initial_slider->range_max = 100;
-	initial_slider->knob_center_rel_x = (LUI_STYLE_SLIDER_KNOB_WIDTH / 2);
+	initial_slider->knob_center_rel_x = LUI_SLIDER_KNOB_TYPE_DEFAULT ? LUI_STYLE_SLIDER_KNOB_WIDTH / 2 : 0;
+	initial_slider->knob_type = LUI_SLIDER_KNOB_TYPE_DEFAULT;
+	initial_slider->font = g_lui_main->default_font;
+	initial_slider->custom_text = NULL;
+	initial_slider->show_value = 0;
+	initial_slider->is_progress_bar = 0;
 
 	lui_obj_t* obj = _lui_object_create();
 	if (obj == NULL)
@@ -1933,6 +2020,28 @@ void lui_slider_set_extra_colors(lui_obj_t* obj, uint16_t knob_color, uint16_t b
 	_lui_object_set_need_refresh(obj);
 }
 
+void lui_slider_set_show_value(lui_obj_t* obj, uint8_t show_val)
+{
+	if (obj == NULL)
+		return;
+	
+	// type check
+	if (obj->obj_type != LUI_OBJ_SLIDER)
+		return;
+	
+	lui_slider_t* slider = (lui_slider_t* )obj->obj_main_data;
+	if (slider->show_value == show_val)
+		return;
+
+	slider->show_value = show_val;
+	if (show_val)
+	{
+		lui_slider_set_knob_type(obj, LUI_SLIDER_KNOB_TYPE_TEXT);
+		return;
+	}
+	_lui_object_set_need_refresh(obj);
+}
+
 void lui_slider_set_value(lui_obj_t* obj, int16_t value)
 {
 	if (obj == NULL)
@@ -1963,7 +2072,8 @@ void lui_slider_set_value(lui_obj_t* obj, int16_t value)
 	
 
 	// calculate knob's center x position relative to the slider, when value of slider is manually set by user (y is always same)
-	slider->knob_center_rel_x = _lui_map_range(obj->value, slider->range_max, slider->range_min, obj->common_style.width - (slider->style.knob_width / 2), (slider->style.knob_width / 2));
+	uint16_t knob_w = slider->knob_type == LUI_SLIDER_KNOB_TYPE_DEFAULT ? slider->style.knob_width : 0;
+	slider->knob_center_rel_x = _lui_map_range(obj->value, slider->range_max, slider->range_min, obj->common_style.width - (knob_w / 2), (knob_w / 2));
 	
 	_lui_object_set_need_refresh(obj);
 }
@@ -1989,7 +2099,8 @@ void lui_slider_set_range(lui_obj_t* obj, int16_t range_min, int16_t range_max)
 	obj->value = obj->value > range_max ? range_max : (obj->value < range_min ? range_min : obj->value);
 
 	// calculate knob's center x position relative to the slider, when value of slider is manually set by user (y is always same)
-	slider->knob_center_rel_x = _lui_map_range(obj->value, slider->range_max, slider->range_min, obj->common_style.width - (slider->style.knob_width / 2), (slider->style.knob_width / 2));
+	uint16_t knob_w = slider->knob_type == LUI_SLIDER_KNOB_TYPE_DEFAULT ? slider->style.knob_width : 0;
+	slider->knob_center_rel_x = _lui_map_range(obj->value, slider->range_max, slider->range_min, obj->common_style.width - (knob_w / 2), (knob_w / 2));
 
 	_lui_object_set_need_refresh(obj);
 }
@@ -2032,12 +2143,94 @@ int16_t lui_slider_get_max_value(lui_obj_t* obj)
 	return slider->range_max;
 }
 
+void lui_slider_set_progress_bar(lui_obj_t* obj, uint8_t is_progress_bar)
+{
+	if (obj == NULL)
+		return;
+	// type check
+	if (obj->obj_type != LUI_OBJ_SLIDER)
+		return;
+
+	lui_slider_t* slider = (lui_slider_t* )obj->obj_main_data;
+	if (slider->is_progress_bar == is_progress_bar)
+		return;
+
+	slider->is_progress_bar = is_progress_bar;
+	if (is_progress_bar)
+	{
+		obj->enabled = 0;
+		lui_slider_set_knob_type(obj, LUI_SLIDER_KNOB_TYPE_TEXT);
+		slider->show_value = 1;
+	}
+	else
+	{
+		obj->enabled = 1;
+		lui_slider_set_knob_type(obj, LUI_SLIDER_KNOB_TYPE_DEFAULT);
+		slider->show_value = 0;
+	}
+	_lui_object_set_need_refresh(obj);
+}
+
+void lui_slider_set_text(lui_obj_t* obj, const char* custom_text)
+{
+	if (obj == NULL)
+		return;
+
+	// type check
+	if (obj->obj_type != LUI_OBJ_SLIDER)
+		return;
+
+	((lui_slider_t* )obj->obj_main_data)->custom_text = (char*)custom_text;
+	_lui_object_set_need_refresh(obj);
+}
+
+void lui_slider_set_font(lui_obj_t* obj, const lui_font_t* font)
+{
+	if (obj == NULL || font == NULL)
+		return;
+
+	// type check
+	if (obj->obj_type != LUI_OBJ_SLIDER)
+		return;
+
+	((lui_slider_t* )obj->obj_main_data)->font = font;
+	obj->common_style.height = font->bitmap->size_y > LUI_STYLE_SLIDER_HEIGHT ? font->bitmap->size_y : LUI_STYLE_SLIDER_HEIGHT;
+	_lui_object_set_need_refresh(obj);
+
+	return;
+}
+
+int8_t lui_slider_set_knob_type(lui_obj_t* obj, uint8_t knob_type)
+{
+	if (obj == NULL)
+		return -1;
+
+	// type check
+	if (obj->obj_type != LUI_OBJ_SLIDER)
+		return -1;
+	if (knob_type > LUI_SLIDER_KNOB_TYPE_TEXT)
+		return -1;
+
+	lui_slider_t* slider = (lui_slider_t* )obj->obj_main_data;
+	if (slider->knob_type == knob_type)
+		return -1;
+	if (slider->is_progress_bar && knob_type == LUI_SLIDER_KNOB_TYPE_DEFAULT)
+		return -1;
+	slider->knob_type = knob_type;
+	uint16_t knob_w = slider->knob_type == LUI_SLIDER_KNOB_TYPE_DEFAULT ? slider->style.knob_width : 0;
+	slider->knob_center_rel_x = _lui_map_range(obj->value, slider->range_max, slider->range_min, obj->common_style.width - (knob_w / 2), (knob_w / 2));
+	_lui_object_set_need_refresh(obj);
+
+	return 0;
+}
+
 #endif
 
 /*-------------------------------------------------------------------------------
  * 							END
  *-------------------------------------------------------------------------------
  */
+
 
 /*-------------------------------------------------------------------------------
  * 				LUI_BTNGRID related functions
@@ -2608,7 +2801,7 @@ lui_obj_t* lui_keyboard_create()
 	if (obj_btngrid == NULL)
 		return NULL;
 	((lui_btngrid_t* )(obj_btngrid->obj_main_data))->kb_data = initial_kb;
-	uint16_t h = 0.4 * (float)g_lui_main->disp_drv->display_vert_res;
+	uint16_t h = 0.5 * (float)g_lui_main->disp_drv->display_vert_res;
 	lui_object_set_position(obj_btngrid, 0, (g_lui_main->disp_drv->display_vert_res - h) - 2);
 	lui_object_set_area(obj_btngrid, g_lui_main->disp_drv->display_hor_res, h);
 	lui_btngrid_set_textmap(obj_btngrid, kb_txt_lower_textmap);
@@ -3296,7 +3489,6 @@ lui_obj_t* _lui_object_create(void)
 	obj->needs_refresh = 1;
 	obj->visible = 1;
 	obj->enabled = 0;
-	//obj->index_in_pool = -1;
 	obj->parent = NULL;
 	obj->first_child = NULL;
 	obj->next_sibling = NULL;
@@ -3672,7 +3864,7 @@ int16_t lui_object_get_layer(lui_obj_t* obj)
 	return obj->layer;
 }
 
-static int _lui_obj_layer_cmprtr(const void* p1, const void* p2)
+int _lui_obj_layer_cmprtr(const void* p1, const void* p2)
 {
 	uint8_t l1 = (*((lui_obj_t** )p1))->layer;
 	uint8_t l2 = (*((lui_obj_t** )p2))->layer;
@@ -3927,7 +4119,7 @@ lui_obj_t* _lui_process_input_of_act_scene()
 	uint8_t scan_all_objs_flag = 0;
 	lui_obj_t* obj_caused_cb = NULL;
 	lui_obj_t* last_active_obj =  g_lui_main->active_obj;
-	lui_scene_t* scene_main_data = (lui_scene_t* )( g_lui_main->active_scene->obj_main_data);
+	// lui_scene_t* scene_main_data = (lui_scene_t* )( g_lui_main->active_scene->obj_main_data);
 	lui_touch_input_data_t input_touch_data;
 	uint8_t input_is_pressed = 0;
 	
@@ -4309,8 +4501,9 @@ void _lui_set_obj_props_on_touch_input(lui_touch_input_data_t* input, lui_obj_t*
 		if (obj->state == LUI_STATE_PRESSED &&
 			input->x != (obj->x + slider->knob_center_rel_x))
 		{
-			uint16_t max_knob_center_actual_x = obj->x + obj->common_style.width - (slider->style.knob_width / 2);
-			uint16_t min_knob_center_actual_x = obj->x + (slider->style.knob_width / 2);
+			uint16_t knob_w_by_2 = slider->knob_type == LUI_SLIDER_KNOB_TYPE_DEFAULT ? slider->style.knob_width / 2 : 0;
+			uint16_t max_knob_center_actual_x = obj->x + obj->common_style.width - knob_w_by_2;
+			uint16_t min_knob_center_actual_x = obj->x + knob_w_by_2;
 
 			// cap to minimum/maximum allowed position to prevent the knob from going out of boundary
 			if (input->x > max_knob_center_actual_x)
@@ -4621,7 +4814,7 @@ void lui_gfx_draw_rect_fill(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint
 uint16_t lui_gfx_get_font_height(const lui_font_t* font)
 {
 	if (font == NULL)
-		return;
+		return 0;
 
 	return font->bitmap->size_y;
 }

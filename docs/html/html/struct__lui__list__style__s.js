@@ -1,5 +1,6 @@
 var struct__lui__list__style__s =
 [
-    [ "item_btn", "struct__lui__list__style__s.html#a217cb769f0e9519ced2c3a759b589c46", null ],
-    [ "item_btn_common", "struct__lui__list__style__s.html#ae70119665a5a755f851b193d2d367f7b", null ]
+    [ "item_border_color", "struct__lui__list__style__s.html#a74a60704a97c60c9dc052441b536763c", null ],
+    [ "item_has_border", "struct__lui__list__style__s.html#a31707a6991e1f1fe612edae60473f785", null ],
+    [ "item_label_color", "struct__lui__list__style__s.html#a69de7fdaf781085e960319f35b7f8a14", null ]
 ];

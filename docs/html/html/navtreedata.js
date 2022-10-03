@@ -47,9 +47,10 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"group__lui__checkbox.html#gaa7343339b91349d29de783a1a5f10338",
-"group__lui__object.html#gae97c5a363860c5fa7de4d40f167592a4",
-"lame__ui_8h.html#ae1b410c3301e49378ac64f8c01b1a8b1"
+"group__lui__checkbox.html#ga8a995bd50bfb68ec15ad27af875b7048",
+"group__lui__object.html#ga7cf13aeef87bd34c6e25e1bf410fe0bb",
+"lame__ui_8h.html#a98e4dc333c2121cf051dd684a9ee6923",
+"ubuntu__mono__regular__17_8h_source.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

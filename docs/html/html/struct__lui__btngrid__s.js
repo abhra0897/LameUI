@@ -9,5 +9,5 @@ var struct__lui__btngrid__s =
     [ "needs_full_render", "struct__lui__btngrid__s.html#aa3053eadd581fa436ff74333f6d850a4", null ],
     [ "row_cnt", "struct__lui__btngrid__s.html#a907f43b6f370792071795b12da937cab", null ],
     [ "style", "struct__lui__btngrid__s.html#a179e33485d607530f79dfe2486259433", null ],
-    [ "texts", "struct__lui__btngrid__s.html#af5b6a0093bcdb9027835ccd20d776b7e", null ]
+    [ "texts", "struct__lui__btngrid__s.html#aa8abdf89b6df220708c10c451ce14c88", null ]
 ];

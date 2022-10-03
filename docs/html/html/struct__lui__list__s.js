@@ -12,5 +12,6 @@ var struct__lui__list__s =
     [ "page_count", "struct__lui__list__s.html#a3f11db1cd76b7fd4f7cdb35362db8ed6", null ],
     [ "page_first_item_index", "struct__lui__list__s.html#abfc1e2dd48b4446bd1e3c2b2946f5229", null ],
     [ "selected_item_index", "struct__lui__list__s.html#a7beefcf146260fc5ccc4490d2483a9a3", null ],
+    [ "style", "struct__lui__list__s.html#ad10ee68152b88283a0bef89aec0213f7", null ],
     [ "text_align", "struct__lui__list__s.html#a8dfa50e6118182e2a10d20c38fba4ee5", null ]
 ];

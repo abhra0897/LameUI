@@ -168,7 +168,15 @@ Functions</h2></td></tr>
 <p>Practical examples of buttongrid are qwerty keyboards, numpads etc..</p>
 <h1><a class="anchor" id="buttongrid_example1"></a>
 Example 1</h1>
-<p>Let's create a simple numpad using buttongrid. </p><div class="fragment"><div class="line"><a class="code" href="struct__lui__obj__s.html">lui_obj_t</a>* numpad = <a class="code" href="group__lui__btngrid.html#ga60ea2e3e4af851bce7b4280a869438ba">lui_btngrid_create</a>();</div>
+<p>Let's create a simple numpad using buttongrid. </p><div class="image">
+<img src="btngrid_simple.png" alt=""/>
+<div class="caption">
+Dark Theme</div></div>
+ <div class="image">
+<img src="btngrid_simple_2.png" alt=""/>
+<div class="caption">
+Light Theme</div></div>
+ <div class="fragment"><div class="line"><a class="code" href="struct__lui__obj__s.html">lui_obj_t</a>* numpad = <a class="code" href="group__lui__btngrid.html#ga60ea2e3e4af851bce7b4280a869438ba">lui_btngrid_create</a>();</div>
 <div class="line"><span class="comment">// Setting buttongrid area is important. Else items won&#39;t be properly rendered</span></div>
 <div class="line"><a class="code" href="group__lui__object.html#gaed4bb7d9c2764c6786708535fad7cf67">lui_object_set_area</a>(numpad, 200, 200);</div>
 <div class="line"> </div>
@@ -198,7 +206,15 @@ Example 1</h1>
 <div class="line"><a class="code" href="group__lui__btngrid.html#ga6b21900d39d7da89840cf43dae7d8d39">lui_btngrid_set_btn_margin</a>(numpad, 5, 5);</div>
 </div><!-- fragment --><h1><a class="anchor" id="buttongrid_example2"></a>
 Example 2</h1>
-<p>Let's create a simple control panel and use most of the features of buttongrid. Also we'll see how to use callback for buttongrid. </p><div class="fragment"><div class="line"><span class="keywordtype">void</span> controlpanel_callback(<a class="code" href="struct__lui__obj__s.html">lui_obj_t</a>* ctrlpanel_btngrid)</div>
+<p>Let's create a simple control panel and use most of the features of buttongrid. Also we'll see how to use callback for buttongrid. </p><div class="image">
+<img src="btngrid_advanced.png" alt=""/>
+<div class="caption">
+Dark Theme</div></div>
+ <div class="image">
+<img src="btngrid_advanced_2.png" alt=""/>
+<div class="caption">
+Light Theme</div></div>
+ <div class="fragment"><div class="line"><span class="keywordtype">void</span> controlpanel_callback(<a class="code" href="struct__lui__obj__s.html">lui_obj_t</a>* ctrlpanel_btngrid)</div>
 <div class="line">{</div>
 <div class="line">    <span class="comment">// Get index of the pressed button</span></div>
 <div class="line">    <span class="keywordtype">int</span> active_btn_index = <a class="code" href="group__lui__btngrid.html#ga04c8b09e20441143fc39405e2e42cc37">lui_btngrid_get_acive_btn_index</a>(ctrlpanel_btngrid);</div>
@@ -243,12 +259,12 @@ Example 2</h1>
 <div class="line"> </div>
 <div class="line"><a class="code" href="struct__lui__obj__s.html">lui_obj_t</a>* controlpanel = <a class="code" href="group__lui__btngrid.html#ga60ea2e3e4af851bce7b4280a869438ba">lui_btngrid_create</a>();</div>
 <div class="line"><span class="comment">// Setting buttongrid area is important. Else items won&#39;t be properly rendered</span></div>
-<div class="line"><a class="code" href="group__lui__object.html#gaed4bb7d9c2764c6786708535fad7cf67">lui_object_set_area</a>(controlpanel, 300, 200);</div>
+<div class="line"><a class="code" href="group__lui__object.html#gaed4bb7d9c2764c6786708535fad7cf67">lui_object_set_area</a>(controlpanel, 640, 240);</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// Text map of the controlpanel</span></div>
 <div class="line"><span class="keyword">const</span> <span class="keywordtype">char</span>* controlpanel_txt_map[] =</div>
 <div class="line">{</div>
-<div class="line">    <span class="stringliteral">&quot;Motor 1&quot;</span>, <span class="stringliteral">&quot;Fan 1&quot;</span>, <span class="stringliteral">&quot;Heater L1&quot;</span>, <span class="stringliteral">&quot;Heater L2&quot;</span> <span class="stringliteral">&quot;\n&quot;</span>,</div>
+<div class="line">    <span class="stringliteral">&quot;Motor 1&quot;</span>, <span class="stringliteral">&quot;Fan 1&quot;</span>, <span class="stringliteral">&quot;Heater L1&quot;</span>, <span class="stringliteral">&quot;Heater L2&quot;</span>, <span class="stringliteral">&quot;\n&quot;</span>,</div>
 <div class="line">    <span class="stringliteral">&quot;Clr T1&quot;</span>, <span class="stringliteral">&quot;Clr T2&quot;</span>,<span class="stringliteral">&quot;Ring A&quot;</span>, <span class="stringliteral">&quot;Ring B&quot;</span>, <span class="stringliteral">&quot;\n&quot;</span>,</div>
 <div class="line">    <span class="stringliteral">&quot;X&quot;</span>, <span class="stringliteral">&quot;Y&quot;</span>, <span class="stringliteral">&quot;Z&quot;</span>, <span class="stringliteral">&quot;Stop&quot;</span>, <span class="stringliteral">&quot;\n&quot;</span>,</div>
 <div class="line">    <span class="stringliteral">&quot;-&quot;</span>, <span class="stringliteral">&quot;+&quot;</span>, <span class="stringliteral">&quot;\0&quot;</span></div>
@@ -916,17 +932,17 @@ Setting it to 0 has no effect  </td></tr>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="agroup__LUI__BTNGRID__MASKS_html_ga4602d581d707dea1c8b3da39a573e3ee"><div class="ttname"><a href="group__LUI__BTNGRID__MASKS.html#ga4602d581d707dea1c8b3da39a573e3ee">LUI_BTNGRID_MASK_BTN_CHECKABLE</a></div><div class="ttdeci">#define LUI_BTNGRID_MASK_BTN_CHECKABLE</div><div class="ttdoc">Button checkable mask.</div><div class="ttdef"><b>Definition:</b> lame_ui.h:201</div></div>
-<div class="ttc" id="agroup__lui__btngrid_html_ga04c8b09e20441143fc39405e2e42cc37"><div class="ttname"><a href="group__lui__btngrid.html#ga04c8b09e20441143fc39405e2e42cc37">lui_btngrid_get_acive_btn_index</a></div><div class="ttdeci">int16_t lui_btngrid_get_acive_btn_index(lui_obj_t *obj)</div><div class="ttdoc">Get the index of currently active button, i.e., the button which has the input.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:2386</div></div>
-<div class="ttc" id="agroup__lui__object_html_gaed4bb7d9c2764c6786708535fad7cf67"><div class="ttname"><a href="group__lui__object.html#gaed4bb7d9c2764c6786708535fad7cf67">lui_object_set_area</a></div><div class="ttdeci">void lui_object_set_area(lui_obj_t *obj, uint16_t width, uint16_t height)</div><div class="ttdoc">Set drawing area of an object.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3464</div></div>
-<div class="ttc" id="agroup__lui__object_html_gae9d2e2e1998f2603a3a6d24d08b5b64e"><div class="ttname"><a href="group__lui__object.html#gae9d2e2e1998f2603a3a6d24d08b5b64e">lui_object_set_callback</a></div><div class="ttdeci">void lui_object_set_callback(lui_obj_t *obj, void(*obj_event_cb)(lui_obj_t *))</div><div class="ttdoc">Set event call back function for input handling.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3537</div></div>
+<div class="ttc" id="agroup__lui__btngrid_html_ga04c8b09e20441143fc39405e2e42cc37"><div class="ttname"><a href="group__lui__btngrid.html#ga04c8b09e20441143fc39405e2e42cc37">lui_btngrid_get_acive_btn_index</a></div><div class="ttdeci">int16_t lui_btngrid_get_acive_btn_index(lui_obj_t *obj)</div><div class="ttdoc">Get the index of currently active button, i.e., the button which has the input.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:2573</div></div>
+<div class="ttc" id="agroup__lui__object_html_gaed4bb7d9c2764c6786708535fad7cf67"><div class="ttname"><a href="group__lui__object.html#gaed4bb7d9c2764c6786708535fad7cf67">lui_object_set_area</a></div><div class="ttdeci">void lui_object_set_area(lui_obj_t *obj, uint16_t width, uint16_t height)</div><div class="ttdoc">Set drawing area of an object.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3650</div></div>
+<div class="ttc" id="agroup__lui__object_html_gae9d2e2e1998f2603a3a6d24d08b5b64e"><div class="ttname"><a href="group__lui__object.html#gae9d2e2e1998f2603a3a6d24d08b5b64e">lui_object_set_callback</a></div><div class="ttdeci">void lui_object_set_callback(lui_obj_t *obj, void(*obj_event_cb)(lui_obj_t *))</div><div class="ttdoc">Set event call back function for input handling.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3723</div></div>
 <div class="ttc" id="agroup__LUI__BTNGRID__MASKS_html_ga265e4dc05e3da27de273897cd2e982ea"><div class="ttname"><a href="group__LUI__BTNGRID__MASKS.html#ga265e4dc05e3da27de273897cd2e982ea">LUI_BTNGRID_MASK_BTN_DISABLED</a></div><div class="ttdeci">#define LUI_BTNGRID_MASK_BTN_DISABLED</div><div class="ttdoc">Button disabled mask.</div><div class="ttdef"><b>Definition:</b> lame_ui.h:199</div></div>
-<div class="ttc" id="astruct__lui__obj__s_html"><div class="ttname"><a href="struct__lui__obj__s.html">_lui_obj_s</a></div><div class="ttdoc">Generic object datatype.</div><div class="ttdef"><b>Definition:</b> lame_ui.h:360</div></div>
-<div class="ttc" id="agroup__lui__btngrid_html_ga03a8859464594c353885a559c5026328"><div class="ttname"><a href="group__lui__btngrid.html#ga03a8859464594c353885a559c5026328">lui_btngrid_set_textmap</a></div><div class="ttdeci">void lui_btngrid_set_textmap(lui_obj_t *obj, const char *texts[])</div><div class="ttdoc">Set texts of all buttons as a map. The grid is created based on this text map. Each item in the array...</div><div class="ttdef"><b>Definition:</b> lame_ui.c:2199</div></div>
-<div class="ttc" id="agroup__lui__btngrid_html_ga1f41ec66946669fa36ed66a97ce7a5f3"><div class="ttname"><a href="group__lui__btngrid.html#ga1f41ec66946669fa36ed66a97ce7a5f3">lui_btngrid_get_btn_text</a></div><div class="ttdeci">const char * lui_btngrid_get_btn_text(lui_obj_t *obj, uint16_t btn_index)</div><div class="ttdoc">Get text of a particular button in a buttongrid.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:2397</div></div>
-<div class="ttc" id="agroup__lui__btngrid_html_ga6b21900d39d7da89840cf43dae7d8d39"><div class="ttname"><a href="group__lui__btngrid.html#ga6b21900d39d7da89840cf43dae7d8d39">lui_btngrid_set_btn_margin</a></div><div class="ttdeci">void lui_btngrid_set_btn_margin(lui_obj_t *obj, uint8_t margin_x, uint16_t margin_y)</div><div class="ttdoc">Set margin of buttons in a button grid.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:2474</div></div>
-<div class="ttc" id="agroup__lui__btngrid_html_gae1f8d50cc22f4c1523a82dd6f16e51b1"><div class="ttname"><a href="group__lui__btngrid.html#gae1f8d50cc22f4c1523a82dd6f16e51b1">lui_btngrid_get_btn_check_status</a></div><div class="ttdeci">int8_t lui_btngrid_get_btn_check_status(lui_obj_t *obj, uint8_t btn_index)</div><div class="ttdoc">Get the check status of a particular button in button grid.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:2425</div></div>
-<div class="ttc" id="agroup__lui__btngrid_html_gaf32f56d6e1fd0e6a59dc558a841d62ab"><div class="ttname"><a href="group__lui__btngrid.html#gaf32f56d6e1fd0e6a59dc558a841d62ab">lui_btngrid_set_propertymap</a></div><div class="ttdeci">void lui_btngrid_set_propertymap(lui_obj_t *obj, const uint8_t properties[])</div><div class="ttdoc">Set properties of all buttons as a map.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:2266</div></div>
-<div class="ttc" id="agroup__lui__btngrid_html_ga60ea2e3e4af851bce7b4280a869438ba"><div class="ttname"><a href="group__lui__btngrid.html#ga60ea2e3e4af851bce7b4280a869438ba">lui_btngrid_create</a></div><div class="ttdeci">lui_obj_t * lui_btngrid_create()</div><div class="ttdoc">Create a buttongrid with initial values.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:2153</div></div>
+<div class="ttc" id="astruct__lui__obj__s_html"><div class="ttname"><a href="struct__lui__obj__s.html">_lui_obj_s</a></div><div class="ttdoc">Generic object datatype.</div><div class="ttdef"><b>Definition:</b> lame_ui.h:379</div></div>
+<div class="ttc" id="agroup__lui__btngrid_html_ga03a8859464594c353885a559c5026328"><div class="ttname"><a href="group__lui__btngrid.html#ga03a8859464594c353885a559c5026328">lui_btngrid_set_textmap</a></div><div class="ttdeci">void lui_btngrid_set_textmap(lui_obj_t *obj, const char *texts[])</div><div class="ttdoc">Set texts of all buttons as a map. The grid is created based on this text map. Each item in the array...</div><div class="ttdef"><b>Definition:</b> lame_ui.c:2386</div></div>
+<div class="ttc" id="agroup__lui__btngrid_html_ga1f41ec66946669fa36ed66a97ce7a5f3"><div class="ttname"><a href="group__lui__btngrid.html#ga1f41ec66946669fa36ed66a97ce7a5f3">lui_btngrid_get_btn_text</a></div><div class="ttdeci">const char * lui_btngrid_get_btn_text(lui_obj_t *obj, uint16_t btn_index)</div><div class="ttdoc">Get text of a particular button in a buttongrid.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:2584</div></div>
+<div class="ttc" id="agroup__lui__btngrid_html_ga6b21900d39d7da89840cf43dae7d8d39"><div class="ttname"><a href="group__lui__btngrid.html#ga6b21900d39d7da89840cf43dae7d8d39">lui_btngrid_set_btn_margin</a></div><div class="ttdeci">void lui_btngrid_set_btn_margin(lui_obj_t *obj, uint8_t margin_x, uint16_t margin_y)</div><div class="ttdoc">Set margin of buttons in a button grid.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:2661</div></div>
+<div class="ttc" id="agroup__lui__btngrid_html_gae1f8d50cc22f4c1523a82dd6f16e51b1"><div class="ttname"><a href="group__lui__btngrid.html#gae1f8d50cc22f4c1523a82dd6f16e51b1">lui_btngrid_get_btn_check_status</a></div><div class="ttdeci">int8_t lui_btngrid_get_btn_check_status(lui_obj_t *obj, uint8_t btn_index)</div><div class="ttdoc">Get the check status of a particular button in button grid.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:2612</div></div>
+<div class="ttc" id="agroup__lui__btngrid_html_gaf32f56d6e1fd0e6a59dc558a841d62ab"><div class="ttname"><a href="group__lui__btngrid.html#gaf32f56d6e1fd0e6a59dc558a841d62ab">lui_btngrid_set_propertymap</a></div><div class="ttdeci">void lui_btngrid_set_propertymap(lui_obj_t *obj, const uint8_t properties[])</div><div class="ttdoc">Set properties of all buttons as a map.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:2453</div></div>
+<div class="ttc" id="agroup__lui__btngrid_html_ga60ea2e3e4af851bce7b4280a869438ba"><div class="ttname"><a href="group__lui__btngrid.html#ga60ea2e3e4af851bce7b4280a869438ba">lui_btngrid_create</a></div><div class="ttdeci">lui_obj_t * lui_btngrid_create()</div><div class="ttdoc">Create a buttongrid with initial values.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:2340</div></div>
 
 	<script src="main.js"></script>
 </body>

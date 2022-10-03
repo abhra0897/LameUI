@@ -161,6 +161,12 @@ Functions</h2></td></tr>
 <tr class="memitem:gaff2dc6e1abc86daef74c1adf4e9aceab"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__list.html#gaff2dc6e1abc86daef74c1adf4e9aceab">lui_list_set_text_align</a> (<a class="el" href="lame__ui_8h.html#a5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_list, uint8_t alignment)</td></tr>
 <tr class="memdesc:gaff2dc6e1abc86daef74c1adf4e9aceab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set alignment of texts in a list.  <a href="group__lui__list.html#gaff2dc6e1abc86daef74c1adf4e9aceab">More...</a><br /></td></tr>
 <tr class="separator:gaff2dc6e1abc86daef74c1adf4e9aceab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacdfc3d4618c371fb5c748a0cdf34a6f1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__list.html#gacdfc3d4618c371fb5c748a0cdf34a6f1">lui_list_set_text_color</a> (<a class="el" href="lame__ui_8h.html#a5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_list, uint16_t color)</td></tr>
+<tr class="memdesc:gacdfc3d4618c371fb5c748a0cdf34a6f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set text color of list items.  <a href="group__lui__list.html#gacdfc3d4618c371fb5c748a0cdf34a6f1">More...</a><br /></td></tr>
+<tr class="separator:gacdfc3d4618c371fb5c748a0cdf34a6f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga300c0a2c93857823b33f1c146fbefe9b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__list.html#ga300c0a2c93857823b33f1c146fbefe9b">lui_list_set_item_border</a> (<a class="el" href="lame__ui_8h.html#a5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_list, uint8_t has_border, uint16_t border_color)</td></tr>
+<tr class="memdesc:ga300c0a2c93857823b33f1c146fbefe9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set whether list items have border or not.  <a href="group__lui__list.html#ga300c0a2c93857823b33f1c146fbefe9b">More...</a><br /></td></tr>
+<tr class="separator:ga300c0a2c93857823b33f1c146fbefe9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga7f3880daf82482a5607cab5e0cb29312"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__list.html#ga7f3880daf82482a5607cab5e0cb29312">lui_list_set_nav_btn_label_color</a> (<a class="el" href="lame__ui_8h.html#a5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_list, uint16_t color)</td></tr>
 <tr class="memdesc:ga7f3880daf82482a5607cab5e0cb29312"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets label text color of navigation buttons of a list. Navigation buttons are used to change current page of list.  <a href="group__lui__list.html#ga7f3880daf82482a5607cab5e0cb29312">More...</a><br /></td></tr>
 <tr class="separator:ga7f3880daf82482a5607cab5e0cb29312"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -184,7 +190,15 @@ Functions</h2></td></tr>
 </ol>
 <h1><a class="anchor" id="list_example"></a>
 Example</h1>
-<div class="fragment"><div class="line"><span class="keywordtype">void</span> my_list_callback(<a class="code" href="struct__lui__obj__s.html">lui_obj_t</a>* list_obj)</div>
+<div class="image">
+<img src="list.png" alt=""/>
+<div class="caption">
+Dark Theme</div></div>
+ <div class="image">
+<img src="list_2.png" alt=""/>
+<div class="caption">
+Light Theme</div></div>
+ <div class="fragment"><div class="line"><span class="keywordtype">void</span> my_list_callback(<a class="code" href="struct__lui__obj__s.html">lui_obj_t</a>* list_obj)</div>
 <div class="line">{</div>
 <div class="line">    uint8_t <span class="keyword">event</span> = <a class="code" href="group__lui__object.html#ga580b2bdece45808266791573d874aabb">lui_object_get_event</a>(list_obj);</div>
 <div class="line">    <span class="keywordflow">if</span> (event == <a class="code" href="group__LUI__EVENT.html#gac1d4660029fe5efac27e0116e258d65d">LUI_EVENT_PRESSED</a>)</div>
@@ -201,6 +215,7 @@ Example</h1>
 <div class="line"> </div>
 <div class="line"><span class="comment">// Setting list area is important. Else items won&#39;t be properly rendered</span></div>
 <div class="line"><a class="code" href="group__lui__object.html#gaed4bb7d9c2764c6786708535fad7cf67">lui_object_set_area</a>(my_list, 110, 160);</div>
+<div class="line"><a class="code" href="group__lui__object.html#gaf7bedc873edb862f9c1f8b063f17f839">lui_object_set_position</a>(my_list, 50, 5);</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// Setting max items count is must. Otherwise we can&#39;t add items.</span></div>
 <div class="line"><span class="comment">// Note: This is a one-time process. Max items count cannot be changed later</span></div>
@@ -216,6 +231,10 @@ Example</h1>
 <div class="line"><a class="code" href="group__lui__list.html#ga1641e5189b244dab791439e1cdf74a5f">lui_list_add_item</a>(my_list, <span class="stringliteral">&quot;Czech&quot;</span>);</div>
 <div class="line"><a class="code" href="group__lui__list.html#ga1641e5189b244dab791439e1cdf74a5f">lui_list_add_item</a>(my_list, <span class="stringliteral">&quot;Deccan&quot;</span>);</div>
 <div class="line"><a class="code" href="group__lui__list.html#ga1641e5189b244dab791439e1cdf74a5f">lui_list_add_item</a>(my_list, <span class="stringliteral">&quot;Dutch&quot;</span>);</div>
+<div class="line"><a class="code" href="group__lui__list.html#ga1641e5189b244dab791439e1cdf74a5f">lui_list_add_item</a>(my_list, <span class="stringliteral">&quot;English&quot;</span>);</div>
+<div class="line"><a class="code" href="group__lui__list.html#ga1641e5189b244dab791439e1cdf74a5f">lui_list_add_item</a>(my_list, <span class="stringliteral">&quot;French&quot;</span>);</div>
+<div class="line"><a class="code" href="group__lui__list.html#ga1641e5189b244dab791439e1cdf74a5f">lui_list_add_item</a>(my_list, <span class="stringliteral">&quot;German&quot;</span>);</div>
+<div class="line"><a class="code" href="group__lui__list.html#ga1641e5189b244dab791439e1cdf74a5f">lui_list_add_item</a>(my_list, <span class="stringliteral">&quot;Hindi&quot;</span>);</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// Now make this list a dropdown list</span></div>
 <div class="line"><a class="code" href="group__lui__list.html#ga9e90dcc7b886d2ccb958637601acad00">lui_list_set_dropdown_mode</a>(my_list, 1);</div>
@@ -585,6 +604,50 @@ Example</h1>
 
 </div>
 </div>
+<a id="ga300c0a2c93857823b33f1c146fbefe9b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga300c0a2c93857823b33f1c146fbefe9b">&#9670;&nbsp;</a></span>lui_list_set_item_border()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lui_list_set_item_border </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="lame__ui_8h.html#a5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td>
+          <td class="paramname"><em>obj_list</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>has_border</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>border_color</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set whether list items have border or not. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">obj_list</td><td>list object </td></tr>
+    <tr><td class="paramname">has_border</td><td>0: Items have NO border, 1: Items have border </td></tr>
+    <tr><td class="paramname">border_color</td><td>16-bit border color </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="ga7b3ca3fb28dbf45735f386c47fe442eb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga7b3ca3fb28dbf45735f386c47fe442eb">&#9670;&nbsp;</a></span>lui_list_set_item_min_height()</h2>
 
@@ -937,20 +1000,58 @@ Example</h1>
 
 </div>
 </div>
+<a id="gacdfc3d4618c371fb5c748a0cdf34a6f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gacdfc3d4618c371fb5c748a0cdf34a6f1">&#9670;&nbsp;</a></span>lui_list_set_text_color()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lui_list_set_text_color </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="lame__ui_8h.html#a5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td>
+          <td class="paramname"><em>obj_list</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>color</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set text color of list items. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">obj_list</td><td>list object </td></tr>
+    <tr><td class="paramname">color</td><td>16-bit color </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="agroup__lui__object_html_gaed4bb7d9c2764c6786708535fad7cf67"><div class="ttname"><a href="group__lui__object.html#gaed4bb7d9c2764c6786708535fad7cf67">lui_object_set_area</a></div><div class="ttdeci">void lui_object_set_area(lui_obj_t *obj, uint16_t width, uint16_t height)</div><div class="ttdoc">Set drawing area of an object.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3464</div></div>
-<div class="ttc" id="agroup__lui__object_html_gae9d2e2e1998f2603a3a6d24d08b5b64e"><div class="ttname"><a href="group__lui__object.html#gae9d2e2e1998f2603a3a6d24d08b5b64e">lui_object_set_callback</a></div><div class="ttdeci">void lui_object_set_callback(lui_obj_t *obj, void(*obj_event_cb)(lui_obj_t *))</div><div class="ttdoc">Set event call back function for input handling.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3537</div></div>
-<div class="ttc" id="agroup__lui__list_html_gad7eda3882ef90983dd2fac598e6699a3"><div class="ttname"><a href="group__lui__list.html#gad7eda3882ef90983dd2fac598e6699a3">lui_list_create</a></div><div class="ttdeci">lui_obj_t * lui_list_create()</div><div class="ttdoc">Create a list object with initial values.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:819</div></div>
-<div class="ttc" id="astruct__lui__obj__s_html"><div class="ttname"><a href="struct__lui__obj__s.html">_lui_obj_s</a></div><div class="ttdoc">Generic object datatype.</div><div class="ttdef"><b>Definition:</b> lame_ui.h:360</div></div>
-<div class="ttc" id="agroup__lui__list_html_ga9e90dcc7b886d2ccb958637601acad00"><div class="ttname"><a href="group__lui__list.html#ga9e90dcc7b886d2ccb958637601acad00">lui_list_set_dropdown_mode</a></div><div class="ttdeci">int8_t lui_list_set_dropdown_mode(lui_obj_t *obj, uint8_t is_dropdown)</div><div class="ttdoc">Set if list is a dropdown or not.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:1117</div></div>
-<div class="ttc" id="agroup__lui__object_html_ga580b2bdece45808266791573d874aabb"><div class="ttname"><a href="group__lui__object.html#ga580b2bdece45808266791573d874aabb">lui_object_get_event</a></div><div class="ttdeci">int8_t lui_object_get_event(lui_obj_t *obj)</div><div class="ttdoc">Get input event of an object.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3551</div></div>
-<div class="ttc" id="agroup__lui__list_html_gaab776b7da921069dcfd27950fc5f2a49"><div class="ttname"><a href="group__lui__list.html#gaab776b7da921069dcfd27950fc5f2a49">lui_list_get_item_text</a></div><div class="ttdeci">char * lui_list_get_item_text(lui_obj_t *obj, uint8_t item_index)</div><div class="ttdoc">Get text of a list item by its index.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:1085</div></div>
-<div class="ttc" id="agroup__lui__list_html_ga8d36d05056be1235f0314acbdac0371e"><div class="ttname"><a href="group__lui__list.html#ga8d36d05056be1235f0314acbdac0371e">lui_list_set_max_items_count</a></div><div class="ttdeci">int8_t lui_list_set_max_items_count(lui_obj_t *obj, uint8_t max_items_cnt)</div><div class="ttdoc">Set maximum item count for a list. The list cannot store items more than this number.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:979</div></div>
-<div class="ttc" id="agroup__lui__list_html_ga1641e5189b244dab791439e1cdf74a5f"><div class="ttname"><a href="group__lui__list.html#ga1641e5189b244dab791439e1cdf74a5f">lui_list_add_item</a></div><div class="ttdeci">int8_t lui_list_add_item(lui_obj_t *obj, const char *text)</div><div class="ttdoc">Add an item to the end of the list.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:998</div></div>
-<div class="ttc" id="agroup__lui__list_html_ga50b081682a8bc9ab50e229d432605b2e"><div class="ttname"><a href="group__lui__list.html#ga50b081682a8bc9ab50e229d432605b2e">lui_list_prepare</a></div><div class="ttdeci">void lui_list_prepare(lui_obj_t *obj)</div><div class="ttdoc">Prepares a list for final render. This function must be called by the user after creating a list/maki...</div><div class="ttdef"><b>Definition:</b> lame_ui.c:863</div></div>
-<div class="ttc" id="agroup__lui__list_html_ga002fad5fa77d895a533beb808c45fab5"><div class="ttname"><a href="group__lui__list.html#ga002fad5fa77d895a533beb808c45fab5">lui_list_set_selected_item_index</a></div><div class="ttdeci">int16_t lui_list_set_selected_item_index(lui_obj_t *obj, uint8_t item_index)</div><div class="ttdoc">Set selected item's index in a list.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:1069</div></div>
-<div class="ttc" id="agroup__lui__list_html_ga02c8af9365b2c846e71209f9be648930"><div class="ttname"><a href="group__lui__list.html#ga02c8af9365b2c846e71209f9be648930">lui_list_get_selected_item_index</a></div><div class="ttdeci">int16_t lui_list_get_selected_item_index(lui_obj_t *obj)</div><div class="ttdoc">Get index of selected item of a list.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:1058</div></div>
+<div class="ttc" id="agroup__lui__object_html_gaed4bb7d9c2764c6786708535fad7cf67"><div class="ttname"><a href="group__lui__object.html#gaed4bb7d9c2764c6786708535fad7cf67">lui_object_set_area</a></div><div class="ttdeci">void lui_object_set_area(lui_obj_t *obj, uint16_t width, uint16_t height)</div><div class="ttdoc">Set drawing area of an object.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3650</div></div>
+<div class="ttc" id="agroup__lui__object_html_gae9d2e2e1998f2603a3a6d24d08b5b64e"><div class="ttname"><a href="group__lui__object.html#gae9d2e2e1998f2603a3a6d24d08b5b64e">lui_object_set_callback</a></div><div class="ttdeci">void lui_object_set_callback(lui_obj_t *obj, void(*obj_event_cb)(lui_obj_t *))</div><div class="ttdoc">Set event call back function for input handling.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3723</div></div>
+<div class="ttc" id="agroup__lui__list_html_gad7eda3882ef90983dd2fac598e6699a3"><div class="ttname"><a href="group__lui__list.html#gad7eda3882ef90983dd2fac598e6699a3">lui_list_create</a></div><div class="ttdeci">lui_obj_t * lui_list_create()</div><div class="ttdoc">Create a list object with initial values.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:824</div></div>
+<div class="ttc" id="astruct__lui__obj__s_html"><div class="ttname"><a href="struct__lui__obj__s.html">_lui_obj_s</a></div><div class="ttdoc">Generic object datatype.</div><div class="ttdef"><b>Definition:</b> lame_ui.h:379</div></div>
+<div class="ttc" id="agroup__lui__list_html_ga9e90dcc7b886d2ccb958637601acad00"><div class="ttname"><a href="group__lui__list.html#ga9e90dcc7b886d2ccb958637601acad00">lui_list_set_dropdown_mode</a></div><div class="ttdeci">int8_t lui_list_set_dropdown_mode(lui_obj_t *obj, uint8_t is_dropdown)</div><div class="ttdoc">Set if list is a dropdown or not.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:1126</div></div>
+<div class="ttc" id="agroup__lui__object_html_ga580b2bdece45808266791573d874aabb"><div class="ttname"><a href="group__lui__object.html#ga580b2bdece45808266791573d874aabb">lui_object_get_event</a></div><div class="ttdeci">int8_t lui_object_get_event(lui_obj_t *obj)</div><div class="ttdoc">Get input event of an object.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3737</div></div>
+<div class="ttc" id="agroup__lui__list_html_gaab776b7da921069dcfd27950fc5f2a49"><div class="ttname"><a href="group__lui__list.html#gaab776b7da921069dcfd27950fc5f2a49">lui_list_get_item_text</a></div><div class="ttdeci">char * lui_list_get_item_text(lui_obj_t *obj, uint8_t item_index)</div><div class="ttdoc">Get text of a list item by its index.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:1094</div></div>
+<div class="ttc" id="agroup__lui__list_html_ga8d36d05056be1235f0314acbdac0371e"><div class="ttname"><a href="group__lui__list.html#ga8d36d05056be1235f0314acbdac0371e">lui_list_set_max_items_count</a></div><div class="ttdeci">int8_t lui_list_set_max_items_count(lui_obj_t *obj, uint8_t max_items_cnt)</div><div class="ttdoc">Set maximum item count for a list. The list cannot store items more than this number.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:988</div></div>
+<div class="ttc" id="agroup__lui__list_html_ga1641e5189b244dab791439e1cdf74a5f"><div class="ttname"><a href="group__lui__list.html#ga1641e5189b244dab791439e1cdf74a5f">lui_list_add_item</a></div><div class="ttdeci">int8_t lui_list_add_item(lui_obj_t *obj, const char *text)</div><div class="ttdoc">Add an item to the end of the list.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:1007</div></div>
+<div class="ttc" id="agroup__lui__list_html_ga50b081682a8bc9ab50e229d432605b2e"><div class="ttname"><a href="group__lui__list.html#ga50b081682a8bc9ab50e229d432605b2e">lui_list_prepare</a></div><div class="ttdeci">void lui_list_prepare(lui_obj_t *obj)</div><div class="ttdoc">Prepares a list for final render. This function must be called by the user after creating a list/maki...</div><div class="ttdef"><b>Definition:</b> lame_ui.c:872</div></div>
+<div class="ttc" id="agroup__lui__list_html_ga002fad5fa77d895a533beb808c45fab5"><div class="ttname"><a href="group__lui__list.html#ga002fad5fa77d895a533beb808c45fab5">lui_list_set_selected_item_index</a></div><div class="ttdeci">int16_t lui_list_set_selected_item_index(lui_obj_t *obj, uint8_t item_index)</div><div class="ttdoc">Set selected item's index in a list.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:1078</div></div>
+<div class="ttc" id="agroup__lui__list_html_ga02c8af9365b2c846e71209f9be648930"><div class="ttname"><a href="group__lui__list.html#ga02c8af9365b2c846e71209f9be648930">lui_list_get_selected_item_index</a></div><div class="ttdeci">int16_t lui_list_get_selected_item_index(lui_obj_t *obj)</div><div class="ttdoc">Get index of selected item of a list.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:1067</div></div>
+<div class="ttc" id="agroup__lui__object_html_gaf7bedc873edb862f9c1f8b063f17f839"><div class="ttname"><a href="group__lui__object.html#gaf7bedc873edb862f9c1f8b063f17f839">lui_object_set_position</a></div><div class="ttdeci">void lui_object_set_position(lui_obj_t *obj, uint16_t x, uint16_t y)</div><div class="ttdoc">Set position of an object.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3578</div></div>
 <div class="ttc" id="agroup__LUI__EVENT_html_gac1d4660029fe5efac27e0116e258d65d"><div class="ttname"><a href="group__LUI__EVENT.html#gac1d4660029fe5efac27e0116e258d65d">LUI_EVENT_PRESSED</a></div><div class="ttdeci">#define LUI_EVENT_PRESSED</div><div class="ttdoc">Object is pressed (object under pointing device and pointing device button is low)</div><div class="ttdef"><b>Definition:</b> lame_ui.h:107</div></div>
 
 	<script src="main.js"></script>
