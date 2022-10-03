@@ -1,3 +1,5 @@
+### Version: v1.0 (stable)
+
 ## LameUI - a lightweight GUI library for embedded systems
 
 ### What?
