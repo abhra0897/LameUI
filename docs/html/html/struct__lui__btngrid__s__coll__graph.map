@@ -1,0 +1,11 @@
+<map id="_lui_btngrid_s" name="_lui_btngrid_s">
+<area shape="rect" id="node1" title=" " alt="" coords="247,291,359,317"/>
+<area shape="rect" id="node2" href="$struct__lui__btngrid__style__s.html" title=" " alt="" coords="5,201,156,228"/>
+<area shape="rect" id="node3" href="$structlui__font__t.html" title=" " alt="" coords="181,201,263,228"/>
+<area shape="rect" id="node4" href="$struct__lui__glyph__t.html" title=" " alt="" coords="109,103,209,130"/>
+<area shape="rect" id="node5" href="$structlui__bitmap__t.html" title=" " alt="" coords="233,103,336,130"/>
+<area shape="rect" id="node6" href="$struct__lui__area__s.html" title=" " alt="" coords="288,201,383,228"/>
+<area shape="rect" id="node7" href="$struct__lui__keyboard__s.html" title=" " alt="" coords="407,201,533,228"/>
+<area shape="rect" id="node8" href="$struct__lui__obj__s.html" title="Generic object datatype." alt="" coords="427,103,513,130"/>
+<area shape="rect" id="node9" href="$struct__lui__common__style__s.html" title=" " alt="" coords="389,5,551,32"/>
+</map>
