@@ -19,8 +19,8 @@
  * 			Global variables
  *-------------------------------------
  */
-static uint8_t g_needs_render = 0;
-static _lui_mem_block_t g_mem_block;
+static uint8_t g_lui_needs_render = 0;
+static _lui_mem_block_t g_lui_mem_block;
 static _lui_main_t* g_lui_main;
 /*-------------------------------------
  * 				End
@@ -78,7 +78,7 @@ void lui_update()
 	lui_obj_t* obj_caused_cb = NULL;
 	// Reading input
 	obj_caused_cb = _lui_process_input_of_act_scene();
-	if (g_needs_render)
+	if (g_lui_needs_render)
 	{
 		_lui_object_render_parent_with_children( g_lui_main->active_scene);
 		// If user is buffering the draw_pixels_area calls instead of instantly flushing to display, 
@@ -2888,7 +2888,7 @@ void lui_keyboard_sys_cb(lui_obj_t* obj_sender)
 		}
 		obj_sender->needs_refresh = 1;
 		btngrid->needs_full_render = 1;
-		g_needs_render = 1;
+		g_lui_needs_render = 1;
 	}
 	else
 	{
@@ -2929,7 +2929,7 @@ void lui_keyboard_set_mode(lui_obj_t* obj, uint8_t mode)
 
 	obj->needs_refresh = 1;
 	btngrid->needs_full_render = 1;
-	g_needs_render = 1;
+	g_lui_needs_render = 1;
 
 
 }
@@ -3070,8 +3070,12 @@ void lui_textbox_draw(lui_obj_t* obj)
 			// Find the glyph for the char from the font
 			const _lui_glyph_t* glyph = _lui_gfx_get_glyph_from_char(txtbox->text_buffer[i], txtbox->font);
 			glyph_h = txtbox->font->bitmap->size_y;
+
 			if (glyph == NULL)
 				glyph_w = txtbox->font->bitmap->size_y / 2;
+			/* Width of space is not available in font map, so we calc w based on h */
+			else if (glyph->character == ' ')
+				glyph_w = txtbox->font->bitmap->size_y / 4;
 			else
 				glyph_w = glyph->width;
 
@@ -3493,7 +3497,7 @@ lui_obj_t* _lui_object_create(void)
 	obj->first_child = NULL;
 	obj->next_sibling = NULL;
 	obj->children_count = 0;
-	g_needs_render = 1;
+	g_lui_needs_render = 1;
 	return obj;
 }
 
@@ -3952,7 +3956,7 @@ void _lui_object_render_parent_with_children(lui_obj_t* obj_parent)
 		_lui_object_render(obj_arr[i]);
 	}
 	
-	g_needs_render = 0;
+	g_lui_needs_render = 0;
 }
 
 void _lui_object_render(lui_obj_t* obj)
@@ -4030,7 +4034,7 @@ void _lui_object_set_need_refresh(lui_obj_t* obj)
 	if (!obj->visible)
 		return;
 
-	g_needs_render = 1;
+	g_lui_needs_render = 1;
 	/* already flag is 1, no need to waste time in loop. Return. */
 	if (obj->needs_refresh == 1)
 		return;
@@ -4485,7 +4489,7 @@ void _lui_set_obj_props_on_touch_input(lui_touch_input_data_t* input, lui_obj_t*
 			obj->event = LUI_EVENT_VALUE_CHANGED;	// for switch and checkbox, being pressed means being toggled, thus value changed
 			obj->value = (obj->value == 1) ? 0 : 1;	// toggle the value (1->0 or 0-1)
 			obj->needs_refresh = 1;
-			g_needs_render = 1;
+			g_lui_needs_render = 1;
 		}
 		#endif
 	}
@@ -4522,7 +4526,7 @@ void _lui_set_obj_props_on_touch_input(lui_touch_input_data_t* input, lui_obj_t*
 			obj->value = _lui_map_range(slider->knob_center_rel_x, obj->common_style.width - (slider->style.knob_width / 2), (slider->style.knob_width / 2), slider->range_max, slider->range_min);
 			obj->event = LUI_EVENT_VALUE_CHANGED;
 			obj->needs_refresh = 1;
-			g_needs_render = 1;
+			g_lui_needs_render = 1;
 		}
 		#endif
 	}
@@ -4568,7 +4572,7 @@ void _lui_set_obj_props_on_touch_input(lui_touch_input_data_t* input, lui_obj_t*
 		if (obj->event != LUI_EVENT_NONE)
 		{
 			obj->needs_refresh = 1;
-			g_needs_render = 1;
+			g_lui_needs_render = 1;
 		}
 		last_active_btn = btngrid->active_btn_index;
 		#endif
@@ -4712,10 +4716,15 @@ void lui_gfx_draw_string_advanced(const char* str, uint16_t x, uint16_t y, uint1
 		{
 			uint8_t glyph_width = 0;
             glyph = _lui_gfx_get_glyph_from_char(*str, font);
+
 			if (glyph == NULL)
 				glyph_width = font->bitmap->size_y / 2;
+			/* Width of space is not available in font map, so we calc w based on h */
+			else if (glyph->character == ' ')
+				glyph_width = font->bitmap->size_y / 4;
 			else
 				glyph_width = glyph->width;
+
 			// check if not enough space available at the right side
 			if (x_temp + glyph_width > x + w)
 			{
@@ -4850,8 +4859,12 @@ void lui_gfx_get_string_dimension(const char* str, const lui_font_t* font, uint1
 		{
             uint8_t glyph_width = 0;
             const _lui_glyph_t* glyph = _lui_gfx_get_glyph_from_char(*str, font);
+
 			if (glyph == NULL)
 				glyph_width = font->bitmap->size_y / 2;
+			/* Width of space is not available in font map, so we calc w based on h */
+			else if (glyph->character == ' ')
+				glyph_width = font->bitmap->size_y / 4;
 			else
 				glyph_width = glyph->width;
 
@@ -4919,7 +4932,14 @@ void _lui_gfx_render_char_glyph(uint16_t x, uint16_t y, uint16_t fore_color, uin
 
 	uint16_t width = 0;
 	uint16_t index_offset = 0;
-	width = glyph->width;
+
+	if (glyph == NULL)
+		width = font->bitmap->size_y / 2;
+	/* Width of space is not available in font map, so we calc w based on h */
+	if (glyph->character == ' ')
+		width = font->bitmap->size_y / 4;
+	else
+		width = glyph->width;
 	index_offset = glyph->payload_index;//((height / 8) + (height % 8 ? 1 : 0)) * x_offset;
 
 
@@ -4936,7 +4956,12 @@ void _lui_gfx_render_char_glyph(uint16_t x, uint16_t y, uint16_t fore_color, uin
                 bit_counter = 0;
             }
             uint8_t bit = mask & (font->bitmap->payload[index_offset] << bit_counter);
-            if (bit)
+			/**
+			 * Nasty hack. Since width of space is calculated from height, 
+			 * we can't render space from bitmap buffer. Hence, we just skip
+			 * rendering forecolor for space.
+			 */
+            if (bit && glyph->character != ' ')	
             {
                 g_lui_main->disp_drv->draw_pixels_area_cb(temp_x, temp_y, 1, 1, fore_color);
             }
@@ -5158,17 +5183,17 @@ uint8_t _lui_disp_drv_check()
 
 void _lui_mem_init(uint8_t mem_block[], uint16_t size)
 {
-	g_mem_block.mem_block = mem_block;
-	g_mem_block.block_max_sz = size;
-	g_mem_block.mem_allocated = 0;
+	g_lui_mem_block.mem_block = mem_block;
+	g_lui_mem_block.block_max_sz = size;
+	g_lui_mem_block.mem_allocated = 0;
 }
 
 void* _lui_mem_alloc(uint16_t element_size)
 {
-	if (g_mem_block.mem_allocated + element_size > g_mem_block.block_max_sz)
+	if (g_lui_mem_block.mem_allocated + element_size > g_lui_mem_block.block_max_sz)
 		return NULL;
-	uint8_t* nxt_addr = g_mem_block.mem_block + g_mem_block.mem_allocated;
-	g_mem_block.mem_allocated += element_size;
+	uint8_t* nxt_addr = g_lui_mem_block.mem_block + g_lui_mem_block.mem_allocated;
+	g_lui_mem_block.mem_allocated += element_size;
 	return nxt_addr;
 }
 /*-------------------------------------------------------------------------------
