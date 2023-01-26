@@ -127,8 +127,46 @@ void lui_label_draw(lui_obj_t* obj)
 	if (_lui_disp_drv_check() == 0)
 		return;
 
+	lui_area_t lbl_area = {
+		.x = obj->x,
+		.y = obj->y,
+		.w = obj->common_style.width,
+		.h = obj->common_style.height
+	};
+	uint16_t bg_color = obj->common_style.bg_color;
+	const lui_bitmap_t* parent_bmp = NULL;
+	lui_area_t bmp_crop;
+	if (obj->parent && lbl->style.is_transparent_bg)
+	{
+		bg_color = obj->parent->common_style.bg_color;
+		/* NOTE: panel and scene both have same first items in the struct. So even if
+		 * the parent is scene, we can use lui_panel_t for casting.
+		 */
+		lui_panel_t* panel = (lui_panel_t* )(obj->parent->obj_main_data);
+		if (panel->bg_image)
+		{
+			parent_bmp = panel->bg_image;
+			bmp_crop.x = obj->x - obj->parent->x;
+			bmp_crop.y = obj->y - obj->parent->y;
+			bmp_crop.w = lbl_area.w;
+			bmp_crop.h = lbl_area.h;
 
-	lui_gfx_draw_string_advanced(lbl->text, obj->x, obj->y, obj->common_style.width, obj->common_style.height, lbl->style.text_color, obj->common_style.bg_color, 1, lbl->font);
+			if (panel->image_crop)
+			{
+				bmp_crop.x += panel->image_crop->x;
+				bmp_crop.y += panel->image_crop->y;
+			}
+		}
+	}
+	lui_gfx_draw_string_advanced(
+		lbl->text, 
+		&lbl_area, 
+		lbl->style.text_color, 
+		bg_color, 
+		parent_bmp, 
+		&bmp_crop, 
+		1, 
+		lbl->font);
 
 	// Draw the label border if needed
 	if (obj->common_style.border_visible == 1)
@@ -152,6 +190,7 @@ lui_obj_t* lui_label_create(void)
 	initial_label->text = "";
 	initial_label->font = g_lui_main->default_font;
 	initial_label->style.text_color = LUI_STYLE_LABEL_TEXT_COLOR;
+	initial_label->style.is_transparent_bg = 0;
 
 	lui_obj_t* obj = _lui_object_create();
 	if (obj == NULL)
@@ -212,8 +251,24 @@ void lui_label_set_text_color(lui_obj_t* obj, uint16_t text_color)
 	lui_label_t* lbl = (lui_label_t* )(obj->obj_main_data);
 	if (lbl->style.text_color == text_color)
 		return;
-	_lui_object_set_need_refresh(obj);
 	lbl->style.text_color = text_color;
+	_lui_object_set_need_refresh(obj);
+}
+
+void lui_label_set_bg_transparent(lui_obj_t* obj, uint8_t is_transparent)
+{
+	if (obj == NULL)
+		return;
+	
+	// type check
+	if (obj->obj_type != LUI_OBJ_LABEL)
+		return;
+
+	lui_label_t* lbl = (lui_label_t* )(obj->obj_main_data);
+	if (lbl->style.is_transparent_bg == is_transparent)
+		return;
+	lbl->style.is_transparent_bg = is_transparent;
+	_lui_object_set_need_refresh(obj);
 }
 
 /*-------------------------------------------------------------------------------
@@ -573,42 +628,57 @@ void lui_button_draw(lui_obj_t* obj)
 
 	uint16_t str_width_height[2];
 
-	// Draw the button's body color depending on its current state
-	uint16_t btn_color = obj->common_style.bg_color;
-	if (obj->state == LUI_STATE_SELECTED)
-		btn_color = btn->style.selection_color;
-	else if (obj->state == LUI_STATE_PRESSED)
-		btn_color = btn->style.pressed_color;
-	// else if (btn->state == LUI_STATE_IDLE)
-	// 	btn_color = btn->color;
-
-	lui_gfx_draw_rect_fill(temp_x, temp_y, btn_width, btn_height, btn_color);
-	
-	// Draw the button label (text)
-
-	lui_gfx_get_string_dimension(btn->label.text, btn->label.font, btn_width, str_width_height);
-
-	str_width_height[0] = str_width_height[0] > btn_width ? btn_width : str_width_height[0];
-	str_width_height[1] = str_width_height[1] > btn_height ? btn_height : str_width_height[1];
-
-	temp_y = temp_y + (btn_height - str_width_height[1]) / 2;
-	if (btn->label.text_align == LUI_ALIGN_CENTER)
+	/* Draw backgrounf bitmap if not NULL */
+	if (btn->bg_image)
 	{
-		temp_x = temp_x + (btn_width - str_width_height[0]) / 2;
+		lui_gfx_bitmap_draw(btn->bg_image, temp_x, temp_y, btn->image_crop);
 	}
-	else if (btn->label.text_align == LUI_ALIGN_RIGHT)
-	{
-		temp_x = temp_x + (btn_width - str_width_height[0]) - padding;
-	}
+	/* Else raw the button's body color depending on its current state */
 	else
 	{
-		temp_x = temp_x + padding;
+		uint16_t btn_color = obj->common_style.bg_color;
+		if (obj->state == LUI_STATE_SELECTED)
+			btn_color = btn->style.selection_color;
+		else if (obj->state == LUI_STATE_PRESSED)
+			btn_color = btn->style.pressed_color;
+		// else if (btn->state == LUI_STATE_IDLE)
+		// 	btn_color = btn->color;
+
+		lui_gfx_draw_rect_fill(temp_x, temp_y, btn_width, btn_height, btn_color);
 	}
-
-	lui_gfx_draw_string_advanced(btn->label.text, temp_x, temp_y, str_width_height[0], str_width_height[1], btn->style.label_color, 0, 0, btn->label.font);
 	
+	/* Draw the button label (text) if not NULL */
+	if (btn->label.text)
+	{
+		lui_gfx_get_string_dimension(btn->label.text, btn->label.font, btn_width, str_width_height);
 
-	// Finally Draw the border if needed
+		str_width_height[0] = str_width_height[0] > btn_width ? btn_width : str_width_height[0];
+		str_width_height[1] = str_width_height[1] > btn_height ? btn_height : str_width_height[1];
+
+		temp_y = temp_y + (btn_height - str_width_height[1]) / 2;
+		if (btn->label.text_align == LUI_ALIGN_CENTER)
+		{
+			temp_x = temp_x + (btn_width - str_width_height[0]) / 2;
+		}
+		else if (btn->label.text_align == LUI_ALIGN_RIGHT)
+		{
+			temp_x = temp_x + (btn_width - str_width_height[0]) - padding;
+		}
+		else
+		{
+			temp_x = temp_x + padding;
+		}
+
+		lui_area_t btn_lbl_area = {
+			.x = temp_x,
+			.y = temp_y,
+			.w = str_width_height[0],
+			.h = str_width_height[1]
+		};
+		lui_gfx_draw_string_advanced(btn->label.text, &btn_lbl_area, btn->style.label_color, 0, NULL, NULL, 0, btn->label.font);
+	}
+	
+	/* Finally Draw the border if needed */
 	if (obj->common_style.border_visible == 1)
 	{
 		lui_gfx_draw_rect(obj->x, obj->y, btn_width, btn_height, 1, obj->common_style.border_color);
@@ -631,6 +701,8 @@ lui_obj_t* lui_button_create()
 
 	initial_button->style.pressed_color = LUI_STYLE_BUTTON_PRESSED_COLOR;
 	initial_button->style.selection_color = LUI_STYLE_BUTTON_SELECTION_COLOR;
+	initial_button->bg_image = NULL;
+	initial_button->image_crop = NULL;
 	
 	initial_button->label.text = "";
 	initial_button->style.label_color = LUI_STYLE_BUTTON_LABEL_COLOR;
@@ -665,7 +737,7 @@ void lui_button_set_label_text(lui_obj_t* obj, const char* text)
 		return;
 	
 	lui_button_t* btn = (lui_button_t* )(obj->obj_main_data);
-	btn->label.text = (char* )text;
+	btn->label.text = text;
 	_lui_object_set_need_refresh(obj);
 }
 
@@ -716,6 +788,26 @@ void lui_button_set_label_font(lui_obj_t* obj, const lui_font_t* font)
 	btn->label.font = (lui_font_t* )font;
 	// parent needs refresh (along with all its children)
 	_lui_object_set_need_refresh(obj->parent);
+}
+
+void lui_button_set_bitmap_image(lui_obj_t* obj, const lui_bitmap_t* bitmap, lui_area_t* bitmap_crop)
+{
+	if (obj == NULL)
+		return;
+	
+	// type check
+	if (obj->obj_type != LUI_OBJ_BUTTON)
+		return;
+
+	lui_button_t* btn = (lui_button_t* )(obj->obj_main_data);
+	if (bitmap_crop)
+	{
+		bitmap_crop->w = _LUI_BOUNDS(bitmap_crop->w, 1, obj->common_style.width);
+		bitmap_crop->h = _LUI_BOUNDS(bitmap_crop->h, 1, obj->common_style.height);
+	}
+	btn->bg_image = bitmap;
+	btn->image_crop = bitmap_crop;
+	_lui_object_set_need_refresh(obj);
 }
 
 void lui_button_set_extra_colors(lui_obj_t* obj, uint16_t pressed_color, uint16_t selection_color)
@@ -813,14 +905,20 @@ void lui_list_draw(lui_obj_t* obj)
 		else
 			x = x + padding;
 
+		lui_area_t lst_item_area = {
+			.x = x,
+			.y = y,
+			.w = dim[0],
+			.h = dim[1]
+		};
+
 		lui_gfx_draw_string_advanced(
 			list->items[i]->text,
-			x,
-			y,
-			dim[0],
-			dim[1],
+			&lst_item_area,
 			list->style.item_label_color,
 			0,
+			NULL,
+			NULL,
 			0,
 			list->font);
 	}
@@ -1715,18 +1813,47 @@ void lui_checkbox_draw(lui_obj_t* obj)
 	/* Draw label if any */
 	if (chkbox->label.text)
 	{
+		uint16_t lbl_bg_color = ~(chkbox->label.style.text_color); // using inverted text color as bg
+		uint16_t dim[2] = {0, 0};	// x, y
+		lui_gfx_get_string_dimension(chkbox->label.text, chkbox->label.font, g_lui_main->disp_drv->display_hor_res - obj->x + side + 2, dim);
+		lui_area_t chkbx_txt_area = {
+			.x = obj->x + side + 2,
+			.y = obj->y + 1,
+			.w = dim[0],
+			.h = dim[1]
+		};
+
+		lui_area_t bitmap_crop_area = {
+			.x = chkbx_txt_area.x - obj->parent->x,
+			.y = chkbx_txt_area.y - obj->parent->y,
+			.w = chkbx_txt_area.w,
+			.h = chkbx_txt_area.h
+		};
+		const lui_bitmap_t* bg_img = NULL;
+		if (obj->parent)
+		{
+			lbl_bg_color = obj->parent->common_style.bg_color;
+			/* As panel and scene both have same first elements in the struct, 
+			 * we can use panel even for scene 
+			 */
+			lui_panel_t* panel = (lui_panel_t*)(obj->parent->obj_main_data);
+			bg_img = panel->bg_image;
+			if (panel->image_crop)
+			{
+				bitmap_crop_area.x += panel->image_crop->x;
+				bitmap_crop_area.y += panel->image_crop->y;
+			}
+		}
 		lui_gfx_draw_string_advanced(
 			chkbox->label.text,
-			obj->x + side + 2, 
-			obj->y + 1, 
-			0, 
-			0, 
+			&chkbx_txt_area,
 			chkbox->label.style.text_color, 
-			obj->parent->common_style.bg_color,
-			1, 
+			lbl_bg_color,
+			bg_img,
+			&bitmap_crop_area,
+			1,
 			chkbox->label.font);
 	}
-	
 }
 
 lui_obj_t* lui_checkbox_create()
@@ -1946,7 +2073,14 @@ void lui_slider_draw(lui_obj_t* obj)
 					txt_x = txt_x - dim[0];
 			}
 			uint16_t txt_y = obj->y + (obj->common_style.height - dim[1])/2;
-			lui_gfx_draw_string_advanced(s, txt_x, txt_y, dim[0], dim[1], slider->style.knob_color, 0, 0, slider->font);
+
+			lui_area_t txt_area = {
+				.x = txt_x,
+				.y = txt_y,
+				.w = dim[0],
+				.h = dim[1]
+			};
+			lui_gfx_draw_string_advanced(s, &txt_area, slider->style.knob_color, 0, NULL, NULL, 0, slider->font);
 		}
 	}
 
@@ -2333,7 +2467,13 @@ void lui_btngrid_draw(lui_obj_t* obj)
 				uint16_t temp_x = btngrid->btn_area[i].x1 + (btn_width - str_width_height[0]) / 2;
 				uint16_t temp_y = btngrid->btn_area[i].y1 + (btn_height - str_width_height[1]) / 2;
 
-				lui_gfx_draw_string_advanced(btngrid->texts[j], temp_x, temp_y, str_width_height[0], str_width_height[1], btngrid->style.btn_label_color, 0, 0, btngrid->font);
+				lui_area_t btngrd_btn_area = {
+					.x = temp_x,
+					.y = temp_y,
+					.w = str_width_height[0],
+					.h = str_width_height[1]
+				};
+				lui_gfx_draw_string_advanced(btngrid->texts[j], &btngrd_btn_area, btngrid->style.btn_label_color, 0, NULL, NULL, 0, btngrid->font);
 			}
 		}
 
@@ -2429,7 +2569,7 @@ void lui_btngrid_set_textmap(lui_obj_t* obj, const char* texts[])
 		/* Btngrid doesn't already exists, so, allocate memory for area map and property map */
 		if (btngrid->btn_cnt == 0)
 		{
-			btngrid->btn_area = (lui_area_t* )_lui_mem_alloc(buttons * sizeof(lui_area_t));
+			btngrid->btn_area = (_lui_area_priv_t* )_lui_mem_alloc(buttons * sizeof(_lui_area_priv_t));
 			if (btngrid->btn_area == NULL)
 				return;
 			btngrid->btn_properties = (uint8_t* )_lui_mem_alloc(buttons * sizeof(uint8_t));
@@ -2720,7 +2860,7 @@ void _lui_btngrid_calc_btn_area(lui_obj_t* obj)
 		h += raw_height;
 		for (int j = 0; j < btns_in_row; j++)
 		{
-			lui_area_t area;
+			_lui_area_priv_t area;
 			float this_btn_w = raw_width * (float)(btngrid->btn_properties[btn_index] & LUI_BTNGRID_MASK_BTN_WIDTH_UNIT);
 			w += this_btn_w;
 
@@ -3043,15 +3183,21 @@ void lui_textbox_draw(lui_obj_t* obj)
 	uint8_t glyph_w = 0;
 	uint8_t glyph_h = 0;
 
-	lui_gfx_draw_string_advanced(txtbox->text_buffer, 
-								 obj->x + pad, 
-								 obj->y + pad, 
-								 obj->common_style.width - 2*pad, 
-								 obj->common_style.height - 2*pad, 
-								 txtbox->style.text_color, 
-								 obj->common_style.bg_color, 
-								 1, 
-								 txtbox->font);
+	lui_area_t txtbx_area = {
+		.x = obj->x + pad,
+		.y = obj->y + pad,
+		.w = obj->common_style.width - 2*pad,
+		.h = obj->common_style.height - 2*pad
+	};
+	lui_gfx_draw_string_advanced(
+		txtbox->text_buffer, 
+		&txtbx_area, 
+		txtbox->style.text_color, 
+		obj->common_style.bg_color,
+		NULL,
+		NULL,
+		1, 
+		txtbox->font);
 	
 
 	/* No need to draw caret when textbox is in Idle state */
@@ -3319,7 +3465,8 @@ lui_obj_t* lui_panel_create()
 	lui_panel_t* initial_panel = (lui_panel_t* )_lui_mem_alloc(sizeof(*initial_panel));
 	if (initial_panel == NULL)
 		return NULL;
-
+	initial_panel->bg_image = NULL;
+	initial_panel->image_crop = NULL;
 	lui_obj_t* obj = _lui_object_create();
 	if (obj == NULL)
 		return NULL;
@@ -3351,6 +3498,13 @@ void lui_panel_draw(lui_obj_t* obj)
 		lui_gfx_draw_rect(obj->x, obj->y, obj->common_style.width, obj->common_style.height, 1, obj->common_style.border_color);
 }
 
+void lui_panel_set_bitmap_image(lui_obj_t* obj, const lui_bitmap_t* bitmap, lui_area_t* bitmap_crop)
+{
+	/* As panel and scene both have same first elements in the struct, we can re-use scene's function here */
+	lui_scene_set_bitmap_image(obj, bitmap, bitmap_crop);
+}
+
+
 #endif
 
 /*-------------------------------------------------------------------------------
@@ -3379,7 +3533,7 @@ lui_obj_t* lui_scene_create()
 
 	initial_scene->font = g_lui_main->default_font;
 	initial_scene->bg_image = NULL;
-
+	initial_scene->image_crop = NULL;
 	lui_obj_t* obj = _lui_object_create();
 	if (obj == NULL)
 		return NULL;
@@ -3413,8 +3567,34 @@ void lui_scene_draw(lui_obj_t* obj)
 	if (!(obj->visible))
 		return;
 
-	lui_gfx_draw_rect_fill(obj->x, obj->y, obj->common_style.width, obj->common_style.height, obj->common_style.bg_color);
-	// TBD: draw background image
+	lui_scene_t* scene = (lui_scene_t* )(obj->obj_main_data);
+	if (scene->bg_image)
+		lui_gfx_bitmap_draw(scene->bg_image, obj->x, obj->y, scene->image_crop);
+	else
+		lui_gfx_draw_rect_fill(obj->x, obj->y, obj->common_style.width, obj->common_style.height, obj->common_style.bg_color);
+}
+
+void lui_scene_set_bitmap_image(lui_obj_t* obj, const lui_bitmap_t* bitmap, lui_area_t* bitmap_crop)
+{
+	if (obj == NULL)
+		return;
+	
+	// type check
+	/* NOTE: panel and scene both have same first elements in the struct. So, we can use
+	 * this function for panel too. :)
+	 */
+	if (obj->obj_type != LUI_OBJ_SCENE && obj->obj_type != LUI_OBJ_PANEL)
+		return;
+
+	lui_scene_t* scene = (lui_scene_t* )(obj->obj_main_data);
+	if (bitmap_crop)
+	{
+		bitmap_crop->w = _LUI_BOUNDS(bitmap_crop->w, 1, obj->common_style.width);
+		bitmap_crop->h = _LUI_BOUNDS(bitmap_crop->h, 1, obj->common_style.height);
+	}
+	scene->bg_image = bitmap;
+	scene->image_crop = bitmap_crop;
+	_lui_object_set_need_refresh(obj);
 }
 
 // void lui_scene_set_bg_image(lui_obj_t* obj_scene, const lui_bitmap_t* image)
@@ -4680,27 +4860,29 @@ void lui_touch_inputdev_set_read_input_cb(lui_touch_input_dev_t* inputdev, void 
  *------------------------------------------------------------------------------
  */
 
-void lui_gfx_draw_string_advanced(const char* str, uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t fore_color, uint16_t bg_color, uint8_t is_bg, const lui_font_t* font)
+void lui_gfx_draw_string_advanced(const char* str, lui_area_t* area, uint16_t fore_color, uint16_t bg_color, const lui_bitmap_t* bg_bitmap, lui_area_t* bitmap_crop, uint8_t is_bg, const lui_font_t* font)
 {
-	uint16_t x_temp = x;
-	uint16_t y_temp = y;
-    const _lui_glyph_t *glyph;
-
-	if (w == 0 || h == 0)
+	uint16_t x_temp = area->x;
+	uint16_t y_temp = area->y;
+    const _lui_glyph_t* glyph;
+	if (area->w == 0 || area->h == 0)
 	{
-		uint16_t max_w = w == 0 ? g_lui_main->disp_drv->display_hor_res - x : w;
-		uint16_t max_h = h == 0 ? g_lui_main->disp_drv->display_vert_res - y : h;
-		uint16_t area[2] = {0, 0};
+		uint16_t max_w = area->w == 0 ? g_lui_main->disp_drv->display_hor_res - area->x : area->w;
+		uint16_t max_h = area->h == 0 ? g_lui_main->disp_drv->display_vert_res - area->y : area->h;
+		uint16_t dim[2] = {0, 0};	// x, y
 
-		lui_gfx_get_string_dimension(str, font, max_w, area);
-		area[1] = area[1] > max_h ? max_h : area[1];
+		lui_gfx_get_string_dimension(str, font, max_w, dim);
+		dim[1] = dim[1] > max_h ? max_h : dim[1];
 
-		w = w == 0 ? area[0] : w;
-		h = h == 0 ? area[1] : h;
+		area->w = area->w == 0 ? dim[0] : area->w;
+		area->h = area->h == 0 ? dim[1] : area->h;
 	}
 	if (is_bg)
 	{
-		lui_gfx_draw_rect_fill(x, y, w, h, bg_color);
+		if (bg_bitmap)
+			lui_gfx_bitmap_draw(bg_bitmap, area->x, area->y, bitmap_crop);
+		else
+			lui_gfx_draw_rect_fill(area->x, area->y, area->w, area->h, bg_color);
 	}
 	
 	// Scan chars one by one from the string
@@ -4709,7 +4891,7 @@ void lui_gfx_draw_string_advanced(const char* str, uint16_t x, uint16_t y, uint1
 	{
 		if (*str == '\n')
 		{
-			x_temp = x;					//go to first col
+			x_temp = area->x;					//go to first col
 			y_temp += (font->bitmap->size_y);	//go to next row (row height = height of space)
 		}
 		else
@@ -4726,14 +4908,14 @@ void lui_gfx_draw_string_advanced(const char* str, uint16_t x, uint16_t y, uint1
 				glyph_width = glyph->width;
 
 			// check if not enough space available at the right side
-			if (x_temp + glyph_width > x + w)
+			if (x_temp + glyph_width > area->x + area->w)
 			{
-				x_temp = x;					//go to first col
+				x_temp = area->x;					//go to first col
 				y_temp += font->bitmap->size_y;	//go to next row
 			}
 
 			// check if not enough space available at the bottom
-			if(y_temp + font->bitmap->size_y > y + h)
+			if(y_temp + font->bitmap->size_y > area->y + area->h)
 				return;
 
 			_lui_gfx_render_char_glyph(x_temp, y_temp, fore_color, 0, 0, glyph, font);
@@ -4746,8 +4928,14 @@ void lui_gfx_draw_string_advanced(const char* str, uint16_t x, uint16_t y, uint1
 }
 
 void lui_gfx_draw_string_simple(const char* str, uint16_t x, uint16_t y, uint16_t fore_color, const lui_font_t* font)
-{
-	lui_gfx_draw_string_advanced(str, x, y, 0, 0, fore_color, 0, 0, font);
+{	
+	lui_area_t str_area = {
+		.x = x,
+		.y = y,
+		.w = 0,
+		.h = 0
+	};
+	lui_gfx_draw_string_advanced(str, &str_area, fore_color, 0, NULL, NULL, 0, font);
 }
 
 void lui_gfx_draw_char(char c, uint16_t x, uint16_t y, uint16_t fore_color, uint16_t bg_color, uint8_t is_bg, const lui_font_t* font)
@@ -4977,6 +5165,83 @@ void _lui_gfx_render_char_glyph(uint16_t x, uint16_t y, uint16_t fore_color, uin
         ++temp_x;
         temp_y = y;
     }
+}
+
+
+void lui_gfx_bitmap_draw(const lui_bitmap_t* bitmap, uint16_t x, uint16_t y, lui_area_t* crop_area)
+{
+	if (bitmap == NULL)
+		return;
+	if (bitmap->bpp != 1 && bitmap->bpp != 8 && bitmap->bpp != 16)
+		return;
+		
+	uint16_t color = 0;
+	uint16_t temp_x = x;
+	uint16_t temp_y = y;
+	uint8_t mask = 0x80;
+    uint8_t bit_counter = 0;
+	uint32_t byte_offset = 0;
+	uint16_t width = bitmap->size_x;
+	uint16_t height = bitmap->size_y;
+	uint32_t stride = 0;
+
+	/* Cropping supports only 8bpp and 16bpp bitmaps */
+	if (crop_area && bitmap->bpp != 1)
+	{
+		/* Crop area start pos can't be higher than bitmap dimension itself */
+		if (crop_area->x > bitmap->size_x || crop_area->y > bitmap->size_y)
+			return;
+		crop_area->w = _LUI_BOUNDS(crop_area->w, 1, bitmap->size_x - crop_area->x);
+		crop_area->h = _LUI_BOUNDS(crop_area->h, 1, bitmap->size_y - crop_area->y);
+
+		width = crop_area->w;
+		height = crop_area->h;
+		uint32_t px_offset = bitmap->size_y * crop_area->x + crop_area->y; // Initial pixel offsets for cropping
+		byte_offset = px_offset * (bitmap->bpp / 8);	// Initial bytes offset
+		uint32_t px_skip = bitmap->size_y - crop_area->h;	// pixels to skip for cropping, in a loop
+		stride = px_skip * (bitmap->bpp / 8);	// Bytes to skip, in a loop
+	}
+
+	for (uint16_t w = 0; w < width; w++)
+	{
+		bit_counter = 0;
+		for (uint16_t h = 0; h < height; h++)
+		{
+			if (bitmap->bpp == 1)
+			{
+				if (bit_counter >= 8)   
+				{
+					++byte_offset;
+					bit_counter = 0;
+				}
+				uint8_t bit = mask & (bitmap->payload[byte_offset] << bit_counter);
+				color = bit ? 0 : LUI_RGB(255, 255, 255);
+				++bit_counter;
+			}
+			else if (bitmap->bpp == 8)
+			{
+				color = LUI_RGB(bitmap->payload[byte_offset], bitmap->payload[byte_offset], bitmap->payload[byte_offset]);
+				byte_offset += 1;
+			}
+			else if (bitmap->bpp == 16)
+			{
+				color = (uint16_t)(bitmap->payload[byte_offset]) << 8 | (uint16_t)(bitmap->payload[byte_offset+1]);
+				byte_offset += 2;
+			}
+			else if (bitmap->bpp == 32)
+			{
+				/* 32bpp not supported yet. Only 16-bit colors are supported now */
+				// offset += 3;
+			}
+
+			g_lui_main->disp_drv->draw_pixels_area_cb(temp_x, temp_y, 1, 1, color);
+
+            ++temp_y;
+		}
+		byte_offset += stride;	// Skip bytes in case of cropping
+		++temp_x;
+        temp_y = y;
+	}
 }
 
 /*

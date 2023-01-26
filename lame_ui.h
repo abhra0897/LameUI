@@ -254,9 +254,10 @@ typedef struct
 /* This is a generic bitmap */
 typedef struct
 {
+	const uint8_t* const payload;
 	const uint16_t size_x; // size is in pixels
 	const uint16_t size_y;
-	const uint8_t* const payload;
+	const uint8_t bpp;
 } lui_bitmap_t;
 
 /* This is a font glyph description - for now it does not support kerning */
@@ -276,12 +277,28 @@ typedef struct
 
 extern const lui_font_t LUI_DEFAULT_FONT;
 
-typedef struct _lui_area_s
+/* !! For internal private use only. This was an old design
+ * choice and should be replaced with `lui_area_t` in future.
+ */
+typedef struct _lui_area_priv_s
 {
 	uint16_t x1;
 	uint16_t y1;
 	uint16_t x2;
 	uint16_t y2;
+} _lui_area_priv_t;
+
+/**
+ * @brief Area datatype.
+ *
+ * lui_area_t is used to define area or size of an item.
+ */
+typedef struct _lui_area_s
+{
+	uint16_t x;			///< Start position in X axis
+	uint16_t y;			///< Start position in Y axis
+	uint16_t w;			///< Width of item
+	uint16_t h;			///< Height of item
 } lui_area_t;
 
 struct _lui_common_style_s
@@ -296,6 +313,7 @@ struct _lui_common_style_s
 struct _lui_label_style_s
 {
 	uint16_t text_color;
+	uint8_t is_transparent_bg;
 };
 struct _lui_button_style_s
 {
@@ -438,10 +456,13 @@ typedef struct _lui_button_s
 	struct
 	{
 		const lui_font_t* font;
-		char* text;
+		const char* text;
 		uint8_t text_align;
 	} label;
 	struct _lui_button_style_s style;
+	const lui_bitmap_t* bg_image;
+	// TODO: try to set image_crop by value. Setting by pointer may break it due to scope issues
+	lui_area_t* image_crop;
 } lui_button_t;
 
 #if defined(LUI_USE_SWITCH)
@@ -480,7 +501,7 @@ typedef struct _lui_slider_s
 struct _lui_list_item
 {
 	const char* text;
-	lui_area_t area;
+	_lui_area_priv_t area;
 };
 typedef struct _lui_list_s
 {
@@ -515,7 +536,7 @@ typedef struct _lui_btngrid_s
 {
 	const char* *texts;
 	uint8_t* btn_properties;
-	lui_area_t* btn_area;
+	_lui_area_priv_t* btn_area;
 	uint8_t btn_cnt;
 	uint8_t row_cnt;
 	const lui_font_t* font;
@@ -544,13 +565,15 @@ typedef struct _lui_textbox_s
 #if defined(LUI_USE_PANEL)
 typedef struct _lui_panel_s
 {
-	lui_bitmap_t* bg_image;
+	const lui_bitmap_t* bg_image;
+	lui_area_t* image_crop;
 } lui_panel_t;
 #endif
 
 typedef struct _lui_scene_s
 {
-	lui_bitmap_t* bg_image;
+	const lui_bitmap_t* bg_image;
+	lui_area_t* image_crop;
 	const lui_font_t* font;
 
 } lui_scene_t;
@@ -971,6 +994,16 @@ void lui_label_set_text(lui_obj_t* obj_lbl, const char* text);
  * @param text_color 16-bit color
  */
 void lui_label_set_text_color(lui_obj_t* obj_lbl, uint16_t text_color);
+
+/**
+ * @brief Set whether the label background is transparent or not.
+ * When background is set to transparent, parent's background color 
+ * or bitmap is used as background to simulate transparency.
+ * 
+ * @param obj label object
+ * @param is_transparent 0: NOT transparent, 1: Transparent
+ */
+void lui_label_set_bg_transparent(lui_obj_t* obj, uint8_t is_transparent);
 /**@}*/
 /*-------------------------------------------------------------------------------
  * 							END
@@ -1170,6 +1203,15 @@ void lui_button_set_label_color(lui_obj_t* obj_btn, uint16_t color);
  * @param font font object. If NULL is passed, default font will be used
  */
 void lui_button_set_label_font(lui_obj_t* obj_btn, const lui_font_t* font);
+
+/**
+ * @brief Set background bitmap image
+ * 
+ * @param obj_btn nutton object
+ * @param bitmap bitmap image object.
+ * @param bitmap_crop crop area of bitmap. Set NULL for no cropping
+ */
+void lui_button_set_bitmap_image(lui_obj_t* obj_btn, const lui_bitmap_t* bitmap, lui_area_t* bitmap_crop);
 
 /**
  * @brief Set other colors of button object
@@ -2501,13 +2543,14 @@ lui_obj_t* lui_panel_create();
  */
 void lui_panel_draw(lui_obj_t* obj_panel);
 
-// /**
-//  * @brief Set background image of the panel
-//  *
-//  * @param obj_panel panel object
-//  * @param image image
-//  */
-// void lui_panel_set_bg_image(lui_obj_t* obj_panel, const lui_bitmap_t* image);
+/**
+ * @brief Set background bitmap image of the panel
+ * 
+ * @param obj panel object
+ * @param bitmap bitmap image object
+ * @param bitmap_crop crop area of bitmap. Set NULL for no cropping
+ */
+void lui_panel_set_bitmap_image(lui_obj_t* obj, const lui_bitmap_t* bitmap, lui_area_t* bitmap_crop);
 /**@}*/
 #endif
 
@@ -2553,13 +2596,15 @@ void lui_scene_set_active(lui_obj_t* obj_scene);
  */
 lui_obj_t* lui_scene_get_active();
 
-// /**
-//  * @brief Set background bitmap image of a scene
-//  *
-//  * @param obj_scene scene widget
-//  * @param image image
-//  */
-// void lui_scene_set_bg_image(lui_obj_t* obj_scene, const lui_bitmap_t* image);
+/**
+ * @brief Set background bitmap image of a scene
+ * 
+ * @param obj scene object
+ * @param bitmap bitmap image object
+ * @param bitmap_crop crop area of bitmap. Set NULL for no cropping
+ */
+void lui_scene_set_bitmap_image(lui_obj_t* obj, const lui_bitmap_t* bitmap, lui_area_t* bitmap_crop);
+
 
 // /**
 //  * @brief Set font of a scene
@@ -2775,9 +2820,12 @@ uint8_t _lui_get_event_against_state(uint8_t new_state, uint8_t old_state);
  * User does NOT require to use them. But if needed for some special reason, user may
  * call these functions.
  *
+ * Note: `lui_update()` function will overwrite any manual gfx calls made by user.
+ * So, user must call gfx functions after the update function in a loop.
+ * 
  * @{
  */
-void lui_gfx_draw_string_advanced(const char* str, uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t fore_color, uint16_t bg_color, uint8_t is_bg, const lui_font_t* font);
+void lui_gfx_draw_string_advanced(const char* str, lui_area_t* area, uint16_t fore_color, uint16_t bg_color, const lui_bitmap_t* bg_bitmap, lui_area_t* bitmap_crop, uint8_t is_bg, const lui_font_t* font);
 void lui_gfx_draw_string_simple(const char* str, uint16_t x, uint16_t y, uint16_t fore_color, const lui_font_t* font);
 void lui_gfx_draw_char(char c, uint16_t x, uint16_t y, uint16_t fore_color, uint16_t bg_color, uint8_t is_bg, const lui_font_t* font);
 uint16_t lui_gfx_get_font_height(const lui_font_t* font);
@@ -2785,6 +2833,16 @@ void lui_gfx_get_string_dimension(const char* str, const lui_font_t* font_obj, u
 void lui_gfx_draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color);
 void lui_gfx_draw_rect(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint8_t line_width, uint16_t color);
 void lui_gfx_draw_rect_fill(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color);
+/**
+ * @brief Draws a bitmap at given x,y position. Crop area can be NULL if cropping 
+ * is not needed
+ * 
+ * @param bitmap pointer to bitmap data
+ * @param x start X position
+ * @param y start Y position
+ * @param crop_area pointer to crop area. Set NULL for no cropping.
+ */
+void lui_gfx_bitmap_draw(const lui_bitmap_t* bitmap, uint16_t x, uint16_t y, lui_area_t* crop_area);
 uint16_t lui_rgb(uint16_t red, uint16_t green, uint16_t blue);
 /**@}*/
 const _lui_glyph_t* _lui_gfx_get_glyph_from_char(char c, const lui_font_t* font);
@@ -3002,8 +3060,19 @@ double _lui_map_range(double old_val, double old_max, double old_min, double new
  *--------------------------------------------
  */
 
+/*--------------------------------------------
+ *				Helper Macros
+ *--------------------------------------------
+ */
+
 #ifndef NULL
 #define NULL ((void *)0)
 #endif
+// TODO: Inspect the code and use MIN, MAX, and BOUND where needed
+#define _LUI_MIN(A,B)    ({ (A) < (B) ? (A) : (B); })
+#define _LUI_MAX(A,B)    ({ (A) < (B) ? (B) : (A); })
 
+#define _LUI_BOUNDS(x, low, high) ({\
+	(x) > (high) ? (high) : ((x) < (low) ? (low) : (x));\
+})
 #endif /* INC_LAME_UI_H_ */
