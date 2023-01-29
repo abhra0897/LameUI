@@ -1,0 +1,24 @@
+digraph "_lui_btngrid_s"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="_lui_btngrid_s",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node2 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" style" ,fontname="Helvetica"];
+  Node2 [label="_lui_btngrid_style_s",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$struct__lui__btngrid__style__s.html",tooltip=" "];
+  Node3 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" font" ,fontname="Helvetica"];
+  Node3 [label="lui_font_t",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structlui__font__t.html",tooltip=" "];
+  Node4 -> Node3 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" glyphs" ,fontname="Helvetica"];
+  Node4 [label="_lui_glyph_t",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$struct__lui__glyph__t.html",tooltip=" "];
+  Node5 -> Node3 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" bitmap" ,fontname="Helvetica"];
+  Node5 [label="lui_bitmap_t",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structlui__bitmap__t.html",tooltip=" "];
+  Node6 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" kb_data" ,fontname="Helvetica"];
+  Node6 [label="_lui_keyboard_s",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$struct__lui__keyboard__s.html",tooltip=" "];
+  Node7 -> Node6 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" target_txtbox" ,fontname="Helvetica"];
+  Node7 [label="_lui_obj_s",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$struct__lui__obj__s.html",tooltip="Generic object datatype."];
+  Node7 -> Node7 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" first_child\nnext_sibling\nparent" ,fontname="Helvetica"];
+  Node8 -> Node7 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" common_style" ,fontname="Helvetica"];
+  Node8 [label="_lui_common_style_s",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$struct__lui__common__style__s.html",tooltip=" "];
+  Node9 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" btn_area" ,fontname="Helvetica"];
+  Node9 [label="_lui_area_priv_s",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$struct__lui__area__priv__s.html",tooltip=" "];
+}

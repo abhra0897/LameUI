@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['value_285',['value',['../struct__lui__obj__s.html#aaac41856f181c09296e9bd8520dcef87',1,'_lui_obj_s']]],
-  ['visible_286',['visible',['../struct__lui__obj__s.html#ae1f763ddc000c579b9b320d1fdb45ceb',1,'_lui_obj_s']]]
+  ['usage_301',['Usage',['../quickstart_page.html',1,'']]],
+  ['user_20config_302',['User Config',['../group__LUI__USER__CONFIG.html',1,'']]]
 ];

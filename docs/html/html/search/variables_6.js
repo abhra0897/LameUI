@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['obj_5fevent_5fcb_483',['obj_event_cb',['../struct__lui__obj__s.html#ab35767e8fc0a0194b7ef0a0d9b013c5b',1,'_lui_obj_s']]],
-  ['obj_5fmain_5fdata_484',['obj_main_data',['../struct__lui__obj__s.html#a119055db688819a2caf7b79c62d8a75c',1,'_lui_obj_s']]],
-  ['obj_5ftype_485',['obj_type',['../struct__lui__obj__s.html#a09286cf82c6438f979d6cffe1950d857',1,'_lui_obj_s']]]
+  ['needs_5frefresh_519',['needs_refresh',['../struct__lui__obj__s.html#a275f11482198c4928ff046afc2d12d75',1,'_lui_obj_s']]],
+  ['next_5fsibling_520',['next_sibling',['../struct__lui__obj__s.html#a7296c2b24aebeac0fe07f3aad9f3ba84',1,'_lui_obj_s']]]
 ];

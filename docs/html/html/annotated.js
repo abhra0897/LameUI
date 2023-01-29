@@ -1,5 +1,6 @@
 var annotated =
 [
+    [ "_lui_area_priv_s", "struct__lui__area__priv__s.html", "struct__lui__area__priv__s" ],
     [ "_lui_area_s", "struct__lui__area__s.html", "struct__lui__area__s" ],
     [ "_lui_btngrid_s", "struct__lui__btngrid__s.html", "struct__lui__btngrid__s" ],
     [ "_lui_btngrid_style_s", "struct__lui__btngrid__style__s.html", "struct__lui__btngrid__style__s" ],

@@ -16,5 +16,5 @@ var group__function =
     [ "Scene API", "group__lui__scene.html", "group__lui__scene" ],
     [ "Display Driver API", "group__lui__dispdrv.html", "group__lui__dispdrv" ],
     [ "Input Device API", "group__lui__input.html", "group__lui__input" ],
-    [ "Graphics API", "group__lui__gfx.html", null ]
+    [ "Graphics API", "group__lui__gfx.html", "group__lui__gfx" ]
 ];

@@ -1,7 +1,7 @@
 var struct__lui__btngrid__s =
 [
     [ "active_btn_index", "struct__lui__btngrid__s.html#ad5c16de59f334078521fb5b3ad32b544", null ],
-    [ "btn_area", "struct__lui__btngrid__s.html#aaa435ab23d188883a805ca8b63f779f3", null ],
+    [ "btn_area", "struct__lui__btngrid__s.html#a3146a8d39c846fd2f4241b4384057578", null ],
     [ "btn_cnt", "struct__lui__btngrid__s.html#a56c83efbbe2d2e230909c2e3dada68aa", null ],
     [ "btn_properties", "struct__lui__btngrid__s.html#a1d3ad6702f4ec32bf5b71d608c9d926b", null ],
     [ "font", "struct__lui__btngrid__s.html#a179cf5035af72f6e494f34dac2935120", null ],
