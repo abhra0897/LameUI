@@ -6,9 +6,9 @@
  * @author Avra Mitra
  * @brief Source FIle of LameUI GUI library. Must include lame_ui.h. No other file is mandatory.
  * @version 1.0
- * @date 2022-10-04
+ * @date 2023-01-29
  * 
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2020-2023
  * 
  */
 
@@ -5075,7 +5075,7 @@ void lui_gfx_get_string_dimension(const char* str, const lui_font_t* font, uint1
 }
 
 
-uint16_t lui_rgb(uint16_t red, uint16_t green, uint16_t blue)
+uint16_t lui_rgb(uint8_t red, uint8_t green, uint8_t blue)
 {
 	return LUI_RGB(red, green, blue);
 }
@@ -5471,6 +5471,7 @@ void* _lui_mem_alloc(uint16_t element_size)
  * 			Default Font data
  *------------------------------------------------------------------------------
  */
+/* Create fonts and bitmap images using: https://github.com/abhra0897/LameUI_font_maker */
 /* Default Font data. DON'T EDIT!*/
 /* "ubuntu_regular_17" */
 static const uint8_t default_ubuntu_regular_17_payload[4260] ={

@@ -17,7 +17,7 @@ Probably no one. Unless you need a very simple and very lightweight UI library.
 **Who is/are developing it?**  
 I, alone.
 
-## API 
+## Documentation
 API Documentation: https://abhra0897.github.io/LameUI/  
 *Note: Documentation is work in progress.*
 

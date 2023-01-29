@@ -6,9 +6,9 @@
  * @author Avra Mitra
  * @brief One and only header file for LameUI library.
  * @version 1.0
- * @date 2022-10-04
+ * @date 2023-01-29
  *
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2020-2023
  *
  */
 
@@ -936,7 +936,7 @@ int _lui_obj_layer_cmprtr(const void *p1, const void *p2);
 
 /**
  * @defgroup lui_label Label widget API
- * API for <tt><b>label</b></tt> widgets
+ * @brief API for <tt><b>label</b></tt> widgets
  *
  * @section label_example Example
  * @image html docs/widgets_images/label.png "Dark Theme"
@@ -1018,7 +1018,7 @@ void lui_label_set_bg_transparent(lui_obj_t* obj, uint8_t is_transparent);
 #if defined(LUI_USE_LINECHART)
 /**
  * @defgroup lui_linechart Line Chart widget API
- * API for <b><tt>linechart</tt></b> widget
+ * @brief API for <b><tt>linechart</tt></b> widget
  *
  * @section linechart_example Example
  * @image html docs/widgets_images/linechart.png "Dark Theme"
@@ -1121,9 +1121,9 @@ void lui_linechart_set_data_source(lui_obj_t* obj_linechart, double* source, uin
 /**
  * @defgroup lui_button Button widget API
  *
- * API for <b><tt>button</tt></b> widget
+ * @brief API for <b><tt>button</tt></b> widget
  *
- * @section button_example Example
+ * @section button_example1 Example
  * @image html docs/widgets_images/button.png "Dark Theme"
  * @image html docs/widgets_images/button_2.png "Light Theme"
  * @code
@@ -1155,6 +1155,28 @@ void lui_linechart_set_data_source(lui_obj_t* obj_linechart, double* source, uin
  * // set button call back function
  * lui_object_set_callback(my_button, button_callback);
  * @endcode
+ * 
+ * @section button_example2 Example of setting background image
+ * Example of setting a background bitmap image for button
+ * @code
+ * #include "warning_symbol.h"	// include the image bitmap
+ * lui_obj_t* img_btn = lui_button_create();
+ * // Set area and position of button.
+ * lui_object_set_area(img_btn, 140, 60);
+ * lui_object_set_position(img_btn, 20, 10);
+ * // Set a crop area if we want to crop the image (in case it's area is bigger than the button)
+ * lui_area_t btn_img_area = {
+ *     .x = 10,		// crop start x
+ *     .y = 20,		// crop start y
+ *     .w = 140,	// crop width
+ *     .h = 60		// crop height
+ * };
+ * // Now set the bitmap image as background
+ * lui_button_set_bitmap_image(img_btn, &BITMAP_warning_symbol, &btn_img_area);
+ * // NOTE: if we don't need to crop, pass NULL for crop area. Like this:
+ * // lui_button_set_bitmap_image(img_btn, &BITMAP_warning_symbol, NULL);
+ * @endcode
+ * 
  * @{
  */
 
@@ -1227,7 +1249,7 @@ void lui_button_set_extra_colors(lui_obj_t* obj_btn, uint16_t pressed_color, uin
 /**
  * @defgroup lui_switch Switch widget API
  *
- * API for <b><tt>switch</tt></b> widget
+ * @brief API for <b><tt>switch</tt></b> widget
  *
  * @section switch_example Example
  * @image html docs/widgets_images/switch.png "Dark Theme"
@@ -1320,7 +1342,7 @@ void lui_switch_set_off(lui_obj_t* obj_swtch);
 /**
  * @defgroup lui_checkbox Checkbox widget API
  *
- * API for <b><tt>checkbox</tt></b> widget
+ * @brief API for <b><tt>checkbox</tt></b> widget
  *
  * @section checkbox_example Example
  * @image html docs/widgets_images/checkbox.png "Dark Theme"
@@ -1426,7 +1448,7 @@ void lui_checkbox_set_unchecked(lui_obj_t* obj_checkbox);
 /**
  * @defgroup lui_slider Slider widget API
  *
- * API for <b><tt>slider</tt></b> widget
+ * @brief API for <b><tt>slider</tt></b> widget
  * 
  * Sliders can have 3 types of knob: None, Default, Text.
  * - `LUI_SLIDER_KNOB_TYPE_NONE`: No knob is rendered.
@@ -1621,7 +1643,7 @@ int8_t lui_slider_set_knob_type(lui_obj_t* obj_slider, uint8_t knob_type);
 /**
  * @defgroup lui_list List widget API
  *
- * API for <b><tt>list</tt></b> widget
+ * @brief API for <b><tt>list</tt></b> widget
  *
  * <tt>list</tt> is a collection of items. List can be dropdown or static. A 
  * dropdown list can be expanded/contracted while a static list cannot be.
@@ -1930,7 +1952,7 @@ void _lui_list_add_button_obj(lui_obj_t* obj_list, lui_obj_t* obj_btn);
 /**
  * @defgroup lui_btngrid Buttongrid widget API
  *
- * API for <b><tt>buttongrid</tt></b> widget
+ * @brief API for <b><tt>buttongrid</tt></b> widget
  *
  * <tt>buttongrid</tt> is a grid of buttons. It's way more effcient than adding
  * individual button objects to forma grid/matrix. For example, if we need 20
@@ -2228,7 +2250,7 @@ void _lui_btngrid_calc_btn_area(lui_obj_t* obj);
 /**
  * @defgroup lui_keyboard Keyboard widget API
  *
- * API for <b><tt>Keyboard</tt></b> widget
+ * @brief API for <b><tt>Keyboard</tt></b> widget
  *
  * <tt>keyboard</tt> is a special typw of <tt>buttongrid</tt>. Keyboard has 3 modes.
  * See : @ref LUI_KEYBOARD_MODE.
@@ -2338,7 +2360,7 @@ void lui_keyboard_sys_cb(lui_obj_t* obj_sender);
 /**
  * @defgroup lui_textbox Textbox widget API
  *
- * API for <b><tt>textbox</tt></b> widget
+ * @brief API for <b><tt>textbox</tt></b> widget
 
  * Usually textbox is used along with a <tt>keyboard</tt>. See: @ref lui_keyboard
  *
@@ -2480,7 +2502,7 @@ void lui_textbox_set_font(lui_obj_t* obj, const lui_font_t* font);
 /**
  * @defgroup lui_panel Panel widget API
  *
- * API for <b><tt>panel</tt></b> widget
+ * @brief API for <b><tt>panel</tt></b> widget
  *
  * A panel is just a container for multiple widgets (objects). This is used for
  * grouping widgets together. Panels can act as parent widget and must have a
@@ -2497,7 +2519,7 @@ void lui_textbox_set_font(lui_obj_t* obj, const lui_font_t* font);
  * children. But if the new scale is too small to contain all its children, render
  * result will be unpredictable.
  *
- * @section panel_example Example
+ * @section panel_example1 Example of panel
  * @code
  *
  * // Create a panel object
@@ -2506,6 +2528,8 @@ void lui_textbox_set_font(lui_obj_t* obj, const lui_font_t* font);
  * lui_object_set_area(my_panel, 320, 300);
  * // Set position of the panel
  * lui_object_set_position(my_panel, 10, 20);
+ * // Set panel background color
+ * lui_object_set_bg_color(my_panel, lui_rgb(200, 128, 189))
  *
  * // Create a button
  * lui_obj_t* my_button_1 = lui_button_create();
@@ -2524,6 +2548,28 @@ void lui_textbox_set_font(lui_obj_t* obj, const lui_font_t* font);
  * lui_object_set_position(my_label_1, 5, 35);
  *
  * // ... [Keep adding more widgets under the panel] ...
+ * @endcode
+ * 
+ * @section panel_example2 Example of setting background image
+ * Example of setting a background bitmap image
+ * @code
+ * #include "sunset_hill.h"	// include the image bitmap
+ * lui_obj_t* img_panel = lui_panel_create();
+ * // Important to set area of panel.
+ * lui_object_set_area(img_panel, 320, 300);
+ * // Set position of the panel
+ * lui_object_set_position(img_panel, 10, 20);
+ * // Set a crop area if we want to crop the image (in case it's area is bigger than the panel)
+ * lui_area_t panel_img_area = {
+ *     .x = 10,		// crop start x
+ *     .y = 20,		// crop start y
+ *     .w = 320,	// crop width
+ *     .h = 300		// crop height
+ * };
+ * // Now set the bitmap image as background
+ * lui_panel_set_bitmap_image(img_panel, &BITMAP_sunset_hill, &panel_img_area);
+ * // NOTE: if we don't need to crop, pass NULL for crop area. Like this:
+ * // lui_panel_set_bitmap_image(img_panel, &BITMAP_sunset_hill, NULL);
  * @endcode
  *
  * @{
@@ -2557,7 +2603,7 @@ void lui_panel_set_bitmap_image(lui_obj_t* obj, const lui_bitmap_t* bitmap, lui_
 /**
  * @defgroup lui_scene Scene widget API
  *
- * API for <b><tt>scene</tt></b> widget
+ * @brief API for <b><tt>scene</tt></b> widget
  *
  * Scene is the main container of all widgets. It is at the top of hierarchy.
  * Scene has no parent and must have at least one child. All widgets must be
@@ -2597,8 +2643,9 @@ void lui_scene_set_active(lui_obj_t* obj_scene);
 lui_obj_t* lui_scene_get_active();
 
 /**
- * @brief Set background bitmap image of a scene
+ * @brief Set background bitmap image of a scene.
  * 
+ * See the example of panel background image setting. Same applies for scene too. 
  * @param obj scene object
  * @param bitmap bitmap image object
  * @param bitmap_crop crop area of bitmap. Set NULL for no cropping
@@ -2618,7 +2665,7 @@ void lui_scene_set_bitmap_image(lui_obj_t* obj, const lui_bitmap_t* bitmap, lui_
 /**
  * @defgroup lui_dispdrv Display Driver API
  *
- * API for <b><tt>display driver</tt></b> object
+ * @brief API for <b><tt>display driver</tt></b> object
  *
  * LameUI does NOT have its own display driver. User must supply their own functions
  * to draw pixels on a display. The displaydriver object is a virtual driver that
@@ -2755,7 +2802,7 @@ uint8_t _lui_disp_drv_check();
 /**
  * @defgroup lui_input Touch Input Device API
  *
- * API for <b><tt>touch input device</tt></b> object
+ * @brief API for <b><tt>touch input device</tt></b> object
  *
  * LameUI does NOT have its own Touch Input driver. User must supply their own functions
  * to read touch input. Touch input data is stored in `lui_touch_input_data_t`:
@@ -2816,7 +2863,7 @@ uint8_t _lui_get_event_against_state(uint8_t new_state, uint8_t old_state);
 /**
  * @defgroup lui_gfx Graphics related API (for drawing shapes and text)
  *
- * API for various graphics related functions like drawing line, rectangle, text etc.
+ * @brief API for various graphics related functions like drawing line, rectangle, text etc.
  * User does NOT require to use them. But if needed for some special reason, user may
  * call these functions.
  *
@@ -2825,13 +2872,122 @@ uint8_t _lui_get_event_against_state(uint8_t new_state, uint8_t old_state);
  * 
  * @{
  */
+
+/**
+ * @brief Advanced function to draw a string. For internal use only, but user 
+ * may call it if needed. Most of the time `draw_string_simple` is enough for user.
+ * 
+ * This function lets user draw a string with specified fore color and background
+ * color. The background can be a bitmap image instead of color.
+ * 
+ * `area` sets string bounding box. When the area of the string is not known, 
+ * width and height of area (`area.w` and `area.h`) can be set to 0. In this case,
+ * the function calculates the area. Width and height can be found using 
+ * `lui_gfx_get_string_dimension()`.
+ * 
+ * When the `is_bg` arg is 0, background color/image is not rendered, creating a 
+ * tranaparent background. But the downside is, if the text is cahnged later, it 
+ * cannot clear the previous pixels when `is_bg` is 0.
+ * 
+ * When `is_bg` is 1 and `bg_bitmap` is not NULL, the bitmap is rendered as background 
+ * instead of `bg_color`. Set bitmap to NULL for rendering `bg_color`.
+ * 
+ * `bitmap_crop` argument is useful when the backgrounf bitmap image is bigger than 
+ * the text area.
+ * 
+ * @param str text string
+ * @param area area of the string. It sets drawing start positions and the dimension.
+ * @param fore_color text color
+ * @param bg_color text background color
+ * @param bg_bitmap text background bimap. 
+ * @param bitmap_crop crop area of the bitmap image.
+ * @param is_bg flag decides whether to render background color/image or not
+ * @param font font of the text
+ */
 void lui_gfx_draw_string_advanced(const char* str, lui_area_t* area, uint16_t fore_color, uint16_t bg_color, const lui_bitmap_t* bg_bitmap, lui_area_t* bitmap_crop, uint8_t is_bg, const lui_font_t* font);
+
+/**
+ * @brief Simplified function to draw a string
+ * 
+ * Note: This function does not render the background
+ * 
+ * @param str text
+ * @param x start X position
+ * @param y start Y position
+ * @param fore_color text color
+ * @param font tetx font
+ */
 void lui_gfx_draw_string_simple(const char* str, uint16_t x, uint16_t y, uint16_t fore_color, const lui_font_t* font);
+
+/**
+ * @brief Draw a single character. 
+ * 
+ * @param c character
+ * @param x postion X
+ * @param y position Y
+ * @param fore_color character color
+ * @param bg_color background color
+ * @param is_bg flag decides whether to draw bg_color or not
+ * @param font character font
+ */
 void lui_gfx_draw_char(char c, uint16_t x, uint16_t y, uint16_t fore_color, uint16_t bg_color, uint8_t is_bg, const lui_font_t* font);
+
+/**
+ * @brief Get height of the font
+ * 
+ * @param font font
+ * @return uint16_t height of font in pixels 
+ */
 uint16_t lui_gfx_get_font_height(const lui_font_t* font);
+
+/**
+ * @brief Get dimension of a string along x and y axis.
+ * 
+ * `max_w` (max width) sets the text's bounding box width. Past this width, text
+ * is wrapped and goes to next line. This value must not be bigger than the width 
+ * of the display.
+ * 
+ * It does not return any value, rather modifies the `str_dim` array.
+ * 
+ * @param str text
+ * @param font_obj font 
+ * @param max_w maximum allowed width
+ * @param str_dim array of 2 items to return string dimension ({w, h})
+ */
 void lui_gfx_get_string_dimension(const char* str, const lui_font_t* font_obj, uint16_t max_w, uint16_t str_dim[2]);
+/**
+ * @brief Draw a line
+ * 
+ * @param x0 start X
+ * @param y0 start Y
+ * @param x1 end X
+ * @param y1 end Y
+ * @param line_width width in px 
+ * @param color line color
+ */
 void lui_gfx_draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color);
+
+/**
+ * @brief Draw a rectangle
+ * 
+ * @param x start X
+ * @param y start Y
+ * @param w width
+ * @param h height
+ * @param line_width width of line in px 
+ * @param color color of line
+ */
 void lui_gfx_draw_rect(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint8_t line_width, uint16_t color);
+
+/**
+ * @brief Draw a filled rectangle
+ * 
+ * @param x start X
+ * @param y start Y
+ * @param w width
+ * @param h height
+ * @param color fill color
+ */
 void lui_gfx_draw_rect_fill(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color);
 /**
  * @brief Draws a bitmap at given x,y position. Crop area can be NULL if cropping 
@@ -2843,7 +2999,19 @@ void lui_gfx_draw_rect_fill(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint
  * @param crop_area pointer to crop area. Set NULL for no cropping.
  */
 void lui_gfx_bitmap_draw(const lui_bitmap_t* bitmap, uint16_t x, uint16_t y, lui_area_t* crop_area);
-uint16_t lui_rgb(uint16_t red, uint16_t green, uint16_t blue);
+
+/**
+ * @brief Create 16-bit RGB565 color using R, G, and B values (each 8-bit)
+ * 
+ * Since LameUI uses RGB565 (16-bit) internally, this function is needed when 
+ * when setting color for any item/object. 
+ * 
+ * @param red 8-bit red color
+ * @param green 8-bit green color
+ * @param blue 8-bit blue color
+ * @return uint16_t 
+ */
+uint16_t lui_rgb(uint8_t red, uint8_t green, uint8_t blue);
 /**@}*/
 const _lui_glyph_t* _lui_gfx_get_glyph_from_char(char c, const lui_font_t* font);
 void _lui_gfx_render_char_glyph(uint16_t x, uint16_t y, uint16_t fore_color, uint16_t bg_color, uint8_t is_bg, const _lui_glyph_t* glyph, const lui_font_t* font);
