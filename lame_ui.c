@@ -629,9 +629,16 @@ void lui_button_draw(lui_obj_t* obj)
 	uint16_t str_width_height[2];
 
 	/* Draw backgrounf bitmap if not NULL */
-	if (btn->bg_image)
+	if (btn->bg_image || btn->bg_image_pressed)
 	{
-		lui_gfx_bitmap_draw(btn->bg_image, temp_x, temp_y, btn->image_crop);
+		if (obj->state == LUI_STATE_PRESSED && btn->bg_image_pressed)
+		{
+			lui_gfx_bitmap_draw(btn->bg_image_pressed, temp_x, temp_y, btn->image_crop);
+		}
+		else if (obj->state == LUI_STATE_IDLE && btn->bg_image)
+		{
+			lui_gfx_bitmap_draw(btn->bg_image, temp_x, temp_y, btn->image_crop);
+		}
 	}
 	/* Else raw the button's body color depending on its current state */
 	else
@@ -702,6 +709,7 @@ lui_obj_t* lui_button_create()
 	initial_button->style.pressed_color = LUI_STYLE_BUTTON_PRESSED_COLOR;
 	initial_button->style.selection_color = LUI_STYLE_BUTTON_SELECTION_COLOR;
 	initial_button->bg_image = NULL;
+	initial_button->bg_image_pressed = NULL;
 	initial_button->image_crop = NULL;
 	
 	initial_button->label.text = "";
@@ -790,7 +798,7 @@ void lui_button_set_label_font(lui_obj_t* obj, const lui_font_t* font)
 	_lui_object_set_need_refresh(obj->parent);
 }
 
-void lui_button_set_bitmap_image(lui_obj_t* obj, const lui_bitmap_t* bitmap, lui_area_t* bitmap_crop)
+void lui_button_set_bitmap_image(lui_obj_t* obj, const lui_bitmap_t* idle_bitmap, const lui_bitmap_t* pressed_bitmap, lui_area_t* bitmap_crop)
 {
 	if (obj == NULL)
 		return;
@@ -805,7 +813,8 @@ void lui_button_set_bitmap_image(lui_obj_t* obj, const lui_bitmap_t* bitmap, lui
 		bitmap_crop->w = _LUI_BOUNDS(bitmap_crop->w, 1, obj->common_style.width);
 		bitmap_crop->h = _LUI_BOUNDS(bitmap_crop->h, 1, obj->common_style.height);
 	}
-	btn->bg_image = bitmap;
+	btn->bg_image = idle_bitmap;
+	btn->bg_image_pressed = pressed_bitmap;
 	btn->image_crop = bitmap_crop;
 	_lui_object_set_need_refresh(obj);
 }

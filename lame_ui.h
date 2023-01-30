@@ -461,6 +461,7 @@ typedef struct _lui_button_s
 	} label;
 	struct _lui_button_style_s style;
 	const lui_bitmap_t* bg_image;
+	const lui_bitmap_t* bg_image_pressed;
 	// TODO: try to set image_crop by value. Setting by pointer may break it due to scope issues
 	lui_area_t* image_crop;
 } lui_button_t;
@@ -1171,10 +1172,11 @@ void lui_linechart_set_data_source(lui_obj_t* obj_linechart, double* source, uin
  *     .w = 140,	// crop width
  *     .h = 60		// crop height
  * };
- * // Now set the bitmap image as background
- * lui_button_set_bitmap_image(img_btn, &BITMAP_warning_symbol, &btn_img_area);
+ * // Now set the bitmap image as background.
+ * // WE are only setting bitmap for button idle state. No extra bitmap is set for pressed state (NULL passed)
+ * lui_button_set_bitmap_image(img_btn, &BITMAP_warning_symbol, NULL, &btn_img_area);
  * // NOTE: if we don't need to crop, pass NULL for crop area. Like this:
- * // lui_button_set_bitmap_image(img_btn, &BITMAP_warning_symbol, NULL);
+ * // lui_button_set_bitmap_image(img_btn, &BITMAP_warning_symbol, NULL, NULL);
  * @endcode
  * 
  * @{
@@ -1227,13 +1229,17 @@ void lui_button_set_label_color(lui_obj_t* obj_btn, uint16_t color);
 void lui_button_set_label_font(lui_obj_t* obj_btn, const lui_font_t* font);
 
 /**
- * @brief Set background bitmap image
+ * @brief Set background bitmap images for idele and pressed states. 
+ * 
+ * Both bitmaps can be NULL. `bitmap_crop` is applicable for both bitmaps and 
+ * it can be NULL too.
  * 
  * @param obj_btn nutton object
- * @param bitmap bitmap image object.
+ * @param idle_bitmap bitmap image object when button is idle (normal situation). Can be NULL
+ * @param pressed_bitmap bitmap image object when button is pressed. Can be NULL.
  * @param bitmap_crop crop area of bitmap. Set NULL for no cropping
  */
-void lui_button_set_bitmap_image(lui_obj_t* obj_btn, const lui_bitmap_t* bitmap, lui_area_t* bitmap_crop);
+void lui_button_set_bitmap_image(lui_obj_t* obj, const lui_bitmap_t* idle_bitmap, const lui_bitmap_t* pressed_bitmap, lui_area_t* bitmap_crop);
 
 /**
  * @brief Set other colors of button object
