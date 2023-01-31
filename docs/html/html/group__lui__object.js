@@ -1,7 +1,7 @@
 var group__lui__object =
 [
     [ "lui_object_add_to_parent", "group__lui__object.html#ga0d71d83d0757cfbafd9308689e41aaf2", null ],
-    [ "lui_object_get_child", "group__lui__object.html#ga56a2ce896db5064e1963a185af87c607", null ],
+    [ "lui_object_get_child", "group__lui__object.html#ga2b491a6c826dc1eb37c7a79ddd42dc77", null ],
     [ "lui_object_get_event", "group__lui__object.html#ga580b2bdece45808266791573d874aabb", null ],
     [ "lui_object_get_layer", "group__lui__object.html#ga14ac387f2a2e89bdda2773f21e79d087", null ],
     [ "lui_object_get_state", "group__lui__object.html#gac20b18b75c1e5764e5cb00dc3bed6808", null ],

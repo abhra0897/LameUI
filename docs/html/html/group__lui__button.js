@@ -1,8 +1,8 @@
 var group__lui__button =
 [
-    [ "lui_button_create", "group__lui__button.html#gae3764b62e449b19e779892553ef6ed67", null ],
+    [ "lui_button_create", "group__lui__button.html#ga42fa5a98fca8845b038c7a93dfc480c1", null ],
     [ "lui_button_draw", "group__lui__button.html#gad887047af16cb14b720cf1cf8116c1af", null ],
-    [ "lui_button_set_bitmap_image", "group__lui__button.html#ga9bf8c86477dcb08130dc199fab80f9b3", null ],
+    [ "lui_button_set_bitmap_image", "group__lui__button.html#ga9d760e8799a066b97149f2f14baa1d29", null ],
     [ "lui_button_set_extra_colors", "group__lui__button.html#gaf719ba472084dcdb38418184b63bd323", null ],
     [ "lui_button_set_label_align", "group__lui__button.html#ga944120a3784558b91fcea6ca36c42906", null ],
     [ "lui_button_set_label_color", "group__lui__button.html#ga7136a562c97ee76a05e8b9bff807ca3f", null ],

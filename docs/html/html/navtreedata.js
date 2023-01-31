@@ -29,30 +29,13 @@ var NAVTREE =
     [ "Quick start", "quickstart_page.html", null ],
     [ "API Documentation", "modules.html", "modules" ],
     [ "Examples", "examples_page.html", null ],
-    [ "Font and Image Making", "font_maker_instr_page.html", null ],
-    [ "Data Structures", "annotated.html", "annotated" ],
-    [ "Data Structure Index", "classes.html", null ],
-    [ "Data Fields", "functions.html", [
-      [ "All", "functions.html", null ],
-      [ "Variables", "functions_vars.html", null ]
-    ] ],
-    [ "File List", "files.html", "files" ],
-    [ "Globals", "globals.html", [
-      [ "All", "globals.html", "globals_dup" ],
-      [ "Functions", "globals_func.html", "globals_func" ],
-      [ "Typedefs", "globals_type.html", null ],
-      [ "Macros", "globals_defs.html", null ]
-    ] ]
+    [ "Font and Image Making", "font_maker_instr_page.html", null ]
   ] ]
 ];
 
 var NAVTREEINDEX =
 [
-"annotated.html",
-"group__lui__checkbox.html#ga5cb7deb03ffca1ef632a3eea226d1550",
-"group__lui__object.html#ga40a7f5963092cc887757eb4c72342caa",
-"lame__ui_8h.html#a69802ed2e5a14ba2b161710a5382b251",
-"struct__lui__switch__s.html"
+"examples_page.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

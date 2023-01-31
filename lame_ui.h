@@ -1229,12 +1229,12 @@ void lui_button_set_label_color(lui_obj_t* obj_btn, uint16_t color);
 void lui_button_set_label_font(lui_obj_t* obj_btn, const lui_font_t* font);
 
 /**
- * @brief Set background bitmap images for idele and pressed states. 
+ * @brief Set background bitmap images for idle and pressed states. 
  * 
  * Both bitmaps can be NULL. `bitmap_crop` is applicable for both bitmaps and 
  * it can be NULL too.
  * 
- * @param obj_btn nutton object
+ * @param obj_btn button object
  * @param idle_bitmap bitmap image object when button is idle (normal situation). Can be NULL
  * @param pressed_bitmap bitmap image object when button is pressed. Can be NULL.
  * @param bitmap_crop crop area of bitmap. Set NULL for no cropping
