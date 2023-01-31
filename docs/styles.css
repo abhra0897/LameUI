@@ -91,7 +91,7 @@
     box-sizing: border-box;
     background: none;
     background-color: white;
-    width: 100%;
+/*     width: 100%; */
     margin: 0;
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
@@ -128,7 +128,9 @@
 .SRSymbol {
     color: #CA4F62;
 }
-
+div.SRPage {
+    background-color: #ffffff;
+}
 
 
 /* Main Navigation */
@@ -480,7 +482,7 @@ table.directory {
     /*width: 100%;*/
 }
 table.directory tr.even {
-    background-color: #f5f5f5;
+    background-color: #ffffff;
 }
 table.directory td.entry {
     padding: 8px 6px;
@@ -707,3 +709,12 @@ div.textblock h2 {
     bottom: 21px;
 }
 
+/* To hide the annoying " Toggle main menu visibility" checkbox */
+#main-menu-state, label.main-menu-btn {
+    display: none !important;
+}
+
+/* Place the searchbox in proper place for mobile view. THANK U DOXYGEN FOR RUINING IT!! */
+span#searchBoxPos1 {
+    position: relative !important;
+}
