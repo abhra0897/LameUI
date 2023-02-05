@@ -488,8 +488,8 @@ typedef struct _lui_slider_s
 	int16_t range_min;
 	int16_t range_max;
 	uint8_t knob_type;
-	// knob's center's x position relative to slider's start x position
-	uint16_t knob_center_rel_x;
+	// knob's center's distance relative to slider's start position. Measured along x axis for horizontal slider (and y for vertical).
+	uint16_t knob_center_rel_d;
 	const char* custom_text;
 	uint8_t show_value;
 	const lui_font_t* font;

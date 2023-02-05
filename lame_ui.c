@@ -2081,14 +2081,35 @@ void lui_slider_draw(lui_obj_t* obj)
 		knob_color = slider->style.selection_color;
 	}
 
-	// draw the filled region (left) first
-	lui_gfx_draw_rect_fill(obj->x, obj->y, slider->knob_center_rel_x, obj->common_style.height, slider->style.bg_filled_color);
-	// draw the remaining region (right) 
-	lui_gfx_draw_rect_fill(obj->x + slider->knob_center_rel_x, obj->y, obj->common_style.width - slider->knob_center_rel_x, obj->common_style.height, obj->common_style.bg_color);
+	uint8_t is_hor = obj->common_style.width >= obj->common_style.height;
+	/* For horizontal */
+	if (is_hor)
+	{
+		/* draw the filled region (left) first */
+		lui_gfx_draw_rect_fill(obj->x, obj->y, slider->knob_center_rel_d, obj->common_style.height, slider->style.bg_filled_color);
+		/* draw the remaining region (right)  */
+		lui_gfx_draw_rect_fill(obj->x + slider->knob_center_rel_d, obj->y, obj->common_style.width - slider->knob_center_rel_d, obj->common_style.height, obj->common_style.bg_color);
+	}
+	/* For vertical */
+	else
+	{
+		/* draw the remaining region (top) first */
+		lui_gfx_draw_rect_fill(obj->x, obj->y, obj->common_style.width, slider->knob_center_rel_d, obj->common_style.bg_color);
+		/* draw the filled region (bottom) */
+		lui_gfx_draw_rect_fill(obj->x, obj->y + slider->knob_center_rel_d, obj->common_style.width, obj->common_style.height - slider->knob_center_rel_d, slider->style.bg_filled_color);
+	}
 	
 	// draw the knob
 	if (slider->knob_type == LUI_SLIDER_KNOB_TYPE_DEFAULT)
-		lui_gfx_draw_rect_fill(obj->x + slider->knob_center_rel_x - (slider->style.knob_width / 2), obj->y, slider->style.knob_width, obj->common_style.height, knob_color);
+	{	
+		/* For horizontal */
+		if (is_hor)
+			lui_gfx_draw_rect_fill(obj->x + slider->knob_center_rel_d - (slider->style.knob_width / 2), obj->y, slider->style.knob_width, obj->common_style.height, knob_color);
+		/* For vertical */
+		else
+			lui_gfx_draw_rect_fill(obj->x, obj->y + slider->knob_center_rel_d - (slider->style.knob_width / 2), obj->common_style.width, slider->style.knob_width, knob_color);
+
+	}
 	else if (slider->knob_type == LUI_SLIDER_KNOB_TYPE_TEXT)
 	{
 		if (slider->show_value || slider->custom_text)
@@ -2102,18 +2123,27 @@ void lui_slider_draw(lui_obj_t* obj)
 				snprintf(s, 64, "%s", slider->custom_text);
 			uint16_t dim[2];
 			lui_gfx_get_string_dimension(s, slider->font, obj->common_style.width, dim);
-			uint16_t txt_x = 0;
+			uint16_t txt_x = 0, txt_y = 0;
 			if (slider->is_progress_bar)
 			{
 				txt_x = obj->x + (obj->common_style.width - dim[0])/2;
+				txt_y = obj->y + (obj->common_style.height - dim[1])/2;
 			}
 			else
 			{
-				txt_x = obj->x + slider->knob_center_rel_x;
-				if (dim[0] < slider->knob_center_rel_x)
-					txt_x = txt_x - dim[0];
+				if (is_hor)
+				{
+					txt_x = obj->x + slider->knob_center_rel_d;
+					if (dim[0] < slider->knob_center_rel_d)
+						txt_x = txt_x - dim[0];
+				}
+				else
+				{
+					txt_y = obj->y + slider->knob_center_rel_d;
+					if (dim[1] < slider->knob_center_rel_d)
+						txt_y = txt_y + dim[1];
+				}
 			}
-			uint16_t txt_y = obj->y + (obj->common_style.height - dim[1])/2;
 
 			lui_area_t txt_area = {
 				.x = txt_x,
@@ -2151,7 +2181,7 @@ lui_obj_t* lui_slider_create()
 	initial_slider->style.knob_width = LUI_STYLE_SLIDER_KNOB_WIDTH;
 	initial_slider->range_min = 0;
 	initial_slider->range_max = 100;
-	initial_slider->knob_center_rel_x = LUI_SLIDER_KNOB_TYPE_DEFAULT ? LUI_STYLE_SLIDER_KNOB_WIDTH / 2 : 0;
+	initial_slider->knob_center_rel_d = LUI_SLIDER_KNOB_TYPE_DEFAULT ? LUI_STYLE_SLIDER_KNOB_WIDTH / 2 : 0;
 	initial_slider->knob_type = LUI_SLIDER_KNOB_TYPE_DEFAULT;
 	initial_slider->font = g_lui_main->default_font;
 	initial_slider->custom_text = NULL;
@@ -2246,10 +2276,14 @@ void lui_slider_set_value(lui_obj_t* obj, int16_t value)
 	}
 	
 
-	// calculate knob's center x position relative to the slider, when value of slider is manually set by user (y is always same)
+	/* calculate knob's center x position relative to the slider, when value of slider is manually set by user (y is always same) */
 	uint16_t knob_w = slider->knob_type == LUI_SLIDER_KNOB_TYPE_DEFAULT ? slider->style.knob_width : 0;
-	slider->knob_center_rel_x = _lui_map_range(obj->value, slider->range_max, slider->range_min, obj->common_style.width - (knob_w / 2), (knob_w / 2));
-	
+	if (obj->common_style.width > obj->common_style.height)
+		slider->knob_center_rel_d = _lui_map_range(obj->value, slider->range_max, slider->range_min, obj->common_style.width - (knob_w / 2), (knob_w / 2));
+	else
+		/* For vertical slider, relation between y-axis and value is inverse. So, we swap new max and min */
+		slider->knob_center_rel_d = _lui_map_range(obj->value, slider->range_max, slider->range_min, (knob_w / 2), obj->common_style.height - (knob_w / 2));
+
 	_lui_object_set_need_refresh(obj);
 }
 
@@ -2275,7 +2309,11 @@ void lui_slider_set_range(lui_obj_t* obj, int16_t range_min, int16_t range_max)
 
 	// calculate knob's center x position relative to the slider, when value of slider is manually set by user (y is always same)
 	uint16_t knob_w = slider->knob_type == LUI_SLIDER_KNOB_TYPE_DEFAULT ? slider->style.knob_width : 0;
-	slider->knob_center_rel_x = _lui_map_range(obj->value, slider->range_max, slider->range_min, obj->common_style.width - (knob_w / 2), (knob_w / 2));
+	if (obj->common_style.width > obj->common_style.height)
+		slider->knob_center_rel_d = _lui_map_range(obj->value, slider->range_max, slider->range_min, obj->common_style.width - (knob_w / 2), (knob_w / 2));
+	else
+		/* For vertical slider, relation between y-axis and value is inverse. So, we swap new max and min */
+		slider->knob_center_rel_d = _lui_map_range(obj->value, slider->range_max, slider->range_min, (knob_w / 2), obj->common_style.height - (knob_w / 2));
 
 	_lui_object_set_need_refresh(obj);
 }
@@ -2393,7 +2431,11 @@ int8_t lui_slider_set_knob_type(lui_obj_t* obj, uint8_t knob_type)
 		return -1;
 	slider->knob_type = knob_type;
 	uint16_t knob_w = slider->knob_type == LUI_SLIDER_KNOB_TYPE_DEFAULT ? slider->style.knob_width : 0;
-	slider->knob_center_rel_x = _lui_map_range(obj->value, slider->range_max, slider->range_min, obj->common_style.width - (knob_w / 2), (knob_w / 2));
+	if (obj->common_style.width > obj->common_style.height)
+		slider->knob_center_rel_d = _lui_map_range(obj->value, slider->range_max, slider->range_min, obj->common_style.width - (knob_w / 2), (knob_w / 2));
+	else
+		/* For vertical slider, relation between y-axis and value is inverse. So, we swap new max and min */
+		slider->knob_center_rel_d = _lui_map_range(obj->value, slider->range_max, slider->range_min, (knob_w / 2), obj->common_style.height - (knob_w / 2));
 	_lui_object_set_need_refresh(obj);
 
 	return 0;
@@ -4730,38 +4772,94 @@ void _lui_set_obj_props_on_touch_input(lui_touch_input_data_t* input, lui_obj_t*
 	}
 
 	/*
-	 * Special case for slider: If knob is kep pressed and if input pos is not same as knob's current position,
+	 * Special case for slider: If knob is kept pressed and if input pos is not same as knob's current position,
 	 * set new position to knob  and value to slider, also set VALUE_CHANGED event 
 	 */
+	// else if (obj->obj_type == LUI_OBJ_SLIDER)
+	// {
+	// 	#if defined(LUI_USE_SLIDER)
+	// 	lui_slider_t* slider = (lui_slider_t* )(obj->obj_main_data);
+	// 	if (obj->state == LUI_STATE_PRESSED &&
+	// 		input->x != (obj->x + slider->knob_center_rel_x))
+	// 	{
+	// 		uint16_t knob_w_by_2 = slider->knob_type == LUI_SLIDER_KNOB_TYPE_DEFAULT ? slider->style.knob_width / 2 : 0;
+	// 		uint16_t max_knob_center_actual_x = obj->x + obj->common_style.width - knob_w_by_2;
+	// 		uint16_t min_knob_center_actual_x = obj->x + knob_w_by_2;
+
+	// 		// cap to minimum/maximum allowed position to prevent the knob from going out of boundary
+	// 		if (input->x > max_knob_center_actual_x)
+	// 		{
+	// 			slider->knob_center_rel_x = max_knob_center_actual_x - obj->x;
+	// 		}
+	// 		else if (input->x < min_knob_center_actual_x)
+	// 		{
+	// 			slider->knob_center_rel_x = min_knob_center_actual_x - obj->x;
+	// 		}
+	// 		else
+	// 		{
+	// 			slider->knob_center_rel_x = input->x - obj->x;
+	// 		}
+			
+	// 		obj->value = _lui_map_range(slider->knob_center_rel_x, obj->common_style.width - (slider->style.knob_width / 2), (slider->style.knob_width / 2), slider->range_max, slider->range_min);
+	// 		obj->event = LUI_EVENT_VALUE_CHANGED;
+	// 		obj->needs_refresh = 1;
+	// 		g_lui_needs_render = 1;
+	// 	}
+	// 	#endif
+	// }
+
+	/* For testing vertical slider */
 	else if (obj->obj_type == LUI_OBJ_SLIDER)
 	{
 		#if defined(LUI_USE_SLIDER)
 		lui_slider_t* slider = (lui_slider_t* )(obj->obj_main_data);
-		if (obj->state == LUI_STATE_PRESSED &&
-			input->x != (obj->x + slider->knob_center_rel_x))
+		uint8_t is_ver = obj->common_style.height > obj->common_style.width;
+		uint8_t is_pos_changed = 0;
+		if (!is_ver)
+			is_pos_changed = input->x != (obj->x + slider->knob_center_rel_d);
+		else
+			is_pos_changed = input->y != (obj->y + slider->knob_center_rel_d);
+
+		if (obj->state == LUI_STATE_PRESSED && is_pos_changed)
 		{
 			uint16_t knob_w_by_2 = slider->knob_type == LUI_SLIDER_KNOB_TYPE_DEFAULT ? slider->style.knob_width / 2 : 0;
-			uint16_t max_knob_center_actual_x = obj->x + obj->common_style.width - knob_w_by_2;
-			uint16_t min_knob_center_actual_x = obj->x + knob_w_by_2;
+			
+			if (!is_ver)
+			{
+				uint16_t max_knob_center_actual_x = obj->x + obj->common_style.width - knob_w_by_2;
+				uint16_t min_knob_center_actual_x = obj->x + knob_w_by_2;
 
-			// cap to minimum/maximum allowed position to prevent the knob from going out of boundary
-			if (input->x > max_knob_center_actual_x)
-			{
-				slider->knob_center_rel_x = max_knob_center_actual_x - obj->x;
-			}
-			else if (input->x < min_knob_center_actual_x)
-			{
-				slider->knob_center_rel_x = min_knob_center_actual_x - obj->x;
+				// cap to minimum/maximum allowed position to prevent the knob from going out of boundary
+				if (input->x > max_knob_center_actual_x)
+					slider->knob_center_rel_d = max_knob_center_actual_x - obj->x;
+				else if (input->x < min_knob_center_actual_x)
+					slider->knob_center_rel_d = min_knob_center_actual_x - obj->x;
+				else
+					slider->knob_center_rel_d = input->x - obj->x;
+				
+				obj->value = _lui_map_range(slider->knob_center_rel_d, obj->common_style.width - (slider->style.knob_width / 2), (slider->style.knob_width / 2), slider->range_max, slider->range_min);
 			}
 			else
 			{
-				slider->knob_center_rel_x = input->x - obj->x;
+				uint16_t max_knob_center_actual_y = obj->y + obj->common_style.height - knob_w_by_2;
+				uint16_t min_knob_center_actual_y = obj->y + knob_w_by_2;
+				fprintf(stderr, "slider maxY: %d, minY: %d    ", max_knob_center_actual_y, min_knob_center_actual_y);
+
+				// cap to minimum/maximum allowed position to prevent the knob from going out of boundary
+				if (input->y > max_knob_center_actual_y)
+					slider->knob_center_rel_d = max_knob_center_actual_y - obj->y;
+				else if (input->y < min_knob_center_actual_y)
+					slider->knob_center_rel_d = min_knob_center_actual_y - obj->y;
+				else
+					slider->knob_center_rel_d = input->y - obj->y;
+				
+				/* Since the relationship between y-axis pos and value is invserse, we switch max and min for new range */
+				obj->value = _lui_map_range(slider->knob_center_rel_d, obj->common_style.height - (slider->style.knob_width / 2), (slider->style.knob_width / 2), slider->range_min, slider->range_max);
 			}
-			
-			obj->value = _lui_map_range(slider->knob_center_rel_x, obj->common_style.width - (slider->style.knob_width / 2), (slider->style.knob_width / 2), slider->range_max, slider->range_min);
 			obj->event = LUI_EVENT_VALUE_CHANGED;
 			obj->needs_refresh = 1;
 			g_lui_needs_render = 1;
+			fprintf(stderr, "slider val: %d, rel_x: %d, min: %d, max: %d\n", obj->value, slider->knob_center_rel_d, slider->range_min, slider->range_max);
 		}
 		#endif
 	}
