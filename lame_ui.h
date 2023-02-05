@@ -462,8 +462,7 @@ typedef struct _lui_button_s
 	struct _lui_button_style_s style;
 	const lui_bitmap_t* bg_image;
 	const lui_bitmap_t* bg_image_pressed;
-	// TODO: try to set image_crop by value. Setting by pointer may break it due to scope issues
-	lui_area_t* image_crop;
+	uint8_t is_checkable;
 } lui_button_t;
 
 #if defined(LUI_USE_SWITCH)
@@ -567,14 +566,12 @@ typedef struct _lui_textbox_s
 typedef struct _lui_panel_s
 {
 	const lui_bitmap_t* bg_image;
-	lui_area_t* image_crop;
 } lui_panel_t;
 #endif
 
 typedef struct _lui_scene_s
 {
 	const lui_bitmap_t* bg_image;
-	lui_area_t* image_crop;
 	const lui_font_t* font;
 
 } lui_scene_t;
@@ -1165,18 +1162,11 @@ void lui_linechart_set_data_source(lui_obj_t* obj_linechart, double* source, uin
  * // Set area and position of button.
  * lui_object_set_area(img_btn, 140, 60);
  * lui_object_set_position(img_btn, 20, 10);
- * // Set a crop area if we want to crop the image (in case it's area is bigger than the button)
- * lui_area_t btn_img_area = {
- *     .x = 10,		// crop start x
- *     .y = 20,		// crop start y
- *     .w = 140,	// crop width
- *     .h = 60		// crop height
- * };
  * // Now set the bitmap image as background.
  * // WE are only setting bitmap for button idle state. No extra bitmap is set for pressed state (NULL passed)
- * lui_button_set_bitmap_image(img_btn, &BITMAP_warning_symbol, NULL, &btn_img_area);
- * // NOTE: if we don't need to crop, pass NULL for crop area. Like this:
- * // lui_button_set_bitmap_image(img_btn, &BITMAP_warning_symbol, NULL, NULL);
+ * lui_button_set_bitmap_image(img_btn, &BITMAP_warning_symbol, NULL);
+ * // NOTE: if we need to set a different bitmap for pressed state too, do this:
+ * // lui_button_set_bitmap_image(img_btn, &BITMAP_idle, &BITMAP_pressed);
  * @endcode
  * 
  * @{
@@ -1231,15 +1221,13 @@ void lui_button_set_label_font(lui_obj_t* obj_btn, const lui_font_t* font);
 /**
  * @brief Set background bitmap images for idle and pressed states. 
  * 
- * Both bitmaps can be NULL. `bitmap_crop` is applicable for both bitmaps and 
- * it can be NULL too.
+ * Either or both bitmaps can be NULL .
  * 
  * @param obj_btn button object
  * @param idle_bitmap bitmap image object when button is idle (normal situation). Can be NULL
  * @param pressed_bitmap bitmap image object when button is pressed. Can be NULL.
- * @param bitmap_crop crop area of bitmap. Set NULL for no cropping
  */
-void lui_button_set_bitmap_image(lui_obj_t* obj, const lui_bitmap_t* idle_bitmap, const lui_bitmap_t* pressed_bitmap, lui_area_t* bitmap_crop);
+void lui_button_set_bitmap_image(lui_obj_t* obj, const lui_bitmap_t* idle_bitmap, const lui_bitmap_t* pressed_bitmap);
 
 /**
  * @brief Set other colors of button object
@@ -1249,6 +1237,37 @@ void lui_button_set_bitmap_image(lui_obj_t* obj, const lui_bitmap_t* idle_bitmap
  * @param selection_color 16-bit color of button when it's selected (hovering)
  */
 void lui_button_set_extra_colors(lui_obj_t* obj_btn, uint16_t pressed_color, uint16_t selection_color);
+
+/**
+ * @brief Set a button as checkable or not. Checkable buttons can be toggled.
+ * 
+ * @param obj_btn button object
+ * @param is_checkable 0: NOT checkable, 1: Checkable
+ */
+void lui_button_set_checkable(lui_obj_t* obj_btn, uint8_t is_checkable);
+
+/**
+ * @brief Get checkable property of a button
+ * 
+ * @param obj_btn button object
+ * @return uint8_t Returns 0 or 1. 0: NOT checkable, 1: Checkable
+ */
+uint8_t lui_button_get_checkable(lui_obj_t* obj_btn);
+
+/**
+ * @brief Get the check value (status) of a checkable button.
+ * 
+ * A checkable button fires LUI_EVENET_VALUE CHANGED event on click. Call this 
+ * function to get the current check value of a checkable button.
+ * 
+ * If a button is not set to checkable using lui_button_set_checkable(), it will 
+ * return 0 always.
+ * 
+ * @param obj_btn button object
+ * @return uint8_t Returns 0 or 1. 0: Unchecked, 1: Checked
+ */
+uint8_t lui_button_get_check_value(lui_obj_t* obj_btn);
+
 /**@}*/
 
 #if defined(LUI_USE_SWITCH)
@@ -2565,17 +2584,8 @@ void lui_textbox_set_font(lui_obj_t* obj, const lui_font_t* font);
  * lui_object_set_area(img_panel, 320, 300);
  * // Set position of the panel
  * lui_object_set_position(img_panel, 10, 20);
- * // Set a crop area if we want to crop the image (in case it's area is bigger than the panel)
- * lui_area_t panel_img_area = {
- *     .x = 10,		// crop start x
- *     .y = 20,		// crop start y
- *     .w = 320,	// crop width
- *     .h = 300		// crop height
- * };
  * // Now set the bitmap image as background
- * lui_panel_set_bitmap_image(img_panel, &BITMAP_sunset_hill, &panel_img_area);
- * // NOTE: if we don't need to crop, pass NULL for crop area. Like this:
- * // lui_panel_set_bitmap_image(img_panel, &BITMAP_sunset_hill, NULL);
+ * lui_panel_set_bitmap_image(img_panel, &BITMAP_sunset_hill);
  * @endcode
  *
  * @{
@@ -2600,9 +2610,8 @@ void lui_panel_draw(lui_obj_t* obj_panel);
  * 
  * @param obj panel object
  * @param bitmap bitmap image object
- * @param bitmap_crop crop area of bitmap. Set NULL for no cropping
  */
-void lui_panel_set_bitmap_image(lui_obj_t* obj, const lui_bitmap_t* bitmap, lui_area_t* bitmap_crop);
+void lui_panel_set_bitmap_image(lui_obj_t* obj, const lui_bitmap_t* bitmap);
 /**@}*/
 #endif
 
@@ -2654,9 +2663,8 @@ lui_obj_t* lui_scene_get_active();
  * See the example of panel background image setting. Same applies for scene too. 
  * @param obj scene object
  * @param bitmap bitmap image object
- * @param bitmap_crop crop area of bitmap. Set NULL for no cropping
  */
-void lui_scene_set_bitmap_image(lui_obj_t* obj, const lui_bitmap_t* bitmap, lui_area_t* bitmap_crop);
+void lui_scene_set_bitmap_image(lui_obj_t* obj, const lui_bitmap_t* bitmap);
 
 
 // /**

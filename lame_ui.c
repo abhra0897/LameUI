@@ -151,11 +151,11 @@ void lui_label_draw(lui_obj_t* obj)
 			bmp_crop.w = lbl_area.w;
 			bmp_crop.h = lbl_area.h;
 
-			if (panel->image_crop)
-			{
-				bmp_crop.x += panel->image_crop->x;
-				bmp_crop.y += panel->image_crop->y;
-			}
+			// if (panel->image_crop)
+			// {
+			// 	bmp_crop.x += panel->image_crop->x;
+			// 	bmp_crop.y += panel->image_crop->y;
+			// }
 		}
 	}
 	lui_gfx_draw_string_advanced(
@@ -631,13 +631,20 @@ void lui_button_draw(lui_obj_t* obj)
 	/* Draw backgrounf bitmap if not NULL */
 	if (btn->bg_image || btn->bg_image_pressed)
 	{
-		if (obj->state == LUI_STATE_PRESSED && btn->bg_image_pressed)
+		lui_area_t crop = {
+			.x = 0,
+			.y = 0,
+			.w = obj->common_style.width,
+			.h = obj->common_style.height
+		};
+		if ((obj->state == LUI_STATE_PRESSED || (btn->is_checkable && obj->value)) && 
+			btn->bg_image_pressed)
 		{
-			lui_gfx_bitmap_draw(btn->bg_image_pressed, temp_x, temp_y, btn->image_crop);
+			lui_gfx_bitmap_draw(btn->bg_image_pressed, temp_x, temp_y, &crop);
 		}
 		else if (obj->state == LUI_STATE_IDLE && btn->bg_image)
 		{
-			lui_gfx_bitmap_draw(btn->bg_image, temp_x, temp_y, btn->image_crop);
+			lui_gfx_bitmap_draw(btn->bg_image, temp_x, temp_y, &crop);
 		}
 	}
 	/* Else raw the button's body color depending on its current state */
@@ -646,7 +653,7 @@ void lui_button_draw(lui_obj_t* obj)
 		uint16_t btn_color = obj->common_style.bg_color;
 		if (obj->state == LUI_STATE_SELECTED)
 			btn_color = btn->style.selection_color;
-		else if (obj->state == LUI_STATE_PRESSED)
+		else if (obj->state == LUI_STATE_PRESSED || (btn->is_checkable && obj->value))
 			btn_color = btn->style.pressed_color;
 		// else if (btn->state == LUI_STATE_IDLE)
 		// 	btn_color = btn->color;
@@ -710,7 +717,7 @@ lui_obj_t* lui_button_create()
 	initial_button->style.selection_color = LUI_STYLE_BUTTON_SELECTION_COLOR;
 	initial_button->bg_image = NULL;
 	initial_button->bg_image_pressed = NULL;
-	initial_button->image_crop = NULL;
+	initial_button->is_checkable = 0;
 	
 	initial_button->label.text = "";
 	initial_button->style.label_color = LUI_STYLE_BUTTON_LABEL_COLOR;
@@ -766,7 +773,6 @@ void lui_button_set_label_align(lui_obj_t *obj, uint8_t alignment)
 	}
 }
 
-
 void lui_button_set_label_color(lui_obj_t* obj, uint16_t color)
 {
 	if (obj == NULL)
@@ -798,7 +804,7 @@ void lui_button_set_label_font(lui_obj_t* obj, const lui_font_t* font)
 	_lui_object_set_need_refresh(obj->parent);
 }
 
-void lui_button_set_bitmap_image(lui_obj_t* obj, const lui_bitmap_t* idle_bitmap, const lui_bitmap_t* pressed_bitmap, lui_area_t* bitmap_crop)
+void lui_button_set_bitmap_image(lui_obj_t* obj, const lui_bitmap_t* idle_bitmap, const lui_bitmap_t* pressed_bitmap)
 {
 	if (obj == NULL)
 		return;
@@ -808,14 +814,8 @@ void lui_button_set_bitmap_image(lui_obj_t* obj, const lui_bitmap_t* idle_bitmap
 		return;
 
 	lui_button_t* btn = (lui_button_t* )(obj->obj_main_data);
-	if (bitmap_crop)
-	{
-		bitmap_crop->w = _LUI_BOUNDS(bitmap_crop->w, 1, obj->common_style.width);
-		bitmap_crop->h = _LUI_BOUNDS(bitmap_crop->h, 1, obj->common_style.height);
-	}
 	btn->bg_image = idle_bitmap;
 	btn->bg_image_pressed = pressed_bitmap;
-	btn->image_crop = bitmap_crop;
 	_lui_object_set_need_refresh(obj);
 }
 
@@ -834,6 +834,43 @@ void lui_button_set_extra_colors(lui_obj_t* obj, uint16_t pressed_color, uint16_
 	btn->style.pressed_color = pressed_color;
 	btn->style.selection_color = selection_color;
 	_lui_object_set_need_refresh(obj);
+}
+
+void lui_button_set_checkable(lui_obj_t* obj, uint8_t is_checkable)
+{
+	if (obj == NULL)
+		return;
+	
+	// type check
+	if (obj->obj_type != LUI_OBJ_BUTTON)
+		return;
+
+	lui_button_t* btn = (lui_button_t* )(obj->obj_main_data);
+	btn->is_checkable = is_checkable ? 1 : 0;
+}
+
+uint8_t lui_button_get_checkable(lui_obj_t* obj)
+{
+	if (obj == NULL)
+		return 0;
+	
+	// type check
+	if (obj->obj_type != LUI_OBJ_BUTTON)
+		return 0;
+
+	lui_button_t* btn = (lui_button_t* )(obj->obj_main_data);
+	return btn->is_checkable;
+}
+
+uint8_t lui_button_get_check_value(lui_obj_t* obj)
+{
+	if (obj == NULL)
+		return 0;
+	
+	// type check
+	if (obj->obj_type != LUI_OBJ_BUTTON)
+		return 0;
+	return obj->value;
 }
 
 /*-------------------------------------------------------------------------------
@@ -1847,11 +1884,6 @@ void lui_checkbox_draw(lui_obj_t* obj)
 			 */
 			lui_panel_t* panel = (lui_panel_t*)(obj->parent->obj_main_data);
 			bg_img = panel->bg_image;
-			if (panel->image_crop)
-			{
-				bitmap_crop_area.x += panel->image_crop->x;
-				bitmap_crop_area.y += panel->image_crop->y;
-			}
 		}
 		lui_gfx_draw_string_advanced(
 			chkbox->label.text,
@@ -3475,7 +3507,6 @@ lui_obj_t* lui_panel_create()
 	if (initial_panel == NULL)
 		return NULL;
 	initial_panel->bg_image = NULL;
-	initial_panel->image_crop = NULL;
 	lui_obj_t* obj = _lui_object_create();
 	if (obj == NULL)
 		return NULL;
@@ -3501,16 +3532,32 @@ void lui_panel_draw(lui_obj_t* obj)
 	if (!(obj->visible))
 		return;
 	
-	// for panel, just draw background and optional border
-	g_lui_main->disp_drv->draw_pixels_area_cb(obj->x, obj->y, obj->common_style.width,  obj->common_style.height, obj->common_style.bg_color);
+	lui_panel_t* panel = (lui_panel_t* )(obj->obj_main_data);
+	if (panel->bg_image)
+	{
+		lui_area_t crop = {
+			.x = 0,
+			.y = 0,
+			.w = obj->common_style.width,
+			.h = obj->common_style.height
+		};
+		lui_gfx_bitmap_draw(panel->bg_image, obj->x, obj->y, &crop);
+	}
+	else
+	{
+		/* Else, just draw background color */
+		g_lui_main->disp_drv->draw_pixels_area_cb(obj->x, obj->y, obj->common_style.width,  obj->common_style.height, obj->common_style.bg_color);
+	}
+
+	/* Draw optional border */
 	if (obj->common_style.border_visible == 1)
 		lui_gfx_draw_rect(obj->x, obj->y, obj->common_style.width, obj->common_style.height, 1, obj->common_style.border_color);
 }
 
-void lui_panel_set_bitmap_image(lui_obj_t* obj, const lui_bitmap_t* bitmap, lui_area_t* bitmap_crop)
+void lui_panel_set_bitmap_image(lui_obj_t* obj, const lui_bitmap_t* bitmap)
 {
 	/* As panel and scene both have same first elements in the struct, we can re-use scene's function here */
-	lui_scene_set_bitmap_image(obj, bitmap, bitmap_crop);
+	lui_scene_set_bitmap_image(obj, bitmap);
 }
 
 
@@ -3542,7 +3589,6 @@ lui_obj_t* lui_scene_create()
 
 	initial_scene->font = g_lui_main->default_font;
 	initial_scene->bg_image = NULL;
-	initial_scene->image_crop = NULL;
 	lui_obj_t* obj = _lui_object_create();
 	if (obj == NULL)
 		return NULL;
@@ -3578,12 +3624,20 @@ void lui_scene_draw(lui_obj_t* obj)
 
 	lui_scene_t* scene = (lui_scene_t* )(obj->obj_main_data);
 	if (scene->bg_image)
-		lui_gfx_bitmap_draw(scene->bg_image, obj->x, obj->y, scene->image_crop);
+	{
+		lui_area_t crop = {
+			.x = 0,
+			.y = 0,
+			.w = obj->common_style.width,
+			.h = obj->common_style.height
+		};
+		lui_gfx_bitmap_draw(scene->bg_image, obj->x, obj->y, &crop);
+	}
 	else
 		lui_gfx_draw_rect_fill(obj->x, obj->y, obj->common_style.width, obj->common_style.height, obj->common_style.bg_color);
 }
 
-void lui_scene_set_bitmap_image(lui_obj_t* obj, const lui_bitmap_t* bitmap, lui_area_t* bitmap_crop)
+void lui_scene_set_bitmap_image(lui_obj_t* obj, const lui_bitmap_t* bitmap)
 {
 	if (obj == NULL)
 		return;
@@ -3596,13 +3650,7 @@ void lui_scene_set_bitmap_image(lui_obj_t* obj, const lui_bitmap_t* bitmap, lui_
 		return;
 
 	lui_scene_t* scene = (lui_scene_t* )(obj->obj_main_data);
-	if (bitmap_crop)
-	{
-		bitmap_crop->w = _LUI_BOUNDS(bitmap_crop->w, 1, obj->common_style.width);
-		bitmap_crop->h = _LUI_BOUNDS(bitmap_crop->h, 1, obj->common_style.height);
-	}
 	scene->bg_image = bitmap;
-	scene->image_crop = bitmap_crop;
 	_lui_object_set_need_refresh(obj);
 }
 
@@ -4597,12 +4645,12 @@ void _lui_set_obj_props_on_touch_input(lui_touch_input_data_t* input, lui_obj_t*
 
 	if (is_obj_active == 1)
 	{
-		// if pressed, then....well, then state = PRESSED
+		/* if pressed, then....well, then state = PRESSED */
 		if (input->is_pressed == 1)
 		{
 			new_state = LUI_STATE_PRESSED;
 		}	
-		// else not pressed, state = SELECTED
+		/* else not pressed, state = SELECTED */
 		else
 		{
 			new_state = LUI_STATE_SELECTED;
@@ -4647,10 +4695,9 @@ void _lui_set_obj_props_on_touch_input(lui_touch_input_data_t* input, lui_obj_t*
 		#endif
 
 	}
-	
 
-	// Special case for TextBox. When clicked on a textbox, the state becomes ENTERED
-	// To EXIT the state, the close or ok button from keyboard must be pressed
+	/* Special case for TextBox. When clicked on a textbox, the state becomes ENTERED
+	To EXIT the state, the close or ok button from keyboard must be pressed */
 	if (obj->obj_type == LUI_OBJ_TEXTBOX)
 	{
 		#if defined(LUI_USE_TEXTBOX)
@@ -4667,20 +4714,19 @@ void _lui_set_obj_props_on_touch_input(lui_touch_input_data_t* input, lui_obj_t*
 		#endif
 	}
 
-	// Special case for switch and checkbox: if event is LUI_EVENT_PRESSED, then set event to LUI_EVENT_VALUE_CHANGED
-	// then set the value to `value` property
+	/* Special case for checkable buttons, switch, and checkbox: if event is LUI_EVENT_RELEASED, 
+	then set event to LUI_EVENT_VALUE_CHANGED, and then set the value to `value` property */
 	else if (obj->obj_type == LUI_OBJ_SWITCH ||
-		obj->obj_type == LUI_OBJ_CHECKBOX)
-	{	
-		#if defined(LUI_USE_SWITCH) || defined(LUI_USE_CHECKBOX)
+		obj->obj_type == LUI_OBJ_CHECKBOX ||
+		(obj->obj_type == LUI_OBJ_BUTTON && ((lui_button_t*)(obj->obj_main_data))->is_checkable))
+	{
 		if (obj->event == LUI_EVENT_RELEASED || obj->event == LUI_EVENT_SELECTION_LOST)
 		{
-			obj->event = LUI_EVENT_VALUE_CHANGED;	// for switch and checkbox, being pressed means being toggled, thus value changed
-			obj->value = (obj->value == 1) ? 0 : 1;	// toggle the value (1->0 or 0-1)
+			obj->event = LUI_EVENT_VALUE_CHANGED;	// for checkable items, being pressed means being toggled, thus value changed
+			obj->value = obj->value ? 0 : 1;	// toggle the value (1->0 or 0->1)
 			obj->needs_refresh = 1;
 			g_lui_needs_render = 1;
 		}
-		#endif
 	}
 
 	/*
