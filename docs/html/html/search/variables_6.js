@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['needs_5frefresh_0',['needs_refresh',['../struct__lui__obj__s.html#a275f11482198c4928ff046afc2d12d75',1,'_lui_obj_s']]],
-  ['next_5fsibling_1',['next_sibling',['../struct__lui__obj__s.html#a7296c2b24aebeac0fe07f3aad9f3ba84',1,'_lui_obj_s']]]
+  ['is_5fbackgrnd_0',['is_backgrnd',['../struct__lui__bitmap__mono__pal__s.html#a4400a22a7dac9369f539e3526af290ab',1,'_lui_bitmap_mono_pal_s']]],
+  ['is_5fpressed_1',['is_pressed',['../struct__lui__touch__input__data__s.html#afb1054eabf8033209df3b6bc2ca5a2af',1,'_lui_touch_input_data_s']]]
 ];

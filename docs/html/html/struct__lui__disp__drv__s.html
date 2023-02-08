@@ -111,26 +111,38 @@ $(document).ready(function(){initNavTree('struct__lui__disp__drv__s.html',''); i
 <div class="header">
   <div class="summary">
 <a href="#pub-attribs">Data Fields</a>  </div>
-  <div class="headertitle"><div class="title">_lui_disp_drv_s Struct Reference</div></div>
+  <div class="headertitle"><div class="title">_lui_disp_drv_s Struct Reference<div class="ingroups"><a class="el" href="group__PublicTypedefs.html">Custom datatypes</a></div></div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>display driver object.  
+ <a href="struct__lui__disp__drv__s.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="lame__ui_8h_source.html">lame_ui.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Data Fields</h2></td></tr>
 <tr class="memitem:a7dc149b39deec5a5bc36c00c7b1c4ca0"><td class="memItemLeft" align="right" valign="top"><a id="a7dc149b39deec5a5bc36c00c7b1c4ca0" name="a7dc149b39deec5a5bc36c00c7b1c4ca0"></a>
 void(*&#160;</td><td class="memItemRight" valign="bottom"><b>draw_pixels_area_cb</b> )(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color)</td></tr>
+<tr class="memdesc:a7dc149b39deec5a5bc36c00c7b1c4ca0"><td class="mdescLeft">&#160;</td><td class="mdescRight">callback function to draw pixels <br /></td></tr>
 <tr class="separator:a7dc149b39deec5a5bc36c00c7b1c4ca0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab8555acefe2353aa44368a60a86093a8"><td class="memItemLeft" align="right" valign="top"><a id="ab8555acefe2353aa44368a60a86093a8" name="ab8555acefe2353aa44368a60a86093a8"></a>
 void(*&#160;</td><td class="memItemRight" valign="bottom"><b>render_complete_cb</b> )()</td></tr>
+<tr class="memdesc:ab8555acefe2353aa44368a60a86093a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">(optional) This callback function is called by lameUI when rendering is finished. <br /></td></tr>
 <tr class="separator:ab8555acefe2353aa44368a60a86093a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaf3190a9b58a0a5ca8daf48259feaae2"><td class="memItemLeft" align="right" valign="top"><a id="aaf3190a9b58a0a5ca8daf48259feaae2" name="aaf3190a9b58a0a5ca8daf48259feaae2"></a>
 uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>display_hor_res</b></td></tr>
+<tr class="memdesc:aaf3190a9b58a0a5ca8daf48259feaae2"><td class="mdescLeft">&#160;</td><td class="mdescRight">display horizontal resolution (along x axis) <br /></td></tr>
 <tr class="separator:aaf3190a9b58a0a5ca8daf48259feaae2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6fc12fa9ad746de7d02af24be6ff6d66"><td class="memItemLeft" align="right" valign="top"><a id="a6fc12fa9ad746de7d02af24be6ff6d66" name="a6fc12fa9ad746de7d02af24be6ff6d66"></a>
 uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>display_vert_res</b></td></tr>
+<tr class="memdesc:a6fc12fa9ad746de7d02af24be6ff6d66"><td class="mdescLeft">&#160;</td><td class="mdescRight">display vertical resolution (along y axis) <br /></td></tr>
 <tr class="separator:a6fc12fa9ad746de7d02af24be6ff6d66"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<hr/>The documentation for this struct was generated from the following file:<ul>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>display driver object. </p>
+<p>The <code>draw_pixels_area_cb</code> callback function to draw pixels must be implemented by user. <code>render_complete_cb</code> callback is optional. </p>
+</div><hr/>The documentation for this struct was generated from the following file:<ul>
 <li><a class="el" href="lame__ui_8h_source.html">lame_ui.h</a></li>
 </ul>
 </div><!-- contents -->

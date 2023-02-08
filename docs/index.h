@@ -22,6 +22,7 @@
  * \defgroup lui_input Input Device API
  * \defgroup lui_gfx Graphics API
  * @}
+ * 
  * \defgroup macrodefs Macro Definitions
  * This is the group of all public macro definitions. Public macros always start with <b>LUI_</b> prefix.
  * @{
@@ -34,5 +35,11 @@
  * \defgroup LUI_BTNGRID_MASKS Buttongrid button property-byte masks
  * \defgroup LUI_ALIGNMENT Content alignment flags
  * \defgroup LUI_SLIDER_KNOB_TYPE Slider knob type flags
+ * @}
+ * 
+ * \defgroup PublicTypedefs Custom datatypes
+ * This is the group of all public custom datatypes. 
+ * @{
+ * \defgroup PublicTypedefs Public custom typedefs
  * @}
 */

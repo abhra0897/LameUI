@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['x_0',['x',['../struct__lui__area__s.html#a0d3112a22a3c18f5baa5c89eb3d28bd1',1,'_lui_area_s::x()'],['../struct__lui__obj__s.html#ad7a868063071869e6cc22a4d101b6027',1,'_lui_obj_s::x()'],['../struct__lui__touch__input__data__s.html#a7f21ada3a9a2b790c51c2f767ea3e30e',1,'_lui_touch_input_data_s::x()']]]
+  ['size_5fx_0',['size_x',['../struct__lui__bitmap__s.html#a26271ae12e4124eb4e0e03e358b8ed72',1,'_lui_bitmap_s']]],
+  ['size_5fy_1',['size_y',['../struct__lui__bitmap__s.html#ad9e4191d6080752a6181d33720b07318',1,'_lui_bitmap_s']]],
+  ['state_2',['state',['../struct__lui__obj__s.html#a7ad39f75f19d3cb6a7654d8a567da9d5',1,'_lui_obj_s']]]
 ];

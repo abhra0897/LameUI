@@ -35,7 +35,8 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"examples_page.html"
+"examples_page.html",
+"group__lui__textbox.html#gab96f6d6d3546ada97d759e88a8dede10"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
