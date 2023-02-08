@@ -5,8 +5,8 @@
  * @file lame_ui.h
  * @author Avra Mitra
  * @brief One and only header file for LameUI library.
- * @version 1.0
- * @date 2023-01-29
+ * @version 2.0
+ * @date 2023-02-09
  *
  * @copyright Copyright (c) 2020-2023
  *
@@ -940,6 +940,14 @@ void lui_object_set_layer(lui_obj_t* obj, uint8_t layer_index);
  * @return int16_t layer index. Returns -1 if object is NULL
  */
 int16_t lui_object_get_layer(lui_obj_t* obj);
+
+/**
+ * @brief Get the type of the object
+ * 
+ * @param obj object
+ * @return int16_t type of object. -1 if object is NULL
+ */
+int16_t lui_object_get_type(lui_obj_t* obj);
 
 /**
  * @brief Enable or disble input handling of an object. If disabled,
@@ -3129,6 +3137,7 @@ void _lui_set_obj_props_on_touch_input(lui_touch_input_data_t* input_data, lui_o
 uint8_t _lui_check_if_active_obj_touch_input(lui_touch_input_data_t* input_data, lui_obj_t* obj);
 // const lui_font_t* _lui_get_font_from_active_scene();
 uint8_t _lui_get_event_against_state(uint8_t new_state, uint8_t old_state);
+int8_t _lui_verify_obj(lui_obj_t* obj, uint8_t obj_type);
 
 /**
  * @defgroup lui_gfx Graphics related API (for drawing shapes and text)
@@ -3294,7 +3303,6 @@ void _lui_gfx_render_char_glyph(uint16_t x, uint16_t y, uint16_t fore_color, uin
 void _lui_gfx_plot_line_low(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color);
 void _lui_gfx_plot_line_high(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color);
 double _lui_map_range(double old_val, double old_max, double old_min, double new_max, double new_min);
-
 /*--------------------------------------------
  *				End Function Prototypes
  *--------------------------------------------
