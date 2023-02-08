@@ -18,7 +18,8 @@ Probably no one. Unless you need a very simple and very lightweight UI library.
 I, alone.
 
 ## API 
-API Documentation: https://abhra0897.github.io/LameUI/  
+API Documentation: https://abhra0897.github.io/LameUI_docs/
+
 *Note: Documentation is work in progress.*
 
 ## Demo:
@@ -363,6 +364,6 @@ void button_1_cb(lui_obj_t* button_obj)
 ```
 
 ## Simple Examples
-- Check example code fragments inside [lame_ui.h](lame_ui.h). Or visit [documentatin page](https://abhra0897.github.io/LameUI/html/html/examples_page.html).
+- Check example code fragments inside [lame_ui.h](lame_ui.h). Or visit [documentatin page]( https://abhra0897.github.io/LameUI_docs/1.0/html/html/examples_page.html).
 - See the Quick Start section
 - go to the Simulator repo and see the example there: https://github.com/abhra0897/LameUI_simulation/blob/experimental/src/main.c. That example has all the UI elements. Ignore the parts that are related to OpenGL.

@@ -1,6 +1,6 @@
 PROJECT_NAME            = "LameUI"
 PROJECT_BRIEF           = "Lame UI Documentation"
-PROJECT_NUMBER          = 1
+PROJECT_NUMBER          = 1.0
 
 #STRIP_FROM_PATH        = @PROJECT_SOURCE_DIR@
 STRIP_FROM_PATH         = 
