@@ -244,6 +244,11 @@
 
 #pragma pack(push, 1)
 
+/** 
+ * @defgroup PublicTypedefs Custom public datatypes. 
+ * @brief Custom public datatypes
+ */
+
 typedef struct
 {
 	uint8_t* mem_block;
@@ -251,14 +256,39 @@ typedef struct
 	uint16_t mem_allocated;
 } _lui_mem_block_t;
 
-/* This is a generic bitmap */
-typedef struct
+
+/**
+ * @ingroup PublicTypedefs
+ * @brief bitmap datatype. Used to render images. Generated using LameUI font tools
+ * 
+ * Bitmap must be generated with LameUI tools (see docs). Supported 
+ * bits-per-pixel (bpp) are 1, 8, and 16.
+ * @{
+ */
+typedef struct _lui_bitmap_s
 {
-	const uint8_t* const payload;
-	const uint16_t size_x; // size is in pixels
-	const uint16_t size_y;
-	const uint8_t bpp;
+	const uint8_t* const payload;	///< Bitmap payload
+	const uint16_t size_x;			///< Bitmap size in x axis
+	const uint16_t size_y;			///< Bitmap size in y axis
+	const uint8_t bpp;				///< Bits-per-pixels (1, 8, 16)
 } lui_bitmap_t;
+/**@} */
+
+/* Color palette for 1-bpp mono bitmap image.  */
+/**
+ * @ingroup PublicTypedefs
+ * @brief Color palette for 1-bpp mono bitmap image.
+ * 
+ * This color palette has NO effect on 8-bpp grayscale and 16-vpp rgb565 bitmaps.
+ * @{
+ */
+typedef struct _lui_bitmap_mono_pal_s
+{
+	uint16_t fore_color;	///< foreground color of 1-bpp bitmap
+	uint16_t back_color;	///< background color of 1-bpp bitmap
+	uint8_t is_backgrnd;	///< 0: Don't draw any background color, 1: Draw background color
+} lui_bitmap_mono_pal_t;
+/**@} */
 
 /* This is a font glyph description - for now it does not support kerning */
 typedef struct
@@ -268,12 +298,21 @@ typedef struct
 	const uint16_t payload_index;
 } _lui_glyph_t;
 
-typedef struct
+/**
+ * @ingroup PublicTypedefs
+ * @brief font datatype. Generated using LameUI font tools.
+ * 
+ * Users must NOT read/write members directly. All actions are done using 
+ * getter and setter functions
+ * @{
+ */
+typedef struct _lui_font_s
 {
 	const lui_bitmap_t* const bitmap;
 	const uint8_t glyph_count;
 	const _lui_glyph_t* glyphs; // pointer to array of glyph_t elements
 } lui_font_t;
+/**@} */
 
 extern const lui_font_t LUI_DEFAULT_FONT;
 
@@ -289,9 +328,11 @@ typedef struct _lui_area_priv_s
 } _lui_area_priv_t;
 
 /**
+ * @ingroup PublicTypedefs
  * @brief Area datatype.
  *
  * lui_area_t is used to define area or size of an item.
+ * @{
  */
 typedef struct _lui_area_s
 {
@@ -300,6 +341,7 @@ typedef struct _lui_area_s
 	uint16_t w;			///< Width of item
 	uint16_t h;			///< Height of item
 } lui_area_t;
+/**@} */
 
 struct _lui_common_style_s
 {
@@ -318,8 +360,10 @@ struct _lui_label_style_s
 struct _lui_button_style_s
 {
 	uint16_t label_color;
+	uint16_t label_pressed_color;
 	uint16_t pressed_color;
 	uint16_t selection_color;
+	uint8_t is_transparent_bg;
 };
 
 #if defined(LUI_USE_SWITCH)
@@ -388,11 +432,12 @@ struct _lui_textbox_style_s
 #endif
 
 /**
- * @brief Generic object datatype.
+ * @ingroup PublicTypedefs
+ * @brief Generic object datatype. Accessed only through getter and setter functions.
  *
  * lui_obj_t contains all the common data of objects along with address of
  * the extended data as per the type of the object
- *
+ * @{
  */
 typedef struct _lui_obj_s
 {
@@ -416,6 +461,7 @@ typedef struct _lui_obj_s
 
 	void *obj_main_data; ///< Main (extended) data of the object
 } lui_obj_t;
+/**@} */
 
 #if defined(LUI_USE_LINECHART)
 typedef struct _lui_linechart_s
@@ -457,11 +503,16 @@ typedef struct _lui_button_s
 	{
 		const lui_font_t* font;
 		const char* text;
+		const char* text_pressed;
 		uint8_t text_align;
 	} label;
 	struct _lui_button_style_s style;
-	const lui_bitmap_t* bg_image;
-	const lui_bitmap_t* bg_image_pressed;
+	const lui_bitmap_t* img_idle;
+	const lui_bitmap_t* img_pressed;
+	/* Only when images are mono (1-bpp) */
+	lui_bitmap_mono_pal_t img_idle_pal;
+	lui_bitmap_mono_pal_t img_press_pal;
+
 	uint8_t is_checkable;
 } lui_button_t;
 
@@ -566,19 +617,27 @@ typedef struct _lui_textbox_s
 typedef struct _lui_panel_s
 {
 	const lui_bitmap_t* bg_image;
+	/* Color palette for only when image is 1-bpp mono bitmap */
+	lui_bitmap_mono_pal_t img_pal;
 } lui_panel_t;
 #endif
 
 typedef struct _lui_scene_s
 {
 	const lui_bitmap_t* bg_image;
+	/* Color palette for only when image is 1-bpp mono bitmap */
+	lui_bitmap_mono_pal_t img_pal;
 	const lui_font_t* font;
 
 } lui_scene_t;
 
 /**
+ * @ingroup PublicTypedefs
  * @brief Touch Input data
- *
+ * 
+ * touch input device data.
+ * 
+ * @{
  */
 typedef struct _lui_touch_input_data_s
 {
@@ -586,20 +645,40 @@ typedef struct _lui_touch_input_data_s
 	int16_t x;			///< X position of press/touch. -1 if not Pressed/touched
 	int16_t y;			///< Y position of press/touch. -1 if not Pressed/touched
 } lui_touch_input_data_t;
+/**@} */
 
+/**
+ * @ingroup PublicTypedefs
+ * @brief display driver object.
+ * 
+ * The `draw_pixels_area_cb` callback function to draw pixels must be implemented 
+ * by user. `render_complete_cb` callback is optional.
+ * 
+ * @{
+ */
 typedef struct _lui_disp_drv_s
 {
-	void (*draw_pixels_area_cb)(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color);
-	void (*render_complete_cb)();
-	uint16_t display_hor_res;
-	uint16_t display_vert_res;
+	void (*draw_pixels_area_cb)(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color);	///< callback function to draw pixels
+	void (*render_complete_cb)();	///< (optional) This callback function is called by lameUI when rendering is finished.
+	uint16_t display_hor_res;		///< display horizontal resolution (along x axis)
+	uint16_t display_vert_res;		///< display vertical resolution (along y axis)
 } lui_dispdrv_t;
+/**@} */
 
+/**
+ * @ingroup PublicTypedefs
+ * @brief touch input device object
+ * 
+ * The callback function to read input should be implemented by user.
+ * 
+ * @{
+ */
 typedef struct _lui_touch_input_dev_s
 {
-	void (*read_touch_input_cb)(lui_touch_input_data_t* input);
+	void (*read_touch_input_cb)(lui_touch_input_data_t* input);	///< callback function to read input data.
 	// lui_touch_input_data_t touch_data;
 } lui_touch_input_dev_t;
+/**@} */
 
 typedef struct _lui_main_s
 {
@@ -1154,7 +1233,29 @@ void lui_linechart_set_data_source(lui_obj_t* obj_linechart, double* source, uin
  * lui_object_set_callback(my_button, button_callback);
  * @endcode
  * 
- * @section button_example2 Example of setting background image
+ * @section button_example2 Example of checkable button
+ * This code creates a button and sets it as checkable. Also, this button changes its 
+ * text and color when pressed.
+ * @code
+ * lui_obj_t* check_btn = lui_button_create();
+ * 
+ * // Set is as checkable
+ * lui_button_set_checkable(check_btn, 1);
+ * // This label text is for both idle and pressed state
+ * lui_button_set_label_text(check_btn, "Turn ON Light");
+ * // Green text fo idle (normal) state
+ * lui_button_set_label_color(check_btn, lui_rgb(0, 255, 0));
+ * // This label text is for pressed state
+ * lui_button_set_label_text_pressed(check_btn, "Turn OFF Light");
+ * // Red text when pressed state 
+ * lui_button_set_label_color(check_btn, lui_rgb(255, 0, 0));
+ * 
+ * // Optionally set button area and position
+ * lui_object_set_area(check_btn, 140, 60);
+ * lui_object_set_position(check_btn, 20, 10);
+ * @endcode
+ * 
+ * @section button_example3 Example of setting background image
  * Example of setting a background bitmap image for button
  * @code
  * #include "warning_symbol.h"	// include the image bitmap
@@ -1164,9 +1265,46 @@ void lui_linechart_set_data_source(lui_obj_t* obj_linechart, double* source, uin
  * lui_object_set_position(img_btn, 20, 10);
  * // Now set the bitmap image as background.
  * // WE are only setting bitmap for button idle state. No extra bitmap is set for pressed state (NULL passed)
- * lui_button_set_bitmap_image(img_btn, &BITMAP_warning_symbol, NULL);
+ * lui_button_set_bitmap_images(img_btn, &BITMAP_warning_symbol, NULL);
  * // NOTE: if we need to set a different bitmap for pressed state too, do this:
- * // lui_button_set_bitmap_image(img_btn, &BITMAP_idle, &BITMAP_pressed);
+ * // lui_button_set_bitmap_images(img_btn, &BITMAP_idle, &BITMAP_pressed);
+ * @endcode
+ * 
+ * @section button_example4 Example of setting 1-bpp mono background image
+ * Example of setting a 1-bpp background bitmap image for button. When we set 1-bpp images, 
+ * we should call another function `lui_button_set_bitmap_images_mono_palette()` to set 
+ * rendering colors of bitmaps too.
+ * 
+ * The following code creates a square shaped button and sets it as checkable. Then 
+ * sets play symbol bitmap for idle state and pause symbol bitmap for pressed state. 
+ * These bitmaps are 1-bpp.
+ * 
+ * Play button's color set to red(ish) and pause button;s color set to green(ish). 
+ * background color for both bitmaps are ignored due to `is_bg` flag is set to 0.
+ * 
+ * @code
+ * #include "play_symbol.h"		// 1-bpp mono bitmap
+ * #include "pause_symbol.h"	// 1-bpp mono bitmap
+ * lui_obj_t* img_btn = lui_button_create();
+ * // Make it checkable since it's a play/pause button
+ * lui_button_set_checkable(img_btn, 1);
+ * // Set area
+ * lui_object_set_area(img_btn, 80, 80);
+ * // Now set 1-bpp mono bitmap images for idle and pressed states
+ * lui_button_set_bitmap_images(img_btn, &BITMAP_play_symbol, &BITMAP_pause_symbol);
+ * // Prepare rendering color palettes of both 'idle' and 'pressed' state images
+ * lui_bitmap_mono_pal_t idle_palette = {
+ *     .fore_color = lui_rgb(255, 10, 10),
+ *     .back_color = 0,
+ *     .is_backgrnd = 0 // don't want to draw background (sets transparent background)
+ * };
+ * lui_bitmap_mono_pal_t pressed_palette = {
+ *     .fore_color = lui_rgb(5, 250, 10),
+ *     .back_color = 0,
+ *     .is_backgrnd = 0 // don't want to draw background (sets transparent background)
+ * };
+ * // Now set those palettes
+ * lui_button_set_bitmap_images_mono_palette(img_btn, &idle_palette, &pressed_palette);
  * @endcode
  * 
  * @{
@@ -1187,12 +1325,34 @@ lui_obj_t* lui_button_create();
 void lui_button_draw(lui_obj_t* obj_btn);
 
 /**
- * @brief Set the text of the button's label
+ * @brief Set the text of the button's label.
+ * 
+ * Same text is set for idle (normal) state and pressed state.
  *
  * @param obj_btn button object
  * @param text char array of text
  */
 void lui_button_set_label_text(lui_obj_t* obj_btn, const char* text);
+
+/**
+ * @brief Set text of button's label only for the pressed state
+ * 
+ * @param obj_btn button object
+ * @param pressed_text text for pressed state
+ */
+void lui_button_set_label_text_pressed(lui_obj_t* obj_btn, const char* pressed_text);
+
+/**
+ * @brief Set different label texts for idle and pressed states.
+ * 
+ * Calling this function is same as first calling `lui_button_set_label_text()` 
+ * and then `lui_button_set_label_text_pressed()`.
+ * 
+ * @param obj_btn button object
+ * @param idle_text label text when button is idle
+ * @param pressed_text label text when button is pressed
+ */
+void lui_button_set_label_texts(lui_obj_t* obj_btn, const char* idle_text, const char* pressed_text);
 
 /**
  * @brief Set alignment of the label text. See: @ref LUI_ALIGNMENT
@@ -1203,12 +1363,34 @@ void lui_button_set_label_text(lui_obj_t* obj_btn, const char* text);
 void lui_button_set_label_align(lui_obj_t* obj_btn, uint8_t alignment);
 
 /**
- * @brief Set text color of button's label
+ * @brief Set text color of button's label.
+ * 
+ * Same color is set for idle (normal) state and pressed state.
  *
  * @param obj_btn button object
  * @param color 16-bit text color
  */
 void lui_button_set_label_color(lui_obj_t* obj_btn, uint16_t color);
+
+/**
+ * @brief Set text color of button's label only for the pressed state
+ * 
+ * @param obj_btn button object
+ * @param pressed_color 16-bit text color
+ */
+void lui_button_set_label_color_pressed(lui_obj_t* obj_btn, uint16_t pressed_color);
+
+/**
+ * @brief Set different label text-colors for idle and pressed states.
+ * 
+ * Calling this function is same as first calling `lui_button_set_label_color()` 
+ * and then `lui_button_set_label_color_pressed()`.
+ * 
+ * @param obj_btn button object
+ * @param idle_color text color for idle state
+ * @param pressed_color text color for pressed state
+ */
+void lui_button_set_label_colors(lui_obj_t* obj_btn, uint16_t idle_color, uint16_t pressed_color);
 
 /**
  * @brief Set font of button's label
@@ -1219,24 +1401,33 @@ void lui_button_set_label_color(lui_obj_t* obj_btn, uint16_t color);
 void lui_button_set_label_font(lui_obj_t* obj_btn, const lui_font_t* font);
 
 /**
- * @brief Set background bitmap images for idle and pressed states. 
+ * @brief Set background bitmap image for idle (normal) and pressed states of button.
  * 
- * Either or both bitmaps can be NULL .
+ * NOTE: Only if the image is 1-bpp monochrome, call `lui_button_set_bitmap_images_mono_palette()` 
+ * too to set colors of the bitmap. Else, default color will be used to render 1-bpp bitmaps.
  * 
  * @param obj_btn button object
- * @param idle_bitmap bitmap image object when button is idle (normal situation). Can be NULL
- * @param pressed_bitmap bitmap image object when button is pressed. Can be NULL.
+ * @param bitmap bitmap image object when button is idle (normal situation). Can be NULL
  */
-void lui_button_set_bitmap_image(lui_obj_t* obj, const lui_bitmap_t* idle_bitmap, const lui_bitmap_t* pressed_bitmap);
+void lui_button_set_bitmap_images(lui_obj_t* obj_btn, const lui_bitmap_t* idle_bitmap, const lui_bitmap_t* pressed_bitmap);
 
 /**
- * @brief Set other colors of button object
- *
+ * @brief Set color palette for 1-bpp mono bitmap images. Has no effect if images are not 1-bpp.
+ * 
+ * When idle and/or pressed bitmap image is/are 1-bpp mono, this function sets rendering 
+ * colors. Has no effect for 8-bpp grayscale and 16-bpp rgb565 bitmaps.
+ * 
+ * Set `idle_palette->is_backgrnd` and/or `press_palette->is_backgrnd` to 0 for only drawing the foreground and no background. 
+ * This enables transparent background. `idle_palette->back_color` and/or `press_palette->back_color` is/are ignored in this case.
+ * 
  * @param obj_btn button object
- * @param pressed_color 16-bit color of button when it's pressed
- * @param selection_color 16-bit color of button when it's selected (hovering)
+ * @param idle_palette color palette for button idle state image
+ * @param press_palette color palette for button pressed state image
  */
-void lui_button_set_extra_colors(lui_obj_t* obj_btn, uint16_t pressed_color, uint16_t selection_color);
+void lui_button_set_bitmap_images_mono_palette(
+	lui_obj_t* obj_btn, 
+	lui_bitmap_mono_pal_t* idle_palette, 
+	lui_bitmap_mono_pal_t* press_palette);
 
 /**
  * @brief Set a button as checkable or not. Checkable buttons can be toggled.
@@ -1267,6 +1458,28 @@ uint8_t lui_button_get_checkable(lui_obj_t* obj_btn);
  * @return uint8_t Returns 0 or 1. 0: Unchecked, 1: Checked
  */
 uint8_t lui_button_get_check_value(lui_obj_t* obj_btn);
+
+/**
+ * @brief Set other colors of button object
+ *
+ * @param obj_btn button object
+ * @param pressed_color 16-bit color of button when it's pressed
+ * @param selection_color 16-bit color of button when it's selected (hovering)
+ */
+void lui_button_set_extra_colors(lui_obj_t* obj_btn, uint16_t pressed_color, uint16_t selection_color);
+
+/**
+ * @brief Set background of the button as transparent. 
+ * 
+ * When background is transparent, button's  bitmap or the bg color is not drawn. 
+ * Rather, the color or bitmap of the parent item is drawn as background to 
+ * simulate transparency. 
+ * 
+ * @param obj_btn button object
+ * @param is_transparent 0: Transparent background, 1: NOT transparent background
+ */
+void lui_button_set_bg_transparent(lui_obj_t* obj_btn, uint8_t is_transparent);
+
 
 /**@}*/
 
@@ -2587,6 +2800,29 @@ void lui_textbox_set_font(lui_obj_t* obj, const lui_font_t* font);
  * // Now set the bitmap image as background
  * lui_panel_set_bitmap_image(img_panel, &BITMAP_sunset_hill);
  * @endcode
+ * 
+ * @section panel_example3 Example of setting color palette for 1-bpp mono bitmap image
+ * Example of setting color palette for 1-bpp mono bitmap image. Color palettes are applicable 
+ * only if the bitmap image is 1-bpp monochrome. If no palette is set by user, default palette 
+ * is used.
+ * @code
+ * #include "some_logo.h"	// include the 1-bpp mono image bitmap
+ * lui_obj_t* img_panel = lui_panel_create();
+ * // Important to set area of panel.
+ * lui_object_set_area(img_panel, 320, 300);
+ * // Set position of the panel
+ * lui_object_set_position(img_panel, 10, 20);
+ * // Now set the bitmap image as background
+ * lui_panel_set_bitmap_image(img_panel, &BITMAP_some_logo);
+ * // Prepare the color palette for 1-bpp mono image, and set it
+ * lui_bitmap_mono_pal_t palette = {
+ *     .fore_color = lui_rgb(5, 250, 10),
+ *     .back_color = lui_rgb(120, 50, 10),
+ *     .is_backgrnd = 1 // Setting to 1 to draw the background with `back_color`. Set it to 0 to NOT draw background of bitmap
+ * };
+ * // Now set those palettes
+ * lui_panel_set_bitmap_image_mono_palette(img_panel, &palette);
+ * @endcode
  *
  * @{
  */
@@ -2608,10 +2844,21 @@ void lui_panel_draw(lui_obj_t* obj_panel);
 /**
  * @brief Set background bitmap image of the panel
  * 
- * @param obj panel object
+ * @param obj_panel panel object
  * @param bitmap bitmap image object
  */
-void lui_panel_set_bitmap_image(lui_obj_t* obj, const lui_bitmap_t* bitmap);
+void lui_panel_set_bitmap_image(lui_obj_t* obj_panel, const lui_bitmap_t* bitmap);
+
+/**
+ * @brief Set color palette for 1-bpp mono bitmap image.
+ * 
+ * This function has no effect if the bitmap is not 1-bpp.
+ * 
+ * @param obj_panel panel object
+ * @param palette color palette for 1-bpp mono bitmap 
+ */
+void lui_panel_set_bitmap_image_mono_palette(lui_obj_t* obj_panel, lui_bitmap_mono_pal_t* palette);
+
 /**@}*/
 #endif
 
@@ -2661,11 +2908,20 @@ lui_obj_t* lui_scene_get_active();
  * @brief Set background bitmap image of a scene.
  * 
  * See the example of panel background image setting. Same applies for scene too. 
- * @param obj scene object
+ * @param obj_scene scene object
  * @param bitmap bitmap image object
  */
-void lui_scene_set_bitmap_image(lui_obj_t* obj, const lui_bitmap_t* bitmap);
+void lui_scene_set_bitmap_image(lui_obj_t* obj_scene, const lui_bitmap_t* bitmap);
 
+/**
+ * @brief Set color palette for 1-bpp mono bitmap image.
+ * 
+ * This function has no effect if the bitmap is not 1-bpp.
+ * 
+ * @param obj_scene scene object
+ * @param palette color palette for 1-bpp mono bitmap 
+ */
+void lui_scene_set_bitmap_image_mono_palette(lui_obj_t* obj_scene, lui_bitmap_mono_pal_t* palette);
 
 // /**
 //  * @brief Set font of a scene
@@ -2914,11 +3170,12 @@ uint8_t _lui_get_event_against_state(uint8_t new_state, uint8_t old_state);
  * @param fore_color text color
  * @param bg_color text background color
  * @param bg_bitmap text background bimap. 
+ * @param palette color palette for 1-bpp mono bitmap. Has no effect if bitmap is NOT 1-bpp.
  * @param bitmap_crop crop area of the bitmap image.
  * @param is_bg flag decides whether to render background color/image or not
  * @param font font of the text
  */
-void lui_gfx_draw_string_advanced(const char* str, lui_area_t* area, uint16_t fore_color, uint16_t bg_color, const lui_bitmap_t* bg_bitmap, lui_area_t* bitmap_crop, uint8_t is_bg, const lui_font_t* font);
+void lui_gfx_draw_string_advanced(const char* str, lui_area_t* area, uint16_t fore_color, uint16_t bg_color, const lui_bitmap_t* bg_bitmap, lui_bitmap_mono_pal_t* palette, lui_area_t* bitmap_crop, uint8_t is_bg, const lui_font_t* font);
 
 /**
  * @brief Simplified function to draw a string
@@ -2969,6 +3226,7 @@ uint16_t lui_gfx_get_font_height(const lui_font_t* font);
  * @param str_dim array of 2 items to return string dimension ({w, h})
  */
 void lui_gfx_get_string_dimension(const char* str, const lui_font_t* font_obj, uint16_t max_w, uint16_t str_dim[2]);
+
 /**
  * @brief Draw a line
  * 
@@ -3003,16 +3261,20 @@ void lui_gfx_draw_rect(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint8_t l
  * @param color fill color
  */
 void lui_gfx_draw_rect_fill(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color);
+
 /**
  * @brief Draws a bitmap at given x,y position. Crop area can be NULL if cropping 
- * is not needed
+ * is not needed. `palette` parameter is only applicable if image is 1-bpp mono bitmap.
+ * 
+ * Set `pallete` to NULL if the `bitmap` image is snot 1-bpp.
  * 
  * @param bitmap pointer to bitmap data
+ * @param palette color palette for 1-bpp mono bitmap. Has no effect for 8-bpp and 16-bpp bitmaps.
  * @param x start X position
  * @param y start Y position
  * @param crop_area pointer to crop area. Set NULL for no cropping.
  */
-void lui_gfx_bitmap_draw(const lui_bitmap_t* bitmap, uint16_t x, uint16_t y, lui_area_t* crop_area);
+void lui_gfx_bitmap_draw(const lui_bitmap_t* bitmap, lui_bitmap_mono_pal_t* palette, uint16_t x, uint16_t y, lui_area_t* crop_area);
 
 /**
  * @brief Create 16-bit RGB565 color using R, G, and B values (each 8-bit)
@@ -3023,7 +3285,7 @@ void lui_gfx_bitmap_draw(const lui_bitmap_t* bitmap, uint16_t x, uint16_t y, lui
  * @param red 8-bit red color
  * @param green 8-bit green color
  * @param blue 8-bit blue color
- * @return uint16_t 
+ * @return uint16_t 16-bit color
  */
 uint16_t lui_rgb(uint8_t red, uint8_t green, uint8_t blue);
 /**@}*/

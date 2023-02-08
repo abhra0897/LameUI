@@ -6,7 +6,9 @@ This page links to the various example code fragments in this documentation.
  - [Line Chart example](@ref linechart_example)
  - Button example
     - [Button example 1](@ref button_example1)
-    - [Button background image example](@ref button_example2)
+    - [Checkable button example](@ref button_example2)
+    - [Button background image example](@ref button_example3)
+    - [Button 1-bpp mono background image example](@ref button_example4)
  - [Switch example](@ref switch_example)
  - [Checkbox example](@ref checkbox_example)
  - [List example](@ref list_example)
