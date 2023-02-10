@@ -40,7 +40,7 @@
 		<div class="logo">
 			<a href="index.html"> <img src="LameUI_logo.png" alt="LameUI logo" width="220" ></a>
 			<span style="display: inline-block; margin-top: 10px;">
-				v1
+				v2.0
 			</span>
 		</div>
 		<div class="navigation-footer">
@@ -931,6 +931,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga14ac387f2a2e89bdda2773f21e79d087"><td class="memItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__object.html#ga14ac387f2a2e89bdda2773f21e79d087">lui_object_get_layer</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj)</td></tr>
 <tr class="memdesc:ga14ac387f2a2e89bdda2773f21e79d087"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get rendering layer index of an object.  <br /></td></tr>
 <tr class="separator:ga14ac387f2a2e89bdda2773f21e79d087"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga84ffb41ad6fe292ab7ce61e460a338c2"><td class="memItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__object.html#ga84ffb41ad6fe292ab7ce61e460a338c2">lui_object_get_type</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj)</td></tr>
+<tr class="memdesc:ga84ffb41ad6fe292ab7ce61e460a338c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the type of the object.  <br /></td></tr>
+<tr class="separator:ga84ffb41ad6fe292ab7ce61e460a338c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga36344388e628fde997ebafaf75a43ee4"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__object.html#ga36344388e628fde997ebafaf75a43ee4">lui_object_set_enable_input</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, uint8_t is_enabled)</td></tr>
 <tr class="memdesc:ga36344388e628fde997ebafaf75a43ee4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable or disble input handling of an object. If disabled, object won't cause input event callback.  <br /></td></tr>
 <tr class="separator:ga36344388e628fde997ebafaf75a43ee4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1356,6 +1359,9 @@ uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>_lui_check_if_acti
 <tr class="memitem:a32881af029062a76504f7d80766feb1a"><td class="memItemLeft" align="right" valign="top"><a id="a32881af029062a76504f7d80766feb1a" name="a32881af029062a76504f7d80766feb1a"></a>
 uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>_lui_get_event_against_state</b> (uint8_t new_state, uint8_t old_state)</td></tr>
 <tr class="separator:a32881af029062a76504f7d80766feb1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c0bdee792a3dcffd4fd880f18e59487"><td class="memItemLeft" align="right" valign="top"><a id="a3c0bdee792a3dcffd4fd880f18e59487" name="a3c0bdee792a3dcffd4fd880f18e59487"></a>
+int8_t&#160;</td><td class="memItemRight" valign="bottom"><b>_lui_verify_obj</b> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, uint8_t obj_type)</td></tr>
+<tr class="separator:a3c0bdee792a3dcffd4fd880f18e59487"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga70916d1822c831690097ab38aa00f9be"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__gfx.html#ga70916d1822c831690097ab38aa00f9be">lui_gfx_draw_string_advanced</a> (const char *str, <a class="el" href="group__PublicTypedefs.html#ga89d2b851574a969160813b40a922de91">lui_area_t</a> *area, uint16_t fore_color, uint16_t bg_color, const <a class="el" href="group__PublicTypedefs.html#gaca3b4e71f058bce3538bf58fc8883f04">lui_bitmap_t</a> *bg_bitmap, <a class="el" href="group__PublicTypedefs.html#gaf21613026fc8109ddcdf3e6a8ac2c919">lui_bitmap_mono_pal_t</a> *palette, <a class="el" href="group__PublicTypedefs.html#ga89d2b851574a969160813b40a922de91">lui_area_t</a> *bitmap_crop, uint8_t is_bg, const <a class="el" href="group__PublicTypedefs.html#ga26bf4a56824269a006afb575dc224a1e">lui_font_t</a> *font)</td></tr>
 <tr class="memdesc:ga70916d1822c831690097ab38aa00f9be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Advanced function to draw a string. For internal use only, but user may call it if needed. Most of the time <code>draw_string_simple</code> is enough for user.  <br /></td></tr>
 <tr class="separator:ga70916d1822c831690097ab38aa00f9be"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1410,8 +1416,8 @@ const <a class="el" href="group__PublicTypedefs.html#ga26bf4a56824269a006afb575d
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>One and only header file for LameUI library. </p>
 <dl class="section author"><dt>Author</dt><dd>Avra Mitra </dd></dl>
-<dl class="section version"><dt>Version</dt><dd>1.0 </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2023-01-29</dd></dl>
+<dl class="section version"><dt>Version</dt><dd>2.0 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2023-02-09</dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2020-2023 </dd></dl>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="aaeba5388a07217596495871ff72ff54b" name="aaeba5388a07217596495871ff72ff54b"></a>

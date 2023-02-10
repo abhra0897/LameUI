@@ -40,7 +40,7 @@
 		<div class="logo">
 			<a href="index.html"> <img src="LameUI_logo.png" alt="LameUI logo" width="220" ></a>
 			<span style="display: inline-block; margin-top: 10px;">
-				v1
+				v2.0
 			</span>
 		</div>
 		<div class="navigation-footer">
@@ -174,6 +174,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga14ac387f2a2e89bdda2773f21e79d087"><td class="memItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__object.html#ga14ac387f2a2e89bdda2773f21e79d087">lui_object_get_layer</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj)</td></tr>
 <tr class="memdesc:ga14ac387f2a2e89bdda2773f21e79d087"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get rendering layer index of an object.  <br /></td></tr>
 <tr class="separator:ga14ac387f2a2e89bdda2773f21e79d087"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga84ffb41ad6fe292ab7ce61e460a338c2"><td class="memItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__object.html#ga84ffb41ad6fe292ab7ce61e460a338c2">lui_object_get_type</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj)</td></tr>
+<tr class="memdesc:ga84ffb41ad6fe292ab7ce61e460a338c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the type of the object.  <br /></td></tr>
+<tr class="separator:ga84ffb41ad6fe292ab7ce61e460a338c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga36344388e628fde997ebafaf75a43ee4"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__object.html#ga36344388e628fde997ebafaf75a43ee4">lui_object_set_enable_input</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, uint8_t is_enabled)</td></tr>
 <tr class="memdesc:ga36344388e628fde997ebafaf75a43ee4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable or disble input handling of an object. If disabled, object won't cause input event callback.  <br /></td></tr>
 <tr class="separator:ga36344388e628fde997ebafaf75a43ee4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -216,11 +219,11 @@ Functions</h2></td></tr>
 <div class="line"><a class="code hl_struct" href="struct__lui__obj__s.html">lui_obj_t</a>* child_label = <a class="code hl_function" href="group__lui__label.html#ga13471ecc0d34c6ea16bc89c0629efc8a">lui_label_create</a>();</div>
 <div class="line"><a class="code hl_function" href="group__lui__label.html#ga45528354a67fe65f23435338f970ba33">lui_label_set_text</a>(child_label, <span class="stringliteral">&quot;I am child of a scene&quot;</span>);</div>
 <div class="line"><a class="code hl_function" href="group__lui__object.html#ga0d71d83d0757cfbafd9308689e41aaf2">lui_object_add_to_parent</a>(child_label, parent_scene);        <span class="comment">// Add child to parent</span></div>
-<div class="ttc" id="agroup__lui__label_html_ga13471ecc0d34c6ea16bc89c0629efc8a"><div class="ttname"><a href="group__lui__label.html#ga13471ecc0d34c6ea16bc89c0629efc8a">lui_label_create</a></div><div class="ttdeci">lui_obj_t * lui_label_create(void)</div><div class="ttdoc">Create a label with initial values.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:182</div></div>
-<div class="ttc" id="agroup__lui__label_html_ga45528354a67fe65f23435338f970ba33"><div class="ttname"><a href="group__lui__label.html#ga45528354a67fe65f23435338f970ba33">lui_label_set_text</a></div><div class="ttdeci">void lui_label_set_text(lui_obj_t *obj, const char *text)</div><div class="ttdoc">Set text of a label.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:230</div></div>
-<div class="ttc" id="agroup__lui__object_html_ga0d71d83d0757cfbafd9308689e41aaf2"><div class="ttname"><a href="group__lui__object.html#ga0d71d83d0757cfbafd9308689e41aaf2">lui_object_add_to_parent</a></div><div class="ttdeci">void lui_object_add_to_parent(lui_obj_t *obj_child, lui_obj_t *obj_parent)</div><div class="ttdoc">Add a child object to a parent object, thus grouping them together.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3955</div></div>
-<div class="ttc" id="agroup__lui__scene_html_ga40b569f4be80209c533d003211e257a9"><div class="ttname"><a href="group__lui__scene.html#ga40b569f4be80209c533d003211e257a9">lui_scene_create</a></div><div class="ttdeci">lui_obj_t * lui_scene_create()</div><div class="ttdoc">Create a scene.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3774</div></div>
-<div class="ttc" id="agroup__lui__scene_html_ga5a2c32f660fbbe39fae9d5f11055aff7"><div class="ttname"><a href="group__lui__scene.html#ga5a2c32f660fbbe39fae9d5f11055aff7">lui_scene_set_active</a></div><div class="ttdeci">void lui_scene_set_active(lui_obj_t *obj_scene)</div><div class="ttdoc">Set the active scene. Only active scene is rendered.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3903</div></div>
+<div class="ttc" id="agroup__lui__label_html_ga13471ecc0d34c6ea16bc89c0629efc8a"><div class="ttname"><a href="group__lui__label.html#ga13471ecc0d34c6ea16bc89c0629efc8a">lui_label_create</a></div><div class="ttdeci">lui_obj_t * lui_label_create(void)</div><div class="ttdoc">Create a label with initial values.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:178</div></div>
+<div class="ttc" id="agroup__lui__label_html_ga45528354a67fe65f23435338f970ba33"><div class="ttname"><a href="group__lui__label.html#ga45528354a67fe65f23435338f970ba33">lui_label_set_text</a></div><div class="ttdeci">void lui_label_set_text(lui_obj_t *obj, const char *text)</div><div class="ttdoc">Set text of a label.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:223</div></div>
+<div class="ttc" id="agroup__lui__object_html_ga0d71d83d0757cfbafd9308689e41aaf2"><div class="ttname"><a href="group__lui__object.html#ga0d71d83d0757cfbafd9308689e41aaf2">lui_object_add_to_parent</a></div><div class="ttdeci">void lui_object_add_to_parent(lui_obj_t *obj_child, lui_obj_t *obj_parent)</div><div class="ttdoc">Add a child object to a parent object, thus grouping them together.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3596</div></div>
+<div class="ttc" id="agroup__lui__scene_html_ga40b569f4be80209c533d003211e257a9"><div class="ttname"><a href="group__lui__scene.html#ga40b569f4be80209c533d003211e257a9">lui_scene_create</a></div><div class="ttdeci">lui_obj_t * lui_scene_create()</div><div class="ttdoc">Create a scene.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3423</div></div>
+<div class="ttc" id="agroup__lui__scene_html_ga5a2c32f660fbbe39fae9d5f11055aff7"><div class="ttname"><a href="group__lui__scene.html#ga5a2c32f660fbbe39fae9d5f11055aff7">lui_scene_set_active</a></div><div class="ttdeci">void lui_scene_set_active(lui_obj_t *obj)</div><div class="ttdoc">Set the active scene. Only active scene is rendered.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3548</div></div>
 <div class="ttc" id="astruct__lui__obj__s_html"><div class="ttname"><a href="struct__lui__obj__s.html">_lui_obj_s</a></div><div class="ttdoc">Generic object datatype. Accessed only through getter and setter functions.</div><div class="ttdef"><b>Definition:</b> lame_ui.h:443</div></div>
 </div><!-- fragment --><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -348,6 +351,33 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>int8_t state ID </dd></dl>
+
+</div>
+</div>
+<a id="ga84ffb41ad6fe292ab7ce61e460a338c2" name="ga84ffb41ad6fe292ab7ce61e460a338c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga84ffb41ad6fe292ab7ce61e460a338c2">&#9670;&#160;</a></span>lui_object_get_type()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int16_t lui_object_get_type </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td>
+          <td class="paramname"><em>obj</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the type of the object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">obj</td><td>object </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int16_t type of object. -1 if object is NULL </dd></dl>
 
 </div>
 </div>
@@ -567,8 +597,8 @@ Functions</h2></td></tr>
 <div class="line">}</div>
 <div class="line">my_button = <a class="code hl_function" href="group__lui__button.html#ga42fa5a98fca8845b038c7a93dfc480c1">lui_button_create</a>();</div>
 <div class="line"><a class="code hl_function" href="group__lui__object.html#gae9d2e2e1998f2603a3a6d24d08b5b64e">lui_object_set_callback</a>(my_button, button_callback);</div>
-<div class="ttc" id="agroup__lui__button_html_ga42fa5a98fca8845b038c7a93dfc480c1"><div class="ttname"><a href="group__lui__button.html#ga42fa5a98fca8845b038c7a93dfc480c1">lui_button_create</a></div><div class="ttdeci">lui_obj_t * lui_button_create()</div><div class="ttdoc">Create a button with initial values.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:749</div></div>
-<div class="ttc" id="agroup__lui__object_html_gae9d2e2e1998f2603a3a6d24d08b5b64e"><div class="ttname"><a href="group__lui__object.html#gae9d2e2e1998f2603a3a6d24d08b5b64e">lui_object_set_callback</a></div><div class="ttdeci">void lui_object_set_callback(lui_obj_t *obj, void(*obj_event_cb)(lui_obj_t *))</div><div class="ttdoc">Set event call back function for input handling.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:4184</div></div>
+<div class="ttc" id="agroup__lui__button_html_ga42fa5a98fca8845b038c7a93dfc480c1"><div class="ttname"><a href="group__lui__button.html#ga42fa5a98fca8845b038c7a93dfc480c1">lui_button_create</a></div><div class="ttdeci">lui_obj_t * lui_button_create()</div><div class="ttdoc">Create a button with initial values.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:694</div></div>
+<div class="ttc" id="agroup__lui__object_html_gae9d2e2e1998f2603a3a6d24d08b5b64e"><div class="ttname"><a href="group__lui__object.html#gae9d2e2e1998f2603a3a6d24d08b5b64e">lui_object_set_callback</a></div><div class="ttdeci">void lui_object_set_callback(lui_obj_t *obj, void(*obj_event_cb)(lui_obj_t *))</div><div class="ttdoc">Set event call back function for input handling.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3825</div></div>
 </div><!-- fragment --><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">obj</td><td>target object </td></tr>

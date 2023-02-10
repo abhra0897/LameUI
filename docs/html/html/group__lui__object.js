@@ -5,6 +5,7 @@ var group__lui__object =
     [ "lui_object_get_event", "group__lui__object.html#ga580b2bdece45808266791573d874aabb", null ],
     [ "lui_object_get_layer", "group__lui__object.html#ga14ac387f2a2e89bdda2773f21e79d087", null ],
     [ "lui_object_get_state", "group__lui__object.html#gac20b18b75c1e5764e5cb00dc3bed6808", null ],
+    [ "lui_object_get_type", "group__lui__object.html#ga84ffb41ad6fe292ab7ce61e460a338c2", null ],
     [ "lui_object_remove_from_parent", "group__lui__object.html#ga0410a5dd9b906d11881611fc0dfdeea6", null ],
     [ "lui_object_set_area", "group__lui__object.html#gaed4bb7d9c2764c6786708535fad7cf67", null ],
     [ "lui_object_set_bg_color", "group__lui__object.html#ga737c964740f81d6c10d84ebac06d326b", null ],
