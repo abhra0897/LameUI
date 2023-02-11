@@ -5154,7 +5154,6 @@ void lui_gfx_bitmap_draw(const lui_bitmap_t* bitmap, lui_bitmap_mono_pal_t* pale
 	uint16_t mono_fcol = palette ? palette->fore_color : 0xFFFF;
 	uint16_t mono_bcol = palette ? palette->back_color : 0;
 	uint16_t mono_is_bg = palette ? palette->is_backgrnd : 1;
-	fprintf(stderr, "  stride:%d\n", stride);
 	for (uint16_t w = 0; w < width; w++)
 	{
 		bit_counter = 0;
