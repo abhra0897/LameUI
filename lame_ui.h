@@ -6,7 +6,7 @@
  * @author Avra Mitra
  * @brief One and only header file for LameUI library.
  * @version 2.0
- * @date 2023-02-09
+ * @date 2023-02-11
  *
  * @copyright Copyright (c) 2020-2023
  *
@@ -34,7 +34,7 @@
 
 #define LUI_MAX_OBJECTS 200 ///< Set number of maximum objects that can be created
 
-#define LUI_USE_DARK_THEME 0 ///< Comment out OR set value to 0 for using light theme
+#define LUI_USE_DARK_THEME 1 ///< Comment out OR set value to 0 for using light theme
 
 /**
  * @defgroup LUI_USE_OBJECT Widgets to use
@@ -109,7 +109,7 @@
 #define LUI_EVENT_ENTERED 5		   ///< Object is entered to input mode. Example: Clicking on a text box
 #define LUI_EVENT_EXITED 6		   ///< Opposite of above. Example: Clicking outside of a text box
 #define LUI_EVENT_VALUE_CHANGED 7  ///< Value of a object is changed. Example: a slider is dragged
-#define LUI_EVENT_CHECK_CHANGED 8  ///< Check status of an object is changed. Example: checkbox is checked/unchecked
+#define LUI_EVENT_CHECK_CHANGED 7  ///< Check status of an object is changed. Example: checkbox is checked/unchecked
 /**@} */
 
 /**
@@ -1207,6 +1207,18 @@ void lui_linechart_set_data_source(lui_obj_t* obj_linechart, double* source, uin
  * @defgroup lui_button Button widget API
  *
  * @brief API for <b><tt>button</tt></b> widget
+ * 
+ * Buttons have 3 important visual properties:
+ * 1. Background color (bg color)
+ * 2. Bitmap image
+ * 3. Text
+ * 
+ * Each of them can be configured for both pressed state and idle state.
+ * 
+ * Rendering order is: 1.bg color -> 2.bitmap -> 3.text.
+ * 
+ * If button is set as transparent bg, then bg color is not rendered, rather parent's 
+ * bg color or bitmap ius rendered as the step 1.
  *
  * @section button_example1 Example
  * @image html docs/widgets_images/button.png "Dark Theme"
@@ -1411,6 +1423,9 @@ void lui_button_set_label_font(lui_obj_t* obj_btn, const lui_font_t* font);
 /**
  * @brief Set background bitmap image for idle (normal) and pressed states of button.
  * 
+ * Images are rendered after rendering bg color. If button is set as transparent, then 
+ * button's bg color is not rendered nut images are rendered.
+ * 
  * NOTE: Only if the image is 1-bpp monochrome, call `lui_button_set_bitmap_images_mono_palette()` 
  * too to set colors of the bitmap. Else, default color will be used to render 1-bpp bitmaps.
  * 
@@ -1436,6 +1451,28 @@ void lui_button_set_bitmap_images_mono_palette(
 	lui_obj_t* obj_btn, 
 	lui_bitmap_mono_pal_t* idle_palette, 
 	lui_bitmap_mono_pal_t* press_palette);
+
+/**
+ * @brief Set check value of button. Works only if button is set as checkable
+ * 
+ * @param obj_btn button object
+ * @param value 0: Not checked, 1: Checked
+ */
+void lui_button_set_value(lui_obj_t* obj_btn, uint8_t value);
+
+/**
+ * @brief Set button as checked. Only works for checkable button
+ * 
+ * @param obj_btn button object
+ */
+void lui_button_set_checked(lui_obj_t* obj_btn);
+
+/**
+ * @brief Set button as unchecked. Only works for checkable button
+ * 
+ * @param obj_btn button object
+ */
+void lui_button_set_unchecked(lui_obj_t* obj_btn);
 
 /**
  * @brief Set a button as checkable or not. Checkable buttons can be toggled.
@@ -1479,7 +1516,7 @@ void lui_button_set_extra_colors(lui_obj_t* obj_btn, uint16_t pressed_color, uin
 /**
  * @brief Set background of the button as transparent. 
  * 
- * When background is transparent, button's  bitmap or the bg color is not drawn. 
+ * When background is transparent, button's own bg color is not drawn. 
  * Rather, the color or bitmap of the parent item is drawn as background to 
  * simulate transparency. 
  * 

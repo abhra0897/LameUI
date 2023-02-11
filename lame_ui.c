@@ -6,7 +6,7 @@
  * @author Avra Mitra
  * @brief Source FIle of LameUI GUI library. Must include lame_ui.h. No other file is mandatory.
  * @version 2.0
- * @date 2023-02-09
+ * @date 2023-02-11
  * 
  * @copyright Copyright (c) 2020-2023
  * 
@@ -598,9 +598,22 @@ void lui_button_draw(lui_obj_t* obj)
 			lui_gfx_draw_rect_fill(temp_x, temp_y, btn_width, btn_height, obj->parent->common_style.bg_color);
 		}
 	}
-	
+	/* Else draw the button's bg color depending on its current state */
+	else
+	{
+		uint16_t btn_color = obj->common_style.bg_color;
+		if (obj->state == LUI_STATE_SELECTED)
+			btn_color = btn->style.selection_color;
+		else if (obj->state == LUI_STATE_PRESSED || (btn->is_checkable && obj->value))
+			btn_color = btn->style.pressed_color;
+		// else if (btn->state == LUI_STATE_IDLE)
+		// 	btn_color = btn->color;
+
+		lui_gfx_draw_rect_fill(temp_x, temp_y, btn_width, btn_height, btn_color);
+	}
+
 	/* Draw background bitmap if not NULL */
-	else if (btn->img_idle || btn->img_pressed)
+	if (btn->img_idle || btn->img_pressed)
 	{
 		lui_area_t crop = {
 			.x = 0,
@@ -626,19 +639,7 @@ void lui_button_draw(lui_obj_t* obj)
 				&crop);
 		}
 	}
-	/* Else draw the button's body color depending on its current state */
-	else
-	{
-		uint16_t btn_color = obj->common_style.bg_color;
-		if (obj->state == LUI_STATE_SELECTED)
-			btn_color = btn->style.selection_color;
-		else if (obj->state == LUI_STATE_PRESSED || (btn->is_checkable && obj->value))
-			btn_color = btn->style.pressed_color;
-		// else if (btn->state == LUI_STATE_IDLE)
-		// 	btn_color = btn->color;
-
-		lui_gfx_draw_rect_fill(temp_x, temp_y, btn_width, btn_height, btn_color);
-	}
+	
 	
 	/* Draw the button label (text) if not NULL */
 	if (btn->label.text && btn->label.text[0] != '\0')
@@ -847,6 +848,27 @@ void lui_button_set_bitmap_images_mono_palette(lui_obj_t* obj, lui_bitmap_mono_p
 		btn->img_press_pal = *press_palette;
 
 	_lui_object_set_need_refresh(obj);
+}
+
+void lui_button_set_value(lui_obj_t* obj, uint8_t value)
+{
+	if (_lui_verify_obj(obj, LUI_OBJ_BUTTON) < 0)
+		return;
+	lui_button_t* btn = (lui_button_t* )(obj->obj_main_data);
+	if (!btn->is_checkable)
+		return;
+	obj->value = value ? 1 : 0;
+	_lui_object_set_need_refresh(obj);
+}
+
+void lui_button_set_checked(lui_obj_t* obj)
+{
+	lui_button_set_value(obj, 1);
+}
+
+void lui_button_set_unchecked(lui_obj_t* obj)
+{
+	lui_button_set_value(obj, 0);
 }
 
 void lui_button_set_checkable(lui_obj_t* obj, uint8_t is_checkable)
@@ -4529,7 +4551,11 @@ void _lui_set_obj_props_on_touch_input(lui_touch_input_data_t* input, lui_obj_t*
 	{
 		new_state = LUI_STATE_ENTERED;
 	}
-	obj->event = _lui_get_event_against_state(new_state, old_state);		
+	obj->event = _lui_get_event_against_state(new_state, old_state);
+	/* when input is touch input and not mouse pointer, `SELECTION_LOST` event should become `RELEASED`  */
+	if ((input->x == -1 || input->y == -1) && obj->event == LUI_EVENT_SELECTION_LOST)
+		obj->event = LUI_EVENT_RELEASED;
+
 
 	if (obj->event != LUI_EVENT_NONE)
 	{
@@ -4667,14 +4693,21 @@ void _lui_set_obj_props_on_touch_input(lui_touch_input_data_t* input, lui_obj_t*
 		lui_btngrid_t* btngrid = (lui_btngrid_t* )(obj->obj_main_data);
 		if (btngrid->active_btn_index != last_active_btn)
 		{
+			uint8_t tmp_new_state, tmp_old_state;
 			if (btngrid->active_btn_index == -1)
 			{
-				obj->event = _lui_get_event_against_state(LUI_STATE_IDLE, old_state);	
+				tmp_new_state = LUI_STATE_IDLE;
+				tmp_old_state = old_state;
 			}
 			else
 			{
-				obj->event = _lui_get_event_against_state(new_state, LUI_STATE_IDLE);
-			}		
+				tmp_new_state = new_state;
+				tmp_old_state = LUI_STATE_IDLE;
+			}
+			obj->event = _lui_get_event_against_state(tmp_new_state, tmp_old_state);
+			/* when input is touch input and not mouse pointer, `SELECTION_LOST` event should become `RELEASED`  */
+			if ((input->x == -1 || input->y == -1) && obj->event == LUI_EVENT_SELECTION_LOST)
+				obj->event = LUI_EVENT_RELEASED;
 		}
 
 		if (obj->event == LUI_EVENT_PRESSED)
@@ -4819,6 +4852,15 @@ void lui_gfx_draw_string_advanced(const char* str, lui_area_t* area, uint16_t fo
 
 		area->w = area->w == 0 ? dim[0] : area->w;
 		area->h = area->h == 0 ? dim[1] : area->h;
+	}
+	/* If the calling function didn't know crop area and set it to 0,
+	   here we set them to objects's w and h. Don't worry if the actual 
+	   bitmap is smaller than the set crop size, `lui_gfx_bitmap_draw()` 
+	   takes care of it.*/
+	if (bitmap_crop)
+	{
+		if (!bitmap_crop->w )	bitmap_crop->w = area->w;
+		if (!bitmap_crop->h )	bitmap_crop->h = area->h;
 	}
 	if (is_bg)
 	{
