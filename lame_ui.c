@@ -5128,7 +5128,7 @@ void lui_gfx_bitmap_draw(const lui_bitmap_t* bitmap, lui_bitmap_mono_pal_t* pale
 	uint16_t height = bitmap->size_y;
 	uint32_t stride = 0;
 
-	/* Cropping supports only 8bpp and 16bpp bitmaps */
+	/* NOTE: Cropping supports only 8bpp and 16bpp bitmaps. NOT for 1-bpp mono */
 	if (crop_area && bitmap->bpp != 1)
 	{
 		/* Crop area start pos can't be higher than bitmap dimension itself */
@@ -5144,11 +5144,17 @@ void lui_gfx_bitmap_draw(const lui_bitmap_t* bitmap, lui_bitmap_mono_pal_t* pale
 		uint32_t px_skip = bitmap->size_y - crop_area->h;	// pixels to skip for cropping, in a loop
 		stride = px_skip * (bitmap->bpp / 8);	// Bytes to skip, in a loop
 	}
+	/* FOr 1-bpp, we must go to next byte when 1 column is finished. */
+	else if (bitmap->bpp == 1)
+	{
+		stride = 1;	
+	}
 
 	uint8_t skip_px = 0;	// flag to skip a bg pixel for 1-bpp mono image
 	uint16_t mono_fcol = palette ? palette->fore_color : 0xFFFF;
 	uint16_t mono_bcol = palette ? palette->back_color : 0;
 	uint16_t mono_is_bg = palette ? palette->is_backgrnd : 1;
+	fprintf(stderr, "  stride:%d\n", stride);
 	for (uint16_t w = 0; w < width; w++)
 	{
 		bit_counter = 0;
