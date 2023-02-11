@@ -156,6 +156,15 @@ Functions</h2></td></tr>
 <tr class="memitem:gad59a6b10657151301ae1535772fe65d7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__button.html#gad59a6b10657151301ae1535772fe65d7">lui_button_set_bitmap_images_mono_palette</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_btn, <a class="el" href="group__PublicTypedefs.html#gaf21613026fc8109ddcdf3e6a8ac2c919">lui_bitmap_mono_pal_t</a> *idle_palette, <a class="el" href="group__PublicTypedefs.html#gaf21613026fc8109ddcdf3e6a8ac2c919">lui_bitmap_mono_pal_t</a> *press_palette)</td></tr>
 <tr class="memdesc:gad59a6b10657151301ae1535772fe65d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set color palette for 1-bpp mono bitmap images. Has no effect if images are not 1-bpp.  <br /></td></tr>
 <tr class="separator:gad59a6b10657151301ae1535772fe65d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5a0b6e9b546d91117f07cd5e4e91941d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__button.html#ga5a0b6e9b546d91117f07cd5e4e91941d">lui_button_set_value</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_btn, uint8_t value)</td></tr>
+<tr class="memdesc:ga5a0b6e9b546d91117f07cd5e4e91941d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set check value of button. Works only if button is set as checkable.  <br /></td></tr>
+<tr class="separator:ga5a0b6e9b546d91117f07cd5e4e91941d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8020c26eb6c163d20f2088b3e76f154c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__button.html#ga8020c26eb6c163d20f2088b3e76f154c">lui_button_set_checked</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_btn)</td></tr>
+<tr class="memdesc:ga8020c26eb6c163d20f2088b3e76f154c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set button as checked. Only works for checkable button.  <br /></td></tr>
+<tr class="separator:ga8020c26eb6c163d20f2088b3e76f154c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga561b26cfe4a91f65dfdc632a464c2cf5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__button.html#ga561b26cfe4a91f65dfdc632a464c2cf5">lui_button_set_unchecked</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_btn)</td></tr>
+<tr class="memdesc:ga561b26cfe4a91f65dfdc632a464c2cf5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set button as unchecked. Only works for checkable button.  <br /></td></tr>
+<tr class="separator:ga561b26cfe4a91f65dfdc632a464c2cf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga14b1a068a1b7dc7f0cf0c933e9f4e0a2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__button.html#ga14b1a068a1b7dc7f0cf0c933e9f4e0a2">lui_button_set_checkable</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_btn, uint8_t is_checkable)</td></tr>
 <tr class="memdesc:ga14b1a068a1b7dc7f0cf0c933e9f4e0a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set a button as checkable or not. Checkable buttons can be toggled.  <br /></td></tr>
 <tr class="separator:ga14b1a068a1b7dc7f0cf0c933e9f4e0a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -174,6 +183,14 @@ Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>API for <b><code>button</code></b> widget. </p>
+<p>Buttons have 3 important visual properties:</p><ol type="1">
+<li>Background color (bg color)</li>
+<li>Bitmap image</li>
+<li>Text</li>
+</ol>
+<p>Each of them can be configured for both pressed state and idle state.</p>
+<p>Rendering order is: 1.bg color -&gt; 2.bitmap -&gt; 3.text.</p>
+<p>If button is set as transparent bg, then bg color is not rendered, rather parent's bg color or bitmap ius rendered as the step 1.</p>
 <h1><a class="anchor" id="button_example1"></a>
 Example</h1>
 <div class="image">
@@ -212,12 +229,12 @@ Light Theme</div></div>
 <div class="line"><span class="comment">// set button call back function</span></div>
 <div class="line"><a class="code hl_function" href="group__lui__object.html#gae9d2e2e1998f2603a3a6d24d08b5b64e">lui_object_set_callback</a>(my_button, button_callback);</div>
 <div class="ttc" id="agroup__LUI__EVENT_html_gac1d4660029fe5efac27e0116e258d65d"><div class="ttname"><a href="group__LUI__EVENT.html#gac1d4660029fe5efac27e0116e258d65d">LUI_EVENT_PRESSED</a></div><div class="ttdeci">#define LUI_EVENT_PRESSED</div><div class="ttdoc">Object is pressed (object under pointing device and pointing device button is low)</div><div class="ttdef"><b>Definition:</b> lame_ui.h:107</div></div>
-<div class="ttc" id="agroup__lui__button_html_ga42fa5a98fca8845b038c7a93dfc480c1"><div class="ttname"><a href="group__lui__button.html#ga42fa5a98fca8845b038c7a93dfc480c1">lui_button_create</a></div><div class="ttdeci">lui_obj_t * lui_button_create()</div><div class="ttdoc">Create a button with initial values.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:694</div></div>
-<div class="ttc" id="agroup__lui__button_html_gaec9c0f394998052cbc800530f69f3a97"><div class="ttname"><a href="group__lui__button.html#gaec9c0f394998052cbc800530f69f3a97">lui_button_set_label_text</a></div><div class="ttdeci">void lui_button_set_label_text(lui_obj_t *obj, const char *text)</div><div class="ttdoc">Set the text of the button's label.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:751</div></div>
-<div class="ttc" id="agroup__lui__object_html_ga580b2bdece45808266791573d874aabb"><div class="ttname"><a href="group__lui__object.html#ga580b2bdece45808266791573d874aabb">lui_object_get_event</a></div><div class="ttdeci">int8_t lui_object_get_event(lui_obj_t *obj)</div><div class="ttdoc">Get input event of an object.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3839</div></div>
-<div class="ttc" id="agroup__lui__object_html_gae9d2e2e1998f2603a3a6d24d08b5b64e"><div class="ttname"><a href="group__lui__object.html#gae9d2e2e1998f2603a3a6d24d08b5b64e">lui_object_set_callback</a></div><div class="ttdeci">void lui_object_set_callback(lui_obj_t *obj, void(*obj_event_cb)(lui_obj_t *))</div><div class="ttdoc">Set event call back function for input handling.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3825</div></div>
-<div class="ttc" id="agroup__lui__object_html_gaed4bb7d9c2764c6786708535fad7cf67"><div class="ttname"><a href="group__lui__object.html#gaed4bb7d9c2764c6786708535fad7cf67">lui_object_set_area</a></div><div class="ttdeci">void lui_object_set_area(lui_obj_t *obj, uint16_t width, uint16_t height)</div><div class="ttdoc">Set drawing area of an object.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3752</div></div>
-<div class="ttc" id="agroup__lui__object_html_gaf7bedc873edb862f9c1f8b063f17f839"><div class="ttname"><a href="group__lui__object.html#gaf7bedc873edb862f9c1f8b063f17f839">lui_object_set_position</a></div><div class="ttdeci">void lui_object_set_position(lui_obj_t *obj, uint16_t x, uint16_t y)</div><div class="ttdoc">Set position of an object.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3680</div></div>
+<div class="ttc" id="agroup__lui__button_html_ga42fa5a98fca8845b038c7a93dfc480c1"><div class="ttname"><a href="group__lui__button.html#ga42fa5a98fca8845b038c7a93dfc480c1">lui_button_create</a></div><div class="ttdeci">lui_obj_t * lui_button_create()</div><div class="ttdoc">Create a button with initial values.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:695</div></div>
+<div class="ttc" id="agroup__lui__button_html_gaec9c0f394998052cbc800530f69f3a97"><div class="ttname"><a href="group__lui__button.html#gaec9c0f394998052cbc800530f69f3a97">lui_button_set_label_text</a></div><div class="ttdeci">void lui_button_set_label_text(lui_obj_t *obj, const char *text)</div><div class="ttdoc">Set the text of the button's label.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:752</div></div>
+<div class="ttc" id="agroup__lui__object_html_ga580b2bdece45808266791573d874aabb"><div class="ttname"><a href="group__lui__object.html#ga580b2bdece45808266791573d874aabb">lui_object_get_event</a></div><div class="ttdeci">int8_t lui_object_get_event(lui_obj_t *obj)</div><div class="ttdoc">Get input event of an object.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3861</div></div>
+<div class="ttc" id="agroup__lui__object_html_gae9d2e2e1998f2603a3a6d24d08b5b64e"><div class="ttname"><a href="group__lui__object.html#gae9d2e2e1998f2603a3a6d24d08b5b64e">lui_object_set_callback</a></div><div class="ttdeci">void lui_object_set_callback(lui_obj_t *obj, void(*obj_event_cb)(lui_obj_t *))</div><div class="ttdoc">Set event call back function for input handling.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3847</div></div>
+<div class="ttc" id="agroup__lui__object_html_gaed4bb7d9c2764c6786708535fad7cf67"><div class="ttname"><a href="group__lui__object.html#gaed4bb7d9c2764c6786708535fad7cf67">lui_object_set_area</a></div><div class="ttdeci">void lui_object_set_area(lui_obj_t *obj, uint16_t width, uint16_t height)</div><div class="ttdoc">Set drawing area of an object.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3774</div></div>
+<div class="ttc" id="agroup__lui__object_html_gaf7bedc873edb862f9c1f8b063f17f839"><div class="ttname"><a href="group__lui__object.html#gaf7bedc873edb862f9c1f8b063f17f839">lui_object_set_position</a></div><div class="ttdeci">void lui_object_set_position(lui_obj_t *obj, uint16_t x, uint16_t y)</div><div class="ttdoc">Set position of an object.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3702</div></div>
 <div class="ttc" id="astruct__lui__obj__s_html"><div class="ttname"><a href="struct__lui__obj__s.html">_lui_obj_s</a></div><div class="ttdoc">Generic object datatype. Accessed only through getter and setter functions.</div><div class="ttdef"><b>Definition:</b> lame_ui.h:443</div></div>
 </div><!-- fragment --><h1><a class="anchor" id="button_example2"></a>
 Example of checkable button</h1>
@@ -237,10 +254,10 @@ Example of checkable button</h1>
 <div class="line"><span class="comment">// Optionally set button area and position</span></div>
 <div class="line"><a class="code hl_function" href="group__lui__object.html#gaed4bb7d9c2764c6786708535fad7cf67">lui_object_set_area</a>(check_btn, 140, 60);</div>
 <div class="line"><a class="code hl_function" href="group__lui__object.html#gaf7bedc873edb862f9c1f8b063f17f839">lui_object_set_position</a>(check_btn, 20, 10);</div>
-<div class="ttc" id="agroup__lui__button_html_ga14b1a068a1b7dc7f0cf0c933e9f4e0a2"><div class="ttname"><a href="group__lui__button.html#ga14b1a068a1b7dc7f0cf0c933e9f4e0a2">lui_button_set_checkable</a></div><div class="ttdeci">void lui_button_set_checkable(lui_obj_t *obj, uint8_t is_checkable)</div><div class="ttdoc">Set a button as checkable or not. Checkable buttons can be toggled.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:852</div></div>
-<div class="ttc" id="agroup__lui__button_html_ga7136a562c97ee76a05e8b9bff807ca3f"><div class="ttname"><a href="group__lui__button.html#ga7136a562c97ee76a05e8b9bff807ca3f">lui_button_set_label_color</a></div><div class="ttdeci">void lui_button_set_label_color(lui_obj_t *obj, uint16_t color)</div><div class="ttdoc">Set text color of button's label.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:791</div></div>
-<div class="ttc" id="agroup__lui__button_html_gae98bccfc4970422bb4b88c5348e88458"><div class="ttname"><a href="group__lui__button.html#gae98bccfc4970422bb4b88c5348e88458">lui_button_set_label_text_pressed</a></div><div class="ttdeci">void lui_button_set_label_text_pressed(lui_obj_t *obj, const char *pressed_text)</div><div class="ttdoc">Set text of button's label only for the pressed state.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:762</div></div>
-<div class="ttc" id="agroup__lui__gfx_html_ga3dffc69be3b19eb092238cec82a348b6"><div class="ttname"><a href="group__lui__gfx.html#ga3dffc69be3b19eb092238cec82a348b6">lui_rgb</a></div><div class="ttdeci">uint16_t lui_rgb(uint8_t red, uint8_t green, uint8_t blue)</div><div class="ttdoc">Create 16-bit RGB565 color using R, G, and B values (each 8-bit)</div><div class="ttdef"><b>Definition:</b> lame_ui.c:5021</div></div>
+<div class="ttc" id="agroup__lui__button_html_ga14b1a068a1b7dc7f0cf0c933e9f4e0a2"><div class="ttname"><a href="group__lui__button.html#ga14b1a068a1b7dc7f0cf0c933e9f4e0a2">lui_button_set_checkable</a></div><div class="ttdeci">void lui_button_set_checkable(lui_obj_t *obj, uint8_t is_checkable)</div><div class="ttdoc">Set a button as checkable or not. Checkable buttons can be toggled.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:874</div></div>
+<div class="ttc" id="agroup__lui__button_html_ga7136a562c97ee76a05e8b9bff807ca3f"><div class="ttname"><a href="group__lui__button.html#ga7136a562c97ee76a05e8b9bff807ca3f">lui_button_set_label_color</a></div><div class="ttdeci">void lui_button_set_label_color(lui_obj_t *obj, uint16_t color)</div><div class="ttdoc">Set text color of button's label.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:792</div></div>
+<div class="ttc" id="agroup__lui__button_html_gae98bccfc4970422bb4b88c5348e88458"><div class="ttname"><a href="group__lui__button.html#gae98bccfc4970422bb4b88c5348e88458">lui_button_set_label_text_pressed</a></div><div class="ttdeci">void lui_button_set_label_text_pressed(lui_obj_t *obj, const char *pressed_text)</div><div class="ttdoc">Set text of button's label only for the pressed state.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:763</div></div>
+<div class="ttc" id="agroup__lui__gfx_html_ga3dffc69be3b19eb092238cec82a348b6"><div class="ttname"><a href="group__lui__gfx.html#ga3dffc69be3b19eb092238cec82a348b6">lui_rgb</a></div><div class="ttdeci">uint16_t lui_rgb(uint8_t red, uint8_t green, uint8_t blue)</div><div class="ttdoc">Create 16-bit RGB565 color using R, G, and B values (each 8-bit)</div><div class="ttdef"><b>Definition:</b> lame_ui.c:5063</div></div>
 </div><!-- fragment --><h1><a class="anchor" id="button_example3"></a>
 Example of setting background image</h1>
 <p>Example of setting a background bitmap image for button </p><div class="fragment"><div class="line"><span class="preprocessor">#include &quot;warning_symbol.h&quot;</span> <span class="comment">// include the image bitmap</span></div>
@@ -253,7 +270,7 @@ Example of setting background image</h1>
 <div class="line"><a class="code hl_function" href="group__lui__button.html#gabccf019eae7f1d1d3982e2c1dbc4ca68">lui_button_set_bitmap_images</a>(img_btn, &amp;BITMAP_warning_symbol, NULL);</div>
 <div class="line"><span class="comment">// NOTE: if we need to set a different bitmap for pressed state too, do this:</span></div>
 <div class="line"><span class="comment">// lui_button_set_bitmap_images(img_btn, &amp;BITMAP_idle, &amp;BITMAP_pressed);</span></div>
-<div class="ttc" id="agroup__lui__button_html_gabccf019eae7f1d1d3982e2c1dbc4ca68"><div class="ttname"><a href="group__lui__button.html#gabccf019eae7f1d1d3982e2c1dbc4ca68">lui_button_set_bitmap_images</a></div><div class="ttdeci">void lui_button_set_bitmap_images(lui_obj_t *obj, const lui_bitmap_t *idle_bitmap, const lui_bitmap_t *pressed_bitmap)</div><div class="ttdoc">Set background bitmap image for idle (normal) and pressed states of button.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:827</div></div>
+<div class="ttc" id="agroup__lui__button_html_gabccf019eae7f1d1d3982e2c1dbc4ca68"><div class="ttname"><a href="group__lui__button.html#gabccf019eae7f1d1d3982e2c1dbc4ca68">lui_button_set_bitmap_images</a></div><div class="ttdeci">void lui_button_set_bitmap_images(lui_obj_t *obj, const lui_bitmap_t *idle_bitmap, const lui_bitmap_t *pressed_bitmap)</div><div class="ttdoc">Set background bitmap image for idle (normal) and pressed states of button.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:828</div></div>
 </div><!-- fragment --><h1><a class="anchor" id="button_example4"></a>
 Example of setting 1-bpp mono background image</h1>
 <p>Example of setting a 1-bpp background bitmap image for button. When we set 1-bpp images, we should call another function <code><a class="el" href="group__lui__button.html#gad59a6b10657151301ae1535772fe65d7" title="Set color palette for 1-bpp mono bitmap images. Has no effect if images are not 1-bpp.">lui_button_set_bitmap_images_mono_palette()</a></code> to set rendering colors of bitmaps too.</p>
@@ -281,7 +298,7 @@ Example of setting 1-bpp mono background image</h1>
 <div class="line">};</div>
 <div class="line"><span class="comment">// Now set those palettes</span></div>
 <div class="line"><a class="code hl_function" href="group__lui__button.html#gad59a6b10657151301ae1535772fe65d7">lui_button_set_bitmap_images_mono_palette</a>(img_btn, &amp;idle_palette, &amp;pressed_palette);</div>
-<div class="ttc" id="agroup__lui__button_html_gad59a6b10657151301ae1535772fe65d7"><div class="ttname"><a href="group__lui__button.html#gad59a6b10657151301ae1535772fe65d7">lui_button_set_bitmap_images_mono_palette</a></div><div class="ttdeci">void lui_button_set_bitmap_images_mono_palette(lui_obj_t *obj, lui_bitmap_mono_pal_t *idle_palette, lui_bitmap_mono_pal_t *press_palette)</div><div class="ttdoc">Set color palette for 1-bpp mono bitmap images. Has no effect if images are not 1-bpp.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:838</div></div>
+<div class="ttc" id="agroup__lui__button_html_gad59a6b10657151301ae1535772fe65d7"><div class="ttname"><a href="group__lui__button.html#gad59a6b10657151301ae1535772fe65d7">lui_button_set_bitmap_images_mono_palette</a></div><div class="ttdeci">void lui_button_set_bitmap_images_mono_palette(lui_obj_t *obj, lui_bitmap_mono_pal_t *idle_palette, lui_bitmap_mono_pal_t *press_palette)</div><div class="ttdoc">Set color palette for 1-bpp mono bitmap images. Has no effect if images are not 1-bpp.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:839</div></div>
 <div class="ttc" id="astruct__lui__bitmap__mono__pal__s_html"><div class="ttname"><a href="struct__lui__bitmap__mono__pal__s.html">_lui_bitmap_mono_pal_s</a></div><div class="ttdoc">Color palette for 1-bpp mono bitmap image.</div><div class="ttdef"><b>Definition:</b> lame_ui.h:286</div></div>
 <div class="ttc" id="astruct__lui__bitmap__mono__pal__s_html_a2690cee0e96d04fdd9cd9b2298a8c3f1"><div class="ttname"><a href="struct__lui__bitmap__mono__pal__s.html#a2690cee0e96d04fdd9cd9b2298a8c3f1">_lui_bitmap_mono_pal_s::fore_color</a></div><div class="ttdeci">uint16_t fore_color</div><div class="ttdoc">foreground color of 1-bpp bitmap</div><div class="ttdef"><b>Definition:</b> lame_ui.h:287</div></div>
 </div><!-- fragment --> <h2 class="groupheader">Function Documentation</h2>
@@ -414,7 +431,7 @@ Example of setting 1-bpp mono background image</h1>
 </div><div class="memdoc">
 
 <p>Set background of the button as transparent. </p>
-<p>When background is transparent, button's bitmap or the bg color is not drawn. Rather, the color or bitmap of the parent item is drawn as background to simulate transparency.</p>
+<p>When background is transparent, button's own bg color is not drawn. Rather, the color or bitmap of the parent item is drawn as background to simulate transparency.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">obj_btn</td><td>button object </td></tr>
@@ -458,6 +475,7 @@ Example of setting 1-bpp mono background image</h1>
 </div><div class="memdoc">
 
 <p>Set background bitmap image for idle (normal) and pressed states of button. </p>
+<p>Images are rendered after rendering bg color. If button is set as transparent, then button's bg color is not rendered nut images are rendered.</p>
 <p>NOTE: Only if the image is 1-bpp monochrome, call <code><a class="el" href="group__lui__button.html#gad59a6b10657151301ae1535772fe65d7" title="Set color palette for 1-bpp mono bitmap images. Has no effect if images are not 1-bpp.">lui_button_set_bitmap_images_mono_palette()</a></code> too to set colors of the bitmap. Else, default color will be used to render 1-bpp bitmaps.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -546,6 +564,32 @@ Example of setting 1-bpp mono background image</h1>
   <table class="params">
     <tr><td class="paramname">obj_btn</td><td>button object </td></tr>
     <tr><td class="paramname">is_checkable</td><td>0: NOT checkable, 1: Checkable </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ga8020c26eb6c163d20f2088b3e76f154c" name="ga8020c26eb6c163d20f2088b3e76f154c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8020c26eb6c163d20f2088b3e76f154c">&#9670;&#160;</a></span>lui_button_set_checked()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lui_button_set_checked </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td>
+          <td class="paramname"><em>obj_btn</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set button as checked. Only works for checkable button. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">obj_btn</td><td>button object </td></tr>
   </table>
   </dd>
 </dl>
@@ -904,6 +948,69 @@ Example of setting 1-bpp mono background image</h1>
     <tr><td class="paramname">obj_btn</td><td>button object </td></tr>
     <tr><td class="paramname">idle_text</td><td>label text when button is idle </td></tr>
     <tr><td class="paramname">pressed_text</td><td>label text when button is pressed </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ga561b26cfe4a91f65dfdc632a464c2cf5" name="ga561b26cfe4a91f65dfdc632a464c2cf5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga561b26cfe4a91f65dfdc632a464c2cf5">&#9670;&#160;</a></span>lui_button_set_unchecked()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lui_button_set_unchecked </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td>
+          <td class="paramname"><em>obj_btn</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set button as unchecked. Only works for checkable button. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">obj_btn</td><td>button object </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ga5a0b6e9b546d91117f07cd5e4e91941d" name="ga5a0b6e9b546d91117f07cd5e4e91941d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5a0b6e9b546d91117f07cd5e4e91941d">&#9670;&#160;</a></span>lui_button_set_value()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lui_button_set_value </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td>
+          <td class="paramname"><em>obj_btn</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set check value of button. Works only if button is set as checkable. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">obj_btn</td><td>button object </td></tr>
+    <tr><td class="paramname">value</td><td>0: Not checked, 1: Checked </td></tr>
   </table>
   </dd>
 </dl>

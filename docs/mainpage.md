@@ -18,6 +18,9 @@ Probably no one. Unless you need a very simple and very lightweight UI library.
 I, alone.
 
 ## Screenshots
+
+<div style="display:flex; justify-content:center; align-items: center;"><img width="420px" height="296px" src="../../demo_screenshots/LameUI2_music_player_demo.gif" /></div>
+
 <div style="display:flex; justify-content:center; align-items: center;"><img width="80%" height="80%" src="../../LameUI_demo1_combined.png" /></div>
 
 ## UI Widgets

@@ -27,6 +27,12 @@ This is a demo of LameUI running on a simulator I made with OpenGL so I can test
 
 simulator: https://github.com/abhra0897/LameUI_simulation
 
+Music Player demo using LameUI v2.0:
+
+![Screen shots](./docs/demo_screenshots/LameUI2_music_player_demo.gif)
+
+All widgets (LameUI v1.0):
+
 ![Screen shots](./docs/LameUI_demo1_combined.png)
 
 ## UI Widgets
