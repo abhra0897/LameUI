@@ -651,18 +651,13 @@ typedef struct _lui_touch_input_data_s
  * @ingroup PublicTypedefs
  * @brief display driver object.
  * 
- * The `draw_pixels_area_cb` callback function to draw pixels must be implemented 
- * by user. `render_complete_cb` callback is optional.
- * 
  * @{
  */
 typedef struct _lui_disp_drv_s
 {
-	void (*draw_pixels_area_cb)(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color);	///< callback function to draw pixels
-	void (*render_complete_cb)();	///< (optional) This callback function is called by lameUI when rendering is finished.
-	void (*draw_pixels_buff_cb)(uint16_t* disp_buff, lui_area_t* area);
-	uint16_t* disp_buff;
-	uint16_t disp_buff_sz_px;
+	void (*draw_pixels_buff_cb)(uint16_t* disp_buff, lui_area_t* area);	///< draw pixels buffer callback function.
+	uint16_t* disp_buff;			///< display buffer. It is a n array of uint16_t type.
+	uint16_t disp_buff_sz_px;		///< size of display buffer in pixel count (NOT in bytes)
 	uint16_t display_hor_res;		///< display horizontal resolution (along x axis)
 	uint16_t display_vert_res;		///< display vertical resolution (along y axis)
 } lui_dispdrv_t;
@@ -727,11 +722,14 @@ typedef struct _lui_main_s
  * @brief Initialize the LameUI core. Here user provides LameUI some RAM to
  * create widgets. If and when RAM is not sufficient, widget creation will fail.
  * 
+ * NOTE: This memory does NOT include display buffer memory. Display buffer is 
+ * set seperately using `lui_dispdrv_set_disp_buff()`.
+ * 
  * If init fails due to memory allocation problem, returns -1, else returns 0.
  *
  * @param mem_block an array of uint8_t. this will be used as work area
  * @param size size of the alloted memory
- * @return 0: Success, -1: Fail
+ * @return 0: Success, -1: Failure
  */
 int8_t lui_init(uint8_t mem_block[], uint16_t size);
 
@@ -3000,13 +2998,22 @@ void lui_scene_set_bitmap_image_mono_palette(lui_obj_t* obj_scene, lui_bitmap_mo
  * #include <TFT_eSPI.h> // Graphics and font library for ILI9341 driver chip
  * #include <SPI.h>
  * // ... [ Include LameUI library and other required headers too] ...
- *
+ * 
+ * #define HOR_RES	240
+ * #define VER_RES	320
+ * 
+ * #define DISP_BUFF_PX	(HOR_RES * 10)	// display buffer pixels count
+ * #define LAMEUI_MEM_BYTES	4000		// LameUI working memory size in bytes
+ * 
+ * uint16_t disp_buffer[DISP_BUFF_PX];
+ * uint8_t lui_memory[LAMEUI_MEM_BYTES];
+ * 
  * TFT_eSPI tft = TFT_eSPI();  // Invoke library
- * uint8_t lui_memory[4000];
  *
- * void draw_pixels_area_cb(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color)
+ * void draw_pixels_buff_cb(uint16_t* disp_buff, lui_area_t* area)
  * {
- *     tft.fillRect(x, y, w, h, color);
+ *     tft.setAddrWindow(area->x, area->y, area->w, area->h);
+ *     tft.pushPixels(disp_buff, (area->w * area->h));
  * }
  * void read_touch_input_cb(lui_touch_input_data_t* inputdata)
  * {
@@ -3039,9 +3046,9 @@ void lui_scene_set_bitmap_image_mono_palette(lui_obj_t* obj_scene, lui_bitmap_mo
  *     // Create a display driver object
  *     lui_dispdrv_t* display_driver = lui_dispdrv_create();
  *     lui_dispdrv_register(display_driver);
- *     lui_dispdrv_set_resolution(display_driver, 240, 320);
- *     lui_dispdrv_set_draw_pixels_area_cb(display_driver, draw_pixels_area_cb);
- *     lui_dispdrv_set_render_complete_cb(display_driver, NULL);
+ *     lui_dispdrv_set_resolution(display_driver, HOR_RES, VER_RES);
+ *     lui_dispdrv_set_disp_buff(display_driver, disp_buffer, DISP_BUFF_PX);
+ *     lui_dispdrv_set_draw_disp_buff_cb(display_driver, draw_pixels_buff_cb);
  *
  *     // Create touch input device
  *     lui_touch_input_dev_t* input_device = lui_touch_inputdev_create();
@@ -3088,14 +3095,28 @@ void lui_dispdrv_register(lui_dispdrv_t* dispdrv);
 void lui_dispdrv_set_resolution(lui_dispdrv_t* dispdrv, uint16_t hor_res, uint16_t vert_res);
 
 /**
- * @brief Set callback function for drawing an area of pixels with a color
- *
+ * @brief Set the display buffer. This buffer is provided by user and filled 
+ * with colors by library. Then user passes this buffer to the display.
+ * 
+ * Display buffer is an array of uint16_t. Array size must be multiple of 
+ * horizontal resolution of display. If display's horizontal res is 320px, 
+ * minimum buffer size should be 320. It's recommended to use at least 10 times 
+ * horizontal resolution as the buffer size.
+ * 
  * @param dispdrv display driver object
- * @param draw_pixels_area_cb callback function pointer
+ * @param disp_buff display buffer of type uint16_t
+ * @param size_in_px buffer size (in pixel count)
+ * 
+ * @return int8_t -1: Failure, 0: Success
  */
-void lui_dispdrv_set_draw_pixels_area_cb(lui_dispdrv_t* dispdrv, void (*draw_pixels_area_cb)(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color));
+int8_t lui_dispdrv_set_disp_buff(lui_dispdrv_t* dispdrv, uint16_t* disp_buff, uint16_t size_in_px);
 
-void lui_dispdrv_set_disp_buff(lui_dispdrv_t* dispdrv, uint16_t* disp_buff, uint16_t size_in_px);
+/**
+ * @brief Set callback function for drawing an area of pixels with a display buffer.
+ * 
+ * @param dispdrv display driver object
+ * @param draw_pixels_buff_cb callback function pointer
+ */
 void lui_dispdrv_set_draw_disp_buff_cb(lui_dispdrv_t* dispdrv, void (*draw_pixels_buff_cb)(uint16_t* disp_buff, lui_area_t* area));
 
 /**

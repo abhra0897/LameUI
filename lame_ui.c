@@ -81,10 +81,6 @@ void lui_update()
 	if (g_lui_needs_render)
 	{
 		_lui_object_render_parent_with_children( g_lui_main->active_scene);
-		// If user is buffering the draw_pixels_area calls instead of instantly flushing to display, 
-		// this callback signals that render is finished and buffer should be flushed to display now
-		if ( g_lui_main->disp_drv->render_complete_cb != NULL)
-			g_lui_main->disp_drv->render_complete_cb();
 	}
 
 	//All rendering done, now we'll handle the callback
@@ -839,6 +835,10 @@ void lui_button_set_bitmap_images(lui_obj_t* obj, const lui_bitmap_t* idle_bitma
 		return;
 
 	lui_button_t* btn = (lui_button_t* )(obj->obj_main_data);
+	if (idle_bitmap && pressed_bitmap)
+		btn->style.is_transparent_bg = 1;
+	else
+		btn->style.is_transparent_bg = 0;
 	btn->img_idle = idle_bitmap;
 	btn->img_pressed = pressed_bitmap;
 	_lui_object_set_need_refresh(obj);
@@ -4757,9 +4757,9 @@ lui_dispdrv_t* lui_dispdrv_create()
 	if (initial_disp_drv == NULL)
 		return NULL;
 
-	initial_disp_drv->draw_pixels_area_cb = NULL;
 	initial_disp_drv->draw_pixels_buff_cb = NULL;
-	initial_disp_drv->render_complete_cb = NULL;
+	initial_disp_drv->disp_buff = NULL;
+	initial_disp_drv->disp_buff_sz_px = 0;
 	initial_disp_drv->display_hor_res = 320;		//horizontal 320px default
 	initial_disp_drv->display_vert_res = 240;	//vertical 240px default
 
@@ -4781,13 +4781,6 @@ void lui_dispdrv_set_resolution(lui_dispdrv_t* dispdrv, uint16_t hor_res, uint16
 	dispdrv->display_vert_res = vert_res;
 }
 
-void lui_dispdrv_set_draw_pixels_area_cb(lui_dispdrv_t* dispdrv, void (*draw_pixels_area_cb)(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color))
-{
-	if (dispdrv == NULL)
-		return;
-	dispdrv->draw_pixels_area_cb = draw_pixels_area_cb;
-}
-
 void lui_dispdrv_set_draw_disp_buff_cb(lui_dispdrv_t* dispdrv, void (*draw_pixels_buff_cb)(uint16_t* disp_buff, lui_area_t* area))
 {
 	if (dispdrv == NULL)
@@ -4795,19 +4788,15 @@ void lui_dispdrv_set_draw_disp_buff_cb(lui_dispdrv_t* dispdrv, void (*draw_pixel
 	dispdrv->draw_pixels_buff_cb = draw_pixels_buff_cb;
 }
 
-void lui_dispdrv_set_disp_buff(lui_dispdrv_t* dispdrv, uint16_t* disp_buff, uint16_t size_in_px)
+int8_t lui_dispdrv_set_disp_buff(lui_dispdrv_t* dispdrv, uint16_t* disp_buff, uint16_t size_in_px)
 {
 	if (dispdrv == NULL)
-		return;
+		return -1;
+	if (disp_buff == NULL)
+		return -1;
 	dispdrv->disp_buff = disp_buff;
 	dispdrv->disp_buff_sz_px = size_in_px;
-}
-
-void lui_dispdrv_set_render_complete_cb(lui_dispdrv_t* dispdrv, void (*render_complete_cb)())
-{
-	if (dispdrv == NULL)
-		return;
-	dispdrv->render_complete_cb = render_complete_cb;
+	return 0;
 }
 
 /*-------------------------------------------------------------------------------
@@ -5014,10 +5003,6 @@ void lui_gfx_draw_rect(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint8_t l
  */
 void lui_gfx_draw_rect_fill(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color)
 {
-	/* Old method */
-	g_lui_main->disp_drv->draw_pixels_area_cb(x, y, w, h, color);
-	return;
-	/* New: */
 	uint16_t buff_index = 0;
 	uint16_t buff_h = 0;
 	uint16_t px_cnt = 0;
@@ -5028,7 +5013,6 @@ void lui_gfx_draw_rect_fill(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint
 		{
 			g_lui_main->disp_drv->disp_buff[buff_index++] = color;
 		}
-		// fprintf(stderr, "[x: %d] [y: %d]-----------\n", x, tmp_y);
 		++buff_h;
 		px_cnt += w;
 		if (px_cnt + w >= g_lui_main->disp_drv->disp_buff_sz_px)
@@ -5039,23 +5023,20 @@ void lui_gfx_draw_rect_fill(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint
 				.w = w,
 				.h = buff_h,
 			};
-			// fprintf(stderr, "flushing..\n");
 			g_lui_main->disp_drv->draw_pixels_buff_cb(g_lui_main->disp_drv->disp_buff, &area);
 			buff_h = 0;
 			px_cnt = 0;
 			buff_index = 0;
 		}
 	}
-	--tmp_y;
 	if (px_cnt)
 	{
 		lui_area_t area = {
 			.x = x,
-			.y = (tmp_y + 1) - buff_h,
+			.y = tmp_y - buff_h,
 			.w = w,
 			.h = buff_h,
 		};
-		// fprintf(stderr, "flushing last..\n");
 		g_lui_main->disp_drv->draw_pixels_buff_cb(g_lui_main->disp_drv->disp_buff, &area);
 	}
 }
@@ -5334,16 +5315,14 @@ void lui_gfx_bitmap_draw(const lui_bitmap_t* bitmap, lui_bitmap_mono_pal_t* pale
 		/* Below section is only for 8-bpp, 16-bpp, and non-transparent 1-bpp */
 		if (!mono_transparent)
 		{
-			// fprintf(stderr, "[x: %d] [y: %d]-----------\n", x, tmp_y);
 			++buff_h;
 			px_cnt += width;
-			if (px_cnt + width >= g_lui_main->disp_drv->disp_buff_sz_px)
+			if (px_cnt + width > g_lui_main->disp_drv->disp_buff_sz_px)
 			{
 				disp_area.x = x;
-				disp_area.y = tmp_y - buff_h + 1;
+				disp_area.y = tmp_y - buff_h;
 				disp_area.w = width;
 				disp_area.h = buff_h;
-				// fprintf(stderr, "flushing..\n");
 				g_lui_main->disp_drv->draw_pixels_buff_cb(g_lui_main->disp_drv->disp_buff, &disp_area);
 				buff_h = 0;
 				px_cnt = 0;
@@ -5355,10 +5334,9 @@ void lui_gfx_bitmap_draw(const lui_bitmap_t* bitmap, lui_bitmap_mono_pal_t* pale
 	if (px_cnt)
 	{
 		disp_area.x = x;
-		disp_area.y = tmp_y - buff_h + 1;
+		disp_area.y = tmp_y - buff_h;
 		disp_area.w = width;
 		disp_area.h = buff_h;
-		// fprintf(stderr, "flushing..\n");
 		g_lui_main->disp_drv->draw_pixels_buff_cb(g_lui_main->disp_drv->disp_buff, &disp_area);
 	}
 }
@@ -5582,8 +5560,9 @@ uint8_t _lui_disp_drv_check()
 	// if no display driver is registered, return
 	if ( g_lui_main->disp_drv == NULL)
 		return 0;
-	// If no callback function (for drawing) is provided by user, return
-	else if ( g_lui_main->disp_drv->draw_pixels_buff_cb == NULL)
+	
+	// If no buffer or no callback function (for drawing) is provided by user, return
+	else if (g_lui_main->disp_drv->draw_pixels_buff_cb == NULL || g_lui_main->disp_drv->disp_buff == NULL)
 		return 0;
 	else
 		return 1;
