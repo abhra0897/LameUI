@@ -290,6 +290,12 @@ void lui_linechart_draw(lui_obj_t* obj)
 	uint16_t height = obj->common_style.height;
 	uint16_t line_color = chart->style.line_color;
 	uint16_t data_points = chart->data.points;
+	lui_area_t disp_area = {
+		.x = 0,
+		.y = 0,
+		.w = 1,
+		.h = 1,
+	};
 
 	double mapped_data[g_lui_main->disp_drv->display_hor_res * 2];
 
@@ -385,7 +391,9 @@ void lui_linechart_draw(lui_obj_t* obj)
 		if (i == data_points - 1)
 		{
 			// Don't draw line here, just draw the point
-			 g_lui_main->disp_drv->draw_pixels_area_cb(current_x, current_y, 1, 1, line_color);
+			disp_area.x = current_x;
+			disp_area.y = current_y;
+			g_lui_main->disp_drv->draw_pixels_buff_cb(&line_color, &disp_area);
 		}
 
 		// We have next points after thispoint
@@ -3406,7 +3414,7 @@ void lui_panel_draw(lui_obj_t* obj)
 	else
 	{
 		/* Else, just draw background color */
-		g_lui_main->disp_drv->draw_pixels_area_cb(obj->x, obj->y, obj->common_style.width,  obj->common_style.height, obj->common_style.bg_color);
+		lui_gfx_draw_rect_fill(obj->x, obj->y, obj->common_style.width,  obj->common_style.height, obj->common_style.bg_color);
 	}
 
 	/* Draw optional border */
@@ -4750,6 +4758,7 @@ lui_dispdrv_t* lui_dispdrv_create()
 		return NULL;
 
 	initial_disp_drv->draw_pixels_area_cb = NULL;
+	initial_disp_drv->draw_pixels_buff_cb = NULL;
 	initial_disp_drv->render_complete_cb = NULL;
 	initial_disp_drv->display_hor_res = 320;		//horizontal 320px default
 	initial_disp_drv->display_vert_res = 240;	//vertical 240px default
@@ -4777,6 +4786,21 @@ void lui_dispdrv_set_draw_pixels_area_cb(lui_dispdrv_t* dispdrv, void (*draw_pix
 	if (dispdrv == NULL)
 		return;
 	dispdrv->draw_pixels_area_cb = draw_pixels_area_cb;
+}
+
+void lui_dispdrv_set_draw_disp_buff_cb(lui_dispdrv_t* dispdrv, void (*draw_pixels_buff_cb)(uint16_t* disp_buff, lui_area_t* area))
+{
+	if (dispdrv == NULL)
+		return;
+	dispdrv->draw_pixels_buff_cb = draw_pixels_buff_cb;
+}
+
+void lui_dispdrv_set_disp_buff(lui_dispdrv_t* dispdrv, uint16_t* disp_buff, uint16_t size_in_px)
+{
+	if (dispdrv == NULL)
+		return;
+	dispdrv->disp_buff = disp_buff;
+	dispdrv->disp_buff_sz_px = size_in_px;
 }
 
 void lui_dispdrv_set_render_complete_cb(lui_dispdrv_t* dispdrv, void (*render_complete_cb)())
@@ -4942,14 +4966,14 @@ void lui_gfx_draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8
 	* Brehensen's algorithm is used.
 	* Not necessarily start points has to be less than end points.
 	*/
-
+	
 	if (x0 == x1)	//vertical line
 	{
-		 g_lui_main->disp_drv->draw_pixels_area_cb(x0, (y0 < y1 ? y0 : y1), (uint16_t)line_width, (uint16_t)abs(y1 - y0 + 1), color);
+		lui_gfx_draw_rect_fill(x0, (y0 < y1 ? y0 : y1), (uint16_t)line_width, (uint16_t)abs(y1 - y0 + 1), color);
 	}
 	else if (y0 == y1)		//horizontal line
 	{
-		 g_lui_main->disp_drv->draw_pixels_area_cb((x0 < x1 ? x0 : x1), y0, (uint16_t)abs(x1 - x0 + 1), (uint16_t)line_width, color);
+		lui_gfx_draw_rect_fill((x0 < x1 ? x0 : x1), y0, (uint16_t)abs(x1 - x0 + 1), (uint16_t)line_width, color);
 	}
 	else
 	{
@@ -4990,7 +5014,50 @@ void lui_gfx_draw_rect(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint8_t l
  */
 void lui_gfx_draw_rect_fill(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color)
 {
-	 g_lui_main->disp_drv->draw_pixels_area_cb(x, y, w, h, color);
+	/* Old method */
+	g_lui_main->disp_drv->draw_pixels_area_cb(x, y, w, h, color);
+	return;
+	/* New: */
+	uint16_t buff_index = 0;
+	uint16_t buff_h = 0;
+	uint16_t px_cnt = 0;
+	uint16_t tmp_x = 0, tmp_y = 0;
+	for (tmp_y = y; tmp_y < y + h; ++tmp_y)
+	{
+		for (tmp_x = x; tmp_x < x + w; ++tmp_x)
+		{
+			g_lui_main->disp_drv->disp_buff[buff_index++] = color;
+		}
+		// fprintf(stderr, "[x: %d] [y: %d]-----------\n", x, tmp_y);
+		++buff_h;
+		px_cnt += w;
+		if (px_cnt + w >= g_lui_main->disp_drv->disp_buff_sz_px)
+		{
+			lui_area_t area = {
+				.x = x,
+				.y = (tmp_y + 1) - buff_h,
+				.w = w,
+				.h = buff_h,
+			};
+			// fprintf(stderr, "flushing..\n");
+			g_lui_main->disp_drv->draw_pixels_buff_cb(g_lui_main->disp_drv->disp_buff, &area);
+			buff_h = 0;
+			px_cnt = 0;
+			buff_index = 0;
+		}
+	}
+	--tmp_y;
+	if (px_cnt)
+	{
+		lui_area_t area = {
+			.x = x,
+			.y = (tmp_y + 1) - buff_h,
+			.w = w,
+			.h = buff_h,
+		};
+		// fprintf(stderr, "flushing last..\n");
+		g_lui_main->disp_drv->draw_pixels_buff_cb(g_lui_main->disp_drv->disp_buff, &area);
+	}
 }
 
 uint16_t lui_gfx_get_font_height(const lui_font_t* font)
@@ -5105,6 +5172,12 @@ void _lui_gfx_render_char_glyph(uint16_t x, uint16_t y, uint16_t fore_color, uin
 
 	uint16_t width = 0;
 	uint16_t index_offset = 0;
+	lui_area_t disp_area = {
+		.x = 0,
+		.y = 0,
+		.w = 1,
+		.h = 1,
+	};
 
 	if (glyph == NULL)
 		width = font->bitmap->size_y / 2;
@@ -5129,6 +5202,8 @@ void _lui_gfx_render_char_glyph(uint16_t x, uint16_t y, uint16_t fore_color, uin
                 bit_counter = 0;
             }
             uint8_t bit = mask & (font->bitmap->payload[index_offset] << bit_counter);
+			disp_area.x = temp_x;
+			disp_area.y = temp_y;
 			/**
 			 * Nasty hack. Since width of space is calculated from height, 
 			 * we can't render space from bitmap buffer. Hence, we just skip
@@ -5136,12 +5211,12 @@ void _lui_gfx_render_char_glyph(uint16_t x, uint16_t y, uint16_t fore_color, uin
 			 */
             if (bit && glyph->character != ' ')	
             {
-                g_lui_main->disp_drv->draw_pixels_area_cb(temp_x, temp_y, 1, 1, fore_color);
+				g_lui_main->disp_drv->draw_pixels_buff_cb(&fore_color, &disp_area);
             }
             else
             {
                 if (is_bg)
-                    g_lui_main->disp_drv->draw_pixels_area_cb(temp_x, temp_y, 1, 1, bg_color);
+                    g_lui_main->disp_drv->draw_pixels_buff_cb(&bg_color, &disp_area);
             }
             ++bit_counter;
             ++temp_y;
@@ -5152,7 +5227,6 @@ void _lui_gfx_render_char_glyph(uint16_t x, uint16_t y, uint16_t fore_color, uin
     }
 }
 
-
 void lui_gfx_bitmap_draw(const lui_bitmap_t* bitmap, lui_bitmap_mono_pal_t* palette, uint16_t x, uint16_t y, lui_area_t* crop_area)
 {
 	if (bitmap == NULL)
@@ -5161,8 +5235,8 @@ void lui_gfx_bitmap_draw(const lui_bitmap_t* bitmap, lui_bitmap_mono_pal_t* pale
 		return;
 		
 	uint16_t color = 0;
-	uint16_t temp_x = x;
-	uint16_t temp_y = y;
+	uint16_t tmp_x = x;
+	uint16_t tmp_y = y;
 	uint8_t mask = 0x80;
     uint8_t bit_counter = 0;
 	uint32_t byte_offset = 0;
@@ -5181,25 +5255,33 @@ void lui_gfx_bitmap_draw(const lui_bitmap_t* bitmap, lui_bitmap_mono_pal_t* pale
 
 		width = crop_area->w;
 		height = crop_area->h;
-		uint32_t px_offset = bitmap->size_y * crop_area->x + crop_area->y; // Initial pixel offsets for cropping
+		uint32_t px_offset = bitmap->size_x * crop_area->y + crop_area->x; // Initial pixel offsets for cropping
 		byte_offset = px_offset * (bitmap->bpp / 8);	// Initial bytes offset
-		uint32_t px_skip = bitmap->size_y - crop_area->h;	// pixels to skip for cropping, in a loop
+		uint32_t px_skip = bitmap->size_x - crop_area->w;	// pixels to skip for cropping, in a loop
 		stride = px_skip * (bitmap->bpp / 8);	// Bytes to skip, in a loop
 	}
-	/* FOr 1-bpp, we must go to next byte when 1 column is finished. */
+	/* For 1-bpp, we must go to next byte when 1 column is finished. */
 	else if (bitmap->bpp == 1)
 	{
 		stride = 1;	
 	}
 
-	uint8_t skip_px = 0;	// flag to skip a bg pixel for 1-bpp mono image
+	lui_area_t disp_area = {
+		.x = 0,
+		.y = 0,
+		.w = 1,
+		.h = 1,
+	};
+	uint16_t buff_index = 0;
+	uint16_t buff_h = 0;
+	uint16_t px_cnt = 0;
 	uint16_t mono_fcol = palette ? palette->fore_color : 0xFFFF;
 	uint16_t mono_bcol = palette ? palette->back_color : 0;
-	uint16_t mono_is_bg = palette ? palette->is_backgrnd : 1;
-	for (uint16_t w = 0; w < width; w++)
+	uint16_t mono_transparent = bitmap->bpp == 1 ? (palette ? palette->is_backgrnd : 0) : 0;
+	for (uint16_t h = 0; h < height; h++)
 	{
 		bit_counter = 0;
-		for (uint16_t h = 0; h < height; h++)
+		for (uint16_t w = 0; w < width; w++)
 		{
 			
 			if (bitmap->bpp == 1)
@@ -5212,10 +5294,6 @@ void lui_gfx_bitmap_draw(const lui_bitmap_t* bitmap, lui_bitmap_mono_pal_t* pale
 				uint8_t bit = mask & (bitmap->payload[byte_offset] << bit_counter);
 				color = bit ? mono_fcol : mono_bcol;
 				++bit_counter;
-				if (!bit && !mono_is_bg)
-					skip_px = 1;
-				else
-					skip_px = 0;
 			}
 			else if (bitmap->bpp == 8)
 			{
@@ -5232,15 +5310,56 @@ void lui_gfx_bitmap_draw(const lui_bitmap_t* bitmap, lui_bitmap_mono_pal_t* pale
 				/* 32bpp not supported yet. Only 16-bit colors are supported now */
 				// offset += 3;
 			}
-	
-			if (!skip_px) // Skip rendering this pixel for 1-bpp image if set by flag
-				g_lui_main->disp_drv->draw_pixels_area_cb(temp_x, temp_y, 1, 1, color);
-
-            ++temp_y;
+			
+			/* If image is mono and it has no bg, we won't buffer it. We'll draw it px by px */
+			if (mono_transparent)
+			{	
+				if (color == mono_fcol)
+				{
+					disp_area.x = tmp_x;
+					disp_area.y = tmp_y;
+					g_lui_main->disp_drv->draw_pixels_buff_cb(&color, &disp_area);
+				}
+			}
+			else
+			{
+				g_lui_main->disp_drv->disp_buff[buff_index++] = color;
+			}
+            ++tmp_x;
 		}
 		byte_offset += stride;	// Skip bytes in case of cropping
-		++temp_x;
-        temp_y = y;
+        tmp_x = x;
+		++tmp_y;
+		
+		/* Below section is only for 8-bpp, 16-bpp, and non-transparent 1-bpp */
+		if (!mono_transparent)
+		{
+			// fprintf(stderr, "[x: %d] [y: %d]-----------\n", x, tmp_y);
+			++buff_h;
+			px_cnt += width;
+			if (px_cnt + width >= g_lui_main->disp_drv->disp_buff_sz_px)
+			{
+				disp_area.x = x;
+				disp_area.y = tmp_y - buff_h + 1;
+				disp_area.w = width;
+				disp_area.h = buff_h;
+				// fprintf(stderr, "flushing..\n");
+				g_lui_main->disp_drv->draw_pixels_buff_cb(g_lui_main->disp_drv->disp_buff, &disp_area);
+				buff_h = 0;
+				px_cnt = 0;
+				buff_index = 0;
+			}
+		}
+	}
+
+	if (px_cnt)
+	{
+		disp_area.x = x;
+		disp_area.y = tmp_y - buff_h + 1;
+		disp_area.w = width;
+		disp_area.h = buff_h;
+		// fprintf(stderr, "flushing..\n");
+		g_lui_main->disp_drv->draw_pixels_buff_cb(g_lui_main->disp_drv->disp_buff, &disp_area);
 	}
 }
 
@@ -5262,10 +5381,17 @@ void _lui_gfx_plot_line_low(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, 
 	int16_t D = 2*dy - dx;
 	uint16_t y = y0;
 	uint16_t x = x0;
-
+	lui_area_t disp_area = {
+		.x = 0,
+		.y = 0,
+		.w = line_width,
+		.h = line_width,
+	};
 	while (x <= x1)
 	{
-		 g_lui_main->disp_drv->draw_pixels_area_cb(x, y, line_width, line_width, color);
+		disp_area.x = x;
+		disp_area.y = y;
+		g_lui_main->disp_drv->draw_pixels_buff_cb(&color, &disp_area);
 
 		if (D > 0)
 		{
@@ -5295,10 +5421,17 @@ void _lui_gfx_plot_line_high(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1,
 	int16_t D = 2*dx - dy;
 	uint16_t y = y0;
 	uint16_t x = x0;
-
+	lui_area_t disp_area = {
+		.x = 0,
+		.y = 0,
+		.w = line_width,
+		.h = line_width,
+	};
 	while (y <= y1)
 	{
-		 g_lui_main->disp_drv->draw_pixels_area_cb(x, y, line_width, line_width, color);
+		disp_area.x = x;
+		disp_area.y = y;
+		g_lui_main->disp_drv->draw_pixels_buff_cb(&color, &disp_area);
 
 		if (D > 0)
 		{
@@ -5450,7 +5583,7 @@ uint8_t _lui_disp_drv_check()
 	if ( g_lui_main->disp_drv == NULL)
 		return 0;
 	// If no callback function (for drawing) is provided by user, return
-	else if ( g_lui_main->disp_drv->draw_pixels_area_cb == NULL)
+	else if ( g_lui_main->disp_drv->draw_pixels_buff_cb == NULL)
 		return 0;
 	else
 		return 1;

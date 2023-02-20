@@ -660,6 +660,9 @@ typedef struct _lui_disp_drv_s
 {
 	void (*draw_pixels_area_cb)(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color);	///< callback function to draw pixels
 	void (*render_complete_cb)();	///< (optional) This callback function is called by lameUI when rendering is finished.
+	void (*draw_pixels_buff_cb)(uint16_t* disp_buff, lui_area_t* area);
+	uint16_t* disp_buff;
+	uint16_t disp_buff_sz_px;
 	uint16_t display_hor_res;		///< display horizontal resolution (along x axis)
 	uint16_t display_vert_res;		///< display vertical resolution (along y axis)
 } lui_dispdrv_t;
@@ -3091,6 +3094,9 @@ void lui_dispdrv_set_resolution(lui_dispdrv_t* dispdrv, uint16_t hor_res, uint16
  * @param draw_pixels_area_cb callback function pointer
  */
 void lui_dispdrv_set_draw_pixels_area_cb(lui_dispdrv_t* dispdrv, void (*draw_pixels_area_cb)(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color));
+
+void lui_dispdrv_set_disp_buff(lui_dispdrv_t* dispdrv, uint16_t* disp_buff, uint16_t size_in_px);
+void lui_dispdrv_set_draw_disp_buff_cb(lui_dispdrv_t* dispdrv, void (*draw_pixels_buff_cb)(uint16_t* disp_buff, lui_area_t* area));
 
 /**
  * @brief Set callback function for handling render complete signal. This is optional.
