@@ -112,7 +112,7 @@ $(document).ready(function(){initNavTree('font_maker_instr_page.html',''); initR
   <div class="headertitle"><div class="title">LameUI Font Maker </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="md_docs_font_making_instructions"></a> <a href="https://github.com/abhra0897/LameUI_font_maker/tree/lameui_1.0">The <b>LameUI_font_maker</b> repository</a> is for creating fonts to use with LameUI GUI library. It consists of two tools:</p>
+<div class="textblock"><p><a class="anchor" id="md_docs_font_making_instructions"></a> <a href="https://github.com/abhra0897/LameUI_font_maker/tree/lameui_1.0">The <b>LameUI_font_maker</b> repository</a> is for creating fonts to use with <a href="https://github.com/abhra0897/LameUI/tree/v1.0">LameUI GUI library v1.0</a>. It consists of two tools:</p>
 <ol type="1">
 <li><b>font2image:</b> This is a GUI tool written in C++. This is a modified version of <a href="https://github.com/andryblack/fontbuilder">https://github.com/andryblack/fontbuilder</a>. font2image creates a <code>.png</code> image containing all the characters and a <code>.json</code> description file. These files are processed by <code>lameui_fontgen.py</code> in the next step.</li>
 <li><b>lameui_fontgen.py:</b> This is a CLI tool written in Python. lameui_fontgen.py takes <code>.png</code> and <code>.json</code> files created by <code>font2image</code> as input and process them to create <code>.c</code>. and <code>.h</code> font files for LameUI.</li>
