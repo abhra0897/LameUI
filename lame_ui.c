@@ -6,7 +6,7 @@
  * @author Avra Mitra
  * @brief Source FIle of LameUI GUI library. Must include lame_ui.h. No other file is mandatory.
  * @version 2.0
- * @date 2023-02-11
+ * @date 2023-03-06
  * 
  * @copyright Copyright (c) 2020-2023
  * 
@@ -863,7 +863,7 @@ void lui_button_set_value(lui_obj_t* obj, uint8_t value)
 	if (_lui_verify_obj(obj, LUI_OBJ_BUTTON) < 0)
 		return;
 	lui_button_t* btn = (lui_button_t* )(obj->obj_main_data);
-	if (!btn->is_checkable)
+	if (obj->value == value || !btn->is_checkable)
 		return;
 	obj->value = value ? 1 : 0;
 	_lui_object_set_need_refresh(obj);
@@ -1745,9 +1745,9 @@ void lui_switch_set_value(lui_obj_t* obj, uint8_t value)
 	if (_lui_verify_obj(obj, LUI_OBJ_SWITCH) < 0)
 		return;
 	
-	if (value > 1)
-		value = 1;
-	obj->value = value;
+	if (obj->value == value)
+		return;
+	obj->value = value ? 1 : 0;
 	_lui_object_set_need_refresh(obj);
 }
 
@@ -1930,9 +1930,9 @@ void lui_checkbox_set_value(lui_obj_t* obj, uint8_t value)
 	if (_lui_verify_obj(obj, LUI_OBJ_CHECKBOX) < 0)
 		return;
 	
-	if (value > 1)
-		value = 1;
-	obj->value = value;
+	if (obj->value == value)
+		return;
+	obj->value = value ? 1 : 0;
 	_lui_object_set_need_refresh(obj);
 }
 
@@ -5258,7 +5258,7 @@ void lui_gfx_bitmap_draw(const lui_bitmap_t* bitmap, lui_bitmap_mono_pal_t* pale
 	uint16_t px_cnt = 0;
 	uint16_t mono_fcol = palette ? palette->fore_color : 0xFFFF;
 	uint16_t mono_bcol = palette ? palette->back_color : 0;
-	uint16_t mono_transparent = bitmap->bpp == 1 ? (palette ? palette->is_backgrnd : 0) : 0;
+	uint16_t mono_transparent = bitmap->bpp == 1 ? (palette ? !palette->is_backgrnd : 0) : 0; // code fart
 	for (uint16_t h = 0; h < height; h++)
 	{
 		bit_counter = 0;
