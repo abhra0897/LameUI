@@ -1,6 +1,6 @@
 # LameUI Font Maker {#font_maker_instr_page}
 
-[The **LameUI_font_maker** repository](https://github.com/abhra0897/LameUI_font_maker) is for creating fonts to use with LameUI GUI library. It consists of two tools:
+[The **LameUI_font_maker** repository](https://github.com/abhra0897/LameUI_font_maker/tree/lameui_1.0) is for creating fonts to use with LameUI GUI library. It consists of two tools:
 
 1. **font2image:** This is a GUI tool written in C++. This is a modified version of https://github.com/andryblack/fontbuilder. font2image creates a `.png` image containing all the characters and a `.json` description file. These files are processed by `lameui_fontgen.py` in the next step.
 2. **lameui_fontgen.py:** This is a CLI tool written in Python. lameui_fontgen.py takes `.png` and `.json` files created by `font2image` as input and process them to create `.c`. and `.h` font files for LameUI.

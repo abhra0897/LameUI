@@ -1,6 +1,6 @@
 var group__lui__linechart =
 [
-    [ "lui_linechart_create", "group__lui__linechart.html#ga5facac71c6d8909ae573b7c518ebb386", null ],
+    [ "lui_linechart_create", "group__lui__linechart.html#ga045237cfd3aa47b7075a77cbf0facb84", null ],
     [ "lui_linechart_draw", "group__lui__linechart.html#ga3169eb03a77d57752ba70b71c28592fc", null ],
     [ "lui_linechart_set_data_auto_scale", "group__lui__linechart.html#ga043fb5fc50cb96fb3ea3bb14110328bf", null ],
     [ "lui_linechart_set_data_range", "group__lui__linechart.html#ga906c519f1c9ba0cac3e0e47b70887ac0", null ],

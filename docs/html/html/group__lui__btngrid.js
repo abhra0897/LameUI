@@ -1,10 +1,10 @@
 var group__lui__btngrid =
 [
-    [ "lui_btngrid_create", "group__lui__btngrid.html#ga60ea2e3e4af851bce7b4280a869438ba", null ],
+    [ "lui_btngrid_create", "group__lui__btngrid.html#gae825b972dae532e72050afd45addbd32", null ],
     [ "lui_btngrid_draw", "group__lui__btngrid.html#gaa9a9febb315d359420be30fea2d9657d", null ],
     [ "lui_btngrid_get_acive_btn_index", "group__lui__btngrid.html#ga04c8b09e20441143fc39405e2e42cc37", null ],
     [ "lui_btngrid_get_btn_check_status", "group__lui__btngrid.html#gae1f8d50cc22f4c1523a82dd6f16e51b1", null ],
-    [ "lui_btngrid_get_btn_text", "group__lui__btngrid.html#ga1f41ec66946669fa36ed66a97ce7a5f3", null ],
+    [ "lui_btngrid_get_btn_text", "group__lui__btngrid.html#ga5e2cbe3586b1e681f9180dd9e1eade99", null ],
     [ "lui_btngrid_set_btn_checkable", "group__lui__btngrid.html#gad433de542a9d897225abd72d22d7e2a4", null ],
     [ "lui_btngrid_set_btn_checked", "group__lui__btngrid.html#ga55e7742bb16fb8dedfdb0bd724164bfb", null ],
     [ "lui_btngrid_set_btn_hidden", "group__lui__btngrid.html#gac59ba58a24ab4be01e1dbef21bbbab05", null ],
