@@ -595,7 +595,7 @@ void lui_button_draw(lui_obj_t* obj)
 			bmp_crop.w = btn_width;
 			bmp_crop.h = btn_height;
 
-			lui_gfx_bitmap_draw(bg_bmp, &panel->img_pal, temp_x, temp_y, &bmp_crop);
+			lui_gfx_draw_bitmap(bg_bmp, &panel->img_pal, temp_x, temp_y, &bmp_crop);
 		}
 		else
 		{
@@ -628,7 +628,7 @@ void lui_button_draw(lui_obj_t* obj)
 		if ((obj->state == LUI_STATE_PRESSED || (btn->is_checkable && obj->value)) && 
 			btn->img_pressed)
 		{
-			lui_gfx_bitmap_draw(
+			lui_gfx_draw_bitmap(
 				btn->img_pressed,
 				&btn->img_press_pal,
 				temp_x, temp_y, 
@@ -636,7 +636,7 @@ void lui_button_draw(lui_obj_t* obj)
 		}
 		else if (obj->state == LUI_STATE_IDLE && btn->img_idle)
 		{
-			lui_gfx_bitmap_draw(
+			lui_gfx_draw_bitmap(
 				btn->img_idle, 
 				&btn->img_idle_pal,
 				temp_x, temp_y, 
@@ -3405,7 +3405,7 @@ void lui_panel_draw(lui_obj_t* obj)
 			.w = obj->common_style.width,
 			.h = obj->common_style.height
 		};
-		lui_gfx_bitmap_draw(
+		lui_gfx_draw_bitmap(
 			panel->bg_image, 
 			&panel->img_pal,
 			obj->x, obj->y, 
@@ -3505,7 +3505,7 @@ void lui_scene_draw(lui_obj_t* obj)
 			.w = obj->common_style.width,
 			.h = obj->common_style.height
 		};
-		lui_gfx_bitmap_draw(
+		lui_gfx_draw_bitmap(
 			scene->bg_image, 
 			&scene->img_pal,
 			obj->x, obj->y, 
@@ -4868,7 +4868,7 @@ void lui_gfx_draw_string_advanced(const char* str, lui_area_t* area, uint16_t fo
 	}
 	/* If the calling function didn't know crop area and set it to 0,
 	   here we set them to objects's w and h. Don't worry if the actual 
-	   bitmap is smaller than the set crop size, `lui_gfx_bitmap_draw()` 
+	   bitmap is smaller than the set crop size, `lui_gfx_draw_bitmap()` 
 	   takes care of it.*/
 	if (bitmap_crop)
 	{
@@ -4878,7 +4878,7 @@ void lui_gfx_draw_string_advanced(const char* str, lui_area_t* area, uint16_t fo
 	if (is_bg)
 	{
 		if (bg_bitmap)
-			lui_gfx_bitmap_draw(bg_bitmap, palette, area->x, area->y, bitmap_crop);
+			lui_gfx_draw_bitmap(bg_bitmap, palette, area->x, area->y, bitmap_crop);
 		else
 			lui_gfx_draw_rect_fill(area->x, area->y, area->w, area->h, bg_color);
 	}
@@ -5208,7 +5208,7 @@ void _lui_gfx_render_char_glyph(uint16_t x, uint16_t y, uint16_t fore_color, uin
     }
 }
 
-void lui_gfx_bitmap_draw(const lui_bitmap_t* bitmap, lui_bitmap_mono_pal_t* palette, uint16_t x, uint16_t y, lui_area_t* crop_area)
+void lui_gfx_draw_bitmap(const lui_bitmap_t* bitmap, lui_bitmap_mono_pal_t* palette, uint16_t x, uint16_t y, lui_area_t* crop_area)
 {
 	if (bitmap == NULL)
 		return;

@@ -6,7 +6,7 @@
  * @author Avra Mitra
  * @brief One and only header file for LameUI library.
  * @version 2.0
- * @date 2023-02-11
+ * @date 2023-03-06
  *
  * @copyright Copyright (c) 2020-2023
  *
@@ -3013,7 +3013,7 @@ void lui_scene_set_bitmap_image_mono_palette(lui_obj_t* obj_scene, lui_bitmap_mo
  * void draw_pixels_buff_cb(uint16_t* disp_buff, lui_area_t* area)
  * {
  *     tft.setAddrWindow(area->x, area->y, area->w, area->h);
- *     tft.pushPixels(disp_buff, (area->w * area->h));
+ *     tft.pushColors(disp_buff, (area->w * area->h), true);	// swap_byte is true for ili9341
  * }
  * void read_touch_input_cb(lui_touch_input_data_t* inputdata)
  * {
@@ -3347,7 +3347,7 @@ void lui_gfx_draw_rect_fill(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint
  * @param y start Y position
  * @param crop_area pointer to crop area. Set NULL for no cropping.
  */
-void lui_gfx_bitmap_draw(const lui_bitmap_t* bitmap, lui_bitmap_mono_pal_t* palette, uint16_t x, uint16_t y, lui_area_t* crop_area);
+void lui_gfx_draw_bitmap(const lui_bitmap_t* bitmap, lui_bitmap_mono_pal_t* palette, uint16_t x, uint16_t y, lui_area_t* crop_area);
 
 /**
  * @brief Create 16-bit RGB565 color using R, G, and B values (each 8-bit)
