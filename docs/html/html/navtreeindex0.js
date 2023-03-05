@@ -129,10 +129,11 @@ var NAVTREEINDEX0 =
 "group__lui__core.html#gafe31e6582630b84037ad089c5ff3591f":[2,0,0,1],
 "group__lui__dispdrv.html":[2,0,14],
 "group__lui__dispdrv.html#ga2637c58dd7b74f12b214c9327891d107":[2,0,14,0],
-"group__lui__dispdrv.html#ga3516bb99ba95160e9673ba8541ffb13e":[2,0,14,4],
+"group__lui__dispdrv.html#ga3516bb99ba95160e9673ba8541ffb13e":[2,0,14,5],
 "group__lui__dispdrv.html#ga77ef8325d1acf4c014be20de214e80de":[2,0,14,1],
-"group__lui__dispdrv.html#ga982617c7a5f3d018a3bab0e01eebf8e3":[2,0,14,2],
-"group__lui__dispdrv.html#gaa2cf5623fa26babf738af3a2ef0a5fc4":[2,0,14,3],
+"group__lui__dispdrv.html#gaa2cf5623fa26babf738af3a2ef0a5fc4":[2,0,14,4],
+"group__lui__dispdrv.html#gac41767acc73ed0907c2dfdfead80ea00":[2,0,14,3],
+"group__lui__dispdrv.html#gadaee6dd19570953fba05e64f9ebb9f2f":[2,0,14,2],
 "group__lui__gfx.html":[2,0,16],
 "group__lui__gfx.html#ga142c96f0d66e6439d7b86e0a1b72ecb5":[2,0,16,7],
 "group__lui__gfx.html#ga34170dff54b3f4cd9fb0b5c5fd883e79":[2,0,16,6],
@@ -140,7 +141,7 @@ var NAVTREEINDEX0 =
 "group__lui__gfx.html#ga4cb1f631c60220fe1388d8bcafab4b5e":[2,0,16,1],
 "group__lui__gfx.html#ga70916d1822c831690097ab38aa00f9be":[2,0,16,5],
 "group__lui__gfx.html#ga85fb0f8d768116008acf2f12ee3af158":[2,0,16,4],
-"group__lui__gfx.html#ga929a61a42f9f3e593a049c7ef0f9259b":[2,0,16,0],
+"group__lui__gfx.html#ga8c17499b9a8d972090516432237f7666":[2,0,16,0],
 "group__lui__gfx.html#ga9f09f042a3ce689f320d82dfd847d650":[2,0,16,8],
 "group__lui__gfx.html#gad4c604716d2df4943ac32b35fa56ac14":[2,0,16,2],
 "group__lui__gfx.html#gad91328f058c99813e23a79a0e5aed425":[2,0,16,3],
@@ -248,6 +249,5 @@ var NAVTREEINDEX0 =
 "group__lui__switch.html#gacd9eafcf927ab9af5e842f5dc31fd558":[2,0,5,6],
 "group__lui__switch.html#gad099ebc520d4213febf9e5e8710aaf12":[2,0,5,3],
 "group__lui__switch.html#gae7c96b11bd28a497fff32764cda9fdb0":[2,0,5,0],
-"group__lui__switch.html#gaeef193f35434dde5845a0132ce7f4c05":[2,0,5,4],
-"group__lui__switch.html#gafd67bf0ba01cf6c48b3f6e779a9ff95a":[2,0,5,1]
+"group__lui__switch.html#gaeef193f35434dde5845a0132ce7f4c05":[2,0,5,4]
 };

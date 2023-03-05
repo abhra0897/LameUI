@@ -1,6 +1,6 @@
 var group__lui__gfx =
 [
-    [ "lui_gfx_bitmap_draw", "group__lui__gfx.html#ga929a61a42f9f3e593a049c7ef0f9259b", null ],
+    [ "lui_gfx_draw_bitmap", "group__lui__gfx.html#ga8c17499b9a8d972090516432237f7666", null ],
     [ "lui_gfx_draw_char", "group__lui__gfx.html#ga4cb1f631c60220fe1388d8bcafab4b5e", null ],
     [ "lui_gfx_draw_line", "group__lui__gfx.html#gad4c604716d2df4943ac32b35fa56ac14", null ],
     [ "lui_gfx_draw_rect", "group__lui__gfx.html#gad91328f058c99813e23a79a0e5aed425", null ],

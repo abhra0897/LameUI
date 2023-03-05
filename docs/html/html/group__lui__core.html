@@ -164,6 +164,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Initialize the LameUI core. Here user provides LameUI some RAM to create widgets. If and when RAM is not sufficient, widget creation will fail. </p>
+<p>NOTE: This memory does NOT include display buffer memory. Display buffer is set seperately using <code><a class="el" href="group__lui__dispdrv.html#gadaee6dd19570953fba05e64f9ebb9f2f" title="Set the display buffer. This buffer is provided by user and filled with colors by library....">lui_dispdrv_set_disp_buff()</a></code>.</p>
 <p>If init fails due to memory allocation problem, returns -1, else returns 0.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -172,7 +173,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0: Success, -1: Fail </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>0: Success, -1: Failure </dd></dl>
 
 </div>
 </div>

@@ -43,10 +43,11 @@ var group__PublicTypedefs =
       [ "y", "struct__lui__touch__input__data__s.html#a0dda12587fe70222aa328760a1ab2055", null ]
     ] ],
     [ "_lui_disp_drv_s", "struct__lui__disp__drv__s.html", [
+      [ "disp_buff", "struct__lui__disp__drv__s.html#a24c0e456ceacc55f22a42304651bbbf0", null ],
+      [ "disp_buff_sz_px", "struct__lui__disp__drv__s.html#a5c87fe30df517075cdf54c915139c68f", null ],
       [ "display_hor_res", "struct__lui__disp__drv__s.html#aaf3190a9b58a0a5ca8daf48259feaae2", null ],
       [ "display_vert_res", "struct__lui__disp__drv__s.html#a6fc12fa9ad746de7d02af24be6ff6d66", null ],
-      [ "draw_pixels_area_cb", "struct__lui__disp__drv__s.html#a7dc149b39deec5a5bc36c00c7b1c4ca0", null ],
-      [ "render_complete_cb", "struct__lui__disp__drv__s.html#ab8555acefe2353aa44368a60a86093a8", null ]
+      [ "draw_pixels_buff_cb", "struct__lui__disp__drv__s.html#ac02094c5b8a4e7d34e5bdb4ca7793a5c", null ]
     ] ],
     [ "_lui_touch_input_dev_s", "struct__lui__touch__input__dev__s.html", [
       [ "read_touch_input_cb", "struct__lui__touch__input__dev__s.html#a99402d637738327ffb3be47f21809524", null ]

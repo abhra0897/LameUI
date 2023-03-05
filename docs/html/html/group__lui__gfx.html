@@ -144,9 +144,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga85fb0f8d768116008acf2f12ee3af158"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__gfx.html#ga85fb0f8d768116008acf2f12ee3af158">lui_gfx_draw_rect_fill</a> (uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color)</td></tr>
 <tr class="memdesc:ga85fb0f8d768116008acf2f12ee3af158"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a filled rectangle.  <br /></td></tr>
 <tr class="separator:ga85fb0f8d768116008acf2f12ee3af158"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga929a61a42f9f3e593a049c7ef0f9259b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__gfx.html#ga929a61a42f9f3e593a049c7ef0f9259b">lui_gfx_bitmap_draw</a> (const <a class="el" href="group__PublicTypedefs.html#gaca3b4e71f058bce3538bf58fc8883f04">lui_bitmap_t</a> *bitmap, <a class="el" href="group__PublicTypedefs.html#gaf21613026fc8109ddcdf3e6a8ac2c919">lui_bitmap_mono_pal_t</a> *palette, uint16_t x, uint16_t y, <a class="el" href="group__PublicTypedefs.html#ga89d2b851574a969160813b40a922de91">lui_area_t</a> *crop_area)</td></tr>
-<tr class="memdesc:ga929a61a42f9f3e593a049c7ef0f9259b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws a bitmap at given x,y position. Crop area can be NULL if cropping is not needed. <code>palette</code> parameter is only applicable if image is 1-bpp mono bitmap.  <br /></td></tr>
-<tr class="separator:ga929a61a42f9f3e593a049c7ef0f9259b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8c17499b9a8d972090516432237f7666"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__gfx.html#ga8c17499b9a8d972090516432237f7666">lui_gfx_draw_bitmap</a> (const <a class="el" href="group__PublicTypedefs.html#gaca3b4e71f058bce3538bf58fc8883f04">lui_bitmap_t</a> *bitmap, <a class="el" href="group__PublicTypedefs.html#gaf21613026fc8109ddcdf3e6a8ac2c919">lui_bitmap_mono_pal_t</a> *palette, uint16_t x, uint16_t y, <a class="el" href="group__PublicTypedefs.html#ga89d2b851574a969160813b40a922de91">lui_area_t</a> *crop_area)</td></tr>
+<tr class="memdesc:ga8c17499b9a8d972090516432237f7666"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws a bitmap at given x,y position. Crop area can be NULL if cropping is not needed. <code>palette</code> parameter is only applicable if image is 1-bpp mono bitmap.  <br /></td></tr>
+<tr class="separator:ga8c17499b9a8d972090516432237f7666"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga3dffc69be3b19eb092238cec82a348b6"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__gfx.html#ga3dffc69be3b19eb092238cec82a348b6">lui_rgb</a> (uint8_t red, uint8_t green, uint8_t blue)</td></tr>
 <tr class="memdesc:ga3dffc69be3b19eb092238cec82a348b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create 16-bit RGB565 color using R, G, and B values (each 8-bit)  <br /></td></tr>
 <tr class="separator:ga3dffc69be3b19eb092238cec82a348b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -155,14 +155,14 @@ Functions</h2></td></tr>
 <p>API for various graphics related functions like drawing line, rectangle, text etc. User does NOT require to use them. But if needed for some special reason, user may call these functions. </p>
 <p>Note: <code><a class="el" href="group__lui__core.html#gaa4a3c7694929ad0b6c5cd565dd6e7304" title="This function updates the UI by reading input and rendering widgets that need rendering.">lui_update()</a></code> function will overwrite any manual gfx calls made by user. So, user must call gfx functions after the update function in a loop. </p>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="ga929a61a42f9f3e593a049c7ef0f9259b" name="ga929a61a42f9f3e593a049c7ef0f9259b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga929a61a42f9f3e593a049c7ef0f9259b">&#9670;&#160;</a></span>lui_gfx_bitmap_draw()</h2>
+<a id="ga8c17499b9a8d972090516432237f7666" name="ga8c17499b9a8d972090516432237f7666"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8c17499b9a8d972090516432237f7666">&#9670;&#160;</a></span>lui_gfx_draw_bitmap()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void lui_gfx_bitmap_draw </td>
+          <td class="memname">void lui_gfx_draw_bitmap </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="group__PublicTypedefs.html#gaca3b4e71f058bce3538bf58fc8883f04">lui_bitmap_t</a> *&#160;</td>
           <td class="paramname"><em>bitmap</em>, </td>

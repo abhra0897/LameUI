@@ -1,6 +1,6 @@
 # LameUI Font and Bitmap Maker {#font_maker_instr_page}
 
-[The **LameUI_font_maker** repository](https://github.com/abhra0897/LameUI_font_maker) is for creating fonts and image bitmaps to use with [LameUI GUI library](https://github.com/abhra0897/LameUI).
+[The **LameUI_font_maker** repository](https://github.com/abhra0897/LameUI_font_maker/tree/lameui_2.0) is for creating fonts and image bitmaps to use with [LameUI GUI library](https://github.com/abhra0897/LameUI/tree/v2.0).
 
 ## Table of contents
 - [Tools](#tools)

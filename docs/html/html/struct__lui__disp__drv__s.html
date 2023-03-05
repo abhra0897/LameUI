@@ -122,14 +122,18 @@ $(document).ready(function(){initNavTree('struct__lui__disp__drv__s.html',''); i
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:a7dc149b39deec5a5bc36c00c7b1c4ca0"><td class="memItemLeft" align="right" valign="top"><a id="a7dc149b39deec5a5bc36c00c7b1c4ca0" name="a7dc149b39deec5a5bc36c00c7b1c4ca0"></a>
-void(*&#160;</td><td class="memItemRight" valign="bottom"><b>draw_pixels_area_cb</b> )(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color)</td></tr>
-<tr class="memdesc:a7dc149b39deec5a5bc36c00c7b1c4ca0"><td class="mdescLeft">&#160;</td><td class="mdescRight">callback function to draw pixels <br /></td></tr>
-<tr class="separator:a7dc149b39deec5a5bc36c00c7b1c4ca0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab8555acefe2353aa44368a60a86093a8"><td class="memItemLeft" align="right" valign="top"><a id="ab8555acefe2353aa44368a60a86093a8" name="ab8555acefe2353aa44368a60a86093a8"></a>
-void(*&#160;</td><td class="memItemRight" valign="bottom"><b>render_complete_cb</b> )()</td></tr>
-<tr class="memdesc:ab8555acefe2353aa44368a60a86093a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">(optional) This callback function is called by lameUI when rendering is finished. <br /></td></tr>
-<tr class="separator:ab8555acefe2353aa44368a60a86093a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac02094c5b8a4e7d34e5bdb4ca7793a5c"><td class="memItemLeft" align="right" valign="top"><a id="ac02094c5b8a4e7d34e5bdb4ca7793a5c" name="ac02094c5b8a4e7d34e5bdb4ca7793a5c"></a>
+void(*&#160;</td><td class="memItemRight" valign="bottom"><b>draw_pixels_buff_cb</b> )(uint16_t *<a class="el" href="struct__lui__disp__drv__s.html#a24c0e456ceacc55f22a42304651bbbf0">disp_buff</a>, <a class="el" href="group__PublicTypedefs.html#ga89d2b851574a969160813b40a922de91">lui_area_t</a> *area)</td></tr>
+<tr class="memdesc:ac02094c5b8a4e7d34e5bdb4ca7793a5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">draw pixels buffer callback function. <br /></td></tr>
+<tr class="separator:ac02094c5b8a4e7d34e5bdb4ca7793a5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24c0e456ceacc55f22a42304651bbbf0"><td class="memItemLeft" align="right" valign="top"><a id="a24c0e456ceacc55f22a42304651bbbf0" name="a24c0e456ceacc55f22a42304651bbbf0"></a>
+uint16_t *&#160;</td><td class="memItemRight" valign="bottom"><b>disp_buff</b></td></tr>
+<tr class="memdesc:a24c0e456ceacc55f22a42304651bbbf0"><td class="mdescLeft">&#160;</td><td class="mdescRight">display buffer. It is a n array of uint16_t type. <br /></td></tr>
+<tr class="separator:a24c0e456ceacc55f22a42304651bbbf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c87fe30df517075cdf54c915139c68f"><td class="memItemLeft" align="right" valign="top"><a id="a5c87fe30df517075cdf54c915139c68f" name="a5c87fe30df517075cdf54c915139c68f"></a>
+uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>disp_buff_sz_px</b></td></tr>
+<tr class="memdesc:a5c87fe30df517075cdf54c915139c68f"><td class="mdescLeft">&#160;</td><td class="mdescRight">size of display buffer in pixel count (NOT in bytes) <br /></td></tr>
+<tr class="separator:a5c87fe30df517075cdf54c915139c68f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaf3190a9b58a0a5ca8daf48259feaae2"><td class="memItemLeft" align="right" valign="top"><a id="aaf3190a9b58a0a5ca8daf48259feaae2" name="aaf3190a9b58a0a5ca8daf48259feaae2"></a>
 uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>display_hor_res</b></td></tr>
 <tr class="memdesc:aaf3190a9b58a0a5ca8daf48259feaae2"><td class="mdescLeft">&#160;</td><td class="mdescRight">display horizontal resolution (along x axis) <br /></td></tr>
@@ -141,7 +145,6 @@ uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>display_vert_res<
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>display driver object. </p>
-<p>The <code>draw_pixels_area_cb</code> callback function to draw pixels must be implemented by user. <code>render_complete_cb</code> callback is optional. </p>
 </div><hr/>The documentation for this struct was generated from the following file:<ul>
 <li><a class="el" href="lame__ui_8h_source.html">lame_ui.h</a></li>
 </ul>
