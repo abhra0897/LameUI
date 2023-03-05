@@ -27,8 +27,9 @@ HTML_EXTRA_STYLESHEET  = docs/normalise.css docs/main.css docs/styles.css
 HTML_EXTRA_FILES       = docs/LameUI_logo.png docs/logo_small.png docs/LameUI_logo_dark.png docs/logo_dark_small.png docs/search.svg docs/LameUI_logo_mini.png \
                          docs/main.js
 GENERATE_TREEVIEW      = YES # This is needed as it wraps the content area in an HTML tag that we need to use
+HTML_COLORSTYLE = LIGHT
 HTML_COLORSTYLE_HUE = 350
-HTML_COLORSTYLE_SAT = 200
+HTML_COLORSTYLE_SAT = 0
 HTML_COLORSTYLE_GAMMA = 150
 GENERATE_LATEX = NO
 GENERATE_XML = NO
