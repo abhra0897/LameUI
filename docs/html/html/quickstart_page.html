@@ -112,33 +112,23 @@ $(document).ready(function(){initNavTree('quickstart_page.html',''); initResizab
   <div class="headertitle"><div class="title">Usage </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="md_docs_quickstart"></a>LameUI needs 3 callback functions from user to draw on display and read inputs. <br  />
+<div class="textblock"><p><a class="anchor" id="md_docs_quickstart"></a>LameUI needs 2 callback functions from user to draw on display and read inputs. <br  />
 </p>
 <ol type="1">
-<li><code>draw_pixels_area_cb</code> to <em>Display Output</em>. (<b>Mandatory</b>)</li>
-<li><code>render_complete_cb</code> to <em>Display Output</em>. (<b>Optional</b>)</li>
+<li><code>draw_pixels_buff_cb</code> to <em>Display Output</em>. (<b>Mandatory</b>)</li>
 <li><code>read_touch_input_cb</code> to <em>Read Inputs</em>. (<b>Optional</b>)</li>
 </ol>
 <h2><a class="anchor" id="autotoc_md13"></a>
-Display Output</h2>
-<p><b>1. <code>draw_pixels_area_cb</code></b> <br  />
- Drawing to display is done by callback functions provided by the user.</p>
-<div class="fragment"><div class="line"><span class="keywordtype">void</span> lui_dispdrv_set_draw_pixels_area_cb(<a class="code hl_struct" href="struct__lui__disp__drv__s.html">lui_dispdrv_t</a>* dispdrv, <span class="keywordtype">void</span> (*draw_pixels_area_cb)(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color));</div>
+&lt;strong&gt;1. &lt;tt&gt;draw_pixels_buff_cb&lt;/tt&gt;&lt;/strong&gt;  [ Display Output ]</h2>
+<p>Drawing to display is done by callback functions provided by the user. Register this callback using:</p>
+<div class="fragment"><div class="line"><span class="keywordtype">void</span> <a class="code hl_function" href="group__lui__dispdrv.html#gac41767acc73ed0907c2dfdfead80ea00">lui_dispdrv_set_draw_disp_buff_cb</a>(<a class="code hl_struct" href="struct__lui__disp__drv__s.html">lui_dispdrv_t</a>* dispdrv, <span class="keywordtype">void</span> (*draw_pixels_buff_cb)(uint16_t* disp_buff, <a class="code hl_struct" href="struct__lui__area__s.html">lui_area_t</a>* area));</div>
+<div class="ttc" id="agroup__lui__dispdrv_html_gac41767acc73ed0907c2dfdfead80ea00"><div class="ttname"><a href="group__lui__dispdrv.html#gac41767acc73ed0907c2dfdfead80ea00">lui_dispdrv_set_draw_disp_buff_cb</a></div><div class="ttdeci">void lui_dispdrv_set_draw_disp_buff_cb(lui_dispdrv_t *dispdrv, void(*draw_pixels_buff_cb)(uint16_t *disp_buff, lui_area_t *area))</div><div class="ttdoc">Set callback function for drawing an area of pixels with a display buffer.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:4784</div></div>
+<div class="ttc" id="astruct__lui__area__s_html"><div class="ttname"><a href="struct__lui__area__s.html">_lui_area_s</a></div><div class="ttdoc">Area datatype.</div><div class="ttdef"><b>Definition:</b> lame_ui.h:338</div></div>
 <div class="ttc" id="astruct__lui__disp__drv__s_html"><div class="ttname"><a href="struct__lui__disp__drv__s.html">_lui_disp_drv_s</a></div><div class="ttdoc">display driver object.</div><div class="ttdef"><b>Definition:</b> lame_ui.h:657</div></div>
-</div><!-- fragment --><p><b>2. <code>render_complete_cb</code></b> <br  />
- LameUI has no frame buffer of its own. Because it's mainly targeted towards MCUs with low RAM. As a result, user need to manage buffering if they need to. Sometimes buffering, and then flushing the entire buffer is faster than writing individual pixels each time. <br  />
-</p>
-<p>That's why LameUI calls <code>void (*render_complete_cb)();</code> when rendering is complete, given that user provided the callback function. In that callback function, user should flush the buffer. This is useful when user is buffering the draw calls. <br  />
-</p>
-<p>For setting the callback function, this function is used:</p>
-<div class="fragment"><div class="line"><span class="keywordtype">void</span> <a class="code hl_function" href="group__lui__dispdrv.html#gaa2cf5623fa26babf738af3a2ef0a5fc4">lui_dispdrv_set_render_complete_cb</a>(<a class="code hl_struct" href="struct__lui__disp__drv__s.html">lui_dispdrv_t</a>* dispdrv, <span class="keywordtype">void</span> (*render_complete_cb)());</div>
-<div class="ttc" id="agroup__lui__dispdrv_html_gaa2cf5623fa26babf738af3a2ef0a5fc4"><div class="ttname"><a href="group__lui__dispdrv.html#gaa2cf5623fa26babf738af3a2ef0a5fc4">lui_dispdrv_set_render_complete_cb</a></div><div class="ttdeci">void lui_dispdrv_set_render_complete_cb(lui_dispdrv_t *dispdrv, void(*render_complete_cb)())</div><div class="ttdoc">Set callback function for handling render complete signal. This is optional.</div></div>
-</div><!-- fragment --><p>Note: Commonly available lcd displays that we use with microcontrollers have built-in GRAM, hence, the <code>render_complete_cb()</code> is not mandatory for them.</p>
+</div><!-- fragment --><p> Note: <code><a class="el" href="group__lui__dispdrv.html#gadaee6dd19570953fba05e64f9ebb9f2f" title="Set the display buffer. This buffer is provided by user and filled with colors by library....">lui_dispdrv_set_disp_buff(lui_dispdrv_t* dispdrv, uint16_t* disp_buff, uint16_t size_in_px)</a></code> must be called to set the display buffer. Else, <code>draw_pixels_buff_cb()</code> callback won't work.</p>
 <h2><a class="anchor" id="autotoc_md14"></a>
-Read Inputs</h2>
-<p><b>3. <code>read_touch_input_cb</code></b> <br  />
-</p>
-<p>LameUI now only supports touch input. Support for D-Pad / Rotary encoder is in my mind, but that's not the priority for now.</p>
+&lt;strong&gt;2. &lt;tt&gt;read_touch_input_cb&lt;/tt&gt;&lt;/strong&gt; [ Read Inputs ]</h2>
+<p>LameUI now only supports touch input. Support for D-Pad / Rotary encoder is in my mind, but that's not the priority for now. Register this callback using:</p>
 <div class="fragment"><div class="line"><span class="keywordtype">void</span> lui_touch_inputdev_set_read_input_cb(<a class="code hl_struct" href="struct__lui__touch__input__dev__s.html">lui_touch_input_dev_t</a>* touch_inputdev, <span class="keywordtype">void</span> (*read_touch_input_cb)(<a class="code hl_struct" href="struct__lui__touch__input__data__s.html">lui_touch_input_data_t</a>* touch_inputdata));</div>
 <div class="ttc" id="astruct__lui__touch__input__data__s_html"><div class="ttname"><a href="struct__lui__touch__input__data__s.html">_lui_touch_input_data_s</a></div><div class="ttdoc">Touch Input data.</div><div class="ttdef"><b>Definition:</b> lame_ui.h:643</div></div>
 <div class="ttc" id="astruct__lui__touch__input__dev__s_html"><div class="ttname"><a href="struct__lui__touch__input__dev__s.html">_lui_touch_input_dev_s</a></div><div class="ttdoc">touch input device object</div><div class="ttdef"><b>Definition:</b> lame_ui.h:675</div></div>
@@ -153,12 +143,19 @@ Quick Start</h1>
 <div class="line"><span class="preprocessor">#include &lt;SPI.h&gt;</span></div>
 <div class="line"><span class="comment">// ... [ Include LameUI library and other required headers too] ...</span></div>
 <div class="line"> </div>
+<div class="line"><span class="preprocessor">#define HOR_RES     320</span></div>
+<div class="line"><span class="preprocessor">#define VERT_RES    240</span></div>
+<div class="line"><span class="preprocessor">#define DISP_BUFF_PX_CNT (HOR_RES * 10)</span></div>
+<div class="line"> </div>
+<div class="line">uint16_t disp_buffer[DISP_BUFF_PX_CNT];</div>
+<div class="line"> </div>
 <div class="line">TFT_eSPI tft = TFT_eSPI();  <span class="comment">// Invoke library</span></div>
 <div class="line">uint8_t lui_memory[4000];</div>
 <div class="line"> </div>
-<div class="line"><span class="keywordtype">void</span> draw_pixels_area_cb(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color)</div>
+<div class="line"><span class="keywordtype">void</span> draw_disp_buff_cb(uint16_t* disp_buff, <a class="code hl_struct" href="struct__lui__area__s.html">lui_area_t</a>* area);</div>
 <div class="line">{</div>
-<div class="line">    tft.fillRect(x, y, w, h, color);</div>
+<div class="line">    tft.setAddrWindow(area-&gt;x, area-&gt;y, area-&gt;w, area-&gt;h);</div>
+<div class="line">    tft.pushColors(disp_buff, (area-&gt;w * area-&gt;h), 1);</div>
 <div class="line">}</div>
 <div class="line"><span class="keywordtype">void</span> read_touch_input_cb(<a class="code hl_struct" href="struct__lui__touch__input__data__s.html">lui_touch_input_data_t</a>* inputdata)</div>
 <div class="line">{</div>
@@ -191,9 +188,9 @@ Quick Start</h1>
 <div class="line">    <span class="comment">// Create a display driver object</span></div>
 <div class="line">    <a class="code hl_struct" href="struct__lui__disp__drv__s.html">lui_dispdrv_t</a>* display_driver = <a class="code hl_function" href="group__lui__dispdrv.html#ga2637c58dd7b74f12b214c9327891d107">lui_dispdrv_create</a>();</div>
 <div class="line">    <a class="code hl_function" href="group__lui__dispdrv.html#ga77ef8325d1acf4c014be20de214e80de">lui_dispdrv_register</a>(display_driver);</div>
-<div class="line">    <a class="code hl_function" href="group__lui__dispdrv.html#ga3516bb99ba95160e9673ba8541ffb13e">lui_dispdrv_set_resolution</a>(display_driver, 240, 320);</div>
-<div class="line">    lui_dispdrv_set_draw_pixels_area_cb(display_driver, draw_pixels_area_cb);</div>
-<div class="line">    <a class="code hl_function" href="group__lui__dispdrv.html#gaa2cf5623fa26babf738af3a2ef0a5fc4">lui_dispdrv_set_render_complete_cb</a>(display_driver, NULL);</div>
+<div class="line">    <a class="code hl_function" href="group__lui__dispdrv.html#ga3516bb99ba95160e9673ba8541ffb13e">lui_dispdrv_set_resolution</a>(display_driver, HOR_RES, VERT_RES);</div>
+<div class="line">    <a class="code hl_function" href="group__lui__dispdrv.html#gadaee6dd19570953fba05e64f9ebb9f2f">lui_dispdrv_set_disp_buff</a>(my_display_driver, disp_buffer, DISP_BUFF_PX_CNT);</div>
+<div class="line">    <a class="code hl_function" href="group__lui__dispdrv.html#gac41767acc73ed0907c2dfdfead80ea00">lui_dispdrv_set_draw_disp_buff_cb</a>(my_display_driver, draw_disp_buff_cb);</div>
 <div class="line">    </div>
 <div class="line">    <span class="comment">// Create touch input device</span></div>
 <div class="line">    <a class="code hl_struct" href="struct__lui__touch__input__dev__s.html">lui_touch_input_dev_t</a>* input_device = <a class="code hl_function" href="group__lui__input.html#ga674a45dcbe0b1d78a5f2a495251f52d5">lui_touch_inputdev_create</a>();</div>
@@ -216,13 +213,14 @@ Quick Start</h1>
 <div class="ttc" id="agroup__lui__dispdrv_html_ga2637c58dd7b74f12b214c9327891d107"><div class="ttname"><a href="group__lui__dispdrv.html#ga2637c58dd7b74f12b214c9327891d107">lui_dispdrv_create</a></div><div class="ttdeci">lui_dispdrv_t * lui_dispdrv_create()</div><div class="ttdoc">Create display driver object.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:4754</div></div>
 <div class="ttc" id="agroup__lui__dispdrv_html_ga3516bb99ba95160e9673ba8541ffb13e"><div class="ttname"><a href="group__lui__dispdrv.html#ga3516bb99ba95160e9673ba8541ffb13e">lui_dispdrv_set_resolution</a></div><div class="ttdeci">void lui_dispdrv_set_resolution(lui_dispdrv_t *dispdrv, uint16_t hor_res, uint16_t vert_res)</div><div class="ttdoc">Set horizontal and vertical resolution of display.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:4776</div></div>
 <div class="ttc" id="agroup__lui__dispdrv_html_ga77ef8325d1acf4c014be20de214e80de"><div class="ttname"><a href="group__lui__dispdrv.html#ga77ef8325d1acf4c014be20de214e80de">lui_dispdrv_register</a></div><div class="ttdeci">void lui_dispdrv_register(lui_dispdrv_t *dispdrv)</div><div class="ttdoc">Register display driver.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:4769</div></div>
+<div class="ttc" id="agroup__lui__dispdrv_html_gadaee6dd19570953fba05e64f9ebb9f2f"><div class="ttname"><a href="group__lui__dispdrv.html#gadaee6dd19570953fba05e64f9ebb9f2f">lui_dispdrv_set_disp_buff</a></div><div class="ttdeci">int8_t lui_dispdrv_set_disp_buff(lui_dispdrv_t *dispdrv, uint16_t *disp_buff, uint16_t size_in_px)</div><div class="ttdoc">Set the display buffer. This buffer is provided by user and filled with colors by library....</div><div class="ttdef"><b>Definition:</b> lame_ui.c:4791</div></div>
 <div class="ttc" id="agroup__lui__input_html_ga3861ea1c2fa9e1776f1aff61dc52daa9"><div class="ttname"><a href="group__lui__input.html#ga3861ea1c2fa9e1776f1aff61dc52daa9">lui_touch_inputdev_register</a></div><div class="ttdeci">void lui_touch_inputdev_register(lui_touch_input_dev_t *inputdev)</div><div class="ttdoc">Register a touch input device.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:4826</div></div>
 <div class="ttc" id="agroup__lui__input_html_ga674a45dcbe0b1d78a5f2a495251f52d5"><div class="ttname"><a href="group__lui__input.html#ga674a45dcbe0b1d78a5f2a495251f52d5">lui_touch_inputdev_create</a></div><div class="ttdeci">lui_touch_input_dev_t * lui_touch_inputdev_create()</div><div class="ttdoc">Create touch input device object.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:4812</div></div>
 <div class="ttc" id="astruct__lui__touch__input__data__s_html_a0dda12587fe70222aa328760a1ab2055"><div class="ttname"><a href="struct__lui__touch__input__data__s.html#a0dda12587fe70222aa328760a1ab2055">_lui_touch_input_data_s::y</a></div><div class="ttdeci">int16_t y</div><div class="ttdoc">Y position of press/touch. -1 if not Pressed/touched.</div><div class="ttdef"><b>Definition:</b> lame_ui.h:646</div></div>
 <div class="ttc" id="astruct__lui__touch__input__data__s_html_a7f21ada3a9a2b790c51c2f767ea3e30e"><div class="ttname"><a href="struct__lui__touch__input__data__s.html#a7f21ada3a9a2b790c51c2f767ea3e30e">_lui_touch_input_data_s::x</a></div><div class="ttdeci">int16_t x</div><div class="ttdoc">X position of press/touch. -1 if not Pressed/touched.</div><div class="ttdef"><b>Definition:</b> lame_ui.h:645</div></div>
 <div class="ttc" id="astruct__lui__touch__input__data__s_html_afb1054eabf8033209df3b6bc2ca5a2af"><div class="ttname"><a href="struct__lui__touch__input__data__s.html#afb1054eabf8033209df3b6bc2ca5a2af">_lui_touch_input_data_s::is_pressed</a></div><div class="ttdeci">uint8_t is_pressed</div><div class="ttdoc">0: NOT pressed, 1: Pressed</div><div class="ttdef"><b>Definition:</b> lame_ui.h:644</div></div>
 </div><!-- fragment --><p><b>[ Part 2 ]</b></p>
-<p>This is a more detailed LameUI example code. It looks big, but that's only because multiple ways of handling draw calls are shown here. Implementation of <code>my_draw_pixels_cb()</code> function can be simplified as per user's need. Also, <code>my_render_cmplt_cb()</code> is optional and can be omitted if not needed. The example code itself is pretty simple and well commented.</p>
+<p>This example shows how to create a simple text label and button.</p>
 <div class="fragment"><div class="line"><span class="preprocessor">#include&lt;stdio.h&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &quot;<a class="code" href="lame__ui_8h.html">LameUI/lame_ui.h</a>&quot;</span></div>
 <div class="line"><span class="comment">//... other required includes ....</span></div>
@@ -230,24 +228,15 @@ Quick Start</h1>
 <div class="line"><span class="preprocessor">#define HOR_RES    320</span></div>
 <div class="line"><span class="preprocessor">#define VERT_RES   240</span></div>
 <div class="line"> </div>
+<div class="line"><span class="comment">// [Mandatory] Display buffer. Buffer pixel count must be multiple of Horizontal Resolution</span></div>
+<div class="line"><span class="preprocessor">#define DISP_BUFF_PX_CNT (HOR_RES * 10)</span></div>
+<div class="line">uint16_t disp_buffer[DISP_BUFF_PX_CNT];</div>
 <div class="line"><span class="comment">// [Mandatory] LameUI memory. Here we are giving it 2KB to work with.</span></div>
 <div class="line">uint8_t lameui_memory[2000];</div>
 <div class="line"> </div>
-<div class="line"><span class="comment">// [Optional] LameUI does NOT use display buffer. This is used only if user wants </span></div>
-<div class="line"><span class="comment">// to buffer on their own.</span></div>
-<div class="line"> </div>
-<div class="line"><span class="comment">// Uncomment below line to enable display buffering. Buffering is handled by user and NOT by LameUI.</span></div>
-<div class="line"><span class="comment">//#define USE_BUFFERING</span></div>
-<div class="line"><span class="preprocessor">#ifdef USE_BUFFERING</span></div>
-<div class="line"><span class="preprocessor">    #define DISPLAY_BUFF_SIZE    (HOR_RES * VERT_RES)   </span><span class="comment">// Only full screen buffer is possible (no partial buffer)</span></div>
-<div class="line">    uint16_t display_buffer[DISPLAY_BUFF_SIZE];</div>
-<div class="line">    uint32_t display_buff_counter = 0;</div>
-<div class="line"><span class="preprocessor">#endif</span></div>
-<div class="line"> </div>
 <div class="line"> </div>
 <div class="line"><span class="comment">//----------- callback function prototypes ------------</span></div>
-<div class="line"><span class="keywordtype">void</span> my_draw_pixels_cb (uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color);</div>
-<div class="line"><span class="keywordtype">void</span> my_render_cmplt_cb();</div>
+<div class="line"><span class="keywordtype">void</span> my_draw_disp_buff_cb (uint16_t* disp_buff, <a class="code hl_struct" href="struct__lui__area__s.html">lui_area_t</a>* area);</div>
 <div class="line"><span class="keywordtype">void</span> my_input_read_cb (<a class="code hl_struct" href="struct__lui__touch__input__data__s.html">lui_touch_input_data_t</a> *input);</div>
 <div class="line"><span class="keywordtype">void</span> button_1_cb(<a class="code hl_struct" href="struct__lui__obj__s.html">lui_obj_t</a>* button_obj);</div>
 <div class="line"><span class="comment">//-----------------------------------------------------</span></div>
@@ -263,12 +252,8 @@ Quick Start</h1>
 <div class="line">    <a class="code hl_struct" href="struct__lui__disp__drv__s.html">lui_dispdrv_t</a> *my_display_driver = <a class="code hl_function" href="group__lui__dispdrv.html#ga2637c58dd7b74f12b214c9327891d107">lui_dispdrv_create</a>();</div>
 <div class="line">    <a class="code hl_function" href="group__lui__dispdrv.html#ga77ef8325d1acf4c014be20de214e80de">lui_dispdrv_register</a>(my_display_driver);</div>
 <div class="line">    <a class="code hl_function" href="group__lui__dispdrv.html#ga3516bb99ba95160e9673ba8541ffb13e">lui_dispdrv_set_resolution</a>(my_display_driver, HOR_RES, VERT_RES);</div>
-<div class="line">    lui_dispdrv_set_draw_pixels_area_cb(my_display_driver, my_draw_pixels_cb);</div>
-<div class="line">    <span class="comment">// Setting render complete callback is optional.</span></div>
-<div class="line">    <span class="comment">// Only needed if user is buffering the draw calls.</span></div>
-<div class="line"><span class="preprocessor">    #ifdef USE_BUFFERING</span></div>
-<div class="line">        <a class="code hl_function" href="group__lui__dispdrv.html#gaa2cf5623fa26babf738af3a2ef0a5fc4">lui_dispdrv_set_render_complete_cb</a>(my_display_driver, my_render_cmplt_cb);</div>
-<div class="line"><span class="preprocessor">    #endif</span></div>
+<div class="line">    <a class="code hl_function" href="group__lui__dispdrv.html#gadaee6dd19570953fba05e64f9ebb9f2f">lui_dispdrv_set_disp_buff</a>(my_display_driver, disp_buffer, DISP_BUFF_PX_CNT);</div>
+<div class="line">    <a class="code hl_function" href="group__lui__dispdrv.html#gac41767acc73ed0907c2dfdfead80ea00">lui_dispdrv_set_draw_disp_buff_cb</a>(my_display_driver, my_draw_disp_buff_cb);</div>
 <div class="line"> </div>
 <div class="line">    <span class="comment">//[Optional] creating input device object</span></div>
 <div class="line">    <a class="code hl_struct" href="struct__lui__touch__input__dev__s.html">lui_touch_input_dev_t</a> *my_input_device = <a class="code hl_function" href="group__lui__input.html#ga674a45dcbe0b1d78a5f2a495251f52d5">lui_touch_inputdev_create</a>();</div>
@@ -307,7 +292,7 @@ Quick Start</h1>
 <div class="line">        <span class="comment">// LameUI has no built-in timer. So, update LameUI periodically.</span></div>
 <div class="line">        <span class="comment">// lui_update() function reads inputs, checks if anything needs to be drawn, and fires callbacks if and when needed.</span></div>
 <div class="line">        <a class="code hl_function" href="group__lui__core.html#gaa4a3c7694929ad0b6c5cd565dd6e7304">lui_update</a>();</div>
-<div class="line">        sleep_ms(30);</div>
+<div class="line">        sleep_ms(15);</div>
 <div class="line">    }</div>
 <div class="line"> </div>
 <div class="line">    <span class="keywordflow">return</span> 0;</div>
@@ -315,73 +300,14 @@ Quick Start</h1>
 <div class="line"> </div>
 <div class="line"><span class="comment">//----------- callback function definitions ------------</span></div>
 <div class="line"> </div>
-<div class="line"><span class="keywordtype">void</span> my_draw_pixels_cb (uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint16_t color)</div>
+<div class="line"><span class="keywordtype">void</span> my_draw_disp_buff_cb(uint16_t* disp_buff, <a class="code hl_struct" href="struct__lui__area__s.html">lui_area_t</a>* area);</div>
 <div class="line">{</div>
-<div class="line">    <span class="comment">// Assuming user has at least one of these functions:</span></div>
-<div class="line">    <span class="comment">// 1. display_put_pixel(x, y, color);    // Draw a single pixel</span></div>
-<div class="line">    <span class="comment">// 2. display_put_pixels(x1, y1, x2, y2, color)    // Fill an area with same color</span></div>
-<div class="line">    <span class="comment">// 3. display_fill(color_buffer, x1, y1, x2, y2);    // Fill an area with different colors from a buffer</span></div>
-<div class="line"> </div>
-<div class="line"> </div>
-<div class="line"><span class="preprocessor">    #ifdef USE_BUFFERING</span></div>
-<div class="line">        <span class="comment">// When using buffering, we&#39;ll put pixels inside a full-screen buffer.</span></div>
-<div class="line">        <span class="comment">// Fill the display with buffer when either the buffer is full, or when</span></div>
-<div class="line">        <span class="comment">// the `render_complete` callback is fired by LameUI.</span></div>
-<div class="line"> </div>
-<div class="line">        uint16_t temp_x = 0;</div>
-<div class="line">        uint16_t temp_y = 0;</div>
-<div class="line">        <span class="comment">// Prepare the display buffer</span></div>
-<div class="line">        <span class="comment">// After the loop ends, the prepared buffer is flushed</span></div>
-<div class="line">        <span class="keywordflow">for</span> (temp_y = y; temp_y &lt;= y + height - 1; temp_y++)</div>
-<div class="line">        {</div>
-<div class="line">            <span class="keywordflow">for</span> (temp_x = x; temp_x &lt;= x + width - 1; temp_x++)</div>
-<div class="line">            {</div>
-<div class="line">                display_buffer[HOR_RES * y + x] = color;</div>
-<div class="line">                </div>
-<div class="line">                <span class="comment">// increase the buffer counter</span></div>
-<div class="line">                display_buff_counter++;</div>
-<div class="line"> </div>
-<div class="line">                <span class="comment">// If size reached max buffer size, flush it now</span></div>
-<div class="line">                <span class="keywordflow">if</span> (display_buff_counter &gt;= DISPLAY_BUFF_SIZE)</div>
-<div class="line">                {</div>
-<div class="line">                    display_fill(display_buffer, 0, 0, HOR_RES, VERT_RES)   <span class="comment">// Filling an area with multiple colors from a buffer</span></div>
-<div class="line">                    display_buff_counter = 0; <span class="comment">//reset the counter</span></div>
-<div class="line">                }</div>
-<div class="line">            }</div>
-<div class="line">        }</div>
-<div class="line"> </div>
-<div class="line"><span class="preprocessor">    #else</span></div>
-<div class="line">        <span class="comment">// When not using buffering, directly draw those pixels.</span></div>
-<div class="line">        <span class="comment">// There are 2 ways. Uncomment the method user wants to use.</span></div>
-<div class="line"> </div>
-<div class="line">        <span class="comment">//------------------ [ Method 1] -----------------------------------</span></div>
-<div class="line">        <span class="comment">// Draw pixels one by 1. This is the easiest way to implement, but also slow.</span></div>
-<div class="line">        <span class="comment">//------------------------------------------------------------------</span></div>
-<div class="line">        <span class="comment">// for (uint16_t h = 0; h &lt; height; h++)</span></div>
-<div class="line">        <span class="comment">// {</span></div>
-<div class="line">        <span class="comment">//  for (uint16_t w = 0; w &lt; width; w++)</span></div>
-<div class="line">        <span class="comment">//  {</span></div>
-<div class="line">        <span class="comment">//      display_put_pixel(x, y, color);    // Filling a single pixel with a color</span></div>
-<div class="line">        <span class="comment">//  }</span></div>
-<div class="line">        <span class="comment">// }</span></div>
-<div class="line">        </div>
-<div class="line">        <span class="comment">//------------------ [ Method 2] -----------------------------------</span></div>
-<div class="line">        <span class="comment">// Another even better way is to draw an area with same color, since most displays </span></div>
-<div class="line">        <span class="comment">// used in embedded systems support setting drawing area and then pass a color </span></div>
-<div class="line">        <span class="comment">// to fill that area. This saves rendering time.</span></div>
-<div class="line">        <span class="comment">//------------------------------------------------------------------</span></div>
-<div class="line">        display_put_pixels(x, y, x + width - 1, y + height - 1, color);    <span class="comment">// Filling an area with same color</span></div>
-<div class="line"> </div>
-<div class="line"><span class="preprocessor">    #endif</span></div>
+<div class="line">    uint16_t x = area-&gt;x;   <span class="comment">// start x</span></div>
+<div class="line">    uint16_t y = area-&gt;y;   <span class="comment">// start y</span></div>
+<div class="line">    uint16_t w = area-&gt;w;   <span class="comment">// width</span></div>
+<div class="line">    uint16_t h = area-&gt;h;   <span class="comment">// height</span></div>
+<div class="line">    display_draw_buffer(disp_buff, x, y, w, h);</div>
 <div class="line">}</div>
-<div class="line"> </div>
-<div class="line"><span class="preprocessor">#ifdef USE_BUFFERING</span></div>
-<div class="line"><span class="keywordtype">void</span> my_render_cmplt_cb()</div>
-<div class="line">{</div>
-<div class="line">    display_fill(display_buffer, 0, 0, HOR_RES, VERT_RES)   <span class="comment">// display_fill(buffer, x1, y1, x2, y2)</span></div>
-<div class="line">    display_buff_counter = 0; <span class="comment">//reset the counter</span></div>
-<div class="line">}</div>
-<div class="line"><span class="preprocessor">#endif</span></div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">void</span> my_input_read_cb (<a class="code hl_struct" href="struct__lui__touch__input__data__s.html">lui_touch_input_data_t</a> *input)</div>
 <div class="line">{</div>
