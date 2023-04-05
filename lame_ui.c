@@ -2908,7 +2908,8 @@ void lui_keyboard_sys_cb(lui_obj_t* obj_sender)
 	{
 		btngrid->kb_data->target_txtbox->state = LUI_STATE_IDLE;
 		btngrid->kb_data->target_txtbox->event = LUI_EVENT_EXITED;
-		btngrid->kb_data->target_txtbox->obj_event_cb(btngrid->kb_data->target_txtbox);
+		if (btngrid->kb_data->target_txtbox->obj_event_cb)
+			btngrid->kb_data->target_txtbox->obj_event_cb(btngrid->kb_data->target_txtbox);
 	}
 	else if (strcmp(btn_text, LUI_ICON_CLOSE) == 0)
 	{
@@ -2937,7 +2938,7 @@ void lui_keyboard_sys_cb(lui_obj_t* obj_sender)
 	else if (strcmp(btn_text, LUI_ICON_RETURN_DOWN_BACK) == 0)
 	{
 		lui_textbox_insert_char(btngrid->kb_data->target_txtbox, '\n');
-		lui_textbox_set_caret_index(btngrid->kb_data->target_txtbox, ++caret_index);
+		// lui_textbox_set_caret_index(btngrid->kb_data->target_txtbox, ++caret_index);
 	}
 	else if (strcmp(btn_text, "ABC") == 0 || strcmp(btn_text, "abc") == 0 || strcmp(btn_text, "1#") == 0 )
 	{
@@ -2963,7 +2964,7 @@ void lui_keyboard_sys_cb(lui_obj_t* obj_sender)
 	else
 	{
 		lui_textbox_insert_char(btngrid->kb_data->target_txtbox, btn_text[0]);
-		lui_textbox_set_caret_index(btngrid->kb_data->target_txtbox, lui_textbox_get_caret_index(btngrid->kb_data->target_txtbox) + 1);
+		// lui_textbox_set_caret_index(btngrid->kb_data->target_txtbox, lui_textbox_get_caret_index(btngrid->kb_data->target_txtbox) + 1);
 	}
 
 }
@@ -3166,9 +3167,10 @@ void lui_textbox_draw(lui_obj_t* obj)
 		}
 	}
 
-	
+	/* Whyy??? */
 	if (caret_x > obj->x)
 		--caret_x;
+
 	/* Draw the caret now, only if the caret does not go out of the boundary */
 	if ((caret_x + caret_w < obj->x + obj->common_style.width - pad) &&
 		(caret_y + caret_h - 1 < obj->y + obj->common_style.height))
@@ -3216,6 +3218,30 @@ lui_obj_t* lui_textbox_create()
 	return  obj;
 }
 
+void lui_textbox_enter_edit_mode(lui_obj_t* obj)
+{
+	if (_lui_verify_obj(obj, LUI_OBJ_TEXTBOX) < 0)
+		return;
+
+	obj->state = LUI_STATE_ENTERED;
+	obj->event = LUI_EVENT_ENTERED;
+	if (obj->obj_event_cb)
+		obj->obj_event_cb(obj);
+	_lui_object_set_need_refresh(obj);
+}
+
+void lui_textbox_exit_edit_mode(lui_obj_t* obj)
+{
+	if (_lui_verify_obj(obj, LUI_OBJ_TEXTBOX) < 0)
+		return;
+
+	obj->state = LUI_STATE_IDLE;
+	obj->event = LUI_EVENT_EXITED;
+	if (obj->obj_event_cb)
+		obj->obj_event_cb(obj);
+	_lui_object_set_need_refresh(obj);
+}
+
 void lui_textbox_set_caret_index(lui_obj_t* obj, uint16_t caret_index)
 {
 	if (_lui_verify_obj(obj, LUI_OBJ_TEXTBOX) < 0)
@@ -3241,36 +3267,41 @@ uint16_t lui_textbox_get_caret_index(lui_obj_t* obj)
 	return txtbox->caret_index;
 }
 
-void lui_textbox_insert_char(lui_obj_t* obj, char c)
+int8_t lui_textbox_insert_char(lui_obj_t* obj, char c)
 {
 	if (_lui_verify_obj(obj, LUI_OBJ_TEXTBOX) < 0)
-		return;
+		return -1;
 	if (((lui_textbox_t* )obj->obj_main_data)->text_buffer == NULL)
-		return;
+		return -1;
 	
 	lui_textbox_t* txtbox = (lui_textbox_t* )obj->obj_main_data;
 	if (txtbox->used_chars + 1 > txtbox->max_len)
-		return;
+		return -1;
 	for (int32_t i = txtbox->used_chars - 1; i >= txtbox->caret_index; i--)
 	{
 		txtbox->text_buffer[i + 1] = txtbox->text_buffer[i];
 	}
 	txtbox->text_buffer[txtbox->caret_index] = c;
 	++(txtbox->used_chars);
+	/* Increase caret index after inserting char */
+	++(txtbox->caret_index);
+	if (txtbox->caret_index > txtbox->used_chars - 1)
+		txtbox->caret_index = txtbox->used_chars - 1;
 
 	_lui_object_set_need_refresh(obj);
+	return 0;
 }
 
-void lui_textbox_delete_char(lui_obj_t* obj)
+int8_t lui_textbox_delete_char(lui_obj_t* obj)
 {
 	if (_lui_verify_obj(obj, LUI_OBJ_TEXTBOX) < 0)
-		return;
+		return -1;
 	if (((lui_textbox_t* )obj->obj_main_data)->text_buffer == NULL)
-		return;
+		return -1;
 	
 	lui_textbox_t* txtbox = (lui_textbox_t* )obj->obj_main_data;
 	if (txtbox->used_chars <= 1)
-		return;
+		return -1;
 	for (int32_t i = txtbox->caret_index; i < txtbox->used_chars; i++)
 	{
 		txtbox->text_buffer[i] = txtbox->text_buffer[i + 1];
@@ -3278,26 +3309,24 @@ void lui_textbox_delete_char(lui_obj_t* obj)
 	--(txtbox->used_chars);
 
 	_lui_object_set_need_refresh(obj);
+	return 0;
 }
 
-void lui_textbox_insert_string(lui_obj_t* obj, char* str, uint16_t len)
+int8_t lui_textbox_insert_string(lui_obj_t* obj, char* str, uint16_t len)
 {
 	if (_lui_verify_obj(obj, LUI_OBJ_TEXTBOX) < 0)
-		return;
+		return -1;
 	if (((lui_textbox_t* )obj->obj_main_data)->text_buffer == NULL)
-		return;
-	lui_textbox_t* txtbox = (lui_textbox_t* )(obj->obj_main_data);
-	uint16_t caret_index = txtbox->caret_index;
+		return -1;
 	for (uint16_t i = 0; i < len; i++)
 	{
 		if (str[i] == '\0')
-			return;
-		lui_textbox_insert_char(obj, str[i]);
-		++txtbox->caret_index;
+			return 0;
+		if (lui_textbox_insert_char(obj, str[i]) < 0)
+			return -1;
 	}
-	/* Restore the original caret index */
-	txtbox->caret_index = caret_index;
 	_lui_object_set_need_refresh(obj);
+	return 0;
 }
 
 void lui_textbox_set_text_buffer(lui_obj_t* obj, char* text_buffer, uint16_t buff_size)
@@ -3312,6 +3341,18 @@ void lui_textbox_set_text_buffer(lui_obj_t* obj, char* text_buffer, uint16_t buf
 	txtbox->used_chars = 1;
 	txtbox->caret_index = 0;
 
+	_lui_object_set_need_refresh(obj);
+}
+
+void lui_textbox_clear_text_buffer(lui_obj_t* obj)
+{
+	if (_lui_verify_obj(obj, LUI_OBJ_TEXTBOX) < 0)
+		return;
+
+	lui_textbox_t* txtbox = (lui_textbox_t* )(obj->obj_main_data);
+	txtbox->used_chars = 1;
+	txtbox->text_buffer[0] = '\0';
+	txtbox->caret_index = 0;
 	_lui_object_set_need_refresh(obj);
 }
 
@@ -4509,14 +4550,12 @@ uint8_t _lui_check_if_active_obj_touch_input(lui_touch_input_data_t* input, lui_
 				is_active = 1;
 			}
 		}
-		
-		
 	}
 
 	if (is_active == 0)
 	{
 		// in case input is not on "obj" and previous "active_obj" is same as "obj",
-		// set "input_on_obj" to NULL.
+		// set "active_obj" to NULL.
 		if (g_lui_main->active_obj == obj)
 		{
 			g_lui_main->active_obj = NULL;
@@ -4788,7 +4827,7 @@ void lui_dispdrv_set_draw_disp_buff_cb(lui_dispdrv_t* dispdrv, void (*draw_pixel
 	dispdrv->draw_pixels_buff_cb = draw_pixels_buff_cb;
 }
 
-int8_t lui_dispdrv_set_disp_buff(lui_dispdrv_t* dispdrv, uint16_t* disp_buff, uint16_t size_in_px)
+int8_t lui_dispdrv_set_disp_buff(lui_dispdrv_t* dispdrv, uint16_t* disp_buff, uint32_t size_in_px)
 {
 	if (dispdrv == NULL)
 		return -1;

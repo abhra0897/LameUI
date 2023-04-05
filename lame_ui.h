@@ -106,8 +106,8 @@
 #define LUI_EVENT_SELECTION_LOST 2 ///< Selection of object is lost (no more under the pointing device)
 #define LUI_EVENT_PRESSED 3		   ///< Object is pressed (object under pointing device and pointing device button is low)
 #define LUI_EVENT_RELEASED 4	   ///< Object is released (object under pointing device but pointing device button is released)
-#define LUI_EVENT_ENTERED 5		   ///< Object is entered to input mode. Example: Clicking on a text box
-#define LUI_EVENT_EXITED 6		   ///< Opposite of above. Example: Clicking outside of a text box
+#define LUI_EVENT_ENTERED 5		   ///< Object is entered to edit/input mode. Example: Clicking on a text box
+#define LUI_EVENT_EXITED 6		   ///< Opposite of above. Example: Exiting edit mode of a text box
 #define LUI_EVENT_VALUE_CHANGED 7  ///< Value of a object is changed. Example: a slider is dragged
 #define LUI_EVENT_CHECK_CHANGED 7  ///< Check status of an object is changed. Example: checkbox is checked/unchecked
 /**@} */
@@ -144,6 +144,7 @@
 #define LUI_KEYBOARD_MODE_TXT_UPPER 2 ///< UPPERCASE TEXT MODE
 #define LUI_KEYBOARD_MODE_TXT_SPCL 3  ///< $pec!a1 charac+er m0d3;
 /**@} */
+
 
 /**
  * @defgroup LUI_ICONS Default built-in icons
@@ -2718,6 +2719,20 @@ lui_obj_t* lui_textbox_create();
 void lui_textbox_draw();
 
 /**
+ * @brief Enter edit mode (input mode) of a textbox
+ * 
+ * @param obj Textbox object
+ */
+void lui_textbox_enter_edit_mode(lui_obj_t* obj);
+
+/**
+ * @brief Exit edit mode of a textbox
+ * 
+ * @param obj Textbox object
+ */
+void lui_textbox_exit_edit_mode(lui_obj_t* obj);
+
+/**
  * @brief Set the index (position) of caret (cursor) in the textbox
  *
  * Text inputs are inserted at the position of caret.
@@ -2738,30 +2753,33 @@ uint16_t lui_textbox_get_caret_index(lui_obj_t* obj);
 /**
  * @brief Insert a character at the position of caret.
  *
- * This does NOT change the caret index after the insert operation.
+ * This increments the caret index by 1 after the insert operation.
  *
  * @param obj textbox object
  * @param c character
+ * @return int8_t 0: Success, -1: Error
  */
-void lui_textbox_insert_char(lui_obj_t* obj, char c);
+int8_t lui_textbox_insert_char(lui_obj_t* obj, char c);
 
 /**
  * @brief Insert a string at the position of caret
  *
- * This does NOT change the caret index after the insert operation.
+ * This increments the caret index by number of inserted chars after the insert operation.
  *
  * @param obj textbox object
  * @param str string (character array)
  * @param len length of the string NOT including the null character
+ * @return int8_t 0: Success, -1: Error
  */
-void lui_textbox_insert_string(lui_obj_t* obj, char* str, uint16_t len);
+int8_t lui_textbox_insert_string(lui_obj_t* obj, char* str, uint16_t len);
 
 /**
  * @brief Delete a character at the caret index. Does not work when caret is at 0
  *
  * @param obj textbox object
+ * @return int8_t 0: Success, -1: Error
  */
-void lui_textbox_delete_char(lui_obj_t* obj);
+int8_t lui_textbox_delete_char(lui_obj_t* obj);
 
 /**
  * @brief Set the text buffer of a textbox. This is where the text is stored.
@@ -2772,6 +2790,13 @@ void lui_textbox_delete_char(lui_obj_t* obj);
  */
 void lui_textbox_set_text_buffer(lui_obj_t* obj, char* text_buffer, uint16_t buff_size);
 
+/**
+ * @brief Empty the text buffer and reset caret  position
+ * 
+ * @param obj textbox object
+ */
+
+void lui_textbox_clear_text_buffer(lui_obj_t* obj);
 /**
  * @brief Set font of the textbox
  *
@@ -3109,7 +3134,7 @@ void lui_dispdrv_set_resolution(lui_dispdrv_t* dispdrv, uint16_t hor_res, uint16
  * 
  * @return int8_t -1: Failure, 0: Success
  */
-int8_t lui_dispdrv_set_disp_buff(lui_dispdrv_t* dispdrv, uint16_t* disp_buff, uint16_t size_in_px);
+int8_t lui_dispdrv_set_disp_buff(lui_dispdrv_t* dispdrv, uint16_t* disp_buff, uint32_t size_in_px);
 
 /**
  * @brief Set callback function for drawing an area of pixels with a display buffer.
@@ -3118,19 +3143,6 @@ int8_t lui_dispdrv_set_disp_buff(lui_dispdrv_t* dispdrv, uint16_t* disp_buff, ui
  * @param draw_pixels_buff_cb callback function pointer
  */
 void lui_dispdrv_set_draw_disp_buff_cb(lui_dispdrv_t* dispdrv, void (*draw_pixels_buff_cb)(uint16_t* disp_buff, lui_area_t* area));
-
-/**
- * @brief Set callback function for handling render complete signal. This is optional.
- *
- * When rendering is completed, LameUI calls this function. It is useful if user
- * was buffering the draw calls rather than directly drawing the pixels on display.
- * Inside the callback functio, user must flush the buffer to display.
- * If user was NOT buffering, then no need to use this callback.
- *
- * @param dispdrv display driver object
- * @param render_complete_cb callback function pointer
- */
-void lui_dispdrv_set_render_complete_cb(lui_dispdrv_t* dispdrv, void (*render_complete_cb)());
 
 /**
  * @private
