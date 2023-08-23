@@ -226,6 +226,16 @@
 /**@} */
 
 /**
+ * @defgroup LUI_LINECHART_DRAW_MODE Linechart widget draw mode
+ * @brief Draw mode flag for linechart widget. It defines how the line is drawn.
+ * These flags can be ORed.
+ * @{
+ */
+#define LUI_LINECHART_DRAW_MODE_LINE	(1 << 0)	///< Draw the lines by connection points
+#define LUI_LINECHART_DRAW_MODE_POINT	(1 << 1)	///< Draw the chart points/markers
+/**@} */
+
+/**
  * @defgroup LUI_DEFAULT_FONT	LameUI default font
  * @brief This is default font of LameUI. User can access default font using this macro.
  * @{
@@ -253,8 +263,8 @@
 typedef struct
 {
 	uint8_t* mem_block;
-	uint16_t block_max_sz;
-	uint16_t mem_allocated;
+	uint32_t block_max_sz;
+	uint32_t mem_allocated;
 } _lui_mem_block_t;
 
 
@@ -350,7 +360,7 @@ struct _lui_common_style_s
 	uint16_t border_color;
 	uint16_t width;
 	uint16_t height;
-	uint8_t border_visible;
+	uint8_t border_width;
 };
 
 struct _lui_label_style_s
@@ -400,7 +410,11 @@ struct _lui_linechart_style_s
 {
 	uint16_t line_color;
 	uint16_t grid_color;
+	uint16_t point_color;
 	uint8_t grid_visible;
+	uint8_t line_width;
+	uint8_t point_width;
+	uint8_t draw_mode;
 };
 #endif
 
@@ -732,7 +746,7 @@ typedef struct _lui_main_s
  * @param size size of the alloted memory
  * @return 0: Success, -1: Failure
  */
-int8_t lui_init(uint8_t mem_block[], uint16_t size);
+int8_t lui_init(uint8_t mem_block[], uint32_t size);
 
 /**
  * @brief This function updates the UI by reading input and rendering widgets
@@ -863,12 +877,21 @@ void lui_object_set_y_pos(lui_obj_t* obj, uint16_t y);
 void lui_object_set_border_color(lui_obj_t* obj, uint16_t border_color);
 
 /**
- * @brief Set border's visibility of an object
+ * @brief Deprecated!! Use `lui_object_set_border_width()` instead
+ * Set border's visibility of an object
  *
  * @param obj target object
  * @param is_visible 1: visible; 0: invisible
  */
-void lui_object_set_border_visibility(lui_obj_t* obj, uint8_t is_visible);
+void lui_object_set_border_visibility(lui_obj_t* obj, uint8_t is_visible) __attribute__ ((deprecated));
+
+/**
+ * @brief Set border's width or thickness. Set width to 0 to remove border
+ *
+ * @param obj target object
+ * @param width width/thickness value. 0 means invisible
+ */
+void lui_object_set_border_width(lui_obj_t* obj, uint8_t width);
 
 /**
  * @brief Set background color of an object
@@ -1168,6 +1191,45 @@ void lui_linechart_set_grid_visible(lui_obj_t* obj_linechart, uint8_t state);
  * @param line_color 16-bit color
  */
 void lui_linechart_set_line_color(lui_obj_t* obj_linechart, uint16_t line_color);
+
+/**
+ * @brief Set width of plot line
+ *
+ * @param obj_linechart linechart object
+ * @param line_width width of line
+ */
+void lui_linechart_set_line_width(lui_obj_t* obj_linechart, uint8_t line_width);
+
+/**
+ * @brief Set color of points/markers of the plot
+ *
+ * @param obj_linechart linechart object
+ * @param point_color 16-bit color
+ */
+void lui_linechart_set_point_color(lui_obj_t* obj_linechart, uint16_t point_color);
+
+/**
+ * @brief Set width of points/markers of plot
+ *
+ * @param obj_linechart linechart object
+ * @param point_width width of points/markers
+ */
+void lui_linechart_set_point_width(lui_obj_t* obj_linechart, uint8_t point_width);
+
+/**
+ * @brief Set draw mode of line chart's plot line
+ * Sets whether to draw line segments, or only the points/markers, or both.
+ *
+ * flags:
+ * LUI_LINECHART_DRAW_MODE_LINE  -> draw line segments by connecting points
+ * LUI_LINECHART_DRAW_MODE_POINT -> draw points/markers
+ *
+ * Flags can be ORed to enable both of them.
+ *
+ * @param obj_linechart linechart object
+ * @param mode_flag ORed drawmode flags.
+ */
+void lui_linechart_set_draw_mode(lui_obj_t* obj_linechart, uint8_t mode_flag);
 
 /**
  * @brief Set whether to apply automatic scaling on the data source or not.
@@ -3204,8 +3266,11 @@ void lui_touch_inputdev_set_read_input_cb(lui_touch_input_dev_t* touch_inputdev,
 //-------------------------------------------------------------------------------
 //-------------------------------- HELPER FUNCTIONS -----------------------------
 //-------------------------------------------------------------------------------
-void _lui_mem_init(uint8_t mem_block[], uint16_t size);
+void _lui_mem_init(uint8_t mem_block[], uint32_t size);
 void *_lui_mem_alloc(uint16_t element_size);
+double _lui_map_range(double old_val, double old_max, double old_min, double new_max, double new_min);
+uint8_t _lui_clip_line(double* point_0, double* point_1, const lui_area_t* clip_win);
+uint8_t _lui_calc_clip_region_code(double x, double y, const lui_area_t* clip_win);
 lui_obj_t* _lui_process_input_of_act_scene();
 lui_obj_t* _lui_scan_all_obj_for_input(lui_touch_input_data_t* touch_input_data, lui_obj_t* obj_root, lui_obj_t* obj_excluded);
 lui_obj_t* _lui_scan_individual_object_for_input(lui_touch_input_data_t* touch_input_data, lui_obj_t* obj);
@@ -3325,6 +3390,19 @@ void lui_gfx_get_string_dimension(const char* str, const lui_font_t* font_obj, u
 void lui_gfx_draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color);
 
 /**
+ * @brief Draw a line within a clipping area
+ *
+ * @param x0 start X
+ * @param y0 start Y
+ * @param x1 end X
+ * @param y1 end Y
+ * @param clip_area pointer to the clipping area
+ * @param line_width width in px
+ * @param color line color
+ */
+void lui_gfx_draw_line_clipped(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, lui_area_t* clip_area, uint8_t line_width, uint16_t color);
+
+/**
  * @brief Draw a rectangle
  * 
  * @param x start X
@@ -3346,6 +3424,18 @@ void lui_gfx_draw_rect(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint8_t l
  * @param color fill color
  */
 void lui_gfx_draw_rect_fill(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color);
+
+/**
+ * @brief Draw a filled rectangle within a clipping area/window
+ *
+ * @param x start X
+ * @param y start Y
+ * @param w width
+ * @param h height
+ * @param clip_area pointer to the clipping area
+ * @param color fill color
+ */
+void lui_gfx_draw_rect_fill_clipped(uint16_t x, uint16_t y, uint16_t w, uint16_t h, lui_area_t* clip_area, uint16_t color);
 
 /**
  * @brief Draws a bitmap at given x,y position. Crop area can be NULL if cropping 
@@ -3376,9 +3466,8 @@ uint16_t lui_rgb(uint8_t red, uint8_t green, uint8_t blue);
 /**@}*/
 const _lui_glyph_t* _lui_gfx_get_glyph_from_char(char c, const lui_font_t* font);
 void _lui_gfx_render_char_glyph(uint16_t x, uint16_t y, uint16_t fore_color, uint16_t bg_color, uint8_t is_bg, const _lui_glyph_t* glyph, const lui_font_t* font);
-void _lui_gfx_plot_line_low(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color);
-void _lui_gfx_plot_line_high(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color);
-double _lui_map_range(double old_val, double old_max, double old_min, double new_max, double new_min);
+void _lui_gfx_plot_line_low(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, lui_area_t* clip_area, uint8_t line_width, uint16_t color);
+void _lui_gfx_plot_line_high(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, lui_area_t* clip_area, uint8_t line_width, uint16_t color);
 /*--------------------------------------------
  *				End Function Prototypes
  *--------------------------------------------
@@ -3414,7 +3503,7 @@ double _lui_map_range(double old_val, double old_max, double old_min, double new
 #define LUI_STYLE_BUTTON_BG_COLOR LUI_RGB(74, 129, 188)
 #define LUI_STYLE_BUTTON_BORDER_COLOR LUI_RGB(75, 81, 92)
 #endif
-#define LUI_STYLE_BUTTON_BORDER_VISIBLE 0
+#define LUI_STYLE_BUTTON_BORDER_THICKNESS 0
 #define LUI_STYLE_BUTTON_WIDTH 40
 #define LUI_STYLE_BUTTON_HEIGHT 30
 
@@ -3427,7 +3516,7 @@ double _lui_map_range(double old_val, double old_max, double old_min, double new
 #define LUI_STYLE_LABEL_BG_COLOR LUI_RGB(255, 255, 255)
 #define LUI_STYLE_LABEL_BORDER_COLOR LUI_RGB(74, 129, 188)
 #endif
-#define LUI_STYLE_LABEL_BORDER_VISIBLE 0
+#define LUI_STYLE_LABEL_BORDER_THICKNESS 0
 #define LUI_STYLE_LABEL_WIDTH 0	 /*40*/
 #define LUI_STYLE_LABEL_HEIGHT 0 /*30*/
 
@@ -3444,7 +3533,7 @@ double _lui_map_range(double old_val, double old_max, double old_min, double new
 #define LUI_STYLE_SWITCH_BG_COLOR LUI_RGB(255, 255, 255)
 #define LUI_STYLE_SWITCH_BORDER_COLOR LUI_RGB(74, 129, 188)
 #endif
-#define LUI_STYLE_SWITCH_BORDER_VISIBLE 1
+#define LUI_STYLE_SWITCH_BORDER_THICKNESS 1
 #define LUI_STYLE_SWITCH_WIDTH 40
 #define LUI_STYLE_SWITCH_HEIGHT 20
 
@@ -3463,7 +3552,7 @@ double _lui_map_range(double old_val, double old_max, double old_min, double new
 #define LUI_STYLE_CHECKBOX_BG_CHECKED_COLOR LUI_RGB(74, 129, 188)
 #define LUI_STYLE_CHECKBOX_BORDER_COLOR LUI_RGB(74, 129, 188)
 #endif
-#define LUI_STYLE_CHECKBOX_BORDER_VISIBLE 1
+#define LUI_STYLE_CHECKBOX_BORDER_THICKNESS 1
 #define LUI_STYLE_CHECKBOX_WIDTH 20
 #define LUI_STYLE_CHECKBOX_HEIGHT LUI_STYLE_CHECKBOX_WIDTH
 
@@ -3473,7 +3562,7 @@ double _lui_map_range(double old_val, double old_max, double old_min, double new
 #define LUI_STYLE_SLIDER_BG_COLOR LUI_RGB(57, 62, 70)
 #define LUI_STYLE_SLIDER_BG_FILLED_COLOR LUI_RGB(74, 129, 188)
 #define LUI_STYLE_SLIDER_BORDER_COLOR LUI_RGB(74, 129, 188)
-#define LUI_STYLE_SLIDER_BORDER_VISIBLE 0
+#define LUI_STYLE_SLIDER_BORDER_THICKNESS 0
 #else
 // TODO: Improve light theme
 #define LUI_STYLE_SLIDER_SELECTION_COLOR LUI_RGB(0, 170, 179)
@@ -3481,7 +3570,7 @@ double _lui_map_range(double old_val, double old_max, double old_min, double new
 #define LUI_STYLE_SLIDER_BG_COLOR LUI_RGB(150, 150,150)
 #define LUI_STYLE_SLIDER_BG_FILLED_COLOR LUI_RGB(74, 129, 188)
 #define LUI_STYLE_SLIDER_BORDER_COLOR LUI_RGB(74, 129, 188)
-#define LUI_STYLE_SLIDER_BORDER_VISIBLE 1
+#define LUI_STYLE_SLIDER_BORDER_THICKNESS 1
 #endif
 #define LUI_STYLE_SLIDER_KNOB_WIDTH 20
 #define LUI_STYLE_SLIDER_WIDTH 80
@@ -3489,17 +3578,19 @@ double _lui_map_range(double old_val, double old_max, double old_min, double new
 
 #if LUI_USE_DARK_THEME == 1
 #define LUI_STYLE_LINECHART_LINE_COLOR LUI_RGB(74, 129, 188)
+#define LUI_STYLE_LINECHART_POINT_COLOR LUI_RGB(82, 143, 209)
 #define LUI_STYLE_LINECHART_GRID_COLOR LUI_RGB(75, 81, 92)
 #define LUI_STYLE_LINECHART_BG_COLOR LUI_RGB(35, 46, 60)
 #define LUI_STYLE_LINECHART_BORDER_COLOR LUI_RGB(74, 129, 188)
 #else
 #define LUI_STYLE_LINECHART_LINE_COLOR LUI_RGB(74, 129, 188)
+#define LUI_STYLE_LINECHART_POINT_COLOR LUI_RGB(82, 143, 209)
 #define LUI_STYLE_LINECHART_GRID_COLOR LUI_RGB(150, 150, 150)
 #define LUI_STYLE_LINECHART_BG_COLOR LUI_RGB(238, 238, 238)
 #define LUI_STYLE_LINECHART_BORDER_COLOR LUI_RGB(74, 129, 188)
 #endif
 #define LUI_STYLE_LINECHART_GRID_VISIBLE 1
-#define LUI_STYLE_LINECHART_BORDER_VISIBLE 1
+#define LUI_STYLE_LINECHART_BORDER_THICKNESS 1
 #define LUI_STYLE_LINECHART_WIDTH 40
 #define LUI_STYLE_LINECHART_HEIGHT 20
 
@@ -3513,7 +3604,7 @@ double _lui_map_range(double old_val, double old_max, double old_min, double new
 #define LUI_STYLE_LIST_ITEM_PRESSED_COLOR LUI_RGB(109, 118, 133)
 #define LUI_STYLE_LIST_ITEM_LABEL_COLOR LUI_RGB(238, 238, 238)
 #define LUI_STYLE_LIST_ITEM_BORDER_COLOR LUI_RGB(75, 81, 92)
-#define LUI_STYLE_LIST_BORDER_VISIBLE 0
+#define LUI_STYLE_LIST_BORDER_THICKNESS 0
 #else
 #define LUI_STYLE_LIST_NAV_BG_COLOR LUI_RGB(74, 129, 188)
 #define LUI_STYLE_LIST_NAV_LABEL_COLOR LUI_RGB(238, 238, 238)
@@ -3524,9 +3615,9 @@ double _lui_map_range(double old_val, double old_max, double old_min, double new
 #define LUI_STYLE_LIST_ITEM_PRESSED_COLOR LUI_RGB(137, 173, 232)
 #define LUI_STYLE_LIST_ITEM_LABEL_COLOR LUI_RGB(0, 0, 0)
 #define LUI_STYLE_LIST_ITEM_BORDER_COLOR LUI_RGB(75, 81, 92)
-#define LUI_STYLE_LIST_BORDER_VISIBLE 1
+#define LUI_STYLE_LIST_BORDER_THICKNESS 1
 #endif
-#define LUI_STYLE_LIST_ITEM_BORDER_VISIBLE 0
+#define LUI_STYLE_LIST_ITEM_BORDER_THICKNESS 0
 #define LUI_STYLE_LIST_ITEM_MIN_HEIGHT 30
 #define LUI_STYLE_LIST_BORDER_COLOR LUI_RGB(74, 129, 188)
 #define LUI_STYLE_LIST_WIDTH 40
@@ -3539,7 +3630,7 @@ double _lui_map_range(double old_val, double old_max, double old_min, double new
 #define LUI_STYLE_BTNGRID_BG_COLOR LUI_RGB(39, 55, 71)
 #define LUI_STYLE_BTNGRID_SELECTION_COLOR LUI_RGB(82, 143, 209)
 #define LUI_STYLE_BTNGRID_BORDER_COLOR LUI_RGB(75, 81, 92)
-#define LUI_STYLE_BTNGRID_BORDER_VISIBLE 0
+#define LUI_STYLE_BTNGRID_BORDER_THICKNESS 0
 
 #else
 #define LUI_STYLE_BTNGRID_BASE_BG_COLOR LUI_RGB(255, 255, 255)
@@ -3548,7 +3639,7 @@ double _lui_map_range(double old_val, double old_max, double old_min, double new
 #define LUI_STYLE_BTNGRID_BG_COLOR LUI_RGB(200, 200, 200)
 #define LUI_STYLE_BTNGRID_SELECTION_COLOR LUI_RGB(82, 143, 209)
 #define LUI_STYLE_BTNGRID_BORDER_COLOR LUI_RGB(150, 150, 150)
-#define LUI_STYLE_BTNGRID_BORDER_VISIBLE 1
+#define LUI_STYLE_BTNGRID_BORDER_THICKNESS 1
 #endif
 #define LUI_STYLE_BTNGRID_WIDTH 300
 #define LUI_STYLE_BTNGRID_HEIGHT 180
@@ -3562,7 +3653,7 @@ double _lui_map_range(double old_val, double old_max, double old_min, double new
 #define LUI_STYLE_TEXTBOX_BG_COLOR LUI_RGB(255, 255, 255)
 #define LUI_STYLE_TEXTBOX_BORDER_COLOR LUI_RGB(74, 129, 188)
 #endif
-#define LUI_STYLE_TEXTBOX_BORDER_VISIBLE 1
+#define LUI_STYLE_TEXTBOX_BORDER_THICKNESS 1
 #define LUI_STYLE_TEXTBOX_WIDTH 200
 #define LUI_STYLE_TEXTBOX_HEIGHT 20
 
@@ -3573,7 +3664,7 @@ double _lui_map_range(double old_val, double old_max, double old_min, double new
 #define LUI_STYLE_PANEL_BG_COLOR LUI_RGB(255, 255, 255)
 #define LUI_STYLE_PANEL_BORDER_COLOR LUI_RGB(74, 129, 188)
 #endif
-#define LUI_STYLE_PANEL_BORDER_VISIBLE 1
+#define LUI_STYLE_PANEL_BORDER_THICKNESS 1
 #define LUI_STYLE_PANEL_WIDTH 100
 #define LUI_STYLE_PANEL_HEIGHT 100
 
@@ -3603,4 +3694,6 @@ double _lui_map_range(double old_val, double old_max, double old_min, double new
 #define _LUI_BOUNDS(x, low, high) ({\
 	(x) > (high) ? (high) : ((x) < (low) ? (low) : (x));\
 })
+
+#define _LUI_SWAP(type, a, b)	({ type tmp = (a); (a) = (b); (b) = tmp; })
 #endif /* INC_LAME_UI_H_ */

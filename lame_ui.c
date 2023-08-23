@@ -31,8 +31,7 @@ static _lui_main_t* g_lui_main;
  * 				Main functions
  *-------------------------------------------------------------------------------
  */
-
-int8_t lui_init(uint8_t mem_block[], uint16_t size)
+int8_t lui_init(uint8_t mem_block[], uint32_t size)
 {
 	_lui_mem_init(mem_block, size);
 	g_lui_main = (_lui_main_t* )_lui_mem_alloc(sizeof(_lui_main_t));
@@ -164,9 +163,12 @@ void lui_label_draw(lui_obj_t* obj)
 		lbl->font);
 
 	// Draw the label border if needed
-	if (obj->common_style.border_visible == 1)
+	if (obj->common_style.border_width)
 	{
-		lui_gfx_draw_rect(obj->x, obj->y, obj->common_style.width, obj->common_style.height, 1, obj->common_style.border_color);
+		lui_gfx_draw_rect(
+			obj->x, obj->y, obj->common_style.width,
+		    obj->common_style.height, obj->common_style.border_width,
+		    obj->common_style.border_color);
 	}
 
 }
@@ -195,7 +197,7 @@ lui_obj_t* lui_label_create(void)
 	// object common style
 	obj->common_style.bg_color = LUI_STYLE_LABEL_BG_COLOR;
 	obj->common_style.border_color = LUI_STYLE_LABEL_BORDER_COLOR;
-	obj->common_style.border_visible = LUI_STYLE_LABEL_BORDER_VISIBLE;
+	obj->common_style.border_width = LUI_STYLE_LABEL_BORDER_THICKNESS;
 	obj->common_style.width = LUI_STYLE_LABEL_WIDTH;
 	obj->common_style.height = LUI_STYLE_LABEL_HEIGHT;
 
@@ -286,17 +288,11 @@ void lui_linechart_draw(lui_obj_t* obj)
 	uint16_t height = obj->common_style.height;
 	uint16_t line_color = chart->style.line_color;
 	uint16_t data_points = chart->data.points;
-	lui_area_t disp_area = {
-		.x = 0,
-		.y = 0,
-		.w = 1,
-		.h = 1,
-	};
 
 	double mapped_data[g_lui_main->disp_drv->display_hor_res * 2];
 
-	double x_data_min_new = temp_x;
-	double x_data_max_new = temp_x + width - 1;
+	double x_data_min_new = obj->x;
+	double x_data_max_new = obj->x + width - 1;
 	//[0][0] element of 2D array is x_min
 	// address of [0][0] = base address
 	double x_data_min_old = *(chart->data.source);
@@ -305,8 +301,8 @@ void lui_linechart_draw(lui_obj_t* obj)
 	double x_data_max_old = *(chart->data.source + (data_points*2) - 2);
 
 
-	double y_data_min_new = temp_y + height - 1;
-	double y_data_max_new = temp_y;
+	double y_data_min_new = obj->y + height - 1;
+	double y_data_max_new = obj->y;
 	double y_data_min_old;
 	double y_data_max_old;
 
@@ -315,16 +311,21 @@ void lui_linechart_draw(lui_obj_t* obj)
 	{
 		// Initially, Max and Min both are set to the first Y value of the source array
 		double y_max = *(chart->data.source + 1);
-		double y_min = *(chart->data.source + 1);
+		double y_min = y_max;
 
 		// Now compare max and min with y values from source array to find the maximum and minimum
 		for (uint16_t i = 1; i < data_points; i++)
 		{
 			double y_val = *(chart->data.source + (i*2) + 1);
-			if (y_max <= y_val)
+			if (y_max < y_val)
 				y_max = y_val;
-			if (y_min >= y_val)
+			if (y_min > y_val)
 				y_min = y_val;
+		}
+		if (y_max == y_min)
+		{
+			y_max = 1;
+			y_min = -1;
 		}
 		y_data_min_old = y_min;
 		y_data_max_old = y_max;
@@ -364,48 +365,80 @@ void lui_linechart_draw(lui_obj_t* obj)
 		}
 	}
 
-
 	// Map all the point values to pixel co-ordinate values
-	for (int i = 0; i < data_points; i++)
+	for (uint16_t i = 0; i < data_points; i++)
 	{
 		double x_data_old = *(chart->data.source + (i*2));
 		double y_data_old = *(chart->data.source + (i*2) + 1);
 		// Mapping range of x values
-		mapped_data[i*2] =  _lui_map_range(x_data_old, x_data_max_old, x_data_min_old, x_data_max_new, x_data_min_new);
+		mapped_data[i*2] = _lui_map_range(x_data_old, x_data_max_old, x_data_min_old, x_data_max_new, x_data_min_new);
 
 		// Mapping range of y values
-		mapped_data[i*2 + 1] =  _lui_map_range(y_data_old, y_data_max_old, y_data_min_old, y_data_max_new, y_data_min_new);
+		mapped_data[i*2 + 1] = _lui_map_range(y_data_old, y_data_max_old, y_data_min_old, y_data_max_new, y_data_min_new);
 	}
 
+
+	lui_area_t clip_win = {temp_x, temp_y, width, height};
 	// Now draw the lines using the mapped points to make the graph
-	for (int i = 0; i < data_points; i++)
+	for (uint16_t i = 0; i < data_points - 1; i++)
 	{
-		uint16_t current_x = mapped_data[i*2];
-		uint16_t current_y = mapped_data[i*2 + 1];
-
-		// Reached the last point, we don't have any next point
-		if (i == data_points - 1)
+		uint32_t i_cur_x = (i * 2), i_cur_y = (i * 2 + 1);
+		uint32_t i_nxt_x = (i * 2 + 2), i_nxt_y = (i * 2 + 3);
+		if (chart->style.draw_mode & LUI_LINECHART_DRAW_MODE_LINE)
 		{
-			// Don't draw line here, just draw the point
-			disp_area.x = current_x;
-			disp_area.y = current_y;
-			g_lui_main->disp_drv->draw_pixels_buff_cb(&line_color, &disp_area);
+			if (chart->data.auto_scale)
+			{
+				lui_gfx_draw_line_clipped(
+					mapped_data[i_cur_x], mapped_data[i_cur_y],
+					mapped_data [i_nxt_x], mapped_data [i_nxt_y],
+					&clip_win, chart->style.line_width, line_color);
+			}
+			else
+			{
+				double current[2] = {mapped_data[i_cur_x], mapped_data[i_cur_y]};
+				double next[2] = {mapped_data [i_nxt_x], mapped_data [i_nxt_y]};
+				// modifies `current` and `next`
+				uint8_t flag_accept = _lui_clip_line(current, next, &clip_win);
+				if (flag_accept)
+				{
+					lui_gfx_draw_line_clipped(
+						current[0], current[1], next[0], next[1],
+						&clip_win, chart->style.line_width, line_color);
+				}
+				else
+					continue;
+			}
+		}
+// 		fprintf(stderr, "[ MpCur  (x0:%7.2lf, y0:%7.2lf)  MpNxt (x0:%7.2lf, y0:%7.2lf)  ClCur (x0:%7.2lf, y0:%7.2lf)  ClNxt (x0:%7.2lf, y0:%7.2lf)  WinS  (x0:%3d, y0:%3d)  WinE  (x1:%3d, y1:%3d) ] \n", mapped_data[i*2], mapped_data[i*2 + 1], mapped_data [i*2 + 2], mapped_data [i*2 + 3], current[0], current[1], next[0], next[1], temp_x, temp_y, temp_x+width-1, temp_y+height-1);
+
+		// Draw point only if point draw mode enabled and points are within the clip area/window
+		if (chart->style.draw_mode & LUI_LINECHART_DRAW_MODE_POINT)
+		{
+			if (mapped_data[i_cur_x] >= clip_win.x && mapped_data[i_cur_x] <= clip_win.x + clip_win.w - 1 &&
+				mapped_data[i_cur_y] >= clip_win.y && mapped_data[i_cur_y] <= clip_win.y + clip_win.h - 1)
+			{
+				double px = mapped_data[i_cur_x] - chart->style.point_width / 2;
+				double py = mapped_data[i_cur_y] - chart->style.point_width / 2;
+				lui_gfx_draw_rect_fill_clipped(px, py, chart->style.point_width, chart->style.point_width, &clip_win, chart->style.point_color);
+			}
+
+			// draw the last remaining point
+			if (i == chart->data.points - 2 &&
+				mapped_data[i_nxt_x] >= clip_win.x && mapped_data[i_nxt_x] <= clip_win.x + clip_win.w - 1 &&
+				mapped_data[i_nxt_y] >= clip_win.y && mapped_data[i_nxt_y] <= clip_win.y + clip_win.h - 1)
+			{
+				double px = mapped_data[i_nxt_x] - chart->style.point_width / 2.;
+				double py = mapped_data[i_nxt_y] - chart->style.point_width / 2.;
+				lui_gfx_draw_rect_fill_clipped(px, py, chart->style.point_width, chart->style.point_width, &clip_win, chart->style.point_color);
+			}
 		}
 
-		// We have next points after thispoint
-		else
-		{
-			uint16_t next_x = mapped_data [i*2 + 2];
-			uint16_t next_y = mapped_data [i*2 + 3];
-
-			lui_gfx_draw_line(current_x, current_y, next_x, next_y, 1, line_color);
-		}
 	}
 
 	// Draw the chart border if needed
-	if (obj->common_style.border_visible == 1)
+	if (obj->common_style.border_width)
 	{
-		lui_gfx_draw_rect(temp_x, temp_y, width, height, 1, obj->common_style.border_color);
+		lui_gfx_draw_rect(temp_x, temp_y, width, height, obj->common_style.border_width, obj->common_style.border_color);
 	}
 }
 
@@ -433,6 +466,10 @@ lui_obj_t* lui_linechart_create()
 	initial_line_chart->style.line_color = LUI_STYLE_LINECHART_LINE_COLOR;
 	initial_line_chart->style.grid_color = LUI_STYLE_LINECHART_GRID_COLOR;
 	initial_line_chart->style.grid_visible = LUI_STYLE_LINECHART_GRID_VISIBLE;
+	initial_line_chart->style.line_width = 2;
+	initial_line_chart->style.point_width = 7;
+	initial_line_chart->style.point_color = LUI_STYLE_LINECHART_POINT_COLOR;
+	initial_line_chart->style.draw_mode = LUI_LINECHART_DRAW_MODE_LINE | LUI_LINECHART_DRAW_MODE_POINT;
 	initial_line_chart->grid.hor_count = 5;
 	initial_line_chart->grid.vert_count = 5;
 	initial_line_chart->font = g_lui_main->default_font;
@@ -444,7 +481,7 @@ lui_obj_t* lui_linechart_create()
 	obj->obj_type = LUI_OBJ_LINECHART;
 	// object common style
 	obj->common_style.border_color = LUI_STYLE_LINECHART_BORDER_COLOR;
-	obj->common_style.border_visible = LUI_STYLE_LINECHART_BORDER_VISIBLE;
+	obj->common_style.border_width = LUI_STYLE_LINECHART_BORDER_THICKNESS;
 	obj->common_style.bg_color = LUI_STYLE_LINECHART_BG_COLOR;
 	obj->common_style.height = LUI_STYLE_LINECHART_HEIGHT;
 	obj->common_style.width = LUI_STYLE_LINECHART_WIDTH;
@@ -499,8 +536,57 @@ void lui_linechart_set_line_color(lui_obj_t* obj, uint16_t line_color)
 	lui_chart_t* chart = (lui_chart_t* )(obj->obj_main_data);
 	if (chart->style.line_color == line_color)
 		return;	
-	_lui_object_set_need_refresh(obj);
 	chart->style.line_color = line_color;
+	_lui_object_set_need_refresh(obj);
+}
+
+void lui_linechart_set_line_width(lui_obj_t* obj, uint8_t line_width)
+{
+	if (_lui_verify_obj(obj, LUI_OBJ_LINECHART) < 0)
+		return;
+
+	lui_chart_t* chart = (lui_chart_t* )(obj->obj_main_data);
+	if (chart->style.line_width == line_width)
+		return;
+	chart->style.line_width = _LUI_MAX(line_width, 1);
+	_lui_object_set_need_refresh(obj);
+}
+
+void lui_linechart_set_point_color(lui_obj_t* obj, uint16_t point_color)
+{
+	if (_lui_verify_obj(obj, LUI_OBJ_LINECHART) < 0)
+		return;
+
+	lui_chart_t* chart = (lui_chart_t* )(obj->obj_main_data);
+	if (chart->style.point_color == point_color)
+		return;
+	chart->style.point_color = point_color;
+	_lui_object_set_need_refresh(obj);
+}
+
+void lui_linechart_set_point_width(lui_obj_t* obj, uint8_t point_width)
+{
+	if (_lui_verify_obj(obj, LUI_OBJ_LINECHART) < 0)
+		return;
+
+	lui_chart_t* chart = (lui_chart_t* )(obj->obj_main_data);
+	if (chart->style.point_width == point_width)
+		return;
+	chart->style.point_width = _LUI_MAX(point_width, 1);
+	_lui_object_set_need_refresh(obj);
+}
+
+void lui_linechart_set_draw_mode(lui_obj_t* obj, uint8_t mode_flag)
+{
+	if (_lui_verify_obj(obj, LUI_OBJ_LINECHART) < 0)
+		return;
+	if (mode_flag == 0 || mode_flag > 3)
+		return;
+	lui_chart_t* chart = (lui_chart_t* )(obj->obj_main_data);
+	if (chart->style.draw_mode == mode_flag)
+		return;
+	chart->style.draw_mode = mode_flag;
+	_lui_object_set_need_refresh(obj);
 }
 
 void lui_linechart_set_data_auto_scale(lui_obj_t* obj, uint8_t auto_scale)
@@ -523,10 +609,11 @@ void lui_linechart_set_data_range(lui_obj_t* obj, double y_min, double y_max)
 	lui_chart_t* chart = (lui_chart_t* )(obj->obj_main_data);
 	if (chart->data.y_max_value == y_max && chart->data.y_min_value == y_min && chart->data.auto_scale == 0)
 		return;
-	_lui_object_set_need_refresh(obj);
+
 	chart->data.y_max_value = y_max;
 	chart->data.y_min_value = y_min;
 	chart->data.auto_scale = 0;
+	_lui_object_set_need_refresh(obj);
 }
 
 void lui_linechart_set_data_source(lui_obj_t* obj, double *source, uint16_t points)
@@ -687,9 +774,12 @@ void lui_button_draw(lui_obj_t* obj)
 	}
 	
 	/* Finally Draw the border if needed */
-	if (obj->common_style.border_visible == 1)
+	if (obj->common_style.border_width)
 	{
-		lui_gfx_draw_rect(obj->x, obj->y, btn_width, btn_height, 1, obj->common_style.border_color);
+		lui_gfx_draw_rect(
+		    obj->x, obj->y, btn_width, btn_height,
+		    obj->common_style.border_width,
+		    obj->common_style.border_color);
 	}
 }
 
@@ -701,7 +791,7 @@ lui_obj_t* lui_button_create()
 	// if total created objects become more than max allowed objects, don't create the object
 	if ( g_lui_main->total_created_objects + 1 > LUI_MAX_OBJECTS)
 		return NULL;
-	 g_lui_main->total_created_objects++;
+	g_lui_main->total_created_objects++;
 
 	lui_button_t* initial_button =  (lui_button_t* )_lui_mem_alloc(sizeof(*initial_button));
 	if (initial_button == NULL)
@@ -738,7 +828,7 @@ lui_obj_t* lui_button_create()
 	// object common style
 	obj->common_style.bg_color = LUI_STYLE_BUTTON_BG_COLOR;
 	obj->common_style.border_color = LUI_STYLE_BUTTON_BORDER_COLOR;
-	obj->common_style.border_visible = LUI_STYLE_BUTTON_BORDER_VISIBLE;
+	obj->common_style.border_width = LUI_STYLE_BUTTON_BORDER_THICKNESS;
 	obj->common_style.width = LUI_STYLE_BUTTON_WIDTH;
 	obj->common_style.height = LUI_STYLE_BUTTON_HEIGHT;
 	
@@ -1023,8 +1113,12 @@ void lui_list_draw(lui_obj_t* obj)
 			0,
 			list->font);
 	}
-	if (obj->common_style.border_visible == 1)
-		lui_gfx_draw_rect(obj->x, obj->y,  obj->common_style.width, obj->common_style.height, 1, obj->common_style.border_color);
+	if (obj->common_style.border_width)
+		lui_gfx_draw_rect(
+		    obj->x, obj->y,  obj->common_style.width,
+		    obj->common_style.height,
+		    obj->common_style.border_width,
+		    obj->common_style.border_color);
 
 }
 
@@ -1059,14 +1153,14 @@ lui_obj_t* lui_list_create()
 	initial_list->items_cnt = 0;
 	initial_list->items = NULL;
 
-	initial_list->style.item_has_border = LUI_STYLE_LIST_ITEM_BORDER_VISIBLE;
+	initial_list->style.item_has_border = LUI_STYLE_LIST_ITEM_BORDER_THICKNESS;
 	initial_list->style.item_label_color = LUI_STYLE_LIST_ITEM_LABEL_COLOR;
 	initial_list->style.item_border_color = LUI_STYLE_LIST_ITEM_BORDER_COLOR;
 
 	// set common styles for list object
 	obj->common_style.bg_color = LUI_STYLE_LIST_ITEM_BG_COLOR;
 	obj->common_style.border_color = LUI_STYLE_LIST_BORDER_COLOR;
-	obj->common_style.border_visible = LUI_STYLE_LIST_BORDER_VISIBLE;
+	obj->common_style.border_width = LUI_STYLE_LIST_BORDER_THICKNESS;
 	obj->common_style.height = LUI_STYLE_LIST_HEIGHT;
 	obj->common_style.width = LUI_STYLE_LIST_WIDTH;
 
@@ -1537,7 +1631,7 @@ void _lui_list_add_nav_buttons(lui_obj_t* obj)
 	lui_button_set_label_color(obj_nav_btn_nxt, LUI_STYLE_LIST_NAV_LABEL_COLOR);
 	lui_button_set_extra_colors(obj_nav_btn_prev, LUI_STYLE_LIST_NAV_PRESSED_COLOR, LUI_STYLE_LIST_NAV_SELECTION_COLOR);
 	lui_button_set_extra_colors(obj_nav_btn_nxt, LUI_STYLE_LIST_NAV_PRESSED_COLOR, LUI_STYLE_LIST_NAV_SELECTION_COLOR);
-	obj_nav_btn_nxt->common_style.border_visible = obj_nav_btn_prev->common_style.border_visible = 0;
+	obj_nav_btn_nxt->common_style.border_width = obj_nav_btn_prev->common_style.border_width = 0;
 	obj_nav_btn_nxt->common_style.border_color = obj_nav_btn_prev->common_style.border_color = LUI_STYLE_LIST_ITEM_BORDER_COLOR;
 	obj_nav_btn_nxt->common_style.bg_color = obj_nav_btn_prev->common_style.bg_color = LUI_STYLE_LIST_NAV_BG_COLOR;
 	obj_nav_btn_prev->obj_event_cb = obj_nav_btn_nxt->obj_event_cb = _lui_list_nav_btn_cb;
@@ -1558,8 +1652,8 @@ void _lui_list_add_nav_buttons(lui_obj_t* obj)
 	lui_button_set_extra_colors(obj_nav_btn_expand, LUI_STYLE_LIST_NAV_PRESSED_COLOR, LUI_STYLE_LIST_NAV_SELECTION_COLOR);
 	lui_button_set_extra_colors(obj_nav_btn_text, LUI_STYLE_LIST_NAV_PRESSED_COLOR, LUI_STYLE_LIST_NAV_SELECTION_COLOR);
 	lui_button_set_label_align(obj_nav_btn_text, LUI_ALIGN_LEFT);
-	obj_nav_btn_expand->common_style.border_visible = 0;
-	obj_nav_btn_text->common_style.border_visible = 1;
+	obj_nav_btn_expand->common_style.border_width = 0;
+	obj_nav_btn_text->common_style.border_width = 1;
 	obj_nav_btn_text->common_style.border_color = LUI_STYLE_LIST_BORDER_COLOR;
 	obj_nav_btn_expand->common_style.bg_color = LUI_STYLE_LIST_NAV_BG_COLOR;
 	obj_nav_btn_text->common_style.bg_color = LUI_STYLE_LIST_ITEM_BG_COLOR;
@@ -1670,8 +1764,11 @@ void lui_switch_draw(lui_obj_t* obj)
 	
 	
 	lui_gfx_draw_rect_fill(temp_x, temp_y, temp_width, temp_height, obj->common_style.bg_color);	// switch bg (color is constant regardless the state)
-	if (obj->common_style.border_visible == 1)
-		lui_gfx_draw_rect(temp_x, temp_y, temp_width, temp_height, 1, obj->common_style.border_color);	// switch border
+	if (obj->common_style.border_width)
+		lui_gfx_draw_rect(
+		    temp_x, temp_y, temp_width, temp_height,
+		    obj->common_style.border_width,
+		    obj->common_style.border_color);	// switch border
 
 	temp_width = (float)temp_width * 0.3;
 	temp_height = (float)temp_height * 0.6;
@@ -1708,7 +1805,7 @@ lui_obj_t* lui_switch_create()
 	// object common style
 	obj->common_style.bg_color = LUI_STYLE_SWITCH_BG_COLOR;
 	obj->common_style.border_color = LUI_STYLE_SWITCH_BORDER_COLOR;
-	obj->common_style.border_visible = LUI_STYLE_SWITCH_BORDER_VISIBLE;
+	obj->common_style.border_width = LUI_STYLE_SWITCH_BORDER_THICKNESS;
 	obj->common_style.width = LUI_STYLE_SWITCH_WIDTH;
 	obj->common_style.height = LUI_STYLE_SWITCH_HEIGHT;
 	
@@ -1816,9 +1913,12 @@ void lui_checkbox_draw(lui_obj_t* obj)
 	}
 
 	// draw the border if needed
-	if (obj->common_style.border_visible == 1)
+	if (obj->common_style.border_width)
 	{
-		lui_gfx_draw_rect(obj->x, obj->y, side, side, 1, obj->common_style.border_color);
+		lui_gfx_draw_rect(
+			obj->x, obj->y, side, side,
+			obj->common_style.border_width,
+			obj->common_style.border_color);
 	}
 
 	/* Draw label if any */
@@ -1893,7 +1993,7 @@ lui_obj_t* lui_checkbox_create()
 	// object common style
 	obj->common_style.bg_color = LUI_STYLE_CHECKBOX_BG_COLOR;
 	obj->common_style.border_color = LUI_STYLE_CHECKBOX_BORDER_COLOR;
-	obj->common_style.border_visible = LUI_STYLE_CHECKBOX_BORDER_VISIBLE;
+	obj->common_style.border_width = LUI_STYLE_CHECKBOX_BORDER_THICKNESS;
 	obj->common_style.width = LUI_STYLE_CHECKBOX_WIDTH;	 // Not needed for now. Still present.
 	obj->common_style.height = g_lui_main->default_font->bitmap->size_y > LUI_STYLE_CHECKBOX_HEIGHT ? g_lui_main->default_font->bitmap->size_y : LUI_STYLE_CHECKBOX_HEIGHT;
 	
@@ -2100,9 +2200,13 @@ void lui_slider_draw(lui_obj_t* obj)
 
 
 	// draw the border if needed
-	if (obj->common_style.border_visible == 1)
+	if (obj->common_style.border_width)
 	{
-		lui_gfx_draw_rect(obj->x, obj->y,  obj->common_style.width,  obj->common_style.height, 1, obj->common_style.border_color);
+		lui_gfx_draw_rect(
+			obj->x, obj->y, obj->common_style.width,
+			obj->common_style.height,
+			obj->common_style.border_width,
+			obj->common_style.border_color);
 	}
 }
 
@@ -2140,7 +2244,7 @@ lui_obj_t* lui_slider_create()
 	// object common style
 	obj->common_style.bg_color = LUI_STYLE_SLIDER_BG_COLOR;
 	obj->common_style.border_color = LUI_STYLE_SLIDER_BORDER_COLOR;
-	obj->common_style.border_visible = LUI_STYLE_SLIDER_BORDER_VISIBLE;
+	obj->common_style.border_width = LUI_STYLE_SLIDER_BORDER_THICKNESS;
 	obj->common_style.width = LUI_STYLE_SLIDER_WIDTH;
 	obj->common_style.height = LUI_STYLE_SLIDER_HEIGHT;
 
@@ -2434,9 +2538,13 @@ void lui_btngrid_draw(lui_obj_t* obj)
 				btn_height = btngrid->btn_area[i].y2 - btngrid->btn_area[i].y1 + 1;
 				lui_gfx_draw_rect_fill(btngrid->btn_area[i].x1, btngrid->btn_area[i].y1, btn_width, btn_height, btn_color);
 
-				if (obj->common_style.border_visible)
+				if (obj->common_style.border_width)
 				{
-					lui_gfx_draw_rect(btngrid->btn_area[i].x1, btngrid->btn_area[i].y1, btn_width, btn_height, 1, obj->common_style.border_color);
+					lui_gfx_draw_rect(
+						btngrid->btn_area[i].x1, btngrid->btn_area[i].y1,
+						btn_width, btn_height,
+						obj->common_style.border_width,
+						obj->common_style.border_color);
 				}
 
 				uint16_t str_width_height[2];
@@ -2501,7 +2609,7 @@ lui_obj_t* lui_btngrid_create()
 	// object common style
 	obj->common_style.bg_color = LUI_STYLE_BTNGRID_BASE_BG_COLOR;
 	obj->common_style.border_color = LUI_STYLE_BTNGRID_BORDER_COLOR;
-	obj->common_style.border_visible = LUI_STYLE_BTNGRID_BORDER_VISIBLE;
+	obj->common_style.border_width = LUI_STYLE_BTNGRID_BORDER_THICKNESS;
 	obj->common_style.width = LUI_STYLE_BTNGRID_WIDTH;
 	obj->common_style.height = LUI_STYLE_BTNGRID_HEIGHT;
 
@@ -3089,10 +3197,13 @@ void lui_textbox_draw(lui_obj_t* obj)
 	if (txtbox->needs_full_render == 1)
 	{
 		lui_gfx_draw_rect_fill(obj->x, obj->y, obj->common_style.width, obj->common_style.height, obj->common_style.bg_color);
-		if (obj->common_style.border_visible)
+		if (obj->common_style.border_width)
 		{
-			
-			lui_gfx_draw_rect(obj->x, obj->y, obj->common_style.width, obj->common_style.height, 1, obj->common_style.border_color);
+			lui_gfx_draw_rect(
+				obj->x, obj->y, obj->common_style.width,
+				obj->common_style.height,
+				obj->common_style.border_width,
+				obj->common_style.border_color);
 		}
 		txtbox->needs_full_render = 0;
 	}
@@ -3167,7 +3278,7 @@ void lui_textbox_draw(lui_obj_t* obj)
 		}
 	}
 
-	/* Whyy??? */
+	/* Whyy???*/
 	if (caret_x > obj->x)
 		--caret_x;
 
@@ -3209,7 +3320,7 @@ lui_obj_t* lui_textbox_create()
 	// object common style
 	obj->common_style.bg_color = LUI_STYLE_TEXTBOX_BG_COLOR;
 	obj->common_style.border_color = LUI_STYLE_TEXTBOX_BORDER_COLOR;
-	obj->common_style.border_visible = LUI_STYLE_TEXTBOX_BORDER_VISIBLE;
+	obj->common_style.border_width = LUI_STYLE_TEXTBOX_BORDER_THICKNESS;
 	obj->common_style.width = LUI_STYLE_TEXTBOX_WIDTH;
 	obj->common_style.height = LUI_STYLE_TEXTBOX_HEIGHT;
 
@@ -3421,7 +3532,7 @@ lui_obj_t* lui_panel_create()
 	// object comon style
 	obj->common_style.bg_color = LUI_STYLE_PANEL_BG_COLOR;
 	obj->common_style.border_color = LUI_STYLE_PANEL_BORDER_COLOR;
-	obj->common_style.border_visible = LUI_STYLE_PANEL_BORDER_VISIBLE;
+	obj->common_style.border_width = LUI_STYLE_PANEL_BORDER_THICKNESS;
 	obj->common_style.width = LUI_STYLE_PANEL_WIDTH;
 	obj->common_style.height = LUI_STYLE_PANEL_HEIGHT;
 	obj->obj_main_data = (void* )initial_panel;	// will add panel specific main data later
@@ -3459,8 +3570,12 @@ void lui_panel_draw(lui_obj_t* obj)
 	}
 
 	/* Draw optional border */
-	if (obj->common_style.border_visible == 1)
-		lui_gfx_draw_rect(obj->x, obj->y, obj->common_style.width, obj->common_style.height, 1, obj->common_style.border_color);
+	if (obj->common_style.border_width)
+		lui_gfx_draw_rect(
+			obj->x, obj->y, obj->common_style.width,
+			obj->common_style.height,
+			obj->common_style.border_width,
+			obj->common_style.border_color);
 }
 
 void lui_panel_set_bitmap_image(lui_obj_t* obj, const lui_bitmap_t* bitmap)
@@ -3877,9 +3992,19 @@ void lui_object_set_border_visibility(lui_obj_t* obj, uint8_t is_visible)
 {
 	if (obj == NULL)
 		return;
-	if (obj->common_style.border_visible == is_visible)
+	if (obj->common_style.border_width == is_visible)
 		return;
-	obj->common_style.border_visible = (is_visible == 0) ? 0 : 1;
+	obj->common_style.border_width = (is_visible == 0) ? 0 : 1;
+	_lui_object_set_need_refresh(obj);
+}
+
+void lui_object_set_border_width(lui_obj_t* obj, uint8_t width)
+{
+	if (obj == NULL)
+		return;
+	if (obj->common_style.border_width == width)
+		return;
+	obj->common_style.border_width = width;
 	_lui_object_set_need_refresh(obj);
 }
 
@@ -4990,40 +5115,48 @@ void lui_gfx_draw_char(char c, uint16_t x, uint16_t y, uint16_t fore_color, uint
  */
 void lui_gfx_draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color)
 {
+	lui_gfx_draw_line_clipped(x0, y0, x1, y1, NULL, line_width, color);
+}
+
+void lui_gfx_draw_line_clipped(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, lui_area_t* clip_area, uint8_t line_width, uint16_t color)
+{
 	/*
 	* Brehensen's algorithm is used.
 	* Not necessarily start points has to be less than end points.
 	*/
-	
 	if (x0 == x1)	//vertical line
 	{
-		lui_gfx_draw_rect_fill(x0, (y0 < y1 ? y0 : y1), (uint16_t)line_width, (uint16_t)abs(y1 - y0 + 1), color);
+		lui_gfx_draw_rect_fill_clipped(x0, (y0 < y1 ? y0 : y1), (uint16_t)line_width, (uint16_t)abs(y1 - y0 + 1), clip_area, color);
 	}
 	else if (y0 == y1)		//horizontal line
 	{
-		lui_gfx_draw_rect_fill((x0 < x1 ? x0 : x1), y0, (uint16_t)abs(x1 - x0 + 1), (uint16_t)line_width, color);
+		lui_gfx_draw_rect_fill_clipped((x0 < x1 ? x0 : x1), y0, (uint16_t)abs(x1 - x0 + 1), (uint16_t)line_width, clip_area, color);
 	}
 	else
 	{
 		if (abs(y1 - y0) < abs(x1 - x0))
 		{
 			if (x0 > x1)
-				_lui_gfx_plot_line_low(x1, y1, x0, y0, line_width, color);
-			else
-				_lui_gfx_plot_line_low(x0, y0, x1, y1, line_width, color);
+			{
+				_LUI_SWAP(uint16_t, x0, x1);
+				_LUI_SWAP(uint16_t, y0, y1);
+			}
+			_lui_gfx_plot_line_low(x0, y0, x1, y1, clip_area, line_width, color);
 		}
 
 		else
 		{
 			if (y0 > y1)
-				_lui_gfx_plot_line_high(x1, y1, x0, y0, line_width, color);
-			else
-				_lui_gfx_plot_line_high(x0, y0, x1, y1, line_width, color) ;
+			{
+				_LUI_SWAP(uint16_t, x0, x1);
+				_LUI_SWAP(uint16_t, y0, y1);
+			}
+			_lui_gfx_plot_line_high(x0, y0, x1, y1, clip_area, line_width, color) ;
 		}
 	}
-
 }
 
+//TODO: draw rect clipped
 /*
  * Draw a rectangle with a given color and line width
  */
@@ -5031,10 +5164,10 @@ void lui_gfx_draw_rect(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint8_t l
 {
 	uint16_t x_new = x+w-1;
 	uint16_t y_new = y+h-1;
-	lui_gfx_draw_line(x, y, x_new, y, line_width, color);
-	lui_gfx_draw_line(x_new, y, x_new, y_new, line_width, color);
-	lui_gfx_draw_line(x, y_new, x_new, y_new, line_width, color);
-	lui_gfx_draw_line(x, y, x, y_new, line_width, color);
+	lui_gfx_draw_line(x, y, x_new, y, line_width, color);  // TL->TR
+	lui_gfx_draw_line(x_new-line_width+1, y, x_new-line_width+1, y_new, line_width, color);  // TR->BR
+	lui_gfx_draw_line(x, y_new-line_width+1, x_new, y_new-line_width+1, line_width, color);  // BL->BR
+	lui_gfx_draw_line(x, y, x, y_new, line_width, color);  // TL->BL
 }
 
 /*
@@ -5042,10 +5175,42 @@ void lui_gfx_draw_rect(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint8_t l
  */
 void lui_gfx_draw_rect_fill(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color)
 {
+	lui_gfx_draw_rect_fill_clipped(x, y, w, h, NULL, color);
+}
+
+void lui_gfx_draw_rect_fill_clipped(uint16_t x, uint16_t y, uint16_t w, uint16_t h, lui_area_t* clip_area, uint16_t color)
+{
 	uint16_t buff_index = 0;
 	uint16_t buff_h = 0;
 	uint16_t px_cnt = 0;
 	uint16_t tmp_x = 0, tmp_y = 0;
+
+	if (clip_area)
+	{
+		// Totally outside
+		if (x > clip_area->x + clip_area->w - 1 || y > clip_area->y + clip_area->h + 1 ||
+			x + w - 1 < clip_area->x || y + h - 1 < clip_area->y)
+			return;
+		// Clip left
+		if (x < clip_area->x)
+		{
+			w = w - (clip_area->x - x);
+			x = clip_area->x;
+		}
+		// Clip top
+		if (y < clip_area->y)
+		{
+			h = h - (clip_area->y - y);
+			y = clip_area->y;
+		}
+		// Clip right
+		if (x + w > clip_area->x + clip_area->w)
+			w = clip_area->x + clip_area->w - x;
+		// Clip bottom
+		if (y + h > clip_area->y + clip_area->h)
+			h = clip_area->y + clip_area->h - y;
+	}
+
 	for (tmp_y = y; tmp_y < y + h; ++tmp_y)
 	{
 		for (tmp_x = x; tmp_x < x + w; ++tmp_x)
@@ -5270,8 +5435,8 @@ void lui_gfx_draw_bitmap(const lui_bitmap_t* bitmap, lui_bitmap_mono_pal_t* pale
 		/* Crop area start pos can't be higher than bitmap dimension itself */
 		if (crop_area->x > bitmap->size_x || crop_area->y > bitmap->size_y)
 			return;
-		crop_area->w = _LUI_BOUNDS(crop_area->w, 1, bitmap->size_x - crop_area->x);
-		crop_area->h = _LUI_BOUNDS(crop_area->h, 1, bitmap->size_y - crop_area->y);
+		_LUI_BOUNDS(crop_area->w, 1, bitmap->size_x - crop_area->x);
+		_LUI_BOUNDS(crop_area->h, 1, bitmap->size_y - crop_area->y);
 
 		width = crop_area->w;
 		height = crop_area->h;
@@ -5384,7 +5549,8 @@ void lui_gfx_draw_bitmap(const lui_bitmap_t* bitmap, lui_bitmap_mono_pal_t* pale
  * When dy < 0
  * It's called only by line_draw function. Not for user
  */
-void _lui_gfx_plot_line_low(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color)
+// TODO: Make thick line render more efficient
+void _lui_gfx_plot_line_low(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, lui_area_t* clip_area, uint8_t line_width, uint16_t color)
 {
 	int16_t dx = x1 - x0;
 	int16_t dy = y1 - y0;
@@ -5398,17 +5564,31 @@ void _lui_gfx_plot_line_low(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, 
 	int16_t D = 2*dy - dx;
 	uint16_t y = y0;
 	uint16_t x = x0;
-	lui_area_t disp_area = {
+	lui_area_t disp_area = 
+	{
 		.x = 0,
 		.y = 0,
-		.w = line_width,
-		.h = line_width,
+		.w = 1,
+		.h = 1,
 	};
 	while (x <= x1)
 	{
 		disp_area.x = x;
 		disp_area.y = y;
-		g_lui_main->disp_drv->draw_pixels_buff_cb(&color, &disp_area);
+
+		for (int8_t i = -line_width / 2; i <= line_width / 2; i++)
+		{
+			disp_area.y = _LUI_MAX((int32_t)y + i, 0);
+			if (clip_area)
+			{
+				if (disp_area.x >= clip_area->x + clip_area->w || disp_area.x < clip_area->x ||
+					disp_area.y >= clip_area->y + clip_area->h || disp_area.y < clip_area->y )
+					{
+						continue;
+					}
+			}
+			g_lui_main->disp_drv->draw_pixels_buff_cb(&color, &disp_area);
+		}
 
 		if (D > 0)
 		{
@@ -5424,8 +5604,10 @@ void _lui_gfx_plot_line_low(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, 
  * When dx < 0
  * It's called only by line_draw function. Not for user
  */
-void _lui_gfx_plot_line_high(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color)
+void _lui_gfx_plot_line_high(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, lui_area_t* clip_area, uint8_t line_width, uint16_t color)
 {
+// 	fprintf(stderr, "Disp [ x0:%d y0:%d x1:%d y1:%d ] \n", x0, y0, x1, y1);
+	fflush(stderr);
 	int16_t dx = x1 - x0;
 	int16_t dy = y1 - y0;
 	int8_t xi = 1;
@@ -5438,17 +5620,34 @@ void _lui_gfx_plot_line_high(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1,
 	int16_t D = 2*dx - dy;
 	uint16_t y = y0;
 	uint16_t x = x0;
-	lui_area_t disp_area = {
+	lui_area_t disp_area =
+	{
 		.x = 0,
 		.y = 0,
-		.w = line_width,
-		.h = line_width,
+		.w = 1,
+		.h = 1,
 	};
 	while (y <= y1)
 	{
 		disp_area.x = x;
 		disp_area.y = y;
-		g_lui_main->disp_drv->draw_pixels_buff_cb(&color, &disp_area);
+
+		// Draw multiple pixels vertically for line width
+		for (int8_t i = -line_width / 2; i <= line_width / 2; i++)
+		{
+			disp_area.x = _LUI_MAX((int32_t)x + i, 0);
+			if (clip_area)
+			{
+				if (disp_area.x >= clip_area->x + clip_area->w || disp_area.x < clip_area->x ||
+					disp_area.y >= clip_area->y + clip_area->h || disp_area.y < clip_area->y )
+					{
+						continue;
+					}
+			}
+// 			fprintf(stderr, "Disp [ X:%d Y:%d H:%d W:%d ] x:%d, i:%d, xi:%d\n", disp_area.x, disp_area.y, disp_area.h, disp_area.w, x, i, xi);
+// 			fflush(stderr);
+			g_lui_main->disp_drv->draw_pixels_buff_cb(&color, &disp_area);
+		}
 
 		if (D > 0)
 		{
@@ -5580,6 +5779,109 @@ double _lui_map_range(double old_val, double old_max, double old_min, double new
 	return new_val;
 }
 
+uint8_t _lui_calc_clip_region_code(double x, double y, const lui_area_t* clip_win)
+{
+	uint8_t rcode = 0;
+	if (x < clip_win->x)    rcode |= (1 << 1);  //LEFT
+	else if (x > clip_win->x + clip_win->w - 1)    rcode |= (1 << 2);	//RIGHT
+
+	if (y < clip_win->y)	rcode |= (1 << 4);  //TOP
+	else if (y > clip_win->y + clip_win->h - 1)	rcode |= (1 << 3);  //BOTTOM
+
+	return rcode;
+
+}
+
+/**
+ * https://en.wikipedia.org/wiki/Cohen%E2%80%93Sutherland_algorithm
+ * Returns: 0-> unaccepted, 1-> accepted unclipped, 3-> accepted clipped
+ */
+uint8_t _lui_clip_line(double* point_0, double* point_1, const lui_area_t* clip_win)
+{
+	if (!point_0 || !point_1 || !clip_win)	return 0;
+
+	// rcode bits
+	const uint8_t INSIDE = (1<<0), LEFT = (1<<1), RIGHT = (1<<2), BOTTOM = (1<<3), TOP = (1<<4);
+	double x0 = point_0[0], y0 = point_0[1];
+	double x1 = point_1[0], y1 = point_1[1];
+
+	double xmin = clip_win->x, xmax = clip_win->x + clip_win->w - 1;
+	// ymin and ymax are swapped because y=0 of screen is at top
+	double ymax = clip_win->y, ymin = clip_win->y + clip_win->h - 1;
+
+	uint8_t rcode_0 = _lui_calc_clip_region_code(x0, y0, clip_win);
+	uint8_t rcode_1 = _lui_calc_clip_region_code(x1, y1, clip_win);
+
+
+	uint8_t flag_accept = 0;
+	while(1)
+	{
+		if (!(rcode_0 | rcode_1))
+		{
+			flag_accept = 1;
+			break;
+		}
+		else if (rcode_0 & rcode_1)
+		{
+			break;
+		}
+		else
+		{
+			uint8_t rcode = rcode_0 ? rcode_0 : rcode_1; // at least one code is non-zero, pick that one
+			double x, y;
+
+			// Now find the intersection point;
+			// use formulas:
+			//   slope = (y1 - y0) / (x1 - x0)
+			//   x = x0 + (1 / slope) * (ym - y0), where ym is ymin or ymax
+			//   y = y0 + slope * (xm - x0), where xm is xmin or xmax
+			// No need to worry about divide-by-zero because, in each case, the
+			// outcode bit being tested guarantees the denominator is non-zero
+
+			if (rcode & TOP)  // point is above the clip window
+			{
+				x = x0 + (x1 - x0) * (ymax - y0) / (y1 - y0);
+				y = ymax;
+			}
+			else if (rcode & BOTTOM)  // point is below the clip window
+			{
+				x = x0 + (x1 - x0) * (ymin - y0) / (y1 - y0);
+				y = ymin;
+			}
+			else if (rcode & RIGHT)  // point is to the right of clip window
+			{
+				y = y0 + (y1 - y0) * (xmax - x0) / (x1 - x0);
+				x = xmax;
+			}
+			else if (rcode & LEFT)  // point is to the left of clip window
+			{
+				y = y0 + (y1 - y0) * (xmin - x0) / (x1 - x0);
+				x = xmin;
+			}
+
+			// Now we move outside point to intersection point to clip
+			// and get ready for next pass.
+			if (rcode == rcode_0)
+			{
+				x0 = x;
+				y0 = y;
+				rcode_0 = _lui_calc_clip_region_code(x0, y0, clip_win);
+			}
+			else
+			{
+				x1 = x;
+				y1 = y;
+				rcode_1 = _lui_calc_clip_region_code(x1, y1, clip_win);
+			}
+		}
+	}
+	point_0[0] = x0;
+	point_0[1] = y0;
+	point_1[0] = x1;
+	point_1[1] = y1;
+	return flag_accept;
+}
+
 int8_t _lui_verify_obj(lui_obj_t* obj, uint8_t obj_type)
 {
 	if (obj == NULL)
@@ -5607,7 +5909,7 @@ uint8_t _lui_disp_drv_check()
 		return 1;
 }
 
-void _lui_mem_init(uint8_t mem_block[], uint16_t size)
+void _lui_mem_init(uint8_t mem_block[], uint32_t size)
 {
 	g_lui_mem_block.mem_block = mem_block;
 	g_lui_mem_block.block_max_sz = size;
