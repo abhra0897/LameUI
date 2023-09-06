@@ -34,7 +34,7 @@
 
 #define LUI_MAX_OBJECTS 200 ///< Set number of maximum objects that can be created
 
-#define LUI_USE_DARK_THEME 1 ///< Comment out OR set value to 0 for using light theme
+// #define LUI_USE_DARK_THEME 0 ///< Comment out OR set value to 0 for using light theme
 
 /**
  * @defgroup LUI_USE_OBJECT Widgets to use
@@ -304,9 +304,11 @@ typedef struct _lui_bitmap_mono_pal_s
 /* This is a font glyph description - for now it does not support kerning */
 typedef struct
 {
+	const uint16_t payload_index;
 	const char character; // ASCII code
 	const uint8_t width;
-	const uint16_t payload_index;
+	const uint8_t x_adv;
+	const uint8_t x_off;
 } _lui_glyph_t;
 
 /**

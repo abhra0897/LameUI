@@ -124,6 +124,7 @@ void lui_label_draw(lui_obj_t* obj)
 		.w = obj->common_style.width,
 		.h = obj->common_style.height
 	};
+
 	uint16_t bg_color = obj->common_style.bg_color;
 	const lui_bitmap_t* parent_bmp = NULL;
 	lui_bitmap_mono_pal_t* mono_palette = NULL;
@@ -322,6 +323,7 @@ void lui_linechart_draw(lui_obj_t* obj)
 			if (y_min > y_val)
 				y_min = y_val;
 		}
+		//TODO: fixme
 		if (y_max == y_min)
 		{
 			y_max = 1;
@@ -664,7 +666,7 @@ void lui_button_draw(lui_obj_t* obj)
 	uint16_t btn_height = obj->common_style.height;
 	uint16_t btn_width = obj->common_style.width;
 	
-	uint16_t str_width_height[2];
+	uint16_t str_dim[2];
 
 	/* If button's background is transparent, draw parent's bg color or parent's bitmap as bg */
 	if (obj->parent && btn->style.is_transparent_bg && obj->state != LUI_STATE_SELECTED)
@@ -745,19 +747,19 @@ void lui_button_draw(lui_obj_t* obj)
 				return;
 		}
 
-		lui_gfx_get_string_dimension(lbl_txt, btn->label.font, btn_width, str_width_height);
+		lui_gfx_get_string_dimension(lbl_txt, btn->label.font, btn_width, str_dim);
 
-		str_width_height[0] = str_width_height[0] > btn_width ? btn_width : str_width_height[0];
-		str_width_height[1] = str_width_height[1] > btn_height ? btn_height : str_width_height[1];
+		str_dim[0] = str_dim[0] > btn_width ? btn_width : str_dim[0];
+		str_dim[1] = str_dim[1] > btn_height ? btn_height : str_dim[1];
 
-		temp_y = temp_y + (btn_height - str_width_height[1]) / 2;
+		temp_y = temp_y + (btn_height - str_dim[1]) / 2;
 		if (btn->label.text_align == LUI_ALIGN_CENTER)
 		{
-			temp_x = temp_x + (btn_width - str_width_height[0]) / 2;
+			temp_x = temp_x + (btn_width - str_dim[0]) / 2;
 		}
 		else if (btn->label.text_align == LUI_ALIGN_RIGHT)
 		{
-			temp_x = temp_x + (btn_width - str_width_height[0]) - padding;
+			temp_x = temp_x + (btn_width - str_dim[0]) - padding;
 		}
 		else
 		{
@@ -767,8 +769,8 @@ void lui_button_draw(lui_obj_t* obj)
 		lui_area_t btn_lbl_area = {
 			.x = temp_x,
 			.y = temp_y,
-			.w = str_width_height[0],
-			.h = str_width_height[1]
+			.w = str_dim[0],
+			.h = str_dim[1]
 		};
 		lui_gfx_draw_string_advanced(lbl_txt, &btn_lbl_area, lbl_color, 0, NULL, NULL, NULL, 0, btn->label.font);
 	}
