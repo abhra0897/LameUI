@@ -3218,8 +3218,6 @@ void lui_textbox_draw(lui_obj_t* obj)
 	uint16_t caret_y = obj->y + pad;
 	uint8_t caret_h = txtbox->font->bitmap->size_y;
 	uint8_t caret_w = 4;
-	uint8_t glyph_w = 0;
-	uint8_t glyph_h = 0;
 
 	lui_area_t txtbx_area = {
 		.x = obj->x + pad,
@@ -3254,19 +3252,31 @@ void lui_textbox_draw(lui_obj_t* obj)
 		{
 			// Find the glyph for the char from the font
 			const _lui_glyph_t* glyph = _lui_gfx_get_glyph_from_char(txtbox->text_buffer[i], txtbox->font);
-			glyph_h = txtbox->font->bitmap->size_y;
+			uint8_t glyph_h = txtbox->font->bitmap->size_y;
+			uint8_t glyph_w = 0;
+			uint8_t glyph_xadv = 0;
+// 			uint8_t glyph_xoff = 0; // not needed here
 
 			if (glyph == NULL)
+			{
 				glyph_w = txtbox->font->bitmap->size_y / 2;
-			/* Width of space is not available in font map, so we calc w based on h */
-			else if (glyph->character == ' ')
+				glyph_xadv = glyph_w;
+			}
+			/* Width of space is not correct in older font maps, so we calc w based on h */
+			else if (glyph->character == ' ' && glyph->x_adv == 0)
+			{
 				glyph_w = txtbox->font->bitmap->size_y / 4;
+				glyph_xadv = glyph_w;
+			}
 			else
+			{
 				glyph_w = glyph->width;
-
+				glyph_xadv = _LUI_MAX(glyph->x_adv, glyph_w);	// becasue in some rare cases x_adv = 0
+// 				glyph_xoff = glyph->x_off; // not needed here
+			}
 
 			// check if not enough space available at the right side
-			if (caret_x + glyph_w > obj->x + obj->common_style.width - pad)
+			if (caret_x + glyph_xadv > obj->x + obj->common_style.width - pad)
 			{
 				caret_x = obj->x + pad;			//go to first col
 				caret_y += glyph_h;					//go to next row
@@ -3276,7 +3286,7 @@ void lui_textbox_draw(lui_obj_t* obj)
 			{
 				break;
 			}
-			caret_x += glyph_w;		//next char position
+			caret_x += glyph_xadv;		//next char position
 		}
 	}
 
@@ -5061,20 +5071,33 @@ void lui_gfx_draw_string_advanced(const char* str, lui_area_t* area, uint16_t fo
 		else
 		{
 			uint8_t glyph_width = 0;
+			uint8_t glyph_xadv = 0;
+			uint8_t glyph_xoff = 0;
+
             glyph = _lui_gfx_get_glyph_from_char(*str, font);
 
 			if (glyph == NULL)
+			{
 				glyph_width = font->bitmap->size_y / 2;
-			/* Width of space is not available in font map, so we calc w based on h */
-			else if (glyph->character == ' ')
+				glyph_xadv = glyph_width;
+			}
+			/* Width of space is not correct in older font maps, so we calc w based on h */
+			else if (glyph->character == ' ' && glyph->x_adv == 0)
+			{
 				glyph_width = font->bitmap->size_y / 4;
+				glyph_xadv = glyph_width;
+			}
 			else
+			{
 				glyph_width = glyph->width;
+				glyph_xadv = _LUI_MAX(glyph->x_adv, glyph_width);	// becasue in some rare cases x_adv = 0
+				glyph_xoff = glyph->x_off;
+			}
 
 			// check if not enough space available at the right side
-			if (x_temp + glyph_width > area->x + area->w)
+			if (x_temp + glyph_xoff + glyph_width > area->x + area->w)
 			{
-				x_temp = area->x;					//go to first col
+				x_temp = area->x;	//go to first col
 				y_temp += font->bitmap->size_y;	//go to next row
 			}
 
@@ -5083,8 +5106,7 @@ void lui_gfx_draw_string_advanced(const char* str, lui_area_t* area, uint16_t fo
 				return;
 
 			_lui_gfx_render_char_glyph(x_temp, y_temp, fore_color, 0, 0, glyph, font);
-
-			x_temp += glyph_width;		//next char position
+			x_temp += glyph_xadv;		//next char position
 		}
 
         str++;
@@ -5284,26 +5306,47 @@ void lui_gfx_get_string_dimension(const char* str, const lui_font_t* font, uint1
 		}
 		else
 		{
-            uint8_t glyph_width = 0;
             const _lui_glyph_t* glyph = _lui_gfx_get_glyph_from_char(*str, font);
+			uint8_t glyph_width = 0;
+			uint8_t glyph_xadv = 0;
+			uint8_t glyph_xoff = 0;
 
 			if (glyph == NULL)
+			{
 				glyph_width = font->bitmap->size_y / 2;
-			/* Width of space is not available in font map, so we calc w based on h */
-			else if (glyph->character == ' ')
+				glyph_xadv = glyph_width;
+			}
+			/* Width of space is not correct in older font maps, so we calc w based on h */
+			else if (glyph->character == ' ' && glyph->x_adv == 0)
+			{
 				glyph_width = font->bitmap->size_y / 4;
+				glyph_xadv = glyph_width;
+			}
 			else
+			{
 				glyph_width = glyph->width;
+				glyph_xadv = _LUI_MAX(glyph->x_adv, glyph_width);	// becasue in some rare cases x_adv = 0
+				glyph_xoff = glyph->x_off;
+			}
 
             // Add width of glyphs
-            if (temp_w + glyph_width > max_w)
-            {
-                temp_h += font->bitmap->size_y;
-                temp_w = 0;
-                needs_wrap = 1;
-            }
-
-            temp_w += glyph_width;
+            if (temp_w + glyph_xadv > max_w)
+			{
+				if (temp_w + glyph_xoff + glyph_width > max_w)
+				{
+					temp_h += font->bitmap->size_y;
+					temp_w = 0;
+					needs_wrap = 1;
+				}
+				else
+				{
+					temp_w += glyph_xoff + glyph_width;
+				}
+			}
+            else
+			{
+				temp_w += glyph_xadv;
+			}
             temp_w_highest = temp_w_highest < temp_w ? temp_w : temp_w_highest;
 		}
 
@@ -5354,7 +5397,7 @@ void _lui_gfx_render_char_glyph(uint16_t x, uint16_t y, uint16_t fore_color, uin
 		return;
 	}
 
-	uint16_t temp_x = x;
+	uint16_t temp_x = x + glyph->x_off;
 	uint16_t temp_y = y;
 
 	uint16_t width = 0;
@@ -5366,15 +5409,12 @@ void _lui_gfx_render_char_glyph(uint16_t x, uint16_t y, uint16_t fore_color, uin
 		.h = 1,
 	};
 
-	if (glyph == NULL)
-		width = font->bitmap->size_y / 2;
-	/* Width of space is not available in font map, so we calc w based on h */
-	if (glyph->character == ' ')
+	/* Width of space is not correct in older font maps, so we calc w based on h */
+	if (glyph->character == ' ' && glyph->x_adv == 0)
 		width = font->bitmap->size_y / 4;
 	else
 		width = glyph->width;
-	index_offset = glyph->payload_index;//((height / 8) + (height % 8 ? 1 : 0)) * x_offset;
-
+	index_offset = glyph->payload_index;//((height / 8) + (height % 8 ? 1 : 0)) * x_pos;
 
     uint8_t mask = 0x80;
     uint8_t bit_counter = 0;

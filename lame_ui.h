@@ -6,7 +6,7 @@
  * @author Avra Mitra
  * @brief One and only header file for LameUI library.
  * @version 2.0
- * @date 2023-03-06
+ * @date 2023-09-07
  *
  * @copyright Copyright (c) 2020-2023
  *
@@ -302,13 +302,14 @@ typedef struct _lui_bitmap_mono_pal_s
 /**@} */
 
 /* This is a font glyph description - for now it does not support kerning */
+/* See: https://freetype.org/freetype2/docs/glyphs/glyphs-3.html */
 typedef struct
 {
 	const uint16_t payload_index;
 	const char character; // ASCII code
-	const uint8_t width;
-	const uint8_t x_adv;
-	const uint8_t x_off;
+	const uint8_t width;  // glyph bbox width
+	const uint8_t x_adv;  // glyph advance x
+	const uint8_t x_off;  // glyph left bearing x
 } _lui_glyph_t;
 
 /**
