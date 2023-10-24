@@ -6,7 +6,7 @@
  * @author Avra Mitra
  * @brief Source FIle of LameUI GUI library. Must include lame_ui.h. No other file is mandatory.
  * @version 2.0
- * @date 2023-03-06
+ * @date 2023-09-07
  * 
  * @copyright Copyright (c) 2020-2023
  * 
@@ -323,11 +323,9 @@ void lui_linechart_draw(lui_obj_t* obj)
 			if (y_min > y_val)
 				y_min = y_val;
 		}
-		//TODO: fixme
 		if (y_max == y_min)
 		{
-			y_max = 1;
-			y_min = -1;
+			y_max = _LUI_MAX(y_max, y_max + 1);	// preventing overflow
 		}
 		y_data_min_old = y_min;
 		y_data_max_old = y_max;
@@ -411,8 +409,6 @@ void lui_linechart_draw(lui_obj_t* obj)
 					continue;
 			}
 		}
-// 		fprintf(stderr, "[ MpCur  (x0:%7.2lf, y0:%7.2lf)  MpNxt (x0:%7.2lf, y0:%7.2lf)  ClCur (x0:%7.2lf, y0:%7.2lf)  ClNxt (x0:%7.2lf, y0:%7.2lf)  WinS  (x0:%3d, y0:%3d)  WinE  (x1:%3d, y1:%3d) ] \n", mapped_data[i*2], mapped_data[i*2 + 1], mapped_data [i*2 + 2], mapped_data [i*2 + 3], current[0], current[1], next[0], next[1], temp_x, temp_y, temp_x+width-1, temp_y+height-1);
-
 		// Draw point only if point draw mode enabled and points are within the clip area/window
 		if (chart->style.draw_mode & LUI_LINECHART_DRAW_MODE_POINT)
 		{
@@ -3530,6 +3526,10 @@ lui_obj_t* lui_panel_create()
 	lui_panel_t* initial_panel = (lui_panel_t* )_lui_mem_alloc(sizeof(*initial_panel));
 	if (initial_panel == NULL)
 		return NULL;
+	initial_panel->layout.type = LUI_LAYOUT_NONE;
+	initial_panel->layout.dim = 0;
+	initial_panel->layout.pad_x = 2;
+	initial_panel->layout.pad_y = 2;
 	initial_panel->bg_image = NULL;
 	/* Image palette for mono 1-bpp bitmap image */
 	initial_panel->img_pal.fore_color = LUI_RGB(255, 2555, 255);
@@ -3601,6 +3601,20 @@ void lui_panel_set_bitmap_image_mono_palette(lui_obj_t* obj, lui_bitmap_mono_pal
 	lui_scene_set_bitmap_image_mono_palette(obj, palette);
 }
 
+int8_t lui_panel_layout_set_properties(lui_obj_t* obj, uint8_t type, uint8_t pad_x, uint8_t pad_y)
+{
+	if (_lui_verify_obj(obj, LUI_OBJ_PANEL) < 0)
+		return -1;
+	return _lui_layout_set_properties(obj, type, pad_x, pad_y);
+}
+
+int8_t  lui_panel_layout_calculate(lui_obj_t* obj)
+{
+	if (_lui_verify_obj(obj, LUI_OBJ_PANEL) < 0)
+		return -1;
+	return _lui_layout_calculate(obj);
+}
+
 
 
 #endif
@@ -3629,6 +3643,10 @@ lui_obj_t* lui_scene_create()
 	if (initial_scene == NULL)
 		return NULL;
 
+	initial_scene->layout.type = LUI_LAYOUT_NONE;
+	initial_scene->layout.dim = 0;
+	initial_scene->layout.pad_x = 2;
+	initial_scene->layout.pad_y = 2;
 	initial_scene->font = g_lui_main->default_font;
 	initial_scene->bg_image = NULL;
 	/* Color palette for mono 1-bpp bitmap image */
@@ -3748,8 +3766,22 @@ void lui_scene_set_active(lui_obj_t* obj)
 	if (_lui_verify_obj(obj, LUI_OBJ_SCENE) < 0)
 		return;
 	
-	 g_lui_main->active_scene = obj;
+	g_lui_main->active_scene = obj;
 	_lui_object_set_need_refresh(obj);
+}
+
+int8_t lui_scene_layout_set_properties(lui_obj_t* obj, uint8_t type, uint8_t pad_x, uint8_t pad_y)
+{
+	if (_lui_verify_obj(obj, LUI_OBJ_SCENE) < 0)
+		return -1;
+	return _lui_layout_set_properties(obj, type, pad_x, pad_y);
+}
+
+int8_t  lui_scene_layout_calculate(lui_obj_t* obj)
+{
+	if (_lui_verify_obj(obj, LUI_OBJ_SCENE) < 0)
+		return -1;
+	return _lui_layout_calculate(obj);
 }
 
 lui_obj_t* lui_scene_get_active()
@@ -3875,6 +3907,7 @@ lui_obj_t* lui_object_get_child(lui_obj_t* obj_parent, uint16_t child_index)
 	return child;
 }
 
+// TODO: create get_position_rel and get_position_abs
 void lui_object_set_position(lui_obj_t* obj, uint16_t x, uint16_t y)
 {
 	if (obj == NULL)
@@ -5648,7 +5681,6 @@ void _lui_gfx_plot_line_low(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, 
  */
 void _lui_gfx_plot_line_high(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, lui_area_t* clip_area, uint8_t line_width, uint16_t color)
 {
-// 	fprintf(stderr, "Disp [ x0:%d y0:%d x1:%d y1:%d ] \n", x0, y0, x1, y1);
 	fflush(stderr);
 	int16_t dx = x1 - x0;
 	int16_t dy = y1 - y0;
@@ -5686,8 +5718,6 @@ void _lui_gfx_plot_line_high(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1,
 						continue;
 					}
 			}
-// 			fprintf(stderr, "Disp [ X:%d Y:%d H:%d W:%d ] x:%d, i:%d, xi:%d\n", disp_area.x, disp_area.y, disp_area.h, disp_area.w, x, i, xi);
-// 			fflush(stderr);
 			g_lui_main->disp_drv->draw_pixels_buff_cb(&color, &disp_area);
 		}
 
@@ -5854,7 +5884,7 @@ uint8_t _lui_clip_line(double* point_0, double* point_1, const lui_area_t* clip_
 	uint8_t rcode_0 = _lui_calc_clip_region_code(x0, y0, clip_win);
 	uint8_t rcode_1 = _lui_calc_clip_region_code(x1, y1, clip_win);
 
-
+	(void)INSIDE;	// suppress `unused ` warning
 	uint8_t flag_accept = 0;
 	while(1)
 	{
@@ -5930,7 +5960,66 @@ int8_t _lui_verify_obj(lui_obj_t* obj, uint8_t obj_type)
 		return -1;
 	if (obj->obj_type != obj_type)
 		return -1;
+	return 0;
+}
 
+int8_t _lui_layout_set_properties(lui_obj_t* obj, uint8_t layout_type, uint8_t pad_x, uint8_t pad_y)
+{
+	if (layout_type == LUI_LAYOUT_VERTICAL || layout_type == LUI_LAYOUT_HORIZONTAL)
+	{
+		struct _lui_layout_s* layout;
+		if (obj->obj_type == LUI_OBJ_SCENE)
+			layout = &((lui_scene_t*)(obj->obj_main_data))->layout;
+		else
+			layout = &((lui_panel_t*)(obj->obj_main_data))->layout;
+
+		layout->type = layout_type;
+		layout->pad_x = pad_x;
+		layout->pad_y = pad_y;
+		return 0;
+	}
+	else
+		return -1;
+}
+
+int8_t _lui_layout_calculate(lui_obj_t* obj)
+{
+	struct _lui_layout_s* layout;
+	uint16_t x, y;
+	lui_obj_t* child;
+
+	if (obj->obj_type == LUI_OBJ_SCENE)
+		layout = &((lui_scene_t*)(obj->obj_main_data))->layout;
+	else
+		layout = &((lui_panel_t*)(obj->obj_main_data))->layout;
+
+	if (layout->type == LUI_LAYOUT_VERTICAL)
+	{
+		for (uint8_t i = 0; i < obj->children_count; ++i)
+		{
+			child = lui_object_get_child(obj, i);
+			x = layout->pad_x;
+			y = layout->dim + layout->pad_y;
+			layout->dim = y + child->common_style.height;
+			lui_object_set_position(child, x, y);
+		}
+	}
+	else if (layout->type == LUI_LAYOUT_HORIZONTAL)
+	{
+		for (uint8_t i = 0; i < obj->children_count; ++i)
+		{
+			child = lui_object_get_child(obj, i);
+			x = layout->dim + layout->pad_x;
+			y = layout->pad_y;
+			layout->dim = x + child->common_style.width;
+			lui_object_set_position(child, x, y);
+		}
+	}
+	else
+	{
+		// Not implemented
+		return -69;
+	}
 	return 0;
 }
 

@@ -88,10 +88,10 @@
  * Also see: @ref LUI_EVENT
  * @{
  */
-#define LUI_STATE_IDLE 0	 ///< Idle state. Object is not under the pointing device
-#define LUI_STATE_SELECTED 1 ///< Object is under the pointing device
-#define LUI_STATE_PRESSED 2	 ///< Object is under the pointing device and the pointing device button is pressed
-#define LUI_STATE_ENTERED 3	 ///< Object is in entered state. Example: Text box is clicked
+#define LUI_STATE_IDLE        0  ///< Idle state. Object is not under the pointing device
+#define LUI_STATE_SELECTED    1  ///< Object is under the pointing device
+#define LUI_STATE_PRESSED     2  ///< Object is under the pointing device and the pointing device button is pressed
+#define LUI_STATE_ENTERED     3  ///< Object is in entered state. Example: Text box is clicked
 /**@} */
 
 /**
@@ -101,15 +101,15 @@
  * Also see: @ref LUI_STATE
  * @{
  */
-#define LUI_EVENT_NONE 0		   ///< No event occurred
-#define LUI_EVENT_SELECTED 1	   ///< Object is selected (under the pointing device)
+#define LUI_EVENT_NONE           0 ///< No event occurred
+#define LUI_EVENT_SELECTED       1 ///< Object is selected (under the pointing device)
 #define LUI_EVENT_SELECTION_LOST 2 ///< Selection of object is lost (no more under the pointing device)
-#define LUI_EVENT_PRESSED 3		   ///< Object is pressed (object under pointing device and pointing device button is low)
-#define LUI_EVENT_RELEASED 4	   ///< Object is released (object under pointing device but pointing device button is released)
-#define LUI_EVENT_ENTERED 5		   ///< Object is entered to edit/input mode. Example: Clicking on a text box
-#define LUI_EVENT_EXITED 6		   ///< Opposite of above. Example: Exiting edit mode of a text box
-#define LUI_EVENT_VALUE_CHANGED 7  ///< Value of a object is changed. Example: a slider is dragged
-#define LUI_EVENT_CHECK_CHANGED 7  ///< Check status of an object is changed. Example: checkbox is checked/unchecked
+#define LUI_EVENT_PRESSED        3 ///< Object is pressed (object under pointing device and pointing device button is low)
+#define LUI_EVENT_RELEASED       4 ///< Object is released (object under pointing device but pointing device button is released)
+#define LUI_EVENT_ENTERED        5 ///< Object is entered to edit/input mode. Example: Clicking on a text box
+#define LUI_EVENT_EXITED         6 ///< Opposite of above. Example: Exiting edit mode of a text box
+#define LUI_EVENT_VALUE_CHANGED  7 ///< Value of a object is changed. Example: a slider is dragged
+#define LUI_EVENT_CHECK_CHANGED  7 ///< Check status of an object is changed. Example: checkbox is checked/unchecked
 /**@} */
 
 /**
@@ -212,6 +212,16 @@
 #define LUI_ALIGN_LEFT 0		///< ALign content to left
 #define LUI_ALIGN_CENTER 1		///< Align content to center
 #define LUI_ALIGN_RIGHT 2		///< Align content to right
+/**@} */
+
+/**
+ * @defgroup LUI_LAYOUT Widget layout flags
+ * @brief Widget layout flags to use with panels and scenes
+ * @{
+ */
+#define LUI_LAYOUT_NONE        0
+#define LUI_LAYOUT_HORIZONTAL  1
+#define LUI_LAYOUT_VERTICAL    2
 /**@} */
 
 /**
@@ -356,6 +366,15 @@ typedef struct _lui_area_s
 	uint16_t h;			///< Height of item
 } lui_area_t;
 /**@} */
+
+struct _lui_layout_s
+{
+	uint8_t type;
+	uint8_t pad_x;
+	uint8_t pad_y;
+	uint16_t dim;
+// 	uint8_t align;
+};
 
 struct _lui_common_style_s
 {
@@ -634,6 +653,7 @@ typedef struct _lui_textbox_s
 #if defined(LUI_USE_PANEL)
 typedef struct _lui_panel_s
 {
+	struct _lui_layout_s layout;
 	const lui_bitmap_t* bg_image;
 	/* Color palette for only when image is 1-bpp mono bitmap */
 	lui_bitmap_mono_pal_t img_pal;
@@ -642,6 +662,7 @@ typedef struct _lui_panel_s
 
 typedef struct _lui_scene_s
 {
+	struct _lui_layout_s layout;
 	const lui_bitmap_t* bg_image;
 	/* Color palette for only when image is 1-bpp mono bitmap */
 	lui_bitmap_mono_pal_t img_pal;
@@ -2995,6 +3016,36 @@ void lui_panel_set_bitmap_image(lui_obj_t* obj_panel, const lui_bitmap_t* bitmap
  */
 void lui_panel_set_bitmap_image_mono_palette(lui_obj_t* obj_panel, lui_bitmap_mono_pal_t* palette);
 
+/**
+ * @brief Set the layout properties of a panel.
+ *
+ * All items added as children to this panel will follow the specified layout
+ * after calling `lui_panel_layout_calculate()`.
+ *
+ * Also see: @ref lui_panel_layout_calculate()
+ *           @ref LUI_LAYOUT
+ *
+ * @param obj_panel panel object
+ * @param type Type of layout. See `LUI_LAYOUT_` macros for supported values
+ * @param pad_x Padding between children along x-axis
+ * @param pad_y Padding between children along y-axis
+ * @return int8_t 0: Success, -1: Failure
+ */
+int8_t lui_panel_layout_set_properties(lui_obj_t* obj_panel, uint8_t type, uint8_t pad_x, uint8_t pad_y);
+
+/**
+ * @brief Calculate the layout after adding all children to the parent panel.
+ *
+ * Call this function only after all children are added to the parent.
+ * @note: Must call `lui_panel_layout_set_properties()` before calling this one.
+ *
+ *  Also see: @ref lui_panel_layout_set_properties()
+ *
+ * @param obj_panel panel object
+ * @return int8_t int8_t 0: Success, < 0: Failure
+ */
+int8_t  lui_panel_layout_calculate(lui_obj_t* obj_panel);
+
 /**@}*/
 #endif
 
@@ -3058,6 +3109,36 @@ void lui_scene_set_bitmap_image(lui_obj_t* obj_scene, const lui_bitmap_t* bitmap
  * @param palette color palette for 1-bpp mono bitmap 
  */
 void lui_scene_set_bitmap_image_mono_palette(lui_obj_t* obj_scene, lui_bitmap_mono_pal_t* palette);
+
+/**
+ * @brief Set the layout properties of a scene.
+ *
+ * All items added as children to this scene will follow the specified layout
+ * after calling `lui_scene_layout_calculate()`.
+ *
+ * Also see: @ref lui_scene_layout_calculate()
+ *           @ref LUI_LAYOUT
+ *
+ * @param obj_scene scene object
+ * @param layout_type Type of layout. See `LUI_LAYOUT_` macros for supported values
+ * @param pad_x Padding between children along x-axis
+ * @param pad_y Padding between children along y-axis
+ * @return int8_t 0: Success, -1: Failure
+ */
+int8_t lui_scene_layout_set_properties(lui_obj_t* obj_scene, uint8_t type, uint8_t pad_x, uint8_t pad_y);
+
+/**
+ * @brief Calculate the layout after adding all children to the parent scene.
+ *
+ * Call this function only after all children are added to the parent.
+ * @note: Must call `lui_scene_layout_set_properties()` before calling this one.
+ *
+ *  Also see: @ref lui_scene_layout_set_properties()
+ *
+ * @param obj_scene scene object
+ * @return int8_t int8_t 0: Success, < 0: Failure
+ */
+int8_t  lui_scene_layout_calculate(lui_obj_t* obj_scene);
 
 // /**
 //  * @brief Set font of a scene
@@ -3282,6 +3363,8 @@ uint8_t _lui_check_if_active_obj_touch_input(lui_touch_input_data_t* input_data,
 // const lui_font_t* _lui_get_font_from_active_scene();
 uint8_t _lui_get_event_against_state(uint8_t new_state, uint8_t old_state);
 int8_t _lui_verify_obj(lui_obj_t* obj, uint8_t obj_type);
+int8_t _lui_layout_set_properties(lui_obj_t* obj, uint8_t layout_type,  uint8_t pad_x, uint8_t pad_y);
+int8_t _lui_layout_calculate(lui_obj_t* obj);
 
 /**
  * @defgroup lui_gfx Graphics related API (for drawing shapes and text)
