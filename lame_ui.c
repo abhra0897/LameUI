@@ -207,6 +207,11 @@ lui_obj_t* lui_label_create(void)
 	return obj;
 }
 
+lui_obj_t* lui_label_create_and_add(lui_obj_t* obj_parent)
+{
+	_LUI_CREATE_AND_ADD(label, obj_parent)
+}
+
 void lui_label_set_font(lui_obj_t* obj, const lui_font_t* font)
 {
 	if (_lui_verify_obj(obj, LUI_OBJ_LABEL) < 0)
@@ -487,6 +492,11 @@ lui_obj_t* lui_linechart_create()
 	obj->obj_main_data = (void* )initial_line_chart;
 
 	return obj;
+}
+
+lui_obj_t* lui_linechart_create_and_add(lui_obj_t* obj_parent)
+{
+	_LUI_CREATE_AND_ADD(linechart, obj_parent)
 }
 
 void lui_linechart_set_grid_count(lui_obj_t* obj, uint16_t hor_lines, uint16_t vert_lines)
@@ -835,6 +845,11 @@ lui_obj_t* lui_button_create()
 	return  obj;
 }
 
+lui_obj_t* lui_button_create_and_add(lui_obj_t* obj_parent)
+{
+	_LUI_CREATE_AND_ADD(button, obj_parent)
+}
+
 void lui_button_set_label_texts(lui_obj_t* obj, const char* idle_text, const char* pressed_text)
 {
 	lui_button_set_label_text(obj, idle_text);
@@ -1166,6 +1181,11 @@ lui_obj_t* lui_list_create()
 	_lui_list_add_nav_buttons(obj);
 
 	return obj;
+}
+
+lui_obj_t* lui_list_create_and_add(lui_obj_t* obj_parent)
+{
+	_LUI_CREATE_AND_ADD(list, obj_parent)
 }
 
 void lui_list_prepare(lui_obj_t* obj)
@@ -1812,6 +1832,11 @@ lui_obj_t* lui_switch_create()
 	return  obj;
 }
 
+lui_obj_t* lui_switch_create_and_add(lui_obj_t* obj_parent)
+{
+	_LUI_CREATE_AND_ADD(switch, obj_parent)
+}
+
 void lui_switch_set_extra_colors(lui_obj_t* obj, uint16_t knob_off_color, uint16_t knob_on_color, uint16_t selection_color)
 {
 	if (_lui_verify_obj(obj, LUI_OBJ_SWITCH) < 0)
@@ -1998,6 +2023,11 @@ lui_obj_t* lui_checkbox_create()
 	obj->obj_main_data = (void* )initial_chkbox;
 
 	return  obj;
+}
+
+lui_obj_t* lui_checkbox_create_and_add(lui_obj_t* obj_parent)
+{
+	_LUI_CREATE_AND_ADD(checkbox, obj_parent)
 }
 
 void lui_checkbox_set_extra_colors(lui_obj_t* obj, uint16_t bg_checked_color, uint16_t tick_color, uint16_t selection_color)
@@ -2249,6 +2279,11 @@ lui_obj_t* lui_slider_create()
 	obj->obj_main_data = (void* )initial_slider;
 
 	return  obj;
+}
+
+lui_obj_t* lui_slider_create_and_add(lui_obj_t* obj_parent)
+{
+	_LUI_CREATE_AND_ADD(slider, obj_parent)
 }
 
 void lui_slider_set_extra_colors(lui_obj_t* obj, uint16_t knob_color, uint16_t bg_filled_color, uint16_t selection_color)
@@ -2614,6 +2649,11 @@ lui_obj_t* lui_btngrid_create()
 	obj->obj_main_data = (void* )initial_btngrid;
 
 	return  obj;
+}
+
+lui_obj_t* lui_btngrid_create_and_add(lui_obj_t* obj_parent)
+{
+	_LUI_CREATE_AND_ADD(btngrid, obj_parent)
 }
 
 void lui_btngrid_set_textmap(lui_obj_t* obj, const char* texts[])
@@ -2994,6 +3034,11 @@ lui_obj_t* lui_keyboard_create()
 	return  obj_btngrid;
 }
 
+lui_obj_t* lui_keyboard_create_and_add(lui_obj_t* obj_parent)
+{
+	_LUI_CREATE_AND_ADD(keyboard, obj_parent)
+}
+
 void lui_keyboard_sys_cb(lui_obj_t* obj_sender)
 {
 	if (_lui_verify_obj(obj_sender, LUI_OBJ_BTNGRID) < 0)
@@ -3337,6 +3382,11 @@ lui_obj_t* lui_textbox_create()
 	return  obj;
 }
 
+lui_obj_t* lui_textbox_create_and_add(lui_obj_t* obj_parent)
+{
+	_LUI_CREATE_AND_ADD(textbox, obj_parent)
+}
+
 void lui_textbox_enter_edit_mode(lui_obj_t* obj)
 {
 	if (_lui_verify_obj(obj, LUI_OBJ_TEXTBOX) < 0)
@@ -3550,6 +3600,11 @@ lui_obj_t* lui_panel_create()
 	obj->obj_main_data = (void* )initial_panel;	// will add panel specific main data later
 
 	return obj;
+}
+
+lui_obj_t* lui_panel_create_and_add(lui_obj_t* obj_parent)
+{
+	_LUI_CREATE_AND_ADD(panel, obj_parent)
 }
 
 void lui_panel_draw(lui_obj_t* obj)
@@ -3907,7 +3962,30 @@ lui_obj_t* lui_object_get_child(lui_obj_t* obj_parent, uint16_t child_index)
 	return child;
 }
 
-// TODO: create get_position_rel and get_position_abs
+void lui_object_get_position_rel(lui_obj_t* obj, uint16_t pos[2])
+{
+	if (obj == NULL)
+		return;
+	if (obj->parent == NULL)
+	{
+		pos[0] = 0;
+		pos[1] = 0;
+	}
+	else
+	{
+		pos[0] = obj->x - obj->parent->x;
+		pos[1] = obj->y - obj->parent->y;
+	}
+}
+
+void lui_object_get_position_abs(lui_obj_t* obj, uint16_t pos[2])
+{
+	if (obj == NULL)
+		return;
+	pos[0] = obj->x;
+	pos[1] = obj->y;
+}
+
 void lui_object_set_position(lui_obj_t* obj, uint16_t x, uint16_t y)
 {
 	if (obj == NULL)
@@ -4979,7 +5057,14 @@ void lui_dispdrv_register(lui_dispdrv_t* dispdrv)
 {
 	if (dispdrv == NULL)
 		return;
-	 g_lui_main->disp_drv = dispdrv;
+	g_lui_main->disp_drv = dispdrv;
+}
+
+lui_dispdrv_t* lui_dispdrv_create_and_register()
+{
+	lui_dispdrv_t* dd = lui_dispdrv_create();
+	g_lui_main->disp_drv = dd;
+	return dd;
 }
 
 void lui_dispdrv_set_resolution(lui_dispdrv_t* dispdrv, uint16_t hor_res, uint16_t vert_res)
@@ -5036,7 +5121,14 @@ void lui_touch_inputdev_register (lui_touch_input_dev_t* inputdev)
 {
 	if (inputdev == NULL)
 		return;
-	 g_lui_main->touch_input_dev = inputdev;
+	g_lui_main->touch_input_dev = inputdev;
+}
+
+lui_touch_input_dev_t* lui_touch_inputdev_create_and_register()
+{
+	lui_touch_input_dev_t* tid = lui_touch_inputdev_create();
+	g_lui_main->touch_input_dev = tid;
+	return tid;
 }
 
 void lui_touch_inputdev_set_read_input_cb(lui_touch_input_dev_t* inputdev, void (*read_touch_input_cb)(lui_touch_input_data_t* inputdata))

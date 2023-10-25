@@ -868,11 +868,28 @@ void lui_object_set_width(lui_obj_t* obj, uint16_t width);
 void lui_object_set_height(lui_obj_t* obj, uint16_t height);
 
 /**
- * @brief Set position of an object
+ * @brief Get object's position relative to its parent
  *
  * @param obj target object
- * @param x x position
- * @param y y position
+ * @param pos pos array of 2 items to return position ({x, y})
+ */
+void lui_object_get_position_rel(lui_obj_t* obj, uint16_t pos[2]);
+
+/**
+ * @brief Get object's absolute position on the screen
+ *
+ * @param obj target object
+ * @param pos pos array of 2 items to return position ({x, y})
+ */
+void lui_object_get_position_abs(lui_obj_t* obj, uint16_t pos[2]);
+
+/**
+ * @brief Set position of an object. This is the relative position of the
+ * object to its parent.
+ *
+ * @param obj target object
+ * @param x x position (relative)
+ * @param y y position (relative)
  */
 void lui_object_set_position(lui_obj_t* obj, uint16_t x, uint16_t y);
 
@@ -1098,7 +1115,15 @@ int _lui_obj_layer_cmprtr(const void *p1, const void *p2);
 lui_obj_t* lui_label_create(void);
 
 /**
- * @brief Draw a <tt>label</tt> widget
+ * @brief Create a label with initial values and add it to a parent
+ *
+ * @param obj_parent parent object
+ * @return lui_obj_t* Created label object
+ */
+lui_obj_t* lui_label_create_and_add(lui_obj_t* obj_parent);
+
+/**
+ * @brief Draw a label widget
  *
  * @param obj_lbl label object
  */
@@ -1174,7 +1199,15 @@ void lui_label_set_bg_transparent(lui_obj_t* obj, uint8_t is_transparent);
  *
  * @return lui_obj_t* Created linechart object
  */
-lui_obj_t* lui_linechart_create();
+lui_obj_t* lui_linechart_create(void);
+
+/**
+ * @brief Create a linechart with initial values and add it to a parent
+ *
+ * @param obj_parent parent object
+ * @return lui_obj_t* Created linechart object
+ */
+lui_obj_t* lui_linechart_create_and_add(lui_obj_t* obj_parent);
 
 /**
  * @brief Draw a linechart
@@ -1423,7 +1456,15 @@ void lui_linechart_set_data_source(lui_obj_t* obj_linechart, double* source, uin
  *
  * @return lui_obj_t* created button object
  */
-lui_obj_t* lui_button_create();
+lui_obj_t* lui_button_create(void);
+
+/**
+ * @brief Create a button with initial values and add it to a parent
+ *
+ * @param obj_parent parent object
+ * @return lui_obj_t* Created button object
+ */
+lui_obj_t* lui_button_create_and_add(lui_obj_t* obj_parent);
 
 /**
  * @brief Draw a button object
@@ -1658,7 +1699,15 @@ void lui_button_set_bg_transparent(lui_obj_t* obj_btn, uint8_t is_transparent);
  *
  * @return lui_obj_t* created switch object
  */
-lui_obj_t* lui_switch_create();
+lui_obj_t* lui_switch_create(void);
+
+/**
+ * @brief Create a switch with initial values and add it to a parent
+ *
+ * @param obj_parent parent object
+ * @return lui_obj_t* Created switch object
+ */
+lui_obj_t* lui_switch_create_and_add(lui_obj_t* obj_parent);
 
 /**
  * @brief Draw a switch object
@@ -1740,7 +1789,15 @@ void lui_switch_set_off(lui_obj_t* obj_swtch);
  *
  * @return lui_obj_t*
  */
-lui_obj_t* lui_checkbox_create();
+lui_obj_t* lui_checkbox_create(void);
+
+/**
+ * @brief Create a checkbox with initial values and add it to a parent
+ *
+ * @param obj_parent parent object
+ * @return lui_obj_t* Created checkbox object
+ */
+lui_obj_t* lui_checkbox_create_and_add(lui_obj_t* obj_parent);
 
 /**
  * @brief Draw a checkbox object
@@ -1901,7 +1958,15 @@ void lui_checkbox_set_unchecked(lui_obj_t* obj_checkbox);
  *
  * @return lui_obj_t* created slider object
  */
-lui_obj_t* lui_slider_create();
+lui_obj_t* lui_slider_create(void);
+
+/**
+ * @brief Create a slider with initial values and add it to a parent
+ *
+ * @param obj_parent parent object
+ * @return lui_obj_t* Created slider object
+ */
+lui_obj_t* lui_slider_create_and_add(lui_obj_t* obj_parent);
 
 /**
  * @brief Draw slider object
@@ -2090,7 +2155,15 @@ int8_t lui_slider_set_knob_type(lui_obj_t* obj_slider, uint8_t knob_type);
  *
  * @return lui_obj_t* created list object
  */
-lui_obj_t* lui_list_create();
+lui_obj_t* lui_list_create(void);
+
+/**
+ * @brief Create a list with initial values and add it to a parent
+ *
+ * @param obj_parent parent object
+ * @return lui_obj_t* Created list object
+ */
+lui_obj_t* lui_list_create_and_add(lui_obj_t* obj_parent);
 
 /**
  * @brief Set maximum item count for a list. The list cannot store items more 
@@ -2455,7 +2528,15 @@ void _lui_list_add_button_obj(lui_obj_t* obj_list, lui_obj_t* obj_btn);
  *
  * @return lui_obj_t* created buttongrid object
  */
-lui_obj_t* lui_btngrid_create();
+lui_obj_t* lui_btngrid_create(void);
+
+/**
+ * @brief Create a buttongrid with initial values and add it to a parent
+ *
+ * @param obj_parent parent object
+ * @return lui_obj_t* Created buttongrid object
+ */
+lui_obj_t* lui_btngrid_create_and_add(lui_obj_t* obj_parent);
 
 /**
  * @brief Draw a buttongrid
@@ -2661,7 +2742,15 @@ void _lui_btngrid_calc_btn_area(lui_obj_t* obj);
  *
  * @return lui_obj_t* Created keyboard (buttongrid) object
  */
-lui_obj_t* lui_keyboard_create();
+lui_obj_t* lui_keyboard_create(void);
+
+/**
+ * @brief Create a keyboard with initial values and add it to a parent
+ *
+ * @param obj_parent parent object
+ * @return lui_obj_t* Created keyboard object
+ */
+lui_obj_t* lui_keyboard_create_and_add(lui_obj_t* obj_parent);
 
 /**
  * @brief Get the text of a key against its index.
@@ -2796,7 +2885,15 @@ void lui_keyboard_sys_cb(lui_obj_t* obj_sender);
  *
  * @return lui_obj_t* created textbox object
  */
-lui_obj_t* lui_textbox_create();
+lui_obj_t* lui_textbox_create(void);
+
+/**
+ * @brief Create a textbox with initial values and add it to a parent
+ *
+ * @param obj_parent parent object
+ * @return lui_obj_t* Created textbox object
+ */
+lui_obj_t* lui_textbox_create_and_add(lui_obj_t* obj_parent);
 
 /**
  * @brief Draw a textbox
@@ -2989,7 +3086,15 @@ void lui_textbox_set_font(lui_obj_t* obj, const lui_font_t* font);
  *
  * @return lui_obj_t* Created panel object
  */
-lui_obj_t* lui_panel_create();
+lui_obj_t* lui_panel_create(void);
+
+/**
+ * @brief Create a panel with initial values and add it to a parent
+ *
+ * @param obj_parent parent object
+ * @return lui_obj_t* Created panel object
+ */
+lui_obj_t* lui_panel_create_and_add(lui_obj_t* obj_parent);
 
 /**
  * @brief Draw apanel
@@ -3247,7 +3352,7 @@ int8_t  lui_scene_layout_calculate(lui_obj_t* obj_scene);
  *
  * @return lui_dispdrv_t* created display driver
  */
-lui_dispdrv_t* lui_dispdrv_create();
+lui_dispdrv_t* lui_dispdrv_create(void);
 
 /**
  * @brief Register display driver.
@@ -3255,6 +3360,13 @@ lui_dispdrv_t* lui_dispdrv_create();
  * @param dispdrv display driver object
  */
 void lui_dispdrv_register(lui_dispdrv_t* dispdrv);
+
+/**
+ * @brief Create display driver object and register it
+ *
+ * @return lui_dispdrv_t* created display driver
+ */
+lui_dispdrv_t* lui_dispdrv_create_and_register(void);
 
 /**
  * @brief Set horizontal and vertical resolution of display
@@ -3329,7 +3441,7 @@ uint8_t _lui_disp_drv_check();
  *
  * @return lui_touch_input_dev_t* Created touch input device object
  */
-lui_touch_input_dev_t* lui_touch_inputdev_create();
+lui_touch_input_dev_t* lui_touch_inputdev_create(void);
 
 /**
  * @brief Register a touch input device
@@ -3337,6 +3449,13 @@ lui_touch_input_dev_t* lui_touch_inputdev_create();
  * @param touch_inputdev touch input device object
  */
 void lui_touch_inputdev_register(lui_touch_input_dev_t* touch_inputdev);
+
+/**
+ * @brief Create touch input device object and register it
+ *
+ * @return lui_touch_input_dev_t* Created touch input device object
+ */
+lui_touch_input_dev_t* lui_touch_inputdev_create_and_register(void);
 
 /**
  * @brief
@@ -3782,4 +3901,10 @@ void _lui_gfx_plot_line_high(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1,
 })
 
 #define _LUI_SWAP(type, a, b)	({ type tmp = (a); (a) = (b); (b) = tmp; })
+
+#define _LUI_CREATE_AND_ADD(type, parent) \
+	lui_obj_t* obj = lui_##type##_create(); \
+	lui_object_add_to_parent(obj, parent); \
+	return obj;
+
 #endif /* INC_LAME_UI_H_ */
