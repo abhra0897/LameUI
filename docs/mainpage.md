@@ -21,6 +21,8 @@ I, alone.
 
 <div style="display:flex; justify-content:center; align-items: center;"><img width="420px" height="296px" src="../../demo_screenshots/LameUI2_music_player_demo.gif" /></div>
 
+<div style="display:flex; justify-content:center; align-items: center;"><img width="420px" src="../../demo_screenshots/Lameui2_0_music_esp32_demo_small.gif" /></div>
+
 <div style="display:flex; justify-content:center; align-items: center;"><img width="80%" height="80%" src="../../LameUI_demo1_combined.png" /></div>
 
 ## UI Widgets
