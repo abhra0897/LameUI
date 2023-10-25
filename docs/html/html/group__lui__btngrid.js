@@ -1,6 +1,7 @@
 var group__lui__btngrid =
 [
-    [ "lui_btngrid_create", "group__lui__btngrid.html#gae825b972dae532e72050afd45addbd32", null ],
+    [ "lui_btngrid_create", "group__lui__btngrid.html#ga17bd352ba8d220d8dab4aa1782513cc9", null ],
+    [ "lui_btngrid_create_and_add", "group__lui__btngrid.html#gaf2a4b2cb121a6711a3eff7ac9430acd5", null ],
     [ "lui_btngrid_draw", "group__lui__btngrid.html#gaa9a9febb315d359420be30fea2d9657d", null ],
     [ "lui_btngrid_get_acive_btn_index", "group__lui__btngrid.html#ga04c8b09e20441143fc39405e2e42cc37", null ],
     [ "lui_btngrid_get_btn_check_status", "group__lui__btngrid.html#gae1f8d50cc22f4c1523a82dd6f16e51b1", null ],

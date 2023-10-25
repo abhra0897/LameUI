@@ -40,7 +40,7 @@
 		<div class="logo">
 			<a href="index.html"> <img src="LameUI_logo.png" alt="LameUI logo" width="220" ></a>
 			<span style="display: inline-block; margin-top: 10px;">
-				v2.0
+				v2.1
 			</span>
 		</div>
 		<div class="navigation-footer">
@@ -148,6 +148,8 @@ Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__lui__area__s.html">_lui_area_s</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Area datatype.  <a href="struct__lui__area__s.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__lui__layout__s.html">_lui_layout_s</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__lui__common__style__s.html">_lui_common_style_s</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__lui__label__style__s.html">_lui_label_style_s</a></td></tr>
@@ -215,10 +217,6 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_MAX_OBJECTS</b>&#160;&#160;&#160;200</td></tr>
 <tr class="memdesc:gac614eedf6ba02a547abc55527a7f2982"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set number of maximum objects that can be created. <br /></td></tr>
 <tr class="separator:gac614eedf6ba02a547abc55527a7f2982"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab6571f6979947007287617835dafc85c"><td class="memItemLeft" align="right" valign="top">
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_USE_DARK_THEME</b>&#160;&#160;&#160;1</td></tr>
-<tr class="memdesc:gab6571f6979947007287617835dafc85c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Comment out OR set value to 0 for using light theme. <br /></td></tr>
-<tr class="separator:gab6571f6979947007287617835dafc85c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga82c1ecd24694c1c50e9f804b510a5f68"><td class="memItemLeft" align="right" valign="top">
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_USE_LINECHART</b></td></tr>
 <tr class="memdesc:ga82c1ecd24694c1c50e9f804b510a5f68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compile Linechart widget. <br /></td></tr>
@@ -296,11 +294,11 @@ Macros</h2></td></tr>
 <tr class="separator:ga7bb839ee9510a334e4ebc1af25613d25"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac3c329747d83a31d3e2bdaa4f59c7106"><td class="memItemLeft" align="right" valign="top">
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_EVENT_ENTERED</b>&#160;&#160;&#160;5</td></tr>
-<tr class="memdesc:gac3c329747d83a31d3e2bdaa4f59c7106"><td class="mdescLeft">&#160;</td><td class="mdescRight">Object is entered to input mode. Example: Clicking on a text box. <br /></td></tr>
+<tr class="memdesc:gac3c329747d83a31d3e2bdaa4f59c7106"><td class="mdescLeft">&#160;</td><td class="mdescRight">Object is entered to edit/input mode. Example: Clicking on a text box. <br /></td></tr>
 <tr class="separator:gac3c329747d83a31d3e2bdaa4f59c7106"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gadc65dc42494a76b2ec7da54ee0571c3f"><td class="memItemLeft" align="right" valign="top">
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_EVENT_EXITED</b>&#160;&#160;&#160;6</td></tr>
-<tr class="memdesc:gadc65dc42494a76b2ec7da54ee0571c3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opposite of above. Example: Clicking outside of a text box. <br /></td></tr>
+<tr class="memdesc:gadc65dc42494a76b2ec7da54ee0571c3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opposite of above. Example: Exiting edit mode of a text box. <br /></td></tr>
 <tr class="separator:gadc65dc42494a76b2ec7da54ee0571c3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaac0f29869773a73ada40aa4b8bba419e"><td class="memItemLeft" align="right" valign="top">
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_EVENT_VALUE_CHANGED</b>&#160;&#160;&#160;7</td></tr>
@@ -489,7 +487,7 @@ Macros</h2></td></tr>
 <tr class="separator:gac8eb53fd6ef2b0911ca5b25c6b65bd30"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga05a191a059215fde2bf76f64d594b5dc"><td class="memItemLeft" align="right" valign="top">
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_ALIGN_LEFT</b>&#160;&#160;&#160;0</td></tr>
-<tr class="memdesc:ga05a191a059215fde2bf76f64d594b5dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">ALign content to left. <br /></td></tr>
+<tr class="memdesc:ga05a191a059215fde2bf76f64d594b5dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Align content to left. <br /></td></tr>
 <tr class="separator:ga05a191a059215fde2bf76f64d594b5dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5cf4aa39591271a70348eb2c5983619a"><td class="memItemLeft" align="right" valign="top">
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_ALIGN_CENTER</b>&#160;&#160;&#160;1</td></tr>
@@ -499,6 +497,18 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_ALIGN_RIGHT</b>&#160;&#160;&#160;2</td></tr>
 <tr class="memdesc:gaa236d8be24fd5839b961908e14174eb8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Align content to right. <br /></td></tr>
 <tr class="separator:gaa236d8be24fd5839b961908e14174eb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf214fae3a133610333e0961d93715181"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_LAYOUT_NONE</b>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:gaf214fae3a133610333e0961d93715181"><td class="mdescLeft">&#160;</td><td class="mdescRight">No layout. <br /></td></tr>
+<tr class="separator:gaf214fae3a133610333e0961d93715181"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga98adb0df797d60a4ad1629171e74d697"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_LAYOUT_HORIZONTAL</b>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:ga98adb0df797d60a4ad1629171e74d697"><td class="mdescLeft">&#160;</td><td class="mdescRight">Horizontal layout. <br /></td></tr>
+<tr class="separator:ga98adb0df797d60a4ad1629171e74d697"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga043ad4a73c50a853a3eeaeecb134d36d"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_LAYOUT_VERTICAL</b>&#160;&#160;&#160;2</td></tr>
+<tr class="memdesc:ga043ad4a73c50a853a3eeaeecb134d36d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vertical layout. <br /></td></tr>
+<tr class="separator:ga043ad4a73c50a853a3eeaeecb134d36d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga997a604da03e40fcef2458fd8c4f3704"><td class="memItemLeft" align="right" valign="top">
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_SLIDER_KNOB_TYPE_NONE</b>&#160;&#160;&#160;0</td></tr>
 <tr class="memdesc:ga997a604da03e40fcef2458fd8c4f3704"><td class="mdescLeft">&#160;</td><td class="mdescRight">No knob will be rendered. <br /></td></tr>
@@ -511,6 +521,14 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_SLIDER_KNOB_TYPE_TEXT</b>&#160;&#160;&#160;2</td></tr>
 <tr class="memdesc:ga6613838db6563a6ee85b1a14f8c15a60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Text (value and/or custom text) will be rendered. <br /></td></tr>
 <tr class="separator:ga6613838db6563a6ee85b1a14f8c15a60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7ba2784eda6631ea09416446c20f5a41"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_LINECHART_DRAW_MODE_LINE</b>&#160;&#160;&#160;(1 &lt;&lt; 0)</td></tr>
+<tr class="memdesc:ga7ba2784eda6631ea09416446c20f5a41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw the lines by connection points. <br /></td></tr>
+<tr class="separator:ga7ba2784eda6631ea09416446c20f5a41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9751175be58bae2d867d7e13bfcba9af"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_LINECHART_DRAW_MODE_POINT</b>&#160;&#160;&#160;(1 &lt;&lt; 1)</td></tr>
+<tr class="memdesc:ga9751175be58bae2d867d7e13bfcba9af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw the chart points/markers. <br /></td></tr>
+<tr class="separator:ga9751175be58bae2d867d7e13bfcba9af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaa9e15b64447a07a51fe6d5b1da171324"><td class="memItemLeft" align="right" valign="top">
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_DEFAULT_FONT</b>&#160;&#160;&#160;FONT_lui_default</td></tr>
 <tr class="separator:gaa9e15b64447a07a51fe6d5b1da171324"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -540,9 +558,9 @@ Macros</h2></td></tr>
 <tr class="memitem:aa68868a9a969e667b65d19ec865be6eb"><td class="memItemLeft" align="right" valign="top"><a id="aa68868a9a969e667b65d19ec865be6eb" name="aa68868a9a969e667b65d19ec865be6eb"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_BUTTON_BORDER_COLOR</b>&#160;&#160;&#160;LUI_RGB(75, 81, 92)</td></tr>
 <tr class="separator:aa68868a9a969e667b65d19ec865be6eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3772df1e8291c43d2f76e75d87bd942e"><td class="memItemLeft" align="right" valign="top"><a id="a3772df1e8291c43d2f76e75d87bd942e" name="a3772df1e8291c43d2f76e75d87bd942e"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_BUTTON_BORDER_VISIBLE</b>&#160;&#160;&#160;0</td></tr>
-<tr class="separator:a3772df1e8291c43d2f76e75d87bd942e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a527cafb985dc5c6729d35ac1ddfe2bf9"><td class="memItemLeft" align="right" valign="top"><a id="a527cafb985dc5c6729d35ac1ddfe2bf9" name="a527cafb985dc5c6729d35ac1ddfe2bf9"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_BUTTON_BORDER_THICKNESS</b>&#160;&#160;&#160;0</td></tr>
+<tr class="separator:a527cafb985dc5c6729d35ac1ddfe2bf9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a33f691f156ea81083f4a883f5e31c7ae"><td class="memItemLeft" align="right" valign="top"><a id="a33f691f156ea81083f4a883f5e31c7ae" name="a33f691f156ea81083f4a883f5e31c7ae"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_BUTTON_WIDTH</b>&#160;&#160;&#160;40</td></tr>
 <tr class="separator:a33f691f156ea81083f4a883f5e31c7ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -550,17 +568,17 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_BUTTON_HEIGHT</b>&#160;&#160;&#160;30</td></tr>
 <tr class="separator:a27fc9b27f077bb119576ebdec312d8d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa769503475be521dbee6c06a3796690c"><td class="memItemLeft" align="right" valign="top"><a id="aa769503475be521dbee6c06a3796690c" name="aa769503475be521dbee6c06a3796690c"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_LABEL_TEXT_COLOR</b>&#160;&#160;&#160;LUI_RGB(238, 238, 238)</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_LABEL_TEXT_COLOR</b>&#160;&#160;&#160;LUI_RGB(0, 0, 0)</td></tr>
 <tr class="separator:aa769503475be521dbee6c06a3796690c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6402584277cf062e62f304ea5afccc23"><td class="memItemLeft" align="right" valign="top"><a id="a6402584277cf062e62f304ea5afccc23" name="a6402584277cf062e62f304ea5afccc23"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_LABEL_BG_COLOR</b>&#160;&#160;&#160;LUI_RGB(23, 33, 43)</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_LABEL_BG_COLOR</b>&#160;&#160;&#160;LUI_RGB(255, 255, 255)</td></tr>
 <tr class="separator:a6402584277cf062e62f304ea5afccc23"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af4cf237eb6a1b03065f586e4e2429ea1"><td class="memItemLeft" align="right" valign="top"><a id="af4cf237eb6a1b03065f586e4e2429ea1" name="af4cf237eb6a1b03065f586e4e2429ea1"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_LABEL_BORDER_COLOR</b>&#160;&#160;&#160;LUI_RGB(74, 129, 188)</td></tr>
 <tr class="separator:af4cf237eb6a1b03065f586e4e2429ea1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a630fc26e9011c85e3c7675302af02eb6"><td class="memItemLeft" align="right" valign="top"><a id="a630fc26e9011c85e3c7675302af02eb6" name="a630fc26e9011c85e3c7675302af02eb6"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_LABEL_BORDER_VISIBLE</b>&#160;&#160;&#160;0</td></tr>
-<tr class="separator:a630fc26e9011c85e3c7675302af02eb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac27ccd05215a80acc49d7b48066635e7"><td class="memItemLeft" align="right" valign="top"><a id="ac27ccd05215a80acc49d7b48066635e7" name="ac27ccd05215a80acc49d7b48066635e7"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_LABEL_BORDER_THICKNESS</b>&#160;&#160;&#160;0</td></tr>
+<tr class="separator:ac27ccd05215a80acc49d7b48066635e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a62a396e2f64b0980d91de8aa6393cc0d"><td class="memItemLeft" align="right" valign="top"><a id="a62a396e2f64b0980d91de8aa6393cc0d" name="a62a396e2f64b0980d91de8aa6393cc0d"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_LABEL_WIDTH</b>&#160;&#160;&#160;0	 /*40*/</td></tr>
 <tr class="separator:a62a396e2f64b0980d91de8aa6393cc0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -571,20 +589,20 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_SWITCH_SELECTION_COLOR</b>&#160;&#160;&#160;LUI_RGB(0, 170, 179)</td></tr>
 <tr class="separator:aefce8fb18488f9c1ba8963586f9bc55e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a344aab011e2e2055e43c589b5eece3ec"><td class="memItemLeft" align="right" valign="top"><a id="a344aab011e2e2055e43c589b5eece3ec" name="a344aab011e2e2055e43c589b5eece3ec"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_SWITCH_KNOB_OFF_COLOR</b>&#160;&#160;&#160;LUI_RGB(57, 62, 70)</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_SWITCH_KNOB_OFF_COLOR</b>&#160;&#160;&#160;LUI_RGB(150, 150, 150)</td></tr>
 <tr class="separator:a344aab011e2e2055e43c589b5eece3ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a035ce4567892d90863494fa5aa490134"><td class="memItemLeft" align="right" valign="top"><a id="a035ce4567892d90863494fa5aa490134" name="a035ce4567892d90863494fa5aa490134"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_SWITCH_KNOB_ON_COLOR</b>&#160;&#160;&#160;LUI_RGB(74, 129, 188)</td></tr>
 <tr class="separator:a035ce4567892d90863494fa5aa490134"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a167d83540426acf89669235553d29b41"><td class="memItemLeft" align="right" valign="top"><a id="a167d83540426acf89669235553d29b41" name="a167d83540426acf89669235553d29b41"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_SWITCH_BG_COLOR</b>&#160;&#160;&#160;LUI_RGB(23, 33, 43)</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_SWITCH_BG_COLOR</b>&#160;&#160;&#160;LUI_RGB(255, 255, 255)</td></tr>
 <tr class="separator:a167d83540426acf89669235553d29b41"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1ef57a4f78dcdcb61375413d9e25995e"><td class="memItemLeft" align="right" valign="top"><a id="a1ef57a4f78dcdcb61375413d9e25995e" name="a1ef57a4f78dcdcb61375413d9e25995e"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_SWITCH_BORDER_COLOR</b>&#160;&#160;&#160;LUI_RGB(74, 129, 188)</td></tr>
 <tr class="separator:a1ef57a4f78dcdcb61375413d9e25995e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aec9817e68000dc8b9dedcb439d205145"><td class="memItemLeft" align="right" valign="top"><a id="aec9817e68000dc8b9dedcb439d205145" name="aec9817e68000dc8b9dedcb439d205145"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_SWITCH_BORDER_VISIBLE</b>&#160;&#160;&#160;1</td></tr>
-<tr class="separator:aec9817e68000dc8b9dedcb439d205145"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e92630b8cce00e7f15422246fad839d"><td class="memItemLeft" align="right" valign="top"><a id="a1e92630b8cce00e7f15422246fad839d" name="a1e92630b8cce00e7f15422246fad839d"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_SWITCH_BORDER_THICKNESS</b>&#160;&#160;&#160;1</td></tr>
+<tr class="separator:a1e92630b8cce00e7f15422246fad839d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae13fea715ddd1bda242832f12d175f21"><td class="memItemLeft" align="right" valign="top"><a id="ae13fea715ddd1bda242832f12d175f21" name="ae13fea715ddd1bda242832f12d175f21"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_SWITCH_WIDTH</b>&#160;&#160;&#160;40</td></tr>
 <tr class="separator:ae13fea715ddd1bda242832f12d175f21"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -598,10 +616,10 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_CHECKBOX_TICK_COLOR</b>&#160;&#160;&#160;LUI_RGB(238, 238, 238)</td></tr>
 <tr class="separator:a1f7e3f7255f8d21e0eaab46b54a59240"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a70ea8967857f25e046c7cd7772929757"><td class="memItemLeft" align="right" valign="top"><a id="a70ea8967857f25e046c7cd7772929757" name="a70ea8967857f25e046c7cd7772929757"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_CHECKBOX_LABEL_COLOR</b>&#160;&#160;&#160;LUI_RGB(238, 238, 238)</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_CHECKBOX_LABEL_COLOR</b>&#160;&#160;&#160;LUI_RGB(0, 0, 0)</td></tr>
 <tr class="separator:a70ea8967857f25e046c7cd7772929757"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a82f1343accb8222e5f35b605072d0dc1"><td class="memItemLeft" align="right" valign="top"><a id="a82f1343accb8222e5f35b605072d0dc1" name="a82f1343accb8222e5f35b605072d0dc1"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_CHECKBOX_BG_COLOR</b>&#160;&#160;&#160;LUI_RGB(23, 33, 43)</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_CHECKBOX_BG_COLOR</b>&#160;&#160;&#160;LUI_RGB(255, 255, 255)</td></tr>
 <tr class="separator:a82f1343accb8222e5f35b605072d0dc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7e1258c06e4c58d0329d12e170cdc390"><td class="memItemLeft" align="right" valign="top"><a id="a7e1258c06e4c58d0329d12e170cdc390" name="a7e1258c06e4c58d0329d12e170cdc390"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_CHECKBOX_BG_CHECKED_COLOR</b>&#160;&#160;&#160;LUI_RGB(74, 129, 188)</td></tr>
@@ -609,9 +627,9 @@ Macros</h2></td></tr>
 <tr class="memitem:a97b11131a91d3a2864d4993ae5ea5bb8"><td class="memItemLeft" align="right" valign="top"><a id="a97b11131a91d3a2864d4993ae5ea5bb8" name="a97b11131a91d3a2864d4993ae5ea5bb8"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_CHECKBOX_BORDER_COLOR</b>&#160;&#160;&#160;LUI_RGB(74, 129, 188)</td></tr>
 <tr class="separator:a97b11131a91d3a2864d4993ae5ea5bb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a09b36635354812fce6d65007eb1e9337"><td class="memItemLeft" align="right" valign="top"><a id="a09b36635354812fce6d65007eb1e9337" name="a09b36635354812fce6d65007eb1e9337"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_CHECKBOX_BORDER_VISIBLE</b>&#160;&#160;&#160;1</td></tr>
-<tr class="separator:a09b36635354812fce6d65007eb1e9337"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3cc52e518de03657af8d834cad9fbd94"><td class="memItemLeft" align="right" valign="top"><a id="a3cc52e518de03657af8d834cad9fbd94" name="a3cc52e518de03657af8d834cad9fbd94"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_CHECKBOX_BORDER_THICKNESS</b>&#160;&#160;&#160;1</td></tr>
+<tr class="separator:a3cc52e518de03657af8d834cad9fbd94"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a415597a44b2f19a4b116d5f64411abc9"><td class="memItemLeft" align="right" valign="top"><a id="a415597a44b2f19a4b116d5f64411abc9" name="a415597a44b2f19a4b116d5f64411abc9"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_CHECKBOX_WIDTH</b>&#160;&#160;&#160;20</td></tr>
 <tr class="separator:a415597a44b2f19a4b116d5f64411abc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -625,7 +643,7 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_SLIDER_KNOB_COLOR</b>&#160;&#160;&#160;LUI_RGB(238, 238, 238)</td></tr>
 <tr class="separator:a87c514232199163dfbd3bd3c6f945f1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af8ceddb5898328c6a03520e45b8ca5f4"><td class="memItemLeft" align="right" valign="top"><a id="af8ceddb5898328c6a03520e45b8ca5f4" name="af8ceddb5898328c6a03520e45b8ca5f4"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_SLIDER_BG_COLOR</b>&#160;&#160;&#160;LUI_RGB(57, 62, 70)</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_SLIDER_BG_COLOR</b>&#160;&#160;&#160;LUI_RGB(150, 150,150)</td></tr>
 <tr class="separator:af8ceddb5898328c6a03520e45b8ca5f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6a281167d56a2abfcd22cb672506d8e6"><td class="memItemLeft" align="right" valign="top"><a id="a6a281167d56a2abfcd22cb672506d8e6" name="a6a281167d56a2abfcd22cb672506d8e6"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_SLIDER_BG_FILLED_COLOR</b>&#160;&#160;&#160;LUI_RGB(74, 129, 188)</td></tr>
@@ -633,9 +651,9 @@ Macros</h2></td></tr>
 <tr class="memitem:afa6ab7e129999f973d229ae930731808"><td class="memItemLeft" align="right" valign="top"><a id="afa6ab7e129999f973d229ae930731808" name="afa6ab7e129999f973d229ae930731808"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_SLIDER_BORDER_COLOR</b>&#160;&#160;&#160;LUI_RGB(74, 129, 188)</td></tr>
 <tr class="separator:afa6ab7e129999f973d229ae930731808"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5cb0ac725cd1208618639ef08eefc1c0"><td class="memItemLeft" align="right" valign="top"><a id="a5cb0ac725cd1208618639ef08eefc1c0" name="a5cb0ac725cd1208618639ef08eefc1c0"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_SLIDER_BORDER_VISIBLE</b>&#160;&#160;&#160;0</td></tr>
-<tr class="separator:a5cb0ac725cd1208618639ef08eefc1c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a334fcd236679eb9e6d0fc0a12a0645ab"><td class="memItemLeft" align="right" valign="top"><a id="a334fcd236679eb9e6d0fc0a12a0645ab" name="a334fcd236679eb9e6d0fc0a12a0645ab"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_SLIDER_BORDER_THICKNESS</b>&#160;&#160;&#160;1</td></tr>
+<tr class="separator:a334fcd236679eb9e6d0fc0a12a0645ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2a8d838761347e8d250378b6b7888915"><td class="memItemLeft" align="right" valign="top"><a id="a2a8d838761347e8d250378b6b7888915" name="a2a8d838761347e8d250378b6b7888915"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_SLIDER_KNOB_WIDTH</b>&#160;&#160;&#160;20</td></tr>
 <tr class="separator:a2a8d838761347e8d250378b6b7888915"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -648,11 +666,14 @@ Macros</h2></td></tr>
 <tr class="memitem:a996b618478223366e2f060e6f8a58805"><td class="memItemLeft" align="right" valign="top"><a id="a996b618478223366e2f060e6f8a58805" name="a996b618478223366e2f060e6f8a58805"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_LINECHART_LINE_COLOR</b>&#160;&#160;&#160;LUI_RGB(74, 129, 188)</td></tr>
 <tr class="separator:a996b618478223366e2f060e6f8a58805"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3ee0ce0be24e6d0ab602b8b664069a2"><td class="memItemLeft" align="right" valign="top"><a id="aa3ee0ce0be24e6d0ab602b8b664069a2" name="aa3ee0ce0be24e6d0ab602b8b664069a2"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_LINECHART_POINT_COLOR</b>&#160;&#160;&#160;LUI_RGB(82, 143, 209)</td></tr>
+<tr class="separator:aa3ee0ce0be24e6d0ab602b8b664069a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad58701ed26f72e6b578367b1a64def25"><td class="memItemLeft" align="right" valign="top"><a id="ad58701ed26f72e6b578367b1a64def25" name="ad58701ed26f72e6b578367b1a64def25"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_LINECHART_GRID_COLOR</b>&#160;&#160;&#160;LUI_RGB(75, 81, 92)</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_LINECHART_GRID_COLOR</b>&#160;&#160;&#160;LUI_RGB(150, 150, 150)</td></tr>
 <tr class="separator:ad58701ed26f72e6b578367b1a64def25"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af24e4f8b8db52e5ff2dda626cf38707e"><td class="memItemLeft" align="right" valign="top"><a id="af24e4f8b8db52e5ff2dda626cf38707e" name="af24e4f8b8db52e5ff2dda626cf38707e"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_LINECHART_BG_COLOR</b>&#160;&#160;&#160;LUI_RGB(35, 46, 60)</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_LINECHART_BG_COLOR</b>&#160;&#160;&#160;LUI_RGB(238, 238, 238)</td></tr>
 <tr class="separator:af24e4f8b8db52e5ff2dda626cf38707e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a412a959649a227718f76dbf40106269e"><td class="memItemLeft" align="right" valign="top"><a id="a412a959649a227718f76dbf40106269e" name="a412a959649a227718f76dbf40106269e"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_LINECHART_BORDER_COLOR</b>&#160;&#160;&#160;LUI_RGB(74, 129, 188)</td></tr>
@@ -660,9 +681,9 @@ Macros</h2></td></tr>
 <tr class="memitem:ac3d7daab457f3bc5727641816cae0078"><td class="memItemLeft" align="right" valign="top"><a id="ac3d7daab457f3bc5727641816cae0078" name="ac3d7daab457f3bc5727641816cae0078"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_LINECHART_GRID_VISIBLE</b>&#160;&#160;&#160;1</td></tr>
 <tr class="separator:ac3d7daab457f3bc5727641816cae0078"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7fbe0a710a423ea6c482265b71ee6ffe"><td class="memItemLeft" align="right" valign="top"><a id="a7fbe0a710a423ea6c482265b71ee6ffe" name="a7fbe0a710a423ea6c482265b71ee6ffe"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_LINECHART_BORDER_VISIBLE</b>&#160;&#160;&#160;1</td></tr>
-<tr class="separator:a7fbe0a710a423ea6c482265b71ee6ffe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24371a011d8d421b286351b857d574c7"><td class="memItemLeft" align="right" valign="top"><a id="a24371a011d8d421b286351b857d574c7" name="a24371a011d8d421b286351b857d574c7"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_LINECHART_BORDER_THICKNESS</b>&#160;&#160;&#160;1</td></tr>
+<tr class="separator:a24371a011d8d421b286351b857d574c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abd2dd19087ac3b851218454aedf0d42c"><td class="memItemLeft" align="right" valign="top"><a id="abd2dd19087ac3b851218454aedf0d42c" name="abd2dd19087ac3b851218454aedf0d42c"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_LINECHART_WIDTH</b>&#160;&#160;&#160;40</td></tr>
 <tr class="separator:abd2dd19087ac3b851218454aedf0d42c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -682,26 +703,26 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_LIST_NAV_SELECTION_COLOR</b>&#160;&#160;&#160;LUI_RGB(82, 143, 209)</td></tr>
 <tr class="separator:a42420155ea5f086561ef69d1ac044665"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6062bd7b399bf4d2f89659689a948a3c"><td class="memItemLeft" align="right" valign="top"><a id="a6062bd7b399bf4d2f89659689a948a3c" name="a6062bd7b399bf4d2f89659689a948a3c"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_LIST_ITEM_BG_COLOR</b>&#160;&#160;&#160;LUI_RGB(57, 62, 70)</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_LIST_ITEM_BG_COLOR</b>&#160;&#160;&#160;LUI_RGB(238, 238, 238)</td></tr>
 <tr class="separator:a6062bd7b399bf4d2f89659689a948a3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af78d597b508229af9691fc176d2e0812"><td class="memItemLeft" align="right" valign="top"><a id="af78d597b508229af9691fc176d2e0812" name="af78d597b508229af9691fc176d2e0812"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_LIST_ITEM_SELECTION_COLOR</b>&#160;&#160;&#160;LUI_RGB(84, 91, 102)</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_LIST_ITEM_SELECTION_COLOR</b>&#160;&#160;&#160;LUI_RGB(109, 118, 133)</td></tr>
 <tr class="separator:af78d597b508229af9691fc176d2e0812"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a480b17f9dbb571f20e4ed9e4c2a5f76e"><td class="memItemLeft" align="right" valign="top"><a id="a480b17f9dbb571f20e4ed9e4c2a5f76e" name="a480b17f9dbb571f20e4ed9e4c2a5f76e"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_LIST_ITEM_PRESSED_COLOR</b>&#160;&#160;&#160;LUI_RGB(109, 118, 133)</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_LIST_ITEM_PRESSED_COLOR</b>&#160;&#160;&#160;LUI_RGB(137, 173, 232)</td></tr>
 <tr class="separator:a480b17f9dbb571f20e4ed9e4c2a5f76e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5fd329c655af10691e100ed9954c94de"><td class="memItemLeft" align="right" valign="top"><a id="a5fd329c655af10691e100ed9954c94de" name="a5fd329c655af10691e100ed9954c94de"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_LIST_ITEM_LABEL_COLOR</b>&#160;&#160;&#160;LUI_RGB(238, 238, 238)</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_LIST_ITEM_LABEL_COLOR</b>&#160;&#160;&#160;LUI_RGB(0, 0, 0)</td></tr>
 <tr class="separator:a5fd329c655af10691e100ed9954c94de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4b7e8ed59d8c90c5b614a98c3b9b4e29"><td class="memItemLeft" align="right" valign="top"><a id="a4b7e8ed59d8c90c5b614a98c3b9b4e29" name="a4b7e8ed59d8c90c5b614a98c3b9b4e29"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_LIST_ITEM_BORDER_COLOR</b>&#160;&#160;&#160;LUI_RGB(75, 81, 92)</td></tr>
 <tr class="separator:a4b7e8ed59d8c90c5b614a98c3b9b4e29"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1f1f0d191573cfd0d2fbb3acdc956d9b"><td class="memItemLeft" align="right" valign="top"><a id="a1f1f0d191573cfd0d2fbb3acdc956d9b" name="a1f1f0d191573cfd0d2fbb3acdc956d9b"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_LIST_BORDER_VISIBLE</b>&#160;&#160;&#160;0</td></tr>
-<tr class="separator:a1f1f0d191573cfd0d2fbb3acdc956d9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a25177998101ee6fbb5f8564ad3df3d9c"><td class="memItemLeft" align="right" valign="top"><a id="a25177998101ee6fbb5f8564ad3df3d9c" name="a25177998101ee6fbb5f8564ad3df3d9c"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_LIST_ITEM_BORDER_VISIBLE</b>&#160;&#160;&#160;0</td></tr>
-<tr class="separator:a25177998101ee6fbb5f8564ad3df3d9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36977b1b49fb36fb84d2b799ec01ca6f"><td class="memItemLeft" align="right" valign="top"><a id="a36977b1b49fb36fb84d2b799ec01ca6f" name="a36977b1b49fb36fb84d2b799ec01ca6f"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_LIST_BORDER_THICKNESS</b>&#160;&#160;&#160;1</td></tr>
+<tr class="separator:a36977b1b49fb36fb84d2b799ec01ca6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7333e9ebbc64e99eb99997e4ba21eb1"><td class="memItemLeft" align="right" valign="top"><a id="ae7333e9ebbc64e99eb99997e4ba21eb1" name="ae7333e9ebbc64e99eb99997e4ba21eb1"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_LIST_ITEM_BORDER_THICKNESS</b>&#160;&#160;&#160;0</td></tr>
+<tr class="separator:ae7333e9ebbc64e99eb99997e4ba21eb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a16456f4c76181d4bab9918c1400a68b6"><td class="memItemLeft" align="right" valign="top"><a id="a16456f4c76181d4bab9918c1400a68b6" name="a16456f4c76181d4bab9918c1400a68b6"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_LIST_ITEM_MIN_HEIGHT</b>&#160;&#160;&#160;30</td></tr>
 <tr class="separator:a16456f4c76181d4bab9918c1400a68b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -715,26 +736,26 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_LIST_HEIGHT</b>&#160;&#160;&#160;60</td></tr>
 <tr class="separator:a3b90bc857455582210b60ca66836fe44"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1d42f3cd51d5ed8c0bcac239e7e5fcf4"><td class="memItemLeft" align="right" valign="top"><a id="a1d42f3cd51d5ed8c0bcac239e7e5fcf4" name="a1d42f3cd51d5ed8c0bcac239e7e5fcf4"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_BTNGRID_BASE_BG_COLOR</b>&#160;&#160;&#160;LUI_RGB(23, 33, 43)</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_BTNGRID_BASE_BG_COLOR</b>&#160;&#160;&#160;LUI_RGB(255, 255, 255)</td></tr>
 <tr class="separator:a1d42f3cd51d5ed8c0bcac239e7e5fcf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae1b410c3301e49378ac64f8c01b1a8b1"><td class="memItemLeft" align="right" valign="top"><a id="ae1b410c3301e49378ac64f8c01b1a8b1" name="ae1b410c3301e49378ac64f8c01b1a8b1"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_BTNGRID_LABEL_COLOR</b>&#160;&#160;&#160;LUI_RGB(238, 238, 238)</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_BTNGRID_LABEL_COLOR</b>&#160;&#160;&#160;LUI_RGB(0, 0, 0)</td></tr>
 <tr class="separator:ae1b410c3301e49378ac64f8c01b1a8b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9068ddceba39ec3adcf65f0965b53229"><td class="memItemLeft" align="right" valign="top"><a id="a9068ddceba39ec3adcf65f0965b53229" name="a9068ddceba39ec3adcf65f0965b53229"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_BTNGRID_PRESSED_COLOR</b>&#160;&#160;&#160;LUI_RGB(91, 160, 235)</td></tr>
 <tr class="separator:a9068ddceba39ec3adcf65f0965b53229"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac012d7d8181fd95e56c0aa6fac684bab"><td class="memItemLeft" align="right" valign="top"><a id="ac012d7d8181fd95e56c0aa6fac684bab" name="ac012d7d8181fd95e56c0aa6fac684bab"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_BTNGRID_BG_COLOR</b>&#160;&#160;&#160;LUI_RGB(39, 55, 71)</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_BTNGRID_BG_COLOR</b>&#160;&#160;&#160;LUI_RGB(200, 200, 200)</td></tr>
 <tr class="separator:ac012d7d8181fd95e56c0aa6fac684bab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae6ac7a6fe7d1a3dd33b3b4c495c406e3"><td class="memItemLeft" align="right" valign="top"><a id="ae6ac7a6fe7d1a3dd33b3b4c495c406e3" name="ae6ac7a6fe7d1a3dd33b3b4c495c406e3"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_BTNGRID_SELECTION_COLOR</b>&#160;&#160;&#160;LUI_RGB(82, 143, 209)</td></tr>
 <tr class="separator:ae6ac7a6fe7d1a3dd33b3b4c495c406e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5e8e2aa793d354ebbb6b3158809835fd"><td class="memItemLeft" align="right" valign="top"><a id="a5e8e2aa793d354ebbb6b3158809835fd" name="a5e8e2aa793d354ebbb6b3158809835fd"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_BTNGRID_BORDER_COLOR</b>&#160;&#160;&#160;LUI_RGB(75, 81, 92)</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_BTNGRID_BORDER_COLOR</b>&#160;&#160;&#160;LUI_RGB(150, 150, 150)</td></tr>
 <tr class="separator:a5e8e2aa793d354ebbb6b3158809835fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab9c90ade9745554fe014dc74bee8f2ba"><td class="memItemLeft" align="right" valign="top"><a id="ab9c90ade9745554fe014dc74bee8f2ba" name="ab9c90ade9745554fe014dc74bee8f2ba"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_BTNGRID_BORDER_VISIBLE</b>&#160;&#160;&#160;0</td></tr>
-<tr class="separator:ab9c90ade9745554fe014dc74bee8f2ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92b236a78c3646e69259e9d9e0fb5354"><td class="memItemLeft" align="right" valign="top"><a id="a92b236a78c3646e69259e9d9e0fb5354" name="a92b236a78c3646e69259e9d9e0fb5354"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_BTNGRID_BORDER_THICKNESS</b>&#160;&#160;&#160;1</td></tr>
+<tr class="separator:a92b236a78c3646e69259e9d9e0fb5354"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0fe775d03dfc4c63d4436ebdd3076fb5"><td class="memItemLeft" align="right" valign="top"><a id="a0fe775d03dfc4c63d4436ebdd3076fb5" name="a0fe775d03dfc4c63d4436ebdd3076fb5"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_BTNGRID_WIDTH</b>&#160;&#160;&#160;300</td></tr>
 <tr class="separator:a0fe775d03dfc4c63d4436ebdd3076fb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -742,17 +763,17 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_BTNGRID_HEIGHT</b>&#160;&#160;&#160;180</td></tr>
 <tr class="separator:a096f908913a3359c306ec1f086f57524"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abb977952fda27fba899c8770d6bdf9d0"><td class="memItemLeft" align="right" valign="top"><a id="abb977952fda27fba899c8770d6bdf9d0" name="abb977952fda27fba899c8770d6bdf9d0"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_TEXTBOX_TEXT_COLOR</b>&#160;&#160;&#160;LUI_RGB(238, 238, 238)</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_TEXTBOX_TEXT_COLOR</b>&#160;&#160;&#160;LUI_RGB(0, 0, 0)</td></tr>
 <tr class="separator:abb977952fda27fba899c8770d6bdf9d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1c61a32a332fa7a415d0638e51a81ed0"><td class="memItemLeft" align="right" valign="top"><a id="a1c61a32a332fa7a415d0638e51a81ed0" name="a1c61a32a332fa7a415d0638e51a81ed0"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_TEXTBOX_BG_COLOR</b>&#160;&#160;&#160;LUI_RGB(45, 56, 70)</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_TEXTBOX_BG_COLOR</b>&#160;&#160;&#160;LUI_RGB(255, 255, 255)</td></tr>
 <tr class="separator:a1c61a32a332fa7a415d0638e51a81ed0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6dd8c0c8fe29685caf0364ccea513166"><td class="memItemLeft" align="right" valign="top"><a id="a6dd8c0c8fe29685caf0364ccea513166" name="a6dd8c0c8fe29685caf0364ccea513166"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_TEXTBOX_BORDER_COLOR</b>&#160;&#160;&#160;LUI_RGB(74, 129, 188)</td></tr>
 <tr class="separator:a6dd8c0c8fe29685caf0364ccea513166"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6c31f1e469d1e0c78bd37e51bf2a7734"><td class="memItemLeft" align="right" valign="top"><a id="a6c31f1e469d1e0c78bd37e51bf2a7734" name="a6c31f1e469d1e0c78bd37e51bf2a7734"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_TEXTBOX_BORDER_VISIBLE</b>&#160;&#160;&#160;1</td></tr>
-<tr class="separator:a6c31f1e469d1e0c78bd37e51bf2a7734"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d3fcbed167bf73c0f3e503c4073b4cd"><td class="memItemLeft" align="right" valign="top"><a id="a7d3fcbed167bf73c0f3e503c4073b4cd" name="a7d3fcbed167bf73c0f3e503c4073b4cd"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_TEXTBOX_BORDER_THICKNESS</b>&#160;&#160;&#160;1</td></tr>
+<tr class="separator:a7d3fcbed167bf73c0f3e503c4073b4cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a76dd5cbb46f3caa36a563cc223d34bcf"><td class="memItemLeft" align="right" valign="top"><a id="a76dd5cbb46f3caa36a563cc223d34bcf" name="a76dd5cbb46f3caa36a563cc223d34bcf"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_TEXTBOX_WIDTH</b>&#160;&#160;&#160;200</td></tr>
 <tr class="separator:a76dd5cbb46f3caa36a563cc223d34bcf"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -760,14 +781,14 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_TEXTBOX_HEIGHT</b>&#160;&#160;&#160;20</td></tr>
 <tr class="separator:a9d0d14baf52c88fe33cf562c636d9a24"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2b9f65847d35f0b9b90568204a96c5df"><td class="memItemLeft" align="right" valign="top"><a id="a2b9f65847d35f0b9b90568204a96c5df" name="a2b9f65847d35f0b9b90568204a96c5df"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_PANEL_BG_COLOR</b>&#160;&#160;&#160;LUI_RGB(23, 33, 43)</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_PANEL_BG_COLOR</b>&#160;&#160;&#160;LUI_RGB(255, 255, 255)</td></tr>
 <tr class="separator:a2b9f65847d35f0b9b90568204a96c5df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a66cb257f025f781b5019456f2f14ec6e"><td class="memItemLeft" align="right" valign="top"><a id="a66cb257f025f781b5019456f2f14ec6e" name="a66cb257f025f781b5019456f2f14ec6e"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_PANEL_BORDER_COLOR</b>&#160;&#160;&#160;LUI_RGB(74, 129, 188)</td></tr>
 <tr class="separator:a66cb257f025f781b5019456f2f14ec6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a07eedc787a8dd40d21869a9f73ba51b8"><td class="memItemLeft" align="right" valign="top"><a id="a07eedc787a8dd40d21869a9f73ba51b8" name="a07eedc787a8dd40d21869a9f73ba51b8"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_PANEL_BORDER_VISIBLE</b>&#160;&#160;&#160;1</td></tr>
-<tr class="separator:a07eedc787a8dd40d21869a9f73ba51b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e8bbc7d65480102bcc2b61b8483087a"><td class="memItemLeft" align="right" valign="top"><a id="a1e8bbc7d65480102bcc2b61b8483087a" name="a1e8bbc7d65480102bcc2b61b8483087a"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_PANEL_BORDER_THICKNESS</b>&#160;&#160;&#160;1</td></tr>
+<tr class="separator:a1e8bbc7d65480102bcc2b61b8483087a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7a37f59ab3a9bdd7e6372da387e0e1ae"><td class="memItemLeft" align="right" valign="top"><a id="a7a37f59ab3a9bdd7e6372da387e0e1ae" name="a7a37f59ab3a9bdd7e6372da387e0e1ae"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_PANEL_WIDTH</b>&#160;&#160;&#160;100</td></tr>
 <tr class="separator:a7a37f59ab3a9bdd7e6372da387e0e1ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -775,7 +796,7 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_PANEL_HEIGHT</b>&#160;&#160;&#160;100</td></tr>
 <tr class="separator:adb6d0787879b5f8f0d8de181cd99ea20"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6c4d18a9300b474bc09f340516169916"><td class="memItemLeft" align="right" valign="top"><a id="a6c4d18a9300b474bc09f340516169916" name="a6c4d18a9300b474bc09f340516169916"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_SCENE_BG_COLOR</b>&#160;&#160;&#160;LUI_RGB(23, 33, 43)</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>LUI_STYLE_SCENE_BG_COLOR</b>&#160;&#160;&#160;LUI_RGB(255, 255, 255)</td></tr>
 <tr class="separator:a6c4d18a9300b474bc09f340516169916"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a070d2ce7b6bb7e5c05602aa8c308d0c4"><td class="memItemLeft" align="right" valign="top"><a id="a070d2ce7b6bb7e5c05602aa8c308d0c4" name="a070d2ce7b6bb7e5c05602aa8c308d0c4"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>NULL</b>&#160;&#160;&#160;((void *)0)</td></tr>
@@ -788,6 +809,11 @@ Macros</h2></td></tr>
 <tr class="separator:a9851a70c48095ae67d95a711152d33d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaeba5388a07217596495871ff72ff54b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lame__ui_8h.html#aaeba5388a07217596495871ff72ff54b">_LUI_BOUNDS</a>(x,  low,  high)</td></tr>
 <tr class="separator:aaeba5388a07217596495871ff72ff54b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9391108553c99a7b2f16ebf172718e3e"><td class="memItemLeft" align="right" valign="top"><a id="a9391108553c99a7b2f16ebf172718e3e" name="a9391108553c99a7b2f16ebf172718e3e"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>_LUI_SWAP</b>(type,  a,  b)&#160;&#160;&#160;({ type tmp = (a); (a) = (b); (b) = tmp; })</td></tr>
+<tr class="separator:a9391108553c99a7b2f16ebf172718e3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a899f6d32bf7aa370c9112b788a6c5f0b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lame__ui_8h.html#a899f6d32bf7aa370c9112b788a6c5f0b">_LUI_CREATE_AND_ADD</a>(type,  parent)</td></tr>
+<tr class="separator:a899f6d32bf7aa370c9112b788a6c5f0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
 Typedefs</h2></td></tr>
@@ -868,9 +894,9 @@ typedef struct <a class="el" href="struct__lui__main__s.html">_lui_main_s</a>&#1
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga29f33381e162ee05b8036461724c99ec"><td class="memItemLeft" align="right" valign="top">int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__core.html#ga29f33381e162ee05b8036461724c99ec">lui_init</a> (uint8_t mem_block[], uint16_t size)</td></tr>
-<tr class="memdesc:ga29f33381e162ee05b8036461724c99ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the LameUI core. Here user provides LameUI some RAM to create widgets. If and when RAM is not sufficient, widget creation will fail.  <br /></td></tr>
-<tr class="separator:ga29f33381e162ee05b8036461724c99ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga96cfffe5318db583c2bb06f7f2c96cfa"><td class="memItemLeft" align="right" valign="top">int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__core.html#ga96cfffe5318db583c2bb06f7f2c96cfa">lui_init</a> (uint8_t mem_block[], uint32_t size)</td></tr>
+<tr class="memdesc:ga96cfffe5318db583c2bb06f7f2c96cfa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the LameUI core. Here user provides LameUI some RAM to create widgets. If and when RAM is not sufficient, widget creation will fail.  <br /></td></tr>
+<tr class="separator:ga96cfffe5318db583c2bb06f7f2c96cfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaa4a3c7694929ad0b6c5cd565dd6e7304"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__core.html#gaa4a3c7694929ad0b6c5cd565dd6e7304">lui_update</a> ()</td></tr>
 <tr class="memdesc:gaa4a3c7694929ad0b6c5cd565dd6e7304"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function updates the UI by reading input and rendering widgets that need rendering.  <br /></td></tr>
 <tr class="separator:gaa4a3c7694929ad0b6c5cd565dd6e7304"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -895,8 +921,14 @@ Functions</h2></td></tr>
 <tr class="memitem:ga0e9b5ea44b5698a9fac1d1a8440e378b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__object.html#ga0e9b5ea44b5698a9fac1d1a8440e378b">lui_object_set_height</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, uint16_t height)</td></tr>
 <tr class="memdesc:ga0e9b5ea44b5698a9fac1d1a8440e378b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set height of an object.  <br /></td></tr>
 <tr class="separator:ga0e9b5ea44b5698a9fac1d1a8440e378b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabc623ce3e146910f05e658fd50d3ee16"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__object.html#gabc623ce3e146910f05e658fd50d3ee16">lui_object_get_position_rel</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, uint16_t pos[2])</td></tr>
+<tr class="memdesc:gabc623ce3e146910f05e658fd50d3ee16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get object's position relative to its parent.  <br /></td></tr>
+<tr class="separator:gabc623ce3e146910f05e658fd50d3ee16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga40b9f6ff93e8658dfdd1d8412084e4a1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__object.html#ga40b9f6ff93e8658dfdd1d8412084e4a1">lui_object_get_position_abs</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, uint16_t pos[2])</td></tr>
+<tr class="memdesc:ga40b9f6ff93e8658dfdd1d8412084e4a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get object's absolute position on the screen.  <br /></td></tr>
+<tr class="separator:ga40b9f6ff93e8658dfdd1d8412084e4a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf7bedc873edb862f9c1f8b063f17f839"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__object.html#gaf7bedc873edb862f9c1f8b063f17f839">lui_object_set_position</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, uint16_t x, uint16_t y)</td></tr>
-<tr class="memdesc:gaf7bedc873edb862f9c1f8b063f17f839"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set position of an object.  <br /></td></tr>
+<tr class="memdesc:gaf7bedc873edb862f9c1f8b063f17f839"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set position of an object. This is the relative position of the object to its parent.  <br /></td></tr>
 <tr class="separator:gaf7bedc873edb862f9c1f8b063f17f839"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac6ab60ef6a5e52ec9dd37dcb9cf117c0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__object.html#gac6ab60ef6a5e52ec9dd37dcb9cf117c0">lui_object_set_x_pos</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, uint16_t x)</td></tr>
 <tr class="memdesc:gac6ab60ef6a5e52ec9dd37dcb9cf117c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set only x position of an object.  <br /></td></tr>
@@ -907,9 +939,12 @@ Functions</h2></td></tr>
 <tr class="memitem:ga40a7f5963092cc887757eb4c72342caa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__object.html#ga40a7f5963092cc887757eb4c72342caa">lui_object_set_border_color</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, uint16_t border_color)</td></tr>
 <tr class="memdesc:ga40a7f5963092cc887757eb4c72342caa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set border color of an object.  <br /></td></tr>
 <tr class="separator:ga40a7f5963092cc887757eb4c72342caa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa3e5b7c777ceee12a215eaa6bc45554b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__object.html#gaa3e5b7c777ceee12a215eaa6bc45554b">lui_object_set_border_visibility</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, uint8_t is_visible)</td></tr>
-<tr class="memdesc:gaa3e5b7c777ceee12a215eaa6bc45554b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set border's visibility of an object.  <br /></td></tr>
-<tr class="separator:gaa3e5b7c777ceee12a215eaa6bc45554b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabbab8ca950ca7d6759732f05b7c81718"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__object.html#gabbab8ca950ca7d6759732f05b7c81718">lui_object_set_border_visibility</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, uint8_t is_visible) __attribute__((deprecated))</td></tr>
+<tr class="memdesc:gabbab8ca950ca7d6759732f05b7c81718"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deprecated!! Use <code><a class="el" href="group__lui__object.html#gaf50598692ce8d764ad3fe20a9e5d2f5b" title="Set border&#39;s width or thickness. Set width to 0 to remove border.">lui_object_set_border_width()</a></code> instead Set border's visibility of an object.  <br /></td></tr>
+<tr class="separator:gabbab8ca950ca7d6759732f05b7c81718"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf50598692ce8d764ad3fe20a9e5d2f5b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__object.html#gaf50598692ce8d764ad3fe20a9e5d2f5b">lui_object_set_border_width</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, uint8_t width)</td></tr>
+<tr class="memdesc:gaf50598692ce8d764ad3fe20a9e5d2f5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set border's width or thickness. Set width to 0 to remove border.  <br /></td></tr>
+<tr class="separator:gaf50598692ce8d764ad3fe20a9e5d2f5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga737c964740f81d6c10d84ebac06d326b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__object.html#ga737c964740f81d6c10d84ebac06d326b">lui_object_set_bg_color</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, uint16_t bg_color)</td></tr>
 <tr class="memdesc:ga737c964740f81d6c10d84ebac06d326b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set background color of an object.  <br /></td></tr>
 <tr class="separator:ga737c964740f81d6c10d84ebac06d326b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -940,8 +975,11 @@ Functions</h2></td></tr>
 <tr class="memitem:ga13471ecc0d34c6ea16bc89c0629efc8a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__label.html#ga13471ecc0d34c6ea16bc89c0629efc8a">lui_label_create</a> (void)</td></tr>
 <tr class="memdesc:ga13471ecc0d34c6ea16bc89c0629efc8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a label with initial values.  <br /></td></tr>
 <tr class="separator:ga13471ecc0d34c6ea16bc89c0629efc8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga28cd23d4f74dc93a496123309c82e0d6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__label.html#ga28cd23d4f74dc93a496123309c82e0d6">lui_label_create_and_add</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_parent)</td></tr>
+<tr class="memdesc:ga28cd23d4f74dc93a496123309c82e0d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a label with initial values and add it to a parent.  <br /></td></tr>
+<tr class="separator:ga28cd23d4f74dc93a496123309c82e0d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga176b351997c1058f4d6fc9bc86942429"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__label.html#ga176b351997c1058f4d6fc9bc86942429">lui_label_draw</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_lbl)</td></tr>
-<tr class="memdesc:ga176b351997c1058f4d6fc9bc86942429"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a <code>label</code> widget.  <br /></td></tr>
+<tr class="memdesc:ga176b351997c1058f4d6fc9bc86942429"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a label widget.  <br /></td></tr>
 <tr class="separator:ga176b351997c1058f4d6fc9bc86942429"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga1ae5970ffa3b6be91e483a8618db71c9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__label.html#ga1ae5970ffa3b6be91e483a8618db71c9">lui_label_set_font</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_lbl, const <a class="el" href="group__PublicTypedefs.html#ga26bf4a56824269a006afb575dc224a1e">lui_font_t</a> *font)</td></tr>
 <tr class="memdesc:ga1ae5970ffa3b6be91e483a8618db71c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set font of a label.  <br /></td></tr>
@@ -955,9 +993,12 @@ Functions</h2></td></tr>
 <tr class="memitem:ga1d98819e26231287b0f5dc2f7742a5e7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__label.html#ga1d98819e26231287b0f5dc2f7742a5e7">lui_label_set_bg_transparent</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, uint8_t is_transparent)</td></tr>
 <tr class="memdesc:ga1d98819e26231287b0f5dc2f7742a5e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set whether the label background is transparent or not. When background is set to transparent, parent's background color or bitmap is used as background to simulate transparency.  <br /></td></tr>
 <tr class="separator:ga1d98819e26231287b0f5dc2f7742a5e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga045237cfd3aa47b7075a77cbf0facb84"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__linechart.html#ga045237cfd3aa47b7075a77cbf0facb84">lui_linechart_create</a> ()</td></tr>
-<tr class="memdesc:ga045237cfd3aa47b7075a77cbf0facb84"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a linechart with initial values.  <br /></td></tr>
-<tr class="separator:ga045237cfd3aa47b7075a77cbf0facb84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf676de0e42c982628fb7bcd79fcfc0b5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__linechart.html#gaf676de0e42c982628fb7bcd79fcfc0b5">lui_linechart_create</a> (void)</td></tr>
+<tr class="memdesc:gaf676de0e42c982628fb7bcd79fcfc0b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a linechart with initial values.  <br /></td></tr>
+<tr class="separator:gaf676de0e42c982628fb7bcd79fcfc0b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga06a4fb5533ec46accbdc3b79cfee8ce5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__linechart.html#ga06a4fb5533ec46accbdc3b79cfee8ce5">lui_linechart_create_and_add</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_parent)</td></tr>
+<tr class="memdesc:ga06a4fb5533ec46accbdc3b79cfee8ce5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a linechart with initial values and add it to a parent.  <br /></td></tr>
+<tr class="separator:ga06a4fb5533ec46accbdc3b79cfee8ce5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga3169eb03a77d57752ba70b71c28592fc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__linechart.html#ga3169eb03a77d57752ba70b71c28592fc">lui_linechart_draw</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_linechart)</td></tr>
 <tr class="memdesc:ga3169eb03a77d57752ba70b71c28592fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a linechart.  <br /></td></tr>
 <tr class="separator:ga3169eb03a77d57752ba70b71c28592fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -973,6 +1014,18 @@ Functions</h2></td></tr>
 <tr class="memitem:ga462e794b64cfa672d7207490412785cd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__linechart.html#ga462e794b64cfa672d7207490412785cd">lui_linechart_set_line_color</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_linechart, uint16_t line_color)</td></tr>
 <tr class="memdesc:ga462e794b64cfa672d7207490412785cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set color of plot line.  <br /></td></tr>
 <tr class="separator:ga462e794b64cfa672d7207490412785cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga86119a4e7f623072aad327fcd9578459"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__linechart.html#ga86119a4e7f623072aad327fcd9578459">lui_linechart_set_line_width</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_linechart, uint8_t line_width)</td></tr>
+<tr class="memdesc:ga86119a4e7f623072aad327fcd9578459"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set width of plot line.  <br /></td></tr>
+<tr class="separator:ga86119a4e7f623072aad327fcd9578459"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga456eb9967e881eb4ea96668bc8f35980"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__linechart.html#ga456eb9967e881eb4ea96668bc8f35980">lui_linechart_set_point_color</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_linechart, uint16_t point_color)</td></tr>
+<tr class="memdesc:ga456eb9967e881eb4ea96668bc8f35980"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set color of points/markers of the plot.  <br /></td></tr>
+<tr class="separator:ga456eb9967e881eb4ea96668bc8f35980"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3a6915f1c099ddd9151e921b5a6cc4dd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__linechart.html#ga3a6915f1c099ddd9151e921b5a6cc4dd">lui_linechart_set_point_width</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_linechart, uint8_t point_width)</td></tr>
+<tr class="memdesc:ga3a6915f1c099ddd9151e921b5a6cc4dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set width of points/markers of plot.  <br /></td></tr>
+<tr class="separator:ga3a6915f1c099ddd9151e921b5a6cc4dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga16b041cd607410e757066a4418323689"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__linechart.html#ga16b041cd607410e757066a4418323689">lui_linechart_set_draw_mode</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_linechart, uint8_t mode_flag)</td></tr>
+<tr class="memdesc:ga16b041cd607410e757066a4418323689"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set draw mode of line chart's plot line Sets whether to draw line segments, or only the points/markers, or both.  <br /></td></tr>
+<tr class="separator:ga16b041cd607410e757066a4418323689"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga043fb5fc50cb96fb3ea3bb14110328bf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__linechart.html#ga043fb5fc50cb96fb3ea3bb14110328bf">lui_linechart_set_data_auto_scale</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_linechart, uint8_t auto_scale)</td></tr>
 <tr class="memdesc:ga043fb5fc50cb96fb3ea3bb14110328bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set whether to apply automatic scaling on the data source or not. If auto scale is enabled, graph will always be in the boundary of drawing area. If auto scale is disabled, user must provide manual range.  <br /></td></tr>
 <tr class="separator:ga043fb5fc50cb96fb3ea3bb14110328bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -982,9 +1035,12 @@ Functions</h2></td></tr>
 <tr class="memitem:gada31833542d8eb263b960fc3575b42f7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__linechart.html#gada31833542d8eb263b960fc3575b42f7">lui_linechart_set_data_source</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_linechart, double *source, uint16_t points)</td></tr>
 <tr class="memdesc:gada31833542d8eb263b960fc3575b42f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set data source of the line chart.  <br /></td></tr>
 <tr class="separator:gada31833542d8eb263b960fc3575b42f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga42fa5a98fca8845b038c7a93dfc480c1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__button.html#ga42fa5a98fca8845b038c7a93dfc480c1">lui_button_create</a> ()</td></tr>
-<tr class="memdesc:ga42fa5a98fca8845b038c7a93dfc480c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a button with initial values.  <br /></td></tr>
-<tr class="separator:ga42fa5a98fca8845b038c7a93dfc480c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9157ed1406680f05c6f9804899c609c3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__button.html#ga9157ed1406680f05c6f9804899c609c3">lui_button_create</a> (void)</td></tr>
+<tr class="memdesc:ga9157ed1406680f05c6f9804899c609c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a button with initial values.  <br /></td></tr>
+<tr class="separator:ga9157ed1406680f05c6f9804899c609c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2fe044f3a401c276a8a38d8e43a03972"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__button.html#ga2fe044f3a401c276a8a38d8e43a03972">lui_button_create_and_add</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_parent)</td></tr>
+<tr class="memdesc:ga2fe044f3a401c276a8a38d8e43a03972"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a button with initial values and add it to a parent.  <br /></td></tr>
+<tr class="separator:ga2fe044f3a401c276a8a38d8e43a03972"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad887047af16cb14b720cf1cf8116c1af"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__button.html#gad887047af16cb14b720cf1cf8116c1af">lui_button_draw</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_btn)</td></tr>
 <tr class="memdesc:gad887047af16cb14b720cf1cf8116c1af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a button object.  <br /></td></tr>
 <tr class="separator:gad887047af16cb14b720cf1cf8116c1af"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1042,9 +1098,12 @@ Functions</h2></td></tr>
 <tr class="memitem:ga875ee62f198dedef05111748508bcc33"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__button.html#ga875ee62f198dedef05111748508bcc33">lui_button_set_bg_transparent</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_btn, uint8_t is_transparent)</td></tr>
 <tr class="memdesc:ga875ee62f198dedef05111748508bcc33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set background of the button as transparent.  <br /></td></tr>
 <tr class="separator:ga875ee62f198dedef05111748508bcc33"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae7c96b11bd28a497fff32764cda9fdb0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__switch.html#gae7c96b11bd28a497fff32764cda9fdb0">lui_switch_create</a> ()</td></tr>
-<tr class="memdesc:gae7c96b11bd28a497fff32764cda9fdb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a switch with initial values.  <br /></td></tr>
-<tr class="separator:gae7c96b11bd28a497fff32764cda9fdb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7621dee59899eaa45f7cae71aa580a36"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__switch.html#ga7621dee59899eaa45f7cae71aa580a36">lui_switch_create</a> (void)</td></tr>
+<tr class="memdesc:ga7621dee59899eaa45f7cae71aa580a36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a switch with initial values.  <br /></td></tr>
+<tr class="separator:ga7621dee59899eaa45f7cae71aa580a36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad4bcd31114bb43c32d6ecc42469302ff"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__switch.html#gad4bcd31114bb43c32d6ecc42469302ff">lui_switch_create_and_add</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_parent)</td></tr>
+<tr class="memdesc:gad4bcd31114bb43c32d6ecc42469302ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a switch with initial values and add it to a parent.  <br /></td></tr>
+<tr class="separator:gad4bcd31114bb43c32d6ecc42469302ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gafd67bf0ba01cf6c48b3f6e779a9ff95a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__switch.html#gafd67bf0ba01cf6c48b3f6e779a9ff95a">lui_switch_draw</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_swtch)</td></tr>
 <tr class="memdesc:gafd67bf0ba01cf6c48b3f6e779a9ff95a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a switch object.  <br /></td></tr>
 <tr class="separator:gafd67bf0ba01cf6c48b3f6e779a9ff95a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1063,9 +1122,12 @@ Functions</h2></td></tr>
 <tr class="memitem:gaeef193f35434dde5845a0132ce7f4c05"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__switch.html#gaeef193f35434dde5845a0132ce7f4c05">lui_switch_set_off</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_swtch)</td></tr>
 <tr class="memdesc:gaeef193f35434dde5845a0132ce7f4c05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set switch to OFF (value: 0)  <br /></td></tr>
 <tr class="separator:gaeef193f35434dde5845a0132ce7f4c05"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga0f7462cbbfae7484114d288068fbfc05"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__checkbox.html#ga0f7462cbbfae7484114d288068fbfc05">lui_checkbox_create</a> ()</td></tr>
-<tr class="memdesc:ga0f7462cbbfae7484114d288068fbfc05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a checkbox object with initial values.  <br /></td></tr>
-<tr class="separator:ga0f7462cbbfae7484114d288068fbfc05"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabffa7bdb1cc13edc0a010fba05f002d0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__checkbox.html#gabffa7bdb1cc13edc0a010fba05f002d0">lui_checkbox_create</a> (void)</td></tr>
+<tr class="memdesc:gabffa7bdb1cc13edc0a010fba05f002d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a checkbox object with initial values.  <br /></td></tr>
+<tr class="separator:gabffa7bdb1cc13edc0a010fba05f002d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga40b3fadbfc33cac8ed5fa8276bee5e87"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__checkbox.html#ga40b3fadbfc33cac8ed5fa8276bee5e87">lui_checkbox_create_and_add</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_parent)</td></tr>
+<tr class="memdesc:ga40b3fadbfc33cac8ed5fa8276bee5e87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a checkbox with initial values and add it to a parent.  <br /></td></tr>
+<tr class="separator:ga40b3fadbfc33cac8ed5fa8276bee5e87"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga36738f45907e976f8bf92595352ea968"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__checkbox.html#ga36738f45907e976f8bf92595352ea968">lui_checkbox_draw</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_checkbox)</td></tr>
 <tr class="memdesc:ga36738f45907e976f8bf92595352ea968"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a checkbox object.  <br /></td></tr>
 <tr class="separator:ga36738f45907e976f8bf92595352ea968"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1093,9 +1155,12 @@ Functions</h2></td></tr>
 <tr class="memitem:gad54464b47322e3c6b4918a0c43bb5a66"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__checkbox.html#gad54464b47322e3c6b4918a0c43bb5a66">lui_checkbox_set_unchecked</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_checkbox)</td></tr>
 <tr class="memdesc:gad54464b47322e3c6b4918a0c43bb5a66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set checkbox status to Unchecked (value: 0)  <br /></td></tr>
 <tr class="separator:gad54464b47322e3c6b4918a0c43bb5a66"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga25e18048e03dd487ff46a3712d13c4a1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__slider.html#ga25e18048e03dd487ff46a3712d13c4a1">lui_slider_create</a> ()</td></tr>
-<tr class="memdesc:ga25e18048e03dd487ff46a3712d13c4a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a slider object with initial values.  <br /></td></tr>
-<tr class="separator:ga25e18048e03dd487ff46a3712d13c4a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf89068869a66f81633b78dce58372ef7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__slider.html#gaf89068869a66f81633b78dce58372ef7">lui_slider_create</a> (void)</td></tr>
+<tr class="memdesc:gaf89068869a66f81633b78dce58372ef7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a slider object with initial values.  <br /></td></tr>
+<tr class="separator:gaf89068869a66f81633b78dce58372ef7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga068d4475562799b32ebe4bc5d21f891d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__slider.html#ga068d4475562799b32ebe4bc5d21f891d">lui_slider_create_and_add</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_parent)</td></tr>
+<tr class="memdesc:ga068d4475562799b32ebe4bc5d21f891d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a slider with initial values and add it to a parent.  <br /></td></tr>
+<tr class="separator:ga068d4475562799b32ebe4bc5d21f891d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga89456da8b3d00d85366cd97a68ea6ef2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__slider.html#ga89456da8b3d00d85366cd97a68ea6ef2">lui_slider_draw</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_slider)</td></tr>
 <tr class="memdesc:ga89456da8b3d00d85366cd97a68ea6ef2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw slider object.  <br /></td></tr>
 <tr class="separator:ga89456da8b3d00d85366cd97a68ea6ef2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1132,9 +1197,12 @@ Functions</h2></td></tr>
 <tr class="memitem:ga439250ad19d7a3791e8b6e634a2810b3"><td class="memItemLeft" align="right" valign="top">int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__slider.html#ga439250ad19d7a3791e8b6e634a2810b3">lui_slider_set_knob_type</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_slider, uint8_t knob_type)</td></tr>
 <tr class="memdesc:ga439250ad19d7a3791e8b6e634a2810b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set knob type of the slider. See <a class="el" href="group__LUI__SLIDER__KNOB__TYPE.html">Slider knob type flags</a>.  <br /></td></tr>
 <tr class="separator:ga439250ad19d7a3791e8b6e634a2810b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga3c9a4f6a688429ad2d848b4128838f46"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__list.html#ga3c9a4f6a688429ad2d848b4128838f46">lui_list_create</a> ()</td></tr>
-<tr class="memdesc:ga3c9a4f6a688429ad2d848b4128838f46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a list object with initial values.  <br /></td></tr>
-<tr class="separator:ga3c9a4f6a688429ad2d848b4128838f46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab157ccd8d89e4f71ec79c8df9f0c21c9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__list.html#gab157ccd8d89e4f71ec79c8df9f0c21c9">lui_list_create</a> (void)</td></tr>
+<tr class="memdesc:gab157ccd8d89e4f71ec79c8df9f0c21c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a list object with initial values.  <br /></td></tr>
+<tr class="separator:gab157ccd8d89e4f71ec79c8df9f0c21c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab146a06764dfdcfcd69e0333b27a4e90"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__list.html#gab146a06764dfdcfcd69e0333b27a4e90">lui_list_create_and_add</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_parent)</td></tr>
+<tr class="memdesc:gab146a06764dfdcfcd69e0333b27a4e90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a list with initial values and add it to a parent.  <br /></td></tr>
+<tr class="separator:gab146a06764dfdcfcd69e0333b27a4e90"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8d36d05056be1235f0314acbdac0371e"><td class="memItemLeft" align="right" valign="top">int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__list.html#ga8d36d05056be1235f0314acbdac0371e">lui_list_set_max_items_count</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, uint8_t max_items_cnt)</td></tr>
 <tr class="memdesc:ga8d36d05056be1235f0314acbdac0371e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set maximum item count for a list. The list cannot store items more than this number.  <br /></td></tr>
 <tr class="separator:ga8d36d05056be1235f0314acbdac0371e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1198,9 +1266,12 @@ Functions</h2></td></tr>
 <tr class="memitem:ga0d18fe32b64aeaace3f49809cf375a9b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__list.html#ga0d18fe32b64aeaace3f49809cf375a9b">lui_list_set_page_index</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, uint8_t index)</td></tr>
 <tr class="memdesc:ga0d18fe32b64aeaace3f49809cf375a9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets current page index of a list. The current page is rendered. Has no effect if index is out of bound.  <br /></td></tr>
 <tr class="separator:ga0d18fe32b64aeaace3f49809cf375a9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae825b972dae532e72050afd45addbd32"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__btngrid.html#gae825b972dae532e72050afd45addbd32">lui_btngrid_create</a> ()</td></tr>
-<tr class="memdesc:gae825b972dae532e72050afd45addbd32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a buttongrid with initial values.  <br /></td></tr>
-<tr class="separator:gae825b972dae532e72050afd45addbd32"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga17bd352ba8d220d8dab4aa1782513cc9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__btngrid.html#ga17bd352ba8d220d8dab4aa1782513cc9">lui_btngrid_create</a> (void)</td></tr>
+<tr class="memdesc:ga17bd352ba8d220d8dab4aa1782513cc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a buttongrid with initial values.  <br /></td></tr>
+<tr class="separator:ga17bd352ba8d220d8dab4aa1782513cc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf2a4b2cb121a6711a3eff7ac9430acd5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__btngrid.html#gaf2a4b2cb121a6711a3eff7ac9430acd5">lui_btngrid_create_and_add</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_parent)</td></tr>
+<tr class="memdesc:gaf2a4b2cb121a6711a3eff7ac9430acd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a buttongrid with initial values and add it to a parent.  <br /></td></tr>
+<tr class="separator:gaf2a4b2cb121a6711a3eff7ac9430acd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaa9a9febb315d359420be30fea2d9657d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__btngrid.html#gaa9a9febb315d359420be30fea2d9657d">lui_btngrid_draw</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj)</td></tr>
 <tr class="memdesc:gaa9a9febb315d359420be30fea2d9657d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a buttongrid.  <br /></td></tr>
 <tr class="separator:gaa9a9febb315d359420be30fea2d9657d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1246,9 +1317,12 @@ Functions</h2></td></tr>
 <tr class="memitem:ga6b21900d39d7da89840cf43dae7d8d39"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__btngrid.html#ga6b21900d39d7da89840cf43dae7d8d39">lui_btngrid_set_btn_margin</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, uint8_t margin_x, uint16_t margin_y)</td></tr>
 <tr class="memdesc:ga6b21900d39d7da89840cf43dae7d8d39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set margin of buttons in a button grid.  <br /></td></tr>
 <tr class="separator:ga6b21900d39d7da89840cf43dae7d8d39"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7c6fc93451b185ff7d3f96107be64694"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__keyboard.html#ga7c6fc93451b185ff7d3f96107be64694">lui_keyboard_create</a> ()</td></tr>
-<tr class="memdesc:ga7c6fc93451b185ff7d3f96107be64694"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a keyboard object with initial values.  <br /></td></tr>
-<tr class="separator:ga7c6fc93451b185ff7d3f96107be64694"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga216799c3c626e435092de0d6fd1d2b18"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__keyboard.html#ga216799c3c626e435092de0d6fd1d2b18">lui_keyboard_create</a> (void)</td></tr>
+<tr class="memdesc:ga216799c3c626e435092de0d6fd1d2b18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a keyboard object with initial values.  <br /></td></tr>
+<tr class="separator:ga216799c3c626e435092de0d6fd1d2b18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga19d030439d2d9de67ebbe39391969efd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__keyboard.html#ga19d030439d2d9de67ebbe39391969efd">lui_keyboard_create_and_add</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_parent)</td></tr>
+<tr class="memdesc:ga19d030439d2d9de67ebbe39391969efd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a keyboard with initial values and add it to a parent.  <br /></td></tr>
+<tr class="separator:ga19d030439d2d9de67ebbe39391969efd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gab709cf22be5895c711637f5b70cad1ec"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__keyboard.html#gab709cf22be5895c711637f5b70cad1ec">lui_keyboard_get_key_text</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, uint8_t btn_index)</td></tr>
 <tr class="memdesc:gab709cf22be5895c711637f5b70cad1ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the text of a key against its index.  <br /></td></tr>
 <tr class="separator:gab709cf22be5895c711637f5b70cad1ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1264,36 +1338,51 @@ Functions</h2></td></tr>
 <tr class="memitem:ga4c2a164a62d97b0866c405ba36723971"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__keyboard.html#ga4c2a164a62d97b0866c405ba36723971">lui_keyboard_sys_cb</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_sender)</td></tr>
 <tr class="memdesc:ga4c2a164a62d97b0866c405ba36723971"><td class="mdescLeft">&#160;</td><td class="mdescRight">Keyboard callback function. This function handles all key presses.  <br /></td></tr>
 <tr class="separator:ga4c2a164a62d97b0866c405ba36723971"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6bdd8df610d26126024077ce61393279"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__textbox.html#ga6bdd8df610d26126024077ce61393279">lui_textbox_create</a> ()</td></tr>
-<tr class="memdesc:ga6bdd8df610d26126024077ce61393279"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a textbox object with initial values.  <br /></td></tr>
-<tr class="separator:ga6bdd8df610d26126024077ce61393279"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga698983cffbe9b59937e77c3e74425eae"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__textbox.html#ga698983cffbe9b59937e77c3e74425eae">lui_textbox_create</a> (void)</td></tr>
+<tr class="memdesc:ga698983cffbe9b59937e77c3e74425eae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a textbox object with initial values.  <br /></td></tr>
+<tr class="separator:ga698983cffbe9b59937e77c3e74425eae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga26a8e9c5239ef4b56e0d32a998a021d3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__textbox.html#ga26a8e9c5239ef4b56e0d32a998a021d3">lui_textbox_create_and_add</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_parent)</td></tr>
+<tr class="memdesc:ga26a8e9c5239ef4b56e0d32a998a021d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a textbox with initial values and add it to a parent.  <br /></td></tr>
+<tr class="separator:ga26a8e9c5239ef4b56e0d32a998a021d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf80e132e37c89453b6115602714c0fce"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__textbox.html#gaf80e132e37c89453b6115602714c0fce">lui_textbox_draw</a> ()</td></tr>
 <tr class="memdesc:gaf80e132e37c89453b6115602714c0fce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a textbox.  <br /></td></tr>
 <tr class="separator:gaf80e132e37c89453b6115602714c0fce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga08e183f10a8a5d102ebcde3bb0c57f30"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__textbox.html#ga08e183f10a8a5d102ebcde3bb0c57f30">lui_textbox_enter_edit_mode</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj)</td></tr>
+<tr class="memdesc:ga08e183f10a8a5d102ebcde3bb0c57f30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enter edit mode (input mode) of a textbox.  <br /></td></tr>
+<tr class="separator:ga08e183f10a8a5d102ebcde3bb0c57f30"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadff79055c2e763e876c7f85419f36263"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__textbox.html#gadff79055c2e763e876c7f85419f36263">lui_textbox_exit_edit_mode</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj)</td></tr>
+<tr class="memdesc:gadff79055c2e763e876c7f85419f36263"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exit edit mode of a textbox.  <br /></td></tr>
+<tr class="separator:gadff79055c2e763e876c7f85419f36263"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gabe544e589562b44cec63dbfa41619c5d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__textbox.html#gabe544e589562b44cec63dbfa41619c5d">lui_textbox_set_caret_index</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, uint16_t caret_index)</td></tr>
 <tr class="memdesc:gabe544e589562b44cec63dbfa41619c5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the index (position) of caret (cursor) in the textbox.  <br /></td></tr>
 <tr class="separator:gabe544e589562b44cec63dbfa41619c5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gae2377a9c0132bc6e909a0b23b1814fc7"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__textbox.html#gae2377a9c0132bc6e909a0b23b1814fc7">lui_textbox_get_caret_index</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj)</td></tr>
 <tr class="memdesc:gae2377a9c0132bc6e909a0b23b1814fc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the caret index.  <br /></td></tr>
 <tr class="separator:gae2377a9c0132bc6e909a0b23b1814fc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf12d728f7b2202c38b85d34d80669892"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__textbox.html#gaf12d728f7b2202c38b85d34d80669892">lui_textbox_insert_char</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, char c)</td></tr>
-<tr class="memdesc:gaf12d728f7b2202c38b85d34d80669892"><td class="mdescLeft">&#160;</td><td class="mdescRight">Insert a character at the position of caret.  <br /></td></tr>
-<tr class="separator:gaf12d728f7b2202c38b85d34d80669892"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6540b13528f24d0e29de00ce7e883835"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__textbox.html#ga6540b13528f24d0e29de00ce7e883835">lui_textbox_insert_string</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, char *str, uint16_t len)</td></tr>
-<tr class="memdesc:ga6540b13528f24d0e29de00ce7e883835"><td class="mdescLeft">&#160;</td><td class="mdescRight">Insert a string at the position of caret.  <br /></td></tr>
-<tr class="separator:ga6540b13528f24d0e29de00ce7e883835"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab96f6d6d3546ada97d759e88a8dede10"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__textbox.html#gab96f6d6d3546ada97d759e88a8dede10">lui_textbox_delete_char</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj)</td></tr>
-<tr class="memdesc:gab96f6d6d3546ada97d759e88a8dede10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete a character at the caret index. Does not work when caret is at 0.  <br /></td></tr>
-<tr class="separator:gab96f6d6d3546ada97d759e88a8dede10"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad6ae13f6e9cb92796fffaf90020f6692"><td class="memItemLeft" align="right" valign="top">int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__textbox.html#gad6ae13f6e9cb92796fffaf90020f6692">lui_textbox_insert_char</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, char c)</td></tr>
+<tr class="memdesc:gad6ae13f6e9cb92796fffaf90020f6692"><td class="mdescLeft">&#160;</td><td class="mdescRight">Insert a character at the position of caret.  <br /></td></tr>
+<tr class="separator:gad6ae13f6e9cb92796fffaf90020f6692"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3f47e1815a7bfdbe8b763712d48af1ef"><td class="memItemLeft" align="right" valign="top">int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__textbox.html#ga3f47e1815a7bfdbe8b763712d48af1ef">lui_textbox_insert_string</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, char *str, uint16_t len)</td></tr>
+<tr class="memdesc:ga3f47e1815a7bfdbe8b763712d48af1ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Insert a string at the position of caret.  <br /></td></tr>
+<tr class="separator:ga3f47e1815a7bfdbe8b763712d48af1ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaca4e2db925d9ab205f19076b64cb9224"><td class="memItemLeft" align="right" valign="top">int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__textbox.html#gaca4e2db925d9ab205f19076b64cb9224">lui_textbox_delete_char</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj)</td></tr>
+<tr class="memdesc:gaca4e2db925d9ab205f19076b64cb9224"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete a character at the caret index. Does not work when caret is at 0.  <br /></td></tr>
+<tr class="separator:gaca4e2db925d9ab205f19076b64cb9224"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gabeb31790dc1b9e074de63bdf7f247776"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__textbox.html#gabeb31790dc1b9e074de63bdf7f247776">lui_textbox_set_text_buffer</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, char *text_buffer, uint16_t buff_size)</td></tr>
 <tr class="memdesc:gabeb31790dc1b9e074de63bdf7f247776"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the text buffer of a textbox. This is where the text is stored.  <br /></td></tr>
 <tr class="separator:gabeb31790dc1b9e074de63bdf7f247776"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab96f0eb40afd32662b4a9e48f5d0f144"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__textbox.html#gab96f0eb40afd32662b4a9e48f5d0f144">lui_textbox_clear_text_buffer</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj)</td></tr>
+<tr class="memdesc:gab96f0eb40afd32662b4a9e48f5d0f144"><td class="mdescLeft">&#160;</td><td class="mdescRight">Empty the text buffer and reset caret position.  <br /></td></tr>
+<tr class="separator:gab96f0eb40afd32662b4a9e48f5d0f144"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga44c28a66f8a82241660c0c296df2c2dd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__textbox.html#ga44c28a66f8a82241660c0c296df2c2dd">lui_textbox_set_font</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, const <a class="el" href="group__PublicTypedefs.html#ga26bf4a56824269a006afb575dc224a1e">lui_font_t</a> *font)</td></tr>
 <tr class="memdesc:ga44c28a66f8a82241660c0c296df2c2dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set font of the textbox.  <br /></td></tr>
 <tr class="separator:ga44c28a66f8a82241660c0c296df2c2dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa79e21a843b2e816b74199b447a745f9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__panel.html#gaa79e21a843b2e816b74199b447a745f9">lui_panel_create</a> ()</td></tr>
-<tr class="memdesc:gaa79e21a843b2e816b74199b447a745f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a panel object with initial values.  <br /></td></tr>
-<tr class="separator:gaa79e21a843b2e816b74199b447a745f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3e2f36e9031b5a2e97b23d19112abe1b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__panel.html#ga3e2f36e9031b5a2e97b23d19112abe1b">lui_panel_create</a> (void)</td></tr>
+<tr class="memdesc:ga3e2f36e9031b5a2e97b23d19112abe1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a panel object with initial values.  <br /></td></tr>
+<tr class="separator:ga3e2f36e9031b5a2e97b23d19112abe1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8e794bae55a9c3ff161a92ca8698f17e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__panel.html#ga8e794bae55a9c3ff161a92ca8698f17e">lui_panel_create_and_add</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_parent)</td></tr>
+<tr class="memdesc:ga8e794bae55a9c3ff161a92ca8698f17e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a panel with initial values and add it to a parent.  <br /></td></tr>
+<tr class="separator:ga8e794bae55a9c3ff161a92ca8698f17e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5e74112373754dd1f38965450efb6700"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__panel.html#ga5e74112373754dd1f38965450efb6700">lui_panel_draw</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_panel)</td></tr>
 <tr class="memdesc:ga5e74112373754dd1f38965450efb6700"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw apanel.  <br /></td></tr>
 <tr class="separator:ga5e74112373754dd1f38965450efb6700"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1303,6 +1392,12 @@ Functions</h2></td></tr>
 <tr class="memitem:gaa063b7cf0177893db5138abb9bdbecb8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__panel.html#gaa063b7cf0177893db5138abb9bdbecb8">lui_panel_set_bitmap_image_mono_palette</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_panel, <a class="el" href="group__PublicTypedefs.html#gaf21613026fc8109ddcdf3e6a8ac2c919">lui_bitmap_mono_pal_t</a> *palette)</td></tr>
 <tr class="memdesc:gaa063b7cf0177893db5138abb9bdbecb8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set color palette for 1-bpp mono bitmap image.  <br /></td></tr>
 <tr class="separator:gaa063b7cf0177893db5138abb9bdbecb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0b77621d603d38537a4eb2f65dc9cc9f"><td class="memItemLeft" align="right" valign="top">int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__panel.html#ga0b77621d603d38537a4eb2f65dc9cc9f">lui_panel_layout_set_properties</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_panel, uint8_t type, uint8_t pad_x, uint8_t pad_y)</td></tr>
+<tr class="memdesc:ga0b77621d603d38537a4eb2f65dc9cc9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the layout properties of a panel.  <br /></td></tr>
+<tr class="separator:ga0b77621d603d38537a4eb2f65dc9cc9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9efd27540d5d5b580776867195686193"><td class="memItemLeft" align="right" valign="top">int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__panel.html#ga9efd27540d5d5b580776867195686193">lui_panel_layout_calculate</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_panel)</td></tr>
+<tr class="memdesc:ga9efd27540d5d5b580776867195686193"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the layout after adding all children to the parent panel.  <br /></td></tr>
+<tr class="separator:ga9efd27540d5d5b580776867195686193"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga40b569f4be80209c533d003211e257a9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__scene.html#ga40b569f4be80209c533d003211e257a9">lui_scene_create</a> ()</td></tr>
 <tr class="memdesc:ga40b569f4be80209c533d003211e257a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a scene.  <br /></td></tr>
 <tr class="separator:ga40b569f4be80209c533d003211e257a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1321,38 +1416,55 @@ Functions</h2></td></tr>
 <tr class="memitem:gaac898576eac97ce23d3f100a966feb65"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__scene.html#gaac898576eac97ce23d3f100a966feb65">lui_scene_set_bitmap_image_mono_palette</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_scene, <a class="el" href="group__PublicTypedefs.html#gaf21613026fc8109ddcdf3e6a8ac2c919">lui_bitmap_mono_pal_t</a> *palette)</td></tr>
 <tr class="memdesc:gaac898576eac97ce23d3f100a966feb65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set color palette for 1-bpp mono bitmap image.  <br /></td></tr>
 <tr class="separator:gaac898576eac97ce23d3f100a966feb65"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga2637c58dd7b74f12b214c9327891d107"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#gab10de4e68055b737faab335e831192e2">lui_dispdrv_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__dispdrv.html#ga2637c58dd7b74f12b214c9327891d107">lui_dispdrv_create</a> ()</td></tr>
-<tr class="memdesc:ga2637c58dd7b74f12b214c9327891d107"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create display driver object.  <br /></td></tr>
-<tr class="separator:ga2637c58dd7b74f12b214c9327891d107"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga04db3209896146d8d157d2ce558607d3"><td class="memItemLeft" align="right" valign="top">int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__scene.html#ga04db3209896146d8d157d2ce558607d3">lui_scene_layout_set_properties</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_scene, uint8_t type, uint8_t pad_x, uint8_t pad_y)</td></tr>
+<tr class="memdesc:ga04db3209896146d8d157d2ce558607d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the layout properties of a scene.  <br /></td></tr>
+<tr class="separator:ga04db3209896146d8d157d2ce558607d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga86c66b4189e9d1ff8a04900196d82d52"><td class="memItemLeft" align="right" valign="top">int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__scene.html#ga86c66b4189e9d1ff8a04900196d82d52">lui_scene_layout_calculate</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_scene)</td></tr>
+<tr class="memdesc:ga86c66b4189e9d1ff8a04900196d82d52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the layout after adding all children to the parent scene.  <br /></td></tr>
+<tr class="separator:ga86c66b4189e9d1ff8a04900196d82d52"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa3ccce4bd05c3d912584c596f42e5b39"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#gab10de4e68055b737faab335e831192e2">lui_dispdrv_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__dispdrv.html#gaa3ccce4bd05c3d912584c596f42e5b39">lui_dispdrv_create</a> (void)</td></tr>
+<tr class="memdesc:gaa3ccce4bd05c3d912584c596f42e5b39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create display driver object.  <br /></td></tr>
+<tr class="separator:gaa3ccce4bd05c3d912584c596f42e5b39"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga77ef8325d1acf4c014be20de214e80de"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__dispdrv.html#ga77ef8325d1acf4c014be20de214e80de">lui_dispdrv_register</a> (<a class="el" href="group__PublicTypedefs.html#gab10de4e68055b737faab335e831192e2">lui_dispdrv_t</a> *dispdrv)</td></tr>
 <tr class="memdesc:ga77ef8325d1acf4c014be20de214e80de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register display driver.  <br /></td></tr>
 <tr class="separator:ga77ef8325d1acf4c014be20de214e80de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9e8ff2b52066e75a0d40d54feda81fc5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#gab10de4e68055b737faab335e831192e2">lui_dispdrv_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__dispdrv.html#ga9e8ff2b52066e75a0d40d54feda81fc5">lui_dispdrv_create_and_register</a> (void)</td></tr>
+<tr class="memdesc:ga9e8ff2b52066e75a0d40d54feda81fc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create display driver object and register it.  <br /></td></tr>
+<tr class="separator:ga9e8ff2b52066e75a0d40d54feda81fc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga3516bb99ba95160e9673ba8541ffb13e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__dispdrv.html#ga3516bb99ba95160e9673ba8541ffb13e">lui_dispdrv_set_resolution</a> (<a class="el" href="group__PublicTypedefs.html#gab10de4e68055b737faab335e831192e2">lui_dispdrv_t</a> *dispdrv, uint16_t hor_res, uint16_t vert_res)</td></tr>
 <tr class="memdesc:ga3516bb99ba95160e9673ba8541ffb13e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set horizontal and vertical resolution of display.  <br /></td></tr>
 <tr class="separator:ga3516bb99ba95160e9673ba8541ffb13e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gadaee6dd19570953fba05e64f9ebb9f2f"><td class="memItemLeft" align="right" valign="top">int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__dispdrv.html#gadaee6dd19570953fba05e64f9ebb9f2f">lui_dispdrv_set_disp_buff</a> (<a class="el" href="group__PublicTypedefs.html#gab10de4e68055b737faab335e831192e2">lui_dispdrv_t</a> *dispdrv, uint16_t *disp_buff, uint16_t size_in_px)</td></tr>
-<tr class="memdesc:gadaee6dd19570953fba05e64f9ebb9f2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the display buffer. This buffer is provided by user and filled with colors by library. Then user passes this buffer to the display.  <br /></td></tr>
-<tr class="separator:gadaee6dd19570953fba05e64f9ebb9f2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga165654730066c14baf3044fc95a59fd0"><td class="memItemLeft" align="right" valign="top">int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__dispdrv.html#ga165654730066c14baf3044fc95a59fd0">lui_dispdrv_set_disp_buff</a> (<a class="el" href="group__PublicTypedefs.html#gab10de4e68055b737faab335e831192e2">lui_dispdrv_t</a> *dispdrv, uint16_t *disp_buff, uint32_t size_in_px)</td></tr>
+<tr class="memdesc:ga165654730066c14baf3044fc95a59fd0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the display buffer. This buffer is provided by user and filled with colors by library. Then user passes this buffer to the display.  <br /></td></tr>
+<tr class="separator:ga165654730066c14baf3044fc95a59fd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac41767acc73ed0907c2dfdfead80ea00"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__dispdrv.html#gac41767acc73ed0907c2dfdfead80ea00">lui_dispdrv_set_draw_disp_buff_cb</a> (<a class="el" href="group__PublicTypedefs.html#gab10de4e68055b737faab335e831192e2">lui_dispdrv_t</a> *dispdrv, void(*draw_pixels_buff_cb)(uint16_t *disp_buff, <a class="el" href="group__PublicTypedefs.html#ga89d2b851574a969160813b40a922de91">lui_area_t</a> *area))</td></tr>
 <tr class="memdesc:gac41767acc73ed0907c2dfdfead80ea00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set callback function for drawing an area of pixels with a display buffer.  <br /></td></tr>
 <tr class="separator:gac41767acc73ed0907c2dfdfead80ea00"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa2cf5623fa26babf738af3a2ef0a5fc4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__dispdrv.html#gaa2cf5623fa26babf738af3a2ef0a5fc4">lui_dispdrv_set_render_complete_cb</a> (<a class="el" href="group__PublicTypedefs.html#gab10de4e68055b737faab335e831192e2">lui_dispdrv_t</a> *dispdrv, void(*render_complete_cb)())</td></tr>
-<tr class="memdesc:gaa2cf5623fa26babf738af3a2ef0a5fc4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set callback function for handling render complete signal. This is optional.  <br /></td></tr>
-<tr class="separator:gaa2cf5623fa26babf738af3a2ef0a5fc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga674a45dcbe0b1d78a5f2a495251f52d5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga98e4dc333c2121cf051dd684a9ee6923">lui_touch_input_dev_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__input.html#ga674a45dcbe0b1d78a5f2a495251f52d5">lui_touch_inputdev_create</a> ()</td></tr>
-<tr class="memdesc:ga674a45dcbe0b1d78a5f2a495251f52d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create touch input device object.  <br /></td></tr>
-<tr class="separator:ga674a45dcbe0b1d78a5f2a495251f52d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga076dc613ea16daaf30e551973e638763"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga98e4dc333c2121cf051dd684a9ee6923">lui_touch_input_dev_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__input.html#ga076dc613ea16daaf30e551973e638763">lui_touch_inputdev_create</a> (void)</td></tr>
+<tr class="memdesc:ga076dc613ea16daaf30e551973e638763"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create touch input device object.  <br /></td></tr>
+<tr class="separator:ga076dc613ea16daaf30e551973e638763"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga3861ea1c2fa9e1776f1aff61dc52daa9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__input.html#ga3861ea1c2fa9e1776f1aff61dc52daa9">lui_touch_inputdev_register</a> (<a class="el" href="group__PublicTypedefs.html#ga98e4dc333c2121cf051dd684a9ee6923">lui_touch_input_dev_t</a> *touch_inputdev)</td></tr>
 <tr class="memdesc:ga3861ea1c2fa9e1776f1aff61dc52daa9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register a touch input device.  <br /></td></tr>
 <tr class="separator:ga3861ea1c2fa9e1776f1aff61dc52daa9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9000e4dcc78c582bf922cb2a10f05af8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga98e4dc333c2121cf051dd684a9ee6923">lui_touch_input_dev_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__input.html#ga9000e4dcc78c582bf922cb2a10f05af8">lui_touch_inputdev_create_and_register</a> (void)</td></tr>
+<tr class="memdesc:ga9000e4dcc78c582bf922cb2a10f05af8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create touch input device object and register it.  <br /></td></tr>
+<tr class="separator:ga9000e4dcc78c582bf922cb2a10f05af8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga72d86e81f1d818b174b5a97b1297d840"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__input.html#ga72d86e81f1d818b174b5a97b1297d840">lui_touch_inputdev_set_read_input_cb</a> (<a class="el" href="group__PublicTypedefs.html#ga98e4dc333c2121cf051dd684a9ee6923">lui_touch_input_dev_t</a> *touch_inputdev, void(*read_touch_input_cb)(<a class="el" href="group__PublicTypedefs.html#gaa6d259bd0bdabcea1b151e6ae903b135">lui_touch_input_data_t</a> *touch_inputdata))</td></tr>
 <tr class="separator:ga72d86e81f1d818b174b5a97b1297d840"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a878422617cd56a02b309f6f9deab11c9"><td class="memItemLeft" align="right" valign="top"><a id="a878422617cd56a02b309f6f9deab11c9" name="a878422617cd56a02b309f6f9deab11c9"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>_lui_mem_init</b> (uint8_t mem_block[], uint16_t size)</td></tr>
-<tr class="separator:a878422617cd56a02b309f6f9deab11c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c82b19ad8ccc79b0b56da5edd14dbd0"><td class="memItemLeft" align="right" valign="top"><a id="a3c82b19ad8ccc79b0b56da5edd14dbd0" name="a3c82b19ad8ccc79b0b56da5edd14dbd0"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>_lui_mem_init</b> (uint8_t mem_block[], uint32_t size)</td></tr>
+<tr class="separator:a3c82b19ad8ccc79b0b56da5edd14dbd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1fb676c917c6b06fa308f37043bd7f60"><td class="memItemLeft" align="right" valign="top"><a id="a1fb676c917c6b06fa308f37043bd7f60" name="a1fb676c917c6b06fa308f37043bd7f60"></a>
 void *&#160;</td><td class="memItemRight" valign="bottom"><b>_lui_mem_alloc</b> (uint16_t element_size)</td></tr>
 <tr class="separator:a1fb676c917c6b06fa308f37043bd7f60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a65143b83ab55cdcc5ac9b853677b881e"><td class="memItemLeft" align="right" valign="top"><a id="a65143b83ab55cdcc5ac9b853677b881e" name="a65143b83ab55cdcc5ac9b853677b881e"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><b>_lui_map_range</b> (double old_val, double old_max, double old_min, double new_max, double new_min)</td></tr>
+<tr class="separator:a65143b83ab55cdcc5ac9b853677b881e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f03ce9eb60cfea53a29ddd3ee2cd252"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lame__ui_8h.html#a5f03ce9eb60cfea53a29ddd3ee2cd252">_lui_clip_line</a> (double *point_0, double *point_1, const <a class="el" href="group__PublicTypedefs.html#ga89d2b851574a969160813b40a922de91">lui_area_t</a> *clip_win)</td></tr>
+<tr class="separator:a5f03ce9eb60cfea53a29ddd3ee2cd252"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa98d5e8a7f654a32b1a1fa3f2ba1d05"><td class="memItemLeft" align="right" valign="top"><a id="aaa98d5e8a7f654a32b1a1fa3f2ba1d05" name="aaa98d5e8a7f654a32b1a1fa3f2ba1d05"></a>
+uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>_lui_calc_clip_region_code</b> (double x, double y, const <a class="el" href="group__PublicTypedefs.html#ga89d2b851574a969160813b40a922de91">lui_area_t</a> *clip_win)</td></tr>
+<tr class="separator:aaa98d5e8a7f654a32b1a1fa3f2ba1d05"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2b0c039e46a3a9c3414ee0dd0e258099"><td class="memItemLeft" align="right" valign="top"><a id="a2b0c039e46a3a9c3414ee0dd0e258099" name="a2b0c039e46a3a9c3414ee0dd0e258099"></a>
 <a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>_lui_process_input_of_act_scene</b> ()</td></tr>
 <tr class="separator:a2b0c039e46a3a9c3414ee0dd0e258099"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1374,6 +1486,12 @@ uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>_lui_get_event_aga
 <tr class="memitem:a3c0bdee792a3dcffd4fd880f18e59487"><td class="memItemLeft" align="right" valign="top"><a id="a3c0bdee792a3dcffd4fd880f18e59487" name="a3c0bdee792a3dcffd4fd880f18e59487"></a>
 int8_t&#160;</td><td class="memItemRight" valign="bottom"><b>_lui_verify_obj</b> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, uint8_t obj_type)</td></tr>
 <tr class="separator:a3c0bdee792a3dcffd4fd880f18e59487"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a672d02ea95e8ad50ba4e78419358810a"><td class="memItemLeft" align="right" valign="top"><a id="a672d02ea95e8ad50ba4e78419358810a" name="a672d02ea95e8ad50ba4e78419358810a"></a>
+int8_t&#160;</td><td class="memItemRight" valign="bottom"><b>_lui_layout_set_properties</b> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, uint8_t layout_type, uint8_t pad_x, uint8_t pad_y)</td></tr>
+<tr class="separator:a672d02ea95e8ad50ba4e78419358810a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4f515e0f7297ebf9dd5eaa28d06f2f7"><td class="memItemLeft" align="right" valign="top"><a id="ab4f515e0f7297ebf9dd5eaa28d06f2f7" name="ab4f515e0f7297ebf9dd5eaa28d06f2f7"></a>
+int8_t&#160;</td><td class="memItemRight" valign="bottom"><b>_lui_layout_calculate</b> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj)</td></tr>
+<tr class="separator:ab4f515e0f7297ebf9dd5eaa28d06f2f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga70916d1822c831690097ab38aa00f9be"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__gfx.html#ga70916d1822c831690097ab38aa00f9be">lui_gfx_draw_string_advanced</a> (const char *str, <a class="el" href="group__PublicTypedefs.html#ga89d2b851574a969160813b40a922de91">lui_area_t</a> *area, uint16_t fore_color, uint16_t bg_color, const <a class="el" href="group__PublicTypedefs.html#gaca3b4e71f058bce3538bf58fc8883f04">lui_bitmap_t</a> *bg_bitmap, <a class="el" href="group__PublicTypedefs.html#gaf21613026fc8109ddcdf3e6a8ac2c919">lui_bitmap_mono_pal_t</a> *palette, <a class="el" href="group__PublicTypedefs.html#ga89d2b851574a969160813b40a922de91">lui_area_t</a> *bitmap_crop, uint8_t is_bg, const <a class="el" href="group__PublicTypedefs.html#ga26bf4a56824269a006afb575dc224a1e">lui_font_t</a> *font)</td></tr>
 <tr class="memdesc:ga70916d1822c831690097ab38aa00f9be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Advanced function to draw a string. For internal use only, but user may call it if needed. Most of the time <code>draw_string_simple</code> is enough for user.  <br /></td></tr>
 <tr class="separator:ga70916d1822c831690097ab38aa00f9be"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1392,12 +1510,18 @@ int8_t&#160;</td><td class="memItemRight" valign="bottom"><b>_lui_verify_obj</b>
 <tr class="memitem:gad4c604716d2df4943ac32b35fa56ac14"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__gfx.html#gad4c604716d2df4943ac32b35fa56ac14">lui_gfx_draw_line</a> (uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color)</td></tr>
 <tr class="memdesc:gad4c604716d2df4943ac32b35fa56ac14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a line.  <br /></td></tr>
 <tr class="separator:gad4c604716d2df4943ac32b35fa56ac14"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae56d68f8c6855e24caf9dbcd7be0ab6a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__gfx.html#gae56d68f8c6855e24caf9dbcd7be0ab6a">lui_gfx_draw_line_clipped</a> (uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, <a class="el" href="group__PublicTypedefs.html#ga89d2b851574a969160813b40a922de91">lui_area_t</a> *clip_area, uint8_t line_width, uint16_t color)</td></tr>
+<tr class="memdesc:gae56d68f8c6855e24caf9dbcd7be0ab6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a line within a clipping area.  <br /></td></tr>
+<tr class="separator:gae56d68f8c6855e24caf9dbcd7be0ab6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad91328f058c99813e23a79a0e5aed425"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__gfx.html#gad91328f058c99813e23a79a0e5aed425">lui_gfx_draw_rect</a> (uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint8_t line_width, uint16_t color)</td></tr>
 <tr class="memdesc:gad91328f058c99813e23a79a0e5aed425"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a rectangle.  <br /></td></tr>
 <tr class="separator:gad91328f058c99813e23a79a0e5aed425"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga85fb0f8d768116008acf2f12ee3af158"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__gfx.html#ga85fb0f8d768116008acf2f12ee3af158">lui_gfx_draw_rect_fill</a> (uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color)</td></tr>
 <tr class="memdesc:ga85fb0f8d768116008acf2f12ee3af158"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a filled rectangle.  <br /></td></tr>
 <tr class="separator:ga85fb0f8d768116008acf2f12ee3af158"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac5d67d4ded661f18c0624e72e497be17"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__gfx.html#gac5d67d4ded661f18c0624e72e497be17">lui_gfx_draw_rect_fill_clipped</a> (uint16_t x, uint16_t y, uint16_t w, uint16_t h, <a class="el" href="group__PublicTypedefs.html#ga89d2b851574a969160813b40a922de91">lui_area_t</a> *clip_area, uint16_t color)</td></tr>
+<tr class="memdesc:gac5d67d4ded661f18c0624e72e497be17"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a filled rectangle within a clipping area/window.  <br /></td></tr>
+<tr class="separator:gac5d67d4ded661f18c0624e72e497be17"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8c17499b9a8d972090516432237f7666"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__gfx.html#ga8c17499b9a8d972090516432237f7666">lui_gfx_draw_bitmap</a> (const <a class="el" href="group__PublicTypedefs.html#gaca3b4e71f058bce3538bf58fc8883f04">lui_bitmap_t</a> *bitmap, <a class="el" href="group__PublicTypedefs.html#gaf21613026fc8109ddcdf3e6a8ac2c919">lui_bitmap_mono_pal_t</a> *palette, uint16_t x, uint16_t y, <a class="el" href="group__PublicTypedefs.html#ga89d2b851574a969160813b40a922de91">lui_area_t</a> *crop_area)</td></tr>
 <tr class="memdesc:ga8c17499b9a8d972090516432237f7666"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws a bitmap at given x,y position. Crop area can be NULL if cropping is not needed. <code>palette</code> parameter is only applicable if image is 1-bpp mono bitmap.  <br /></td></tr>
 <tr class="separator:ga8c17499b9a8d972090516432237f7666"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1409,15 +1533,12 @@ const <a class="el" href="struct__lui__glyph__t.html">_lui_glyph_t</a> *&#160;</
 <tr class="separator:ac5d97dcbb41f4ace138366efce098051"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7f55400d276a2100f8ce722ce5dffb7f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lame__ui_8h.html#a7f55400d276a2100f8ce722ce5dffb7f">_lui_gfx_render_char_glyph</a> (uint16_t x, uint16_t y, uint16_t fore_color, uint16_t bg_color, uint8_t is_bg, const <a class="el" href="struct__lui__glyph__t.html">_lui_glyph_t</a> *glyph, const <a class="el" href="group__PublicTypedefs.html#ga26bf4a56824269a006afb575dc224a1e">lui_font_t</a> *font)</td></tr>
 <tr class="separator:a7f55400d276a2100f8ce722ce5dffb7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3bb54afdae476b08538714744a806db8"><td class="memItemLeft" align="right" valign="top"><a id="a3bb54afdae476b08538714744a806db8" name="a3bb54afdae476b08538714744a806db8"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>_lui_gfx_plot_line_low</b> (uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color)</td></tr>
-<tr class="separator:a3bb54afdae476b08538714744a806db8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1ad3e2d43fd774f4f857e8f7d4f23be3"><td class="memItemLeft" align="right" valign="top"><a id="a1ad3e2d43fd774f4f857e8f7d4f23be3" name="a1ad3e2d43fd774f4f857e8f7d4f23be3"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>_lui_gfx_plot_line_high</b> (uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color)</td></tr>
-<tr class="separator:a1ad3e2d43fd774f4f857e8f7d4f23be3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a65143b83ab55cdcc5ac9b853677b881e"><td class="memItemLeft" align="right" valign="top"><a id="a65143b83ab55cdcc5ac9b853677b881e" name="a65143b83ab55cdcc5ac9b853677b881e"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>_lui_map_range</b> (double old_val, double old_max, double old_min, double new_max, double new_min)</td></tr>
-<tr class="separator:a65143b83ab55cdcc5ac9b853677b881e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adcf1fc3922205a421c88db40933cd032"><td class="memItemLeft" align="right" valign="top"><a id="adcf1fc3922205a421c88db40933cd032" name="adcf1fc3922205a421c88db40933cd032"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>_lui_gfx_plot_line_low</b> (uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, <a class="el" href="group__PublicTypedefs.html#ga89d2b851574a969160813b40a922de91">lui_area_t</a> *clip_area, uint8_t line_width, uint16_t color)</td></tr>
+<tr class="separator:adcf1fc3922205a421c88db40933cd032"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6eeb9f1663761eb2bee1e395421474c"><td class="memItemLeft" align="right" valign="top"><a id="ae6eeb9f1663761eb2bee1e395421474c" name="ae6eeb9f1663761eb2bee1e395421474c"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>_lui_gfx_plot_line_high</b> (uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, <a class="el" href="group__PublicTypedefs.html#ga89d2b851574a969160813b40a922de91">lui_area_t</a> *clip_area, uint8_t line_width, uint16_t color)</td></tr>
+<tr class="separator:ae6eeb9f1663761eb2bee1e395421474c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -1429,7 +1550,7 @@ const <a class="el" href="group__PublicTypedefs.html#ga26bf4a56824269a006afb575d
 <div class="textblock"><p>One and only header file for LameUI library. </p>
 <dl class="section author"><dt>Author</dt><dd>Avra Mitra </dd></dl>
 <dl class="section version"><dt>Version</dt><dd>2.0 </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2023-03-06</dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2023-10-26</dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2020-2023 </dd></dl>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="aaeba5388a07217596495871ff72ff54b" name="aaeba5388a07217596495871ff72ff54b"></a>
@@ -1466,6 +1587,38 @@ const <a class="el" href="group__PublicTypedefs.html#ga26bf4a56824269a006afb575d
 <b>Value:</b><div class="fragment"><div class="line">    ({\</div>
 <div class="line">    (x) &gt; (high) ? (high) : ((x) &lt; (low) ? (low) : (x));\</div>
 <div class="line">})</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a899f6d32bf7aa370c9112b788a6c5f0b" name="a899f6d32bf7aa370c9112b788a6c5f0b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a899f6d32bf7aa370c9112b788a6c5f0b">&#9670;&#160;</a></span>_LUI_CREATE_AND_ADD</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define _LUI_CREATE_AND_ADD</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">type, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">parent&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">    <a class="code hl_struct" href="struct__lui__obj__s.html">lui_obj_t</a>* obj = lui_##type##_create(); \</div>
+<div class="line">    lui_object_add_to_parent(obj, parent); \</div>
+<div class="line">    <span class="keywordflow">return</span> obj;</div>
+<div class="ttc" id="astruct__lui__obj__s_html"><div class="ttname"><a href="struct__lui__obj__s.html">_lui_obj_s</a></div><div class="ttdoc">Generic object datatype. Accessed only through getter and setter functions.</div><div class="ttdef"><b>Definition:</b> lame_ui.h:480</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1507,6 +1660,41 @@ const <a class="el" href="group__PublicTypedefs.html#ga26bf4a56824269a006afb575d
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="a5f03ce9eb60cfea53a29ddd3ee2cd252" name="a5f03ce9eb60cfea53a29ddd3ee2cd252"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f03ce9eb60cfea53a29ddd3ee2cd252">&#9670;&#160;</a></span>_lui_clip_line()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t _lui_clip_line </td>
+          <td>(</td>
+          <td class="paramtype">double *&#160;</td>
+          <td class="paramname"><em>point_0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *&#160;</td>
+          <td class="paramname"><em>point_1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__PublicTypedefs.html#ga89d2b851574a969160813b40a922de91">lui_area_t</a> *&#160;</td>
+          <td class="paramname"><em>clip_win</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p><a href="https://en.wikipedia.org/wiki/Cohen%E2%80%93Sutherland_algorithm">https://en.wikipedia.org/wiki/Cohen%E2%80%93Sutherland_algorithm</a> Returns: 0-&gt; unaccepted, 1-&gt; accepted unclipped, 3-&gt; accepted clipped </p>
+
+</div>
+</div>
 <a id="a7f55400d276a2100f8ce722ce5dffb7f" name="a7f55400d276a2100f8ce722ce5dffb7f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7f55400d276a2100f8ce722ce5dffb7f">&#9670;&#160;</a></span>_lui_gfx_render_char_glyph()</h2>
 

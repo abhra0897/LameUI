@@ -40,7 +40,7 @@
 		<div class="logo">
 			<a href="index.html"> <img src="LameUI_logo.png" alt="LameUI logo" width="220" ></a>
 			<span style="display: inline-block; margin-top: 10px;">
-				v2.0
+				v2.1
 			</span>
 		</div>
 		<div class="navigation-footer">
@@ -120,9 +120,12 @@ $(document).ready(function(){initNavTree('group__lui__switch.html',''); initResi
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:gae7c96b11bd28a497fff32764cda9fdb0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__switch.html#gae7c96b11bd28a497fff32764cda9fdb0">lui_switch_create</a> ()</td></tr>
-<tr class="memdesc:gae7c96b11bd28a497fff32764cda9fdb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a switch with initial values.  <br /></td></tr>
-<tr class="separator:gae7c96b11bd28a497fff32764cda9fdb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7621dee59899eaa45f7cae71aa580a36"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__switch.html#ga7621dee59899eaa45f7cae71aa580a36">lui_switch_create</a> (void)</td></tr>
+<tr class="memdesc:ga7621dee59899eaa45f7cae71aa580a36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a switch with initial values.  <br /></td></tr>
+<tr class="separator:ga7621dee59899eaa45f7cae71aa580a36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad4bcd31114bb43c32d6ecc42469302ff"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__switch.html#gad4bcd31114bb43c32d6ecc42469302ff">lui_switch_create_and_add</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_parent)</td></tr>
+<tr class="memdesc:gad4bcd31114bb43c32d6ecc42469302ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a switch with initial values and add it to a parent.  <br /></td></tr>
+<tr class="separator:gad4bcd31114bb43c32d6ecc42469302ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gafd67bf0ba01cf6c48b3f6e779a9ff95a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__switch.html#gafd67bf0ba01cf6c48b3f6e779a9ff95a">lui_switch_draw</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_swtch)</td></tr>
 <tr class="memdesc:gafd67bf0ba01cf6c48b3f6e779a9ff95a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a switch object.  <br /></td></tr>
 <tr class="separator:gafd67bf0ba01cf6c48b3f6e779a9ff95a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -168,26 +171,26 @@ Light Theme</div></div>
 <div class="line">        <span class="comment">// Switch is turned on. Do something now.</span></div>
 <div class="line">    }</div>
 <div class="line">}</div>
-<div class="line"><a class="code hl_struct" href="struct__lui__obj__s.html">lui_obj_t</a>* my_switch = <a class="code hl_function" href="group__lui__switch.html#gae7c96b11bd28a497fff32764cda9fdb0">lui_switch_create</a>();</div>
+<div class="line"><a class="code hl_struct" href="struct__lui__obj__s.html">lui_obj_t</a>* my_switch = <a class="code hl_function" href="group__lui__switch.html#ga7621dee59899eaa45f7cae71aa580a36">lui_switch_create</a>();</div>
 <div class="line"><span class="comment">// Let&#39;s keep the switch ON by default</span></div>
 <div class="line"><a class="code hl_function" href="group__lui__switch.html#ga4453c8ab068c81d45c1029a280c45e8c">lui_switch_set_on</a>(my_switch);</div>
 <div class="line"><a class="code hl_function" href="group__lui__object.html#gaf7bedc873edb862f9c1f8b063f17f839">lui_object_set_position</a>(my_switch, 10, 10);</div>
 <div class="line"><span class="comment">// Set a callback function to do stuffs when switch is toggled</span></div>
 <div class="line"><a class="code hl_function" href="group__lui__object.html#gae9d2e2e1998f2603a3a6d24d08b5b64e">lui_object_set_callback</a>(my_switch, switch_callback)</div>
 <div class="line"> </div>
-<div class="line"><a class="code hl_struct" href="struct__lui__obj__s.html">lui_obj_t</a>* my_switch2 = <a class="code hl_function" href="group__lui__switch.html#gae7c96b11bd28a497fff32764cda9fdb0">lui_switch_create</a>();</div>
+<div class="line"><a class="code hl_struct" href="struct__lui__obj__s.html">lui_obj_t</a>* my_switch2 = <a class="code hl_function" href="group__lui__switch.html#ga7621dee59899eaa45f7cae71aa580a36">lui_switch_create</a>();</div>
 <div class="line"><a class="code hl_function" href="group__lui__object.html#gaf7bedc873edb862f9c1f8b063f17f839">lui_object_set_position</a>(my_switch2, 140, 10);</div>
 <div class="ttc" id="agroup__LUI__EVENT_html_gaac0f29869773a73ada40aa4b8bba419e"><div class="ttname"><a href="group__LUI__EVENT.html#gaac0f29869773a73ada40aa4b8bba419e">LUI_EVENT_VALUE_CHANGED</a></div><div class="ttdeci">#define LUI_EVENT_VALUE_CHANGED</div><div class="ttdoc">Value of a object is changed. Example: a slider is dragged.</div><div class="ttdef"><b>Definition:</b> lame_ui.h:111</div></div>
-<div class="ttc" id="agroup__lui__object_html_ga580b2bdece45808266791573d874aabb"><div class="ttname"><a href="group__lui__object.html#ga580b2bdece45808266791573d874aabb">lui_object_get_event</a></div><div class="ttdeci">int8_t lui_object_get_event(lui_obj_t *obj)</div><div class="ttdoc">Get input event of an object.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3869</div></div>
-<div class="ttc" id="agroup__lui__object_html_gae9d2e2e1998f2603a3a6d24d08b5b64e"><div class="ttname"><a href="group__lui__object.html#gae9d2e2e1998f2603a3a6d24d08b5b64e">lui_object_set_callback</a></div><div class="ttdeci">void lui_object_set_callback(lui_obj_t *obj, void(*obj_event_cb)(lui_obj_t *))</div><div class="ttdoc">Set event call back function for input handling.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3855</div></div>
-<div class="ttc" id="agroup__lui__object_html_gaf7bedc873edb862f9c1f8b063f17f839"><div class="ttname"><a href="group__lui__object.html#gaf7bedc873edb862f9c1f8b063f17f839">lui_object_set_position</a></div><div class="ttdeci">void lui_object_set_position(lui_obj_t *obj, uint16_t x, uint16_t y)</div><div class="ttdoc">Set position of an object.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3710</div></div>
-<div class="ttc" id="agroup__lui__switch_html_ga0793cf720943fa01792f6bb86cb5b00c"><div class="ttname"><a href="group__lui__switch.html#ga0793cf720943fa01792f6bb86cb5b00c">lui_switch_get_value</a></div><div class="ttdeci">int8_t lui_switch_get_value(lui_obj_t *obj)</div><div class="ttdoc">Get value of a switch.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:1735</div></div>
-<div class="ttc" id="agroup__lui__switch_html_ga4453c8ab068c81d45c1029a280c45e8c"><div class="ttname"><a href="group__lui__switch.html#ga4453c8ab068c81d45c1029a280c45e8c">lui_switch_set_on</a></div><div class="ttdeci">void lui_switch_set_on(lui_obj_t *obj)</div><div class="ttdoc">Set switch to ON (value: 1)</div><div class="ttdef"><b>Definition:</b> lame_ui.c:1754</div></div>
-<div class="ttc" id="agroup__lui__switch_html_gae7c96b11bd28a497fff32764cda9fdb0"><div class="ttname"><a href="group__lui__switch.html#gae7c96b11bd28a497fff32764cda9fdb0">lui_switch_create</a></div><div class="ttdeci">lui_obj_t * lui_switch_create()</div><div class="ttdoc">Create a switch with initial values.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:1686</div></div>
-<div class="ttc" id="astruct__lui__obj__s_html"><div class="ttname"><a href="struct__lui__obj__s.html">_lui_obj_s</a></div><div class="ttdoc">Generic object datatype. Accessed only through getter and setter functions.</div><div class="ttdef"><b>Definition:</b> lame_ui.h:443</div></div>
+<div class="ttc" id="agroup__lui__object_html_ga580b2bdece45808266791573d874aabb"><div class="ttname"><a href="group__lui__object.html#ga580b2bdece45808266791573d874aabb">lui_object_get_event</a></div><div class="ttdeci">int8_t lui_object_get_event(lui_obj_t *obj)</div><div class="ttdoc">Get input event of an object.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:4158</div></div>
+<div class="ttc" id="agroup__lui__object_html_gae9d2e2e1998f2603a3a6d24d08b5b64e"><div class="ttname"><a href="group__lui__object.html#gae9d2e2e1998f2603a3a6d24d08b5b64e">lui_object_set_callback</a></div><div class="ttdeci">void lui_object_set_callback(lui_obj_t *obj, void(*obj_event_cb)(lui_obj_t *))</div><div class="ttdoc">Set event call back function for input handling.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:4144</div></div>
+<div class="ttc" id="agroup__lui__object_html_gaf7bedc873edb862f9c1f8b063f17f839"><div class="ttname"><a href="group__lui__object.html#gaf7bedc873edb862f9c1f8b063f17f839">lui_object_set_position</a></div><div class="ttdeci">void lui_object_set_position(lui_obj_t *obj, uint16_t x, uint16_t y)</div><div class="ttdoc">Set position of an object. This is the relative position of the object to its parent.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3989</div></div>
+<div class="ttc" id="agroup__lui__switch_html_ga0793cf720943fa01792f6bb86cb5b00c"><div class="ttname"><a href="group__lui__switch.html#ga0793cf720943fa01792f6bb86cb5b00c">lui_switch_get_value</a></div><div class="ttdeci">int8_t lui_switch_get_value(lui_obj_t *obj)</div><div class="ttdoc">Get value of a switch.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:1855</div></div>
+<div class="ttc" id="agroup__lui__switch_html_ga4453c8ab068c81d45c1029a280c45e8c"><div class="ttname"><a href="group__lui__switch.html#ga4453c8ab068c81d45c1029a280c45e8c">lui_switch_set_on</a></div><div class="ttdeci">void lui_switch_set_on(lui_obj_t *obj)</div><div class="ttdoc">Set switch to ON (value: 1)</div><div class="ttdef"><b>Definition:</b> lame_ui.c:1874</div></div>
+<div class="ttc" id="agroup__lui__switch_html_ga7621dee59899eaa45f7cae71aa580a36"><div class="ttname"><a href="group__lui__switch.html#ga7621dee59899eaa45f7cae71aa580a36">lui_switch_create</a></div><div class="ttdeci">lui_obj_t * lui_switch_create()</div><div class="ttdoc">Create a switch with initial values.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:1801</div></div>
+<div class="ttc" id="astruct__lui__obj__s_html"><div class="ttname"><a href="struct__lui__obj__s.html">_lui_obj_s</a></div><div class="ttdoc">Generic object datatype. Accessed only through getter and setter functions.</div><div class="ttdef"><b>Definition:</b> lame_ui.h:480</div></div>
 </div><!-- fragment --> <h2 class="groupheader">Function Documentation</h2>
-<a id="gae7c96b11bd28a497fff32764cda9fdb0" name="gae7c96b11bd28a497fff32764cda9fdb0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gae7c96b11bd28a497fff32764cda9fdb0">&#9670;&#160;</a></span>lui_switch_create()</h2>
+<a id="ga7621dee59899eaa45f7cae71aa580a36" name="ga7621dee59899eaa45f7cae71aa580a36"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7621dee59899eaa45f7cae71aa580a36">&#9670;&#160;</a></span>lui_switch_create()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -195,6 +198,7 @@ Light Theme</div></div>
         <tr>
           <td class="memname"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> * lui_switch_create </td>
           <td>(</td>
+          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -203,6 +207,33 @@ Light Theme</div></div>
 
 <p>Create a switch with initial values. </p>
 <dl class="section return"><dt>Returns</dt><dd>lui_obj_t* created switch object </dd></dl>
+
+</div>
+</div>
+<a id="gad4bcd31114bb43c32d6ecc42469302ff" name="gad4bcd31114bb43c32d6ecc42469302ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad4bcd31114bb43c32d6ecc42469302ff">&#9670;&#160;</a></span>lui_switch_create_and_add()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> * lui_switch_create_and_add </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td>
+          <td class="paramname"><em>obj_parent</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Create a switch with initial values and add it to a parent. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">obj_parent</td><td>parent object </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>lui_obj_t* Created switch object </dd></dl>
 
 </div>
 </div>

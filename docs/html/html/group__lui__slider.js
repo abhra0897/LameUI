@@ -1,6 +1,7 @@
 var group__lui__slider =
 [
-    [ "lui_slider_create", "group__lui__slider.html#ga25e18048e03dd487ff46a3712d13c4a1", null ],
+    [ "lui_slider_create", "group__lui__slider.html#gaf89068869a66f81633b78dce58372ef7", null ],
+    [ "lui_slider_create_and_add", "group__lui__slider.html#ga068d4475562799b32ebe4bc5d21f891d", null ],
     [ "lui_slider_draw", "group__lui__slider.html#ga89456da8b3d00d85366cd97a68ea6ef2", null ],
     [ "lui_slider_get_max_value", "group__lui__slider.html#ga9a0709df634fac8694c67c91fe18d64c", null ],
     [ "lui_slider_get_min_value", "group__lui__slider.html#ga6d2b4a71de9a68d2575d1572f71fbcb3", null ],

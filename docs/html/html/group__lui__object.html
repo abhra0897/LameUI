@@ -40,7 +40,7 @@
 		<div class="logo">
 			<a href="index.html"> <img src="LameUI_logo.png" alt="LameUI logo" width="220" ></a>
 			<span style="display: inline-block; margin-top: 10px;">
-				v2.0
+				v2.1
 			</span>
 		</div>
 		<div class="navigation-footer">
@@ -138,8 +138,14 @@ Functions</h2></td></tr>
 <tr class="memitem:ga0e9b5ea44b5698a9fac1d1a8440e378b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__object.html#ga0e9b5ea44b5698a9fac1d1a8440e378b">lui_object_set_height</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, uint16_t height)</td></tr>
 <tr class="memdesc:ga0e9b5ea44b5698a9fac1d1a8440e378b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set height of an object.  <br /></td></tr>
 <tr class="separator:ga0e9b5ea44b5698a9fac1d1a8440e378b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabc623ce3e146910f05e658fd50d3ee16"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__object.html#gabc623ce3e146910f05e658fd50d3ee16">lui_object_get_position_rel</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, uint16_t pos[2])</td></tr>
+<tr class="memdesc:gabc623ce3e146910f05e658fd50d3ee16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get object's position relative to its parent.  <br /></td></tr>
+<tr class="separator:gabc623ce3e146910f05e658fd50d3ee16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga40b9f6ff93e8658dfdd1d8412084e4a1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__object.html#ga40b9f6ff93e8658dfdd1d8412084e4a1">lui_object_get_position_abs</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, uint16_t pos[2])</td></tr>
+<tr class="memdesc:ga40b9f6ff93e8658dfdd1d8412084e4a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get object's absolute position on the screen.  <br /></td></tr>
+<tr class="separator:ga40b9f6ff93e8658dfdd1d8412084e4a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf7bedc873edb862f9c1f8b063f17f839"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__object.html#gaf7bedc873edb862f9c1f8b063f17f839">lui_object_set_position</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, uint16_t x, uint16_t y)</td></tr>
-<tr class="memdesc:gaf7bedc873edb862f9c1f8b063f17f839"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set position of an object.  <br /></td></tr>
+<tr class="memdesc:gaf7bedc873edb862f9c1f8b063f17f839"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set position of an object. This is the relative position of the object to its parent.  <br /></td></tr>
 <tr class="separator:gaf7bedc873edb862f9c1f8b063f17f839"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac6ab60ef6a5e52ec9dd37dcb9cf117c0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__object.html#gac6ab60ef6a5e52ec9dd37dcb9cf117c0">lui_object_set_x_pos</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, uint16_t x)</td></tr>
 <tr class="memdesc:gac6ab60ef6a5e52ec9dd37dcb9cf117c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set only x position of an object.  <br /></td></tr>
@@ -150,9 +156,12 @@ Functions</h2></td></tr>
 <tr class="memitem:ga40a7f5963092cc887757eb4c72342caa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__object.html#ga40a7f5963092cc887757eb4c72342caa">lui_object_set_border_color</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, uint16_t border_color)</td></tr>
 <tr class="memdesc:ga40a7f5963092cc887757eb4c72342caa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set border color of an object.  <br /></td></tr>
 <tr class="separator:ga40a7f5963092cc887757eb4c72342caa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa3e5b7c777ceee12a215eaa6bc45554b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__object.html#gaa3e5b7c777ceee12a215eaa6bc45554b">lui_object_set_border_visibility</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, uint8_t is_visible)</td></tr>
-<tr class="memdesc:gaa3e5b7c777ceee12a215eaa6bc45554b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set border's visibility of an object.  <br /></td></tr>
-<tr class="separator:gaa3e5b7c777ceee12a215eaa6bc45554b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabbab8ca950ca7d6759732f05b7c81718"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__object.html#gabbab8ca950ca7d6759732f05b7c81718">lui_object_set_border_visibility</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, uint8_t is_visible) __attribute__((deprecated))</td></tr>
+<tr class="memdesc:gabbab8ca950ca7d6759732f05b7c81718"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deprecated!! Use <code><a class="el" href="group__lui__object.html#gaf50598692ce8d764ad3fe20a9e5d2f5b" title="Set border&#39;s width or thickness. Set width to 0 to remove border.">lui_object_set_border_width()</a></code> instead Set border's visibility of an object.  <br /></td></tr>
+<tr class="separator:gabbab8ca950ca7d6759732f05b7c81718"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf50598692ce8d764ad3fe20a9e5d2f5b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__object.html#gaf50598692ce8d764ad3fe20a9e5d2f5b">lui_object_set_border_width</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, uint8_t width)</td></tr>
+<tr class="memdesc:gaf50598692ce8d764ad3fe20a9e5d2f5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set border's width or thickness. Set width to 0 to remove border.  <br /></td></tr>
+<tr class="separator:gaf50598692ce8d764ad3fe20a9e5d2f5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga737c964740f81d6c10d84ebac06d326b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__object.html#ga737c964740f81d6c10d84ebac06d326b">lui_object_set_bg_color</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, uint16_t bg_color)</td></tr>
 <tr class="memdesc:ga737c964740f81d6c10d84ebac06d326b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set background color of an object.  <br /></td></tr>
 <tr class="separator:ga737c964740f81d6c10d84ebac06d326b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -219,12 +228,12 @@ Functions</h2></td></tr>
 <div class="line"><a class="code hl_struct" href="struct__lui__obj__s.html">lui_obj_t</a>* child_label = <a class="code hl_function" href="group__lui__label.html#ga13471ecc0d34c6ea16bc89c0629efc8a">lui_label_create</a>();</div>
 <div class="line"><a class="code hl_function" href="group__lui__label.html#ga45528354a67fe65f23435338f970ba33">lui_label_set_text</a>(child_label, <span class="stringliteral">&quot;I am child of a scene&quot;</span>);</div>
 <div class="line"><a class="code hl_function" href="group__lui__object.html#ga0d71d83d0757cfbafd9308689e41aaf2">lui_object_add_to_parent</a>(child_label, parent_scene);        <span class="comment">// Add child to parent</span></div>
-<div class="ttc" id="agroup__lui__label_html_ga13471ecc0d34c6ea16bc89c0629efc8a"><div class="ttname"><a href="group__lui__label.html#ga13471ecc0d34c6ea16bc89c0629efc8a">lui_label_create</a></div><div class="ttdeci">lui_obj_t * lui_label_create(void)</div><div class="ttdoc">Create a label with initial values.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:174</div></div>
-<div class="ttc" id="agroup__lui__label_html_ga45528354a67fe65f23435338f970ba33"><div class="ttname"><a href="group__lui__label.html#ga45528354a67fe65f23435338f970ba33">lui_label_set_text</a></div><div class="ttdeci">void lui_label_set_text(lui_obj_t *obj, const char *text)</div><div class="ttdoc">Set text of a label.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:219</div></div>
-<div class="ttc" id="agroup__lui__object_html_ga0d71d83d0757cfbafd9308689e41aaf2"><div class="ttname"><a href="group__lui__object.html#ga0d71d83d0757cfbafd9308689e41aaf2">lui_object_add_to_parent</a></div><div class="ttdeci">void lui_object_add_to_parent(lui_obj_t *obj_child, lui_obj_t *obj_parent)</div><div class="ttdoc">Add a child object to a parent object, thus grouping them together.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3626</div></div>
-<div class="ttc" id="agroup__lui__scene_html_ga40b569f4be80209c533d003211e257a9"><div class="ttname"><a href="group__lui__scene.html#ga40b569f4be80209c533d003211e257a9">lui_scene_create</a></div><div class="ttdeci">lui_obj_t * lui_scene_create()</div><div class="ttdoc">Create a scene.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3453</div></div>
-<div class="ttc" id="agroup__lui__scene_html_ga5a2c32f660fbbe39fae9d5f11055aff7"><div class="ttname"><a href="group__lui__scene.html#ga5a2c32f660fbbe39fae9d5f11055aff7">lui_scene_set_active</a></div><div class="ttdeci">void lui_scene_set_active(lui_obj_t *obj)</div><div class="ttdoc">Set the active scene. Only active scene is rendered.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3578</div></div>
-<div class="ttc" id="astruct__lui__obj__s_html"><div class="ttname"><a href="struct__lui__obj__s.html">_lui_obj_s</a></div><div class="ttdoc">Generic object datatype. Accessed only through getter and setter functions.</div><div class="ttdef"><b>Definition:</b> lame_ui.h:443</div></div>
+<div class="ttc" id="agroup__lui__label_html_ga13471ecc0d34c6ea16bc89c0629efc8a"><div class="ttname"><a href="group__lui__label.html#ga13471ecc0d34c6ea16bc89c0629efc8a">lui_label_create</a></div><div class="ttdeci">lui_obj_t * lui_label_create(void)</div><div class="ttdoc">Create a label with initial values.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:177</div></div>
+<div class="ttc" id="agroup__lui__label_html_ga45528354a67fe65f23435338f970ba33"><div class="ttname"><a href="group__lui__label.html#ga45528354a67fe65f23435338f970ba33">lui_label_set_text</a></div><div class="ttdeci">void lui_label_set_text(lui_obj_t *obj, const char *text)</div><div class="ttdoc">Set text of a label.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:227</div></div>
+<div class="ttc" id="agroup__lui__object_html_ga0d71d83d0757cfbafd9308689e41aaf2"><div class="ttname"><a href="group__lui__object.html#ga0d71d83d0757cfbafd9308689e41aaf2">lui_object_add_to_parent</a></div><div class="ttdeci">void lui_object_add_to_parent(lui_obj_t *obj_child, lui_obj_t *obj_parent)</div><div class="ttdoc">Add a child object to a parent object, thus grouping them together.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3881</div></div>
+<div class="ttc" id="agroup__lui__scene_html_ga40b569f4be80209c533d003211e257a9"><div class="ttname"><a href="group__lui__scene.html#ga40b569f4be80209c533d003211e257a9">lui_scene_create</a></div><div class="ttdeci">lui_obj_t * lui_scene_create()</div><div class="ttdoc">Create a scene.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3690</div></div>
+<div class="ttc" id="agroup__lui__scene_html_ga5a2c32f660fbbe39fae9d5f11055aff7"><div class="ttname"><a href="group__lui__scene.html#ga5a2c32f660fbbe39fae9d5f11055aff7">lui_scene_set_active</a></div><div class="ttdeci">void lui_scene_set_active(lui_obj_t *obj)</div><div class="ttdoc">Set the active scene. Only active scene is rendered.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3819</div></div>
+<div class="ttc" id="astruct__lui__obj__s_html"><div class="ttname"><a href="struct__lui__obj__s.html">_lui_obj_s</a></div><div class="ttdoc">Generic object datatype. Accessed only through getter and setter functions.</div><div class="ttdef"><b>Definition:</b> lame_ui.h:480</div></div>
 </div><!-- fragment --><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">obj</td><td>child object </td></tr>
@@ -324,6 +333,80 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>int16_t layer index. Returns -1 if object is NULL </dd></dl>
+
+</div>
+</div>
+<a id="ga40b9f6ff93e8658dfdd1d8412084e4a1" name="ga40b9f6ff93e8658dfdd1d8412084e4a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga40b9f6ff93e8658dfdd1d8412084e4a1">&#9670;&#160;</a></span>lui_object_get_position_abs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lui_object_get_position_abs </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td>
+          <td class="paramname"><em>obj</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>pos</em>[2]&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get object's absolute position on the screen. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">obj</td><td>target object </td></tr>
+    <tr><td class="paramname">pos</td><td>pos array of 2 items to return position ({x, y}) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="gabc623ce3e146910f05e658fd50d3ee16" name="gabc623ce3e146910f05e658fd50d3ee16"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gabc623ce3e146910f05e658fd50d3ee16">&#9670;&#160;</a></span>lui_object_get_position_rel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lui_object_get_position_rel </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td>
+          <td class="paramname"><em>obj</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>pos</em>[2]&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get object's position relative to its parent. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">obj</td><td>target object </td></tr>
+    <tr><td class="paramname">pos</td><td>pos array of 2 items to return position ({x, y}) </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -525,8 +608,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="gaa3e5b7c777ceee12a215eaa6bc45554b" name="gaa3e5b7c777ceee12a215eaa6bc45554b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaa3e5b7c777ceee12a215eaa6bc45554b">&#9670;&#160;</a></span>lui_object_set_border_visibility()</h2>
+<a id="gabbab8ca950ca7d6759732f05b7c81718" name="gabbab8ca950ca7d6759732f05b7c81718"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gabbab8ca950ca7d6759732f05b7c81718">&#9670;&#160;</a></span>lui_object_set_border_visibility()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -551,11 +634,48 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Set border's visibility of an object. </p>
+<p>Deprecated!! Use <code><a class="el" href="group__lui__object.html#gaf50598692ce8d764ad3fe20a9e5d2f5b" title="Set border&#39;s width or thickness. Set width to 0 to remove border.">lui_object_set_border_width()</a></code> instead Set border's visibility of an object. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">obj</td><td>target object </td></tr>
     <tr><td class="paramname">is_visible</td><td>1: visible; 0: invisible </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="gaf50598692ce8d764ad3fe20a9e5d2f5b" name="gaf50598692ce8d764ad3fe20a9e5d2f5b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf50598692ce8d764ad3fe20a9e5d2f5b">&#9670;&#160;</a></span>lui_object_set_border_width()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lui_object_set_border_width </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td>
+          <td class="paramname"><em>obj</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>width</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set border's width or thickness. Set width to 0 to remove border. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">obj</td><td>target object </td></tr>
+    <tr><td class="paramname">width</td><td>width/thickness value. 0 means invisible </td></tr>
   </table>
   </dd>
 </dl>
@@ -595,10 +715,10 @@ Functions</h2></td></tr>
 <div class="line">{</div>
 <div class="line">    <span class="comment">// Do something</span></div>
 <div class="line">}</div>
-<div class="line">my_button = <a class="code hl_function" href="group__lui__button.html#ga42fa5a98fca8845b038c7a93dfc480c1">lui_button_create</a>();</div>
+<div class="line">my_button = <a class="code hl_function" href="group__lui__button.html#ga9157ed1406680f05c6f9804899c609c3">lui_button_create</a>();</div>
 <div class="line"><a class="code hl_function" href="group__lui__object.html#gae9d2e2e1998f2603a3a6d24d08b5b64e">lui_object_set_callback</a>(my_button, button_callback);</div>
-<div class="ttc" id="agroup__lui__button_html_ga42fa5a98fca8845b038c7a93dfc480c1"><div class="ttname"><a href="group__lui__button.html#ga42fa5a98fca8845b038c7a93dfc480c1">lui_button_create</a></div><div class="ttdeci">lui_obj_t * lui_button_create()</div><div class="ttdoc">Create a button with initial values.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:699</div></div>
-<div class="ttc" id="agroup__lui__object_html_gae9d2e2e1998f2603a3a6d24d08b5b64e"><div class="ttname"><a href="group__lui__object.html#gae9d2e2e1998f2603a3a6d24d08b5b64e">lui_object_set_callback</a></div><div class="ttdeci">void lui_object_set_callback(lui_obj_t *obj, void(*obj_event_cb)(lui_obj_t *))</div><div class="ttdoc">Set event call back function for input handling.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3855</div></div>
+<div class="ttc" id="agroup__lui__button_html_ga9157ed1406680f05c6f9804899c609c3"><div class="ttname"><a href="group__lui__button.html#ga9157ed1406680f05c6f9804899c609c3">lui_button_create</a></div><div class="ttdeci">lui_obj_t * lui_button_create()</div><div class="ttdoc">Create a button with initial values.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:797</div></div>
+<div class="ttc" id="agroup__lui__object_html_gae9d2e2e1998f2603a3a6d24d08b5b64e"><div class="ttname"><a href="group__lui__object.html#gae9d2e2e1998f2603a3a6d24d08b5b64e">lui_object_set_callback</a></div><div class="ttdeci">void lui_object_set_callback(lui_obj_t *obj, void(*obj_event_cb)(lui_obj_t *))</div><div class="ttdoc">Set event call back function for input handling.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:4144</div></div>
 </div><!-- fragment --><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">obj</td><td>target object </td></tr>
@@ -754,12 +874,12 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Set position of an object. </p>
+<p>Set position of an object. This is the relative position of the object to its parent. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">obj</td><td>target object </td></tr>
-    <tr><td class="paramname">x</td><td>x position </td></tr>
-    <tr><td class="paramname">y</td><td>y position </td></tr>
+    <tr><td class="paramname">x</td><td>x position (relative) </td></tr>
+    <tr><td class="paramname">y</td><td>y position (relative) </td></tr>
   </table>
   </dd>
 </dl>

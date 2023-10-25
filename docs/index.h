@@ -34,7 +34,9 @@
  * \defgroup LUI_ICONS Default built-in icons
  * \defgroup LUI_BTNGRID_MASKS Buttongrid button property-byte masks
  * \defgroup LUI_ALIGNMENT Content alignment flags
+ * \defgroup LUI_LAYOUT Widget layout flags for scene and panel
  * \defgroup LUI_SLIDER_KNOB_TYPE Slider knob type flags
+ * \defgroup LUI_LINECHART_DRAW_MODE Linechart widget draw mode
  * @}
  * 
  * \defgroup PublicTypedefs Custom datatypes

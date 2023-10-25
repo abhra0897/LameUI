@@ -8,5 +8,7 @@ var group__macrodefs =
     [ "Default built-in icons", "group__LUI__ICONS.html", null ],
     [ "Buttongrid button property-byte masks", "group__LUI__BTNGRID__MASKS.html", "group__LUI__BTNGRID__MASKS" ],
     [ "Content alignment flags", "group__LUI__ALIGNMENT.html", "group__LUI__ALIGNMENT" ],
-    [ "Slider knob type flags", "group__LUI__SLIDER__KNOB__TYPE.html", "group__LUI__SLIDER__KNOB__TYPE" ]
+    [ "Widget layout flags for scene and panel", "group__LUI__LAYOUT.html", "group__LUI__LAYOUT" ],
+    [ "Slider knob type flags", "group__LUI__SLIDER__KNOB__TYPE.html", "group__LUI__SLIDER__KNOB__TYPE" ],
+    [ "Linechart widget draw mode", "group__LUI__LINECHART__DRAW__MODE.html", "group__LUI__LINECHART__DRAW__MODE" ]
 ];

@@ -40,7 +40,7 @@
 		<div class="logo">
 			<a href="index.html"> <img src="LameUI_logo.png" alt="LameUI logo" width="220" ></a>
 			<span style="display: inline-block; margin-top: 10px;">
-				v2.0
+				v2.1
 			</span>
 		</div>
 		<div class="navigation-footer">
@@ -120,9 +120,9 @@ $(document).ready(function(){initNavTree('group__lui__core.html',''); initResiza
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga29f33381e162ee05b8036461724c99ec"><td class="memItemLeft" align="right" valign="top">int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__core.html#ga29f33381e162ee05b8036461724c99ec">lui_init</a> (uint8_t mem_block[], uint16_t size)</td></tr>
-<tr class="memdesc:ga29f33381e162ee05b8036461724c99ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the LameUI core. Here user provides LameUI some RAM to create widgets. If and when RAM is not sufficient, widget creation will fail.  <br /></td></tr>
-<tr class="separator:ga29f33381e162ee05b8036461724c99ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga96cfffe5318db583c2bb06f7f2c96cfa"><td class="memItemLeft" align="right" valign="top">int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__core.html#ga96cfffe5318db583c2bb06f7f2c96cfa">lui_init</a> (uint8_t mem_block[], uint32_t size)</td></tr>
+<tr class="memdesc:ga96cfffe5318db583c2bb06f7f2c96cfa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the LameUI core. Here user provides LameUI some RAM to create widgets. If and when RAM is not sufficient, widget creation will fail.  <br /></td></tr>
+<tr class="separator:ga96cfffe5318db583c2bb06f7f2c96cfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaa4a3c7694929ad0b6c5cd565dd6e7304"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__core.html#gaa4a3c7694929ad0b6c5cd565dd6e7304">lui_update</a> ()</td></tr>
 <tr class="memdesc:gaa4a3c7694929ad0b6c5cd565dd6e7304"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function updates the UI by reading input and rendering widgets that need rendering.  <br /></td></tr>
 <tr class="separator:gaa4a3c7694929ad0b6c5cd565dd6e7304"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -133,12 +133,12 @@ Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>These functions are used to initialize the core and to update it. </p>
 <ul>
-<li><a class="el" href="group__lui__core.html#ga29f33381e162ee05b8036461724c99ec" title="Initialize the LameUI core. Here user provides LameUI some RAM to create widgets. If and when RAM is ...">lui_init()</a> is only called once at the very beginning.</li>
+<li><a class="el" href="group__lui__core.html#ga96cfffe5318db583c2bb06f7f2c96cfa" title="Initialize the LameUI core. Here user provides LameUI some RAM to create widgets. If and when RAM is ...">lui_init()</a> is only called once at the very beginning.</li>
 <li><a class="el" href="group__lui__core.html#gaa4a3c7694929ad0b6c5cd565dd6e7304" title="This function updates the UI by reading input and rendering widgets that need rendering.">lui_update()</a> is called periodically in an infinite loop. </li>
 </ul>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="ga29f33381e162ee05b8036461724c99ec" name="ga29f33381e162ee05b8036461724c99ec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga29f33381e162ee05b8036461724c99ec">&#9670;&#160;</a></span>lui_init()</h2>
+<a id="ga96cfffe5318db583c2bb06f7f2c96cfa" name="ga96cfffe5318db583c2bb06f7f2c96cfa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga96cfffe5318db583c2bb06f7f2c96cfa">&#9670;&#160;</a></span>lui_init()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -152,7 +152,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramtype">uint32_t&#160;</td>
           <td class="paramname"><em>size</em>&#160;</td>
         </tr>
         <tr>
@@ -164,7 +164,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Initialize the LameUI core. Here user provides LameUI some RAM to create widgets. If and when RAM is not sufficient, widget creation will fail. </p>
-<p>NOTE: This memory does NOT include display buffer memory. Display buffer is set seperately using <code><a class="el" href="group__lui__dispdrv.html#gadaee6dd19570953fba05e64f9ebb9f2f" title="Set the display buffer. This buffer is provided by user and filled with colors by library....">lui_dispdrv_set_disp_buff()</a></code>.</p>
+<p>NOTE: This memory does NOT include display buffer memory. Display buffer is set seperately using <code><a class="el" href="group__lui__dispdrv.html#ga165654730066c14baf3044fc95a59fd0" title="Set the display buffer. This buffer is provided by user and filled with colors by library....">lui_dispdrv_set_disp_buff()</a></code>.</p>
 <p>If init fails due to memory allocation problem, returns -1, else returns 0.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">

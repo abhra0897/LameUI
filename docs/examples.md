@@ -24,6 +24,7 @@ This page links to the various example code fragments in this documentation.
     - [Panel example 1](@ref panel_example1)
     - [Panel background image example](@ref panel_example2)
     - [Panel 1bpp mono background image example](@ref panel_example3)
+    - [Panel layout example](@ref panel_example4)
  - [Display Driver example](@ref displaydriver_touchinput_example)
  - [Touch Input example](@ref displaydriver_touchinput_example)
 

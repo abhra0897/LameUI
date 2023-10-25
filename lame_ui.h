@@ -6,7 +6,7 @@
  * @author Avra Mitra
  * @brief One and only header file for LameUI library.
  * @version 2.0
- * @date 2023-09-07
+ * @date 2023-10-26
  *
  * @copyright Copyright (c) 2020-2023
  *
@@ -209,19 +209,19 @@
  * @brief Content alignment flags
  * @{
  */
-#define LUI_ALIGN_LEFT 0		///< ALign content to left
+#define LUI_ALIGN_LEFT 0		///< Align content to left
 #define LUI_ALIGN_CENTER 1		///< Align content to center
 #define LUI_ALIGN_RIGHT 2		///< Align content to right
 /**@} */
 
 /**
  * @defgroup LUI_LAYOUT Widget layout flags
- * @brief Widget layout flags to use with panels and scenes
+ * @brief Widget layout flags to use with panels and scenes only.
  * @{
  */
-#define LUI_LAYOUT_NONE        0
-#define LUI_LAYOUT_HORIZONTAL  1
-#define LUI_LAYOUT_VERTICAL    2
+#define LUI_LAYOUT_NONE        0   ///< No layout
+#define LUI_LAYOUT_HORIZONTAL  1   ///< Horizontal layout
+#define LUI_LAYOUT_VERTICAL    2   ///< Vertical layout
 /**@} */
 
 /**
@@ -695,7 +695,7 @@ typedef struct _lui_touch_input_data_s
 typedef struct _lui_disp_drv_s
 {
 	void (*draw_pixels_buff_cb)(uint16_t* disp_buff, lui_area_t* area);	///< draw pixels buffer callback function.
-	uint16_t* disp_buff;			///< display buffer. It is a n array of uint16_t type.
+	uint16_t* disp_buff;			///< display buffer. It is an array of uint16_t type.
 	uint16_t disp_buff_sz_px;		///< size of display buffer in pixel count (NOT in bytes)
 	uint16_t display_hor_res;		///< display horizontal resolution (along x axis)
 	uint16_t display_vert_res;		///< display vertical resolution (along y axis)
@@ -1099,7 +1099,7 @@ int _lui_obj_layer_cmprtr(const void *p1, const void *p2);
  * lui_label_set_text_color(my_label, lui_rgb(255, 20, 80));	// Setting text color
  * lui_object_set_bg_color(my_label, lui_rgb(10, 10, 10));		// Setting background color
  * 
- * lui_obj_t* my_label2 = lui_label_create();
+ * lui_obj_t* my_label2 = lui_label_create_and_add(parent_panel); // Creating and adding to a parent
  * lui_label_set_text(my_label2, text);
  * lui_label_set_font(my_label2, &FONT_montserrat_32);
  * lui_object_set_position(my_label2, 0, 30);
@@ -3011,6 +3011,9 @@ void lui_textbox_set_font(lui_obj_t* obj, const lui_font_t* font);
  * children. But if the new scale is too small to contain all its children, render
  * result will be unpredictable.
  *
+ * @note A panel can have layout. All children under the panel will follow the layout. When layout
+ * is enabled, children's position is set by that layout. Currently only horizontal and vertical layouts are supported.
+ *
  * @section panel_example1 Example of panel
  * @code
  *
@@ -3076,6 +3079,41 @@ void lui_textbox_set_font(lui_obj_t* obj, const lui_font_t* font);
  * };
  * // Now set those palettes
  * lui_panel_set_bitmap_image_mono_palette(img_panel, &palette);
+ * @endcode
+ *
+ * @section panel_example4 Example of using layout
+ * Example of setting a layout for the panel
+ * @code
+ * lui_obj_t* panel1 = lui_panel_create();
+ * // Important to set area of panel.
+ * lui_object_set_area(panel1, 320, 300);
+ * // Set position of the panel
+ * lui_object_set_position(panel1, 10, 20);
+ * // Now add a vertical layout to the panel
+ * lui_panel_layout_set_properties(panel1, LUI_LAYOUT_VERTICAL, 5, 15);
+ *
+ * // Now add a few items. But don't set their positions.
+ * // Because their position will be set by the layout
+ *
+ * lui_obj_t* my_button_1 = lui_button_create_and_add(panel1);
+ * lui_button_set_label_text(my_button_1, "Button 1");
+ *
+ * lui_obj_t* my_button_2 = lui_button_create_and_add(panel1);
+ * lui_button_set_label_text(my_button_2, "Button 2");
+ *
+ * lui_obj_t* my_button_3 = lui_button_create_and_add(panel1);
+ * lui_button_set_label_text(my_button_3, "Button 3");
+ *
+ * lui_obj_t* my_button_4 = lui_button_create_and_add(panel1);
+ * lui_button_set_label_text(my_button_4, "Button 4");
+ *
+ * lui_obj_t* my_button_5 = lui_button_create_and_add(panel1);
+ * lui_button_set_label_text(my_button_5, "Button 5");
+ *
+ * // After adding all items to the panel, we'll calculate the layout
+ * // Without calculating, actual layout won't take effect
+ * lui_panel_layout_calculate(panel1);
+ *
  * @endcode
  *
  * @{

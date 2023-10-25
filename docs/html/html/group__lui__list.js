@@ -1,7 +1,8 @@
 var group__lui__list =
 [
     [ "lui_list_add_item", "group__lui__list.html#ga1641e5189b244dab791439e1cdf74a5f", null ],
-    [ "lui_list_create", "group__lui__list.html#ga3c9a4f6a688429ad2d848b4128838f46", null ],
+    [ "lui_list_create", "group__lui__list.html#gab157ccd8d89e4f71ec79c8df9f0c21c9", null ],
+    [ "lui_list_create_and_add", "group__lui__list.html#gab146a06764dfdcfcd69e0333b27a4e90", null ],
     [ "lui_list_draw", "group__lui__list.html#ga04c3b17479a68f18ad15e9209e79b225", null ],
     [ "lui_list_get_item_text", "group__lui__list.html#gaa34f481dc694e799da5706f88aef6671", null ],
     [ "lui_list_get_selected_item_index", "group__lui__list.html#ga02c8af9365b2c846e71209f9be648930", null ],

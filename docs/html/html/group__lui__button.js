@@ -1,6 +1,7 @@
 var group__lui__button =
 [
-    [ "lui_button_create", "group__lui__button.html#ga42fa5a98fca8845b038c7a93dfc480c1", null ],
+    [ "lui_button_create", "group__lui__button.html#ga9157ed1406680f05c6f9804899c609c3", null ],
+    [ "lui_button_create_and_add", "group__lui__button.html#ga2fe044f3a401c276a8a38d8e43a03972", null ],
     [ "lui_button_draw", "group__lui__button.html#gad887047af16cb14b720cf1cf8116c1af", null ],
     [ "lui_button_get_check_value", "group__lui__button.html#gae471ea701c13496e0df28f6c001480d4", null ],
     [ "lui_button_get_checkable", "group__lui__button.html#ga12c28d02c5a862b56b737bede56748ea", null ],

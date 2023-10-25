@@ -40,7 +40,7 @@
 		<div class="logo">
 			<a href="index.html"> <img src="LameUI_logo.png" alt="LameUI logo" width="220" ></a>
 			<span style="display: inline-block; margin-top: 10px;">
-				v2.0
+				v2.1
 			</span>
 		</div>
 		<div class="navigation-footer">
@@ -138,12 +138,18 @@ Functions</h2></td></tr>
 <tr class="memitem:gad4c604716d2df4943ac32b35fa56ac14"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__gfx.html#gad4c604716d2df4943ac32b35fa56ac14">lui_gfx_draw_line</a> (uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color)</td></tr>
 <tr class="memdesc:gad4c604716d2df4943ac32b35fa56ac14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a line.  <br /></td></tr>
 <tr class="separator:gad4c604716d2df4943ac32b35fa56ac14"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae56d68f8c6855e24caf9dbcd7be0ab6a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__gfx.html#gae56d68f8c6855e24caf9dbcd7be0ab6a">lui_gfx_draw_line_clipped</a> (uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, <a class="el" href="group__PublicTypedefs.html#ga89d2b851574a969160813b40a922de91">lui_area_t</a> *clip_area, uint8_t line_width, uint16_t color)</td></tr>
+<tr class="memdesc:gae56d68f8c6855e24caf9dbcd7be0ab6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a line within a clipping area.  <br /></td></tr>
+<tr class="separator:gae56d68f8c6855e24caf9dbcd7be0ab6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad91328f058c99813e23a79a0e5aed425"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__gfx.html#gad91328f058c99813e23a79a0e5aed425">lui_gfx_draw_rect</a> (uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint8_t line_width, uint16_t color)</td></tr>
 <tr class="memdesc:gad91328f058c99813e23a79a0e5aed425"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a rectangle.  <br /></td></tr>
 <tr class="separator:gad91328f058c99813e23a79a0e5aed425"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga85fb0f8d768116008acf2f12ee3af158"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__gfx.html#ga85fb0f8d768116008acf2f12ee3af158">lui_gfx_draw_rect_fill</a> (uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color)</td></tr>
 <tr class="memdesc:ga85fb0f8d768116008acf2f12ee3af158"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a filled rectangle.  <br /></td></tr>
 <tr class="separator:ga85fb0f8d768116008acf2f12ee3af158"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac5d67d4ded661f18c0624e72e497be17"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__gfx.html#gac5d67d4ded661f18c0624e72e497be17">lui_gfx_draw_rect_fill_clipped</a> (uint16_t x, uint16_t y, uint16_t w, uint16_t h, <a class="el" href="group__PublicTypedefs.html#ga89d2b851574a969160813b40a922de91">lui_area_t</a> *clip_area, uint16_t color)</td></tr>
+<tr class="memdesc:gac5d67d4ded661f18c0624e72e497be17"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a filled rectangle within a clipping area/window.  <br /></td></tr>
+<tr class="separator:gac5d67d4ded661f18c0624e72e497be17"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8c17499b9a8d972090516432237f7666"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__gfx.html#ga8c17499b9a8d972090516432237f7666">lui_gfx_draw_bitmap</a> (const <a class="el" href="group__PublicTypedefs.html#gaca3b4e71f058bce3538bf58fc8883f04">lui_bitmap_t</a> *bitmap, <a class="el" href="group__PublicTypedefs.html#gaf21613026fc8109ddcdf3e6a8ac2c919">lui_bitmap_mono_pal_t</a> *palette, uint16_t x, uint16_t y, <a class="el" href="group__PublicTypedefs.html#ga89d2b851574a969160813b40a922de91">lui_area_t</a> *crop_area)</td></tr>
 <tr class="memdesc:ga8c17499b9a8d972090516432237f7666"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws a bitmap at given x,y position. Crop area can be NULL if cropping is not needed. <code>palette</code> parameter is only applicable if image is 1-bpp mono bitmap.  <br /></td></tr>
 <tr class="separator:ga8c17499b9a8d972090516432237f7666"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -351,6 +357,78 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="gae56d68f8c6855e24caf9dbcd7be0ab6a" name="gae56d68f8c6855e24caf9dbcd7be0ab6a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae56d68f8c6855e24caf9dbcd7be0ab6a">&#9670;&#160;</a></span>lui_gfx_draw_line_clipped()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lui_gfx_draw_line_clipped </td>
+          <td>(</td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>x0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>y0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>x1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>y1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__PublicTypedefs.html#ga89d2b851574a969160813b40a922de91">lui_area_t</a> *&#160;</td>
+          <td class="paramname"><em>clip_area</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>line_width</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>color</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Draw a line within a clipping area. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x0</td><td>start X </td></tr>
+    <tr><td class="paramname">y0</td><td>start Y </td></tr>
+    <tr><td class="paramname">x1</td><td>end X </td></tr>
+    <tr><td class="paramname">y1</td><td>end Y </td></tr>
+    <tr><td class="paramname">clip_area</td><td>pointer to the clipping area </td></tr>
+    <tr><td class="paramname">line_width</td><td>width in px </td></tr>
+    <tr><td class="paramname">color</td><td>line color </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="gad91328f058c99813e23a79a0e5aed425" name="gad91328f058c99813e23a79a0e5aed425"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gad91328f058c99813e23a79a0e5aed425">&#9670;&#160;</a></span>lui_gfx_draw_rect()</h2>
 
@@ -467,6 +545,71 @@ Functions</h2></td></tr>
     <tr><td class="paramname">y</td><td>start Y </td></tr>
     <tr><td class="paramname">w</td><td>width </td></tr>
     <tr><td class="paramname">h</td><td>height </td></tr>
+    <tr><td class="paramname">color</td><td>fill color </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="gac5d67d4ded661f18c0624e72e497be17" name="gac5d67d4ded661f18c0624e72e497be17"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac5d67d4ded661f18c0624e72e497be17">&#9670;&#160;</a></span>lui_gfx_draw_rect_fill_clipped()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lui_gfx_draw_rect_fill_clipped </td>
+          <td>(</td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>h</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__PublicTypedefs.html#ga89d2b851574a969160813b40a922de91">lui_area_t</a> *&#160;</td>
+          <td class="paramname"><em>clip_area</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>color</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Draw a filled rectangle within a clipping area/window. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>start X </td></tr>
+    <tr><td class="paramname">y</td><td>start Y </td></tr>
+    <tr><td class="paramname">w</td><td>width </td></tr>
+    <tr><td class="paramname">h</td><td>height </td></tr>
+    <tr><td class="paramname">clip_area</td><td>pointer to the clipping area </td></tr>
     <tr><td class="paramname">color</td><td>fill color </td></tr>
   </table>
   </dd>

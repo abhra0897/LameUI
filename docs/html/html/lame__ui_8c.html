@@ -40,7 +40,7 @@
 		<div class="logo">
 			<a href="index.html"> <img src="LameUI_logo.png" alt="LameUI logo" width="220" ></a>
 			<span style="display: inline-block; margin-top: 10px;">
-				v2.0
+				v2.1
 			</span>
 		</div>
 		<div class="navigation-footer">
@@ -122,9 +122,9 @@ $(document).ready(function(){initNavTree('lame__ui_8c.html',''); initResizable()
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga29f33381e162ee05b8036461724c99ec"><td class="memItemLeft" align="right" valign="top">int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__core.html#ga29f33381e162ee05b8036461724c99ec">lui_init</a> (uint8_t mem_block[], uint16_t size)</td></tr>
-<tr class="memdesc:ga29f33381e162ee05b8036461724c99ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the LameUI core. Here user provides LameUI some RAM to create widgets. If and when RAM is not sufficient, widget creation will fail.  <br /></td></tr>
-<tr class="separator:ga29f33381e162ee05b8036461724c99ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga96cfffe5318db583c2bb06f7f2c96cfa"><td class="memItemLeft" align="right" valign="top">int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__core.html#ga96cfffe5318db583c2bb06f7f2c96cfa">lui_init</a> (uint8_t mem_block[], uint32_t size)</td></tr>
+<tr class="memdesc:ga96cfffe5318db583c2bb06f7f2c96cfa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the LameUI core. Here user provides LameUI some RAM to create widgets. If and when RAM is not sufficient, widget creation will fail.  <br /></td></tr>
+<tr class="separator:ga96cfffe5318db583c2bb06f7f2c96cfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gafe31e6582630b84037ad089c5ff3591f"><td class="memItemLeft" align="right" valign="top">int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__core.html#gafe31e6582630b84037ad089c5ff3591f">lui_set_default_font</a> (const <a class="el" href="group__PublicTypedefs.html#ga26bf4a56824269a006afb575dc224a1e">lui_font_t</a> *font)</td></tr>
 <tr class="memdesc:gafe31e6582630b84037ad089c5ff3591f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets default font of LameUI.  <br /></td></tr>
 <tr class="separator:gafe31e6582630b84037ad089c5ff3591f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -132,11 +132,14 @@ Functions</h2></td></tr>
 <tr class="memdesc:gaa4a3c7694929ad0b6c5cd565dd6e7304"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function updates the UI by reading input and rendering widgets that need rendering.  <br /></td></tr>
 <tr class="separator:gaa4a3c7694929ad0b6c5cd565dd6e7304"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga176b351997c1058f4d6fc9bc86942429"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__label.html#ga176b351997c1058f4d6fc9bc86942429">lui_label_draw</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj)</td></tr>
-<tr class="memdesc:ga176b351997c1058f4d6fc9bc86942429"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a <code>label</code> widget.  <br /></td></tr>
+<tr class="memdesc:ga176b351997c1058f4d6fc9bc86942429"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a label widget.  <br /></td></tr>
 <tr class="separator:ga176b351997c1058f4d6fc9bc86942429"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga13471ecc0d34c6ea16bc89c0629efc8a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__label.html#ga13471ecc0d34c6ea16bc89c0629efc8a">lui_label_create</a> (void)</td></tr>
 <tr class="memdesc:ga13471ecc0d34c6ea16bc89c0629efc8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a label with initial values.  <br /></td></tr>
 <tr class="separator:ga13471ecc0d34c6ea16bc89c0629efc8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga28cd23d4f74dc93a496123309c82e0d6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__label.html#ga28cd23d4f74dc93a496123309c82e0d6">lui_label_create_and_add</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_parent)</td></tr>
+<tr class="memdesc:ga28cd23d4f74dc93a496123309c82e0d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a label with initial values and add it to a parent.  <br /></td></tr>
+<tr class="separator:ga28cd23d4f74dc93a496123309c82e0d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga1ae5970ffa3b6be91e483a8618db71c9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__label.html#ga1ae5970ffa3b6be91e483a8618db71c9">lui_label_set_font</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, const <a class="el" href="group__PublicTypedefs.html#ga26bf4a56824269a006afb575dc224a1e">lui_font_t</a> *font)</td></tr>
 <tr class="memdesc:ga1ae5970ffa3b6be91e483a8618db71c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set font of a label.  <br /></td></tr>
 <tr class="separator:ga1ae5970ffa3b6be91e483a8618db71c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -152,9 +155,12 @@ Functions</h2></td></tr>
 <tr class="memitem:ga3169eb03a77d57752ba70b71c28592fc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__linechart.html#ga3169eb03a77d57752ba70b71c28592fc">lui_linechart_draw</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj)</td></tr>
 <tr class="memdesc:ga3169eb03a77d57752ba70b71c28592fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a linechart.  <br /></td></tr>
 <tr class="separator:ga3169eb03a77d57752ba70b71c28592fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga045237cfd3aa47b7075a77cbf0facb84"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__linechart.html#ga045237cfd3aa47b7075a77cbf0facb84">lui_linechart_create</a> ()</td></tr>
-<tr class="memdesc:ga045237cfd3aa47b7075a77cbf0facb84"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a linechart with initial values.  <br /></td></tr>
-<tr class="separator:ga045237cfd3aa47b7075a77cbf0facb84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf676de0e42c982628fb7bcd79fcfc0b5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__linechart.html#gaf676de0e42c982628fb7bcd79fcfc0b5">lui_linechart_create</a> ()</td></tr>
+<tr class="memdesc:gaf676de0e42c982628fb7bcd79fcfc0b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a linechart with initial values.  <br /></td></tr>
+<tr class="separator:gaf676de0e42c982628fb7bcd79fcfc0b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga06a4fb5533ec46accbdc3b79cfee8ce5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__linechart.html#ga06a4fb5533ec46accbdc3b79cfee8ce5">lui_linechart_create_and_add</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_parent)</td></tr>
+<tr class="memdesc:ga06a4fb5533ec46accbdc3b79cfee8ce5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a linechart with initial values and add it to a parent.  <br /></td></tr>
+<tr class="separator:ga06a4fb5533ec46accbdc3b79cfee8ce5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga79ea0c8ddadc0fe5c2fc0ff5ebe4b88f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__linechart.html#ga79ea0c8ddadc0fe5c2fc0ff5ebe4b88f">lui_linechart_set_grid_count</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, uint16_t hor_lines, uint16_t vert_lines)</td></tr>
 <tr class="memdesc:ga79ea0c8ddadc0fe5c2fc0ff5ebe4b88f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set number of horizontal and vertical grid lines in a linechart.  <br /></td></tr>
 <tr class="separator:ga79ea0c8ddadc0fe5c2fc0ff5ebe4b88f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -167,6 +173,18 @@ Functions</h2></td></tr>
 <tr class="memitem:ga462e794b64cfa672d7207490412785cd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__linechart.html#ga462e794b64cfa672d7207490412785cd">lui_linechart_set_line_color</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, uint16_t line_color)</td></tr>
 <tr class="memdesc:ga462e794b64cfa672d7207490412785cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set color of plot line.  <br /></td></tr>
 <tr class="separator:ga462e794b64cfa672d7207490412785cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga86119a4e7f623072aad327fcd9578459"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__linechart.html#ga86119a4e7f623072aad327fcd9578459">lui_linechart_set_line_width</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, uint8_t line_width)</td></tr>
+<tr class="memdesc:ga86119a4e7f623072aad327fcd9578459"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set width of plot line.  <br /></td></tr>
+<tr class="separator:ga86119a4e7f623072aad327fcd9578459"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga456eb9967e881eb4ea96668bc8f35980"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__linechart.html#ga456eb9967e881eb4ea96668bc8f35980">lui_linechart_set_point_color</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, uint16_t point_color)</td></tr>
+<tr class="memdesc:ga456eb9967e881eb4ea96668bc8f35980"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set color of points/markers of the plot.  <br /></td></tr>
+<tr class="separator:ga456eb9967e881eb4ea96668bc8f35980"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3a6915f1c099ddd9151e921b5a6cc4dd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__linechart.html#ga3a6915f1c099ddd9151e921b5a6cc4dd">lui_linechart_set_point_width</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, uint8_t point_width)</td></tr>
+<tr class="memdesc:ga3a6915f1c099ddd9151e921b5a6cc4dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set width of points/markers of plot.  <br /></td></tr>
+<tr class="separator:ga3a6915f1c099ddd9151e921b5a6cc4dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga16b041cd607410e757066a4418323689"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__linechart.html#ga16b041cd607410e757066a4418323689">lui_linechart_set_draw_mode</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, uint8_t mode_flag)</td></tr>
+<tr class="memdesc:ga16b041cd607410e757066a4418323689"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set draw mode of line chart's plot line Sets whether to draw line segments, or only the points/markers, or both.  <br /></td></tr>
+<tr class="separator:ga16b041cd607410e757066a4418323689"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga043fb5fc50cb96fb3ea3bb14110328bf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__linechart.html#ga043fb5fc50cb96fb3ea3bb14110328bf">lui_linechart_set_data_auto_scale</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, uint8_t auto_scale)</td></tr>
 <tr class="memdesc:ga043fb5fc50cb96fb3ea3bb14110328bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set whether to apply automatic scaling on the data source or not. If auto scale is enabled, graph will always be in the boundary of drawing area. If auto scale is disabled, user must provide manual range.  <br /></td></tr>
 <tr class="separator:ga043fb5fc50cb96fb3ea3bb14110328bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -179,9 +197,12 @@ Functions</h2></td></tr>
 <tr class="memitem:gad887047af16cb14b720cf1cf8116c1af"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__button.html#gad887047af16cb14b720cf1cf8116c1af">lui_button_draw</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj)</td></tr>
 <tr class="memdesc:gad887047af16cb14b720cf1cf8116c1af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a button object.  <br /></td></tr>
 <tr class="separator:gad887047af16cb14b720cf1cf8116c1af"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga42fa5a98fca8845b038c7a93dfc480c1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__button.html#ga42fa5a98fca8845b038c7a93dfc480c1">lui_button_create</a> ()</td></tr>
-<tr class="memdesc:ga42fa5a98fca8845b038c7a93dfc480c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a button with initial values.  <br /></td></tr>
-<tr class="separator:ga42fa5a98fca8845b038c7a93dfc480c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9157ed1406680f05c6f9804899c609c3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__button.html#ga9157ed1406680f05c6f9804899c609c3">lui_button_create</a> ()</td></tr>
+<tr class="memdesc:ga9157ed1406680f05c6f9804899c609c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a button with initial values.  <br /></td></tr>
+<tr class="separator:ga9157ed1406680f05c6f9804899c609c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2fe044f3a401c276a8a38d8e43a03972"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__button.html#ga2fe044f3a401c276a8a38d8e43a03972">lui_button_create_and_add</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_parent)</td></tr>
+<tr class="memdesc:ga2fe044f3a401c276a8a38d8e43a03972"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a button with initial values and add it to a parent.  <br /></td></tr>
+<tr class="separator:ga2fe044f3a401c276a8a38d8e43a03972"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga7eab900991d055aa87c784060b5bc6e2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__button.html#ga7eab900991d055aa87c784060b5bc6e2">lui_button_set_label_texts</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, const char *idle_text, const char *pressed_text)</td></tr>
 <tr class="memdesc:ga7eab900991d055aa87c784060b5bc6e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set different label texts for idle and pressed states.  <br /></td></tr>
 <tr class="separator:ga7eab900991d055aa87c784060b5bc6e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -239,9 +260,12 @@ Functions</h2></td></tr>
 <tr class="memitem:ga04c3b17479a68f18ad15e9209e79b225"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__list.html#ga04c3b17479a68f18ad15e9209e79b225">lui_list_draw</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj)</td></tr>
 <tr class="memdesc:ga04c3b17479a68f18ad15e9209e79b225"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw list object.  <br /></td></tr>
 <tr class="separator:ga04c3b17479a68f18ad15e9209e79b225"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga3c9a4f6a688429ad2d848b4128838f46"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__list.html#ga3c9a4f6a688429ad2d848b4128838f46">lui_list_create</a> ()</td></tr>
-<tr class="memdesc:ga3c9a4f6a688429ad2d848b4128838f46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a list object with initial values.  <br /></td></tr>
-<tr class="separator:ga3c9a4f6a688429ad2d848b4128838f46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab157ccd8d89e4f71ec79c8df9f0c21c9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__list.html#gab157ccd8d89e4f71ec79c8df9f0c21c9">lui_list_create</a> ()</td></tr>
+<tr class="memdesc:gab157ccd8d89e4f71ec79c8df9f0c21c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a list object with initial values.  <br /></td></tr>
+<tr class="separator:gab157ccd8d89e4f71ec79c8df9f0c21c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab146a06764dfdcfcd69e0333b27a4e90"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__list.html#gab146a06764dfdcfcd69e0333b27a4e90">lui_list_create_and_add</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_parent)</td></tr>
+<tr class="memdesc:gab146a06764dfdcfcd69e0333b27a4e90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a list with initial values and add it to a parent.  <br /></td></tr>
+<tr class="separator:gab146a06764dfdcfcd69e0333b27a4e90"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga50b081682a8bc9ab50e229d432605b2e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__list.html#ga50b081682a8bc9ab50e229d432605b2e">lui_list_prepare</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj)</td></tr>
 <tr class="memdesc:ga50b081682a8bc9ab50e229d432605b2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prepares a list for final render. This function must be called by the user after creating a list/making changes in a list. Else, those changes won't be reflected.  <br /></td></tr>
 <tr class="separator:ga50b081682a8bc9ab50e229d432605b2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -320,9 +344,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>lui_list_set_nav_btn_
 <tr class="memitem:gafd67bf0ba01cf6c48b3f6e779a9ff95a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__switch.html#gafd67bf0ba01cf6c48b3f6e779a9ff95a">lui_switch_draw</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj)</td></tr>
 <tr class="memdesc:gafd67bf0ba01cf6c48b3f6e779a9ff95a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a switch object.  <br /></td></tr>
 <tr class="separator:gafd67bf0ba01cf6c48b3f6e779a9ff95a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae7c96b11bd28a497fff32764cda9fdb0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__switch.html#gae7c96b11bd28a497fff32764cda9fdb0">lui_switch_create</a> ()</td></tr>
-<tr class="memdesc:gae7c96b11bd28a497fff32764cda9fdb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a switch with initial values.  <br /></td></tr>
-<tr class="separator:gae7c96b11bd28a497fff32764cda9fdb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7621dee59899eaa45f7cae71aa580a36"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__switch.html#ga7621dee59899eaa45f7cae71aa580a36">lui_switch_create</a> ()</td></tr>
+<tr class="memdesc:ga7621dee59899eaa45f7cae71aa580a36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a switch with initial values.  <br /></td></tr>
+<tr class="separator:ga7621dee59899eaa45f7cae71aa580a36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad4bcd31114bb43c32d6ecc42469302ff"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__switch.html#gad4bcd31114bb43c32d6ecc42469302ff">lui_switch_create_and_add</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_parent)</td></tr>
+<tr class="memdesc:gad4bcd31114bb43c32d6ecc42469302ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a switch with initial values and add it to a parent.  <br /></td></tr>
+<tr class="separator:gad4bcd31114bb43c32d6ecc42469302ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad099ebc520d4213febf9e5e8710aaf12"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__switch.html#gad099ebc520d4213febf9e5e8710aaf12">lui_switch_set_extra_colors</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, uint16_t knob_off_color, uint16_t knob_on_color, uint16_t selection_color)</td></tr>
 <tr class="memdesc:gad099ebc520d4213febf9e5e8710aaf12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set extra colors of switch object.  <br /></td></tr>
 <tr class="separator:gad099ebc520d4213febf9e5e8710aaf12"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -341,9 +368,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>lui_list_set_nav_btn_
 <tr class="memitem:ga36738f45907e976f8bf92595352ea968"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__checkbox.html#ga36738f45907e976f8bf92595352ea968">lui_checkbox_draw</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj)</td></tr>
 <tr class="memdesc:ga36738f45907e976f8bf92595352ea968"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a checkbox object.  <br /></td></tr>
 <tr class="separator:ga36738f45907e976f8bf92595352ea968"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga0f7462cbbfae7484114d288068fbfc05"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__checkbox.html#ga0f7462cbbfae7484114d288068fbfc05">lui_checkbox_create</a> ()</td></tr>
-<tr class="memdesc:ga0f7462cbbfae7484114d288068fbfc05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a checkbox object with initial values.  <br /></td></tr>
-<tr class="separator:ga0f7462cbbfae7484114d288068fbfc05"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabffa7bdb1cc13edc0a010fba05f002d0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__checkbox.html#gabffa7bdb1cc13edc0a010fba05f002d0">lui_checkbox_create</a> ()</td></tr>
+<tr class="memdesc:gabffa7bdb1cc13edc0a010fba05f002d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a checkbox object with initial values.  <br /></td></tr>
+<tr class="separator:gabffa7bdb1cc13edc0a010fba05f002d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga40b3fadbfc33cac8ed5fa8276bee5e87"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__checkbox.html#ga40b3fadbfc33cac8ed5fa8276bee5e87">lui_checkbox_create_and_add</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_parent)</td></tr>
+<tr class="memdesc:ga40b3fadbfc33cac8ed5fa8276bee5e87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a checkbox with initial values and add it to a parent.  <br /></td></tr>
+<tr class="separator:ga40b3fadbfc33cac8ed5fa8276bee5e87"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gae501d0976d301bc3c03e11b28eee654a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__checkbox.html#gae501d0976d301bc3c03e11b28eee654a">lui_checkbox_set_extra_colors</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, uint16_t bg_checked_color, uint16_t tick_color, uint16_t selection_color)</td></tr>
 <tr class="memdesc:gae501d0976d301bc3c03e11b28eee654a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set extra colors of checkbox.  <br /></td></tr>
 <tr class="separator:gae501d0976d301bc3c03e11b28eee654a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -371,9 +401,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>lui_list_set_nav_btn_
 <tr class="memitem:ga89456da8b3d00d85366cd97a68ea6ef2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__slider.html#ga89456da8b3d00d85366cd97a68ea6ef2">lui_slider_draw</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj)</td></tr>
 <tr class="memdesc:ga89456da8b3d00d85366cd97a68ea6ef2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw slider object.  <br /></td></tr>
 <tr class="separator:ga89456da8b3d00d85366cd97a68ea6ef2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga25e18048e03dd487ff46a3712d13c4a1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__slider.html#ga25e18048e03dd487ff46a3712d13c4a1">lui_slider_create</a> ()</td></tr>
-<tr class="memdesc:ga25e18048e03dd487ff46a3712d13c4a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a slider object with initial values.  <br /></td></tr>
-<tr class="separator:ga25e18048e03dd487ff46a3712d13c4a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf89068869a66f81633b78dce58372ef7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__slider.html#gaf89068869a66f81633b78dce58372ef7">lui_slider_create</a> ()</td></tr>
+<tr class="memdesc:gaf89068869a66f81633b78dce58372ef7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a slider object with initial values.  <br /></td></tr>
+<tr class="separator:gaf89068869a66f81633b78dce58372ef7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga068d4475562799b32ebe4bc5d21f891d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__slider.html#ga068d4475562799b32ebe4bc5d21f891d">lui_slider_create_and_add</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_parent)</td></tr>
+<tr class="memdesc:ga068d4475562799b32ebe4bc5d21f891d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a slider with initial values and add it to a parent.  <br /></td></tr>
+<tr class="separator:ga068d4475562799b32ebe4bc5d21f891d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga695e69ff0ae901a26aeebbfa467e6ffd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__slider.html#ga695e69ff0ae901a26aeebbfa467e6ffd">lui_slider_set_extra_colors</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, uint16_t knob_color, uint16_t bg_filled_color, uint16_t selection_color)</td></tr>
 <tr class="memdesc:ga695e69ff0ae901a26aeebbfa467e6ffd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set extra colors of slider.  <br /></td></tr>
 <tr class="separator:ga695e69ff0ae901a26aeebbfa467e6ffd"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -410,9 +443,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>lui_list_set_nav_btn_
 <tr class="memitem:gaa9a9febb315d359420be30fea2d9657d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__btngrid.html#gaa9a9febb315d359420be30fea2d9657d">lui_btngrid_draw</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj)</td></tr>
 <tr class="memdesc:gaa9a9febb315d359420be30fea2d9657d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a buttongrid.  <br /></td></tr>
 <tr class="separator:gaa9a9febb315d359420be30fea2d9657d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae825b972dae532e72050afd45addbd32"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__btngrid.html#gae825b972dae532e72050afd45addbd32">lui_btngrid_create</a> ()</td></tr>
-<tr class="memdesc:gae825b972dae532e72050afd45addbd32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a buttongrid with initial values.  <br /></td></tr>
-<tr class="separator:gae825b972dae532e72050afd45addbd32"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga17bd352ba8d220d8dab4aa1782513cc9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__btngrid.html#ga17bd352ba8d220d8dab4aa1782513cc9">lui_btngrid_create</a> ()</td></tr>
+<tr class="memdesc:ga17bd352ba8d220d8dab4aa1782513cc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a buttongrid with initial values.  <br /></td></tr>
+<tr class="separator:ga17bd352ba8d220d8dab4aa1782513cc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf2a4b2cb121a6711a3eff7ac9430acd5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__btngrid.html#gaf2a4b2cb121a6711a3eff7ac9430acd5">lui_btngrid_create_and_add</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_parent)</td></tr>
+<tr class="memdesc:gaf2a4b2cb121a6711a3eff7ac9430acd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a buttongrid with initial values and add it to a parent.  <br /></td></tr>
+<tr class="separator:gaf2a4b2cb121a6711a3eff7ac9430acd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga03a8859464594c353885a559c5026328"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__btngrid.html#ga03a8859464594c353885a559c5026328">lui_btngrid_set_textmap</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, const char *texts[])</td></tr>
 <tr class="memdesc:ga03a8859464594c353885a559c5026328"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set texts of all buttons as a map. The grid is created based on this text map. Each item in the array makes a column and <code>\n</code> (newline) cretaes a row. The text map's last item must be a <code>\0</code>. This marks the end of the grid.  <br /></td></tr>
 <tr class="separator:ga03a8859464594c353885a559c5026328"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -458,9 +494,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>lui_list_set_nav_btn_
 <tr class="memitem:ga6bc7ed4b99549aca88111b9d11531058"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__btngrid.html#ga6bc7ed4b99549aca88111b9d11531058">_lui_btngrid_calc_btn_area</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj)</td></tr>
 <tr class="memdesc:ga6bc7ed4b99549aca88111b9d11531058"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate buttongrid area.  <br /></td></tr>
 <tr class="separator:ga6bc7ed4b99549aca88111b9d11531058"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7c6fc93451b185ff7d3f96107be64694"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__keyboard.html#ga7c6fc93451b185ff7d3f96107be64694">lui_keyboard_create</a> ()</td></tr>
-<tr class="memdesc:ga7c6fc93451b185ff7d3f96107be64694"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a keyboard object with initial values.  <br /></td></tr>
-<tr class="separator:ga7c6fc93451b185ff7d3f96107be64694"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga216799c3c626e435092de0d6fd1d2b18"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__keyboard.html#ga216799c3c626e435092de0d6fd1d2b18">lui_keyboard_create</a> ()</td></tr>
+<tr class="memdesc:ga216799c3c626e435092de0d6fd1d2b18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a keyboard object with initial values.  <br /></td></tr>
+<tr class="separator:ga216799c3c626e435092de0d6fd1d2b18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga19d030439d2d9de67ebbe39391969efd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__keyboard.html#ga19d030439d2d9de67ebbe39391969efd">lui_keyboard_create_and_add</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_parent)</td></tr>
+<tr class="memdesc:ga19d030439d2d9de67ebbe39391969efd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a keyboard with initial values and add it to a parent.  <br /></td></tr>
+<tr class="separator:ga19d030439d2d9de67ebbe39391969efd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga4c2a164a62d97b0866c405ba36723971"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__keyboard.html#ga4c2a164a62d97b0866c405ba36723971">lui_keyboard_sys_cb</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_sender)</td></tr>
 <tr class="memdesc:ga4c2a164a62d97b0866c405ba36723971"><td class="mdescLeft">&#160;</td><td class="mdescRight">Keyboard callback function. This function handles all key presses.  <br /></td></tr>
 <tr class="separator:ga4c2a164a62d97b0866c405ba36723971"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -479,36 +518,51 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>lui_list_set_nav_btn_
 <tr class="memitem:a28253c98f1ae62be8757916a9f0beb53"><td class="memItemLeft" align="right" valign="top"><a id="a28253c98f1ae62be8757916a9f0beb53" name="a28253c98f1ae62be8757916a9f0beb53"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>lui_textbox_draw</b> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj)</td></tr>
 <tr class="separator:a28253c98f1ae62be8757916a9f0beb53"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6bdd8df610d26126024077ce61393279"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__textbox.html#ga6bdd8df610d26126024077ce61393279">lui_textbox_create</a> ()</td></tr>
-<tr class="memdesc:ga6bdd8df610d26126024077ce61393279"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a textbox object with initial values.  <br /></td></tr>
-<tr class="separator:ga6bdd8df610d26126024077ce61393279"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga698983cffbe9b59937e77c3e74425eae"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__textbox.html#ga698983cffbe9b59937e77c3e74425eae">lui_textbox_create</a> ()</td></tr>
+<tr class="memdesc:ga698983cffbe9b59937e77c3e74425eae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a textbox object with initial values.  <br /></td></tr>
+<tr class="separator:ga698983cffbe9b59937e77c3e74425eae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga26a8e9c5239ef4b56e0d32a998a021d3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__textbox.html#ga26a8e9c5239ef4b56e0d32a998a021d3">lui_textbox_create_and_add</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_parent)</td></tr>
+<tr class="memdesc:ga26a8e9c5239ef4b56e0d32a998a021d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a textbox with initial values and add it to a parent.  <br /></td></tr>
+<tr class="separator:ga26a8e9c5239ef4b56e0d32a998a021d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga08e183f10a8a5d102ebcde3bb0c57f30"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__textbox.html#ga08e183f10a8a5d102ebcde3bb0c57f30">lui_textbox_enter_edit_mode</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj)</td></tr>
+<tr class="memdesc:ga08e183f10a8a5d102ebcde3bb0c57f30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enter edit mode (input mode) of a textbox.  <br /></td></tr>
+<tr class="separator:ga08e183f10a8a5d102ebcde3bb0c57f30"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadff79055c2e763e876c7f85419f36263"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__textbox.html#gadff79055c2e763e876c7f85419f36263">lui_textbox_exit_edit_mode</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj)</td></tr>
+<tr class="memdesc:gadff79055c2e763e876c7f85419f36263"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exit edit mode of a textbox.  <br /></td></tr>
+<tr class="separator:gadff79055c2e763e876c7f85419f36263"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gabe544e589562b44cec63dbfa41619c5d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__textbox.html#gabe544e589562b44cec63dbfa41619c5d">lui_textbox_set_caret_index</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, uint16_t caret_index)</td></tr>
 <tr class="memdesc:gabe544e589562b44cec63dbfa41619c5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the index (position) of caret (cursor) in the textbox.  <br /></td></tr>
 <tr class="separator:gabe544e589562b44cec63dbfa41619c5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gae2377a9c0132bc6e909a0b23b1814fc7"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__textbox.html#gae2377a9c0132bc6e909a0b23b1814fc7">lui_textbox_get_caret_index</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj)</td></tr>
 <tr class="memdesc:gae2377a9c0132bc6e909a0b23b1814fc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the caret index.  <br /></td></tr>
 <tr class="separator:gae2377a9c0132bc6e909a0b23b1814fc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf12d728f7b2202c38b85d34d80669892"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__textbox.html#gaf12d728f7b2202c38b85d34d80669892">lui_textbox_insert_char</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, char c)</td></tr>
-<tr class="memdesc:gaf12d728f7b2202c38b85d34d80669892"><td class="mdescLeft">&#160;</td><td class="mdescRight">Insert a character at the position of caret.  <br /></td></tr>
-<tr class="separator:gaf12d728f7b2202c38b85d34d80669892"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab96f6d6d3546ada97d759e88a8dede10"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__textbox.html#gab96f6d6d3546ada97d759e88a8dede10">lui_textbox_delete_char</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj)</td></tr>
-<tr class="memdesc:gab96f6d6d3546ada97d759e88a8dede10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete a character at the caret index. Does not work when caret is at 0.  <br /></td></tr>
-<tr class="separator:gab96f6d6d3546ada97d759e88a8dede10"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6540b13528f24d0e29de00ce7e883835"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__textbox.html#ga6540b13528f24d0e29de00ce7e883835">lui_textbox_insert_string</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, char *str, uint16_t len)</td></tr>
-<tr class="memdesc:ga6540b13528f24d0e29de00ce7e883835"><td class="mdescLeft">&#160;</td><td class="mdescRight">Insert a string at the position of caret.  <br /></td></tr>
-<tr class="separator:ga6540b13528f24d0e29de00ce7e883835"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad6ae13f6e9cb92796fffaf90020f6692"><td class="memItemLeft" align="right" valign="top">int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__textbox.html#gad6ae13f6e9cb92796fffaf90020f6692">lui_textbox_insert_char</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, char c)</td></tr>
+<tr class="memdesc:gad6ae13f6e9cb92796fffaf90020f6692"><td class="mdescLeft">&#160;</td><td class="mdescRight">Insert a character at the position of caret.  <br /></td></tr>
+<tr class="separator:gad6ae13f6e9cb92796fffaf90020f6692"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaca4e2db925d9ab205f19076b64cb9224"><td class="memItemLeft" align="right" valign="top">int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__textbox.html#gaca4e2db925d9ab205f19076b64cb9224">lui_textbox_delete_char</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj)</td></tr>
+<tr class="memdesc:gaca4e2db925d9ab205f19076b64cb9224"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete a character at the caret index. Does not work when caret is at 0.  <br /></td></tr>
+<tr class="separator:gaca4e2db925d9ab205f19076b64cb9224"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3f47e1815a7bfdbe8b763712d48af1ef"><td class="memItemLeft" align="right" valign="top">int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__textbox.html#ga3f47e1815a7bfdbe8b763712d48af1ef">lui_textbox_insert_string</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, char *str, uint16_t len)</td></tr>
+<tr class="memdesc:ga3f47e1815a7bfdbe8b763712d48af1ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Insert a string at the position of caret.  <br /></td></tr>
+<tr class="separator:ga3f47e1815a7bfdbe8b763712d48af1ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gabeb31790dc1b9e074de63bdf7f247776"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__textbox.html#gabeb31790dc1b9e074de63bdf7f247776">lui_textbox_set_text_buffer</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, char *text_buffer, uint16_t buff_size)</td></tr>
 <tr class="memdesc:gabeb31790dc1b9e074de63bdf7f247776"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the text buffer of a textbox. This is where the text is stored.  <br /></td></tr>
 <tr class="separator:gabeb31790dc1b9e074de63bdf7f247776"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab96f0eb40afd32662b4a9e48f5d0f144"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__textbox.html#gab96f0eb40afd32662b4a9e48f5d0f144">lui_textbox_clear_text_buffer</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj)</td></tr>
+<tr class="memdesc:gab96f0eb40afd32662b4a9e48f5d0f144"><td class="mdescLeft">&#160;</td><td class="mdescRight">Empty the text buffer and reset caret position.  <br /></td></tr>
+<tr class="separator:gab96f0eb40afd32662b4a9e48f5d0f144"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad5bc03a31f170fce148eed58fb38b808"><td class="memItemLeft" align="right" valign="top"><a id="ad5bc03a31f170fce148eed58fb38b808" name="ad5bc03a31f170fce148eed58fb38b808"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>lui_textbox_set_text_color</b> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, uint16_t text_color)</td></tr>
 <tr class="separator:ad5bc03a31f170fce148eed58fb38b808"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga44c28a66f8a82241660c0c296df2c2dd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__textbox.html#ga44c28a66f8a82241660c0c296df2c2dd">lui_textbox_set_font</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, const <a class="el" href="group__PublicTypedefs.html#ga26bf4a56824269a006afb575dc224a1e">lui_font_t</a> *font)</td></tr>
 <tr class="memdesc:ga44c28a66f8a82241660c0c296df2c2dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set font of the textbox.  <br /></td></tr>
 <tr class="separator:ga44c28a66f8a82241660c0c296df2c2dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa79e21a843b2e816b74199b447a745f9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__panel.html#gaa79e21a843b2e816b74199b447a745f9">lui_panel_create</a> ()</td></tr>
-<tr class="memdesc:gaa79e21a843b2e816b74199b447a745f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a panel object with initial values.  <br /></td></tr>
-<tr class="separator:gaa79e21a843b2e816b74199b447a745f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3e2f36e9031b5a2e97b23d19112abe1b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__panel.html#ga3e2f36e9031b5a2e97b23d19112abe1b">lui_panel_create</a> ()</td></tr>
+<tr class="memdesc:ga3e2f36e9031b5a2e97b23d19112abe1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a panel object with initial values.  <br /></td></tr>
+<tr class="separator:ga3e2f36e9031b5a2e97b23d19112abe1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8e794bae55a9c3ff161a92ca8698f17e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__panel.html#ga8e794bae55a9c3ff161a92ca8698f17e">lui_panel_create_and_add</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_parent)</td></tr>
+<tr class="memdesc:ga8e794bae55a9c3ff161a92ca8698f17e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a panel with initial values and add it to a parent.  <br /></td></tr>
+<tr class="separator:ga8e794bae55a9c3ff161a92ca8698f17e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5e74112373754dd1f38965450efb6700"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__panel.html#ga5e74112373754dd1f38965450efb6700">lui_panel_draw</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj)</td></tr>
 <tr class="memdesc:ga5e74112373754dd1f38965450efb6700"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw apanel.  <br /></td></tr>
 <tr class="separator:ga5e74112373754dd1f38965450efb6700"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -518,6 +572,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>lui_textbox_set_text_
 <tr class="memitem:gaa063b7cf0177893db5138abb9bdbecb8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__panel.html#gaa063b7cf0177893db5138abb9bdbecb8">lui_panel_set_bitmap_image_mono_palette</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, <a class="el" href="group__PublicTypedefs.html#gaf21613026fc8109ddcdf3e6a8ac2c919">lui_bitmap_mono_pal_t</a> *palette)</td></tr>
 <tr class="memdesc:gaa063b7cf0177893db5138abb9bdbecb8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set color palette for 1-bpp mono bitmap image.  <br /></td></tr>
 <tr class="separator:gaa063b7cf0177893db5138abb9bdbecb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0b77621d603d38537a4eb2f65dc9cc9f"><td class="memItemLeft" align="right" valign="top">int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__panel.html#ga0b77621d603d38537a4eb2f65dc9cc9f">lui_panel_layout_set_properties</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, uint8_t type, uint8_t pad_x, uint8_t pad_y)</td></tr>
+<tr class="memdesc:ga0b77621d603d38537a4eb2f65dc9cc9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the layout properties of a panel.  <br /></td></tr>
+<tr class="separator:ga0b77621d603d38537a4eb2f65dc9cc9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9efd27540d5d5b580776867195686193"><td class="memItemLeft" align="right" valign="top">int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__panel.html#ga9efd27540d5d5b580776867195686193">lui_panel_layout_calculate</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj)</td></tr>
+<tr class="memdesc:ga9efd27540d5d5b580776867195686193"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the layout after adding all children to the parent panel.  <br /></td></tr>
+<tr class="separator:ga9efd27540d5d5b580776867195686193"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga40b569f4be80209c533d003211e257a9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__scene.html#ga40b569f4be80209c533d003211e257a9">lui_scene_create</a> ()</td></tr>
 <tr class="memdesc:ga40b569f4be80209c533d003211e257a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a scene.  <br /></td></tr>
 <tr class="separator:ga40b569f4be80209c533d003211e257a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -533,6 +593,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>lui_textbox_set_text_
 <tr class="memitem:ga5a2c32f660fbbe39fae9d5f11055aff7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__scene.html#ga5a2c32f660fbbe39fae9d5f11055aff7">lui_scene_set_active</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj)</td></tr>
 <tr class="memdesc:ga5a2c32f660fbbe39fae9d5f11055aff7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the active scene. Only active scene is rendered.  <br /></td></tr>
 <tr class="separator:ga5a2c32f660fbbe39fae9d5f11055aff7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga04db3209896146d8d157d2ce558607d3"><td class="memItemLeft" align="right" valign="top">int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__scene.html#ga04db3209896146d8d157d2ce558607d3">lui_scene_layout_set_properties</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, uint8_t type, uint8_t pad_x, uint8_t pad_y)</td></tr>
+<tr class="memdesc:ga04db3209896146d8d157d2ce558607d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the layout properties of a scene.  <br /></td></tr>
+<tr class="separator:ga04db3209896146d8d157d2ce558607d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga86c66b4189e9d1ff8a04900196d82d52"><td class="memItemLeft" align="right" valign="top">int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__scene.html#ga86c66b4189e9d1ff8a04900196d82d52">lui_scene_layout_calculate</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj)</td></tr>
+<tr class="memdesc:ga86c66b4189e9d1ff8a04900196d82d52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the layout after adding all children to the parent scene.  <br /></td></tr>
+<tr class="separator:ga86c66b4189e9d1ff8a04900196d82d52"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga420eb0038d008a35641d1806bde06bcf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__scene.html#ga420eb0038d008a35641d1806bde06bcf">lui_scene_get_active</a> ()</td></tr>
 <tr class="memdesc:ga420eb0038d008a35641d1806bde06bcf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the currently active scene.  <br /></td></tr>
 <tr class="separator:ga420eb0038d008a35641d1806bde06bcf"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -548,8 +614,14 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>lui_textbox_set_text_
 <tr class="memitem:ga2b491a6c826dc1eb37c7a79ddd42dc77"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__object.html#ga2b491a6c826dc1eb37c7a79ddd42dc77">lui_object_get_child</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_parent, uint16_t child_index)</td></tr>
 <tr class="memdesc:ga2b491a6c826dc1eb37c7a79ddd42dc77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a particular child by index from a parent.  <br /></td></tr>
 <tr class="separator:ga2b491a6c826dc1eb37c7a79ddd42dc77"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabc623ce3e146910f05e658fd50d3ee16"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__object.html#gabc623ce3e146910f05e658fd50d3ee16">lui_object_get_position_rel</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, uint16_t pos[2])</td></tr>
+<tr class="memdesc:gabc623ce3e146910f05e658fd50d3ee16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get object's position relative to its parent.  <br /></td></tr>
+<tr class="separator:gabc623ce3e146910f05e658fd50d3ee16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga40b9f6ff93e8658dfdd1d8412084e4a1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__object.html#ga40b9f6ff93e8658dfdd1d8412084e4a1">lui_object_get_position_abs</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, uint16_t pos[2])</td></tr>
+<tr class="memdesc:ga40b9f6ff93e8658dfdd1d8412084e4a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get object's absolute position on the screen.  <br /></td></tr>
+<tr class="separator:ga40b9f6ff93e8658dfdd1d8412084e4a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf7bedc873edb862f9c1f8b063f17f839"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__object.html#gaf7bedc873edb862f9c1f8b063f17f839">lui_object_set_position</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, uint16_t x, uint16_t y)</td></tr>
-<tr class="memdesc:gaf7bedc873edb862f9c1f8b063f17f839"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set position of an object.  <br /></td></tr>
+<tr class="memdesc:gaf7bedc873edb862f9c1f8b063f17f839"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set position of an object. This is the relative position of the object to its parent.  <br /></td></tr>
 <tr class="separator:gaf7bedc873edb862f9c1f8b063f17f839"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac6ab60ef6a5e52ec9dd37dcb9cf117c0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__object.html#gac6ab60ef6a5e52ec9dd37dcb9cf117c0">lui_object_set_x_pos</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, uint16_t x)</td></tr>
 <tr class="memdesc:gac6ab60ef6a5e52ec9dd37dcb9cf117c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set only x position of an object.  <br /></td></tr>
@@ -569,9 +641,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>lui_textbox_set_text_
 <tr class="memitem:ga40a7f5963092cc887757eb4c72342caa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__object.html#ga40a7f5963092cc887757eb4c72342caa">lui_object_set_border_color</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, uint16_t border_color)</td></tr>
 <tr class="memdesc:ga40a7f5963092cc887757eb4c72342caa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set border color of an object.  <br /></td></tr>
 <tr class="separator:ga40a7f5963092cc887757eb4c72342caa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa3e5b7c777ceee12a215eaa6bc45554b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__object.html#gaa3e5b7c777ceee12a215eaa6bc45554b">lui_object_set_border_visibility</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, uint8_t is_visible)</td></tr>
-<tr class="memdesc:gaa3e5b7c777ceee12a215eaa6bc45554b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set border's visibility of an object.  <br /></td></tr>
-<tr class="separator:gaa3e5b7c777ceee12a215eaa6bc45554b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabbab8ca950ca7d6759732f05b7c81718"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__object.html#gabbab8ca950ca7d6759732f05b7c81718">lui_object_set_border_visibility</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, uint8_t is_visible)</td></tr>
+<tr class="memdesc:gabbab8ca950ca7d6759732f05b7c81718"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deprecated!! Use <code><a class="el" href="group__lui__object.html#gaf50598692ce8d764ad3fe20a9e5d2f5b" title="Set border&#39;s width or thickness. Set width to 0 to remove border.">lui_object_set_border_width()</a></code> instead Set border's visibility of an object.  <br /></td></tr>
+<tr class="separator:gabbab8ca950ca7d6759732f05b7c81718"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf50598692ce8d764ad3fe20a9e5d2f5b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__object.html#gaf50598692ce8d764ad3fe20a9e5d2f5b">lui_object_set_border_width</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, uint8_t width)</td></tr>
+<tr class="memdesc:gaf50598692ce8d764ad3fe20a9e5d2f5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set border's width or thickness. Set width to 0 to remove border.  <br /></td></tr>
+<tr class="separator:gaf50598692ce8d764ad3fe20a9e5d2f5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga737c964740f81d6c10d84ebac06d326b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__object.html#ga737c964740f81d6c10d84ebac06d326b">lui_object_set_bg_color</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, uint16_t bg_color)</td></tr>
 <tr class="memdesc:ga737c964740f81d6c10d84ebac06d326b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set background color of an object.  <br /></td></tr>
 <tr class="separator:ga737c964740f81d6c10d84ebac06d326b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -626,27 +701,33 @@ uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>_lui_check_if_acti
 <tr class="memitem:a780aa12ea7ce88e49a3ad915ad4a2424"><td class="memItemLeft" align="right" valign="top"><a id="a780aa12ea7ce88e49a3ad915ad4a2424" name="a780aa12ea7ce88e49a3ad915ad4a2424"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>_lui_set_obj_props_on_touch_input</b> (<a class="el" href="group__PublicTypedefs.html#gaa6d259bd0bdabcea1b151e6ae903b135">lui_touch_input_data_t</a> *input, <a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj)</td></tr>
 <tr class="separator:a780aa12ea7ce88e49a3ad915ad4a2424"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga2637c58dd7b74f12b214c9327891d107"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#gab10de4e68055b737faab335e831192e2">lui_dispdrv_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__dispdrv.html#ga2637c58dd7b74f12b214c9327891d107">lui_dispdrv_create</a> ()</td></tr>
-<tr class="memdesc:ga2637c58dd7b74f12b214c9327891d107"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create display driver object.  <br /></td></tr>
-<tr class="separator:ga2637c58dd7b74f12b214c9327891d107"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa3ccce4bd05c3d912584c596f42e5b39"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#gab10de4e68055b737faab335e831192e2">lui_dispdrv_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__dispdrv.html#gaa3ccce4bd05c3d912584c596f42e5b39">lui_dispdrv_create</a> ()</td></tr>
+<tr class="memdesc:gaa3ccce4bd05c3d912584c596f42e5b39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create display driver object.  <br /></td></tr>
+<tr class="separator:gaa3ccce4bd05c3d912584c596f42e5b39"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga77ef8325d1acf4c014be20de214e80de"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__dispdrv.html#ga77ef8325d1acf4c014be20de214e80de">lui_dispdrv_register</a> (<a class="el" href="group__PublicTypedefs.html#gab10de4e68055b737faab335e831192e2">lui_dispdrv_t</a> *dispdrv)</td></tr>
 <tr class="memdesc:ga77ef8325d1acf4c014be20de214e80de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register display driver.  <br /></td></tr>
 <tr class="separator:ga77ef8325d1acf4c014be20de214e80de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9e8ff2b52066e75a0d40d54feda81fc5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#gab10de4e68055b737faab335e831192e2">lui_dispdrv_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__dispdrv.html#ga9e8ff2b52066e75a0d40d54feda81fc5">lui_dispdrv_create_and_register</a> ()</td></tr>
+<tr class="memdesc:ga9e8ff2b52066e75a0d40d54feda81fc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create display driver object and register it.  <br /></td></tr>
+<tr class="separator:ga9e8ff2b52066e75a0d40d54feda81fc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga3516bb99ba95160e9673ba8541ffb13e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__dispdrv.html#ga3516bb99ba95160e9673ba8541ffb13e">lui_dispdrv_set_resolution</a> (<a class="el" href="group__PublicTypedefs.html#gab10de4e68055b737faab335e831192e2">lui_dispdrv_t</a> *dispdrv, uint16_t hor_res, uint16_t vert_res)</td></tr>
 <tr class="memdesc:ga3516bb99ba95160e9673ba8541ffb13e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set horizontal and vertical resolution of display.  <br /></td></tr>
 <tr class="separator:ga3516bb99ba95160e9673ba8541ffb13e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac41767acc73ed0907c2dfdfead80ea00"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__dispdrv.html#gac41767acc73ed0907c2dfdfead80ea00">lui_dispdrv_set_draw_disp_buff_cb</a> (<a class="el" href="group__PublicTypedefs.html#gab10de4e68055b737faab335e831192e2">lui_dispdrv_t</a> *dispdrv, void(*draw_pixels_buff_cb)(uint16_t *disp_buff, <a class="el" href="group__PublicTypedefs.html#ga89d2b851574a969160813b40a922de91">lui_area_t</a> *area))</td></tr>
 <tr class="memdesc:gac41767acc73ed0907c2dfdfead80ea00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set callback function for drawing an area of pixels with a display buffer.  <br /></td></tr>
 <tr class="separator:gac41767acc73ed0907c2dfdfead80ea00"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gadaee6dd19570953fba05e64f9ebb9f2f"><td class="memItemLeft" align="right" valign="top">int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__dispdrv.html#gadaee6dd19570953fba05e64f9ebb9f2f">lui_dispdrv_set_disp_buff</a> (<a class="el" href="group__PublicTypedefs.html#gab10de4e68055b737faab335e831192e2">lui_dispdrv_t</a> *dispdrv, uint16_t *disp_buff, uint16_t size_in_px)</td></tr>
-<tr class="memdesc:gadaee6dd19570953fba05e64f9ebb9f2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the display buffer. This buffer is provided by user and filled with colors by library. Then user passes this buffer to the display.  <br /></td></tr>
-<tr class="separator:gadaee6dd19570953fba05e64f9ebb9f2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga674a45dcbe0b1d78a5f2a495251f52d5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga98e4dc333c2121cf051dd684a9ee6923">lui_touch_input_dev_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__input.html#ga674a45dcbe0b1d78a5f2a495251f52d5">lui_touch_inputdev_create</a> ()</td></tr>
-<tr class="memdesc:ga674a45dcbe0b1d78a5f2a495251f52d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create touch input device object.  <br /></td></tr>
-<tr class="separator:ga674a45dcbe0b1d78a5f2a495251f52d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga165654730066c14baf3044fc95a59fd0"><td class="memItemLeft" align="right" valign="top">int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__dispdrv.html#ga165654730066c14baf3044fc95a59fd0">lui_dispdrv_set_disp_buff</a> (<a class="el" href="group__PublicTypedefs.html#gab10de4e68055b737faab335e831192e2">lui_dispdrv_t</a> *dispdrv, uint16_t *disp_buff, uint32_t size_in_px)</td></tr>
+<tr class="memdesc:ga165654730066c14baf3044fc95a59fd0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the display buffer. This buffer is provided by user and filled with colors by library. Then user passes this buffer to the display.  <br /></td></tr>
+<tr class="separator:ga165654730066c14baf3044fc95a59fd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga076dc613ea16daaf30e551973e638763"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga98e4dc333c2121cf051dd684a9ee6923">lui_touch_input_dev_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__input.html#ga076dc613ea16daaf30e551973e638763">lui_touch_inputdev_create</a> ()</td></tr>
+<tr class="memdesc:ga076dc613ea16daaf30e551973e638763"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create touch input device object.  <br /></td></tr>
+<tr class="separator:ga076dc613ea16daaf30e551973e638763"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga3861ea1c2fa9e1776f1aff61dc52daa9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__input.html#ga3861ea1c2fa9e1776f1aff61dc52daa9">lui_touch_inputdev_register</a> (<a class="el" href="group__PublicTypedefs.html#ga98e4dc333c2121cf051dd684a9ee6923">lui_touch_input_dev_t</a> *inputdev)</td></tr>
 <tr class="memdesc:ga3861ea1c2fa9e1776f1aff61dc52daa9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register a touch input device.  <br /></td></tr>
 <tr class="separator:ga3861ea1c2fa9e1776f1aff61dc52daa9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9000e4dcc78c582bf922cb2a10f05af8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga98e4dc333c2121cf051dd684a9ee6923">lui_touch_input_dev_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__input.html#ga9000e4dcc78c582bf922cb2a10f05af8">lui_touch_inputdev_create_and_register</a> ()</td></tr>
+<tr class="memdesc:ga9000e4dcc78c582bf922cb2a10f05af8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create touch input device object and register it.  <br /></td></tr>
+<tr class="separator:ga9000e4dcc78c582bf922cb2a10f05af8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1e0cdaf248e3f7818d5cd82157dd62a3"><td class="memItemLeft" align="right" valign="top"><a id="a1e0cdaf248e3f7818d5cd82157dd62a3" name="a1e0cdaf248e3f7818d5cd82157dd62a3"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>lui_touch_inputdev_set_read_input_cb</b> (<a class="el" href="group__PublicTypedefs.html#ga98e4dc333c2121cf051dd684a9ee6923">lui_touch_input_dev_t</a> *inputdev, void(*read_touch_input_cb)(<a class="el" href="group__PublicTypedefs.html#gaa6d259bd0bdabcea1b151e6ae903b135">lui_touch_input_data_t</a> *inputdata))</td></tr>
 <tr class="separator:a1e0cdaf248e3f7818d5cd82157dd62a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -662,12 +743,18 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>lui_touch_inputdev_se
 <tr class="memitem:gad4c604716d2df4943ac32b35fa56ac14"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__gfx.html#gad4c604716d2df4943ac32b35fa56ac14">lui_gfx_draw_line</a> (uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color)</td></tr>
 <tr class="memdesc:gad4c604716d2df4943ac32b35fa56ac14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a line.  <br /></td></tr>
 <tr class="separator:gad4c604716d2df4943ac32b35fa56ac14"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae56d68f8c6855e24caf9dbcd7be0ab6a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__gfx.html#gae56d68f8c6855e24caf9dbcd7be0ab6a">lui_gfx_draw_line_clipped</a> (uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, <a class="el" href="group__PublicTypedefs.html#ga89d2b851574a969160813b40a922de91">lui_area_t</a> *clip_area, uint8_t line_width, uint16_t color)</td></tr>
+<tr class="memdesc:gae56d68f8c6855e24caf9dbcd7be0ab6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a line within a clipping area.  <br /></td></tr>
+<tr class="separator:gae56d68f8c6855e24caf9dbcd7be0ab6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad91328f058c99813e23a79a0e5aed425"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__gfx.html#gad91328f058c99813e23a79a0e5aed425">lui_gfx_draw_rect</a> (uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint8_t line_width, uint16_t color)</td></tr>
 <tr class="memdesc:gad91328f058c99813e23a79a0e5aed425"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a rectangle.  <br /></td></tr>
 <tr class="separator:gad91328f058c99813e23a79a0e5aed425"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga85fb0f8d768116008acf2f12ee3af158"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__gfx.html#ga85fb0f8d768116008acf2f12ee3af158">lui_gfx_draw_rect_fill</a> (uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color)</td></tr>
 <tr class="memdesc:ga85fb0f8d768116008acf2f12ee3af158"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a filled rectangle.  <br /></td></tr>
 <tr class="separator:ga85fb0f8d768116008acf2f12ee3af158"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac5d67d4ded661f18c0624e72e497be17"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__gfx.html#gac5d67d4ded661f18c0624e72e497be17">lui_gfx_draw_rect_fill_clipped</a> (uint16_t x, uint16_t y, uint16_t w, uint16_t h, <a class="el" href="group__PublicTypedefs.html#ga89d2b851574a969160813b40a922de91">lui_area_t</a> *clip_area, uint16_t color)</td></tr>
+<tr class="memdesc:gac5d67d4ded661f18c0624e72e497be17"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a filled rectangle within a clipping area/window.  <br /></td></tr>
+<tr class="separator:gac5d67d4ded661f18c0624e72e497be17"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga142c96f0d66e6439d7b86e0a1b72ecb5"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__gfx.html#ga142c96f0d66e6439d7b86e0a1b72ecb5">lui_gfx_get_font_height</a> (const <a class="el" href="group__PublicTypedefs.html#ga26bf4a56824269a006afb575dc224a1e">lui_font_t</a> *font)</td></tr>
 <tr class="memdesc:ga142c96f0d66e6439d7b86e0a1b72ecb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get height of the font.  <br /></td></tr>
 <tr class="separator:ga142c96f0d66e6439d7b86e0a1b72ecb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -685,27 +772,38 @@ const <a class="el" href="struct__lui__glyph__t.html">_lui_glyph_t</a> *&#160;</
 <tr class="memitem:ga8c17499b9a8d972090516432237f7666"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__gfx.html#ga8c17499b9a8d972090516432237f7666">lui_gfx_draw_bitmap</a> (const <a class="el" href="group__PublicTypedefs.html#gaca3b4e71f058bce3538bf58fc8883f04">lui_bitmap_t</a> *bitmap, <a class="el" href="group__PublicTypedefs.html#gaf21613026fc8109ddcdf3e6a8ac2c919">lui_bitmap_mono_pal_t</a> *palette, uint16_t x, uint16_t y, <a class="el" href="group__PublicTypedefs.html#ga89d2b851574a969160813b40a922de91">lui_area_t</a> *crop_area)</td></tr>
 <tr class="memdesc:ga8c17499b9a8d972090516432237f7666"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws a bitmap at given x,y position. Crop area can be NULL if cropping is not needed. <code>palette</code> parameter is only applicable if image is 1-bpp mono bitmap.  <br /></td></tr>
 <tr class="separator:ga8c17499b9a8d972090516432237f7666"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3bb54afdae476b08538714744a806db8"><td class="memItemLeft" align="right" valign="top"><a id="a3bb54afdae476b08538714744a806db8" name="a3bb54afdae476b08538714744a806db8"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>_lui_gfx_plot_line_low</b> (uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color)</td></tr>
-<tr class="separator:a3bb54afdae476b08538714744a806db8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1ad3e2d43fd774f4f857e8f7d4f23be3"><td class="memItemLeft" align="right" valign="top"><a id="a1ad3e2d43fd774f4f857e8f7d4f23be3" name="a1ad3e2d43fd774f4f857e8f7d4f23be3"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>_lui_gfx_plot_line_high</b> (uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t line_width, uint16_t color)</td></tr>
-<tr class="separator:a1ad3e2d43fd774f4f857e8f7d4f23be3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adcf1fc3922205a421c88db40933cd032"><td class="memItemLeft" align="right" valign="top"><a id="adcf1fc3922205a421c88db40933cd032" name="adcf1fc3922205a421c88db40933cd032"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>_lui_gfx_plot_line_low</b> (uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, <a class="el" href="group__PublicTypedefs.html#ga89d2b851574a969160813b40a922de91">lui_area_t</a> *clip_area, uint8_t line_width, uint16_t color)</td></tr>
+<tr class="separator:adcf1fc3922205a421c88db40933cd032"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6eeb9f1663761eb2bee1e395421474c"><td class="memItemLeft" align="right" valign="top"><a id="ae6eeb9f1663761eb2bee1e395421474c" name="ae6eeb9f1663761eb2bee1e395421474c"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>_lui_gfx_plot_line_high</b> (uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, <a class="el" href="group__PublicTypedefs.html#ga89d2b851574a969160813b40a922de91">lui_area_t</a> *clip_area, uint8_t line_width, uint16_t color)</td></tr>
+<tr class="separator:ae6eeb9f1663761eb2bee1e395421474c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a32881af029062a76504f7d80766feb1a"><td class="memItemLeft" align="right" valign="top"><a id="a32881af029062a76504f7d80766feb1a" name="a32881af029062a76504f7d80766feb1a"></a>
 uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>_lui_get_event_against_state</b> (uint8_t new_state, uint8_t old_state)</td></tr>
 <tr class="separator:a32881af029062a76504f7d80766feb1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a65143b83ab55cdcc5ac9b853677b881e"><td class="memItemLeft" align="right" valign="top"><a id="a65143b83ab55cdcc5ac9b853677b881e" name="a65143b83ab55cdcc5ac9b853677b881e"></a>
 double&#160;</td><td class="memItemRight" valign="bottom"><b>_lui_map_range</b> (double old_val, double old_max, double old_min, double new_max, double new_min)</td></tr>
 <tr class="separator:a65143b83ab55cdcc5ac9b853677b881e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa98d5e8a7f654a32b1a1fa3f2ba1d05"><td class="memItemLeft" align="right" valign="top"><a id="aaa98d5e8a7f654a32b1a1fa3f2ba1d05" name="aaa98d5e8a7f654a32b1a1fa3f2ba1d05"></a>
+uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>_lui_calc_clip_region_code</b> (double x, double y, const <a class="el" href="group__PublicTypedefs.html#ga89d2b851574a969160813b40a922de91">lui_area_t</a> *clip_win)</td></tr>
+<tr class="separator:aaa98d5e8a7f654a32b1a1fa3f2ba1d05"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f03ce9eb60cfea53a29ddd3ee2cd252"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lame__ui_8c.html#a5f03ce9eb60cfea53a29ddd3ee2cd252">_lui_clip_line</a> (double *point_0, double *point_1, const <a class="el" href="group__PublicTypedefs.html#ga89d2b851574a969160813b40a922de91">lui_area_t</a> *clip_win)</td></tr>
+<tr class="separator:a5f03ce9eb60cfea53a29ddd3ee2cd252"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3c0bdee792a3dcffd4fd880f18e59487"><td class="memItemLeft" align="right" valign="top"><a id="a3c0bdee792a3dcffd4fd880f18e59487" name="a3c0bdee792a3dcffd4fd880f18e59487"></a>
 int8_t&#160;</td><td class="memItemRight" valign="bottom"><b>_lui_verify_obj</b> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, uint8_t obj_type)</td></tr>
 <tr class="separator:a3c0bdee792a3dcffd4fd880f18e59487"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a672d02ea95e8ad50ba4e78419358810a"><td class="memItemLeft" align="right" valign="top"><a id="a672d02ea95e8ad50ba4e78419358810a" name="a672d02ea95e8ad50ba4e78419358810a"></a>
+int8_t&#160;</td><td class="memItemRight" valign="bottom"><b>_lui_layout_set_properties</b> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, uint8_t layout_type, uint8_t pad_x, uint8_t pad_y)</td></tr>
+<tr class="separator:a672d02ea95e8ad50ba4e78419358810a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4f515e0f7297ebf9dd5eaa28d06f2f7"><td class="memItemLeft" align="right" valign="top"><a id="ab4f515e0f7297ebf9dd5eaa28d06f2f7" name="ab4f515e0f7297ebf9dd5eaa28d06f2f7"></a>
+int8_t&#160;</td><td class="memItemRight" valign="bottom"><b>_lui_layout_calculate</b> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj)</td></tr>
+<tr class="separator:ab4f515e0f7297ebf9dd5eaa28d06f2f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga7d451e8c6afd8351943302f22a22ab5e"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__dispdrv.html#ga7d451e8c6afd8351943302f22a22ab5e">_lui_disp_drv_check</a> ()</td></tr>
 <tr class="memdesc:ga7d451e8c6afd8351943302f22a22ab5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if display driver and pixel drawing callback function are properly registered.  <br /></td></tr>
 <tr class="separator:ga7d451e8c6afd8351943302f22a22ab5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a878422617cd56a02b309f6f9deab11c9"><td class="memItemLeft" align="right" valign="top"><a id="a878422617cd56a02b309f6f9deab11c9" name="a878422617cd56a02b309f6f9deab11c9"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>_lui_mem_init</b> (uint8_t mem_block[], uint16_t size)</td></tr>
-<tr class="separator:a878422617cd56a02b309f6f9deab11c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c82b19ad8ccc79b0b56da5edd14dbd0"><td class="memItemLeft" align="right" valign="top"><a id="a3c82b19ad8ccc79b0b56da5edd14dbd0" name="a3c82b19ad8ccc79b0b56da5edd14dbd0"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>_lui_mem_init</b> (uint8_t mem_block[], uint32_t size)</td></tr>
+<tr class="separator:a3c82b19ad8ccc79b0b56da5edd14dbd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1fb676c917c6b06fa308f37043bd7f60"><td class="memItemLeft" align="right" valign="top"><a id="a1fb676c917c6b06fa308f37043bd7f60" name="a1fb676c917c6b06fa308f37043bd7f60"></a>
 void *&#160;</td><td class="memItemRight" valign="bottom"><b>_lui_mem_alloc</b> (uint16_t element_size)</td></tr>
 <tr class="separator:a1fb676c917c6b06fa308f37043bd7f60"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -746,9 +844,44 @@ const <a class="el" href="group__PublicTypedefs.html#ga26bf4a56824269a006afb575d
 <div class="textblock"><p>Source FIle of LameUI GUI library. Must include <a class="el" href="lame__ui_8h.html" title="One and only header file for LameUI library.">lame_ui.h</a>. No other file is mandatory. </p>
 <dl class="section author"><dt>Author</dt><dd>Avra Mitra </dd></dl>
 <dl class="section version"><dt>Version</dt><dd>2.0 </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2023-03-06</dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2023-10-26</dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2020-2023 </dd></dl>
 </div><h2 class="groupheader">Function Documentation</h2>
+<a id="a5f03ce9eb60cfea53a29ddd3ee2cd252" name="a5f03ce9eb60cfea53a29ddd3ee2cd252"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f03ce9eb60cfea53a29ddd3ee2cd252">&#9670;&#160;</a></span>_lui_clip_line()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t _lui_clip_line </td>
+          <td>(</td>
+          <td class="paramtype">double *&#160;</td>
+          <td class="paramname"><em>point_0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *&#160;</td>
+          <td class="paramname"><em>point_1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__PublicTypedefs.html#ga89d2b851574a969160813b40a922de91">lui_area_t</a> *&#160;</td>
+          <td class="paramname"><em>clip_win</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p><a href="https://en.wikipedia.org/wiki/Cohen%E2%80%93Sutherland_algorithm">https://en.wikipedia.org/wiki/Cohen%E2%80%93Sutherland_algorithm</a> Returns: 0-&gt; unaccepted, 1-&gt; accepted unclipped, 3-&gt; accepted clipped </p>
+
+</div>
+</div>
 <a id="a7f55400d276a2100f8ce722ce5dffb7f" name="a7f55400d276a2100f8ce722ce5dffb7f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7f55400d276a2100f8ce722ce5dffb7f">&#9670;&#160;</a></span>_lui_gfx_render_char_glyph()</h2>
 

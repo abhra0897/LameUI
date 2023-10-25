@@ -40,7 +40,7 @@
 		<div class="logo">
 			<a href="index.html"> <img src="LameUI_logo.png" alt="LameUI logo" width="220" ></a>
 			<span style="display: inline-block; margin-top: 10px;">
-				v2.0
+				v2.1
 			</span>
 		</div>
 		<div class="navigation-footer">
@@ -120,9 +120,12 @@ $(document).ready(function(){initNavTree('group__lui__list.html',''); initResiza
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga3c9a4f6a688429ad2d848b4128838f46"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__list.html#ga3c9a4f6a688429ad2d848b4128838f46">lui_list_create</a> ()</td></tr>
-<tr class="memdesc:ga3c9a4f6a688429ad2d848b4128838f46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a list object with initial values.  <br /></td></tr>
-<tr class="separator:ga3c9a4f6a688429ad2d848b4128838f46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab157ccd8d89e4f71ec79c8df9f0c21c9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__list.html#gab157ccd8d89e4f71ec79c8df9f0c21c9">lui_list_create</a> (void)</td></tr>
+<tr class="memdesc:gab157ccd8d89e4f71ec79c8df9f0c21c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a list object with initial values.  <br /></td></tr>
+<tr class="separator:gab157ccd8d89e4f71ec79c8df9f0c21c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab146a06764dfdcfcd69e0333b27a4e90"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__list.html#gab146a06764dfdcfcd69e0333b27a4e90">lui_list_create_and_add</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_parent)</td></tr>
+<tr class="memdesc:gab146a06764dfdcfcd69e0333b27a4e90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a list with initial values and add it to a parent.  <br /></td></tr>
+<tr class="separator:gab146a06764dfdcfcd69e0333b27a4e90"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8d36d05056be1235f0314acbdac0371e"><td class="memItemLeft" align="right" valign="top">int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__list.html#ga8d36d05056be1235f0314acbdac0371e">lui_list_set_max_items_count</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj, uint8_t max_items_cnt)</td></tr>
 <tr class="memdesc:ga8d36d05056be1235f0314acbdac0371e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set maximum item count for a list. The list cannot store items more than this number.  <br /></td></tr>
 <tr class="separator:ga8d36d05056be1235f0314acbdac0371e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -218,7 +221,7 @@ Light Theme</div></div>
 <div class="line">    }</div>
 <div class="line">}</div>
 <div class="line"> </div>
-<div class="line"><a class="code hl_struct" href="struct__lui__obj__s.html">lui_obj_t</a>* my_list = <a class="code hl_function" href="group__lui__list.html#ga3c9a4f6a688429ad2d848b4128838f46">lui_list_create</a>();</div>
+<div class="line"><a class="code hl_struct" href="struct__lui__obj__s.html">lui_obj_t</a>* my_list = <a class="code hl_function" href="group__lui__list.html#gab157ccd8d89e4f71ec79c8df9f0c21c9">lui_list_create</a>();</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// Setting list area is important. Else items won&#39;t be properly rendered</span></div>
 <div class="line"><a class="code hl_function" href="group__lui__object.html#gaed4bb7d9c2764c6786708535fad7cf67">lui_object_set_area</a>(my_list, 110, 160);</div>
@@ -256,19 +259,19 @@ Light Theme</div></div>
 <div class="line"><span class="comment">// Else nothing will work</span></div>
 <div class="line"><a class="code hl_function" href="group__lui__list.html#ga50b081682a8bc9ab50e229d432605b2e">lui_list_prepare</a>(my_list);</div>
 <div class="ttc" id="agroup__LUI__EVENT_html_gac1d4660029fe5efac27e0116e258d65d"><div class="ttname"><a href="group__LUI__EVENT.html#gac1d4660029fe5efac27e0116e258d65d">LUI_EVENT_PRESSED</a></div><div class="ttdeci">#define LUI_EVENT_PRESSED</div><div class="ttdoc">Object is pressed (object under pointing device and pointing device button is low)</div><div class="ttdef"><b>Definition:</b> lame_ui.h:107</div></div>
-<div class="ttc" id="agroup__lui__list_html_ga002fad5fa77d895a533beb808c45fab5"><div class="ttname"><a href="group__lui__list.html#ga002fad5fa77d895a533beb808c45fab5">lui_list_set_selected_item_index</a></div><div class="ttdeci">int16_t lui_list_set_selected_item_index(lui_obj_t *obj, uint8_t item_index)</div><div class="ttdoc">Set selected item's index in a list.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:1266</div></div>
-<div class="ttc" id="agroup__lui__list_html_ga02c8af9365b2c846e71209f9be648930"><div class="ttname"><a href="group__lui__list.html#ga02c8af9365b2c846e71209f9be648930">lui_list_get_selected_item_index</a></div><div class="ttdeci">int16_t lui_list_get_selected_item_index(lui_obj_t *obj)</div><div class="ttdoc">Get index of selected item of a list.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:1258</div></div>
-<div class="ttc" id="agroup__lui__list_html_ga1641e5189b244dab791439e1cdf74a5f"><div class="ttname"><a href="group__lui__list.html#ga1641e5189b244dab791439e1cdf74a5f">lui_list_add_item</a></div><div class="ttdeci">int8_t lui_list_add_item(lui_obj_t *obj, const char *text)</div><div class="ttdoc">Add an item to the end of the list.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:1207</div></div>
-<div class="ttc" id="agroup__lui__list_html_ga3c9a4f6a688429ad2d848b4128838f46"><div class="ttname"><a href="group__lui__list.html#ga3c9a4f6a688429ad2d848b4128838f46">lui_list_create</a></div><div class="ttdeci">lui_obj_t * lui_list_create()</div><div class="ttdoc">Create a list object with initial values.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:1031</div></div>
-<div class="ttc" id="agroup__lui__list_html_ga50b081682a8bc9ab50e229d432605b2e"><div class="ttname"><a href="group__lui__list.html#ga50b081682a8bc9ab50e229d432605b2e">lui_list_prepare</a></div><div class="ttdeci">void lui_list_prepare(lui_obj_t *obj)</div><div class="ttdoc">Prepares a list for final render. This function must be called by the user after creating a list/maki...</div><div class="ttdef"><b>Definition:</b> lame_ui.c:1079</div></div>
-<div class="ttc" id="agroup__lui__list_html_ga8d36d05056be1235f0314acbdac0371e"><div class="ttname"><a href="group__lui__list.html#ga8d36d05056be1235f0314acbdac0371e">lui_list_set_max_items_count</a></div><div class="ttdeci">int8_t lui_list_set_max_items_count(lui_obj_t *obj, uint8_t max_items_cnt)</div><div class="ttdoc">Set maximum item count for a list. The list cannot store items more than this number.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:1191</div></div>
-<div class="ttc" id="agroup__lui__list_html_ga9e90dcc7b886d2ccb958637601acad00"><div class="ttname"><a href="group__lui__list.html#ga9e90dcc7b886d2ccb958637601acad00">lui_list_set_dropdown_mode</a></div><div class="ttdeci">int8_t lui_list_set_dropdown_mode(lui_obj_t *obj, uint8_t is_dropdown)</div><div class="ttdoc">Set if list is a dropdown or not.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:1306</div></div>
-<div class="ttc" id="agroup__lui__list_html_gaa34f481dc694e799da5706f88aef6671"><div class="ttname"><a href="group__lui__list.html#gaa34f481dc694e799da5706f88aef6671">lui_list_get_item_text</a></div><div class="ttdeci">const char * lui_list_get_item_text(lui_obj_t *obj, uint8_t item_index)</div><div class="ttdoc">Get text of a list item by its index.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:1280</div></div>
-<div class="ttc" id="agroup__lui__object_html_ga580b2bdece45808266791573d874aabb"><div class="ttname"><a href="group__lui__object.html#ga580b2bdece45808266791573d874aabb">lui_object_get_event</a></div><div class="ttdeci">int8_t lui_object_get_event(lui_obj_t *obj)</div><div class="ttdoc">Get input event of an object.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3869</div></div>
-<div class="ttc" id="agroup__lui__object_html_gae9d2e2e1998f2603a3a6d24d08b5b64e"><div class="ttname"><a href="group__lui__object.html#gae9d2e2e1998f2603a3a6d24d08b5b64e">lui_object_set_callback</a></div><div class="ttdeci">void lui_object_set_callback(lui_obj_t *obj, void(*obj_event_cb)(lui_obj_t *))</div><div class="ttdoc">Set event call back function for input handling.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3855</div></div>
-<div class="ttc" id="agroup__lui__object_html_gaed4bb7d9c2764c6786708535fad7cf67"><div class="ttname"><a href="group__lui__object.html#gaed4bb7d9c2764c6786708535fad7cf67">lui_object_set_area</a></div><div class="ttdeci">void lui_object_set_area(lui_obj_t *obj, uint16_t width, uint16_t height)</div><div class="ttdoc">Set drawing area of an object.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3782</div></div>
-<div class="ttc" id="agroup__lui__object_html_gaf7bedc873edb862f9c1f8b063f17f839"><div class="ttname"><a href="group__lui__object.html#gaf7bedc873edb862f9c1f8b063f17f839">lui_object_set_position</a></div><div class="ttdeci">void lui_object_set_position(lui_obj_t *obj, uint16_t x, uint16_t y)</div><div class="ttdoc">Set position of an object.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3710</div></div>
-<div class="ttc" id="astruct__lui__obj__s_html"><div class="ttname"><a href="struct__lui__obj__s.html">_lui_obj_s</a></div><div class="ttdoc">Generic object datatype. Accessed only through getter and setter functions.</div><div class="ttdef"><b>Definition:</b> lame_ui.h:443</div></div>
+<div class="ttc" id="agroup__lui__list_html_ga002fad5fa77d895a533beb808c45fab5"><div class="ttname"><a href="group__lui__list.html#ga002fad5fa77d895a533beb808c45fab5">lui_list_set_selected_item_index</a></div><div class="ttdeci">int16_t lui_list_set_selected_item_index(lui_obj_t *obj, uint8_t item_index)</div><div class="ttdoc">Set selected item's index in a list.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:1378</div></div>
+<div class="ttc" id="agroup__lui__list_html_ga02c8af9365b2c846e71209f9be648930"><div class="ttname"><a href="group__lui__list.html#ga02c8af9365b2c846e71209f9be648930">lui_list_get_selected_item_index</a></div><div class="ttdeci">int16_t lui_list_get_selected_item_index(lui_obj_t *obj)</div><div class="ttdoc">Get index of selected item of a list.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:1370</div></div>
+<div class="ttc" id="agroup__lui__list_html_ga1641e5189b244dab791439e1cdf74a5f"><div class="ttname"><a href="group__lui__list.html#ga1641e5189b244dab791439e1cdf74a5f">lui_list_add_item</a></div><div class="ttdeci">int8_t lui_list_add_item(lui_obj_t *obj, const char *text)</div><div class="ttdoc">Add an item to the end of the list.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:1319</div></div>
+<div class="ttc" id="agroup__lui__list_html_ga50b081682a8bc9ab50e229d432605b2e"><div class="ttname"><a href="group__lui__list.html#ga50b081682a8bc9ab50e229d432605b2e">lui_list_prepare</a></div><div class="ttdeci">void lui_list_prepare(lui_obj_t *obj)</div><div class="ttdoc">Prepares a list for final render. This function must be called by the user after creating a list/maki...</div><div class="ttdef"><b>Definition:</b> lame_ui.c:1191</div></div>
+<div class="ttc" id="agroup__lui__list_html_ga8d36d05056be1235f0314acbdac0371e"><div class="ttname"><a href="group__lui__list.html#ga8d36d05056be1235f0314acbdac0371e">lui_list_set_max_items_count</a></div><div class="ttdeci">int8_t lui_list_set_max_items_count(lui_obj_t *obj, uint8_t max_items_cnt)</div><div class="ttdoc">Set maximum item count for a list. The list cannot store items more than this number.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:1303</div></div>
+<div class="ttc" id="agroup__lui__list_html_ga9e90dcc7b886d2ccb958637601acad00"><div class="ttname"><a href="group__lui__list.html#ga9e90dcc7b886d2ccb958637601acad00">lui_list_set_dropdown_mode</a></div><div class="ttdeci">int8_t lui_list_set_dropdown_mode(lui_obj_t *obj, uint8_t is_dropdown)</div><div class="ttdoc">Set if list is a dropdown or not.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:1418</div></div>
+<div class="ttc" id="agroup__lui__list_html_gaa34f481dc694e799da5706f88aef6671"><div class="ttname"><a href="group__lui__list.html#gaa34f481dc694e799da5706f88aef6671">lui_list_get_item_text</a></div><div class="ttdeci">const char * lui_list_get_item_text(lui_obj_t *obj, uint8_t item_index)</div><div class="ttdoc">Get text of a list item by its index.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:1392</div></div>
+<div class="ttc" id="agroup__lui__list_html_gab157ccd8d89e4f71ec79c8df9f0c21c9"><div class="ttname"><a href="group__lui__list.html#gab157ccd8d89e4f71ec79c8df9f0c21c9">lui_list_create</a></div><div class="ttdeci">lui_obj_t * lui_list_create()</div><div class="ttdoc">Create a list object with initial values.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:1138</div></div>
+<div class="ttc" id="agroup__lui__object_html_ga580b2bdece45808266791573d874aabb"><div class="ttname"><a href="group__lui__object.html#ga580b2bdece45808266791573d874aabb">lui_object_get_event</a></div><div class="ttdeci">int8_t lui_object_get_event(lui_obj_t *obj)</div><div class="ttdoc">Get input event of an object.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:4158</div></div>
+<div class="ttc" id="agroup__lui__object_html_gae9d2e2e1998f2603a3a6d24d08b5b64e"><div class="ttname"><a href="group__lui__object.html#gae9d2e2e1998f2603a3a6d24d08b5b64e">lui_object_set_callback</a></div><div class="ttdeci">void lui_object_set_callback(lui_obj_t *obj, void(*obj_event_cb)(lui_obj_t *))</div><div class="ttdoc">Set event call back function for input handling.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:4144</div></div>
+<div class="ttc" id="agroup__lui__object_html_gaed4bb7d9c2764c6786708535fad7cf67"><div class="ttname"><a href="group__lui__object.html#gaed4bb7d9c2764c6786708535fad7cf67">lui_object_set_area</a></div><div class="ttdeci">void lui_object_set_area(lui_obj_t *obj, uint16_t width, uint16_t height)</div><div class="ttdoc">Set drawing area of an object.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:4061</div></div>
+<div class="ttc" id="agroup__lui__object_html_gaf7bedc873edb862f9c1f8b063f17f839"><div class="ttname"><a href="group__lui__object.html#gaf7bedc873edb862f9c1f8b063f17f839">lui_object_set_position</a></div><div class="ttdeci">void lui_object_set_position(lui_obj_t *obj, uint16_t x, uint16_t y)</div><div class="ttdoc">Set position of an object. This is the relative position of the object to its parent.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3989</div></div>
+<div class="ttc" id="astruct__lui__obj__s_html"><div class="ttname"><a href="struct__lui__obj__s.html">_lui_obj_s</a></div><div class="ttdoc">Generic object datatype. Accessed only through getter and setter functions.</div><div class="ttdef"><b>Definition:</b> lame_ui.h:480</div></div>
 </div><!-- fragment --> <h2 class="groupheader">Function Documentation</h2>
 <a id="ga1641e5189b244dab791439e1cdf74a5f" name="ga1641e5189b244dab791439e1cdf74a5f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga1641e5189b244dab791439e1cdf74a5f">&#9670;&#160;</a></span>lui_list_add_item()</h2>
@@ -309,8 +312,8 @@ Light Theme</div></div>
 
 </div>
 </div>
-<a id="ga3c9a4f6a688429ad2d848b4128838f46" name="ga3c9a4f6a688429ad2d848b4128838f46"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga3c9a4f6a688429ad2d848b4128838f46">&#9670;&#160;</a></span>lui_list_create()</h2>
+<a id="gab157ccd8d89e4f71ec79c8df9f0c21c9" name="gab157ccd8d89e4f71ec79c8df9f0c21c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab157ccd8d89e4f71ec79c8df9f0c21c9">&#9670;&#160;</a></span>lui_list_create()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -318,6 +321,7 @@ Light Theme</div></div>
         <tr>
           <td class="memname"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> * lui_list_create </td>
           <td>(</td>
+          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -326,6 +330,33 @@ Light Theme</div></div>
 
 <p>Create a list object with initial values. </p>
 <dl class="section return"><dt>Returns</dt><dd>lui_obj_t* created list object </dd></dl>
+
+</div>
+</div>
+<a id="gab146a06764dfdcfcd69e0333b27a4e90" name="gab146a06764dfdcfcd69e0333b27a4e90"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab146a06764dfdcfcd69e0333b27a4e90">&#9670;&#160;</a></span>lui_list_create_and_add()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> * lui_list_create_and_add </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td>
+          <td class="paramname"><em>obj_parent</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Create a list with initial values and add it to a parent. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">obj_parent</td><td>parent object </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>lui_obj_t* Created list object </dd></dl>
 
 </div>
 </div>

@@ -78,15 +78,13 @@ void setup(void)
     lui_init(lui_memory, sizeof(lui_memory));
     
     // Create a display driver object
-    lui_dispdrv_t* display_driver = lui_dispdrv_create();
-    lui_dispdrv_register(display_driver);
+    lui_dispdrv_t* display_driver = lui_dispdrv_create_and_register();
     lui_dispdrv_set_resolution(display_driver, HOR_RES, VERT_RES);
     lui_dispdrv_set_disp_buff(my_display_driver, disp_buffer, DISP_BUFF_PX_CNT);
 	lui_dispdrv_set_draw_disp_buff_cb(my_display_driver, draw_disp_buff_cb);
     
     // Create touch input device
-    lui_touch_input_dev_t* input_device = lui_touch_inputdev_create();
-    lui_touch_inputdev_register(input_device);
+    lui_touch_input_dev_t* input_device = lui_touch_inputdev_create_and_register();
     lui_touch_inputdev_set_read_input_cb(input_device, read_touch_input_cb);
     
 
@@ -135,15 +133,13 @@ int main ()
 
 	//----------------------------------------------------------
 	//[Mandatory] creating display driver object
-	lui_dispdrv_t *my_display_driver = lui_dispdrv_create();
-	lui_dispdrv_register(my_display_driver);
+	lui_dispdrv_t *my_display_driver = lui_dispdrv_create_and_register();
 	lui_dispdrv_set_resolution(my_display_driver, HOR_RES, VERT_RES);
 	lui_dispdrv_set_disp_buff(my_display_driver, disp_buffer, DISP_BUFF_PX_CNT);
 	lui_dispdrv_set_draw_disp_buff_cb(my_display_driver, my_draw_disp_buff_cb);
 
     //[Optional] creating input device object
-	lui_touch_input_dev_t *my_input_device = lui_touch_inputdev_create();
-	lui_touch_inputdev_register(my_input_device);
+	lui_touch_input_dev_t *my_input_device = lui_touch_inputdev_create_and_register();
 	lui_touch_inputdev_set_read_input_cb(my_input_device, my_input_read_cb);	
 
 	//----------------------------------------------------------
@@ -152,7 +148,7 @@ int main ()
     // other objects will be under the hierarchy of a scene. There can be multiple 
     // scenes. A particular object can be under only one scene at a time.
 	lui_obj_t* scene_1 = lui_scene_create();
-    // [Mandatory] A scene must be set as active scene. Only the active scene
+    // [Mandatory] A scene must be set as an active scene. Only the active scene
     // is rendered.
 	lui_scene_set_active(scene_1);
 
@@ -164,10 +160,8 @@ int main ()
 	lui_object_set_position(label_1, 5, 50);
 	lui_label_set_text(label_1, "This is Label 1. Below is Button 1");
 
-	// Create a button
-	lui_obj_t* button_1 = lui_button_create();
-    // [Mandatory] Add a parent
-	lui_object_add_to_parent(button_1, scene_1);
+	// Create a button (and directly add to parent)
+	lui_obj_t* button_1 = lui_button_create_and_add(scene_1);
 	lui_object_set_area(button_1, 110, 40);
 	lui_object_set_position(button_1, 65, 100);
 	lui_button_set_label_text(button_1, "Button 1");

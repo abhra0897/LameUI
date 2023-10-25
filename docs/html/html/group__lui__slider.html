@@ -40,7 +40,7 @@
 		<div class="logo">
 			<a href="index.html"> <img src="LameUI_logo.png" alt="LameUI logo" width="220" ></a>
 			<span style="display: inline-block; margin-top: 10px;">
-				v2.0
+				v2.1
 			</span>
 		</div>
 		<div class="navigation-footer">
@@ -120,9 +120,12 @@ $(document).ready(function(){initNavTree('group__lui__slider.html',''); initResi
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga25e18048e03dd487ff46a3712d13c4a1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__slider.html#ga25e18048e03dd487ff46a3712d13c4a1">lui_slider_create</a> ()</td></tr>
-<tr class="memdesc:ga25e18048e03dd487ff46a3712d13c4a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a slider object with initial values.  <br /></td></tr>
-<tr class="separator:ga25e18048e03dd487ff46a3712d13c4a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf89068869a66f81633b78dce58372ef7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__slider.html#gaf89068869a66f81633b78dce58372ef7">lui_slider_create</a> (void)</td></tr>
+<tr class="memdesc:gaf89068869a66f81633b78dce58372ef7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a slider object with initial values.  <br /></td></tr>
+<tr class="separator:gaf89068869a66f81633b78dce58372ef7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga068d4475562799b32ebe4bc5d21f891d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__slider.html#ga068d4475562799b32ebe4bc5d21f891d">lui_slider_create_and_add</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_parent)</td></tr>
+<tr class="memdesc:ga068d4475562799b32ebe4bc5d21f891d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a slider with initial values and add it to a parent.  <br /></td></tr>
+<tr class="separator:ga068d4475562799b32ebe4bc5d21f891d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga89456da8b3d00d85366cd97a68ea6ef2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__slider.html#ga89456da8b3d00d85366cd97a68ea6ef2">lui_slider_draw</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_slider)</td></tr>
 <tr class="memdesc:ga89456da8b3d00d85366cd97a68ea6ef2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw slider object.  <br /></td></tr>
 <tr class="separator:ga89456da8b3d00d85366cd97a68ea6ef2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -189,7 +192,7 @@ Light Theme</div></div>
 <div class="line">}</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// Create a slider object with default knob</span></div>
-<div class="line">slider_led_brightness = <a class="code hl_function" href="group__lui__slider.html#ga25e18048e03dd487ff46a3712d13c4a1">lui_slider_create</a>();</div>
+<div class="line">slider_led_brightness = <a class="code hl_function" href="group__lui__slider.html#gaf89068869a66f81633b78dce58372ef7">lui_slider_create</a>();</div>
 <div class="line"><span class="comment">// Setting slider&#39;s area is important</span></div>
 <div class="line"><a class="code hl_function" href="group__lui__object.html#gaed4bb7d9c2764c6786708535fad7cf67">lui_object_set_area</a>(slider_led_brightness, 160, 20);</div>
 <div class="line"><a class="code hl_function" href="group__lui__object.html#gaf7bedc873edb862f9c1f8b063f17f839">lui_object_set_position</a>(slider_led_brightness, 0, 5);</div>
@@ -201,7 +204,7 @@ Light Theme</div></div>
 <div class="line"><a class="code hl_function" href="group__lui__object.html#gae9d2e2e1998f2603a3a6d24d08b5b64e">lui_object_set_callback</a>(slider_led_brightness, slider_event_handler_cb);</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// Create a slider with text knob</span></div>
-<div class="line">slider_2 = <a class="code hl_function" href="group__lui__slider.html#ga25e18048e03dd487ff46a3712d13c4a1">lui_slider_create</a>();</div>
+<div class="line">slider_2 = <a class="code hl_function" href="group__lui__slider.html#gaf89068869a66f81633b78dce58372ef7">lui_slider_create</a>();</div>
 <div class="line"><a class="code hl_function" href="group__lui__object.html#gaed4bb7d9c2764c6786708535fad7cf67">lui_object_set_area</a>(slider_2, 160, 20);</div>
 <div class="line"><a class="code hl_function" href="group__lui__object.html#gaf7bedc873edb862f9c1f8b063f17f839">lui_object_set_position</a>(slider_2, 0, 50);</div>
 <div class="line"><a class="code hl_function" href="group__lui__slider.html#ga4134aedb43ab207c9db42606a7bb2bd1">lui_slider_set_range</a>(slider_2, 0, 100);</div>
@@ -212,19 +215,19 @@ Light Theme</div></div>
 <div class="line"><a class="code hl_function" href="group__lui__slider.html#ga21098fa5385fdd8013e65fd946bbc9ee">lui_slider_set_show_value</a>(slider_2, 1);</div>
 <div class="line"><a class="code hl_function" href="group__lui__slider.html#ga99058c165b9beeb6ca7e0c0d4fe7c0fd">lui_slider_set_text</a>(slider_2, <span class="stringliteral">&quot; %&quot;</span>);</div>
 <div class="ttc" id="agroup__LUI__EVENT_html_gaac0f29869773a73ada40aa4b8bba419e"><div class="ttname"><a href="group__LUI__EVENT.html#gaac0f29869773a73ada40aa4b8bba419e">LUI_EVENT_VALUE_CHANGED</a></div><div class="ttdeci">#define LUI_EVENT_VALUE_CHANGED</div><div class="ttdoc">Value of a object is changed. Example: a slider is dragged.</div><div class="ttdef"><b>Definition:</b> lame_ui.h:111</div></div>
-<div class="ttc" id="agroup__LUI__SLIDER__KNOB__TYPE_html_ga6613838db6563a6ee85b1a14f8c15a60"><div class="ttname"><a href="group__LUI__SLIDER__KNOB__TYPE.html#ga6613838db6563a6ee85b1a14f8c15a60">LUI_SLIDER_KNOB_TYPE_TEXT</a></div><div class="ttdeci">#define LUI_SLIDER_KNOB_TYPE_TEXT</div><div class="ttdoc">Text (value and/or custom text) will be rendered.</div><div class="ttdef"><b>Definition:</b> lame_ui.h:224</div></div>
-<div class="ttc" id="agroup__lui__object_html_ga580b2bdece45808266791573d874aabb"><div class="ttname"><a href="group__lui__object.html#ga580b2bdece45808266791573d874aabb">lui_object_get_event</a></div><div class="ttdeci">int8_t lui_object_get_event(lui_obj_t *obj)</div><div class="ttdoc">Get input event of an object.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3869</div></div>
-<div class="ttc" id="agroup__lui__object_html_gae9d2e2e1998f2603a3a6d24d08b5b64e"><div class="ttname"><a href="group__lui__object.html#gae9d2e2e1998f2603a3a6d24d08b5b64e">lui_object_set_callback</a></div><div class="ttdeci">void lui_object_set_callback(lui_obj_t *obj, void(*obj_event_cb)(lui_obj_t *))</div><div class="ttdoc">Set event call back function for input handling.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3855</div></div>
-<div class="ttc" id="agroup__lui__object_html_gaed4bb7d9c2764c6786708535fad7cf67"><div class="ttname"><a href="group__lui__object.html#gaed4bb7d9c2764c6786708535fad7cf67">lui_object_set_area</a></div><div class="ttdeci">void lui_object_set_area(lui_obj_t *obj, uint16_t width, uint16_t height)</div><div class="ttdoc">Set drawing area of an object.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3782</div></div>
-<div class="ttc" id="agroup__lui__object_html_gaf7bedc873edb862f9c1f8b063f17f839"><div class="ttname"><a href="group__lui__object.html#gaf7bedc873edb862f9c1f8b063f17f839">lui_object_set_position</a></div><div class="ttdeci">void lui_object_set_position(lui_obj_t *obj, uint16_t x, uint16_t y)</div><div class="ttdoc">Set position of an object.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3710</div></div>
-<div class="ttc" id="agroup__lui__slider_html_ga21098fa5385fdd8013e65fd946bbc9ee"><div class="ttname"><a href="group__lui__slider.html#ga21098fa5385fdd8013e65fd946bbc9ee">lui_slider_set_show_value</a></div><div class="ttdeci">void lui_slider_set_show_value(lui_obj_t *obj, uint8_t show_val)</div><div class="ttdoc">Set whether to show value on the slider or not.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:2167</div></div>
-<div class="ttc" id="agroup__lui__slider_html_ga25e18048e03dd487ff46a3712d13c4a1"><div class="ttname"><a href="group__lui__slider.html#ga25e18048e03dd487ff46a3712d13c4a1">lui_slider_create</a></div><div class="ttdeci">lui_obj_t * lui_slider_create()</div><div class="ttdoc">Create a slider object with initial values.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:2109</div></div>
-<div class="ttc" id="agroup__lui__slider_html_ga4134aedb43ab207c9db42606a7bb2bd1"><div class="ttname"><a href="group__lui__slider.html#ga4134aedb43ab207c9db42606a7bb2bd1">lui_slider_set_range</a></div><div class="ttdeci">void lui_slider_set_range(lui_obj_t *obj, int16_t range_min, int16_t range_max)</div><div class="ttdoc">Set minimum and maximum values of slider.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:2221</div></div>
-<div class="ttc" id="agroup__lui__slider_html_ga439250ad19d7a3791e8b6e634a2810b3"><div class="ttname"><a href="group__lui__slider.html#ga439250ad19d7a3791e8b6e634a2810b3">lui_slider_set_knob_type</a></div><div class="ttdeci">int8_t lui_slider_set_knob_type(lui_obj_t *obj, uint8_t knob_type)</div><div class="ttdoc">Set knob type of the slider. See Slider knob type flags.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:2322</div></div>
-<div class="ttc" id="agroup__lui__slider_html_ga7b4465c8e22c0b89b2fecfbc67c07cc0"><div class="ttname"><a href="group__lui__slider.html#ga7b4465c8e22c0b89b2fecfbc67c07cc0">lui_slider_set_value</a></div><div class="ttdeci">void lui_slider_set_value(lui_obj_t *obj, int16_t value)</div><div class="ttdoc">Set value of slider.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:2185</div></div>
-<div class="ttc" id="agroup__lui__slider_html_ga99058c165b9beeb6ca7e0c0d4fe7c0fd"><div class="ttname"><a href="group__lui__slider.html#ga99058c165b9beeb6ca7e0c0d4fe7c0fd">lui_slider_set_text</a></div><div class="ttdeci">void lui_slider_set_text(lui_obj_t *obj, const char *custom_text)</div><div class="ttdoc">Set custom text to be rendered on the slider.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:2299</div></div>
-<div class="ttc" id="agroup__lui__slider_html_gaf2d084b05fbbcce0d315fc70420709ab"><div class="ttname"><a href="group__lui__slider.html#gaf2d084b05fbbcce0d315fc70420709ab">lui_slider_get_value</a></div><div class="ttdeci">int16_t lui_slider_get_value(lui_obj_t *obj)</div><div class="ttdoc">Get value of slider.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:2248</div></div>
-<div class="ttc" id="astruct__lui__obj__s_html"><div class="ttname"><a href="struct__lui__obj__s.html">_lui_obj_s</a></div><div class="ttdoc">Generic object datatype. Accessed only through getter and setter functions.</div><div class="ttdef"><b>Definition:</b> lame_ui.h:443</div></div>
+<div class="ttc" id="agroup__LUI__SLIDER__KNOB__TYPE_html_ga6613838db6563a6ee85b1a14f8c15a60"><div class="ttname"><a href="group__LUI__SLIDER__KNOB__TYPE.html#ga6613838db6563a6ee85b1a14f8c15a60">LUI_SLIDER_KNOB_TYPE_TEXT</a></div><div class="ttdeci">#define LUI_SLIDER_KNOB_TYPE_TEXT</div><div class="ttdoc">Text (value and/or custom text) will be rendered.</div><div class="ttdef"><b>Definition:</b> lame_ui.h:235</div></div>
+<div class="ttc" id="agroup__lui__object_html_ga580b2bdece45808266791573d874aabb"><div class="ttname"><a href="group__lui__object.html#ga580b2bdece45808266791573d874aabb">lui_object_get_event</a></div><div class="ttdeci">int8_t lui_object_get_event(lui_obj_t *obj)</div><div class="ttdoc">Get input event of an object.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:4158</div></div>
+<div class="ttc" id="agroup__lui__object_html_gae9d2e2e1998f2603a3a6d24d08b5b64e"><div class="ttname"><a href="group__lui__object.html#gae9d2e2e1998f2603a3a6d24d08b5b64e">lui_object_set_callback</a></div><div class="ttdeci">void lui_object_set_callback(lui_obj_t *obj, void(*obj_event_cb)(lui_obj_t *))</div><div class="ttdoc">Set event call back function for input handling.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:4144</div></div>
+<div class="ttc" id="agroup__lui__object_html_gaed4bb7d9c2764c6786708535fad7cf67"><div class="ttname"><a href="group__lui__object.html#gaed4bb7d9c2764c6786708535fad7cf67">lui_object_set_area</a></div><div class="ttdeci">void lui_object_set_area(lui_obj_t *obj, uint16_t width, uint16_t height)</div><div class="ttdoc">Set drawing area of an object.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:4061</div></div>
+<div class="ttc" id="agroup__lui__object_html_gaf7bedc873edb862f9c1f8b063f17f839"><div class="ttname"><a href="group__lui__object.html#gaf7bedc873edb862f9c1f8b063f17f839">lui_object_set_position</a></div><div class="ttdeci">void lui_object_set_position(lui_obj_t *obj, uint16_t x, uint16_t y)</div><div class="ttdoc">Set position of an object. This is the relative position of the object to its parent.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3989</div></div>
+<div class="ttc" id="agroup__lui__slider_html_ga21098fa5385fdd8013e65fd946bbc9ee"><div class="ttname"><a href="group__lui__slider.html#ga21098fa5385fdd8013e65fd946bbc9ee">lui_slider_set_show_value</a></div><div class="ttdeci">void lui_slider_set_show_value(lui_obj_t *obj, uint8_t show_val)</div><div class="ttdoc">Set whether to show value on the slider or not.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:2304</div></div>
+<div class="ttc" id="agroup__lui__slider_html_ga4134aedb43ab207c9db42606a7bb2bd1"><div class="ttname"><a href="group__lui__slider.html#ga4134aedb43ab207c9db42606a7bb2bd1">lui_slider_set_range</a></div><div class="ttdeci">void lui_slider_set_range(lui_obj_t *obj, int16_t range_min, int16_t range_max)</div><div class="ttdoc">Set minimum and maximum values of slider.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:2358</div></div>
+<div class="ttc" id="agroup__lui__slider_html_ga439250ad19d7a3791e8b6e634a2810b3"><div class="ttname"><a href="group__lui__slider.html#ga439250ad19d7a3791e8b6e634a2810b3">lui_slider_set_knob_type</a></div><div class="ttdeci">int8_t lui_slider_set_knob_type(lui_obj_t *obj, uint8_t knob_type)</div><div class="ttdoc">Set knob type of the slider. See Slider knob type flags.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:2459</div></div>
+<div class="ttc" id="agroup__lui__slider_html_ga7b4465c8e22c0b89b2fecfbc67c07cc0"><div class="ttname"><a href="group__lui__slider.html#ga7b4465c8e22c0b89b2fecfbc67c07cc0">lui_slider_set_value</a></div><div class="ttdeci">void lui_slider_set_value(lui_obj_t *obj, int16_t value)</div><div class="ttdoc">Set value of slider.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:2322</div></div>
+<div class="ttc" id="agroup__lui__slider_html_ga99058c165b9beeb6ca7e0c0d4fe7c0fd"><div class="ttname"><a href="group__lui__slider.html#ga99058c165b9beeb6ca7e0c0d4fe7c0fd">lui_slider_set_text</a></div><div class="ttdeci">void lui_slider_set_text(lui_obj_t *obj, const char *custom_text)</div><div class="ttdoc">Set custom text to be rendered on the slider.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:2436</div></div>
+<div class="ttc" id="agroup__lui__slider_html_gaf2d084b05fbbcce0d315fc70420709ab"><div class="ttname"><a href="group__lui__slider.html#gaf2d084b05fbbcce0d315fc70420709ab">lui_slider_get_value</a></div><div class="ttdeci">int16_t lui_slider_get_value(lui_obj_t *obj)</div><div class="ttdoc">Get value of slider.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:2385</div></div>
+<div class="ttc" id="agroup__lui__slider_html_gaf89068869a66f81633b78dce58372ef7"><div class="ttname"><a href="group__lui__slider.html#gaf89068869a66f81633b78dce58372ef7">lui_slider_create</a></div><div class="ttdeci">lui_obj_t * lui_slider_create()</div><div class="ttdoc">Create a slider object with initial values.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:2241</div></div>
+<div class="ttc" id="astruct__lui__obj__s_html"><div class="ttname"><a href="struct__lui__obj__s.html">_lui_obj_s</a></div><div class="ttdoc">Generic object datatype. Accessed only through getter and setter functions.</div><div class="ttdef"><b>Definition:</b> lame_ui.h:480</div></div>
 </div><!-- fragment --><h1><a class="anchor" id="slider_example2"></a>
 Example Progress Bar</h1>
 <p>Example of slider as progress bar </p><div class="image">
@@ -236,7 +239,7 @@ Dark Theme</div></div>
 <div class="caption">
 Light Theme</div></div>
  <div class="fragment"><div class="line"><span class="comment">// Create a slider</span></div>
-<div class="line">progress_bar = <a class="code hl_function" href="group__lui__slider.html#ga25e18048e03dd487ff46a3712d13c4a1">lui_slider_create</a>();</div>
+<div class="line">progress_bar = <a class="code hl_function" href="group__lui__slider.html#gaf89068869a66f81633b78dce58372ef7">lui_slider_create</a>();</div>
 <div class="line"><a class="code hl_function" href="group__lui__object.html#gaed4bb7d9c2764c6786708535fad7cf67">lui_object_set_area</a>(progress_bar, 160, 40);</div>
 <div class="line"><a class="code hl_function" href="group__lui__object.html#gaf7bedc873edb862f9c1f8b063f17f839">lui_object_set_position</a>(progress_bar, 10, 20);</div>
 <div class="line"><a class="code hl_function" href="group__lui__slider.html#ga4134aedb43ab207c9db42606a7bb2bd1">lui_slider_set_range</a>(progress_bar, 0, 100);</div>
@@ -248,10 +251,10 @@ Light Theme</div></div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// What if we only want to show custom text and no value?</span></div>
 <div class="line"><span class="comment">// lui_slider_set_show_value(progress_bar, 0);</span></div>
-<div class="ttc" id="agroup__lui__slider_html_ga85947ccf4d747873b9c574189c441aeb"><div class="ttname"><a href="group__lui__slider.html#ga85947ccf4d747873b9c574189c441aeb">lui_slider_set_progress_bar</a></div><div class="ttdeci">void lui_slider_set_progress_bar(lui_obj_t *obj, uint8_t is_progress_bar)</div><div class="ttdoc">Configure the slider as a progress bar.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:2274</div></div>
+<div class="ttc" id="agroup__lui__slider_html_ga85947ccf4d747873b9c574189c441aeb"><div class="ttname"><a href="group__lui__slider.html#ga85947ccf4d747873b9c574189c441aeb">lui_slider_set_progress_bar</a></div><div class="ttdeci">void lui_slider_set_progress_bar(lui_obj_t *obj, uint8_t is_progress_bar)</div><div class="ttdoc">Configure the slider as a progress bar.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:2411</div></div>
 </div><!-- fragment --> <h2 class="groupheader">Function Documentation</h2>
-<a id="ga25e18048e03dd487ff46a3712d13c4a1" name="ga25e18048e03dd487ff46a3712d13c4a1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga25e18048e03dd487ff46a3712d13c4a1">&#9670;&#160;</a></span>lui_slider_create()</h2>
+<a id="gaf89068869a66f81633b78dce58372ef7" name="gaf89068869a66f81633b78dce58372ef7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf89068869a66f81633b78dce58372ef7">&#9670;&#160;</a></span>lui_slider_create()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -259,6 +262,7 @@ Light Theme</div></div>
         <tr>
           <td class="memname"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> * lui_slider_create </td>
           <td>(</td>
+          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -267,6 +271,33 @@ Light Theme</div></div>
 
 <p>Create a slider object with initial values. </p>
 <dl class="section return"><dt>Returns</dt><dd>lui_obj_t* created slider object </dd></dl>
+
+</div>
+</div>
+<a id="ga068d4475562799b32ebe4bc5d21f891d" name="ga068d4475562799b32ebe4bc5d21f891d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga068d4475562799b32ebe4bc5d21f891d">&#9670;&#160;</a></span>lui_slider_create_and_add()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> * lui_slider_create_and_add </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td>
+          <td class="paramname"><em>obj_parent</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Create a slider with initial values and add it to a parent. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">obj_parent</td><td>parent object </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>lui_obj_t* Created slider object </dd></dl>
 
 </div>
 </div>

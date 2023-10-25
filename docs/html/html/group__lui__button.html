@@ -40,7 +40,7 @@
 		<div class="logo">
 			<a href="index.html"> <img src="LameUI_logo.png" alt="LameUI logo" width="220" ></a>
 			<span style="display: inline-block; margin-top: 10px;">
-				v2.0
+				v2.1
 			</span>
 		</div>
 		<div class="navigation-footer">
@@ -120,9 +120,12 @@ $(document).ready(function(){initNavTree('group__lui__button.html',''); initResi
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga42fa5a98fca8845b038c7a93dfc480c1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__button.html#ga42fa5a98fca8845b038c7a93dfc480c1">lui_button_create</a> ()</td></tr>
-<tr class="memdesc:ga42fa5a98fca8845b038c7a93dfc480c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a button with initial values.  <br /></td></tr>
-<tr class="separator:ga42fa5a98fca8845b038c7a93dfc480c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9157ed1406680f05c6f9804899c609c3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__button.html#ga9157ed1406680f05c6f9804899c609c3">lui_button_create</a> (void)</td></tr>
+<tr class="memdesc:ga9157ed1406680f05c6f9804899c609c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a button with initial values.  <br /></td></tr>
+<tr class="separator:ga9157ed1406680f05c6f9804899c609c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2fe044f3a401c276a8a38d8e43a03972"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__button.html#ga2fe044f3a401c276a8a38d8e43a03972">lui_button_create_and_add</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_parent)</td></tr>
+<tr class="memdesc:ga2fe044f3a401c276a8a38d8e43a03972"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a button with initial values and add it to a parent.  <br /></td></tr>
+<tr class="separator:ga2fe044f3a401c276a8a38d8e43a03972"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad887047af16cb14b720cf1cf8116c1af"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__lui__button.html#gad887047af16cb14b720cf1cf8116c1af">lui_button_draw</a> (<a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *obj_btn)</td></tr>
 <tr class="memdesc:gad887047af16cb14b720cf1cf8116c1af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a button object.  <br /></td></tr>
 <tr class="separator:gad887047af16cb14b720cf1cf8116c1af"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -221,7 +224,7 @@ Light Theme</div></div>
 <div class="line"> </div>
 <div class="line">    <span class="comment">// Do more stuffs...</span></div>
 <div class="line">}</div>
-<div class="line"><a class="code hl_struct" href="struct__lui__obj__s.html">lui_obj_t</a>* my_button = <a class="code hl_function" href="group__lui__button.html#ga42fa5a98fca8845b038c7a93dfc480c1">lui_button_create</a>();</div>
+<div class="line"><a class="code hl_struct" href="struct__lui__obj__s.html">lui_obj_t</a>* my_button = <a class="code hl_function" href="group__lui__button.html#ga9157ed1406680f05c6f9804899c609c3">lui_button_create</a>();</div>
 <div class="line"><a class="code hl_function" href="group__lui__button.html#gaec9c0f394998052cbc800530f69f3a97">lui_button_set_label_text</a>(my_button, <span class="stringliteral">&quot;Turn ON Light&quot;</span>);</div>
 <div class="line"><span class="comment">// Optionally set button area and position</span></div>
 <div class="line"><a class="code hl_function" href="group__lui__object.html#gaed4bb7d9c2764c6786708535fad7cf67">lui_object_set_area</a>(my_button, 140, 60);</div>
@@ -229,16 +232,16 @@ Light Theme</div></div>
 <div class="line"><span class="comment">// set button call back function</span></div>
 <div class="line"><a class="code hl_function" href="group__lui__object.html#gae9d2e2e1998f2603a3a6d24d08b5b64e">lui_object_set_callback</a>(my_button, button_callback);</div>
 <div class="ttc" id="agroup__LUI__EVENT_html_gac1d4660029fe5efac27e0116e258d65d"><div class="ttname"><a href="group__LUI__EVENT.html#gac1d4660029fe5efac27e0116e258d65d">LUI_EVENT_PRESSED</a></div><div class="ttdeci">#define LUI_EVENT_PRESSED</div><div class="ttdoc">Object is pressed (object under pointing device and pointing device button is low)</div><div class="ttdef"><b>Definition:</b> lame_ui.h:107</div></div>
-<div class="ttc" id="agroup__lui__button_html_ga42fa5a98fca8845b038c7a93dfc480c1"><div class="ttname"><a href="group__lui__button.html#ga42fa5a98fca8845b038c7a93dfc480c1">lui_button_create</a></div><div class="ttdeci">lui_obj_t * lui_button_create()</div><div class="ttdoc">Create a button with initial values.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:699</div></div>
-<div class="ttc" id="agroup__lui__button_html_gaec9c0f394998052cbc800530f69f3a97"><div class="ttname"><a href="group__lui__button.html#gaec9c0f394998052cbc800530f69f3a97">lui_button_set_label_text</a></div><div class="ttdeci">void lui_button_set_label_text(lui_obj_t *obj, const char *text)</div><div class="ttdoc">Set the text of the button's label.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:756</div></div>
-<div class="ttc" id="agroup__lui__object_html_ga580b2bdece45808266791573d874aabb"><div class="ttname"><a href="group__lui__object.html#ga580b2bdece45808266791573d874aabb">lui_object_get_event</a></div><div class="ttdeci">int8_t lui_object_get_event(lui_obj_t *obj)</div><div class="ttdoc">Get input event of an object.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3869</div></div>
-<div class="ttc" id="agroup__lui__object_html_gae9d2e2e1998f2603a3a6d24d08b5b64e"><div class="ttname"><a href="group__lui__object.html#gae9d2e2e1998f2603a3a6d24d08b5b64e">lui_object_set_callback</a></div><div class="ttdeci">void lui_object_set_callback(lui_obj_t *obj, void(*obj_event_cb)(lui_obj_t *))</div><div class="ttdoc">Set event call back function for input handling.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3855</div></div>
-<div class="ttc" id="agroup__lui__object_html_gaed4bb7d9c2764c6786708535fad7cf67"><div class="ttname"><a href="group__lui__object.html#gaed4bb7d9c2764c6786708535fad7cf67">lui_object_set_area</a></div><div class="ttdeci">void lui_object_set_area(lui_obj_t *obj, uint16_t width, uint16_t height)</div><div class="ttdoc">Set drawing area of an object.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3782</div></div>
-<div class="ttc" id="agroup__lui__object_html_gaf7bedc873edb862f9c1f8b063f17f839"><div class="ttname"><a href="group__lui__object.html#gaf7bedc873edb862f9c1f8b063f17f839">lui_object_set_position</a></div><div class="ttdeci">void lui_object_set_position(lui_obj_t *obj, uint16_t x, uint16_t y)</div><div class="ttdoc">Set position of an object.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3710</div></div>
-<div class="ttc" id="astruct__lui__obj__s_html"><div class="ttname"><a href="struct__lui__obj__s.html">_lui_obj_s</a></div><div class="ttdoc">Generic object datatype. Accessed only through getter and setter functions.</div><div class="ttdef"><b>Definition:</b> lame_ui.h:443</div></div>
+<div class="ttc" id="agroup__lui__button_html_ga9157ed1406680f05c6f9804899c609c3"><div class="ttname"><a href="group__lui__button.html#ga9157ed1406680f05c6f9804899c609c3">lui_button_create</a></div><div class="ttdeci">lui_obj_t * lui_button_create()</div><div class="ttdoc">Create a button with initial values.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:797</div></div>
+<div class="ttc" id="agroup__lui__button_html_gaec9c0f394998052cbc800530f69f3a97"><div class="ttname"><a href="group__lui__button.html#gaec9c0f394998052cbc800530f69f3a97">lui_button_set_label_text</a></div><div class="ttdeci">void lui_button_set_label_text(lui_obj_t *obj, const char *text)</div><div class="ttdoc">Set the text of the button's label.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:859</div></div>
+<div class="ttc" id="agroup__lui__object_html_ga580b2bdece45808266791573d874aabb"><div class="ttname"><a href="group__lui__object.html#ga580b2bdece45808266791573d874aabb">lui_object_get_event</a></div><div class="ttdeci">int8_t lui_object_get_event(lui_obj_t *obj)</div><div class="ttdoc">Get input event of an object.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:4158</div></div>
+<div class="ttc" id="agroup__lui__object_html_gae9d2e2e1998f2603a3a6d24d08b5b64e"><div class="ttname"><a href="group__lui__object.html#gae9d2e2e1998f2603a3a6d24d08b5b64e">lui_object_set_callback</a></div><div class="ttdeci">void lui_object_set_callback(lui_obj_t *obj, void(*obj_event_cb)(lui_obj_t *))</div><div class="ttdoc">Set event call back function for input handling.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:4144</div></div>
+<div class="ttc" id="agroup__lui__object_html_gaed4bb7d9c2764c6786708535fad7cf67"><div class="ttname"><a href="group__lui__object.html#gaed4bb7d9c2764c6786708535fad7cf67">lui_object_set_area</a></div><div class="ttdeci">void lui_object_set_area(lui_obj_t *obj, uint16_t width, uint16_t height)</div><div class="ttdoc">Set drawing area of an object.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:4061</div></div>
+<div class="ttc" id="agroup__lui__object_html_gaf7bedc873edb862f9c1f8b063f17f839"><div class="ttname"><a href="group__lui__object.html#gaf7bedc873edb862f9c1f8b063f17f839">lui_object_set_position</a></div><div class="ttdeci">void lui_object_set_position(lui_obj_t *obj, uint16_t x, uint16_t y)</div><div class="ttdoc">Set position of an object. This is the relative position of the object to its parent.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:3989</div></div>
+<div class="ttc" id="astruct__lui__obj__s_html"><div class="ttname"><a href="struct__lui__obj__s.html">_lui_obj_s</a></div><div class="ttdoc">Generic object datatype. Accessed only through getter and setter functions.</div><div class="ttdef"><b>Definition:</b> lame_ui.h:480</div></div>
 </div><!-- fragment --><h1><a class="anchor" id="button_example2"></a>
 Example of checkable button</h1>
-<p>This code creates a button and sets it as checkable. Also, this button changes its text and color when pressed. </p><div class="fragment"><div class="line"><a class="code hl_struct" href="struct__lui__obj__s.html">lui_obj_t</a>* check_btn = <a class="code hl_function" href="group__lui__button.html#ga42fa5a98fca8845b038c7a93dfc480c1">lui_button_create</a>();</div>
+<p>This code creates a button and sets it as checkable. Also, this button changes its text and color when pressed. </p><div class="fragment"><div class="line"><a class="code hl_struct" href="struct__lui__obj__s.html">lui_obj_t</a>* check_btn = <a class="code hl_function" href="group__lui__button.html#ga9157ed1406680f05c6f9804899c609c3">lui_button_create</a>();</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// Set is as checkable</span></div>
 <div class="line"><a class="code hl_function" href="group__lui__button.html#ga14b1a068a1b7dc7f0cf0c933e9f4e0a2">lui_button_set_checkable</a>(check_btn, 1);</div>
@@ -254,14 +257,14 @@ Example of checkable button</h1>
 <div class="line"><span class="comment">// Optionally set button area and position</span></div>
 <div class="line"><a class="code hl_function" href="group__lui__object.html#gaed4bb7d9c2764c6786708535fad7cf67">lui_object_set_area</a>(check_btn, 140, 60);</div>
 <div class="line"><a class="code hl_function" href="group__lui__object.html#gaf7bedc873edb862f9c1f8b063f17f839">lui_object_set_position</a>(check_btn, 20, 10);</div>
-<div class="ttc" id="agroup__lui__button_html_ga14b1a068a1b7dc7f0cf0c933e9f4e0a2"><div class="ttname"><a href="group__lui__button.html#ga14b1a068a1b7dc7f0cf0c933e9f4e0a2">lui_button_set_checkable</a></div><div class="ttdeci">void lui_button_set_checkable(lui_obj_t *obj, uint8_t is_checkable)</div><div class="ttdoc">Set a button as checkable or not. Checkable buttons can be toggled.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:882</div></div>
-<div class="ttc" id="agroup__lui__button_html_ga7136a562c97ee76a05e8b9bff807ca3f"><div class="ttname"><a href="group__lui__button.html#ga7136a562c97ee76a05e8b9bff807ca3f">lui_button_set_label_color</a></div><div class="ttdeci">void lui_button_set_label_color(lui_obj_t *obj, uint16_t color)</div><div class="ttdoc">Set text color of button's label.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:796</div></div>
-<div class="ttc" id="agroup__lui__button_html_gae98bccfc4970422bb4b88c5348e88458"><div class="ttname"><a href="group__lui__button.html#gae98bccfc4970422bb4b88c5348e88458">lui_button_set_label_text_pressed</a></div><div class="ttdeci">void lui_button_set_label_text_pressed(lui_obj_t *obj, const char *pressed_text)</div><div class="ttdoc">Set text of button's label only for the pressed state.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:767</div></div>
-<div class="ttc" id="agroup__lui__gfx_html_ga3dffc69be3b19eb092238cec82a348b6"><div class="ttname"><a href="group__lui__gfx.html#ga3dffc69be3b19eb092238cec82a348b6">lui_rgb</a></div><div class="ttdeci">uint16_t lui_rgb(uint8_t red, uint8_t green, uint8_t blue)</div><div class="ttdoc">Create 16-bit RGB565 color using R, G, and B values (each 8-bit)</div><div class="ttdef"><b>Definition:</b> lame_ui.c:5111</div></div>
+<div class="ttc" id="agroup__lui__button_html_ga14b1a068a1b7dc7f0cf0c933e9f4e0a2"><div class="ttname"><a href="group__lui__button.html#ga14b1a068a1b7dc7f0cf0c933e9f4e0a2">lui_button_set_checkable</a></div><div class="ttdeci">void lui_button_set_checkable(lui_obj_t *obj, uint8_t is_checkable)</div><div class="ttdoc">Set a button as checkable or not. Checkable buttons can be toggled.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:985</div></div>
+<div class="ttc" id="agroup__lui__button_html_ga7136a562c97ee76a05e8b9bff807ca3f"><div class="ttname"><a href="group__lui__button.html#ga7136a562c97ee76a05e8b9bff807ca3f">lui_button_set_label_color</a></div><div class="ttdeci">void lui_button_set_label_color(lui_obj_t *obj, uint16_t color)</div><div class="ttdoc">Set text color of button's label.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:899</div></div>
+<div class="ttc" id="agroup__lui__button_html_gae98bccfc4970422bb4b88c5348e88458"><div class="ttname"><a href="group__lui__button.html#gae98bccfc4970422bb4b88c5348e88458">lui_button_set_label_text_pressed</a></div><div class="ttdeci">void lui_button_set_label_text_pressed(lui_obj_t *obj, const char *pressed_text)</div><div class="ttdoc">Set text of button's label only for the pressed state.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:870</div></div>
+<div class="ttc" id="agroup__lui__gfx_html_ga3dffc69be3b19eb092238cec82a348b6"><div class="ttname"><a href="group__lui__gfx.html#ga3dffc69be3b19eb092238cec82a348b6">lui_rgb</a></div><div class="ttdeci">uint16_t lui_rgb(uint8_t red, uint8_t green, uint8_t blue)</div><div class="ttdoc">Create 16-bit RGB565 color using R, G, and B values (each 8-bit)</div><div class="ttdef"><b>Definition:</b> lame_ui.c:5485</div></div>
 </div><!-- fragment --><h1><a class="anchor" id="button_example3"></a>
 Example of setting background image</h1>
 <p>Example of setting a background bitmap image for button </p><div class="fragment"><div class="line"><span class="preprocessor">#include &quot;warning_symbol.h&quot;</span> <span class="comment">// include the image bitmap</span></div>
-<div class="line"><a class="code hl_struct" href="struct__lui__obj__s.html">lui_obj_t</a>* img_btn = <a class="code hl_function" href="group__lui__button.html#ga42fa5a98fca8845b038c7a93dfc480c1">lui_button_create</a>();</div>
+<div class="line"><a class="code hl_struct" href="struct__lui__obj__s.html">lui_obj_t</a>* img_btn = <a class="code hl_function" href="group__lui__button.html#ga9157ed1406680f05c6f9804899c609c3">lui_button_create</a>();</div>
 <div class="line"><span class="comment">// Set area and position of button.</span></div>
 <div class="line"><a class="code hl_function" href="group__lui__object.html#gaed4bb7d9c2764c6786708535fad7cf67">lui_object_set_area</a>(img_btn, 140, 60);</div>
 <div class="line"><a class="code hl_function" href="group__lui__object.html#gaf7bedc873edb862f9c1f8b063f17f839">lui_object_set_position</a>(img_btn, 20, 10);</div>
@@ -270,7 +273,7 @@ Example of setting background image</h1>
 <div class="line"><a class="code hl_function" href="group__lui__button.html#gabccf019eae7f1d1d3982e2c1dbc4ca68">lui_button_set_bitmap_images</a>(img_btn, &amp;BITMAP_warning_symbol, NULL);</div>
 <div class="line"><span class="comment">// NOTE: if we need to set a different bitmap for pressed state too, do this:</span></div>
 <div class="line"><span class="comment">// lui_button_set_bitmap_images(img_btn, &amp;BITMAP_idle, &amp;BITMAP_pressed);</span></div>
-<div class="ttc" id="agroup__lui__button_html_gabccf019eae7f1d1d3982e2c1dbc4ca68"><div class="ttname"><a href="group__lui__button.html#gabccf019eae7f1d1d3982e2c1dbc4ca68">lui_button_set_bitmap_images</a></div><div class="ttdeci">void lui_button_set_bitmap_images(lui_obj_t *obj, const lui_bitmap_t *idle_bitmap, const lui_bitmap_t *pressed_bitmap)</div><div class="ttdoc">Set background bitmap image for idle (normal) and pressed states of button.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:832</div></div>
+<div class="ttc" id="agroup__lui__button_html_gabccf019eae7f1d1d3982e2c1dbc4ca68"><div class="ttname"><a href="group__lui__button.html#gabccf019eae7f1d1d3982e2c1dbc4ca68">lui_button_set_bitmap_images</a></div><div class="ttdeci">void lui_button_set_bitmap_images(lui_obj_t *obj, const lui_bitmap_t *idle_bitmap, const lui_bitmap_t *pressed_bitmap)</div><div class="ttdoc">Set background bitmap image for idle (normal) and pressed states of button.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:935</div></div>
 </div><!-- fragment --><h1><a class="anchor" id="button_example4"></a>
 Example of setting 1-bpp mono background image</h1>
 <p>Example of setting a 1-bpp background bitmap image for button. When we set 1-bpp images, we should call another function <code><a class="el" href="group__lui__button.html#gad59a6b10657151301ae1535772fe65d7" title="Set color palette for 1-bpp mono bitmap images. Has no effect if images are not 1-bpp.">lui_button_set_bitmap_images_mono_palette()</a></code> to set rendering colors of bitmaps too.</p>
@@ -278,7 +281,7 @@ Example of setting 1-bpp mono background image</h1>
 <p>Play button's color set to red(ish) and pause button;s color set to green(ish). background color for both bitmaps are ignored due to <code>is_bg</code> flag is set to 0.</p>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &quot;play_symbol.h&quot;</span>        <span class="comment">// 1-bpp mono bitmap</span></div>
 <div class="line"><span class="preprocessor">#include &quot;pause_symbol.h&quot;</span>   <span class="comment">// 1-bpp mono bitmap</span></div>
-<div class="line"><a class="code hl_struct" href="struct__lui__obj__s.html">lui_obj_t</a>* img_btn = <a class="code hl_function" href="group__lui__button.html#ga42fa5a98fca8845b038c7a93dfc480c1">lui_button_create</a>();</div>
+<div class="line"><a class="code hl_struct" href="struct__lui__obj__s.html">lui_obj_t</a>* img_btn = <a class="code hl_function" href="group__lui__button.html#ga9157ed1406680f05c6f9804899c609c3">lui_button_create</a>();</div>
 <div class="line"><span class="comment">// Make it checkable since it&#39;s a play/pause button</span></div>
 <div class="line"><a class="code hl_function" href="group__lui__button.html#ga14b1a068a1b7dc7f0cf0c933e9f4e0a2">lui_button_set_checkable</a>(img_btn, 1);</div>
 <div class="line"><span class="comment">// Set area</span></div>
@@ -298,12 +301,12 @@ Example of setting 1-bpp mono background image</h1>
 <div class="line">};</div>
 <div class="line"><span class="comment">// Now set those palettes</span></div>
 <div class="line"><a class="code hl_function" href="group__lui__button.html#gad59a6b10657151301ae1535772fe65d7">lui_button_set_bitmap_images_mono_palette</a>(img_btn, &amp;idle_palette, &amp;pressed_palette);</div>
-<div class="ttc" id="agroup__lui__button_html_gad59a6b10657151301ae1535772fe65d7"><div class="ttname"><a href="group__lui__button.html#gad59a6b10657151301ae1535772fe65d7">lui_button_set_bitmap_images_mono_palette</a></div><div class="ttdeci">void lui_button_set_bitmap_images_mono_palette(lui_obj_t *obj, lui_bitmap_mono_pal_t *idle_palette, lui_bitmap_mono_pal_t *press_palette)</div><div class="ttdoc">Set color palette for 1-bpp mono bitmap images. Has no effect if images are not 1-bpp.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:847</div></div>
-<div class="ttc" id="astruct__lui__bitmap__mono__pal__s_html"><div class="ttname"><a href="struct__lui__bitmap__mono__pal__s.html">_lui_bitmap_mono_pal_s</a></div><div class="ttdoc">Color palette for 1-bpp mono bitmap image.</div><div class="ttdef"><b>Definition:</b> lame_ui.h:286</div></div>
-<div class="ttc" id="astruct__lui__bitmap__mono__pal__s_html_a2690cee0e96d04fdd9cd9b2298a8c3f1"><div class="ttname"><a href="struct__lui__bitmap__mono__pal__s.html#a2690cee0e96d04fdd9cd9b2298a8c3f1">_lui_bitmap_mono_pal_s::fore_color</a></div><div class="ttdeci">uint16_t fore_color</div><div class="ttdoc">foreground color of 1-bpp bitmap</div><div class="ttdef"><b>Definition:</b> lame_ui.h:287</div></div>
+<div class="ttc" id="agroup__lui__button_html_gad59a6b10657151301ae1535772fe65d7"><div class="ttname"><a href="group__lui__button.html#gad59a6b10657151301ae1535772fe65d7">lui_button_set_bitmap_images_mono_palette</a></div><div class="ttdeci">void lui_button_set_bitmap_images_mono_palette(lui_obj_t *obj, lui_bitmap_mono_pal_t *idle_palette, lui_bitmap_mono_pal_t *press_palette)</div><div class="ttdoc">Set color palette for 1-bpp mono bitmap images. Has no effect if images are not 1-bpp.</div><div class="ttdef"><b>Definition:</b> lame_ui.c:950</div></div>
+<div class="ttc" id="astruct__lui__bitmap__mono__pal__s_html"><div class="ttname"><a href="struct__lui__bitmap__mono__pal__s.html">_lui_bitmap_mono_pal_s</a></div><div class="ttdoc">Color palette for 1-bpp mono bitmap image.</div><div class="ttdef"><b>Definition:</b> lame_ui.h:307</div></div>
+<div class="ttc" id="astruct__lui__bitmap__mono__pal__s_html_a2690cee0e96d04fdd9cd9b2298a8c3f1"><div class="ttname"><a href="struct__lui__bitmap__mono__pal__s.html#a2690cee0e96d04fdd9cd9b2298a8c3f1">_lui_bitmap_mono_pal_s::fore_color</a></div><div class="ttdeci">uint16_t fore_color</div><div class="ttdoc">foreground color of 1-bpp bitmap</div><div class="ttdef"><b>Definition:</b> lame_ui.h:308</div></div>
 </div><!-- fragment --> <h2 class="groupheader">Function Documentation</h2>
-<a id="ga42fa5a98fca8845b038c7a93dfc480c1" name="ga42fa5a98fca8845b038c7a93dfc480c1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga42fa5a98fca8845b038c7a93dfc480c1">&#9670;&#160;</a></span>lui_button_create()</h2>
+<a id="ga9157ed1406680f05c6f9804899c609c3" name="ga9157ed1406680f05c6f9804899c609c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9157ed1406680f05c6f9804899c609c3">&#9670;&#160;</a></span>lui_button_create()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -311,6 +314,7 @@ Example of setting 1-bpp mono background image</h1>
         <tr>
           <td class="memname"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> * lui_button_create </td>
           <td>(</td>
+          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -319,6 +323,33 @@ Example of setting 1-bpp mono background image</h1>
 
 <p>Create a button with initial values. </p>
 <dl class="section return"><dt>Returns</dt><dd>lui_obj_t* created button object </dd></dl>
+
+</div>
+</div>
+<a id="ga2fe044f3a401c276a8a38d8e43a03972" name="ga2fe044f3a401c276a8a38d8e43a03972"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2fe044f3a401c276a8a38d8e43a03972">&#9670;&#160;</a></span>lui_button_create_and_add()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> * lui_button_create_and_add </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__PublicTypedefs.html#ga5a7ccb45f639e22e43b3ac176a75dd09">lui_obj_t</a> *&#160;</td>
+          <td class="paramname"><em>obj_parent</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Create a button with initial values and add it to a parent. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">obj_parent</td><td>parent object </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>lui_obj_t* Created button object </dd></dl>
 
 </div>
 </div>
