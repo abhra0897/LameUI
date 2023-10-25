@@ -1,0 +1,11 @@
+LameUI v2.1 (release: 26th Oct, 2023)
+===============================================================================
+- Improved keyboard and textbox
+- Improved linechart rendering
+- Improved gfx functions to support clipping region and thick line drawing.
+- Added option to set border width for objects
+- Improved font rendering
+- Added layout management feature for panel and scene
+- Added API to directly add to parent after creating objects
+- Getter functions for abs and rel position of objects
+- Some refactoring of codes

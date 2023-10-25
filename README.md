@@ -1,4 +1,5 @@
-### Version: v2.0 (latest stable)
+### Version: v2.1 (latest stable)
+See [development](https://github.com/abhra0897/LameUI/tree/development) branch for latest changes
 
 ## LameUI - a lightweight GUI library for embedded systems
 
