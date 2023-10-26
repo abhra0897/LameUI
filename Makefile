@@ -1,7 +1,17 @@
 #####################################################################
-# Created by Avra Mitra											    #
-# Created on Apr 30, 2020										    #
-# Last modified on May 1, 2020										#
+# Created by Avra Mitra                                             #
+# First created on Apr 30, 2020                                     #
+# Last modified on Oct 27, 2023                                     #
+#                                                                   #
+# This Makefile creates static lib for LameUI (liblameui.a) and     #
+# also creates documentation using Doxygen. Created docs is stored  #
+# in `docs/html/` dir.                                              #
+# -------------------------------------------------------------     #
+#    command        purpose                                         #
+# -------------------------------------------------------------     #
+# 1. make           Creates the liblameui.a library in lib/ dir     #
+# 2. make docs      Creates html docs in docs/html/ dir             #
+# 3. make clean     Cleans the library and the html docs            #
 #####################################################################
 
 # Project name
@@ -16,11 +26,13 @@ TARGET=liblameui.a
 
 #------------ SOURCE DIRECTORIES -----------------------------------
 # User source directory
-SRCDIR	 =  src/
+SRCDIR	 =  ./
 # Objects directory
-OBJDIR		 =  
+OBJDIR		 = ./
 # Output static library directory
-TARGDIR		 =  
+TARGDIR		 =  ./
+# Output docs html path
+DOCHTMLDIR  = docs/html/
 
 #--------------------------------------------------------------------
 
@@ -35,7 +47,7 @@ OBJ			 =  $(SRCS:.c=.o)
 
 #------------ INCLUDE DIRECTORIES -----------------------------------
 # Includes (headers)
-INCLS		 =  -Iinc
+INCLS		 =  -I.
 #--------------------------------------------------------------------
 
 
@@ -52,16 +64,17 @@ TARGET_MAIN	 =  $(addprefix $(TARGDIR),$(TARGET))
 
 # Cross compiler and archiver information
 CC			 =  gcc
-ARC			 =  ar
+AR			 =  ar
 
 # Compiler flags used to create .o files from .c/cpp files
-CFLAGS  	 =   -g
+# CFLAGS  	 =   -g
 CFLAGS  	+=  -O0
 CFLAGS  	+=  -Wall -Wextra -Warray-bounds
 
 # Archiver flag
 ARFLAGS		 =  rvs
 
+DOXY_VER := $(shell doxygen --version | sed -n 's/^\([0-9]\+\(\.[0-9]\+\)*\).*/\1/p')
 
 ######################################################################
 #                         SETUP TARGETS                              #
@@ -75,17 +88,27 @@ all: $(TARGET_MAIN)
 # Rule to clean
 .PHONY: clean
 clean: 
-		@echo [Cleaning...]
-		rm -f $(OBJ_MAIN) $(TARGET_MAIN)
+	@echo [Cleaning...]
+	rm -rf $(OBJ_MAIN) $(TARGET_MAIN) $(DOCHTMLDIR)
 
+# Rule to make docs
+.PHONY: docs
+docs:
+	DOXY_VER=$(shell doxygen --version | sed -n 's/^\([0-9]\+\(\.[0-9]\+\)*\).*/\1/p')
+ifneq "$(DOXY_VER)" "1.9.6"
+	@echo Warning: Doxygen version 1.9.6 is tested. But found $(DOXY_VER)! Still proceed? [Y/n]
+	@read line; if [ $$line = "n" ]; then echo aborting; exit 1 ; fi
+endif
+	@echo [Building LameUI docs...]
+	doxygen docs/Doxyfile.in
 
 # Rule to make object file by compiling source file
 $(OBJDIR)%.o: $(SRCDIR)%.c
-		@echo [Compiling...]
-		$(CC) -c -o $@ $< $(INCLS) $(CFLAGS)
-		
+	@echo [Compiling...]
+	$(CC) -c -o $@ $< $(INCLS) $(CFLAGS)
 
 # Rule to make a static library archive (.a) from object (.o) file
 $(TARGET_MAIN): $(OBJ_MAIN)
-		@echo [Archiving...]
-		$(ARC) $(ARFLAGS) $(TARGET_MAIN) $(OBJ_MAIN)
+	@echo [Archiving...]
+	$(AR) $(ARFLAGS) $(TARGET_MAIN) $(OBJ_MAIN)
+	rm $(OBJ_MAIN)
